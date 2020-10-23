@@ -64,13 +64,11 @@ class TraitBank
       def remove_for_resource(resource)
         remove_with_query(
           name: :meta,
-          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })",
-          size: 2048
+          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
           name: :trait,
-          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })",
-          size: 4096
+          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         Rails.cache.clear # Sorry, this is easiest. :|
       end
@@ -81,27 +79,26 @@ class TraitBank
         q = options[:q]
         delay = options[:delay] || 1 # Increasing this did not really help site
                                      # performance. :|
-        size = options[:size] || 8192 # 16_384 # Largest power of 2 that I felt comfortable using.
-        count = count_type_for_resource(name, q)
-        return if count.nil? || ! count.positive?
-        iters = (count / size.to_f).ceil
-        max_iters = (1.25 * iters).ceil
-        max_iters = iters + 1 if max_iters == iters
+        size = options[:size] || 128
+        count_before = count_type_for_resource(name, q)
+        return if count_before.nil? || ! count_before.positive?
         iteration = 0
         loop do
+          time_before = Time.now
+          log("--TB DELETE (#{size}):")
           query("MATCH #{q} WITH #{name} LIMIT #{size} DETACH DELETE #{name}")
-          # puts "...#{iteration}/#{iters} (#{(iteration/iters.to_f * 100).round(2)}%)..."
-          iteration += 1
-          if iteration >= iters
+          time_delta = Time.now - time_before
+          count += size
+          if count >= count_before
             new_count = count_type_for_resource(name, q)
             break unless new_count.positive?
-            if iteration >= max_iters
-              raise "I have been attempting to delete #{name} data for too many iterations (#{iteration}). "\
-                    "Started with #{count} entries, now there are #{new_count}. Aborting."
+            if count >= 2 * count_before
+              raise "I have been attempting to delete #{name} data for twice as long as expected. "\
+                    "Started with #{count_before} entries, now there are #{new_count}. Aborting."
             end
-          else
-            sleep(delay)
           end
+          size *= 2 if time_delta < 30 and size < 16_000
+          sleep(delay)
         end
       end
 
