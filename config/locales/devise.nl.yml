@@ -2,10 +2,22 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Elroy
+# Author: Optilete
 ---
 nl:
   devise:
+    confirmations:
+      confirmed: Uw e-mailadres is succesvol bevestigd.
+      send_instructions: U ontvangt binnen enkele ogenblikken een e-mail met instructies
+        hoe u uw e-mailadres kunt bevestigen.
+      send_paranoid_instructions: Als uw e-mailadres in onze database staat ontvangt
+        u een email met instructies om je emailadres te bevestigen.
     failure:
+      already_authenticated: U bent al aangemeld.
+      inactive: Uw account is nog niet geactiveerd.
+      invalid: Ongeldige %{authentication_keys} of wachtwoord.
+      locked: Uw account is vergrendeld. Probeer het na een uur opnieuw
+      last_attempt: U hebt nog één poging voordat uw account wordt vergrendeld.
       not_found_in_database: Ongeldige %{authentication_keys} of wachtwoord.
       recaptcha_error: Er is een fout opgetreden met onderstaande recaptchacode. Voer
         de code opnieuw in en klik op Indienen.
@@ -16,11 +28,14 @@ nl:
         greeting: Welkom %{recipient}!
         instruction: 'U kunt het e-mailadres van uw profiel met onderstaande koppeling
           bevestigen:'
+        subject: Bevestigingsinstructies
       reset_password_instructions:
         action: Wachtwoord wijzigen
         instruction: Iemand heeft een koppeling aangevraagd waarmee uw wachtwoord
           kan worden gewijzigd. U kunt uw wachtwoord wijzigen door onderstaande koppeling
           te gebruiken.
+        instruction_3: Uw wachtwoord verandert pas als u de bovenstaande link opent
+          en een nieuwe maakt.
       unlock_instructions:
         subject: Ontgrendelhandleiding
       password_change:
@@ -38,6 +53,8 @@ nl:
     registrations:
       signed_up_but_inactive: U bent ingeschreven. U kunt zich niet aanmelden omdat
         uw profiel nog niet in werking is gesteld.
+      signed_up_but_locked: U bent succesvol aangemeld. U kunt zich niet aanmelden
+        omdat uw account is vergrendeld.
       signed_up_but_unconfirmed: Er is een bericht met een bevestigingskoppeling naar
         uw e-mailadres verzonden. Volg de koppeling om uw profiel in werking te stellen.
       update_needs_confirmation: Uw profiel is bijgewerkt. Uw nieuw e-mailadres moet
@@ -50,6 +67,8 @@ nl:
       recaptcha: Recaptchabevestigingsfouten
       sign_in_remember_me_disabled_for_admins: Uit beveiligingsoverwegingen mogen
         beheerders niet aangemeld blijven.
+    unlocks:
+      unlocked: Uw acccount is succesvol unlocked. Meld u aan om verder te gaan.
   errors:
     messages:
       already_confirmed: reeds bevestigd, probeer u aan te melden
