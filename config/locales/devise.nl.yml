@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Elroy
+# Author: Marcelhospers
 # Author: Optilete
 ---
 nl:
@@ -21,6 +22,7 @@ nl:
       not_found_in_database: Ongeldige %{authentication_keys} of wachtwoord.
       recaptcha_error: Er is een fout opgetreden met onderstaande recaptchacode. Voer
         de code opnieuw in en klik op Indienen.
+      timeout: Uw sessie is verlopen. Meld u opnieuw aan om verder te gaan.
       unauthenticated: U moet zich aanmelden of inschrijven om door te gaan.
     mailer:
       confirmation_instructions:
@@ -63,11 +65,14 @@ nl:
       updated: Uw profiel is bijgewerkt.
     sessions:
       signed_in: Aangemeld.
+      signed_out: Succesvol afgemeld.
       already_signed_out: Afgemeld.
       recaptcha: Recaptchabevestigingsfouten
       sign_in_remember_me_disabled_for_admins: Uit beveiligingsoverwegingen mogen
         beheerders niet aangemeld blijven.
     unlocks:
+      send_instructions: U ontvangt binnen enkele ogenblikken een e-mail met een handleiding
+        waarmee u uw account kunt ontgrendelen.
       unlocked: Uw acccount is succesvol unlocked. Meld u aan om verder te gaan.
   errors:
     messages:

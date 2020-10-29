@@ -154,6 +154,26 @@ nl:
     pages_count:
       one: 1 pagina
       other: '%{count} pagina''s'
+    log:
+      associated_collection:
+        add: '%{user} voegde een koppeling toe met de verzameling %{associated}'
+        remove: '%{user} verwijderde de koppeling met de verzameling %{associated}'
+      collection:
+        add: '%{user} maakte de verzameling'
+        change: '%{user} veranderde het %{field} van "%{from}" naar "%{to}"'
+      content:
+        add: '%{user} voegde het medium %{medium} voor pagina %{page}'
+        change: '%{user} vanderde het %{field} op medium %{medium} voor pagina %{page}
+          van "%{from}" naar "%{to}"'
+        remove: '%{user} verwijderde het medium %{medium} voor pagina %{page}'
+      page:
+        add: '%{user} voegde pagina %{page} toe'
+        change: '%{user} veranderde het %{field} op pagina %{page} van "%{from}" naar
+          "%{to}"'
+        remove: '%{user} verwijderde pagina %{page}'
+      user:
+        add: '%{user} voegde de manager %{manager} toe'
+        remove: '%{user} verwijderde de manager %{manager}'
     search:
       placeholder: Zoek in de verzameling...
       submit: Zoeken
@@ -167,6 +187,7 @@ nl:
     updated: Verzameling bijgewerkt.
   collection_unauthorized_edit: Alleen de eigenaar kan deze verzameling bewerken.
   complete_registration: Ga door met uw registratie
+  content_appears_on: 'Inclusief de volgende pagina''s:'
   content_collected_in: 'Benadruktin de volgende verzamelingen:'
   content_attributions_header: Bron informatie
   content_attributions_labels:
@@ -206,6 +227,8 @@ nl:
     modifier:
       sex_term: Geslacht van het organisme is gemeten
       lifestage_term: Levensstadium van het organisme is gemeten
+      statistical_method_term: Statistische methode gebruikt voor meting
+  data_missing: '(data afwezig, sleutels: %{keys})'
   dear_username_with_comma: Geachte %{username},
   delete_account_button: Verwijder uw account
   filter_by_license: vergunning
@@ -225,6 +248,7 @@ nl:
       data_services: Gegevensdiensten
       donate: Doneren
       education: Onderwijs
+      food_webs: Voedselwebben
       glossary: Woordenlijst
       help: Hulp
       language_support: Taal Support
@@ -612,6 +636,7 @@ nl:
   layout_sign_in: Aanmelden
   layout_sign_up: Inschrijven
   layout_sign_out: Afmelden
+  literature_and_references_header: literatuur en referenties
   maps:
     empty: Er zijn geen kaarten beschikbaar voor deze pagina
     occurrence_caption: Bekende voorkomens, verzamelde exemplaren en waarnemingen
@@ -656,6 +681,8 @@ nl:
     discuss: Overleggen
     education: Onderwijs
     search:
+      no_results_html: <strong>Geen bevestigde resultaten</strong><br/>Gebruik de
+        Entertoets om ongecontroleerde gegevens te zien.
       placeholder: Doorzoek EOL...
     trait_bank: TraitBank
   name_preferred_label: voorkeur
@@ -663,6 +690,7 @@ nl:
     header:
       one: Beste afbeelding voor pagina
       other: Beste afbeelding voor pagina's
+  page_icon_created: Plaats afbeelding "%{name}" bovenaan.
   page_title: Encyclopedia of Life
   page_title_search: 'Zoek: %{query}'
   page_vernaculars_empty: Er zijn geen algemene namen verbonden met dit taxon.
@@ -735,6 +763,7 @@ nl:
         r_family: Familie
         r_subfamily: Subfamilie
         r_infrafamily: Infrafamilie
+        r_tribe: Tribe
         r_supergenus: Supergenus
         r_genus: Genus
         r_subgenus: Subgenus
@@ -765,10 +794,12 @@ nl:
       reindexed: "Caches voor deze pagina zijn gewist. Laad de pagina opnieuw om de
         nieuwe waarden te zien. MERK OP dat dit momenteel \n*niet* de afbeeldingen
         op de pagina opnieuw indexeert. Die functie zal in de toekomst worden geïmplementeerd."
+    native_node_missing_warning: geen hierarchishe informatie beschikbaar
     tabs:
       articles: artikelen
       classifications: classificaties
       data: gegevens
+      literature_and_references: literatuur en referenties
       overview: Overzicht
       maps: kaarten
       media: media
@@ -785,6 +816,8 @@ nl:
       dd: Onzeker (DD)
       ne: Niet geëvalueerd (NE)
       unknown: onbekend (geen gegevens)
+    unresolved_name: naam in onderzoek
+    unresolved_name_prefix: onopgeloste naam
   page_titles:
     pages:
       data: '%{page_name} data'
@@ -801,9 +834,11 @@ nl:
   register_new_account: Registreer voor een nieuw account
   resources:
     actions:
+      import_traits: kenmerken importeren (uit repository)
       republish: publiceren
       reindex: reindex
       fix_no_names: fix NO NAMEs
+      index: terug naar alle bronnen
       show_all:
         other: toon alles (%{count})
       show_warns:
@@ -826,6 +861,10 @@ nl:
         zero: geen wachtende taken
         one: 1 wachtende taak
         other: '%{count} wachtende taken'
+      harvest_jobs:
+        zero: niets om te publiseren
+        one: 1 lopende publicatie
+        other: '%{count} te publiceren publicaties'
     no_events: Geen!
   resource_missing: Geen middelen gevonden
   scientific_name:
@@ -833,12 +872,18 @@ nl:
       accepted: Geaccepteerde namen
       alternative: Alternatieve naam
       preferred: Voorkeursnamen
+      unusable: Onbruikbare namen
       synonym: Synoniemen
   scientific_names_header: wetenschappelijke namen
   send_me_reset_password_instructions: Stuur me wachtwoordherstelinstructies
   search:
     full_name: '%{vernacular} (%{scientific})'
     matched_text: Overeenkomende %{text}
+    flash:
+      cannot_combine_paths: Niet in staat om de resultaten te combineren met %{path}
+      more_than_one_species: Niet in staat om de resultaten te combineren voor %{species}
+      more_than_two_terms: Niet in staat om de resultaten te combineren voor meer
+        dan twee %{terms}
     n_articles:
       one: '%{count} artikel'
       other: '%{count} artikelen'
@@ -874,6 +919,8 @@ nl:
     collection_page_count_and_users:
       one: '%{count} pagina; onderhouden door %{users_sentence}'
       other: '%{count} pagina''s; onderhouden door %{users_sentence}'
+    collected_media:
+      title: 'verzamelde media voor deze pagina:'
     medium_article: Artikel
     medium_image: Afbeelding
     medium_map: Kaart
@@ -909,14 +956,50 @@ nl:
       pages:
         one: '%{count} eol pagina (soort)'
         other: '%{count} eol pagina''s (soorten)'
+      object_terms:
+        one: '%{count} data record waarde (TraitBank)'
+        other: '%{count} data record waarde (TraitBank)'
+      predicates:
+        one: '%{count} data record type (TraitBank)'
+        other: '%{count} data record types (TraitBank)'
+      users:
+        one: '%{count} gebruiker'
+        other: '%{count} gebruikers'
     collection_title_html: 'Verzameling: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTIKEL
+        other: '%{count} ARTIKEL'
+      n_data:
+        one: 1 DATUM
+        other: '%{count} DATA'
+      n_media:
+        one: 1 MEDIUM
+        other: '%{count} MEDIA'
+    user_title_html: 'Gebruiker: <span class=''sub''>%{name}</span>'
   search_suggestion:
+    actions:
+      create: Maak een nieuwe zoeksuggestie
+    created: Maak een nieuwe zoeksuggestie voor %{match}
+    destroyed: Verwijderde zoeksuggestie voor %{match}
     new:
       header: Maak een zoeksuggestie
+    update:
+      header: Bewerk zoeksuggestie
+    index:
+      header: Zoeksuggesties
   sections:
     associations: Verenigingen
+    behavior: Gedrag
     benefits: Voordelen
+    brief_summary: Korte samenvatting
+    comprehensive_description: Uitgebreide beschrijving
     conservation: Natuurbehoud
+    conservation_status: natuurbeschermingsstatus
+    cyclicity: cycliciteit
+    diagnostic_description: Diagnostische beschrijving
+    diseases_and_parasites: Ziektes en parasieten
+    dispersal: Verspreiding
     distribution: Verspreiding
     ecology: Ecologie
     evolution_and_systematics: Evolutie and Systematics
@@ -924,6 +1007,9 @@ nl:
     genetics: Genetica
     growth: Groei
     habitat: Habitat
+    identification_resources: Determinatiebronnen
+    life_expectancy: Levensverwachting
+    life_history_and_behavior: Levensgeschiedenis en gedrag
     management: Beheer
     migration: Migratie
     molecular_biology: Moleculair Biologie
@@ -933,13 +1019,21 @@ nl:
     notes: Opmerkingen
     overview: Overzicht
     physiology_and_cell_biology: Fysiologie and Celbiologie
+    physical_description: Fysieke beschrijving
+    relevance_to_humans_and_ecosystems: Relevantie voor mensen en ecosystemen
+    reproduction: Reproductie
     risks: Risico's
     size: Grootte
     taxonomy: Taxonomie
+    threats: Bedreigingen
     trends: Trend
+    trophic_strategy: Trofische strategie
+    type_information: Type Informatie
     wikipedia: Wikipedia
   settings: Instellingen
+  show_date: Toon publicatiedatum
   sign_in: Aanmelden
+  sign_up: Inschrijven
   signature_with_contact_us_link: |-
     Als u problemen tegenkomt neem dan contact met ons op via %{url}.
 
@@ -961,9 +1055,15 @@ nl:
         remember_me: Aanmeldgegevens onthouden
         username: Gebruikersnaam
         bio: Bio
+      search_suggestion:
+        match: zoek een overeenkomende string
+        page_id: ID van de  EOL-pagina om naar door te verwijzen (of filter erop)
+        synonym_of_id: ID (!) van de zoeksuggestie gebruiken
+        wkt_string: WKT string om door te geven aan Effechecka
   stats:
     articles: artikelen
     collections: Verzamelingen
+    data: data records
     media: media
     pages: pagina's
     nodes: Nodes
@@ -983,7 +1083,13 @@ nl:
         of waarde voor het zoeken naar taxa
   term_query_filter:
     validations:
+      blank_error: moet een attribuut of waarde specificeren
       invalid_uri: Ongeldige URI
+      multi_obj_error: kan niet zowel een objectterm als een doelclade hebben
+      pred_uri_blank_obj_clade_error: Kan niet leeg gelaten worden bij een doelclade
+      pred_uri_blank_numeric_error: Kan niet leeg gelaten worden bij een nummerieke
+        waarde
+      range_invalid_error: moet >= zijn dan de eerste waarde
   terms:
     attribution_field_html: <strong>Attributie:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Reactie:</strong> %{comment}
@@ -994,6 +1100,9 @@ nl:
     show_all_records: Alle records tonen
     source: bron
     uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Selecteer een pagina hierboven om te beginnen
+  data_definition: definitie van "%{data}"
   traits:
     data_viz:
       about_this_chart: over deze grafiek
@@ -1013,9 +1122,24 @@ nl:
         keren geteld in andere assen.
       other_term_name: andere %{term_name}
       hist_value_label: waarde (%{units})
+      n_other_records:
+        one: een ander record
+        other: '%{count} andere records'
+      n_other_taxa:
+        one: een ander taxon
+        other: '%{count} andere taxa'
+      num_records_label: '# van records'
       other: overige
+      page_habitat_header: '%{name} Habitats'
       page_habitat_explanation: De omgevingen waarin vele %{name} soorten leven. Selecteer
         een omgeving om de %{name} soortenchecklist te bekijken.
+      n_obj_records:
+        one: een record met "%{obj_name}"
+        other: '%{count} records met "%{obj_name}"'
+      n_taxa_with:
+        one: één taxon met "%{obj_name}"
+        other: '%{count} taxa met "%{obj_name}"'
+      sankey_node_hover: klik om de zoekresulaten te verfijnen tot %{term_name}
     properties:
       citation: bibliografisch citaat
       method: Meetmethode
@@ -1064,8 +1188,14 @@ nl:
       sex: geslacht
       show_additional_fields: toon extra velden
       statistical_method: statistische methode
+      target_group: doelgroep (bijvoorbeeld zalm)
+      taxa_matching_all: taxa komt overeen met ALLE filters
       trait_filter: eigenschap filter
       value: waarde
+  trophic_web:
+    group_descriptions:
+      predator: voed zich met %{source_name}
+      prey: gegeten door %{source_name}
   trust:
     unreviewed: niet-beoordeeld
     trusted: Vertrouwd
@@ -1073,14 +1203,26 @@ nl:
   user:
     batch_page_lookup: batch pagina lookup
     created_at: aangemaakt
+    download_queue: Data download rij
+    grant_power: Verleen power-user toegang
     revoke_power: power-user toegang intrekken
+    edit_account_details: Bewerk account details
     email: E-mail
+    form_labels:
+      age_confirm: Ik ben minstens 15 jaar oud
+      tou_confirm_html: Ik heb de <a href='%{tou_path}'>Gebruikersvoorwaarden</a>
+        en de<a href='%{privacy_path}'>Privacy Policy</a>
     headers:
+      bio: Korte Biografie
       collections: Verzamelingen
       downloads: Downloads
       links: Koppelingen
     is_power_user: Deze gebruiker wordt als een power user aangemerkt
+    validations:
+      age_confirm: U moet bevestigen dat u tenminste 13 jaar oud bent
+    list_of_power_users: Lijst van power users
     new_password: Nieuw wachtwoord
+    confirm_new_password: Bevestig nieuw wachtwoord
     username: gebruikersnaam
     update: Bijwerken
   users:
