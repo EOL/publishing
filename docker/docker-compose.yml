@@ -167,6 +167,20 @@ services:
       - redis
     networks:
       - eolnet
+  newrelic:
+    image: newrelic/infrastructure:latest
+    container_name: newrelic
+    cap_add: SYS_PTRACE
+    network_mode: host
+    pid: host
+    privileged: true
+    volumes:
+      - "/:/host:ro"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - resources/newrelic-infra.conf:/etc/newrelic-infra.yml
+    restart: unless-stopped
+    depends_on:
+      - eol-publishing
 networks:
   eolnet:
     driver: bridge
