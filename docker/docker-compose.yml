@@ -178,7 +178,7 @@ services:
     volumes:
       - "/:/host:ro"
       - /var/run/docker.sock:/var/run/docker.sock
-      - resources/newrelic-infra.conf:/etc/newrelic-infra.yml
+      - ./resources/newrelic-infra.conf:/etc/newrelic-infra.yml
     restart: unless-stopped
 networks:
   eolnet:
