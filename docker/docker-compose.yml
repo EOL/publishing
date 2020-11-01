@@ -170,7 +170,8 @@ services:
   newrelic:
     image: newrelic/infrastructure:latest
     container_name: newrelic
-    cap_add: SYS_PTRACE
+    cap_add:
+      - SYS_PTRACE
     network_mode: host
     pid: host
     privileged: true
