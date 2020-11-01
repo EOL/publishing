@@ -181,7 +181,7 @@ services:
       - resources/newrelic-infra.conf:/etc/newrelic-infra.yml
     restart: unless-stopped
     depends_on:
-      - eol-publishing
+      - pub_app
 networks:
   eolnet:
     driver: bridge
