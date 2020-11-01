@@ -180,8 +180,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - resources/newrelic-infra.conf:/etc/newrelic-infra.yml
     restart: unless-stopped
-    depends_on:
-      - pub_app
 networks:
   eolnet:
     driver: bridge
