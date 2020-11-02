@@ -49,12 +49,11 @@ module Traits
         i_bw = cols.index("bw")
         i_count = cols.index("c")
         i_min = cols.index("min")
-        i_units = cols.index("u")
 
         @max_bi = data.last[i_bi].to_i
         @bw = self.class.to_d_or_i(data.first[i_bw])
         @min = self.class.to_d_or_i(data.first[i_min])
-        @units_term = data.first[i_units]&.[]("data")&.symbolize_keys
+        @units_term = TraitBank.term_record(query.filters.first.units_uri)
         @max_count = 0
 
         result_stack = data.collect do |d|
