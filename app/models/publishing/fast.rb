@@ -136,7 +136,7 @@ class Publishing
           @log = Publishing::PubLog.new(@resource, use_existing_log: true)
         rescue => e
           @log = Publishing::PubLog.new(@resource, use_existing_log: true)
-          @log.fail(e)
+          @log.fail_on_error(e)
           raise e
         end
         @log.warn('All existing content has been destroyed for the resource.')

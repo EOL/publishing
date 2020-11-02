@@ -5,6 +5,7 @@
 # Author: HitomiAkane
 # Author: Meno25
 # Author: NEHAOUA
+# Author: Optilete
 # Author: Passant
 # Author: Tala Ali
 # Author: Yousif ihsan
@@ -244,6 +245,7 @@ ar:
       education: التعليم
       glossary: المعجم
       help: مساعدة
+      language_support: Taal Support
       terms_of_use: شروط الاستخدام
       the_eol_forum: منتدى موسوعة الحياة
       what_is_eol: ما هي موسوعة الحياة؟
@@ -280,6 +282,7 @@ ar:
   language: 'اللغة:'
   languages:
     ab: الأبخازية
+    Q27683: Acehnese
     Q27776: الأديغية
     aa: العفارية
     af: الأفريكانية

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: EugeneZelenko
+# Author: Optilete
 # Author: Pyscowicz
 # Author: Robby
 # Author: Shirayuki
@@ -14,14 +15,34 @@ qqq:
     Note that language names (or adjectives) do not necessarily have a leading capital in all languages, even if they are all capitalized in English, because for example they distinguish the people names (ethnonyms) with the initial capital.
 
     Translate these language names as appropriate for the common use and as found in dictionnaries, but not necessarily in isolation as a title or heading, so they can be used as qualifiers or in comma-separated lists of languages, but where the capitalization is applied only contextually in very strict contexts with special formatting or grammatical rules (e.g. only capitalized for the first word of a complete sentence, or the first significant word of a book title or chapter heading, or the first word of a verse in poems and lyrics).
+  breadcrumbs:
+    notices:
+      vernacular: https://www.webton.nl/blog/wat-zijn-breadcrumbs/
   cancel: '{{Identical|Cancel}}'
   classifications:
     richness:
       links_count: '{{Identical|Link}}'
   collected_pages:
     delete_button: '{{Identical|Delete}}'
+  footer:
+    discover:
+      flowering_plants: Alle planten die tot deze groep horen, laten bloemen zien,
+        hoe onopvallend ook (zoals bij de grassen en sommige loofbomen). De naam bloemplanten
+        is een vertaling van de wetenschappelijke naam Anthophyta. Deze naam heeft
+        niet betrekking op de hele groep van de zaadplanten ("Spermatophyta"). De
+        andere groep zaadplanten, de Naaktzadigen met onder andere de coniferen, hebben
+        dan ook geen bloemen
   language: '{{Identical|Language}}'
   medium_header_description: '{{Identical|Description}}'
+  pages:
+    iucn_status:
+      cr: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
+      en: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
+      vu: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
+      nt: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
+      lc: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
+      dd: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
+      ne: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
   search:
     full_name: '{{Optional}}'
   sections:
