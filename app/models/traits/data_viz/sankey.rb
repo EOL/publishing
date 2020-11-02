@@ -70,7 +70,7 @@ class Traits::DataViz::Sankey
           matching_node
         else
           other_node = Node.new(
-            @query.page_count_sorted_filters[i].obj_uri,
+            @query.filters[i].obj_uri,
             i,
             r.page_ids, 
             true,
@@ -142,16 +142,17 @@ class Traits::DataViz::Sankey
 
     def initialize(row, query, query_uris)
       @page_ids = Set.new(row[:page_ids])
-
-      @nodes = query.page_count_sorted_filters.map.with_index do |_, i|
+      @nodes = Array.new(query.filters.length)
+      query.page_count_sorted_filters.each_with_index do |f, i|
         uri_key = :"anc_obj#{i}_uri"
         uri = row[uri_key]
         node_query = query.deep_dup
-        node_query.page_count_sorted_filters[i].obj_uri = uri 
+        search_order_index = query.filters.find_index(f) # order of axes should match original user search
+        node_query.filters[search_order_index].obj_uri = uri 
 
-        Node.new(
+        @nodes[search_order_index] = Node.new(
           uri,
-          i,
+          search_order_index,
           @page_ids,
           query_uris.include?(uri),
           node_query
