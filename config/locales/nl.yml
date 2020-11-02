@@ -1059,6 +1059,8 @@ nl:
         match: zoek een overeenkomende string
         page_id: ID van de  EOL-pagina om naar door te verwijzen (of filter erop)
         synonym_of_id: ID (!) van de zoeksuggestie gebruiken
+        object_term: omleiden naar URI (of filteren op)
+        path: omleiden naar pad (volledig of relatief)
         wkt_string: WKT string om door te geven aan Effechecka
   stats:
     articles: artikelen
@@ -1133,6 +1135,7 @@ nl:
       page_habitat_header: '%{name} Habitats'
       page_habitat_explanation: De omgevingen waarin vele %{name} soorten leven. Selecteer
         een omgeving om de %{name} soortenchecklist te bekijken.
+      pie_prompt: beweeg muis over segment of sleutel om te markeren
       n_obj_records:
         one: een record met "%{obj_name}"
         other: '%{count} records met "%{obj_name}"'
@@ -1140,6 +1143,21 @@ nl:
         one: één taxon met "%{obj_name}"
         other: '%{count} taxa met "%{obj_name}"'
       sankey_node_hover: klik om de zoekresulaten te verfijnen tot %{term_name}
+      see_n_obj_records:
+        one: klik om een record te zien met "%{obj_name}"
+        other: klik om %{count} records te zien met "%{obj_name}"
+      see_n_taxa_with:
+        one: klik om een taxon te zien met "%{obj_name}"
+        other: klik om %{count} taxa te zien met "%{obj_name}"
+      show_n_records_between:
+        one: 'Klik om %{count} record met meetwaarden in [%{min}, %{limit}] %{units}
+          te zien '
+        other: Klik om %{count} records met meetwaarden in [%{min}, %{limit}] %{units}
+          te zien
+      show_n_taxa_between:
+        one: Klik om %{count} taxon met meetwaarden in [%{min}, %{limit}] %{units}
+        other: Klik om %{count} taxa met meetwaarden in [%{min}, %{limit}] %{units}
+          te zien
     properties:
       citation: bibliografisch citaat
       method: Meetmethode
@@ -1168,8 +1186,10 @@ nl:
         (maximaal 50)
       result_header_records: Toon %{range_begin} - %{range_end} of %{total} records
         voor %{page_count} taxa met
+      result_header_taxa: Toon %{range_begin} - %{range_end} van %{total} taxa met
       new_search: nieuwe zoekopdracht
       select:
+        child_term: selecteer een kinderterm (optioneel)
         top_level:
           object_term: of selecteer een waarde
           predicate: of selecteer een kenmerk
@@ -1190,12 +1210,16 @@ nl:
       statistical_method: statistische methode
       target_group: doelgroep (bijvoorbeeld zalm)
       taxa_matching_all: taxa komt overeen met ALLE filters
+      this_may_take_a_minute: Dit kan een minuut duren
       trait_filter: eigenschap filter
       value: waarde
+      value_eg: 'waarde (bijvoorbeeld: herbivoor)'
   trophic_web:
     group_descriptions:
+      competitor: concurrent voor %{source_name}
       predator: voed zich met %{source_name}
       prey: gegeten door %{source_name}
+      source: focal soort
   trust:
     unreviewed: niet-beoordeeld
     trusted: Vertrouwd
@@ -1208,6 +1232,7 @@ nl:
     revoke_power: power-user toegang intrekken
     edit_account_details: Bewerk account details
     email: E-mail
+    to_commit_enter_current: Voer uw huidige wachtwoord in om uw wijzigingen te bevestigen
     form_labels:
       age_confirm: Ik ben minstens 15 jaar oud
       tou_confirm_html: Ik heb de <a href='%{tou_path}'>Gebruikersvoorwaarden</a>
@@ -1220,11 +1245,23 @@ nl:
     is_power_user: Deze gebruiker wordt als een power user aangemerkt
     validations:
       age_confirm: U moet bevestigen dat u tenminste 13 jaar oud bent
+      tou_confirm: u moet bevestigen dat u de gebruiksvoorwaarden en het privacybeleid
+        hebt gelezen
     list_of_power_users: Lijst van power users
     new_password: Nieuw wachtwoord
     confirm_new_password: Bevestig nieuw wachtwoord
+    showing_n_power_users:
+      one: Listing een power user
+      other: Listing %{count} power users
+    trait_bank_cypher_form: Trait bank cypher formulier
     username: gebruikersnaam
     update: Bijwerken
+    update_email: Bewerk email
+  user_download:
+    created: Uw bestand wordt op de achtergrond verwerkt. Controleer uw <a href="%{url}">gebruikerspagina</a>
+      om te zien of deze klaar is.
+    have_pending: U heeft al een download in behandeling voor deze zoekopdracht. Controleer
+      uw <a href="%{url}">gebruikerspagina</a> om te zien of deze is voltooid.
   users:
     account_migration_header: Als jij je voor 15 november 2018 geregistreerd hebt
       bij EOL.
@@ -1236,8 +1273,19 @@ nl:
       vergeten'. Als u zich alleen hebt aangemeld via een externe provider - Google,
       Twitter of FaceBook -, dan nog even geduld; we zijn enkele problemen aan het
       oplossen met de gedeelde inlogprocessen.
+    sign_in: Aanmelden
   vernacular_names_header: Soortnaam
+  vernacular_preferred_by_resource: '%{resource} (prefers this name)'
+  wordcloud_credit_html: aangemaakt met <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} van %{n}'
   term:
+    actions:
+      reindex: reindex
+      sort: Sorteren op
     edit:
       header: '%{uri} bewerken'
       submit: Opslaan
@@ -1246,6 +1294,8 @@ nl:
       definition: 'definitie:'
       comment: 'opmerking:'
       sections: 'secties:'
+      is_hidden_from_glossary: 'verbergen van woordenlijst:'
+      is_hidden_from_overview: verberg van overzichtstab
     glossary:
       full_title: Woordenlijst voor ALL Terms for Data on EOL
       predicate_title: Woordenlijst voor Type Terms for Data on EOL
@@ -1256,13 +1306,19 @@ nl:
       previous: vorige pagina
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: zuurstof
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic zuur
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic zuur
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofiet
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: plantgroeivorm
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Boom
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: struik
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: klimplant
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: waterplant
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: eenjarig
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: tweejarig
@@ -1272,10 +1328,16 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproductie
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: ouderzorg
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilinder
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vlucht
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: celvolume
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelet structuur
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: celmassa
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: schelplengte
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: houtdichtheid
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: nucleuslengte
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelet bevat
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: zwart
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blauw
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: green
@@ -1298,10 +1360,19 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: bladverliezend
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: groenblijvend
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: geelgroen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexueel dimorf
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: bladachtig
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: bast
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: fruit
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: wortels
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: zaden
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: eenvoudig
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: predeert op
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensaal van
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasiteerd op
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: wordt geparasiteerd door
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: heeft waard(plant)
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: eet
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: wordt gegeten door
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produceert
@@ -1311,10 +1382,15 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: bloemkleur
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: vruchtsoort
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: staartlengte
+        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
+        http://eol(dot)org/schema/terms/FossilFirst: eerste verschijning
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregio
         http://www(dot)wikidata(dot)org/entity/Q33596: beweeglijkheid
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: waterdiepte
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropisch
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
@@ -1345,4 +1421,6 @@ nl:
         Unit: Eenheid
         http://eol(dot)org/schema/terms/percentPerMonth: '%/maand'
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnen
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: voet
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inches
 ...
