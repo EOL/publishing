@@ -163,7 +163,6 @@ class Resource < ApplicationRecord
   end
 
   def remove_content
-    clear_import_logs
     # Traits:
     count = TraitBank.count_by_resource_no_cache(id)
     if count.zero?
