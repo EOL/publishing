@@ -25,38 +25,36 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      I18n.with_locale(:en) do
-        if is_above_family?
-          above_family
-        else
-          if !a1.nil?
-            if is_family?
-              family
-            elsif is_genus?
-              genus
-            elsif is_species?
-              species
-            end
+      if is_above_family?
+        above_family
+      else
+        if !a1.nil?
+          if is_family?
+            family
+          elsif is_genus?
+            genus
+          elsif is_species?
+            species
           end
         end
-
-        landmark_children
-        plant_description_sentence
-        flower_visitor_sentence
-        fixes_nitrogen_sentence
-        forms_sentence
-        ecosystem_engineering_sentence
-        behavioral_sentence
-
-        if is_species?
-          lifespan_size_sentence
-        end
-
-        reproduction_sentences
-        motility_sentence
-
-        Result.new(@sentences.join(' '), @terms)
       end
+
+      landmark_children
+      plant_description_sentence
+      flower_visitor_sentence
+      fixes_nitrogen_sentence
+      forms_sentence
+      ecosystem_engineering_sentence
+      behavioral_sentence
+
+      if is_species?
+        lifespan_size_sentence
+      end
+
+      reproduction_sentences
+      motility_sentence
+
+      Result.new(@sentences.join(' '), @terms)
     end
 
     private
@@ -273,7 +271,7 @@ class PageDecorator
         if children.any?
           taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
           add_sentence do |subj, _, __|
-            "#{subj} includes groups like #{taxa_links.to_sentence}."
+            "#{subj} includes groups like #{to_sentence(taxa_links)}."
           end
         end
       end
@@ -356,7 +354,7 @@ class PageDecorator
 
         if lifespan_part || size_part
           add_sentence do |_, __, ___|
-            "Individuals #{[lifespan_part, size_part].compact.to_sentence}."
+            "Individuals #{to_sentence([lifespan_part, size_part].compact)}."
           end
         end
       end
@@ -366,9 +364,9 @@ class PageDecorator
 
         add_sentence do |subj, is, has|
           vpart = if matches.has_type?(:v)
-                    v_vals = matches.by_type(:v).collect do |match|
+                    v_vals = to_sentence(matches.by_type(:v).collect do |match|
                       trait_sentence_part("%s", match.trait)
-                    end.to_sentence
+                    end)
 
                     "#{subj} #{has} #{v_vals}"
                   else
@@ -376,13 +374,13 @@ class PageDecorator
                   end
 
           wpart = if matches.has_type?(:w)
-                    w_vals = matches.by_type(:w).collect do |match|
+                    w_vals = to_sentence(matches.by_type(:w).collect do |match|
                       trait_sentence_part(
                         "#{is_species? ? "#{a_or_an(match.trait)} " : ""}%s",
                         match.trait,
                         pluralize: true
                       )
-                    end.to_sentence
+                    end)
 
                     "#{is} #{w_vals}"
                   else
@@ -401,9 +399,9 @@ class PageDecorator
 
         if matches.has_type?(:y)
           add_sentence do |subj, is, has|
-            y_parts = matches.by_type(:y).collect do |match|
+            y_parts = to_sentence(matches.by_type(:y).collect do |match|
               trait_sentence_part("%s #{match.trait[:predicate][:name]}", match.trait)
-            end.to_sentence
+            end)
 
             "#{subj} #{has} #{y_parts}."
           end
@@ -411,9 +409,9 @@ class PageDecorator
 
         if matches.has_type?(:x)
           add_sentence do |_, __, ___|
-            x_parts = matches.by_type(:x).collect do |match|
+            x_parts = to_sentence(matches.by_type(:x).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence
+            end)
 
             "Reproduction is #{x_parts}."
           end
@@ -421,9 +419,9 @@ class PageDecorator
 
         if matches.has_type?(:z)
           add_sentence do |subj, is, has|
-            z_parts = matches.by_type(:z).collect do |match|
+            z_parts = to_sentence(matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence
+            end)
 
             "#{subj} #{has} parental care (#{z_parts})."
           end
@@ -518,7 +516,7 @@ class PageDecorator
           parts = [leaf_part, flower_part, fruit_part].compact
 
           if parts.any?
-            "#{subj} #{has} #{parts.to_sentence}."
+            "#{subj} #{has} #{to_sentence(parts)}."
           else
             nil
           end
@@ -533,7 +531,7 @@ class PageDecorator
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
           add_sentence do |_, __, ___|
-            "Flowers are visited by #{parts.to_sentence}."
+            "Flowers are visited by #{to_sentence(parts)}."
           end
         end
       end
@@ -793,7 +791,7 @@ class PageDecorator
             end
           end
         end
-        values.any? ? values.uniq.to_sentence : nil
+        values.any? ? to_sentence(values.uniq) : nil
       end
 
       # TODO: it would be nice to make these into a module included by the Page class.
@@ -845,7 +843,7 @@ class PageDecorator
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?
           add_sentence do |subj, _, __|
-            "#{subj} is listed #{result.to_sentence}."
+            "#{subj} is listed #{to_sentence(result)}."
           end
         end
 
@@ -921,6 +919,11 @@ class PageDecorator
                              view.link_to(target_page.name.html_safe, target_page)
                            end
         sprintf(format_str, target_page_part)
+      end
+
+      # use instead of Array#to_sentence to use correct locale for text, rather than global I18n.locale
+      def to_sentence(a)
+        a.to_sentence(locale: :en)
       end
     # end private
   end
