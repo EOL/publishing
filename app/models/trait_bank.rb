@@ -478,33 +478,27 @@ class TraitBank
       if filter.numeric?
         conditions = []
         if filter.eq?
-          conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
           eq_param = "#{trait_var}_eq"
-          conditions << { op: "=", val: conv_eq_val, param: eq_param }
+          conditions << { op: "=", val: filter.num_val1, param: eq_param }
         else
           if filter.gt? || filter.range?
-            conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_uri)
             gt_param = "#{trait_var}_gt"
-            conditions << { op: ">=", val: conv_gt_val, param: gt_param }
+            conditions << { op: ">=", val: filter.num_val1, param: gt_param }
           end
 
           if filter.lt? || filter.range?
-            conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_uri)
             lt_param = "#{trait_var}_lt"
-            conditions << { op: "<=", val: conv_lt_val, param: lt_param }
+            conditions << { op: "<=", val: filter.num_val2, param: lt_param }
           end
-
-          conv_units_uri = conv_units_uri1 || conv_units_uri2
         end
 
+        units_param = "#{trait_var}_u"
+        params[units_param] = filter.units_uri
+
         parts << "("\
-        "(#{trait_var}.measurement IS NOT NULL "\
-        "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} $#{c[:param]}" }.join(" ")} "\
-        "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
-        "OR "\
-        "(#{trait_var}.normal_measurement IS NOT NULL "\
+        "#{trait_var}.normal_measurement IS NOT NULL "\
         "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} $#{c[:param]}" }.join(" ")} "\
-        "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+        "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: $#{units_param} })"\
         ")"
         conditions.each { |c| params[c[:param]] = c[:val] }
       end
@@ -859,7 +853,6 @@ class TraitBank
             filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
           end
         end
-
 
         if filter.predicate?
           filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, options[:pred_var] || pred_labeler.label, :predicate, gathered_terms_for_filter)

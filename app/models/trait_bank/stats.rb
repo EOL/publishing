@@ -69,45 +69,31 @@ class TraitBank
       def histogram(query, record_count)
         raise_if_query_invalid_for_histogram(query, record_count)
 
-        key = "trait_bank/stats/histogram/v2/#{query.to_cache_key}" # increment version number when changing query
+        key = "trait_bank/stats/histogram/v3/#{query.to_cache_key}" # increment version number when changing query
         Rails.cache.fetch(key) do
-          filter = query.filters.first
-
-          wheres = ["t.normal_measurement IS NOT NULL"]
-          wheres << "toFloat(t.normal_measurement) >= #{filter.num_val1}" if filter.num_val1.present?
-          wheres << "toFloat(t.normal_measurement) <= #{filter.num_val2}" if filter.num_val2.present?
-
+          params = {}
+          trait_match_part = TraitBank.term_record_search_matches(query, params, trait_var: "t")
           count = query.record? ? "*" : "DISTINCT rec.page"
-
           buckets = [Math.sqrt(record_count), 20].min.ceil
+
           TraitBank.query(%Q[
-            MATCH #{TraitBank.page_match(query, "page", "")},
-            (tgt_p:Term{ uri: '#{filter.pred_uri}'}),
-            (page)-[#{TraitBank::trait_rels_for_query_type(query)}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p)
-            WITH DISTINCT page, t
-            MATCH (t)-[:normal_units_term]->(u:Term)
-            WITH page, u, toFloat(t.normal_measurement) AS m
-            WHERE #{wheres.join(" AND ")}
-            WITH u, collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
-            WITH u, recs, max, min, max - min AS range
-            WITH u, recs, #{self.num_fn_for_range("max", "ceil")} AS max,
+            #{trait_match_part}
+            WITH page, toFloat(t.normal_measurement) AS m
+            WITH collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
+            WITH recs, max, min, max - min AS range
+            WITH recs, #{self.num_fn_for_range("max", "ceil")} AS max,
             #{self.num_fn_for_range("min", "floor")} AS min
-            WITH u, recs, max, min, max - min AS range
-            WITH u, recs, max, min, CASE WHEN range < .001 THEN 1 ELSE (
+            WITH recs, max, min, max - min AS range
+            WITH recs, max, min, CASE WHEN range < .001 THEN 1 ELSE (
             #{self.num_fn_for_range("range", "ceil", "/ #{buckets}")}
             ) END AS bw
             UNWIND recs as rec
-            WITH rec, u, min, bw, floor((rec.val - min) / bw) AS bi
-            WITH rec, u, min, bw, CASE WHEN bi = #{buckets} THEN bi - 1 ELSE bi END as bi
-            WITH u, min, bi, bw, count(#{count}) AS c
-            WITH u, collect({ min: min, bi: bi, bw: bw, c: c}) as units_rows
-            ORDER BY reduce(total = 0, r in units_rows | total + r.c) DESC
-            LIMIT 1
-            UNWIND units_rows as r
-            WITH u, r.min as min, r.bi as bi, r.bw as bw, r.c as c
-            RETURN u, min, bi, bw, c
+            WITH rec, min, bw, floor((rec.val - min) / bw) AS bi
+            WITH rec, min, bw, CASE WHEN bi = #{buckets} THEN bi - 1 ELSE bi END as bi
+            WITH min, bi, bw, count(#{count}) AS c
+            RETURN min, bi, bw, c
             ORDER BY bi ASC
-          ])
+          ], params)
         end
       end
 

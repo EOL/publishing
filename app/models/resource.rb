@@ -14,7 +14,7 @@ class Resource < ApplicationRecord
   has_many :referents, inverse_of: :resource
   has_many :term_query_filters
 
-  before_destroy :remove_content
+  before_destroy :destroy_callback
 
   scope :browsable, -> { where(is_browsable: true) }
   scope :classification, -> { where(classification: true) }
@@ -152,6 +152,10 @@ class Resource < ApplicationRecord
     end
   end
 
+  def unlock
+    import_logs.running.update_all(failed_at: Time.now)
+  end
+
   def path
     @path ||= abbr.gsub(/\s+/, '_')
   end
@@ -160,6 +164,11 @@ class Resource < ApplicationRecord
     new_log = ImportLog.create(resource_id: id, status: "currently running")
     import_logs << new_log
     new_log
+  end
+
+  def destroy_callback
+    clear_import_logs
+    remove_content
   end
 
   def remove_content

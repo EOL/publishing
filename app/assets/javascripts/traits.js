@@ -82,7 +82,7 @@
     });
 
     $('.js-meta-obj-typeahead').each(function() {
-      buildTypeahead(this, {}, {
+      buildTypeahead(this, { minLength: 0 }, {
         name: 'meta-obj-names',
         display: 'name',
         limit: Infinity,
@@ -171,7 +171,7 @@
       source: EOL.searchObjectTerms
     }, 'uri', fetchForm);
 
-    buildTypeahead('.js-resource-typeahead', {}, {
+    buildTypeahead('.js-resource-typeahead', { minLength: 0 }, {
       name: 'resource',
       display: 'name',
       limit: Infinity,
