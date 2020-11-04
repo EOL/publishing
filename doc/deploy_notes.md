@@ -37,3 +37,4 @@ Thanks.
 
 === for next deploy AFTER 10/21/20 deploy
 10/10/2020 (mvitale): Enabled Greek -- run `$ rails r "TermNameTranslationManager.rebuild_node_properties"`
+11/4/20 (mvitale): Not a deploy dependency -- can be done after the fact. `$ rails r "PageLandmarkUpdater.run"` to propagate Page native node ranks to Pages in neo4j.
