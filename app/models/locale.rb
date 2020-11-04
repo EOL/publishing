@@ -1,0 +1,2 @@
+class Locale < ApplicationRecord
+end
