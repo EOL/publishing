@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_10_192648) do
+ActiveRecord::Schema.define(version: 2020_11_04_204236) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -451,6 +451,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.index ["guid"], name: "index_links_on_guid"
   end
 
+  create_table "locales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "locations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "resource_id", null: false
     t.string "location"
@@ -840,6 +846,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.string "statistical_method_uri"
     t.integer "resource_id"
     t.integer "obj_clade_id"
+    t.integer "predicate_id"
+    t.integer "object_term_id"
+    t.integer "units_term_id"
+    t.integer "sex_term_id"
+    t.integer "lifestage_term_id"
+    t.integer "statistical_method_term_id"
     t.index ["term_query_id"], name: "index_term_query_filters_on_term_query_id"
   end
 
