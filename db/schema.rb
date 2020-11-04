@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_204459) do
+ActiveRecord::Schema.define(version: 2020_11_04_213310) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -281,6 +281,15 @@ ActiveRecord::Schema.define(version: 2020_11_04_204459) do
     t.string "name"
     t.integer "editor_page_directory_id"
     t.index ["slug"], name: "index_editor_pages_on_slug", unique: true
+  end
+
+  create_table "fallback_locales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.integer "locale_id"
+    t.integer "fallback_locale_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale_id"], name: "index_fallback_locales_on_locale_id"
   end
 
   create_table "friendly_id_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|

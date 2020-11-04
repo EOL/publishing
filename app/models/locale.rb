@@ -4,6 +4,7 @@ require 'csv'
 
 class Locale < ApplicationRecord
   has_many :languages
+  has_many :fallback_locales, class: 'Locale', through: :fallback_locales
   validates :code, presence: true, uniqueness: true
 
   CSV_PATH = Rails.application.root.join('db', 'seed_data', 'languages_locales.csv')
@@ -12,11 +13,11 @@ class Locale < ApplicationRecord
     def rebuild_from_csv
       rows = CSV.read(CSV_PATH, headers: true)
       locale_codes = rows.map { |r| r["locale"] }.uniq
-      puts "syncing locales"
+      puts 'syncing locales'
       sync_locales(locale_codes)
-      puts "updating languages"
+      puts 'updating languages'
       update_language_locales(rows)
-      puts "done"
+      puts 'done'
     end
 
     private
