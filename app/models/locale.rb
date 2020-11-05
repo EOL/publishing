@@ -7,7 +7,7 @@ class Locale < ApplicationRecord
   has_many :ordered_fallback_locales
   validates :code, presence: true, uniqueness: true
 
-  before_save { code.downcase! }
+  before_validation { code.downcase! }
 
   default_scope { includes(:languages) }
 
