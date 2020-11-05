@@ -11,12 +11,9 @@ class Locale < ApplicationRecord
 
   class << self
     # INTENDED FOR OFFLINE USE ONLY
-    def rebuild_from_csv
+    def rebuild_language_mappings
       rows = CSV.read(CSV_PATH, headers: true, skip_blanks: true)
-      locale_codes = rows.map { |r| r["locale"] }.uniq
-      puts 'syncing locales'
-      sync_locales(locale_codes)
-      puts 'updating languages'
+      puts 'updating language -> locale mappings'
       update_language_locales(rows)
       puts 'done'
     end
@@ -39,16 +36,6 @@ class Locale < ApplicationRecord
     # END
 
     private
-
-    def sync_locales(locale_codes)
-    #  existing_codes = Locale.all.pluck(:code)
-    #  new_codes = locale_codes.select { |l| !existing_codes.include?(l) }
-    #  obsolete_codes = existing_codes.select { |l| !locale_codes.include?(l) } 
-    #  puts "WARNING: locale codes #{obsolete_codes.join(', ')} were found in the DB but weren't present in the csv. You might want to delete them manually. Continuing." if obsolete_codes.any?
-
-    #  new_locale_data = new_codes.map { |c| { code: c } }
-    #  self.create!(new_locale_data)
-    end
 
     def update_language_locales(rows)
       languages_by_code = Language.all.map { |l| [l.code, l] }.to_h
