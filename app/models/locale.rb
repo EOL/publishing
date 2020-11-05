@@ -11,7 +11,7 @@ class Locale < ApplicationRecord
 
   default_scope { includes(:languages) }
 
-  CSV_PATH = Rails.application.root.join('db', 'seed_data', 'languages_locales.csv')
+  CSV_PATH = Rails.application.root.join('db', 'seed_data', 'language_groups_locales.csv')
 
   def fallbacks
     self.ordered_fallback_locales.includes(:fallback_locale).order(position: 'asc').map { |r| r.fallback_locale }
@@ -40,6 +40,8 @@ class Locale < ApplicationRecord
 
 
     def get_or_create!(code)
+      code = code.downcase
+
       if all_by_code.include?(code)
         all_by_code[code]
       else
@@ -54,29 +56,19 @@ class Locale < ApplicationRecord
     private
 
     def update_language_locales(rows)
-      languages_by_code = Language.all.map { |l| [l.code, l] }.to_h
-      
       self.transaction do
         rows.each do |row|
           puts "handling row #{row}"
-          language = get_or_create_language(languages_by_code, row)
+
+          languages = Language.where(group: row['language_group'])
           locale = get_or_create!(row['locale'])
-          language.locale = locale
-          language.save! 
+
+          languages.each do |language|
+            language.locale = locale
+            language.save! 
+          end
         end
       end
     end
-
-    def get_or_create_language(languages_by_code, row)
-      code = row['language']
-
-      if languages_by_code.include?(code)
-        languages_by_code[code]
-      else
-        puts "Language #{code} not found in db, creating..."
-        Language.create!(code: code, group: code) # TODO: get rid of group when the column is removed. This is just here to prevent a null error.
-      end
-    end
-
   end
 end
