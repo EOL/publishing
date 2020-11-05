@@ -5,7 +5,7 @@ class Language < ApplicationRecord
   has_many :media, inverse_of: :license
   has_many :vernaculars, inverse_of: :license
   has_many :vernacular_preferences, inverse_of: :license
-  belongs_to :locale
+  belongs_to :locale, optional: true
 
   class << self
     def english_default
