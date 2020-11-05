@@ -7,9 +7,15 @@ class Locale < ApplicationRecord
   has_many :fallback_locales, class_name: 'Locale', through: :fallback_locales
   validates :code, presence: true, uniqueness: true
 
+  before_save { code.downcase! }
+
   CSV_PATH = Rails.application.root.join('db', 'seed_data', 'languages_locales.csv')
 
   class << self
+    def current
+      Locale.find_by_code(I18n.locale.downcase)
+    end
+
     # INTENDED FOR OFFLINE USE ONLY
     def rebuild_language_mappings
       rows = CSV.read(CSV_PATH, headers: true, skip_blanks: true)

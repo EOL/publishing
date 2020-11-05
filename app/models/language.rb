@@ -13,6 +13,7 @@ class Language < ApplicationRecord
         where(code: "eng").first_or_create do |l|
           l.code = "eng"
           l.group = "en"
+          l.locale = Locale.find_by_code("en")
           l.can_browse_site = true
         end
       end
@@ -25,8 +26,9 @@ class Language < ApplicationRecord
 
     def for_locale(locale)
       locale_str = locale.downcase
+
       Rails.cache.fetch("languages/for_locale/#{locale_str}") do
-        Language.where(group: locale_str)
+        Language.where(locale: Locale.find_by_code(locale_str))
       end
     end
 
