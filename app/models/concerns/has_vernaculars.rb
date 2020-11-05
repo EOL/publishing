@@ -16,7 +16,7 @@ module HasVernaculars
     raise TypeError.new("must call set_vernacular_fk_field (e.g., :page_id from Page) first") if !vernacular_fk_field
 
     locale = options[:locale] || Locale.current
-    fallbacks = options[:fallbacks] || false
+    fallbacks = options.fetch(:fallbacks, true)
     languages = locale.languages
 
     name = if preferred_vernaculars.loaded?

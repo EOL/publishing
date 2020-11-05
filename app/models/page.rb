@@ -460,18 +460,15 @@ class Page < ApplicationRecord
   # NAMES METHODS
 
   def name(locale = nil)
-    locale ||= Locale.current
-    vernacular(locale: locale, fallbacks: true)&.string || scientific_name
+    vernacular(locale: locale)&.string || scientific_name
   end
 
   def short_name_notags(locale = nil)
-    locale ||= Locale.current
-    vernacular(locale: locale, fallbacks: true)&.string || canonical_notags
+    vernacular(locale: locale)&.string || canonical_notags
   end
 
   def short_name(locale = nil)
-    locale ||= Locale.current
-    vernacular(locale: locale, fallbacks: true)&.string || canonical
+    vernacular(locale: locale)&.string || canonical
   end
 
   def canonical_notags
@@ -500,8 +497,7 @@ class Page < ApplicationRecord
   end
 
   def vernacular_or_canonical(locale = nil)
-    locale ||= Locale.current
-    vernacular(locale)&.string&.titlecase || canonical
+    vernacular(locale: locale)&.string&.titlecase || canonical
   end
 
   # TRAITS METHODS
