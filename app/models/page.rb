@@ -459,19 +459,19 @@ class Page < ApplicationRecord
 
   # NAMES METHODS
 
-  def name(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string || scientific_name
+  def name(locale = nil)
+    locale ||= Locale.current
+    vernacular(locale: locale, fallbacks: true)&.string || scientific_name
   end
 
-  def short_name_notags(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string || canonical_notags
+  def short_name_notags(locale = nil)
+    locale ||= Locale.current
+    vernacular(locale: locale, fallbacks: true)&.string || canonical_notags
   end
 
-  def short_name(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string || canonical
+  def short_name(locale = nil)
+    locale ||= Locale.current
+    vernacular(locale: locale, fallbacks: true)&.string || canonical
   end
 
   def canonical_notags
@@ -499,9 +499,9 @@ class Page < ApplicationRecord
     native_node.try(:rank)
   end
 
-  def vernacular_or_canonical(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string&.titlecase || canonical
+  def vernacular_or_canonical(locale = nil)
+    locale ||= Locale.current
+    vernacular(locale)&.string&.titlecase || canonical
   end
 
   # TRAITS METHODS
