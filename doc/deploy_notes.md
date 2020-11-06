@@ -21,7 +21,7 @@ Thanks.
 6/23 (mvitale): autocomplete changes that require Page and TermNode to be reindexed. TermNode can be reindexed in a console using `TermNode.reindex` ...it only takes about 10 minutes.
 6/24 (mvitale): For webpacker assets: install Node 10.17.0+ & Yarn 1.x+. bundle install && yarn install. Webpack assets should be automatically compiled in the assets:precompile task; ping me if not.
 
-=== Deployed 2020-07-02
+=== For Deploys After 2020-07-02
 
 * NOTE: I came back to this on Jul 10 to run `MetaMover.run_all` which hadn't been done yet.
 
@@ -30,11 +30,15 @@ Thanks.
   includes sample_size citation source remarks method
 7/21/20 (mvitale): Forgot to add this earlier -- run TermNameTranslationManager.rebuild\_node\_properties and ObjForPredRelManager.rebuild after latest code is pulled but before restarting webserver. These will make graph changes expected by the trait search typeaheads.
 
-=== Deployed 2020-07-27
+=== For Deploys After 2020-07-27
 
 8/5/2020 (mvitale): Run 'PageStatUpdater.run'
 8/7/2020 (mvitale): Ensure unique constraint on Page.page\_id: CREATE CONSTRAINT ON (page:Page) ASSERT page.page\_id IS UNIQUE
 
-=== for next deploy AFTER 10/21/20 deploy
+=== For Deploys After 2020-10-21
+
 10/10/2020 (mvitale): Enabled Greek -- run `$ rails r "TermNameTranslationManager.rebuild_node_properties"`
 11/4/20 (mvitale): Not a deploy dependency -- can be done after the fact. `$ rails r "PageLandmarkUpdater.run"` to propagate Page native node ranks to Pages in neo4j.
+
+=== For Deploys After 2020-11-06
+
