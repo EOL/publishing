@@ -5,34 +5,45 @@
 # simple enough.
 class TraitBank
   class Record
-    def self.obj_term_uri(record)
-      record.dig(:object_term, :uri)
-    end
-
-    def self.obj_term_name(record)
-      record.dig(:object_term, :name)
-    end
-
-    def self.source(record)
-      record[:source]
-    end
-
-    def self.resource_id(record)
-      record.dig(:resource, :resource_id)
-    end
-
-    def self.i18n_name_for_locale(record, locale)
-      key = Util::TermI18n.uri_to_key(record[:uri], "term.name.by_uri")
-
-      if I18n.exists?(key, locale: locale)
-        I18n.t(key, locale: locale)
-      else
-        record[:name]
+    class << self
+      def obj_term_uri(record)
+        record.dig(:object_term, :uri)
       end
-    end
 
-    def self.i18n_name(record)
-      self.i18n_name_for_locale(record, I18n.locale)
+      def obj_term_name(record)
+        record.dig(:object_term, :name)
+      end
+
+      def source(record)
+        record[:source]
+      end
+
+      def resource_id(record)
+        record.dig(:resource, :resource_id)
+      end
+
+      def i18n_name_for_locale(record, locale)
+        i18n_attr_for_locale(record, :name, locale)
+      end
+
+      def i18n_name(record)
+        i18n_name_for_locale(record, I18n.locale)
+      end
+
+      def i18n_defn(record)
+        i18n_attr_for_locale(record, :definition, I18n.locale)
+      end
+
+      private
+      def i18n_attr_for_locale(record, attr, locale)
+        key = Util::TermI18n.uri_to_key(record[:uri], "term.#{attr.to_s}.by_uri")
+
+        if I18n.exists?(key, locale: locale)
+          I18n.t(key, locale: locale)
+        else
+          record[attr]
+        end
+      end
     end
   end
 end
