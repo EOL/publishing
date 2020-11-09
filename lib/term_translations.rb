@@ -62,37 +62,6 @@ class TermTranslations
       end
     end
 
-    def write_qqq(adapter_class, name_results, defn_results)
-      path = LOCALE_FILE_DIR.join("#{adapter_class.name.downcase}.qqq.yml")
-
-      entries = name_results.collect do |result|
-        if defn_results[result.uri].present?
-          [Util::TermI18n.uri_to_key(result.uri), defn_results[result.uri].value]
-        else
-          nil
-        end
-      end.compact.to_h
-
-      if entries.any?
-        puts "writing definitions to qqq file"
-        write_entries("qqq", path, entries)
-      end
-    end
-
-    def write_entries(locale, path, entries)
-      File.open(path, "w") do |file|
-        file.write({
-          locale.to_s => { 
-            "term": { 
-              "name": { 
-                "by_uri": entries
-              }
-            }
-          }
-        }.to_yaml)
-      end
-    end
-
     private
     def write_locale_results(locale, adapter)
       puts "Processing results for locale #{locale}"
@@ -123,7 +92,7 @@ class TermTranslations
       write_yaml(locale, file_path, yaml_hash)
 
       if locale == I18n.default_locale
-        write_qqq(adapter_class, name_results, defn_results)
+        write_qqq(adapter.class, name_entries, defn_entries)
       end
     end
 
@@ -140,6 +109,23 @@ class TermTranslations
             "term": hash
           } 
         }.to_yaml)
+      end
+    end
+
+    def write_qqq(adapter_class, name_entries, defn_entries)
+      path = LOCALE_FILE_DIR.join("#{adapter_class.name.downcase}.qqq.yml")
+
+      entries = name_entries.keys.collect do |uri|
+        if defn_entries[uri].present?
+          [Util::TermI18n.uri_to_key(uri), defn_entries[uri]]
+        else
+          nil
+        end
+      end.compact.to_h
+
+      if entries.any?
+        puts "writing definitions to qqq file"
+        write_yaml("qqq", path, { "name" => { "by_uri" => entries } })
       end
     end
   end
