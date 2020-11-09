@@ -1,5 +1,5 @@
 class TermNames::StaticDataAdapter
-  FILE_NAMES = %w(obo_terms common_predicates common_envo units)
+  FILE_NAMES = %w(all_terms)
   FILE_DIR = Rails.application.root.join("lib", "term_names", "static_data")
   FILE_PATHS = FILE_NAMES.collect do |name|
     FILE_DIR.join("#{name}.json")
