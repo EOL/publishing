@@ -1,7 +1,7 @@
 require "util/term_i18n"
 require "fileutils"
 
-class TermNames
+class TermTranslations
   ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter, TermNames::StaticDataAdapter]
   ADAPTERS_BY_NAME = ADAPTERS.collect { |a| [a.name, a] }.to_h
   LOCALE_FILE_DIR = Rails.application.root.join("config", "locales", "terms")
@@ -35,28 +35,7 @@ class TermNames
         locales.reject! { |l| l == I18n.default_locale } unless adapter.respond_to?(:include_default_locale?) && adapter.include_default_locale?
         
         locales.each do |locale|
-          puts "Getting results for locale #{locale}"
-          results = adapter.names_for_locale(locale)
-
-          writable_entries = results.collect do |result|
-            [Util::TermI18n.uri_to_key(result.uri), result.value]
-          end.to_h
-
-          if writable_entries.any?
-            file_name = "#{adapter_class.name.downcase}.#{locale}.yml"
-            bak_name = "#{adapter_class.name.downcase}.#{locale}.yml.bak"
-            file_path = LOCALE_FILE_DIR.join(file_name)
-            bak_path = LOCALE_FILE_DIR.join(bak_name)
-
-            self.backup_file(file_path, bak_path)
-            puts "Writing results for locale #{locale} to #{file_path}"
-            self.write_entries(locale, file_path, writable_entries)
-            if locale == I18n.default_locale
-              write_qqq(adapter_class, results)
-            end
-          else
-            puts "No results found for locale #{locale}. Not writing locale file."
-          end
+          write_locale_results(locale, adapter)
         end
       end
 
@@ -83,11 +62,12 @@ class TermNames
       end
     end
 
-    def write_qqq(adapter_class, results)
+    def write_qqq(adapter_class, name_results, defn_results)
       path = LOCALE_FILE_DIR.join("#{adapter_class.name.downcase}.qqq.yml")
-      entries = results.collect do |result|
-        if result.options[:definition].present?
-          [Util::TermI18n.uri_to_key(result.uri), result.options[:definition]]
+
+      entries = name_results.collect do |result|
+        if defn_results[result.uri].present?
+          [Util::TermI18n.uri_to_key(result.uri), defn_results[result.uri].value]
         else
           nil
         end
@@ -109,6 +89,56 @@ class TermNames
               }
             }
           }
+        }.to_yaml)
+      end
+    end
+
+    private
+    def write_locale_results(locale, adapter)
+      puts "Processing results for locale #{locale}"
+
+      names = adapter.names_for_locale(locale)
+      defns = adapter.respond_to?(:defns_for_locale) ? adapter.defns_for_locale(locale) : []
+
+      if names.empty? && defns.empty?
+        puts "No results found for locale #{locale}. Not writing locale file."
+        return
+      end
+
+      file_name = "#{adapter.class.name.downcase}.#{locale}.yml"
+      bak_name = "#{adapter.class.name.downcase}.#{locale}.yml.bak"
+      file_path = LOCALE_FILE_DIR.join(file_name)
+      bak_path = LOCALE_FILE_DIR.join(bak_name)
+
+      self.backup_file(file_path, bak_path)
+
+      name_entries = results_to_entries(names)
+      defn_entries = results_to_entries(defns)
+
+      yaml_hash = {}
+      yaml_hash["name"] = { "by_uri" => name_entries } if name_entries.any?
+      yaml_hash["definition"] = { "by_uri" => defn_entries } if defn_entries.any?
+
+      puts "Writing results for locale #{locale} to #{file_path}"
+      write_yaml(locale, file_path, yaml_hash)
+
+      if locale == I18n.default_locale
+        write_qqq(adapter_class, name_results, defn_results)
+      end
+    end
+
+    def results_to_entries(results)
+      results.collect do |result|
+        [Util::TermI18n.uri_to_key(result.uri), result.value]
+      end.to_h
+    end
+
+    def write_yaml(locale, path, hash)
+      File.open(path, "w") do |file|
+        file.write({
+          locale.to_s => {
+            "term": hash
+          } 
         }.to_yaml)
       end
     end
