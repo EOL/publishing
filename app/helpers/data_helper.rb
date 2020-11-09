@@ -26,26 +26,6 @@ module DataHelper
     end.compact
   end
 
-  def show_metadata(data)
-    return if data.nil?
-    return unless data[:meta] ||
-      data[:source] ||
-      data[:object_term] ||
-      data[:units]
-    if data[:metadata]
-      data[:metadata].each do |datum|
-        show_meta_data(datum)
-      end
-    end
-    show_definition(data[:predicate]) if data[:predicate]
-    show_definition(data[:object_term]) if data[:object_term]
-    show_definition(data[:units]) if data[:units]
-    show_modifier(:sex_term, data[:sex_term]) if data[:sex_term]
-    show_modifier(:lifestage_term, data[:lifestage_term]) if data[:lifestage_term]
-    show_modifier(:statistical_method_term, data[:statistical_method_term]) if data[:statistical_method_term]
-    show_source(data[:source]) if data[:source]
-  end
-
   def show_meta_data(datum)
     # Hard-coded exception for source, since it's duplicated:
     return if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
@@ -133,20 +113,6 @@ module DataHelper
       separated_list(modifiers)
     else
       nil
-    end
-  end
-
-  def show_definition(uri)
-    return unless uri && uri[:definition]
-    haml_tag(:div, I18n.t(:data_definition, data: uri[:name]), class: "ui secondary segment")
-    haml_tag(:div, class: "ui tertiary segment") do
-      haml_tag(:a, uri[:uri], href: uri[:uri], class: "uri_defn")
-      haml_tag(:br)
-      if uri[:definition].empty?
-        haml_concat("")
-      else
-        haml_concat(uri[:definition].html_safe)
-      end
     end
   end
 
