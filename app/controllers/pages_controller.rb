@@ -12,7 +12,7 @@ class PagesController < ApplicationController
 
   helper :data
 
-  ALL_LANG_GROUP = "show_all"
+  ALL_LOCALE_CODE = "show_all"
   BATCH_LOOKUP_COLS = {
     "query" => -> (qs, page, url) { qs },
     "match" => -> (qs, page, url) { !page.nil? },
@@ -435,7 +435,6 @@ private
     @page = PageDecorator.decorate(Page.find(params[:page_id]))
     resource_id = params[:resource_id]
     @resource = resource_id.nil? ? nil : Resource.find(resource_id)
-    @lang_group = params[:lang_group]
     brief_summary_article_ids = @page.articles
       .joins("INNER JOIN content_sections ON content_sections.content_id = articles.id AND content_sections.content_type = 'Article'")
       .where("content_sections.section_id = ?", Section.brief_summary.id).pluck("articles.id")
@@ -446,39 +445,42 @@ private
     articles_with_resource = resource_id.nil? ?
       @articles :
       @articles.where({ resource_id: resource_id })
-    @lang_groups = Language
-      .where(id: articles_with_resource.pluck(:language_id).uniq)
-      .distinct
-      .order(:group)
-      .pluck(:group)
 
-    if @lang_group.nil?
+    @locale_codes = Locale.joins(:languages)
+      .where("languages.id IN (?)", articles_with_resource.pluck(:language_id).uniq)
+      .distinct
+      .order(:code)
+      .pluck(:code)
+
+    @locale_code = params[:locale_code]
+    if @locale_code.nil?
       # Only default the language for the initial page view, where no filters are set.
       # Expect XHR requests to have the language set explicitly.
-      if @resource.nil? && @lang_groups.include?(Language.cur_group)
-        @lang_group = Language.cur_group
+      if @resource.nil? && @locale_codes.include?(Locale.current.code)
+        @locale_code = Locale.current.code
       else
-        @lang_group = ALL_LANG_GROUP
+        @locale_code = ALL_LOCALE_CODE
       end
     end
 
-    lang_group_where =
-      if @lang_group == ALL_LANG_GROUP
+    locale_where =
+      if @locale_code == ALL_LOCALE_CODE
         nil
-      elsif @lang_group == Language.cur_group
-        "articles.language_id IS NULL OR languages.group = ?"
+      elsif @locale_code == Locale.current.code
+        "articles.language_id IS NULL OR locales.code = ?"
       else
-        "languages.group = ?"
+        "locales.code = ?"
       end
+
     # references is needed to force a LEFT OUTER JOIN here because of the string where condition (not a hash)
-    articles_with_lang_group = lang_group_where ?
-      @articles.references(:language).where(lang_group_where, @lang_group) :
+    @articles = locale_where ?
+      @articles.includes(language: :locale).where(locale_where, @locale_code).references(:locales) :
       @articles
+
     @resources = Resource
-      .where(id: articles_with_lang_group.pluck(:resource_id).uniq)
+      .where(id: @articles.pluck(:resource_id).uniq)
       .order(:name)
 
-    @articles = articles_with_lang_group if @lang_group != ALL_LANG_GROUP
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
     orders = brief_summary_article_ids.any? ? ["articles.id IN (#{brief_summary_article_ids.join(",")})"] : []
     orders += [
@@ -487,7 +489,7 @@ private
       "articles.name"
     ]
     @articles = @articles.unscope(:order).order(orders.join(", "))
-    @all_lang_group = ALL_LANG_GROUP
+    @all_locale_code = ALL_LOCALE_CODE
   end
 
   def setup_viz
