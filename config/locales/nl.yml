@@ -1306,12 +1306,15 @@ nl:
       previous: vorige pagina
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: zuurstof
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic zuur
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic zuur
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: lichaamslengte
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofiet
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet

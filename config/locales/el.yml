@@ -11,7 +11,7 @@
 # Author: SkarletWitch
 ---
 el:
-  language_name: Αγγλικά
+  language_name: Ελληνικά
   about:
     trait_bank:
       title: Τράπεζα Χαρακτηριστικών
@@ -214,7 +214,7 @@ el:
       citing_eol: Αναφορά Εγκυκλοπαίδειας της ζωής
       contact_us: Επικοινωνήστε μαζί μας
       data_services: Υπηρεσίες δεδομένων
-      donate: Δωρήστε
+      donate: Δωρίστε
       education: Εκπαίδευση
       food_webs: Τροφικοί ιστοί
       glossary: Γλωσσάρι
