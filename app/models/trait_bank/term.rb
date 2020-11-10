@@ -45,7 +45,8 @@ class TraitBank
 
       # This method will detect existing Terms and either return the existing term or, if the :force option is set, update the
       # Term instead.
-      def create(properties)
+      def create(possibly_frozen_properties)
+        properties = possibly_frozen_properties.dup
         force = properties.delete(:force)
         properties = properties.transform_keys(&:to_s)
         raise 'Cannot create a term without a URI' unless properties['uri']
@@ -77,8 +78,8 @@ class TraitBank
       # This method takes a hash as its argument. If you pulled a term from neo4j, use #update_existing
       # This method will only update fields that are passed in. Other fields will keep their existing values.
       # On success, this always returns a hash with *symbolized* keys.
-      def update(properties)
-        properties = properties.transform_keys(&:to_s)
+      def update(possibly_frozen_properties)
+        properties = possibly_frozen_properties.dup.transform_keys(&:to_s)
         raise 'Cannot update a term without a URI.' unless properties['uri']
         clean_properties(properties)
         update_relationships(properties['uri'], properties)
