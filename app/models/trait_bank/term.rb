@@ -133,8 +133,11 @@ class TraitBank
       end
 
       def clean_properties(properties)
-        properties['definition'] ||= ''
-        properties['definition'].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
+        properties['definition'] = properties['definition'].nil?
+          ''
+        else
+          properties['definition'].dup.gsub!(/\^(\d+)/, "<sup>\\1</sup>")
+        end
         set_boolean_properties(properties)
         set_nil_properties_to_blank(properties)
       end
