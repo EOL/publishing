@@ -133,7 +133,7 @@ class TraitBank
       end
 
       def clean_properties(properties)
-        properties['definition'] = properties['definition'].nil?
+        properties['definition'] = if properties['definition'].nil?
           ''
         else
           properties['definition'].dup.gsub!(/\^(\d+)/, "<sup>\\1</sup>")
