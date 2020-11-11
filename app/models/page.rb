@@ -666,16 +666,6 @@ class Page < ApplicationRecord
     end.compact
   end
 
-  def sorted_predicates_for_records(records)
-    records.collect do |r|
-      r[:predicate]
-    end.uniq.sort do |a, b|
-      a_name = TraitBank::Record.i18n_name(a)
-      b_name = TraitBank::Record.i18n_name(b)
-      a_name <=> b_name
-    end
-  end
-
   def object_terms
     @object_terms ||= glossary.keys - predicates
   end

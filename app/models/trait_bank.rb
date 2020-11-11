@@ -235,23 +235,24 @@ class TraitBank
 
     def page_traits_by_pred(page_id, options = {})
       limit = options[:limit] || 5 # limit is per predicate
-      key = "trait_bank/page_traits_by_pred/no_synonyms/#{page_id}/limit_#{limit}"
+      key = "trait_bank/page_traits_by_pred/v2/#{page_id}/limit_#{limit}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(predicate:Term),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (predicate)-[:synonym_of]->(:Term)
-          WITH predicate, collect(DISTINCT trait)[0..#{limit}] as traits, count(DISTINCT trait) AS trait_count, resource
-          UNWIND traits as trait
+          WHERE NOT (group_predicate)-[:parent_term|:synonym_of]->(:Term)
+          WITH group_predicate, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] as trait_rows, count(DISTINCT trait) AS trait_count
+          UNWIND trait_rows as trait_row
+          WITH group_predicate, trait_count, trait_row.trait AS trait, trait_row.predicate AS predicate, trait_row.resource AS resource
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
-          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count
+          RETURN resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count
         ))
 
         build_trait_array(res)
@@ -259,13 +260,13 @@ class TraitBank
     end
 
     def page_trait_predicates(page_id, options = {})
-      key = "trait_bank/page_trait_predicates/#{page_id}"
+      key = "trait_bank/page_trait_predicates/v2/#{page_id}"
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
           MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (predicate)-[:synonym_of]->(:Term)
+          WHERE NOT (predicate)-[:parent_term|:synonym_of]->(:Term)
           WITH DISTINCT predicate
           RETURN predicate.uri, predicate.name, predicate.definition, predicate.comment, predicate.attribution
         ))
@@ -293,12 +294,12 @@ class TraitBank
     end
 
     def all_page_traits_for_pred(page_id, pred_uri, options = {})
-      key = "trait_bank/all_page_traits_for_pred/include_synonyms/#{page_id}/#{pred_uri}"
+      key = "trait_bank/all_page_traits_for_pred/v2/#{page_id}/#{pred_uri}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:synonym_of*0..]->(:Term{ uri: '#{pred_uri}'}),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term{ uri: '#{pred_uri}'}),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
@@ -306,7 +307,7 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
-          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
+          RETURN resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
         ))
 
         build_trait_array(res)
