@@ -167,9 +167,11 @@ class PagesController < ApplicationController
   def data
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
     set_noindex_if_needed(@page)
-    @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
+    @filter_predicates= TraitBank.page_trait_predicates(@page.id, resource_id: @resource&.id).sort do |a, b|
+      TraitBank::Record.i18n_name(a) <=> TraitBank::Record.i18n_name(b)
+    end.uniq
+    @predicate = params[:predicate] ? @filter_predicates.find { |p| p[:uri] == params[:predicate] } : nil
     @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
-    @filter_predicates = []
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @traits_per_pred = 5
 
@@ -183,11 +185,8 @@ class PagesController < ApplicationController
 
     filter_resource_ids = TraitBank.page_trait_resource_ids(@page.id, pred_uri: @predicate ? @predicate[:uri] : nil)
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
-    @filter_predicates= TraitBank.page_trait_predicates(@page.id, resource_id: @resource&.id).sort do |a, b|
-      TraitBank::Record.i18n_name(a) <=> TraitBank::Record.i18n_name(b)
-    end.uniq
-    @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
-    @predicates = @predicate ? [@predicate] : @page.sorted_predicates_for_records(filtered_data)
+    @grouped_data = group_traits_by_group_predicate(filtered_data)
+    @predicates = @predicate ? [@predicate] : sorted_group_predicates_for_traits(filtered_data)
     @resources = TraitBank.resources(filtered_data)
 
     @associations = build_associations(@page.data)
@@ -578,5 +577,42 @@ private
 
     @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query).valid?
     @habitat_chart_query = query
+  end
+  
+  def group_traits_by_group_predicate(traits)
+    grouped = {}
+
+    traits.each do |trait|
+      group_predicates_for_trait(trait).each do |gp|
+        grouped[gp[:uri]] ||= []
+        grouped[gp[:uri]] << trait
+      end
+    end
+
+    grouped
+  end
+
+  def sorted_group_predicates_for_traits(traits)
+    group_predicates = []
+
+    traits.each do |trait|
+      group_predicates_for_trait(trait).each do |gp|
+        group_predicates << gp
+      end
+    end
+
+    group_predicates.uniq.sort do |a, b|
+      a_name = TraitBank::Record.i18n_name(a)
+      b_name = TraitBank::Record.i18n_name(b)
+      a_name <=> b_name
+    end
+  end
+
+  def group_predicates_for_trait(trait)
+    if trait[:group_predicate].is_a?(Array)
+      trait[:group_predicate]
+    else
+      [trait[:group_predicate]]
+    end
   end
 end
