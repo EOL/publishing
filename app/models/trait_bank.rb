@@ -242,7 +242,7 @@ class TraitBank
         res = query(%Q(
           MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (group_predicate)-[:parent_term|:synonym_of]->(:Term)
+          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH group_predicate, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] as trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows as trait_row
           WITH group_predicate, trait_count, trait_row.trait AS trait, trait_row.predicate AS predicate, trait_row.resource AS resource
@@ -264,9 +264,9 @@ class TraitBank
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(predicate:Term),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (predicate)-[:parent_term|:synonym_of]->(:Term)
+          WHERE NOT (predicate)-[:synonym_of]->(:Term)
           WITH DISTINCT predicate
           RETURN predicate.uri, predicate.name, predicate.definition, predicate.comment, predicate.attribution
         ))
