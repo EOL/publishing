@@ -7,6 +7,8 @@ class Language < ApplicationRecord
   has_many :vernacular_preferences, inverse_of: :license
   belongs_to :locale, optional: true
 
+  validates :code, presence: true, uniqueness: true
+
   class << self
     def english_default
       Rails.cache.fetch("languages/english") do

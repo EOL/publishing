@@ -11,7 +11,7 @@ class Locale < ApplicationRecord
 
   default_scope { includes(:languages) }
 
-  CSV_PATH = Rails.application.root.join('db', 'seed_data', 'language_groups_locales.csv')
+  CSV_PATH = Rails.application.root.join('db', 'seed_data', 'languages_locales.csv')
 
   def fallbacks
     self.ordered_fallback_locales.includes(:fallback_locale).order(position: 'asc').map { |r| r.fallback_locale }
@@ -60,13 +60,10 @@ class Locale < ApplicationRecord
         rows.each do |row|
           puts "handling row #{row}"
 
-          languages = Language.where(group: row['language_group'])
-          locale = get_or_create!(row['locale'])
-
-          languages.each do |language|
-            language.locale = locale
-            language.save! 
-          end
+          language = Language.create_with(group: row['locale']).find_or_create_by!(code: row['language'])
+          locale = Locale.find_or_create_by!(code: row['locale'])
+          language.locale = locale
+          language.save! 
         end
       end
     end
