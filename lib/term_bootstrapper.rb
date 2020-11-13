@@ -134,9 +134,9 @@ class TermBootstrapper
         # Ignore false-like values compared to false:
         next if term_from_gem[key] == 'false' && term_from_neo4j[key].blank?
         next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
-        puts "TERM #{term_from_gem['uri']} does not match on #{key}:\n"\
-             "gem: #{term_from_gem[key]}\n"\
-             "neo: #{term_from_neo4j[key]}"
+        puts "TERM #{term_from_gem['uri']} does not match on '#{key}':\n"\
+             "gem: {#{term_from_gem[key]}}\n"\
+             "neo: {#{term_from_neo4j[key]}}"
         return false
       end
     end
