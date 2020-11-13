@@ -1,5 +1,5 @@
 MATCH (t:Term)
-WHERE (:Trait)-[:predicate]->(t) OR (:Trait)-[:object_term]->(t)
+WHERE ((:Trait)-[:predicate]->(t) OR (:Trait)-[:object_term]->(t))
 AND t.is_hidden_from_glossary = false
 AND t.is_hidden_from_overview = false
 AND t.is_hidden_from_select = false
