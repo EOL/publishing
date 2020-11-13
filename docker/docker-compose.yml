@@ -101,19 +101,19 @@ services:
       - eolnet
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     image: redis:6.0
-    container_name: eol-redis
+    container_name: redis
     restart: always
     ports:
       - 6379:6379
-  eol-publishing:
+  pub_web:
     build: ..
     image: eol_website
-    container_name: pub_app
+    container_name: pub_web
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS="redis://redis:6379"
+      - EOL_REDIS=redis://redis:6379
       - REDIS_PROVIDER=EOL_REDIS
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
@@ -126,7 +126,7 @@ services:
       - neo4j
       - memcached
       - elasticsearch
-      - eol-redis
+      - redis
     links:
       - elasticsearch
       - memcached:memcached
@@ -137,7 +137,7 @@ services:
        - 3000:3000
     networks:
       - eolnet
-  eol-publishing-jobs:
+  pub_jobs:
     build: ..
     image: eol_website
     container_name: pub_jobs
@@ -145,7 +145,7 @@ services:
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS="redis://redis:6379"
+      - EOL_REDIS=redis://redis:6379
       - REDIS_PROVIDER=EOL_REDIS
     volumes: # NOTE: YES, it shares the data volumes with production, so you can download the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
@@ -158,7 +158,7 @@ services:
       - neo4j
       - memcached
       - elasticsearch
-      - eol-redis
+      - redis
     links:
       - elasticsearch
       - memcached

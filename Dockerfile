@@ -46,8 +46,10 @@ RUN bundle install --jobs 10 --retry 5
 # Skipping this for now. The secrets file does not appear to work at this stage. :\
 # RUN cd app && rake assets:precompile
 
-RUN apt-get install -qq -y cmake 
-RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && cd seabolt && make_debug.sh
+RUN apt-get update
+RUN apt-get install -qq -y cmake
+
+RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && cd seabolt && ./make_debug.sh && cd build && cpackRUN cd / && tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-10.tar.gz && cp -rf seabolt-1.7.4-dev-Linux-debian-10/* .
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
