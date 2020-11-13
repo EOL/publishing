@@ -161,8 +161,18 @@ private
 
   def redirect_to_glossary_entry(uri)
     term = TraitBank::Term.term_as_hash(uri)
-    raise ActionController.RoutingError.new("Not Found") if !term
+
+    raise_not_found if !term
+
     first_letter = TraitBank::Term.letter_for_term(term)
+
+    raise_not_found if first_letter.nil?
+
     redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302
   end
+
+  def raise_not_found
+    raise ActionController.RoutingError.new("Not Found")
+  end
+
 end

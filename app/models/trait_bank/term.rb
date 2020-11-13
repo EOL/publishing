@@ -12,6 +12,7 @@ class TraitBank
       object_term: ['value']
     }.freeze
     DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
+    UNIQUE_URI_PART_CAPTURE_REGEX = /https:\/\/eol\.org\/schema\/terms\/(.*)/
 
     class << self
       delegate :query, :connection, :limit_and_skip_clause, :array_to_qs, to: TraitBank
@@ -432,9 +433,7 @@ class TraitBank
       def letters_for_glossary
         Rails.cache.fetch("trait_bank/letters_for_glossary", expires_in: CACHE_EXPIRATION_TIME) do
           q = "MATCH (term:Term{ is_hidden_from_glossary: false })\n"\
-              "WITH CASE\n"\
-              "WHEN term.name =~ '[0-9].*' THEN '0-9'\n"\
-              "ELSE substring(toLower(term.name), 0, 1) END AS letter\n"\
+              "WITH CASE substring(toLower(term.name), 0, 1) END AS letter\n"\
               "RETURN DISTINCT letter\n"\
               "ORDER BY letter"
           res = query(q)
@@ -443,12 +442,13 @@ class TraitBank
       end
 
       def letter_for_term(term)
-        return "0-9" unless term[:name]
-        if term[:name] =~ /[0-9].*/
-          return "0-9"
-        else
-          return term[:name].downcase[0]
-        end
+        name = if term[:name]
+                 term[:name]
+               else
+                 UNIQUE_URI_PART_CAPTURE_REGEX.match(term[:uri])&.[](1)
+               end
+
+        name&.downcase[0]
       end
 
       def sub_glossary(type, page = 1, per = nil, options = {})
