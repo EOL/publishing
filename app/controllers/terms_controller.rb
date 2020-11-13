@@ -1,7 +1,7 @@
 class TermsController < ApplicationController
   before_action :require_admin, only: [:update]
 
-  SCHEMA_URI_FORMAT = "http://eol.org/schema/terms/%s"
+  SCHEMA_URI_FORMAT = "https://eol.org/schema/terms/%s"
   META_OBJECT_URIS = {
     sex: [
       "http://purl.obolibrary.org/obo/PATO_0000383",
