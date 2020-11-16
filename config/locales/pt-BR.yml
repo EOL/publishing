@@ -964,6 +964,9 @@ pt-BR:
       previous: página anterior
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/FossilFirst: primeiro aparecimento
+        http://eol(dot)org/schema/terms/Present: distribuição geográfica inclui
+        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocorrências fósseis
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: ninhada
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Sulfato de Bário
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigênio
@@ -993,6 +996,12 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfato de cálcio
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautótrofo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matagal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestre
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marinho bentônico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: floresta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costeiro
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: solo ácido
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diâmetro da haste
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de tamanho da
@@ -1020,7 +1029,6 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reprodução assexuada
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoção
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado dos pais
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: órgão de armazenamento
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: Executando
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomoção arbórea
@@ -1097,8 +1105,6 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbionte de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualista com
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasitado por
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinizado por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: predada por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: é vetor para
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
@@ -1128,47 +1134,8 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: comprimento da cauda
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: Largura do corpo
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largura do fêmur
-        http://eol(dot)org/schema/terms/Present: distribuição geográfica inclui
-        http://eol(dot)org/schema/terms/FossilFirst: primeiro aparecimento
-        https://www(dot)wikidata(dot)org/entity/Q295469: ecorregião
-        http://www(dot)wikidata(dot)org/entity/Q33596: matagal
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profundidade da água
-        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocorrências fósseis
         http://www(dot)wikidata(dot)org/entity/Q1053008: nível trófico
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marinho bentônico
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestre
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: floresta
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costeiro
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matagal
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rio
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graus Celsius
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: indivíduos
-          por quilômetro quadrado
-        http://eol(dot)org/schema/terms/millimeterspermonth: mililitros por mês
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: Kelvin
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dias
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: meses
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: anos
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
-        http://semanticscience(dot)org/resource/SIO_001114: máximo
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: percento
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: graus
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /dia
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /ano
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: graus Fahrenheit
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: polegada
-        http://eol(dot)org/schema/terms/perAcre: por acre
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/dia
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ano
-        Unit: Unidade
-        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8 meses
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/dia
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/segundo
-        http://eol(dot)org/schema/terms/millimetersPerYear: mm/ano
-        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/cm2/hora
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: toneladas
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pés
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: polegadas
+        http://www(dot)wikidata(dot)org/entity/Q33596: matagal
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecorregião
 ...

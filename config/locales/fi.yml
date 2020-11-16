@@ -936,10 +936,16 @@ fi:
       previous: edellinen sivu
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/Present: maantieteellisen levinneisyyden alueet
+        http://eol(dot)org/schema/terms/fossilOccPBDB: fossiiliesiintymien määrä
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: happi
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: ruumiinpituus
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Ruumiinpituus kuonosta
+          häntään
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: laidun
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: puu
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: elinikä
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
@@ -962,39 +968,5 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: saalistaja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lehden väri
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kukan väri
-        http://eol(dot)org/schema/terms/Present: maantieteellisen levinneisyyden alueet
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: veden syvyys
-        http://eol(dot)org/schema/terms/fossilOccPBDB: fossiiliesiintymien määrä
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: trooppinen
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: laidun
-        http://eol(dot)org/schema/terms/paleo_megaannum: miljoona vuotta sitten
-        http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: päivää
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: kuukautta
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Wattia
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: astetta
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /päivä
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /vuosi
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: tuuma
-        http://purl(dot)org/obo/owl/UO#UO_0000034: viikkoa
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/päivä
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/vuosi
-        Unit: Yksikkö
-        http://eol(dot)org/schema/terms/percentPerMonth: '%/kuukausi'
-        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/vuosi
-        http://eol(dot)org/schema/terms/gramsPerMonth: g/kk
-        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3kk
-        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4kk
-        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6kk
-        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7kk
-        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8kk
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/päivä
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/s
-        http://eol(dot)org/schema/terms/millimetersPerYear: mm/vuosi
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnia
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: jalkaa
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tuumaa
 ...
