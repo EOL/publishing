@@ -1306,6 +1306,35 @@ pms:
       previous: pàgina precedenta
     name:
       by_uri:
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
+        http://eol(dot)org/schema/HeadWidth: larghëssa dla testa
+        http://eol(dot)org/schema/terms/AETinRange: tass d'evapotraspirassion real
+          ant la zòna geogràfica
+        http://eol(dot)org/schema/terms/Absent: nen present ant la region
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: perìod ëd chërsùa ativa
+        http://eol(dot)org/schema/terms/AdultYearlySurvival: Dzorvivensa anual ëd
+          l'adult
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: tass ëd neuva chërsùa
+          apress la cujìa
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: età a la duvertura ëd j'euj
+        http://eol(dot)org/schema/terms/AgeAtMaturity: età a la maduridà
+        http://eol(dot)org/schema/terms/AminoAcidCompositionOfMilk: composission aminoàcida
+          dël làit
+        http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: toleransa a 'n teren
+          anaeròbich
+        http://eol(dot)org/schema/terms/ArmPlusDiscLength: longheur brass pi disch
+        http://eol(dot)org/schema/terms/Ash_content: contnù dle sënner
+        http://eol(dot)org/schema/terms/Attached: tacà al substrà
+        http://eol(dot)org/schema/terms/BillLength: longheur dël bech
+        http://eol(dot)org/schema/terms/Bioluminescent: bioluminos
+        http://eol(dot)org/schema/terms/BloatPotential: potensial ëd gonfiament an
+          sle bes-ce
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
+        http://eol(dot)org/schema/terms/FossilFirst: prima aparission
+        http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
+        http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
+        http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
+        http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: solfà ëd bario
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
@@ -1341,10 +1370,21 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfat ëd càuss
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: àcid isoesadecanòid
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longheur dël còrp
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: longheur dël còrp, dal
+          muso a la coa
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fòto-autòtrof
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fòto-eteròtrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terestr
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eva corenta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: fond dël mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: foresta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costié
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: seul àcid
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
@@ -1378,7 +1418,6 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: arprodussion assessuà
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: corsa
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomossion an sj'erbo
@@ -1469,8 +1508,6 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parassità da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: a l'ha n'òspit
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: a polinisa
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinisà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: a l'é la pijàita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a l'é vetor ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
@@ -1505,65 +1542,9 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longheur ëd la piòta anans
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: larghëssa dël còrp
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: larghëssa dël fémur
-        http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
-        http://eol(dot)org/schema/terms/FossilFirst: prima aparission
-        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregion
-        http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
-        http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
-        http://www(dot)wikidata(dot)org/entity/Q33596: mobilità
+        http://purl(dot)org/obo/owlATOL_0001660: Longheur total
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur ëd l'eva
-        http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
-        http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://www(dot)wikidata(dot)org/entity/Q1053008: livel tròfich
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: fond dël mar
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terestr
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: foresta
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marengh
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costié
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eva corenta
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fium
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairìa
-        http://eol(dot)org/schema/terms/paleo_megaannum: un milion d'agn fa
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: gre Celsius
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: esemplar për
-          chilòmeter quàder
-        http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: di
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mèis
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
-        http://semanticscience(dot)org/resource/SIO_001114: max
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: përsent
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: gre
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /di
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /ann
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: gre Fahrenheit
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: pòles
-        http://eol(dot)org/schema/terms/perAcre: për acr
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
-        http://purl(dot)org/obo/owl/UO#UO_0000034: sman-e
-        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /sélula /di
-        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/sélula
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/di
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ann
-        Unit: Unità
-        http://eol(dot)org/schema/terms/percentPerMonth: '%/mèis'
-        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/an
-        http://eol(dot)org/schema/terms/gramsPerMonth: g/mèis
-        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3mèis
-        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4mèis
-        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6mèis
-        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7mèis
-        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8mèis
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/di
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sec
-        http://eol(dot)org/schema/terms/millimetersPerYear: mm/ann
-        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/cm2/hr
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonëlà
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pe
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pòles
+        http://www(dot)wikidata(dot)org/entity/Q33596: mobilità
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregion
 ...

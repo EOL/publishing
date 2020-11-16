@@ -1300,6 +1300,52 @@ mk:
       previous: претходна страница
     name:
       by_uri:
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: многу мал
+        http://eol(dot)org/schema/HeadWidth: ширина на главата
+        http://eol(dot)org/schema/terms/AETinRange: фактичка стапка на евапотранспирација
+          на географското подрачје
+        http://eol(dot)org/schema/terms/Absent: отсуствува во регионот
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: период на активен раст
+        http://eol(dot)org/schema/terms/AdultYearlySurvival: Годишен опстанок за возрасни
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: стапка на пожетвен
+          нов раст
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: возраст на отворање очи
+        http://eol(dot)org/schema/terms/AgeAtMaturity: зрелост
+        http://eol(dot)org/schema/terms/AminoAcidCompositionOfMilk: аминокиселински
+          состав на млекото
+        http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: издржливост на анаеробна
+          почва
+        http://eol(dot)org/schema/terms/ArmPlusDiscLength: должина на крак со диск
+        http://eol(dot)org/schema/terms/Ash_content: количество на пепел
+        http://eol(dot)org/schema/terms/Attached: придружен потслој
+        http://eol(dot)org/schema/terms/BillLength: должина на клунот
+        http://eol(dot)org/schema/terms/Bioluminescent: биолуминесцентен
+        http://eol(dot)org/schema/terms/BloatPotential: потенцијал за надувување на
+          стоката
+        http://eol(dot)org/schema/terms/BloomColor: боја при цветање
+        http://eol(dot)org/schema/terms/BloomPeriod: период на цветање
+        http://eol(dot)org/schema/terms/BodyShape: телесен облик
+        http://eol(dot)org/schema/terms/BodyVolume: телесна зафатнина
+        http://eol(dot)org/schema/terms/BreedingHabitat: станиште при размножување
+        http://eol(dot)org/schema/terms/BrowseAnimalPalatability: јадливост за брстење
+        http://eol(dot)org/schema/terms/BudSource: извор на пупката
+        http://eol(dot)org/schema/terms/CITES_I: CITES Прилог I
+        http://eol(dot)org/schema/terms/CITES_II: CITES Прилог II
+        http://eol(dot)org/schema/terms/CITES_III: CITES Прилог III
+        http://eol(dot)org/schema/terms/CNRatio: сооднос јаглерод-азот
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: издржливост на калциум
+        http://eol(dot)org/schema/terms/CarapaceLength: Должина на черупката
+        http://eol(dot)org/schema/terms/CarbohydrateCompositionOfMilk: јаглехидратнен
+          состав на млекото
+        http://eol(dot)org/schema/terms/CaudalFinShape: облик на опашната перка
+        http://eol(dot)org/schema/terms/CellDepth: длабочина на клетката
+        http://eol(dot)org/schema/terms/CellLength: должина на клетката
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: екоморфолошки еснаф
+        http://eol(dot)org/schema/terms/FossilFirst: прво јавување
+        http://eol(dot)org/schema/terms/NativeRange: матичното живеалиште опфаќа
+        http://eol(dot)org/schema/terms/Present: географската распространетост опфаќа
+        http://eol(dot)org/schema/terms/TrophicGuild: трофски еснаф
+        http://eol(dot)org/schema/terms/fossilOccPBDB: број на фосилни примероци
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: квачење
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: бариум сулфат
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: кислород
@@ -1335,10 +1381,86 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: калциум фосфат
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: изохексадеканска киселина
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: телесна должина
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Телесна должина, од нос
+          до опашка
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: број на дојки
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: самрачно
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: фотоавтотроф
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: фотохетеротроф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: грмушно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: копнено
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: морско
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: слатководно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: солена вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: хиперсолена вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: магматска карпа
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: вулканска карпа
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: метаморфна карта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: соленикава вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: алкално живеалиште
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: солено живеалиште
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: водно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: труп
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: биофилм
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: дрво
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: анаеробен талог
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: варовник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: креда
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: морско дно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: шумско
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: ретка шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: тревно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000182: умерена пустина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: тропска пустина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: суптропска пустина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: планинска пустина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: поларна пустина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000187: суптропска савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: тропска савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000189: умерена савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: поплавена савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000191: суптропски тревишта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000192: тропски тревишта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000193: умерени тревишта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: планински тревишта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000195: поплавени тревишта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: зимзелена шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: листопадна шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: мешана шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: средоземна шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: тропска листопадна шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000201: суптропска листопадна
+          шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: умерена листопадна шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: суптропски
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: умерен
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: средоземна ретка шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000209: суптропска зимзелена
+          шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: тропска зимзелена шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000211: умерена зимзелена шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000212: умерена мешана шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000213: суптропска шикара
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000214: тропска шикара
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000215: умерена шикара
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: планинска шикара
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: средоземна шикара
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000218: сушна шикара
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: тропска ретка шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000221: умерена ретка шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000222: суптропска ретка шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: планинска савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000224: средоземни тревишта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000225: суптропска сува листопадна
+          шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000226: суптропска влажна листопадна
+          шумна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000227: тропска сува листопадна
+          шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000228: тропска влажна листопадна
+          шума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: речно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: крајбрежно
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кисела почва
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: пречник на стебло
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: величинска класа на
@@ -1372,7 +1494,6 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: бесполово размножување
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: движење
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: родителска нега
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: валец
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: складишен орган
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: протегнато
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: надрвно движење
@@ -1464,8 +1585,6 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: паразит на
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: жртва на паразитот
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: домаќин
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: опрашува
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: се опрашува од
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: храна за
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: преносител на
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: јаде
@@ -1500,65 +1619,9 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: должина на предните краци
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: телесна ширина
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: ширина на иверот
-        http://eol(dot)org/schema/terms/Present: географската распространетост опфаќа
-        http://eol(dot)org/schema/terms/FossilFirst: прво јавување
-        https://www(dot)wikidata(dot)org/entity/Q295469: екорегион
-        http://eol(dot)org/schema/terms/EcomorphologicalGuild: екоморфолошки еснаф
-        http://eol(dot)org/schema/terms/TrophicGuild: трофски еснаф
-        http://www(dot)wikidata(dot)org/entity/Q33596: мотилност
+        http://purl(dot)org/obo/owlATOL_0001660: Вкупна должина
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: длабочина на водата
-        http://eol(dot)org/schema/terms/NativeRange: матичното живеалиште опфаќа
-        http://eol(dot)org/schema/terms/fossilOccPBDB: број на фосилни примероци
         http://www(dot)wikidata(dot)org/entity/Q1053008: трофен степен
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: морско дно
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: копнено
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: шумско
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: морско
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: крајбрежно
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: слатководно
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: грмушно
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: тропско
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: речно
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: тревно
-        http://eol(dot)org/schema/terms/paleo_megaannum: пред милион години
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: Целзиусови степени
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: единки на квадратен
-          километар
-        http://eol(dot)org/schema/terms/millimeterspermonth: милиметри месечно
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: келвини
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: дена
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: месеци
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: години
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: вати
-        http://semanticscience(dot)org/resource/SIO_001114: најв.
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: постоток
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: степени
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /ден
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /година
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: Фаренхајтови степени
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: инч
-        http://eol(dot)org/schema/terms/perAcre: по акр
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: ПЕС
-        http://purl(dot)org/obo/owl/UO#UO_0000034: недели
-        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /клетка /ден
-        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/клетка
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/л
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: г/см^2/ден
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: кг/м^2/година
-        Unit: Единица
-        http://eol(dot)org/schema/terms/percentPerMonth: '% месечно'
-        http://eol(dot)org/schema/terms/gramsPercm2PerYear: г/см^2/година
-        http://eol(dot)org/schema/terms/gramsPerMonth: г/месец
-        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: мм/3 месеци
-        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4 месеци
-        http://eol(dot)org/schema/terms/millimetersPerSixMonths: мм/6 месеци
-        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: мм/7 месеци
-        http://eol(dot)org/schema/terms/millimetersPerEightMonths: мм/8 месеци
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: мм/ден
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: мм/сек
-        http://eol(dot)org/schema/terms/millimetersPerYear: мм/година
-        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/см2/ч
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: тони
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: стапки
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: инчи
+        http://www(dot)wikidata(dot)org/entity/Q33596: мотилност
+        https://www(dot)wikidata(dot)org/entity/Q295469: екорегион
 ...

@@ -1292,6 +1292,7 @@ nl:
     fields:
       name: 'Naam:'
       definition: 'definitie:'
+      attribution: 'Naamsvermelding:'
       comment: 'opmerking:'
       sections: 'secties:'
       is_hidden_from_glossary: 'verbergen van woordenlijst:'
@@ -1306,6 +1307,15 @@ nl:
       previous: vorige pagina
     name:
       by_uri:
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Erg klein
+        http://eol(dot)org/schema/HeadWidth: kopbreedte
+        http://eol(dot)org/schema/terms/AETinRange: Actuele Evapotranspiratie in de
+          geografische range
+        http://eol(dot)org/schema/terms/Absent: Niet aanwezig in regio
+        http://eol(dot)org/schema/terms/Colonial: Koloniaal
+        http://eol(dot)org/schema/terms/EggDiameter: ei diameter
+        http://eol(dot)org/schema/terms/FossilFirst: eerste verschijning
+        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: zuurstof
@@ -1315,6 +1325,12 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic zuur
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: lichaamslengte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofiet
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet
@@ -1332,7 +1348,6 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproductie
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: ouderzorg
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilinder
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vlucht
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: celvolume
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelet structuur
@@ -1385,45 +1400,7 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: bloemkleur
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: vruchtsoort
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: staartlengte
-        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
-        http://eol(dot)org/schema/terms/FossilFirst: eerste verschijning
-        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregio
-        http://www(dot)wikidata(dot)org/entity/Q33596: beweeglijkheid
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: waterdiepte
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropisch
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
-        http://eol(dot)org/schema/terms/paleo_megaannum: miljoen jaar geleden
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graden Celsius
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: individuen
-          per vierkante kilometer
-        http://eol(dot)org/schema/terms/millimeterspermonth: milimeters per maand
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dagen
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: maanden
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: jaren
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
-        http://semanticscience(dot)org/resource/SIO_001114: max
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: graden
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /dag
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /jaar
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: graden Farenheit
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: inch
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
-        http://purl(dot)org/obo/owl/UO#UO_0000034: weken
-        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /cel /dag
-        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/cel
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/dag
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/jaar
-        Unit: Eenheid
-        http://eol(dot)org/schema/terms/percentPerMonth: '%/maand'
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnen
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: voet
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inches
+        http://www(dot)wikidata(dot)org/entity/Q33596: beweeglijkheid
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregio
 ...
