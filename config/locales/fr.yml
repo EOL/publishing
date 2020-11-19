@@ -1644,6 +1644,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
         http://purl(dot)org/obo/owlATOL_0001660: largeur totale
+        http://rs(dot)tdwg(dot)org/dwc/terms/decimalLatitude: latitude
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur de l'eau
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: état
           de conservation
@@ -1655,6 +1656,9 @@ fr:
         http://www(dot)wikidata(dot)org/entity/Q1053008: niveau trophique
         http://www(dot)wikidata(dot)org/entity/Q33596: motilité
         https://eol(dot)org/schema/terms/cultivated_in: cultivé dans
+        https://eol(dot)org/schema/terms/unisexual_flowers: fleurs unisexuées
         https://www(dot)wikidata(dot)org/entity/Q295469: écorégion
         https://www(dot)wikidata(dot)org/entity/Q30715289: semi-aquatique
+        https://www(dot)wikidata(dot)org/entity/Q3711325: vitesse
+        https://www(dot)wikidata(dot)org/entity/Q57735866: défense mécanique
 ...
