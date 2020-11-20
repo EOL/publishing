@@ -216,6 +216,10 @@ class TraitBank::Slurp
             {
               matches: { object_term: 'Term { uri: row.value_uri }' },
               merges: [ [:metadata, :object_term, :object_term] ]
+            },
+            is_true('row.is_external') => {
+              matches: { resource: "Resource { resource_id: #{id} }" },
+              merges: [ [:metadata, :supplier, :resource] ]
             }
           }
         }
@@ -464,6 +468,10 @@ class TraitBank::Slurp
 
     def is_blank(field)
       "(#{field} IS NULL OR TRIM(#{field}) = '')"
+    end
+
+    def is_true(field)
+      "(#{field} = 'true')"
     end
   end
 end
