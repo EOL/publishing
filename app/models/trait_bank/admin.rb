@@ -67,6 +67,10 @@ class TraitBank
           q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
+          name: :meta,
+          q: "(meta:MetaData)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        remove_with_query(
           name: :trait,
           q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
