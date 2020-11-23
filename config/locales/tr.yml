@@ -1829,6 +1829,99 @@ tr:
         http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: yüzey altı birikinti
           besleyici
         http://eol(dot)org/schema/terms/succulent: sulu
+        http://eol(dot)org/schema/terms/suddHydrophyte: köpük hidrofit
+        http://eol(dot)org/schema/terms/suffrutescent: yeten
+        http://eol(dot)org/schema/terms/suspensionFeeder: süspansiyon besleyici
+        http://eol(dot)org/schema/terms/symbiontInheritance: ortak kalıtım
+        http://eol(dot)org/schema/terms/symbiotroph: simbiyotrof
+        http://eol(dot)org/schema/terms/tenagophyte: tenagofit
+        http://eol(dot)org/schema/terms/terrestrialPlant: karasal bitki
+        http://eol(dot)org/schema/terms/testicond: test saniyede
+        http://eol(dot)org/schema/terms/thoraxLength: Toraks Uzunluğu
+        http://eol(dot)org/schema/terms/trailing: takip eden
+        http://eol(dot)org/schema/terms/transientSeedBank: geçici
+        http://eol(dot)org/schema/terms/transverseDivision: enine bölme
+        http://eol(dot)org/schema/terms/tropicalFreshwaterLake: tropikal tatlı su
+          gölü
+        http://eol(dot)org/schema/terms/turbidWater: bulanık su
+        http://eol(dot)org/schema/terms/ultraoligotrophicAlpineFreshwaterLake: ultraoligotrofik
+          alp tatlı su gölü
+        http://eol(dot)org/schema/terms/ultraoligotrophicFreshwaterLake: ultraoligotrofik
+          tatlı su gölü
+        http://eol(dot)org/schema/terms/uncommon: nadir
+        http://eol(dot)org/schema/terms/unknown: bilinmiyor
+        http://eol(dot)org/schema/terms/upperEpifaunal: üst düzey epifaunal
+        http://eol(dot)org/schema/terms/vertivore: vertivore
+        http://eol(dot)org/schema/terms/veryLongPersistentSeedBank: çok uzun süre
+          kalıcı
+        http://eol(dot)org/schema/terms/vulnerable: savunmasız
+        http://eol(dot)org/schema/terms/waveExposure: dalga maruziyeti
+        http://eol(dot)org/schema/terms/weddelite: weddelite
+        http://eol(dot)org/schema/terms/wetMass: Islak kütle
+        http://eol(dot)org/schema/terms/wet_forest: ıslak orman
+        http://eol(dot)org/schema/terms/whiteGrey: beyaz gri
+        http://eol(dot)org/schema/terms/winterDeciduous: kış yaprak döken
+        http://eol(dot)org/schema/terms/winterSemiDeciduous: kış yarı yaprak döken
+        http://eol(dot)org/schema/terms/woodyEpipyte: odunsu epifit
+        http://eol(dot)org/schema/terms/yearRound: yıl boyunca
+        http://eol(dot)org/schema/terms/yes: evet
+        http://eol(dot)org/schema/terms/zoochory: hayvanat bahçesi
+        http://eol(dot)org/terms/endemic: endemik
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: yüksek
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: çap
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: orta
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54166: değişken
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: düşük
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: erken
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: geç
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: ebeveyn bakımı yok
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: ebeveyn bakımı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/CPLX: karmaşık türler
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DEV: gelişim mekanizması
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DZ: derinlik zonasyonu
+          (benthos)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DZP: derinlik zonasyonu
+          (pelajik)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DZ_SUP: sınır ötesi bölge
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/EGG: yumurta çapı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/EP: çevresel pozisyon
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/EPKY: epitoky
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FAC: üremeyi tetikleyen
+          faktörler
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: seçici olmayan
+          mevduat besleyici
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: seçici mevduat
+          besleyici
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FER: döllenme tipi
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FREQ: popülasyonun yumurtlama
+          sıklığı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/HSET: habitat tipi yerleşim
+          / erken gelişme
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/JMOB: çocuk hareketliliği
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LDEV: larva gelişimi
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: larva gelişim modu
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MAT: ilk üremede yaşı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: yuva
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/PC: ebeveyn bakımının yeri
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/PHF: fizyografik özellik
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RESORP: yumurtaların emilmesi
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: üreme sıcaklığı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT_WARM: tropikal sular
+          (ılık)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: ekosistem mühendisliği
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: kör uçlu ventilatör
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: aşağı doğru konveyör
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: biyo-difüzör
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_OEV: açık uçlu vantilatör
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_REG: rejeneratör
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_UC: yukarı doğru konveyör
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SETTL: alt tabaka yerleşim
+          türü
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: Cinsel metamorfoz
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM_YES: cinsel metamorfoz
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SPERM: sperm tipi
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: üreme stratejisi
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRUCT: besleme yapısı
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: düşünceli
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: baryum sülfat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksijen
@@ -1870,50 +1963,117 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: alaca karanlık
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoototrof
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: dağ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: tepe aralığı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000262: bozkır
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: scrubland
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: karasal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: denizel
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: tatlı su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: endolitik habitat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: büyük göl
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002224: ötrofik su
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: deniz bentiği
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: orman
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çayır
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: kutup çölü
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000187: subtropikal savan
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: tropikal savan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000189: ılıman savan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: sular altında savana
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000191: subtropikal otlak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000192: tropikal çayır
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000193: ılıman çayır
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: dağlık çayır
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000195: sular altında otlak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: iğne yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: geniş yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: karışık orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: akdeniz ormanı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: tropikal geniş yapraklı
+          orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000201: subtropikal geniş yapraklı
+          orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: ılıman geniş yapraklı
+          orman
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropikal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: ılıman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: akdeniz ormanlık alanı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000209: subtropikal iğne yapraklı
           orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: tropikal iğne yapraklı
+          orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000211: ılıman iğne yapraklı
+          orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000212: ılıman karışık orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000213: subtropikal çalılık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000214: tropikal çalılık
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000215: Ilıman çalılık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: dağ çalıları
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: akdeniz çalıları
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000218: xeric çalılık
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: tropikal ormanlık alanı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000221: ılıman ormanlık alan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000222: subtropikal ormanlık
+          alan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: dağ savanı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000224: akdeniz otlağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000225: subtropikal kuru geniş
+          yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000226: subtropikal nemli geniş
+          yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000227: tropikal kuru geniş
+          yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000228: tropikal nemli geniş
+          yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: kurak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: mafik lav
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: bazalt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: kıyı çalılık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: meşe ormanı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: kozalaklı ormanlık
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000241: ardıç ormanı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: çöl çalılık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000244: pinyon ardıç ormanı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: otlak
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: yoğun yerleşim biyomu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: göl
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: nehir
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: buz
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: alkali ortam
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: selvi bataklığı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: kutup
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000388: tropikal yarı-ağaçlı
           orman
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000435: dağ ormanı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: zemin
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: yaprak döken orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: yaprak dökmeyen orman
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001240: ormanlık gölgelik
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001305: bitki örtüsü
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: mukus
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000044: silisli sızıntı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000045: kırmızı kil
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: kireçli sızıntı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: şemsiye
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: gizle
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000059: yüzey toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000081: mektup
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: deniz tortusu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000034: sığ deniz tortusu
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: asidik toprak
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: meyve şekli
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: meyve rengi
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: gövde çapı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: yaprak uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: meyve uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: yaprak boyutu sınıfı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: köksap bitki
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Yaprak Karmaşıklığı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: yaprak dökülebilirliği
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: tohum kütlesi
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: meyve genişliği
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: yaprak morfolojisi
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: ot
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: penis çapı
@@ -1931,53 +2091,90 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: tek yıllık
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: iki yıllık
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: çok yıllık
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: et
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: mandıra
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001857: mevsim
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00002300: tatlandırıcı
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: yem
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: gıda boyası
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: gıda katkı maddesi
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadrom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: katadrom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidromous
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: yumurtalar (emtia)
         http://purl(dot)obolibrary(dot)org/obo/GAZ_00000071: biyocoğrafik bölge
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: üreme
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007552: metamorfoz
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: azot fiksasyonu
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009507: kloroplast
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009566: döllenme
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: eşeyli üreme
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: eşeysiz üreme
+        http://purl(dot)obolibrary(dot)org/obo/GO_0035805: yumurta kabuğu
+        http://purl(dot)obolibrary(dot)org/obo/GO_0036268: yüzme
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: gezme
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: aile bakımı
         http://purl(dot)obolibrary(dot)org/obo/GO_0097618: çentik
+        http://purl(dot)obolibrary(dot)org/obo/GO_0097685: apikal oluk
+        http://purl(dot)obolibrary(dot)org/obo/GO_0097686: apikal boynuz
+        http://purl(dot)obolibrary(dot)org/obo/GO_0097687: antapikal boynuz
+        http://purl(dot)obolibrary(dot)org/obo/GO_1990413: göz lekesi
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002084: göç
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: depolama organı
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: sosyal
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: koşma
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: yürüme
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: emekleme
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: ağaçsıl (hareket)
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: hava
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: uçuş
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: kayma
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: hoplama
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: kızıl kurt
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: tıbbi
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: iletişim
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: formlar
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: güvenlik
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: bolluk
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: bastonlar
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: hücre çapı
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000052: hücre şekli
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: hücre hacmi
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: iskelet yapısı
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000018: çekirdek şekli
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: hücre kütlesi
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: kabul uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: ahşap yoğunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000075: sitozol rengi
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: çekirdek uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000084: hücre yüzey dokusu
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: nükleus genişliği
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000092: dinoflagellat cingulum
+          şekli
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000093: sulkus şekli
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000094: kloroplast şekli
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000095: kloroplast düzenlemesi
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000096: kloroplast rengi
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000097: kloroplast boyutu
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: sulkus genişliği
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: iskelet içerir
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: epicone uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: hipoksi uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000128: göz lekesi rengi
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000129: hücre rengi
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000131: göz noktası yeri
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000133: tepe şekli
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000134: antapeks şekli
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000135: apikal boynuz şekli
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000136: antapikal boynuz şekli
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0001256: vücut uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: vücut ölçüsü
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: haşere kontrolü
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: makroalgin
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: ömür
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: şekil
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000128: ağırlık
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000273: doğurganlık
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: siyah
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: mavi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: yeşil
@@ -2006,6 +2203,7 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: yaprak dökmeyen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: geçici yaprak döken
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: kıvrılma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: oval
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: sarı yeşil
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: parmaksı
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: yamuk
@@ -2013,6 +2211,7 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: artan kalite
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: düşük kalite
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: piramidal
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: eğilmiş
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: kalın
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
@@ -2049,6 +2248,7 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: ev sahibi
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: avlandı
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: için vektör
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002460: vektör
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: yediği
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: tarafından yenilir
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: hiperparazit
@@ -2057,7 +2257,11 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: patojene sahip
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: ziyaretler
         http://purl(dot)obolibrary(dot)org/obo/RO_0002619: ziyaret eden
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: çiçeklerini ziyaret etmesi
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002623: çiçekleri ziyaret eden
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: leşler
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002627: öldüren
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ektoparazit
         http://purl(dot)obolibrary(dot)org/obo/RO_0002633: ektoparazit var
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: endoparazit
         http://purl(dot)obolibrary(dot)org/obo/RO_0002635: endoparazit var
@@ -2084,11 +2288,16 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: yaşam döngüsü alışkanlığı
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tuz toleransı
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: tüy
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000107: bölünme aşaması
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: gözler
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002104: görsel sistemi
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: dikenler
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: iç iskelet
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: bal
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: mineral eklenmiş doku
           içerir
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: oran
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001256: vücut uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: vücut kütle
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: davranışsal sirkadiyen
           ritim
@@ -2104,11 +2313,15 @@ tr:
         http://purl(dot)org/obo/owlATOL_0001658: Çatal uzunluğu
         http://purl(dot)org/obo/owlATOL_0001659: Standart uzunluk
         http://purl(dot)org/obo/owlATOL_0001660: toplam uzunluk
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: Aalenian
+          Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: Aeronian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: Albian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: Anisiyen
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: Aptian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: Akitanya
           Çağı
@@ -2122,6 +2335,8 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bartonian: Barton
           Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bashkirian: Başkurt
+          Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: Bathonian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: Berriasya
@@ -2130,10 +2345,16 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: Calabria
           Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: Callovian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: Kambriyen
+          Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries2: Kambriyen
           Serisi 2 Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries3: Kambriyen
           Serisi 3 Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: Kambriyen
+          Evre 10 Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: Kambriyen
           Evre 3 Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: Kambriyen
@@ -2143,6 +2364,10 @@ tr:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: Kampaniyen
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Kaptan
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: Karbonifer
+          Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: Carnian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: Senomaniyen
           Çağı
@@ -2158,15 +2383,27 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: Kretase
           Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: Kriyojen
+          Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: Danian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: Dapingian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Darriwilian: Darriwilian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: Devoniyen
           Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: Drumian
           Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: Ediakaran
+          Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: Eifelian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: Emsian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: Eosen
+          Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: Famennian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: Florian
           Çağı
@@ -2202,7 +2439,11 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: Jiangshanian
           Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: Dinozorlar
+          Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: Kasimovian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: Katian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: Kimmeridgian
           Çağı
@@ -2228,6 +2469,8 @@ tr:
           Ordovis Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: Alt
           Triyas Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: Ludfordian
+          Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: Ludlow
           Epoch
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: Lütesien
@@ -2244,6 +2487,8 @@ tr:
           Jura Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleOrdovician: Orta
           Ordovis Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: Orta
+          Pleistosen Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleTriassic: Orta
           Triyas Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: Miyosen
@@ -2278,6 +2523,8 @@ tr:
           Alt Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: Permiyen
           Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: Phanerozoic
+          Eon
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: Piacenzian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: Pleistosen
@@ -2292,13 +2539,21 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: Pridoli
           Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: Rhaetian
+          Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: Rhuddanian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: Rhyacian
           Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: Roadian
+          Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: Rupelian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: Sakmarian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: Sandbian
+          Çağı
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: Santoniyen
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: Selandian
           Çağı
@@ -2336,6 +2591,8 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperCretaceous: Üst
           Kretase Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperDevonian: Üst
+          Devoniyen Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperJurassic: Üst
           Jura Dönemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperOrdovician: Üst
@@ -2350,6 +2607,8 @@ tr:
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wenlock: Wenlock
           Dönemi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: Wordian
+          Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: Wuchiapingian
           Çağı
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: Ypresian
@@ -2361,18 +2620,25 @@ tr:
         http://rs(dot)tdwg(dot)org/dwc/terms/habitat: yaşam alanı
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: su derinliği
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: yükseklik
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: koruma
+          durumu
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: tüm coğrafi
           dağılım
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/humanAgriculture(dot)owl#Horticulture: bahçecilik
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: enkaz
         'http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area ': Alan
           başına yaprak kütlesi
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: Kuru
+          kütle başına yaprak azotu
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaflet_lamina_area: Yaprak
+          lamina alanı
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Plant_height_vegetative: Bitkisel
           bitki boyu
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: kuru
           tohum kütlesi
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Stem_specific_density: Kök
           spesifik yoğunluğu
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&trait=Woodiness: ağaçlık
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0004820: nüfus cinsiyet oranı
         http://www(dot)marinespecies(dot)org/traits/Epifaunal: epifaunal
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: dış tüp
@@ -2392,11 +2658,14 @@ tr:
         http://www(dot)wikidata(dot)org/entity/Q1818052: Schmidt Sting Ağrı İndeksi
         http://www(dot)wikidata(dot)org/entity/Q245097: kanat açıklığı
         http://www(dot)wikidata(dot)org/entity/Q33596: motilite
+        https://eol(dot)org/schema/terms/adventive: maceracı
         https://eol(dot)org/schema/terms/ampharetid_feeder: Amfaretid besleyici
         https://eol(dot)org/schema/terms/anal_dorsal_fins: anal ve sırt yüzgeci yüzme
+        https://eol(dot)org/schema/terms/anal_fin: anal yüzgeç yüzme
         https://eol(dot)org/schema/terms/andromonoecious: andromonoecious
         https://eol(dot)org/schema/terms/anguilliform: anguilliform
         https://eol(dot)org/schema/terms/benthic_diatom_feeder: bentik diatom besleyici
+        https://eol(dot)org/schema/terms/bipedal_running: iki ayaklı koşu
         https://eol(dot)org/schema/terms/body_caudal_fin: gövde/kuyruk yüzgeci tahriki
         https://eol(dot)org/schema/terms/brittlestar_feeder: gevrek yıldız besleyici
         https://eol(dot)org/schema/terms/burrowDepth: yuva derinliği
@@ -2417,13 +2686,17 @@ tr:
           yüzme
         https://eol(dot)org/schema/terms/dracaenoid: Dracaenoid
         https://eol(dot)org/schema/terms/drag_based_swimming: sürükleme motorlu yüzme
+        https://eol(dot)org/schema/terms/duodichogamous: duodichogamous
         https://eol(dot)org/schema/terms/eel_feeder: yılan balığı besleyici
         https://eol(dot)org/schema/terms/elasmobranch_feeder: elasmobranch besleyici
+        https://eol(dot)org/schema/terms/fixes: düzeltmeler
         https://eol(dot)org/schema/terms/foram_feeder: foram besleyici
+        https://eol(dot)org/schema/terms/freshwater_animals: tatlı su hayvanları
         https://eol(dot)org/schema/terms/freshwater_benthic: tatlı su bentiği
         https://eol(dot)org/schema/terms/freshwater_carnivore: tatlı su etobur
         https://eol(dot)org/schema/terms/freshwater_decapods: tatlı su on ayaklıları
         https://eol(dot)org/schema/terms/hagfish_feeder: hagfish besleyici
+        https://eol(dot)org/schema/terms/harvested_in: hasat edildi
         https://eol(dot)org/schema/terms/labile_material_feeder: kararsız malzeme
           besleyici
         https://eol(dot)org/schema/terms/lift_based_swimming: asansörle çalışan yüzme
@@ -2437,9 +2710,13 @@ tr:
           içerir
         https://eol(dot)org/schema/terms/mobile_prey_feeder: mobil av besleyici
         https://eol(dot)org/schema/terms/monoicous: tek renkli
+        https://eol(dot)org/schema/terms/mucus_gliding: mukus aracılı kayma
         https://eol(dot)org/schema/terms/neuston: neuston
+        https://eol(dot)org/schema/terms/omnidirectional: çok yönlü
+        https://eol(dot)org/schema/terms/omnivoreCarnivore: omnivor-etobur
         https://eol(dot)org/schema/terms/optimal_rainfall: optimum yağış
         https://eol(dot)org/schema/terms/ostraciiform: ostraciiform
+        https://eol(dot)org/schema/terms/palmeiral: Palmeiral
         https://eol(dot)org/schema/terms/pectoral_fins: göğüs yüzgeci yüzme
         https://eol(dot)org/schema/terms/pectoral_oscillation: göğüs yüzgeci salınımı
         https://eol(dot)org/schema/terms/polygamodioecious: çok eşli
@@ -2449,6 +2726,7 @@ tr:
         https://eol(dot)org/schema/terms/sessile_prey_feeder: sapsız av besleyici
         https://eol(dot)org/schema/terms/springing: ilkbahar
         https://eol(dot)org/schema/terms/starfish_feeder: denizyıldızı besleyici
+        https://eol(dot)org/schema/terms/subcarangiform: karangiform
         https://eol(dot)org/schema/terms/surficialModifier: yüzeysel değiştirici
         https://eol(dot)org/schema/terms/thallus_length: thallus uzunluğu
         https://eol(dot)org/schema/terms/threatened: tehdit
@@ -2459,6 +2737,7 @@ tr:
         https://eol(dot)org/schema/terms/unisexual_flowers: uniseksüel çiçekleri
         https://eol(dot)org/schema/terms/weeping: ağlayan
         https://www(dot)wikidata(dot)org/entity/Q295469: ekolojik bölge
+        https://www(dot)wikidata(dot)org/entity/Q30715289: yarı suda yaşayan
         https://www(dot)wikidata(dot)org/entity/Q3711325: hız
         https://www(dot)wikidata(dot)org/entity/Q4296711: mitotik indeksi
         https://www(dot)wikidata(dot)org/entity/Q57735866: mekanik savunma

@@ -1350,26 +1350,77 @@ fr:
         http://eol(dot)org/schema/terms/FemalesPerGroup: Femelles par groupe
         http://eol(dot)org/schema/terms/FireResistance: résistance au feu
         http://eol(dot)org/schema/terms/FossilFirst: première apparition
+        http://eol(dot)org/schema/terms/FossilLast: dernier aspect
         http://eol(dot)org/schema/terms/FruitSeedColor: couleur des fruits ou des
           graines
+        http://eol(dot)org/schema/terms/Log10Productivity: log10 productivité
         http://eol(dot)org/schema/terms/NativeRange: la portée native inclut
         http://eol(dot)org/schema/terms/OvaDiameter: diamètre de l'ovule
+        http://eol(dot)org/schema/terms/PlantingDensity: densité de plantation
+        http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durée de développement
+          prénatal
         http://eol(dot)org/schema/terms/Present: la distribution géographique inclut
+        http://eol(dot)org/schema/terms/Salinity: salinité de l'eau
+        http://eol(dot)org/schema/terms/SexualSystem: système sexuel
         http://eol(dot)org/schema/terms/ShadeTolerance: tolérance à l'ombre
+        http://eol(dot)org/schema/terms/SocialGroupSize: taille du groupe social
+        http://eol(dot)org/schema/terms/SocialSystem: système social
+        http://eol(dot)org/schema/terms/StandardLength: longueur standard
+        http://eol(dot)org/schema/terms/Territorial: territorial
+        http://eol(dot)org/schema/terms/ToxicEffect: effet toxique
         http://eol(dot)org/schema/terms/TrophicGuild: guilde trophique
+        http://eol(dot)org/schema/terms/WaterTemperature: température de l'eau
         http://eol(dot)org/schema/terms/amphibious: amphibie
+        http://eol(dot)org/schema/terms/clearWater: eau claire
         http://eol(dot)org/schema/terms/colonyDensity: densité de la colonie
         http://eol(dot)org/schema/terms/competitive: compétitif
+        http://eol(dot)org/schema/terms/eggColor: couleur de l'oeuf
         http://eol(dot)org/schema/terms/fossilOccPBDB: nombre d’occurrences de fossiles
+        http://eol(dot)org/schema/terms/highCNRatio: haut (>59)
+        http://eol(dot)org/schema/terms/lowCNRatio: bas (<23)
+        http://eol(dot)org/schema/terms/migratory: migratoire
+        http://eol(dot)org/schema/terms/moderateRate: modéré
+        http://eol(dot)org/schema/terms/no: non
+        http://eol(dot)org/schema/terms/otherBudSource: autre
+        http://eol(dot)org/schema/terms/pH: pH
+        http://eol(dot)org/schema/terms/persistentSeedBank: persistant
+        http://eol(dot)org/schema/terms/solitary: solitaire
+        http://eol(dot)org/schema/terms/succulent: succulent
         http://eol(dot)org/schema/terms/terrestrialPlant: plante terrestre
+        http://eol(dot)org/schema/terms/vulnerable: vulnérable
+        http://eol(dot)org/schema/terms/wet_forest: forêt humide
         http://eol(dot)org/schema/terms/yes: oui
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: haut
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: diamètre
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: moyen
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: bas
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: précoce
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tardif
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/CPLX: espèces complexes
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/EGG: diamètre de l'oeuf
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FER: type de fertilisation
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: Métamorphose sexuelle
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SPERM: type de sperme
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP: température de survie
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP_HOT: eaux tropicales
+          (chaudes)
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: est un
+          composant de
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: densité de population
+          animale
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2871-4249: température du
+          corps
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: température du
           corps
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: très grand
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: aucun
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: taux de croissance
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/75367002: pression sanguine
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: couvaison
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: sulfate de barium
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxygène
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: acide palmitique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lipides
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnésium (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purines
@@ -1407,27 +1458,73 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crépusculaire
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: autophototrophie
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: hétérophototrophe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: canal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: mer
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000019: lac salé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: réservoir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: rapides
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canal d'irrigation
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: lagon
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000040: cascade
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: canal de drainage
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: source chaude
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: lac de cratère
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: lac souterrain
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: tunnel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: aqueduc
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: immeuble
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: montagne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: colline
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: col de montagne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: glacier alpin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: baie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: champ de lave
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: caldera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: vallée
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: surface de lac
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: praîrie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: tunnel de lave
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: vignoble
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantation
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: plantation de noix de
+          coco
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: plantation de palme
+          à huile
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: source minérale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000126: source sulfureuse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: vallée sèche
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: glacier
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: cirque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: oasis de désert
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000159: plantation de canne
+          à sucre
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: plantation de thé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: plantation de café
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: plantation de caoutchouc
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: canyon
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: dune
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: vallée de rivière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: désert rocailleux
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: élevé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: moraine
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: plateau
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: zone océanique
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: île continentale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000246: cratère volcanique
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: volcan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: vallée glaciaire
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000249: moraine latérale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: prairie
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000262: steppe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000267: canyon sous-marin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: fond de lac
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: escarpement
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: iceberg
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: broussse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: grotte marine
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: doline
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000351: arc volcanique
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000354: champ volcanique
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: massif
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: lit de rivière
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: embouchure
@@ -1436,37 +1533,72 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000418: ria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: réservoir d'irrigation
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: port
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: port naturel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: plage marine
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000508: terrasse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: jetée
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000567: calanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: ville
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eau courante
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: rivière large
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: petite rivière
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: grand lac
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: petit lac
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: rocher
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sédiment
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: poussière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: eau salée
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: rocher volcanique
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: aquatique
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: bois
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: craie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: baie de sable
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: hôpital
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002993: forêts tropicales humides
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: désert de sable
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aérosol
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: boue
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: sable
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: benthique marin
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000113: sédiment suspendu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000117: sédiment granulaire
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: forêt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairie
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000178: savane
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: toundra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: mangrove
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000182: désert tempéré
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: désert tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: désert polaire
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: savanne tropicale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000189: savanne tempérée
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: savanne innondée
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: forêt de conifères
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: forêt mixte
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: forêt méditerranéenne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: tempéré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: forêt de connifères
+          tropicale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: aride
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: basalte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: lac
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rivière
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: glace
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polaire
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: sol
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: côtier
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: ombrelle
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: masquer
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000081: lettre
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: sol acide
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: forme du fruit
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: couleur des fruits
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diamètre de la tige
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: longueur de la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: longueur du fruit
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de taille de
           la feuille
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: rhizome
@@ -1493,6 +1625,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: biennal
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: vivace
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: viande
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorant alimentaire
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadrome
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catadrome
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidrome
@@ -1503,22 +1636,25 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/GO_0036268: nage
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soin parental
+        http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002084: migration
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: organe de stockage
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: social
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: course
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: marche
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomotion arboricole
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: arboricole (locomotion)
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aérien
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vol
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: vol plané
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: saltation
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: médicinal
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: formes
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: sécurité
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abondance
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diamètre de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000052: forme de cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volume de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: structure du squelette
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000018: forme du noyau
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: masse de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Taille de la coquille
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densité du bois
@@ -1526,10 +1662,13 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000084: texture de la surface
           de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: largeur du noyau
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000096: couleur des chloroplastes
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: largeur du sillon
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: le squelette contient
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longueur de l’épicône
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longueur de l’hypocône
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000129: couleur de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0001256: longueur du corps
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: taille du corps
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalgue
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durée de vie
@@ -1610,10 +1749,15 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: est mangé par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: pathogène de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a un agent pathogène
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visite
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002619: visité par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: visite les fleurs de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002623: fleurs visitées par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002627: est tué par
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produit
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: klepto-parasite de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: possède des oeufs dessus
+          par
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: hauteur de la plante
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolérance à la sécheresse
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: couleur de feuille
@@ -1626,6 +1770,10 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: rythme respiratoire
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: habitude de cycle de vie
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolérance au sel
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: plume
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: yeux
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002104: système visuel
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: épines
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endosquelette
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: miel
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: le tissu minéralisé
@@ -1643,19 +1791,31 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longueur de la patte avant
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
-        http://purl(dot)org/obo/owlATOL_0001660: largeur totale
+        http://purl(dot)org/obo/owlATOL_0001659: longueur standard
+        http://purl(dot)org/obo/owlATOL_0001660: longueur totale
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: Ere
+          du barrémien
         http://rs(dot)tdwg(dot)org/dwc/terms/decimalLatitude: latitude
+        http://rs(dot)tdwg(dot)org/dwc/terms/decimalLongitude: longitude
+        http://rs(dot)tdwg(dot)org/dwc/terms/habitat: habitat
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur de l'eau
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: état
           de conservation
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: distribution
           géographique entière
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/humanAgriculture(dot)owl#Horticulture: horticulture
+        http://www(dot)marinespecies(dot)org/traits/ExternalTube: tube externe
+        http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: partie
+          spécifique de feuille
         http://www(dot)owl-ontologies(dot)com/unnamed(dot)owl#Dimorphism: dimorphisme
           sexuel
         http://www(dot)wikidata(dot)org/entity/Q1053008: niveau trophique
         http://www(dot)wikidata(dot)org/entity/Q33596: motilité
         https://eol(dot)org/schema/terms/cultivated_in: cultivé dans
+        https://eol(dot)org/schema/terms/harvested_in: récolté en
+        https://eol(dot)org/schema/terms/marine_animals: animaux marins
+        https://eol(dot)org/schema/terms/omnidirectional: omnidirectionel
+        https://eol(dot)org/schema/terms/pectoral_oscillation: oscilation fine pectorale
         https://eol(dot)org/schema/terms/unisexual_flowers: fleurs unisexuées
         https://www(dot)wikidata(dot)org/entity/Q295469: écorégion
         https://www(dot)wikidata(dot)org/entity/Q30715289: semi-aquatique
