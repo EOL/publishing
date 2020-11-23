@@ -337,23 +337,23 @@ class TraitBank
       Rails.cache.fetch("trait_bank/key_data/#{page_id}/v3/limit_#{limit}", expires_in: 1.day) do
         # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT on my machine -- mvitale
         q = %Q(
-          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait) \
-          MATCH (trait:Trait)-[:predicate]->(predicate:Term) \
-          WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false })) \
-          OPTIONAL MATCH (trait)-[:metadata]->(exemplar:MetaData), \
-          (exemplar)-[:object_term]->(exemplar_value:Term) \
-          WHERE (exemplar)-[:predicate]->(:Term{ uri: '#{EXEMPLAR_URI}' }) \
-          WITH predicate, trait, exemplar_value \
-          ORDER BY predicate.uri, exemplar_value IS NOT NULL, exemplar_value.uri = '#{PRIMARY_EXEMPLAR_URI}' \
-          WITH predicate, head(collect({ trait: trait, exemplar_value: exemplar_value })) as trait_row \
-          WITH predicate, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value \
-          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) \
-          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) \
-          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) \
-          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) \
-          OPTIONAL MATCH (trait)-[:units_term]->(units:Term) \
-          RETURN trait, predicate, exemplar_value, object_term, units, sex_term, lifestage_term, statistical_method_term \
-          ORDER BY exemplar_value IS NOT NULL \
+          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)
+          MATCH (trait:Trait)-[:predicate]->(predicate:Term)
+          WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))
+          OPTIONAL MATCH (trait)-[:metadata]->(exemplar:MetaData),
+          (exemplar)-[:object_term]->(exemplar_value:Term)
+          WHERE (exemplar)-[:predicate]->(:Term{ uri: '#{EXEMPLAR_URI}' })
+          WITH predicate, trait, exemplar_value
+          ORDER BY predicate.uri, exemplar_value IS NOT NULL DESC, exemplar_value.uri = '#{PRIMARY_EXEMPLAR_URI}' DESC
+          WITH predicate, head(collect({ trait: trait, exemplar_value: exemplar_value })) as trait_row
+          WITH predicate, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN trait, predicate, exemplar_value, object_term, units, sex_term, lifestage_term, statistical_method_term
+          ORDER BY exemplar_value IS NOT NULL DESC
           LIMIT #{limit}
         )
 
