@@ -7,8 +7,11 @@ class TraitBank
   GROUP_META_VALUE_URIS = Set.new([
     Eol::Uris.stops_at
   ])
+
   EXEMPLAR_URI = "https://eol.org/schema/terms/exemplary"
   PRIMARY_EXEMPLAR_URI = "https://eol.org/schema/terms/primary"
+  EXEMPLAR_MATCH = "(trait)-[:metadata]->(exemplar: MetaData), (exemplar)-[:predicate]->(:Term { uri: '#{EXEMPLAR_URI}' }), (exemplar)-[:object_term]->(exemplar_value:Term)"
+  EXEMPLAR_ORDER = "exemplar_value IS NOT NULL DESC, exemplar_value.uri = '#{PRIMARY_EXEMPLAR_URI}' DESC"
 
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
@@ -237,7 +240,7 @@ class TraitBank
 
     def page_traits_by_pred(page_id, options = {})
       limit = options[:limit] || 5 # limit is per predicate
-      key = "trait_bank/page_traits_by_pred/v2/#{page_id}/limit_#{limit}"
+      key = "trait_bank/page_traits_by_pred/v3/#{page_id}/limit_#{limit}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
@@ -245,6 +248,9 @@ class TraitBank
           MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          OPTIONAL MATCH #{EXEMPLAR_MATCH}
+          WITH group_predicate, trait, predicate, resource, exemplar_value
+          ORDER BY group_predicate.uri ASC, #{EXEMPLAR_ORDER}
           WITH group_predicate, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] as trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows as trait_row
           WITH group_predicate, trait_count, trait_row.trait AS trait, trait_row.predicate AS predicate, trait_row.resource AS resource
@@ -309,7 +315,9 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          OPTIONAL MATCH #{EXEMPLAR_MATCH}
           RETURN resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
+          ORDER BY #{EXEMPLAR_ORDER}
         ))
 
         build_trait_array(res)
@@ -340,11 +348,9 @@ class TraitBank
           MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)
           MATCH (trait:Trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))
-          OPTIONAL MATCH (trait)-[:metadata]->(exemplar:MetaData),
-          (exemplar)-[:object_term]->(exemplar_value:Term)
-          WHERE (exemplar)-[:predicate]->(:Term{ uri: '#{EXEMPLAR_URI}' })
+          OPTIONAL MATCH #{EXEMPLAR_MATCH}
           WITH predicate, trait, exemplar_value
-          ORDER BY predicate.uri, exemplar_value IS NOT NULL DESC, exemplar_value.uri = '#{PRIMARY_EXEMPLAR_URI}' DESC
+          ORDER BY predicate.uri ASC, #{EXEMPLAR_ORDER}
           WITH predicate, head(collect({ trait: trait, exemplar_value: exemplar_value })) as trait_row
           WITH predicate, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
@@ -353,7 +359,7 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           RETURN trait, predicate, exemplar_value, object_term, units, sex_term, lifestage_term, statistical_method_term
-          ORDER BY exemplar_value IS NOT NULL DESC
+          ORDER BY #{EXEMPLAR_ORDER}
           LIMIT #{limit}
         )
 
