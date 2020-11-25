@@ -1286,6 +1286,10 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海洋底棲
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 森林
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: 草原
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: 紅樹林
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000182: 溫帶沙漠
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: 熱帶沙漠
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 湖泊
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 酸性土壤

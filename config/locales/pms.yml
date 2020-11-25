@@ -1329,6 +1329,11 @@ pms:
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminos
         http://eol(dot)org/schema/terms/BloatPotential: potensial ëd gonfiament an
           sle bes-ce
+        http://eol(dot)org/schema/terms/BloomColor: color dlë spantiament
+        http://eol(dot)org/schema/terms/BloomPeriod: perìod dë spantiament
+        http://eol(dot)org/schema/terms/BodyShape: forma dël còrp
+        http://eol(dot)org/schema/terms/BodyVolume: volum dël còrp
+        http://eol(dot)org/schema/terms/BreedingHabitat: ambient ëd nuriment
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
