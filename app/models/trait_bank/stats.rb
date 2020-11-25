@@ -428,10 +428,6 @@ class TraitBank
           return CheckResult.invalid("failed to retrieve a Term with uri #{uri}")
         end
 
-        if predicate.type != "measurement"
-          return CheckResult.invalid("predicate type must be 'measurement'")
-        end
-
         CheckResult.valid
       end
     end
