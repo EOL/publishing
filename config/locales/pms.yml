@@ -1334,6 +1334,9 @@ pms:
         http://eol(dot)org/schema/terms/BodyShape: forma dël còrp
         http://eol(dot)org/schema/terms/BodyVolume: volum dël còrp
         http://eol(dot)org/schema/terms/BreedingHabitat: ambient ëd nuriment
+        http://eol(dot)org/schema/terms/BrowseAnimalPalatability: piasì për j'animaj
+          da pastura
+        http://eol(dot)org/schema/terms/BudSource: sorgiss dij but
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud

@@ -1922,14 +1922,46 @@ tr:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SPERM: sperm tipi
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: üreme stratejisi
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRUCT: besleme yapısı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SUBST: alt tabaka türü
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SUBST_SM: kumlu çamur
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SYNC: yumurtlamanın senkronizasyonu
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP: hayatta kalma sıcaklığı
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP_HOT: tropikal sular
+          (sıcak)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TF_HAB: habitat oluşturucu
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TOL: tolerans (AMBI indeksi)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TUBE: tüp/ yuva malzemesi
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: bir bileşeni
+        http://purl(dot)bioontology(dot)org/ontology/CSP/1138-4873: oogenez kalıbı
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: hayvan popülasyon
+          yoğunluğu
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2871-4249: vücut ısısı
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: vücut ısısı
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: sinir sistemi hastalıkları
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D059646: genom boyutu
+        http://purl(dot)bioontology(dot)org/ontology/MSH/D054712: hayatta kalma tuzluluğu
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: bazal metabolik
+          aralığı
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: çok büyük
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: hiçbiri
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: büyüme oranı
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/271649006: sistolik
+          tansiyon
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/75367002: tansiyon
+        http://purl(dot)dataone(dot)org/odo/ECSO_00001143: karbon biyokütlesi
+        http://purl(dot)jp/bio/4/id/201306015586596728: bentik diyatomları
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: ön
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: düşünceli
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: baryum sülfat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksijen
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: heksadekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: dimetil sülfür
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lipidler
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsiyum (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: pürinler
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: ürik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: kafein
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eikosanoik asit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: oktadekanoik asit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: tetrakozanoik asit
@@ -1943,6 +1975,8 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: kalsiyum sülfat dihidrat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: kalsiyum sülfat hemihidrat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: kalsiyum karbonat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: yakıt
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: boya
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: nonadekanoik asit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: pentadekanoik asit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: izotetradekanoik asit
@@ -1954,28 +1988,139 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: hidroksilapatitin
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: biyojenik silika
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: kozmetikler
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: kalsiyum fosfat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: izoheksadekanoik asit
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: vücut uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: vücut uzunluğu, burun
           kuyruğu
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: emzik numarası
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000790: süt katıları
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: alaca karanlık
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoototrof
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000041: gelgit dere
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: dağ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: tepe aralığı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: göl yüzeyi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000126: kükürt kaynağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: nehir kıyısı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: kar alanı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000153: kaynak suyu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000167: bar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: kumdan tepe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000192: çamurluk
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000205: kalıcı bahar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: demirlik
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: bataklık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000256: sel yolu
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000262: bozkır
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: fissür mağarası
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: otlak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000283: çıkıntı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: taş ocağı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: scrubland
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: chaparral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000308: kumul gevşekliği
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: alçak gelgit bölgesi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: lav mağarası
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000351: volkanik yay
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000380: buz rafı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: masif
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000383: dere yatağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: nehir ağzı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000406: okyanus ortası sırtı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: kıyı kumul
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: kireçtaşı kaplama
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: arete
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000432: monadnock
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: karasal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: denizel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: sulama rezervuarı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000455: katran
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: durgun su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000483: dalma havuzu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: deniz kıyısı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: buzul gölü
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: palsa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: rincon
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: kunduz barajı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000508: teras
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: heyelan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: iskele
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000567: calanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: tatlı su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000879: Tropikal ve subtropikal
+          nemli geniş yapraklı orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: çöl ve keris çalıları
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: endolitik habitat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: büyük nehir
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: büyük göl
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: kaya
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: tortu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: acı su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: alkali habitat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biyofilm
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: anaerobik tortu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002130: hipolimniyon
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: kaldırım
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: mağara duvarı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: kıyı suları
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002160: nehir ağzı çamuru
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: kumlu plaj
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002224: ötrofik su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002225: mezotrofik su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: gölet suyu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002229: kumlu toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: kriyosol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: chernozem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002244: gleysol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002246: ferralsol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: balçık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: orman toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: tarımsal atık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002268: sphagnum bataklık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: kerpiç toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: alüvyal toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: organik atık
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: domuzluk
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003982: traverten
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alp toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: ekilebilir toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005746: savan toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: kuru toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: yanmış toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005761: çayır toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: mera toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005774: turba toprağı
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005778: tropikal toprak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: yeraltı suyu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005795: deniz çamuru
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005799: kayalık kum
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: rizosfer
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010358: fomit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: kuru nehir vadisi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: çamur
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000002: su kuyusu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: kum
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: çakıl
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: deniz bentiği
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: okyanus banyosu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: deniz yükselmesi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000070: karasal tortu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000071: okyanus cephesi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: polimetalik nodül
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000113: asılı tortu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: deniz karı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: ormanlık alan
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çayır
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000178: savana
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000182: ılıman çölü
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: subtropikal çölü
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: dağ çölü
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: kutup çölü
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000187: subtropikal savan
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: tropikal savan

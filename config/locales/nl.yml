@@ -1316,7 +1316,14 @@ nl:
         http://eol(dot)org/schema/terms/BloomColor: bloemkleur
         http://eol(dot)org/schema/terms/BloomPeriod: bloeiperiode
         http://eol(dot)org/schema/terms/BreedingHabitat: broedhabitat
+        http://eol(dot)org/schema/terms/CITES_I: CITES Appendix I
+        http://eol(dot)org/schema/terms/CITES_II: CITES Appendix II
+        http://eol(dot)org/schema/terms/CITES_III: CITES Appendix III
         http://eol(dot)org/schema/terms/CNRatio: koolstf-tot-stikstof ratio
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: kalkrijke bodem tolerantie
+        http://eol(dot)org/schema/terms/CapitulumLength: Capitulum lengte
+        http://eol(dot)org/schema/terms/CellDepth: celdiepte
+        http://eol(dot)org/schema/terms/CellLength: cellengte
         http://eol(dot)org/schema/terms/Colonial: Koloniaal
         http://eol(dot)org/schema/terms/CommercialAvailability: commercieel beschikbaar
         http://eol(dot)org/schema/terms/Cosmopolitan: Kosmopolitisch
@@ -1402,6 +1409,10 @@ nl:
         http://eol(dot)org/schema/terms/SpecimensInGGBN: specimens in GGBN?
         http://eol(dot)org/schema/terms/StandardLength: standaard lengte
         http://eol(dot)org/schema/terms/TestesMass: Testes Mass
+        http://eol(dot)org/schema/terms/TropicalOcean: Tropische Oceaan
+        http://eol(dot)org/schema/terms/Uses: gebruikt voor
+        http://eol(dot)org/schema/terms/browsing: browser
+        http://eol(dot)org/schema/terms/burl: warrelknoest
         http://eol(dot)org/schema/terms/crustose: korstvormig
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
