@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_10_192648) do
+ActiveRecord::Schema.define(version: 2020_11_27_175735) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -399,10 +399,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
 
   create_table "languages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "code", limit: 12, null: false
-    t.string "group", limit: 12, null: false
+    t.string "group", limit: 12
     t.boolean "can_browse_site", default: false, null: false
+    t.integer "locale_id"
     t.index ["code"], name: "index_languages_on_code"
     t.index ["group"], name: "index_languages_on_group"
+    t.index ["locale_id"], name: "index_languages_on_locale_id"
   end
 
   create_table "license_group_includes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -449,6 +451,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.string "rights_statement", limit: 1024
     t.integer "page_id"
     t.index ["guid"], name: "index_links_on_guid"
+  end
+
+  create_table "locales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -549,6 +557,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.index ["user_id"], name: "index_open_authentications_on_user_id"
   end
 
+  create_table "ordered_fallback_locales", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.integer "locale_id"
+    t.integer "fallback_locale_id"
+    t.integer "position"
+  end
+
   create_table "page_contents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "page_id", null: false
     t.integer "resource_id", null: false
@@ -621,7 +635,6 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.boolean "has_checked_marine", default: false, null: false
     t.string "iucn_status"
     t.string "trophic_strategy"
-    t.string "geographic_context"
     t.string "habitat"
     t.integer "page_richness"
     t.integer "medium_id"
@@ -840,6 +853,12 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.string "statistical_method_uri"
     t.integer "resource_id"
     t.integer "obj_clade_id"
+    t.integer "predicate_id"
+    t.integer "object_term_id"
+    t.integer "units_term_id"
+    t.integer "sex_term_id"
+    t.integer "lifestage_term_id"
+    t.integer "statistical_method_term_id"
     t.index ["term_query_id"], name: "index_term_query_filters_on_term_query_id"
   end
 

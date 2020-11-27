@@ -548,30 +548,6 @@ class Page < ApplicationRecord
     # TODO
   end
 
-  def habitats
-    if geographic_context.nil? && @data_loaded
-      keys = grouped_data.keys & Eol::Uris.geographics
-      habitat = if keys.empty?
-        ""
-      else
-        habitats = []
-        keys.each do |uri|
-          recs = grouped_data[uri]
-          habitats += recs.map do |rec|
-            rec[:object_term] ? rec[:object_term][:name] : rec[:literal]
-          end
-        end
-        habitats.join(", ")
-      end
-      if geographic_context != habitat
-        update_attribute(:geographic_context, habitat)
-      end
-      habitat
-    else
-      geographic_context
-    end
-  end
-
   def should_show_icon?
     return nil unless native_node
     # WAS: Rank.species_or_below.include?(native_node.rank_id) ||
@@ -589,8 +565,6 @@ class Page < ApplicationRecord
     clear_caches
     recount
     iucn_status = nil
-    geographic_context = nil
-    habitats
     has_checked_marine = nil
     has_checked_extinct = nil
     # TODO: (for now) score_richness
