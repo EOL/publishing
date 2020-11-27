@@ -593,7 +593,8 @@ class Page < ApplicationRecord
   def clear_caches
     [
       "/pages/#{id}/glossary",
-      "trait_bank/by_page/#{id}"
+      "trait_bank/by_page/#{id}",
+      "trait_bank/key_data/#{id}/v3/limit_#{KEY_DATA_LIMIT}"
     ].each do |cache|
       Rails.cache.delete(cache)
     end

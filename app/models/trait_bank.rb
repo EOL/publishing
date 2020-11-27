@@ -332,7 +332,7 @@ class TraitBank
     end
 
     def key_data(page_id, limit)
-      Rails.cache.fetch("trait_bank/key_data/#{page_id}/v2/limit_#{limit}", expires_in: 1.day) do
+      Rails.cache.fetch("trait_bank/key_data/#{page_id}/v3/limit_#{limit}", expires_in: 1.day) do
         # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
         q = "MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
