@@ -27,7 +27,7 @@ class PagesController < ApplicationController
     2913056,
     2908256
   ])
-
+  
   # See your environment config; this action should be ignored by logs.
   def ping
     if ActiveRecord::Base.connection.active?
@@ -173,11 +173,11 @@ class PagesController < ApplicationController
     @predicate = params[:predicate] ? @filter_predicates.find { |p| p[:uri] == params[:predicate] } : nil
     @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @page_title = t("page_titles.pages.data", page_name: @page.name)
-    @traits_per_pred = 5
+    @traits_per_group = 5
 
     if @predicate.nil?
       @filtered_by_predicate = false
-      filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_pred, resource_id: @resource&.id)
+      filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
     else
       @filtered_by_predicate = true
       filtered_data = TraitBank.all_page_traits_for_pred(@page.id, @predicate[:uri], resource_id: @resource&.id)
@@ -185,14 +185,13 @@ class PagesController < ApplicationController
 
     filter_resource_ids = TraitBank.page_trait_resource_ids(@page.id, pred_uri: @predicate ? @predicate[:uri] : nil)
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
-    @grouped_data = group_traits_by_group_predicate(filtered_data)
-    @predicates = @predicate ? [@predicate] : sorted_group_predicates_for_traits(filtered_data)
+    @grouped_data = group_traits(filtered_data)
+    @data_groups = @predicate ? [@predicate] : sorted_groups_for_traits(@grouped_data)
     @resources = TraitBank.resources(filtered_data)
 
     @associations = build_associations(@page.data)
     setup_viz
 
-    return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html do
         if request.xhr?
@@ -571,40 +570,72 @@ private
     @habitat_chart_query = query
   end
   
-  def group_traits_by_group_predicate(traits)
+  def group_traits(traits)
     grouped = {}
 
     traits.each do |trait|
-      group_predicates_for_trait(trait).each do |gp|
-        grouped[gp[:uri]] ||= []
-        grouped[gp[:uri]] << trait
+      debugger
+      groups_for_trait(trait).each do |group|
+        grouped[group] ||= []
+        grouped[group] << trait
       end
     end
 
     grouped
   end
 
-  def sorted_group_predicates_for_traits(traits)
-    group_predicates = []
-
-    traits.each do |trait|
-      group_predicates_for_trait(trait).each do |gp|
-        group_predicates << gp
-      end
-    end
-
-    group_predicates.uniq.sort do |a, b|
-      a_name = TraitBank::Record.i18n_name(a)
-      b_name = TraitBank::Record.i18n_name(b)
-      a_name <=> b_name
-    end
+  def sorted_groups_for_traits(grouped_traits)
+    grouped_traits.keys.sort { |a, b| a.name <=> b.name }
   end
 
-  def group_predicates_for_trait(trait)
-    if trait[:group_predicate].is_a?(Array)
-      trait[:group_predicate]
-    else
-      [trait[:group_predicate]]
+  def groups_for_trait(trait)
+    gps = if trait[:group_predicate].is_a?(Array)
+            trait[:group_predicate]
+          else
+            [trait[:group_predicate]]
+          end
+
+    gps.map { |gp| TraitGroup.new(gp, trait[:type].to_sym) }
+  end
+
+  class TraitGroup
+    VALID_TYPES = [:subject, :object]
+
+    attr_reader :uri, :type
+
+    def initialize(term, type)
+      raise TypeError, "type #{type} invalid" unless VALID_TYPES.include?(type)
+
+      @term = term
+      @uri = @term[:uri]
+
+      raise TypeError, "missing uri for term" if @uri.blank?
+
+      @type = type
+    end
+
+    def subject?
+      @type == :subject
+    end
+
+    def object?
+      @type == :object
+    end
+
+    def name
+      object? ? TraitBank::Record.i18n_inverse_name(@term) : TraitBank::Record::i18n_name(@term)
+    end
+
+    def ==(other)
+      self.class === other and
+        other.uri == @uri and
+        other.type == @type
+    end
+
+    alias eql? ==
+
+    def hash
+      @uri.hash ^ @type.hash
     end
   end
 end

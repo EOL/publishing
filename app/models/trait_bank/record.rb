@@ -34,6 +34,16 @@ class TraitBank
         i18n_attr_for_locale(record, :definition, I18n.locale)
       end
 
+      def i18n_inverse_name(record)
+        name = i18n_attr_for_locale(record, :inverse_name, I18n.locale)
+
+        if name.nil?
+          name = I18n.t('term.inverse_name.fallback', term_name: i18n_name(record))
+        end
+
+        name
+      end
+
       private
       def i18n_attr_for_locale(record, attr, locale)
         key = Util::TermI18n.uri_to_key(record[:uri], "term.#{attr.to_s}.by_uri")

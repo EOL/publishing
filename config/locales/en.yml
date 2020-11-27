@@ -1277,6 +1277,10 @@ en:
     pagination:
       next: "next page"
       previous: "previous page"
+    inverse_name:
+      fallback: "inverse of '%{term_name}'"
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: eaten by
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: very small
