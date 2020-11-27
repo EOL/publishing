@@ -5,7 +5,7 @@ require 'neo4j/core/cypher_session/adaptors/bolt'
 class TraitBank
   TRAIT_RELS = ":trait|:inferred_trait"
   GROUP_META_VALUE_URIS = Set.new([
-    Eol::Uris.stops_at
+    EolTerms.alias_uri('stops_at')
   ])
 
   class << self
@@ -521,7 +521,7 @@ class TraitBank
 
     def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
       add_term_filter_meta_match(
-        Eol::Uris.sex,
+        EolTerms.alias_uri('sex'),
         filter.sex_uri,
         trait_var,
         "#{base_meta_var}_sex",
@@ -530,7 +530,7 @@ class TraitBank
       ) if filter.sex_term?
 
       add_term_filter_meta_match(
-        Eol::Uris.lifestage,
+        EolTerms.alias_uri('lifestage'),
         filter.lifestage_uri,
         trait_var,
         "#{base_meta_var}_ls",
@@ -539,7 +539,7 @@ class TraitBank
       ) if filter.lifestage_term?
 
       add_term_filter_meta_match(
-        Eol::Uris.statistical_method,
+        EolTerms.alias_uri('statistical_method'),
         filter.statistical_method_uri,
         trait_var,
         "#{base_meta_var}_stat",
@@ -1318,7 +1318,7 @@ class TraitBank
 
     # For data visualization
     def pred_prey_comp_for_page(page)
-      eats_string = array_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])
+      eats_string = array_to_qs([EolTerms.alias_uri('eats'), EolTerms.alias_uri('preys_on')])
       limit_per_group = 100
       comp_limit = 10
 
@@ -1362,7 +1362,7 @@ class TraitBank
       qs = "MATCH (page:Page)-[:parent*0..#{max_page_depth}]->(:Page{page_id: #{page.id}}),\n"\
         "(page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),\n"\
         "(trait)-[:object_term]->(object_term:Term)\n"\
-        "WHERE predicate.uri IN #{array_to_qs([Eol::Uris.habitats_for_wordcloud])}\n"\
+        "WHERE predicate.uri = '#{EolTerms.alias_uri('habitat')}'\n"\
         "RETURN trait, predicate, object_term"
 
       build_trait_array(query(qs))

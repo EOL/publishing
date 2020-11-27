@@ -12,8 +12,8 @@ class PageDecorator
         end
 
         @by_provider = {}
-        if page.grouped_data.has_key?(Eol::Uris::Conservation.status)
-          recs = page.grouped_data[Eol::Uris::Conservation.status]
+        if page.grouped_data.has_key?(EolTerms.alias_uri('conservation_status'))
+          recs = page.grouped_data[EolTerms.alias_uri('conservation_status')]
           multiples_warned = Set.new
           recs.each do |rec|
             uri = TraitBank::Record.obj_term_uri(rec)
