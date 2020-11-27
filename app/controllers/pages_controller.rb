@@ -496,7 +496,7 @@ private
 
     if (
       pred_uri &&
-      predi_uri == EolTerms.alias_uri('habitat') &&
+      pred_uri == EolTerms.alias_uri('habitat') &&
       @page.native_node.rank &&
       Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
     )

@@ -239,7 +239,7 @@ class PageDecorator
       end
 
       def reproduction_matches
-        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(EolUris.alias_uri(.reproduction))
+        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(EolTerms.alias_uri('reproduction')))
       end
 
       # [name clause] is a genus in the [A1] family [A2].
