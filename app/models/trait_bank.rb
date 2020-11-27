@@ -343,7 +343,8 @@ class TraitBank
           "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
           "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
+          "OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page) "\
+          "RETURN trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term "\
           "LIMIT #{limit}"
 
         res = query(q)
