@@ -768,7 +768,7 @@ class PageDecorator
       end
 
       def add_extinction_sentence
-        extinct_trait = first_trait_for_obj_uris(EolTerms.alias_uri('extinct'))
+        extinct_trait = first_trait_for_obj_uris(EolTerms.alias_uri('iucn_ex'))
         extant_trait = first_trait_for_obj_uris(*gather_terms(EolTerms.alias_uri('extant')))
         if !extant_trait && extinct_trait
           add_sentence do |_, __, ___|
