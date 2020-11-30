@@ -166,24 +166,42 @@ class PagesController < ApplicationController
 
   def data
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
+
     set_noindex_if_needed(@page)
-    @filter_predicates= TraitBank.page_trait_predicates(@page.id, resource_id: @resource&.id).sort do |a, b|
-      TraitBank::Record.i18n_name(a) <=> TraitBank::Record.i18n_name(b)
-    end.uniq
-    @predicate = params[:predicate] ? @filter_predicates.find { |p| p[:uri] == params[:predicate] } : nil
+
+    @filter_trait_groups = TraitBank.page_trait_groups(@page.id, resource_id: @resource&.id).map do |row|
+      TraitGroup.new(row[:group_predicate], row[:page_assoc_role].to_sym)
+    end.sort do |a, b|
+      a.name <=> b.name
+    end
+
+    @trait_group = if params[:predicate]
+                     group_type = params[:page_assoc_role]&.to_sym || :subject
+                     @filter_trait_groups.find { |g| g.uri == params[:predicate] && g.type == group_type } 
+
+                   else
+                     nil
+                   end
     @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @traits_per_group = 5
 
-    if @predicate.nil?
-      @filtered_by_predicate = false
-      filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
+    if @trait_group.nil?
+      @filtered_by_group = false
+      filtered_data = TraitBank.page_traits_by_group(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
+      filter_resource_ids = TraitBank.all_page_trait_resource_ids(@page.id, pred_uri: nil)
     else
-      @filtered_by_predicate = true
-      filtered_data = TraitBank.all_page_traits_for_pred(@page.id, @predicate[:uri], resource_id: @resource&.id)
+      @filtered_by_group = true
+
+      if @trait_group.object?
+        filtered_data = TraitBank.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
+        filter_resource_ids = TraitBank.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+      else
+        filtered_data = TraitBank.page_subj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
+        filter_resource_ids = TraitBank.page_subj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+      end
     end
 
-    filter_resource_ids = TraitBank.page_trait_resource_ids(@page.id, pred_uri: @predicate ? @predicate[:uri] : nil)
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
     @grouped_data = group_traits(filtered_data)
     @data_groups = @predicate ? [@predicate] : sorted_groups_for_traits(@grouped_data)
@@ -594,7 +612,7 @@ private
             [trait[:group_predicate]]
           end
 
-    gps.map { |gp| TraitGroup.new(gp, trait[:page_assoc_role].to_sym) }
+    gps.map { |gp| TraitGroup.new(gp, @trait_group&.type || trait[:page_assoc_role].to_sym) }
   end
 
   class TraitGroup

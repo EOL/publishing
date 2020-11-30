@@ -233,9 +233,9 @@ class TraitBank
       end
     end
 
-    def page_traits_by_pred(page_id, options = {})
+    def page_traits_by_group(page_id, options = {})
       limit = options[:limit] || 5 # limit is per predicate
-      key = "trait_bank/page_traits_by_pred/v3/#{page_id}/limit_#{limit}"
+      key = "trait_bank/page_traits_by_group/v1/#{page_id}/limit_#{limit}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
@@ -267,32 +267,59 @@ class TraitBank
       end
     end
 
-    def page_trait_predicates(page_id, options = {})
-      key = "trait_bank/page_trait_predicates/v2/#{page_id}"
+    def page_trait_groups(page_id, options = {})
+      key = "trait_bank/page_trait_groups/v1/#{page_id}"
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(predicate:Term),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (predicate)-[:synonym_of]->(:Term)
-          WITH DISTINCT predicate
-          RETURN predicate.uri, predicate.name, predicate.definition, predicate.comment, predicate.attribution
+          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          WITH DISTINCT group_predicate
+          WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject' }) AS subj_rows
+          MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          (trait)-[:object_page]-(:Page { page_id: #{page_id} }),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          WITH DISTINCT group_predicate, subj_rows
+          WITH collect({ group_predicate: group_predicate, page_assoc_role: 'object' }) AS obj_rows, subj_rows
+          UNWIND (subj_rows + obj_rows) AS row
+          WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role
+          RETURN group_predicate, page_assoc_role
         ))
-        flat_results_to_hashes(res, id_col_label: "predicate.uri").collect do |hash|
-          hash[:predicate]
-        end
+
+        res["data"].collect { |d| { group_predicate: d[0]["data"].symbolize_keys, page_assoc_role: d[1] } }
       end
     end
 
-    def page_trait_resource_ids(page_id, options = {})
-      key = "trait_bank/page_trait_resource_ids/#{page_id}"
+    def all_page_trait_resource_ids(page_id, options = {})
+      key = "trait_bank/all_page_trait_resource_ids/v1/#{page_id}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
-        predicate_filter_part = options[:pred_uri] ? "-[#{parent_terms}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
-
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_part},
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          (trait)-[:supplier]->(resource:Resource)
+          WITH collect(DISTINCT resource) AS subj_resources
+          MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term),
+          (trait)-[:object_page]->(:Page { page_id: #{page_id} }),
+          (trait)-[:supplier]->(resource:Resource)
+          WITH collect(DISTINCT resource) AS obj_resources, subj_resources
+          UNWIND (subj_resources + obj_resources) AS resource
+          RETURN DISTINCT resource.resource_id
+        ))
+
+        res["data"].flatten
+      end
+    end
+
+    def page_subj_trait_resource_ids(page_id, options = {})
+      key = "trait_bank/page_subj_trait_resource_ids/v1/#{page_id}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_match_part(options)},
           (trait)-[:supplier]->(resource:Resource)
           RETURN DISTINCT resource.resource_id
         ))
@@ -301,8 +328,24 @@ class TraitBank
       end
     end
 
-    def all_page_traits_for_pred(page_id, pred_uri, options = {})
-      key = "trait_bank/all_page_traits_for_pred/v2/#{page_id}/#{pred_uri}"
+    def page_obj_trait_resource_ids(page_id, options = {})
+      key = "trait_bank/page_obj_trait_resource_ids/v1/#{page_id}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_match_part(options)},
+          (trait)-[:object_page]->(:Page { page_id: #{page_id} }),
+          (trait)-[:supplier]->(resource:Resource)
+          RETURN DISTINCT resource.resource_id
+        ))
+
+        res["data"].flatten
+      end
+    end
+
+    def page_subj_traits_for_pred(page_id, pred_uri, options = {})
+      key = "trait_bank/page_subj_traits_for_pred/v2/#{page_id}/#{pred_uri}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
@@ -316,6 +359,27 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           RETURN resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
+        ))
+
+        build_trait_array(res)
+      end
+    end
+
+    def page_obj_traits_for_pred(page_id, pred_uri, options = {})
+      key = "trait_bank/all_page_object_traits_for_pred/v2/#{page_id}/#{pred_uri}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term{ uri: '#{pred_uri}'}),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])}),
+          (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} })
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN resource, trait, page, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
         ))
 
         build_trait_array(res)
@@ -1405,6 +1469,10 @@ class TraitBank
       hash.each do |k, v|
         key.concat("/#{k}_#{v}")
       end
+    end
+
+    def predicate_filter_match_part(options)
+      options[:pred_uri] ? "-[#{parent_terms}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
     end
   end
 end

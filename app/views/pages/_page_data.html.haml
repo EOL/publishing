@@ -1,15 +1,15 @@
 .js-content
   .ui.menu.uk-text-small.js-menus.page-filters
-    - if @predicate || @filter_predicates.length > 1
-      = render "filter_menu", selection: @predicate, items: @filter_predicates,
-        to_name: lambda { |predicate| i18n_term_name(predicate) },
-        to_path: lambda { |predicate| page_data_path(page_id: @page.id, predicate: predicate&.[](:uri), resource_id: @resource&.id) },
+    - if @predicate || @filter_trait_groups.length > 1
+      = render "filter_menu", selection: @trait_group, items: @filter_trait_groups,
+        to_name: lambda { |g| g.name },
+        to_path: lambda { |g| page_data_path(page_id: @page.id, predicate: g&.uri, page_assoc_role: g&.type, resource_id: @resource&.id) },
         no_selection_label: t("filters.filter_by_attribute"),
         show_all_item: nil
     - if @resource || @filter_resources.length > 1
       = render "filter_menu", selection: @resource, items: @filter_resources,
         to_name: lambda { |resource| resource.name },
-        to_path: lambda { |resource| page_data_path(page_id: @page.id, resource_id: resource&.id, predicate: @predicate&.[](:uri)) },
+        to_path: lambda { |resource| page_data_path(page_id: @page.id, resource_id: resource&.id, predicate: @trait_group&.uri, page_assoc_role: @trait_group&.type) },
         no_selection_label: t("filters.filter_by_provider"),
         show_all_item: nil
 
@@ -29,8 +29,8 @@
             %h3= name
             .data-section-head-more
               - if trait_count_for_group.present? && @traits_per_group < trait_count_for_group
-                = link_to(t(".n_hidden_show_all_noname", count: trait_count_for_group - @traits_per_group), page_data_path(page_id: @page.id, predicate: group.uri))
+                = link_to(t(".n_hidden_show_all_noname", count: trait_count_for_group - @traits_per_group), page_data_path(page_id: @page.id, page_assoc_role: group.type, predicate: group.uri))
         - group_data.each do |trait|
           %li.js-data-row-contain
-            = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => !@filtered_by_predicate, :page_is_assoc_obj => group.object? }
+            = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => true, :page_is_assoc_obj => group.object? }
 
