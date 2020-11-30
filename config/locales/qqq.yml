@@ -1224,8 +1224,9 @@ qqq:
           on the ground and later disconnect from the soil
         http://eol(dot)org/schema/terms/yearRound: An activity or period that continues
           throughout the entire year.
-        http://eol(dot)org/schema/terms/yes: This statement is true; the answer to
-          this question is yes.
+        http://eol(dot)org/schema/terms/yes: |-
+          This statement is true; the answer to this question is yes.
+          {{identical|Yes}}
         http://eol(dot)org/schema/terms/zoochory: Seed dispersal mediated by animals.
         http://eol(dot)org/terms/endemic: This organism is known to be endemic to
           this location or region

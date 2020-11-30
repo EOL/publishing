@@ -13,6 +13,7 @@
 # Author: Thibaut120094
 # Author: Ugofan
 # Author: Urhixidur
+# Author: Vega
 # Author: Verdy p
 # Author: Wladek92
 ---
@@ -1402,7 +1403,7 @@ fr:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/CPLX: espèces complexes
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/EGG: diamètre de l'oeuf
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FER: type de fertilisation
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MAT: âge de la première
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MAT: âge à la première
           reproduction
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: Métamorphose sexuelle
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SPERM: type de sperme
@@ -1759,6 +1760,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002619: visité par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: visite les fleurs de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002623: fleurs visitées par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: tue
         http://purl(dot)obolibrary(dot)org/obo/RO_0002627: est tué par
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produit
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: klepto-parasite de
@@ -1799,33 +1801,87 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
         http://purl(dot)org/obo/owlATOL_0001659: longueur standard
         http://purl(dot)org/obo/owlATOL_0001660: longueur totale
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: Âge
+          aalénien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: Âge albien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: Âge anisien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: Âge aptien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: Âge
+          aquitanien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: Âge
+          bajocien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: Ere
           du barrémien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: Âge
+          bathonien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: Âge
+          berriasien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: Burdigalien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: Calabrien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: Âge
+          callovien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: Période
           cambrienne
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: Age
+          cambrien étage 10
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: Age
+          cambrien étage 3
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: Age
+          cambrien étage 4
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: Age
+          cambrien étage 5
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: Âge
+          campanien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Age
+          capitanien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: Période
           carbonifère
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: Ere
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: Âge carnien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: Âge
+          cénomanien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: Ère
           cénozoïque
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: Age
+          changhsingien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: Age
+          chattien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: Âge
+          coniacien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: Période
           du crétacé
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: Période
           cryogénienne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: Période
           du dévonien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: Age drumien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: Période
           édiacarienne
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: Age emsien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: Gélasien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: Age
+          gorstien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: Age
+          gzhélien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: Âge
+          hettangien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: Âge
           homérien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: Période
           jurassique
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: Age katien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: Age
+          kassimovien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: Âge katien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: Âge
+          kimméridgien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: Age
+          kungurien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: Âge
+          ladinien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: Âge
           ludfordien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: Ere
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: Âge
+          maastrichtien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: Ère
           mésozoïque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: Pléistocène
           moyen
@@ -1833,15 +1889,20 @@ fr:
           mississippienne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: Période
           néogène
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: Ere
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: Ère
           néoprotérozoïque
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: Âge norien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: Âge
+          olélékien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ordovician: Période
           ordovicienne
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: Ere
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: Âge
+          oxfordien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: Ère
           paléoarchéenne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleogene: Période
           du paléogène
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: Ere
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: Ère
           paléozoïque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pennsylvanian: Sous-période
           du pennsylvanien
@@ -1850,18 +1911,48 @@ fr:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: Eon
           phanérozoïque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: Pléistocène
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: Âge
+          pliensbachien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: Age pragien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: Âge
           rhuddanien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: Période
           rhyacienne
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: Âge
+          sandbien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: Âge
+          santonien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: Age
+          serpukhovien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: Période
           silurienne
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: Âge
+          sinémurien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: Période
           silurienne
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tithonian: Âge
+          tithonien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: Âge
+          toarcien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: Age
+          torthonien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: Âge
+          tournaisien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: Age
+          trémadocien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: Période
           du triassique
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: Âge
+          turonien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: Pléistocène
           supérieur
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: Âge
+          valanginien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: Age viséen
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: Age
+          yprésien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: Age
+          zancléen
         http://rs(dot)tdwg(dot)org/dwc/terms/decimalLatitude: latitude
         http://rs(dot)tdwg(dot)org/dwc/terms/decimalLongitude: longitude
         http://rs(dot)tdwg(dot)org/dwc/terms/habitat: habitat

@@ -1337,6 +1337,12 @@ pms:
         http://eol(dot)org/schema/terms/BrowseAnimalPalatability: piasì për j'animaj
           da pastura
         http://eol(dot)org/schema/terms/BudSource: sorgiss dij but
+        http://eol(dot)org/schema/terms/CITES_I: Apendis I ëd CITES
+        http://eol(dot)org/schema/terms/CITES_II: Apendis II ëd CITES
+        http://eol(dot)org/schema/terms/CITES_III: Apendis III ëd CITES
+        http://eol(dot)org/schema/terms/CNRatio: rapòrt carbon su asòt
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: toleransa al teren
+          calcari
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
