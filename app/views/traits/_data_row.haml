@@ -7,8 +7,11 @@
   - page_id = trait[:page_id]
   - if !local_assigns.has_key?(:page)
     - page = page_id ? pages[page_id] : nil
+  - page_is_assoc_obj = local_assigns.fetch(:page_is_assoc_obj, false)
+  - page_id_for_expand = page_is_assoc_obj ? page_id : page&.id
+  - show_taxon_on_expand = show_taxon || page_is_assoc_obj
 
-  %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :page_id => page.nil? ? nil : page.id, :show_taxon => show_taxon, hide_pred_when_closed: hide_pred_when_closed), :id => trait[:id] } }
+  .trait.js-data-row{ class: "js-data-row-#{open_row ? 'open' : 'closed' }",  data: { :'show-path' => datum_path(:id => trait[:id], :page_id => page_id_for_expand, :show_taxon => show_taxon_on_expand, hide_pred_when_closed: hide_pred_when_closed), :id => trait[:id] } }
     - if show_taxon && page
       .trait-thumb
         - show_data_page_icon page
@@ -23,7 +26,7 @@
           .trait-pred.term-info-a.a.js-predicate= i18n_term_name(predicate)
         = render :partial => "terms/desc_meta", :locals => { :term => predicate, :search_link => true }
       .trait-val
-        - show_data_value(trait)
+        - show_data_value(trait, page_is_assoc_obj: page_is_assoc_obj)
         - if trait[:object_term]
           = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true, :pred_uri => trait[:predicate][:uri] }
       - modifier_content = modifier_txt(trait)
@@ -51,6 +54,4 @@
             .meta-pred= t("terms.record_url")
             - url = datum_url(id: trait[:id])
             .meta-val= link_to url, url
-      %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw{ :'data-hide-pred-when-closed' => hide_pred_when_closed }
-    - else
-      %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw
+    %i.fa.fa-2x.meta-items-arw.js-meta-arw{ :class => open_row ? 'fa-angle-up' : 'fa-angle-down', :'data-hide-pred-when-closed' => hide_pred_when_closed }

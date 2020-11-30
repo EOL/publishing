@@ -8,5 +8,6 @@
     -# TODO: helper
     - prev_page_id = nil
     - data.each_with_index do |trait,index|
-      = render :partial => "data_row", :locals => { :pages => pages, :trait => trait, :show_taxon => true }
+      %li.js-data-row-contain
+        = render :partial => "data_row", :locals => { :pages => pages, :trait => trait, :show_taxon => true }
   = paginate data

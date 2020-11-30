@@ -574,7 +574,6 @@ private
     grouped = {}
 
     traits.each do |trait|
-      debugger
       groups_for_trait(trait).each do |group|
         grouped[group] ||= []
         grouped[group] << trait
@@ -595,7 +594,7 @@ private
             [trait[:group_predicate]]
           end
 
-    gps.map { |gp| TraitGroup.new(gp, trait[:type].to_sym) }
+    gps.map { |gp| TraitGroup.new(gp, trait[:page_assoc_role].to_sym) }
   end
 
   class TraitGroup
