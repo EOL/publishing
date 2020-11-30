@@ -389,6 +389,11 @@ class Resource < ApplicationRecord
     TraitBank::Slurp.load_csvs(self)
   end
 
+  # Note this does NOT include metadata!
+  def trait_count
+    TraitBank::Admin.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
+  end
+
   def traits_file
     Rails.public_path.join('data', "traits_#{id}.csv")
   end

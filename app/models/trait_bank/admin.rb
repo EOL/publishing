@@ -77,29 +77,14 @@ class TraitBank
       def remove_with_query(options = {})
         name = options[:name]
         q = options[:q]
-        delay = options[:delay] || 1 # Increasing this did not really help site
-                                     # performance. :|
         size = options[:size] || 128
         count_before = count_type_for_resource(name, q)
-        count = 0
-        return if count_before.nil? || ! count_before.positive?
-        loop do
-          time_before = Time.now
-          log("--TB DELETE (#{size}):")
-          query("MATCH #{q} WITH #{name} LIMIT #{size} DETACH DELETE #{name}")
-          time_delta = Time.now - time_before
-          count += size
-          if count >= count_before
-            count = count_type_for_resource(name, q)
-            break unless count.positive?
-            if count >= 2 * count_before
-              raise "I have been attempting to delete #{name} data for twice as long as expected. "\
-                    "Started with #{count_before} entries, now there are #{count}. Aborting."
-            end
-          end
-          size *= 2 if time_delta < 30 and size < 16_000
-          sleep(delay)
+        log("--TB DELETE (count: #{count_before} batch: #{size}):")
+        if count_before.nil? || ! count_before.positive?
+          log('-- Nothing to delete.')
+          return
         end
+        query("CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize:#{size} })")
       end
 
       def count_type_for_resource(name, q)
