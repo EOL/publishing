@@ -68,8 +68,12 @@ module DataHelper
     elsif val = data[:literal]
       parts << unlink(val).html_safe
     else
-      parts << "CORRUPTED VALUE:"
-      parts <<  value
+      if @associations && data[:object_page_id].nil?
+        parts << "NIL OBJECT_PAGE_ID for trait #{data[:eol_pk]}"
+      else
+        parts << "CORRUPTED VALUE:"
+        parts <<  value
+      end
     end
 
     parts.join(" ")
