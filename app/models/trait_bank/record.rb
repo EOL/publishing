@@ -35,10 +35,14 @@ class TraitBank
       end
 
       def i18n_inverse_name(record)
-        name = i18n_attr_for_locale(record, :inverse_name, I18n.locale)
+        if record[:is_symmetrical_association]
+          name = i18n_name(record)
+        else
+          name = i18n_attr_for_locale(record, :inverse_name, I18n.locale)
 
-        if name.nil?
-          name = I18n.t('term.inverse_name.fallback', term_name: i18n_name(record))
+          if name.nil?
+            name = I18n.t('term.inverse_name.fallback', term_name: i18n_name(record))
+          end
         end
 
         name
