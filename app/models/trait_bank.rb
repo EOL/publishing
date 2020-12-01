@@ -404,23 +404,34 @@ class TraitBank
     end
 
     def key_data(page_id, limit)
-      Rails.cache.fetch("trait_bank/key_data/#{page_id}/v3/limit_#{limit}", expires_in: 1.day) do
+      Rails.cache.fetch("trait_bank/key_data/#{page_id}/v4/limit_#{limit}", expires_in: 1.day) do
         # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
-        q = "MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait) "\
-          "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
-          "WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false })) "\
-          "WITH predicate, head(collect(trait)) as trait "\
-          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page) "\
-          "RETURN trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term "\
-          "LIMIT #{limit}"
+        q = %Q(
+          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait),
+          (trait)-[:predicate]->(predicate:Term)
+          WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))
+          WITH page, predicate, head(collect(trait)) AS trait
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          WITH collect({ page_assoc_role: 'subject', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS subj_rows  
+          MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          (trait)-[:predicate]->(predicate:Term)
+          WHERE predicate.is_hidden_from_overview <> true
+          WITH object_page, predicate, subj_rows, head(collect(trait)) AS trait
+          MATCH (page:Page)-[:trait]->(trait)
+          WITH collect({ page_assoc_role: 'object', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS obj_rows, subj_rows
+          UNWIND (subj_rows + obj_rows) AS row
+          WITH row.page_assoc_role AS page_assoc_role, row.page AS page, row.object_page AS object_page, row.predicate AS predicate, row.trait AS trait
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN page, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, page_assoc_role
+          LIMIT #{limit}
+        )
 
         res = query(q)
-        build_trait_array(res).collect { |r| [r[:predicate], r] }.to_h
+        build_trait_array(res)
       end
     end
 

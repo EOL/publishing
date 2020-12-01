@@ -125,6 +125,9 @@ class PagesController < ApplicationController
     set_noindex_if_needed(@page)
     @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
+    @key_data = @page.key_data.map do |trait|
+      [TraitGroup.new(trait[:predicate], trait[:page_assoc_role].to_sym), trait]
+    end.to_h
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
     @associations = build_associations(@page.data)
@@ -618,7 +621,7 @@ private
   class TraitGroup
     VALID_TYPES = [:subject, :object]
 
-    attr_reader :uri, :type
+    attr_reader :term, :uri, :type
 
     def initialize(term, type)
       raise TypeError, "type #{type} invalid" unless VALID_TYPES.include?(type)
