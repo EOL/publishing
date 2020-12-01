@@ -173,7 +173,7 @@ class Resource < ApplicationRecord
 
   def remove_content
     # Traits:
-    count = TraitBank.count_by_resource_no_cache(id)
+    count = TraitBank.count_relationships_and_nodes_by_resource_no_cache(id)
     if count.zero?
       log("No traits, skipping.")
     else

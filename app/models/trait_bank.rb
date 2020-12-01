@@ -59,11 +59,11 @@ class TraitBank
 
     def count_by_resource(id)
       Rails.cache.fetch("trait_bank/count_by_resource/#{id}") do
-        count_by_resource_no_cache(id)
+        count_relationships_and_nodes_by_resource_no_cache(id)
       end
     end
 
-    def count_by_resource_no_cache(id)
+    def count_relationships_and_nodes_by_resource_no_cache(id)
       res = query(
         "MATCH (res:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[#{TRAIT_RELS}]-(page:Page) "\
         "USING INDEX res:Resource(resource_id) "\
