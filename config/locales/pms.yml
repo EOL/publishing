@@ -1343,6 +1343,23 @@ pms:
         http://eol(dot)org/schema/terms/CNRatio: rapòrt carbon su asòt
         http://eol(dot)org/schema/terms/CalcareousSoilTolerance: toleransa al teren
           calcari
+        http://eol(dot)org/schema/terms/CapitulumLength: Longheur dla fiorìa
+        http://eol(dot)org/schema/terms/CarapaceLength: Longheur dël carapass
+        http://eol(dot)org/schema/terms/CarbohydrateCompositionOfMilk: composission
+          dël làit an carboidrà
+        http://eol(dot)org/schema/terms/CaudalFinShape: forma dl'ala caudal
+        http://eol(dot)org/schema/terms/CellDepth: profondeur dla célula
+        http://eol(dot)org/schema/terms/CellLength: longheur dla célula
+        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: maxÀrea/maxVolum
+          ëd la célula
+        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: minÀrea/minVolum
+          ëd la célula
+        http://eol(dot)org/schema/terms/CellShape3D: forma dla célula tridimensional
+        http://eol(dot)org/schema/terms/CellShapeFrontal: forma dla célula pian frontal
+        http://eol(dot)org/schema/terms/CellShapeMedian: forma dla célula pian median
+        http://eol(dot)org/schema/terms/CellShapeTransverse: forma dla célula pian
+          trasversal
+        http://eol(dot)org/schema/terms/CellSurfaceArea: àrea ëd surfassa dla célula
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
