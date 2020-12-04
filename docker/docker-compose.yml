@@ -92,6 +92,10 @@ services:
       - ./resources/templates/apoc.conf:/conf/apoc.conf
     networks:
       - eolnet
+    ports:
+      - 7473:7473
+      - 7474:7474
+      - 7687:7687
   mysql:
     image: mysql:5.7.31
     container_name: eol_publishing_mysql_ENV
