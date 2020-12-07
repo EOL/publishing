@@ -16,6 +16,6 @@
       = ff.hidden_field term_id_name, :class => "js-typeahead-field js-term-id"
       - show_error(ff.object, term_id_name)
       - if local_assigns.fetch(:nested_selects, false)
-        = ff.hidden_field "root_#{term_id_name}", :class => "js-typeahead-field js-top-term-uri"
+        = ff.hidden_field "root_#{term_id_name}", :class => "js-typeahead-field js-top-term-id"
         .js-term-select-contain.term-select-contain
           = nested_term_selects(ff, field_name)
