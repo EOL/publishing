@@ -23,6 +23,8 @@ class Publishing
     end
 
     def load_local_file(klass, file)
+      new_log
+      set_relationships
       @klass = klass
       @data_file = file
       @log.start("One-shot manual import of #{@klass} starting...")
