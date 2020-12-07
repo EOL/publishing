@@ -433,7 +433,7 @@ class TraitBank
       def letters_for_glossary
         Rails.cache.fetch("trait_bank/letters_for_glossary", expires_in: CACHE_EXPIRATION_TIME) do
           q = "MATCH (term:Term{ is_hidden_from_glossary: false })\n"\
-              "WITH CASE substring(toLower(term.name), 0, 1) END AS letter\n"\
+              "WITH substring(toLower(term.name), 0, 1) AS letter\n"\
               "RETURN DISTINCT letter\n"\
               "ORDER BY letter"
           res = query(q)
