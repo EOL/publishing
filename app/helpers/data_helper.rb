@@ -41,10 +41,12 @@ module DataHelper
     end
   end
 
-  def data_value(data)
+  def data_value(data, options={})
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
-    if @associations && (target_id = data[:object_page_id])
+
+    if @associations && data[:object_page_id]
+      target_id = options[:page_is_assoc_obj] ? data[:page_id] : data[:object_page_id]
       page = @associations[target_id]
       unless page
         Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
@@ -66,8 +68,12 @@ module DataHelper
     elsif val = data[:literal]
       parts << unlink(val).html_safe
     else
-      parts << "CORRUPTED VALUE:"
-      parts <<  value
+      if @associations && data[:object_page_id].nil?
+        parts << "NIL OBJECT_PAGE_ID for trait #{data[:eol_pk]}"
+      else
+        parts << "CORRUPTED VALUE:"
+        parts <<  value
+      end
     end
 
     parts.join(" ")
@@ -94,11 +100,9 @@ module DataHelper
       uri
     end
   end
-      
 
-
-  def show_data_value(data)
-    value = data_value(data)
+  def show_data_value(data, options={})
+    value = data_value(data, options)
 
     haml_tag_if(data[:object_term], "div.a.js-data-val") do
       haml_concat value.html_safe # Traits allow HTML.

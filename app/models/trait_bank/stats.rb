@@ -422,8 +422,8 @@ class TraitBank
       end
 
       def check_predicate(predicate)
-        if predicate.type != "measurement"
-          return CheckResult.invalid("predicate type must be 'measurement'")
+        if predicate.nil?
+          return CheckResult.invalid("predicate can't be nil")
         end
 
         CheckResult.valid

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: EugeneZelenko
+# Author: Kareyac
 # Author: Optilete
 # Author: Pyscowicz
 # Author: Robby
@@ -139,8 +140,8 @@ qqq:
           in this location or region
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: The growing season of
           a plant.  The time of year when a plant has its most active growth.
-        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: 'Indicates the relative
-          rate of regrowth of a herbaceous plant after a harvest of above ground herbage. '
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: Indicates the relative
+          rate of regrowth of a herbaceous plant after a harvest of above ground herbage.
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: Age at which both eyes are
           fully open after birth.
         http://eol(dot)org/schema/terms/AgeAtMaturity: Age at the first successful
@@ -152,8 +153,8 @@ qqq:
         http://eol(dot)org/schema/terms/BillLength: Length of the bill.
         http://eol(dot)org/schema/terms/Bioluminescent: Has this organism been observed
           to produce and transmit light?
-        http://eol(dot)org/schema/terms/BloatPotential: 'The relative potential of
-          an herbaceous plant to cause bloat in livestock. '
+        http://eol(dot)org/schema/terms/BloatPotential: The relative potential of
+          an herbaceous plant to cause bloat in livestock.
         http://eol(dot)org/schema/terms/BloomColor: The color of the water or other
           matrix in which an organism has reached an unusually high number
         http://eol(dot)org/schema/terms/BloomPeriod: The seasonal period in the U.S.
@@ -165,7 +166,7 @@ qqq:
           species breeds.
         http://eol(dot)org/schema/terms/BrowseAnimalPalatability: The relative palatability
           of the plant to browsing animals.
-        http://eol(dot)org/schema/terms/BudSource: 'Location of bud bank for resprouting. '
+        http://eol(dot)org/schema/terms/BudSource: Location of bud bank for resprouting.
         http://eol(dot)org/schema/terms/CITES_I: Appendix I lists species that are
           the most endangered among CITES-listed animals and plants. They are threatened
           with extinction and CITES prohibits international trade in specimens of
@@ -192,15 +193,15 @@ qqq:
           or illegal exploitation. International trade in specimens of species listed
           in this Appendix is allowed only on presentation of the appropriate permits
           or certificates. (See Article V of the Convention)
-        http://eol(dot)org/schema/terms/CNRatio: 'The percentage of organic carbon
-          divided by the percentage of total nitrogen in organic material. '
+        http://eol(dot)org/schema/terms/CNRatio: The percentage of organic carbon
+          divided by the percentage of total nitrogen in organic material.
         http://eol(dot)org/schema/terms/CalcareousSoilTolerance: The relative tolerance
           of the plant to calcareous soil. Calcareous soil is defined as soil containing
           sufficient free CaCO3 and other carbonates to effervesce visibly or audibly
           when treated with cold 0.1M HCl. These soils usually contain from 10 to
           almost 1000g/kg CaCO3 equivalent.
-        http://eol(dot)org/schema/terms/CaudalFinShape: 'Any measurable or observable
-          characteristic related to the shape of a caudal fin. '
+        http://eol(dot)org/schema/terms/CaudalFinShape: Any measurable or observable
+          characteristic related to the shape of a caudal fin.
         http://eol(dot)org/schema/terms/CellDepth: A 1D measurement of a single cell.
           Typically, this is the distance along a straight line connecting the dorsal-most
           part of the cell to the ventral-most part of the cell. It is perpendicular
@@ -208,20 +209,20 @@ qqq:
         http://eol(dot)org/schema/terms/CellLength: A 1D measurement of a single cell
           along its longest axis. Typically, this is the distance along a straight
           line connecting the anterior-most point and the posterior-most point.
-        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: 'ratio of Maximum
-          Cell Surface Area to Maximum Cell Volume.  '
-        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: 'ratio of Minimum
-          Cell Surface Area to Minimum Cell Volume.  '
+        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: ratio of Maximum
+          Cell Surface Area to Maximum Cell Volume.
+        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: ratio of Minimum
+          Cell Surface Area to Minimum Cell Volume.
         http://eol(dot)org/schema/terms/CellShape3D: Three dimensional cell shape
         http://eol(dot)org/schema/terms/CellShapeFrontal: Two dimensional shape of
           a cross section of the cell dividing it into dorsal and ventral portions
           (frontal plane).
-        http://eol(dot)org/schema/terms/CellShapeMedian: "Two dimensional shape of
+        http://eol(dot)org/schema/terms/CellShapeMedian: Two dimensional shape of
           a cross section of the cell dividing it into left and right portions (median
-          plane).\r "
-        http://eol(dot)org/schema/terms/CellShapeTransverse: "Two dimensional shape
+          plane).
+        http://eol(dot)org/schema/terms/CellShapeTransverse: Two dimensional shape
           of a cross section of the cell dividing it into anterior and posterior portions
-          (transverse plane).\r "
+          (transverse plane).
         http://eol(dot)org/schema/terms/CellSurfaceArea: Surface area of a cell.
         http://eol(dot)org/schema/terms/CellWidth: A 1D measurement of a single cell.
           Typically, this is the distance along a straight line connecting the left-most
@@ -232,8 +233,8 @@ qqq:
         http://eol(dot)org/schema/terms/ChlorophyllAConcentration: concentration of
           chlorophyll A in seawater at a location where this organism has been observed
           or collected.
-        http://eol(dot)org/schema/terms/ChloroplastLocation: 'Place within a cell
-          where the chloroplasts can be found. '
+        http://eol(dot)org/schema/terms/ChloroplastLocation: Place within a cell where
+          the chloroplasts can be found.
         http://eol(dot)org/schema/terms/ChloroplastNumber: Quantity of chloroplasts
         http://eol(dot)org/schema/terms/ChloroplastQuantity: A qualitative measure
           of individual chloroplasts present in a cell
@@ -295,8 +296,8 @@ qqq:
           is extant (living today) or extinct.
         http://eol(dot)org/schema/terms/FireResistance: The ability of an organism
           to resist burning.
-        http://eol(dot)org/schema/terms/FireTolerance: 'The relative ability of a
-          plant to resprout, regrow, or reestablish from residual seed after a fire. '
+        http://eol(dot)org/schema/terms/FireTolerance: The relative ability of a plant
+          to resprout, regrow, or reestablish from residual seed after a fire.
         http://eol(dot)org/schema/terms/FoliagePorositySummer: Indicates the porosity
           (coverage) of the foliage during the summer months.  Foliage porosity is
           an important factor when trees or shrubs are used as windbreaks for the
@@ -310,10 +311,11 @@ qqq:
         http://eol(dot)org/schema/terms/FoliageTexture: The general texture of the
           plant’s foliage relative to other species with the same growth habit, e.g.,
           fine/smooth, medium, coarse/rough.
-        http://eol(dot)org/schema/terms/ForagingHabitat: 'Primary habitat where the
-          species forages during the breeding season.  '
-        http://eol(dot)org/schema/terms/ForagingTime: "Time of day when adults forage
-          during\r the breeding season."
+        http://eol(dot)org/schema/terms/ForagingHabitat: Primary habitat where the
+          species forages during the breeding season.
+        http://eol(dot)org/schema/terms/ForagingTime: |-
+          Time of day when adults forage during
+           the breeding season.
         http://eol(dot)org/schema/terms/FossilFirst: The first appearance of this
           taxon in the fossil record.
         http://eol(dot)org/schema/terms/FossilLast: The last appearance of this taxon
@@ -322,8 +324,8 @@ qqq:
           days within the plant’s known geographical range. For cultivars, the geographical
           range is defined as the area to which the cultivar is well adapted rather
           than marginally adapted.
-        http://eol(dot)org/schema/terms/FruitPersistence: "Are the fruit or seed generally
-          recognized as being persistent on the plant?\r "
+        http://eol(dot)org/schema/terms/FruitPersistence: Are the fruit or seed generally
+          recognized as being persistent on the plant?
         http://eol(dot)org/schema/terms/FruitSeedColor: The predominant and conspicuous
           color of the mature fruit or seed from a landscaping aesthetics standpoint.
         http://eol(dot)org/schema/terms/FuelwoodSuitability: 'The relative suitability
@@ -355,9 +357,9 @@ qqq:
           the wind or the ocean.
         http://eol(dot)org/schema/terms/HasToxin: A toxic substance has been chemically
           detected and identified in this organism
-        http://eol(dot)org/schema/terms/HeadBodyLength: 'Head-body length is the total
+        http://eol(dot)org/schema/terms/HeadBodyLength: Head-body length is the total
           length from tip of nose to anus, base of tail or vent (i.e. tail length
-          is excluded).  '
+          is excluded).
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: The distance from the
           head to the caudal vertebrae in the coccygeal region.
         http://eol(dot)org/schema/terms/HedgeTolerance: The relative tolerance of
@@ -375,8 +377,8 @@ qqq:
           of an organism to either humans or livestock.
         http://eol(dot)org/schema/terms/HumanPopulationDensity: The human population
           density within the geographic range of a taxon.
-        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: 'Rate of increase
-          in human population density within the geographic range of a species. '
+        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: Rate of increase
+          in human population density within the geographic range of a species.
         http://eol(dot)org/schema/terms/HypoconeShape: An approximation of the 3D
           shape of the hypocone described using one or more geometric solids.
         http://eol(dot)org/schema/terms/InitialMortalityRate: The initial mortality
@@ -410,11 +412,11 @@ qqq:
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: 'The mortality
           rate doubling time (MRDT) is considered to be a measure of the rate of ageing.  It
           is estimated from the slope of the Gompertz curve by: MRDT = 0.693/G  where
-          G is the exponential (Gompertz) mortality rate coefficient. '
+          G is the exponential (Gompertz) mortality rate coefficient.'
         http://eol(dot)org/schema/terms/NativeRange: Lists jurisdictions in which
           a given organism is a member of the undisturbed fauna or flora.
-        http://eol(dot)org/schema/terms/NestType: 'The most common nest type used
-          by a species. '
+        http://eol(dot)org/schema/terms/NestType: The most common nest type used by
+          a species.
         http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: number of new
           species published between 1999 and 2008 (Appeltans et al. 2012. The Magnitude
           of Global Marine Species Diversity. Current Biology 22, 2189–2202. http://dx.doi.org/10.1016/j.cub.2012.09.036)
@@ -423,9 +425,9 @@ qqq:
           due to its negative impact on human welfare or ecosystems.
         http://eol(dot)org/schema/terms/NucleusLocation: The location of the nucleus
           within a eukaryotic cell.
-        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: "number of DNA records
+        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: number of DNA records
           in this clade in the Global Genome Biodiversity Network (GGBN) repository
-          of genome quality tissues.\r "
+          of genome quality tissues.
         http://eol(dot)org/schema/terms/NumberOfHosts: number of host species required
           to complete the lifecycle of this organism
         http://eol(dot)org/schema/terms/NumberOfSequencesInGenBank: number of sequences
@@ -434,8 +436,8 @@ qqq:
           in this clade in the Barcode Of Life Database (BOLD)
         http://eol(dot)org/schema/terms/NumberRecordsInBOLD: number of records for
           taxa in this clade in the Barcode of Life Database (BOLD)
-        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: 'number of records for
-          taxa in this clade in the Global Biodiversity Information Facility (GBIF) '
+        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: number of records for
+          taxa in this clade in the Global Biodiversity Information Facility (GBIF)
         http://eol(dot)org/schema/terms/NumberReferencesInBHL: number of references
           to taxa in this clade in the Biodiversity Heritage Library
         http://eol(dot)org/schema/terms/NumberSpecimensInGGBN: number of records in
@@ -542,8 +544,8 @@ qqq:
           to resprout following top (above ground biomass) removal.
         http://eol(dot)org/schema/terms/RespDist: Resprouting ability after an undefined
           disturbance that removed most of the aboveground biomass.
-        http://eol(dot)org/schema/terms/RespFire: 'Resprouting ability one year after
-          being ca. 100% scorched or burned by fire. '
+        http://eol(dot)org/schema/terms/RespFire: Resprouting ability one year after
+          being ca. 100% scorched or burned by fire.
         http://eol(dot)org/schema/terms/ResproutAbility: The ability of woody perennials
           to resprout following top (above ground biomass) removal.
         http://eol(dot)org/schema/terms/Salinity: Dissolved salt concentration in
@@ -572,8 +574,9 @@ qqq:
           polygamomonoecy, apomixis, etc.
         http://eol(dot)org/schema/terms/ShadeTolerance: The relative tolerance of
           the plant to shade conditions
-        http://eol(dot)org/schema/terms/ShellHeightBivalve: "\r Height (shorter dimension
-          in the plane of the valve) of the shell of a Bivalve."
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: |2-
+
+           Height (shorter dimension in the plane of the valve) of the shell of a Bivalve.
         http://eol(dot)org/schema/terms/ShellLengthBivalve: Length (longest dimension)
           of the shell of a Bivalve.
         http://eol(dot)org/schema/terms/ShootRootRatio: The quotient of the dry weight
@@ -612,12 +615,12 @@ qqq:
           sulcus
         http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: Length
           of the tarsometatarsus + length of the middle toe.
-        http://eol(dot)org/schema/terms/TarsusLength: "Length of the tarsus.  In birds
-          length of the tarsometatarsus (fusion of ankle and foot bones).\r "
+        http://eol(dot)org/schema/terms/TarsusLength: Length of the tarsus.  In birds
+          length of the tarsometatarsus (fusion of ankle and foot bones).
         http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: The temperature
           at the range midpoint latitude of an organism.
-        http://eol(dot)org/schema/terms/TemperatureInRange: 'Monthly temperature within
-          the geographic range of a taxon.  '
+        http://eol(dot)org/schema/terms/TemperatureInRange: Monthly temperature within
+          the geographic range of a taxon.
         http://eol(dot)org/schema/terms/TemperatureTolerance: The minimum tolerable
           temperature is the lowest temperature recorded in the plant’s historical
           range. If this is not available, the record low January temperature recorded
@@ -636,10 +639,9 @@ qqq:
           in this clade (known + undescribed + undiscovered) (estimate based on expert
           opinion) (Appeltans et al. 2012. The Magnitude of Global Marine Species
           Diversity. Current Biology 22, 2189–2202. http://dx.doi.org/10.1016/j.cub.2012.09.036)
-        http://eol(dot)org/schema/terms/TotalUnknownSpeciesExpert: "Total species
-          unknown in this clade (undescribed + undiscovered) (estimate based on\r
-          expert opinion) (Appeltans et al. 2012. The Magnitude of Global Marine Species
-          Diversity. Current Biology 22, 2189–2202. http://dx.doi.org/10.1016/j.cub.2012.09.036)\""
+        http://eol(dot)org/schema/terms/TotalUnknownSpeciesExpert: |-
+          Total species unknown in this clade (undescribed + undiscovered) (estimate based on
+           expert opinion) (Appeltans et al. 2012. The Magnitude of Global Marine Species Diversity. Current Biology 22, 2189–2202. http://dx.doi.org/10.1016/j.cub.2012.09.036)"
         http://eol(dot)org/schema/terms/TotalUnknownSpeciesStatisticalModel: total
           species unknown in this clade (estimate based on a statistical model) (Appeltans
           et al. 2012. The Magnitude of Global Marine Species Diversity. Current Biology
@@ -695,15 +697,15 @@ qqq:
         http://eol(dot)org/schema/terms/alternatingReproduction: Organisms with a
           life cycle that features alternation of generations with sexual and asexual
           reproduction.
-        http://eol(dot)org/schema/terms/ambush: 'organisms that capture or trap prey
+        http://eol(dot)org/schema/terms/ambush: organisms that capture or trap prey
           by stealth or by strategy (typically not conscious strategy), rather than
-          by speed or by strength. '
+          by speed or by strength.
         http://eol(dot)org/schema/terms/amphibious: organism that is adapted to both
           life on land and in the water.
         http://eol(dot)org/schema/terms/androviviparous: Having paternal care wherein
           eggs are incubated internally by the father, and young emerge post-hatching
-        http://eol(dot)org/schema/terms/anemochory: "Seed dispersal by wind (with
-          wind dispersal adaptations, such as pappus or wings).\r "
+        http://eol(dot)org/schema/terms/anemochory: Seed dispersal by wind (with wind
+          dispersal adaptations, such as pappus or wings).
         http://eol(dot)org/schema/terms/aquatic: organism that is adapted to life
           in the water
         http://eol(dot)org/schema/terms/areaToMassRatio: Quotient (or ratio) of surface
@@ -713,8 +715,8 @@ qqq:
           but it is unknown).
         http://eol(dot)org/schema/terms/autochory: Seed dispersal by gravity, without
           the assistance of any dispersal vector (= unassisted dispersal).
-        http://eol(dot)org/schema/terms/ballistichory: "Dehiscence of fruit occurs
-          as an explosion, launching seeds far away from the plant (= ballochory).\r "
+        http://eol(dot)org/schema/terms/ballistichory: Dehiscence of fruit occurs
+          as an explosion, launching seeds far away from the plant (= ballochory).
         http://eol(dot)org/schema/terms/benthic: Living at the bottom of a body of
           water.
         http://eol(dot)org/schema/terms/bodyMassWet: Mass of one individual of this
@@ -757,12 +759,12 @@ qqq:
           tapping into available resources. Competitors do this through a combination
           of favorable characteristics, including rapid growth rate, high productivity
           and high capacity for phenotypic plasticity.
-        http://eol(dot)org/schema/terms/cone: "{definition missing}"
-        http://eol(dot)org/schema/terms/conservationDependent: 'The category is part
+        http://eol(dot)org/schema/terms/cone: '{definition missing}'
+        http://eol(dot)org/schema/terms/conservationDependent: The category is part
           of the IUCN 1994 Categories & Criteria (version 2.3), which is no longer
           used in evaluation of taxa, but persists in the IUCN Red List for taxa evaluated
           prior to 2001. It was assigned to species or lower taxa which were dependent
-          on conservation efforts to prevent the taxon becoming threatened with extinction. '
+          on conservation efforts to prevent the taxon becoming threatened with extinction.
         http://eol(dot)org/schema/terms/copepodid3: The third post-naupliar life stage
           of a copepod. All copepodid stages are characterised by two pairs of unsegmented
           swimming appendages, and an unsegmented "hind-body" comprising the thorax
@@ -782,7 +784,7 @@ qqq:
           interlocking branches and also have short upright branchlets, usually used
           for some Acropora species
         http://eol(dot)org/schema/terms/criticallyEndangered: "A taxon is Critically
-          Endangered when the best available evidence indicates that it meets \r any
+          Endangered when the best available evidence indicates that it meets \n any
           of the criteria A to E for Critically Endangered, and it is therefore considered
           to be facing an extremely high risk of extinction in the wild"
         http://eol(dot)org/schema/terms/cruising: An organism which obtains food by
@@ -805,9 +807,9 @@ qqq:
           The migration occurs when organisms move up to the epipelagic zone at night
           and return to the mesopelagic zone of the oceans or to the hypolimnion zone
           of lakes during the day
-        http://eol(dot)org/schema/terms/droughtSemiDeciduous: "A plant that drops
-          part of its leaves during the dry period (excluding species that exceptionally
-          drop leaves in very dry periods).\r "
+        http://eol(dot)org/schema/terms/droughtSemiDeciduous: A plant that drops part
+          of its leaves during the dry period (excluding species that exceptionally
+          drop leaves in very dry periods).
         http://eol(dot)org/schema/terms/dryFruit: A fruit that lacks succulent tissue
           at maturity.
         http://eol(dot)org/schema/terms/dwarfMales: sexual dimorphism where the body
@@ -824,7 +826,7 @@ qqq:
           area
         http://eol(dot)org/schema/terms/eggYolky: Yolk is visible in the egg.
         http://eol(dot)org/schema/terms/endangered: "A taxon is Endangered when the
-          best available evidence indicates that it meets any of the \r criteria A
+          best available evidence indicates that it meets any of the \n criteria A
           to E for Endangered, and it is therefore considered to be facing a very
           high risk of extinction in the wild."
         http://eol(dot)org/schema/terms/endozoochory: Seed dispersal via ingestion
@@ -841,26 +843,26 @@ qqq:
         http://eol(dot)org/schema/terms/epihydate: a plant with leaves and/or stems
           floating on the surface of the water but not rising above the water, roots
           penetrating the substrate.
-        http://eol(dot)org/schema/terms/epizoochory: "Seed dispersal by external animal
-          transport (= exozoochory).\r "
+        http://eol(dot)org/schema/terms/epizoochory: Seed dispersal by external animal
+          transport (= exozoochory).
         http://eol(dot)org/schema/terms/excavating: An organism which obtains food
           by excavating
         http://eol(dot)org/schema/terms/explanate: colonies spread horizontally as
           branches fuse into a solid or near solid plate
         http://eol(dot)org/schema/terms/extinct: "A taxon is Extinct when there is
-          no reasonable doubt that the last individual has died. A \r taxon is presumed
-          Extinct when exhaustive surveys in known and/or expected habitat, \r at
+          no reasonable doubt that the last individual has died. A \n taxon is presumed
+          Extinct when exhaustive surveys in known and/or expected habitat, \n at
           appropriate times (diurnal, seasonal, annual), throughout its historic range
-          have failed \r to record an individual. Surveys should be over a time frame
-          appropriate to the taxon’s \r life cycle and life form."
+          have failed \n to record an individual. Surveys should be over a time frame
+          appropriate to the taxon’s \n life cycle and life form."
         http://eol(dot)org/schema/terms/extinctInTheWild: "A taxon is Extinct in the
-          Wild when it is known only to survive in cultivation, in captivity \r or
+          Wild when it is known only to survive in cultivation, in captivity \n or
           as a naturalized population (or populations) well outside the past range.
-          A taxon is \r presumed Extinct in the Wild when exhaustive surveys in known
-          and/or expected habitat, \r at appropriate times (diurnal, seasonal, annual),
-          throughout its historic range have failed \r to record an individual. Surveys
-          should be over a time frame appropriate to the taxon’s \r life cycle and
-          life form. \r "
+          A taxon is \n presumed Extinct in the Wild when exhaustive surveys in known
+          and/or expected habitat, \n at appropriate times (diurnal, seasonal, annual),
+          throughout its historic range have failed \n to record an individual. Surveys
+          should be over a time frame appropriate to the taxon’s \n life cycle and
+          life form."
         http://eol(dot)org/schema/terms/farming_symbiotroph: A consumer that acquires
           nutrition by consuming an autotrophic symbiont growing on its body
         http://eol(dot)org/schema/terms/feedingCurrent: An organism which obtains
@@ -872,8 +874,8 @@ qqq:
         http://eol(dot)org/schema/terms/fossilOccPBDB: The number of fossil occurrences
           in the Paleobiology Database (https://paleobiodb.org) that are identified
           as belonging to a particular taxon or any of its subtaxa.
-        http://eol(dot)org/schema/terms/fossorialOrGround: 'An organism that is adapted
-          to terrestrial life below ground, on or near the ground.  '
+        http://eol(dot)org/schema/terms/fossorialOrGround: An organism that is adapted
+          to terrestrial life below ground, on or near the ground.
         http://eol(dot)org/schema/terms/fructose: free-standing branching tubes
         http://eol(dot)org/schema/terms/gonadRatioFemaleToMale: Ratio of female:male
           gonads in a hermaphroditic organism
@@ -909,10 +911,10 @@ qqq:
           than 59.
         http://eol(dot)org/schema/terms/highNitrogenFixation: Plants with high nitrogen
           fixation. More than 160 lb nitrogen per acre per year fixed in monoculture.
-        http://eol(dot)org/schema/terms/hispidose: "(equivalent to ‘bottlebrush’)
-          describes branching where sub-branches radiate in all directions from main
-          branches and where corallites on sub-branches are generally elongate. Applied
-          only to the genus Acropora"
+        http://eol(dot)org/schema/terms/hispidose: (equivalent to ‘bottlebrush’) describes
+          branching where sub-branches radiate in all directions from main branches
+          and where corallites on sub-branches are generally elongate. Applied only
+          to the genus Acropora
         http://eol(dot)org/schema/terms/hydrochory: Seed dispersal by water.
         http://eol(dot)org/schema/terms/hyperhydate: an emergent plant, with leaves
           and/or stems emerging well beyond the water surface, roots penetrating the
@@ -1006,8 +1008,8 @@ qqq:
           the summer solstice and the autumnal equinox.
         http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: Zone C, per
           the Circumpolar Arctic Vegetation Map (CAVM Team 2003)
-        http://eol(dot)org/schema/terms/migratory: 'makes regular daily or seasonal
-          movements between different regions or habitats '
+        http://eol(dot)org/schema/terms/migratory: makes regular daily or seasonal
+          movements between different regions or habitats
         http://eol(dot)org/schema/terms/min_internal_ammonium_for_growth: minimum
           cell content of ammonium at which growth ceases
         http://eol(dot)org/schema/terms/min_internal_nitrate_for_growth: minimum cell
@@ -1027,16 +1029,17 @@ qqq:
           or a sheet of mucus to capture food particles suspended in the water column
         http://eol(dot)org/schema/terms/myrmecochory: Seed dispersal by ants.
         http://eol(dot)org/schema/terms/nearThreatened: "A taxon is Near Threatened
-          when it has been evaluated against the criteria but does not \r qualify
+          when it has been evaluated against the criteria but does not \n qualify
           for Critically Endangered, Endangered or Vulnerable now, but is close to
-          qualifying \r for or is likely to qualify for a threatened category in the
+          qualifying \n for or is likely to qualify for a threatened category in the
           near future."
         http://eol(dot)org/schema/terms/nektobenthic: Active swimming organisms that
           live near the bottom a body of water.
         http://eol(dot)org/schema/terms/net_carbon_fixation_rate: net amount or mass
           of carbon converted from CO2 to organic compounds, per time
-        http://eol(dot)org/schema/terms/no: This statement is false; the answer to
-          this question is no.
+        http://eol(dot)org/schema/terms/no: |-
+          This statement is false; the answer to this question is no.
+          {{identical|No}}
         http://eol(dot)org/schema/terms/non-woodyEpipyte: Non-woody plants growing
           attached to external support without contact to the ground. Non-woody hemiepiphytes
           either germinate on other plants and then establish roots in the ground,
@@ -1180,7 +1183,7 @@ qqq:
           germinate in the first favourable season after dispersal. Generally, seed
           bank longevity is <= 1 yr (no persistent seed bank).
         http://eol(dot)org/schema/terms/transverseDivision: "a common mode of asexual
-          reproduction among \r skeletonless coelenterates and also in some skeletal
+          reproduction among \n skeletonless coelenterates and also in some skeletal
           anthozoans (division of the soft body must be associated with division of
           the skeleton)."
         http://eol(dot)org/schema/terms/turbidWater: Turbidity is the cloudiness or
@@ -1203,15 +1206,15 @@ qqq:
         http://eol(dot)org/schema/terms/veryLongPersistentSeedBank: Of seed bank longevity.
           Seed bank longevity is at least >= 30 yr.
         http://eol(dot)org/schema/terms/vulnerable: "A taxon is Vulnerable when the
-          best available evidence indicates that it meets any of the \r criteria A
+          best available evidence indicates that it meets any of the \n criteria A
           to E for Vulnerable, and it is therefore considered to be facing a high
           risk of extinction in the wild."
         http://eol(dot)org/schema/terms/waveExposure: hydrodynamic exposure due to
           currents and tides
         http://eol(dot)org/schema/terms/whiteGrey: A color between white and black
           colors, closer to white.
-        http://eol(dot)org/schema/terms/winterDeciduous: "A plant that drops all its
-          leaves during the winter.\r "
+        http://eol(dot)org/schema/terms/winterDeciduous: A plant that drops all its
+          leaves during the winter.
         http://eol(dot)org/schema/terms/winterSemiDeciduous: A plant that drops part
           of its leaves during the winter, maintaining some brownish leaves in the
           crown.
@@ -1221,8 +1224,9 @@ qqq:
           on the ground and later disconnect from the soil
         http://eol(dot)org/schema/terms/yearRound: An activity or period that continues
           throughout the entire year.
-        http://eol(dot)org/schema/terms/yes: This statement is true; the answer to
-          this question is yes.
+        http://eol(dot)org/schema/terms/yes: |-
+          This statement is true; the answer to this question is yes.
+          {{identical|Yes}}
         http://eol(dot)org/schema/terms/zoochory: Seed dispersal mediated by animals.
         http://eol(dot)org/terms/endemic: This organism is known to be endemic to
           this location or region
@@ -1266,10 +1270,10 @@ qqq:
           modulating the availability of resources to other species, by causing physical
           state changes in biotic or abiotic materials; modifying, maintaining and/or
           creating habitats
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: 'Ventilation occurs
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: Ventilation occurs
           when animals flush their burrows with overlying water for respiratory and
           feeding purposes. Blind-ended ventilation occurs when I-shaped burrows are
-          flushed uni- or bidirectionally depending on the permeability of the sediment '
+          flushed uni- or bidirectionally depending on the permeability of the sediment
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: Downward conveyors
           exhibit a feeding strategy opposite to that of upward conveyors. Vertically
           oriented head-up feeders actively select and ingest particles at the surface
@@ -1307,8 +1311,8 @@ qqq:
           rate (BMR) is the amount of energy expended daily by humans and other animals
           at rest. Rest is defined as existing in a neutrally temperate environment
           while in the post-absorptive state.
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: "[A qualitative
-          descriptor of a size that is considerably more than typical.]"
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: '[A qualitative
+          descriptor of a size that is considerably more than typical.]'
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: The rate
           of increase in the size of an organism per unit time.
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/75367002: Blood pressure
@@ -1367,9 +1371,8 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: A calcium salt composed
           of calcium and phosphate/diphosohate ions; present in milk and used for
           the mineralisation of calcified tissues.
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 'A measurement of the
-          longest dimension of a body, typically between two distinct ends of the
-          body. '
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: A measurement of the longest
+          dimension of a body, typically between two distinct ends of the body.
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: The distance between the
           tip of the nose to the very end of the appendage extending from the end
           of the trunk of an organism
@@ -2562,9 +2565,9 @@ qqq:
           with a rate that varies from 0.3 - 5 cm / 1000 yr.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: A canopy designed to
           protect against precipitation or sunlight.
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: A skin obtained from
-          animals for human use typically from deer or cattle sources used to produce
-          leather, shoes, fashion accessories, musical instruments.
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: |-
+          A skin obtained from animals for human use typically from deer or cattle sources used to produce leather, shoes, fashion accessories, musical instruments.
+          {{identical|Hide}}
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000059: A soil consisting of
           the upper layer of soil on the surface consisting of loose material capable
           of supporting life composed of a mixture of mineral and organic matter.
@@ -2622,19 +2625,19 @@ qqq:
           has mammilian milk or a milk component as an ingredient.
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: Feed for domesticated
           animals
-        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: "Anadromous fish live
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: Anadromous fish live
           in the sea mostly, breed in fresh water; the best-known are salmon, which
           hatch in small freshwater streams, go down to the sea and live there for
           several years, then return to the same streams where they were hatched,
-          spawn, and die shortly thereafter.\r "
+          spawn, and die shortly thereafter.
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: Catadromous fish live
           in fresh water, breed in the sea; the most remarkable are freshwater eels
           of genus Anguilla, whose larvae drift on the open ocean, sometimes for months
           or years, before travelling thousands of kilometres back to their original
           streams.
-        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: "Amphidromous fish
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: Amphidromous fish
           move between fresh and salt water during some part of life cycle, but not
-          for breeding.\r "
+          for breeding.
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: Poultry, game bird
           or turtle eggs.
         http://purl(dot)obolibrary(dot)org/obo/GAZ_00000071: The largest scale biogeographic
@@ -2643,10 +2646,10 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: The production of new individuals
           that contain some portion of genetic material inherited from one or more
           parent organisms
-        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 'The process in which nitrogen
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: The process in which nitrogen
           is taken from its relatively inert molecular form (N2) in the atmosphere
           and converted into nitrogen compounds useful for other chemical processes,
-          such as ammonia, nitrate and nitrogen dioxide. '
+          such as ammonia, nitrate and nitrogen dioxide.
         http://purl(dot)obolibrary(dot)org/obo/GO_0009507: A chlorophyll-containing
           plastid with thylakoids organized into grana and frets, or stroma thylakoids,
           and embedded in a stroma.
@@ -2667,10 +2670,10 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/GO_0036268: Self-propelled movement
           of an organism from one location to another through water, often by means
           of active fin movement.
-        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 'Self-propelled movement
-          of a cell or organism from one location to another. '
-        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 'A reproductive behavior
-          in which a parent cares for and rears offspring. '
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: Self-propelled movement
+          of a cell or organism from one location to another.
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: A reproductive behavior
+          in which a parent cares for and rears offspring.
         http://purl(dot)obolibrary(dot)org/obo/GO_0097618: A dinoflagellate sulcus
           that extends all the way to the posterior end of the cell (also known as
           antapex). The presence of a sulcal notch makes the dinoflagellate hypocone
@@ -2683,13 +2686,13 @@ qqq:
           antapex found in thecate species
         http://purl(dot)obolibrary(dot)org/obo/GO_1990413: A small pigmented organelle
           used in single-celled organisms to detect light.
-        http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002084: " Is a persistent and
-          straightened-out movement effected by the animal's own locomotory exertions
+        http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002084: ' Is a persistent and
+          straightened-out movement effected by the animal''s own locomotory exertions
           or by its active embarkation on a vehicle such as wind. Migration depends
           on some temporary inhibition of station-keeping responses, but promotes
-          their eventual disinhibition and recurrence."
-        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: "[non-woody storage organs,
-          normally modified stems as bulbs, corms or tubers]"
+          their eventual disinhibition and recurrence.'
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: '[non-woody storage organs,
+          normally modified stems as bulbs, corms or tubers]'
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: A behavior that occurs
           predominantly or only, in individuals that are part of a group.
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: The act of locomoting
@@ -2709,9 +2712,9 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: Behavior related to the
           expansion lateral surface of the body with the intention of increasing the
           wind resistance against the body and hence reducing the speed of falling.
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: "(Bipedal jumping.) Behavior
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: (Bipedal jumping.) Behavior
           related to the upward thrust produced by the rapid, simultaneous extension
-          of the hind legs with the intend to rise in the air."
+          of the hind legs with the intend to rise in the air.
         http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: movement of an organism
           from one location to another using an inchworm like motion. This motion
           consists of extending the front part of the body and pulling the rear along
@@ -2745,8 +2748,8 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000075: The color of the part
           of the cytoplasm that does not contain organelles but which does contain
           other particulate matter, such as protein complexes.
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 'A 1D measurement of a
-          nucleus along its longest axis. '
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: A 1D measurement of a
+          nucleus along its longest axis.
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000084: A morphologic quality
           of the external part of the cell wall and/or plasma membrane by virtue of
           the cell's relative size, organization and distribution of its surface elements
@@ -2767,8 +2770,8 @@ qqq:
           characteristic related to the color of a chloroplast.
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000097: Any measurable or observable
           characteristic related to the size of a chloroplast.
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: "Any measurable or observable
-          characteristic related to the width of a dinoflagellate sulcus.\r "
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: Any measurable or observable
+          characteristic related to the width of a dinoflagellate sulcus.
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: The composition of a skeletal
           tissue.
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: Length of the epicone
@@ -2788,8 +2791,8 @@ qqq:
           of the posterior end of a dinoflagellate cell, typically the point of the
           hypocone, described as one or more geometric solids.
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000135: Shape of the apical horn
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000136: 'Shape of the antapical
-          horn. '
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000136: Shape of the antapical
+          horn.
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: The size of a multicellular
           organism
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroscopic, multicellular,
@@ -2799,13 +2802,14 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: A morphological quality
           inhering in a bearer by virtue of the bearer's ratios of distances between
           its features (points, edges, surfaces and also holes etc).
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000128: A physical quality inhering
-          in a bearer that has mass near a gravitational body.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000128: |-
+          A physical quality inhering in a bearer that has mass near a gravitational body.
+          {{identical|Weight}}
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000273: A reproductive quality
           inhering in an organism or population by virtue of the bearer's potential
           reproductive capacity and measured by the number of gametes.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: "A color that lacks any
-          hues as parts. \r "
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: A color that lacks any
+          hues as parts.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: A color hue with low
           wavelength of that portion of the visible spectrum lying between green and
           indigo, evoked in the human observer by radiant energy with wavelengths
@@ -2814,17 +2818,17 @@ qqq:
           wavelength of that portion of the visible spectrum lying between yellow
           and blue, evoked in the human observer by radiant energy with wavelengths
           of approximately 490 to 570 nanometers.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: 'A color hue with high
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: A color hue with high
           wavelength of the long-wave end of the visible spectrum, evoked in the human
           observer by radiant energy with wavelengths of approximately 630 to 750
-          nanometers. '
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: 'An achromatic color
-          of maximum brightness; the color of objects that reflect nearly all light
-          of all visible wavelengths. '
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: 'A color hue with medium
+          nanometers.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: An achromatic color of
+          maximum brightness; the color of objects that reflect nearly all light of
+          all visible wavelengths.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: A color hue with medium
           wavelength of that portion of the visible spectrum lying between orange
           and green, evoked in the human observer by radiant energy with wavelengths
-          of approximately 570 to 590 nanometers. '
+          of approximately 570 to 590 nanometers.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: Average.  A quality inhering
           in a bearer by virtue of the bearer's exhibiting no deviation from normal
           or average.
@@ -2842,22 +2846,22 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: A 1-D extent quality
           which is equal to the dimension through an object as opposed to its length
           or width
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 'A concave 3-D shape
-          quality inhering in a bearer by virtue of the bearer''s having a sinus or
-          rounded lobe at the base. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: A concave 3-D shape quality
+          inhering in a bearer by virtue of the bearer's having a sinus or rounded
+          lobe at the base.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: A color that falls about
           midway between red and blue in hue.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 'A color consisting of
-          dark orange, red, of very low intensity. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: A color consisting of
+          dark orange, red, of very low intensity.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: A color hue with high-medium
           wavelength that of that portion of the visible spectrum lying between red
           and yellow, evoked in the human observer by radiant energy with wavelengths
           of approximately 585 to 620 nanometers.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: having length notably
           greater than width
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 'A shape quality inhering
-          in a bearer by virtue of the bearer''s being narrow, with the two opposite
-          margins parallel. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: A shape quality inhering
+          in a bearer by virtue of the bearer's being narrow, with the two opposite
+          margins parallel.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: 'Increased life span:
           A life span which is relatively high.'
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: 'Decreased life span:
@@ -2867,10 +2871,10 @@ qqq:
           by natural process.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: 'Deciduous (plant):  A
           quality inhering in a plant by virtue of the bearer''s disposition to shed
-          foliage. '
+          foliage.'
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 'Evergreen (plant): A
           quality inhering in a plant by virtue of the bearer''s disposition to retain
-          foliage. '
+          foliage.'
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: A quality inhering in
           a plant by virtue of the bearer's disposition to being between evergeen
           and deciduous
@@ -2881,14 +2885,14 @@ qqq:
           convex surface with an axis of symmetry and one axis longer than the other.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: A color consisting of
           yellow and green hues.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: 'having distinct parts
-          arising from a common point or center. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: having distinct parts
+          arising from a common point or center.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: A shape quality inhering
           in a bearer by virtue of the bearer's being a quadrilateral with two parallel
           sides.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 'A composition quality
-          inhering in a bearer by virtue of the bearer''s being composed of more than
-          one identifiable entities. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: A composition quality
+          inhering in a bearer by virtue of the bearer's being composed of more than
+          one identifiable entities.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: having the form of a
           thin plate sheet or layer.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: A quality that has a
@@ -2898,20 +2902,19 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: Pyramid-shaped; having
           triangular faces that meet at a common point and containing a polygonal
           shaped base.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: 'A positional quality
-          inhering in a bearer by virtue of the bearer''s lying or growing on the
-          ground but with erect or rising tips. '
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: 'A quality inhering in
-          a bearer by virtue of the bearer''s width being notably higher than its
-          length. '
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: "Growing horizontal to
-          the ground without setting roots. \r "
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: "increased tolerance
-          to: A tolerance quality inhering in a bearer by virtue of the bearer's increased
-          ability to endure a stimulus. \r "
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: A positional quality
+          inhering in a bearer by virtue of the bearer's lying or growing on the ground
+          but with erect or rising tips.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: A quality inhering in
+          a bearer by virtue of the bearer's width being notably higher than its length.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: Growing horizontal to
+          the ground without setting roots.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: 'increased tolerance
+          to: A tolerance quality inhering in a bearer by virtue of the bearer''s
+          increased ability to endure a stimulus.'
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: 'decreased tolerance
           to: A tolerance quality inhering in a bearer by virtue of the bearer''s
-          decreased ability to endure a stimulus. '
+          decreased ability to endure a stimulus.'
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Open to view or not covered
           by another entity.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: A surface feature shape
@@ -2927,32 +2930,32 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: Large, compact structure
           without definable shape
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: Hand shaped
-        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: 'A shoot axis that is the
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: A shoot axis that is the
           most distal part of a shoot system and has as parts a shoot apical meristem
-          and the youngest leaf primordia. '
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 'All tissues outside the
+          and the youngest leaf primordia.
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: All tissues outside the
           vascular cambium or the xylem; in older trees may be divided into dead outer
-          bark and living inner bark, which consists of secondary phloem. '
+          bark and living inner bark, which consists of secondary phloem.
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: A swollen shoot axis that
           grows horizontally at or below the substrate surface and produces shoots
           above and roots or rhizoids below.
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: "A multi-tissue plant structure
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: A multi-tissue plant structure
           (PO:0025496) that develops from a gynoecium (PO:0009062) and may have as
-          parts one or more seeds (PO:0009010). \r "
+          parts one or more seeds (PO:0009010).
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: 'root: A plant axis (PO:0025004)
-          that is part of a root system (PO:0025025). '
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: 'A multi-tissue plant structure
+          that is part of a root system (PO:0025025).'
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: A multi-tissue plant structure
           (PO:0025496) that develops from a plant ovule (PO:0020003) and has as parts
-          a plant embryo (PO:0009009) enclosed in a seed coat (PO:0009088). '
+          a plant embryo (PO:0009009) enclosed in a seed coat (PO:0009088).
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: A leaf in which the lamina
           is undivided
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: A leaf having two or more
           distinct leaflets that are evident as such from early in development
         http://purl(dot)obolibrary(dot)org/obo/PO_0025173: A leaf that is a sclerified
           and pointed and lacks a lamina.
-        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: 'plant substance that consists
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: plant substance that consists
           of a complex mixture of organic aromatic compounds such as mono-, sesqui-,
-          and diterpenoids. '
+          and diterpenoids.
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 'x has habitat y if: x
           is an organism, y is a habitat, and y can sustain and allow the growth of
           a population of x'
@@ -2976,19 +2979,19 @@ qqq:
           harvest
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: A stature and vigor trait
           (TO:0000133) which is associated with the height of a whole plant (PO:0000003).
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: "Becoming tolerant to drought
-          like conditions of minimal or no water content in the growth environment.\r "
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: Becoming tolerant to drought
+          like conditions of minimal or no water content in the growth environment.
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: A vascular leaf anatomy
           and morphology trait (TO:0000748) which is associated with the color of
           leaf (PO:0025034).
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 'A leaf anatomy and morphology
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: A leaf anatomy and morphology
           trait (TO:0000748) which is associated with the variation in shapes and
-          forms of a leaf (PO:0025034). '
+          forms of a leaf (PO:0025034).
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: It is calculated from the
           deepest soil layer where roots were present and the longest root measured
           in the layer.
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 'A flower anatomy and morphology
-          trait (TO:0000499) which is associated with the color of the flower (PO:0009046). '
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: A flower anatomy and morphology
+          trait (TO:0000499) which is associated with the color of the flower (PO:0009046).
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: A leaf anatomy and morphology
           trait (TO:0000748) which is associated with the total area of a leaf (PO:0025034).
         http://purl(dot)obolibrary(dot)org/obo/TO_0000598: The total protein content
@@ -2999,8 +3002,8 @@ qqq:
           direct or indirect, harmful or beneficial effect of one plant on another
           through the production of chemical compounds (allelochemicals) that escape
           in the environment.
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 'A fruit anatomy and morphology
-          trait (TO:0002629) which is associated with the type of a fruit (PO:0009001). '
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: A fruit anatomy and morphology
+          trait (TO:0002629) which is associated with the type of a fruit (PO:0009001).
         http://purl(dot)obolibrary(dot)org/obo/TO_0001015: The total amount of carbon
           fixed by the plant per unit time
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: The total amount of oxygen
@@ -3074,7 +3077,7 @@ qqq:
           to the tip of the longer lobe of the caudal fin, usually measured with the
           lobes compressed along the midline. It is a straight-line measure, not measured
           over the curve of the body
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: ".."
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: ..
         http://rs(dot)tdwg(dot)org/dwc/terms/decimalLatitude: The geographic latitude
           (in decimal degrees, using the spatial reference system given in geodeticDatum)
           of the geographic center of a Location. Positive values are north of the
@@ -3193,14 +3196,14 @@ qqq:
         https://eol(dot)org/schema/terms/burrowDiameter: diameter of the cross section
           of a burrow in soil, sediment or rock, presumed to represent a measure of
           body size of the burrow occupant, orthogonal to length (~body depth or width)
-        https://eol(dot)org/schema/terms/burrow_builder: 'an animal that excavates
+        https://eol(dot)org/schema/terms/burrow_builder: an animal that excavates
           holes or tunnels into soil or benthic sediment to create a space suitable
           for habitation, temporary refuge, or as a byproduct of locomotion. Inhabited
           burrows function as a refuge, protecting the inhabitants from predation
           and environmental extremes. They provide physical support for the digging
           and feeding activities of the burrow inhabitants. The harsh chemical environment
           deep in aquatic burrows must be counteracted by active or passive irrigation
-          of burrow water.  '
+          of burrow water.
         https://eol(dot)org/schema/terms/carangiform: Body/caudal fin propulsion,
           with the vast majority of movement is concentrated in the very rear of the
           body and tail. Carangiform swimmers generally have rapidly oscillating tails.
@@ -3229,8 +3232,8 @@ qqq:
           was originally domesticated
         https://eol(dot)org/schema/terms/dorsal_fin: swimming mainly using undulations
           of the dorsal fin
-        https://eol(dot)org/schema/terms/dorsoventral_undulatory: 'swimming by generating
-          thrust using dorso-ventral undulations of the body. '
+        https://eol(dot)org/schema/terms/dorsoventral_undulatory: swimming by generating
+          thrust using dorso-ventral undulations of the body.
         https://eol(dot)org/schema/terms/dracaenoid: wood-like secondary growth found
           in monocots, supporting tree growth forms, as in the genus Dracaena, the
           Dragon Trees
@@ -3337,12 +3340,12 @@ qqq:
           primarily on sea urchins
         https://eol(dot)org/schema/terms/sessile_prey_feeder: preys on organisms that
           do not possess a means of self-locomotion and are normally immobile
-        https://eol(dot)org/schema/terms/springing: "(Quadrupedal jumping) Progression
+        https://eol(dot)org/schema/terms/springing: (Quadrupedal jumping) Progression
           composed of a series of leaps in which the hind legs supply the chief propulsive
           force, lifting the body completely from the ground and forward. The fore
           feet touch the ground simultaneously or in close sequence; the body rolls
           forward over these as in a vault; the hind feet, overstepping the fore feet,
-          at least in greatest speed, come down next and again lift the body forward. "
+          at least in greatest speed, come down next and again lift the body forward.
         https://eol(dot)org/schema/terms/starfish_feeder: a carnivore that feeds primarily
           on starfishes
         https://eol(dot)org/schema/terms/subcarangiform: Body/caudal fin propulsion,
@@ -3365,13 +3368,13 @@ qqq:
           due to the increase in speed of swimming, like in barracudas.
         https://eol(dot)org/schema/terms/tissue_contains: describes a component found
           in biotic tissue
-        https://eol(dot)org/schema/terms/tubicolous: "aquatic organisms that construct
+        https://eol(dot)org/schema/terms/tubicolous: aquatic organisms that construct
           and inhabit simple unbranched vertical shafts with only one opening to the
           surface. These are primarily above-sediment filter-feeders, surface deposit-feeders,
-          and  subsurface deposit-feeders  (head-down, conveyor-belt feeders) \r "
-        https://eol(dot)org/schema/terms/tuft: "a small cluster of elongated flexible
-          outgrowths attached or close together at the base and free at the opposite
-          ends\r especially : a growing bunch of grasses or close-set plants"
+          and  subsurface deposit-feeders  (head-down, conveyor-belt feeders)
+        https://eol(dot)org/schema/terms/tuft: |-
+          a small cluster of elongated flexible outgrowths attached or close together at the base and free at the opposite ends
+           especially : a growing bunch of grasses or close-set plants
         https://eol(dot)org/schema/terms/unisexual_flowers: in which either the stamens
           or the carpels are missing, vestigial or otherwise non-functional. Each
           flower is either "staminate" (having only functional stamens) and thus "male",
@@ -3387,3 +3390,4 @@ qqq:
         https://www(dot)wikidata(dot)org/entity/Q4296711: the ratio between the number
           of cells in a population undergoing mitosis to the total number of cells
           in a population
+...

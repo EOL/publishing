@@ -143,7 +143,7 @@ class TraitBank
         properties['definition'] = if properties['definition'].nil?
           ''
         else
-          properties['definition'].dup.gsub!(/\^(\d+)/, "<sup>\\1</sup>")
+          properties['definition'].dup.gsub(/\^(\d+)/, "<sup>\\1</sup>")
         end
         set_boolean_properties(properties)
         set_nil_properties_to_blank(properties)

@@ -173,7 +173,7 @@ class Resource < ApplicationRecord
 
   def remove_content
     # Traits:
-    count = TraitBank.count_by_resource_no_cache(id)
+    count = TraitBank.count_relationships_and_nodes_by_resource_no_cache(id)
     if count.zero?
       log("No traits, skipping.")
     else
@@ -387,6 +387,11 @@ class Resource < ApplicationRecord
 
   def slurp_traits
     TraitBank::Slurp.load_csvs(self)
+  end
+
+  # Note this does NOT include metadata!
+  def trait_count
+    TraitBank::Admin.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
   end
 
   def traits_file

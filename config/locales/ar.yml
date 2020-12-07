@@ -1109,6 +1109,7 @@ ar:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: طول الجسم، من الأنف للذيل
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: قطر الساق
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: رتبة حجم الورقة
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: تعقيد الورقة
@@ -1157,4 +1158,5 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: بداية الخصوبة
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: طول الذيل
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
+        http://purl(dot)org/obo/owlATOL_0001660: الطول الإجمالي
 ...

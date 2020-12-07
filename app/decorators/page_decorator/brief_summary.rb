@@ -11,6 +11,10 @@ class PageDecorator
 
     FLOWER_VISITOR_LIMIT = 4
     SUBJ_RESET = 3
+    LEAF_PREDICATES = [
+      EolTerms.alias_uri('leaf_complexity'),
+      EolTerms.alias_uri('leaf_morphology')
+    ]
 
     def initialize(page, view)
       @page = page
@@ -63,11 +67,11 @@ class PageDecorator
       ResultTerm = Struct.new(:pred_uri, :term, :source, :toggle_selector)
 
       IUCN_URIS = Set[
-        Eol::Uris::Iucn.en,
-        Eol::Uris::Iucn.cr,
-        Eol::Uris::Iucn.ew,
-        Eol::Uris::Iucn.nt,
-        Eol::Uris::Iucn.vu
+        EolTerms.alias_uri('iucn_en'),
+        EolTerms.alias_uri('iucn_cr'),
+        EolTerms.alias_uri('iucn_ew'),
+        EolTerms.alias_uri('iucn_nt'),
+        EolTerms.alias_uri('iucn_vu')
       ]
 
       def add_sentence(options = {})
@@ -125,7 +129,7 @@ class PageDecorator
           end
         end
 
-        first_appearance_trait = first_trait_for_pred_uri_w_obj(Eol::Uris.fossil_first)
+        first_appearance_trait = first_trait_for_pred_uri_w_obj(EolTerms.alias_uri('fossil_first'))
 
         if first_appearance_trait
           add_sentence do |_, __, ___|
@@ -148,7 +152,7 @@ class PageDecorator
               match.trait
             )
           elsif match = growth_habit_matches.first_of_type(:species_of_lifecycle_x)
-            lifecycle_trait = first_trait_for_pred_uri(Eol::Uris.lifecycle_habit)
+            lifecycle_trait = first_trait_for_pred_uri(EolTerms.alias_uri('lifecycle_habit'))
             if lifecycle_trait
               lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
               species_parts << trait_sentence_part(
@@ -204,9 +208,9 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          marine_term = TraitBank::Term.term_as_hash(Eol::Uris.marine)
+          marine_term = TraitBank::Term.term_as_hash(EolTerms.alias_uri('marine'))
           add_sentence do |subj, _, __|
-            term_sentence_part("#{subj} is found in %s.", "marine habitat", Eol::Uris.habitat_includes, marine_term)
+            term_sentence_part("#{subj} is found in %s.", "marine habitat", EolTerms.alias_uri('habitat'), marine_term)
           end
         elsif freshwater_trait.present?
           add_sentence do |subj, _, __|
@@ -215,7 +219,7 @@ class PageDecorator
         end
 
 
-        native_range_part = values_to_sentence([Eol::Uris.native_range])
+        native_range_part = values_to_sentence([EolTerms.alias_uri('native_range')])
         if native_range_part.present?
           add_sentence do |subj, is, _|
             "#{subj} #{is} native to #{native_range_part}."
@@ -231,11 +235,11 @@ class PageDecorator
       # GrowthHabitGroup.match returns a result, or nil if none do. The result
       # of this operation is cached.
       def growth_habit_matches
-        @growth_habit_matches ||= GrowthHabitGroup.match_all(traits_for_pred_uris(Eol::Uris.growth_habit))
+        @growth_habit_matches ||= GrowthHabitGroup.match_all(traits_for_pred_uris(EolTerms.alias_uri('growth_habit')))
       end
 
       def reproduction_matches
-        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(Eol::Uris.reproduction))
+        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(EolTerms.alias_uri('reproduction')))
       end
 
       # [name clause] is a genus in the [A1] family [A2].
@@ -278,13 +282,13 @@ class PageDecorator
 
       def behavioral_sentence
         circadian = first_trait_for_obj_uris(
-          Eol::Uris.nocturnal,
-          Eol::Uris.diurnal,
-          Eol::Uris.crepuscular
+          EolTerms.alias_uri('nocturnal'),
+          EolTerms.alias_uri('diurnal'),
+          EolTerms.alias_uri('crepuscular')
         )
-        solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
+        solitary = first_trait_for_obj_uris(EolTerms.alias_uri('solitary'))
         begin_traits = [solitary, circadian].compact
-        trophic = first_trait_for_pred_uri(Eol::Uris.trophic_level)
+        trophic = first_trait_for_pred_uri(EolTerms.alias_uri('trophic_level'))
 
         add_sentence do |subj, is, _|
           sentence = nil
@@ -320,7 +324,7 @@ class PageDecorator
         lifespan_part = nil
         size_part = nil
 
-        lifespan_trait = first_trait_for_pred_uri(Eol::Uris.lifespan)
+        lifespan_trait = first_trait_for_pred_uri(EolTerms.alias_uri('lifespan'))
         if lifespan_trait
           value = lifespan_trait[:measurement]
           units_name = lifespan_trait.dig(:units, :name)
@@ -330,8 +334,8 @@ class PageDecorator
           end
         end
 
-        size_traits = traits_for_pred_uris(Eol::Uris.body_mass)
-        size_traits = traits_for_pred_uris(Eol::Uris.body_length) if size_traits.empty?
+        size_traits = traits_for_pred_uris(EolTerms.alias_uri('body_mass'))
+        size_traits = traits_for_pred_uris(EolTerms.alias_uri('body_length')) if size_traits.empty?
 
         if size_traits.any?
           largest_value_trait = nil
@@ -434,8 +438,8 @@ class PageDecorator
 
       def motility_sentence
         matches = MotilityGroupMatcher.match_all(traits_for_pred_uris(
-          Eol::Uris.motility,
-          Eol::Uris.locomotion
+          EolTerms.alias_uri('motility'),
+          EolTerms.alias_uri('locomotion')
         ))
 
         if matches.has_type?(:c)
@@ -492,9 +496,9 @@ class PageDecorator
       end
 
       def plant_description_sentence
-        leaf_traits = Eol::Uris.flopos.collect { |uri| first_trait_for_pred_uri(uri) }.compact
-        flower_trait = first_trait_for_pred_uri(Eol::Uris.flower_color)
-        fruit_trait = first_trait_for_pred_uri(Eol::Uris.fruit_type)
+        leaf_traits = LEAF_PREDICATES.collect { |uri| first_trait_for_pred_uri(uri) }.compact
+        flower_trait = first_trait_for_pred_uri(EolTerms.alias_uri('flower_color'))
+        fruit_trait = first_trait_for_pred_uri(EolTerms.alias_uri('fruit_type'))
         leaf_part = nil
         flower_part = nil
         fruit_part = nil
@@ -524,7 +528,7 @@ class PageDecorator
       end
 
       def flower_visitor_sentence
-        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).uniq do |t|
+        traits = traits_for_pred_uri(EolTerms.alias_uri('flowers_visited_by')).uniq do |t|
           t.dig(:object_term, :uri)
         end.slice(0, FLOWER_VISITOR_LIMIT)
 
@@ -537,7 +541,7 @@ class PageDecorator
       end
 
       def fixes_nitrogen_sentence
-        trait = first_trait_for_pred_and_obj(Eol::Uris.fixes, Eol::Uris.nitrogen)
+        trait = first_trait_for_pred_and_obj(EolTerms.alias_uri('fixes'), EolTerms.alias_uri('nitrogen'))
 
         if trait
           fixes_label = is_species? ? "fixes" : "fix"
@@ -555,7 +559,7 @@ class PageDecorator
       end
 
       def forms_sentence
-        forms_traits = @page.grouped_data[Eol::Uris.forms] || [] #intentionally skip descendants of this term
+        forms_traits = @page.grouped_data[EolTerms.alias_uri('forms')] || [] #intentionally skip descendants of this term
 
         if forms_traits.any?
           lifestage_trait = forms_traits.find do |t|
@@ -586,7 +590,7 @@ class PageDecorator
       end
 
       def ecosystem_engineering_sentence
-        trait = first_trait_for_pred_uri(Eol::Uris.ecosystem_engineering)
+        trait = first_trait_for_pred_uri(EolTerms.alias_uri('ecosystem_engineering'))
 
         if trait
           add_sentence do |subj, is, _|
@@ -661,19 +665,19 @@ class PageDecorator
       # ...has a value with parent http://purl.obolibrary.org/obo/ENVO_00000447 for measurement type
       # http://eol.org/schema/terms/Habitat
       def is_it_marine?
-        env_terms = gather_terms([Eol::Uris.habitat_includes])
+        env_terms = gather_terms([EolTerms.alias_uri('habitat')])
         has_data_for_pred_terms(
           env_terms,
-          values: [Eol::Uris.marine]
+          values: [EolTerms.alias_uri('marine')]
         ) &&
         !has_data_for_pred_terms(
           env_terms,
-          values: [Eol::Uris.terrestrial]
+          values: [EolTerms.alias_uri('terrestrial')]
         )
       end
 
       def freshwater_trait
-        @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
+        @freshwater_trait ||= first_trait_for_obj_uris(EolTerms.alias_uri('freshwater'))
       end
 
       def has_data(options)
@@ -764,11 +768,11 @@ class PageDecorator
       end
 
       def add_extinction_sentence
-        extinct_trait = first_trait_for_obj_uris(Eol::Uris.extinct)
-        extant_trait = first_trait_for_obj_uris(*gather_terms(Eol::Uris.extant))
+        extinct_trait = first_trait_for_obj_uris(EolTerms.alias_uri('iucn_ex'))
+        extant_trait = first_trait_for_obj_uris(*gather_terms(EolTerms.alias_uri('extant')))
         if !extant_trait && extinct_trait
           add_sentence do |_, __, ___|
-            term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, extinct_trait[:object_term])
+            term_sentence_part("This species is %s.", "extinct", EolTerms.alias_uri('extinction'), extinct_trait[:object_term])
           end
 
           true
@@ -853,7 +857,7 @@ class PageDecorator
         term_sentence_part(
           fstr,
           rec[:name],
-          Eol::Uris::Conservation.status,
+          EolTerms.alias_uri('conservation_status'),
           rec[:object_term],
           rec[:source]
         )
