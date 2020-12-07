@@ -187,12 +187,31 @@ class TermBootstrapper
   end
 
   def uri_has_relationships?(uri)
-    num =
-      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '\"')}"}}, :outgoing) +
-      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '\"')}"}}, :incoming)
-    return false if num.zero?
-    warn "NOT REMOVING TERM FOR #{uri}. It has #{num} relationships! You should check this manually and either add it to "\
-         'the list or delete the term and all its relationships.'
-    true
+    out_rels = rels_by_direction(uri, :outgoing)
+    in_rels = rels_by_direction(uri, :incoming)
+    out_rels.delete('synonym_of') # We don't really care about these.
+    out_rels.delete('parent_term') # We don't really care about these.
+    out_rels.delete('units_term') # We don't really care about these.
+    if !out_rels.empty?
+      if !in_rels.empty?
+        puts "WARNING: #{uri} has incoming relationships: #{in_rels.join(',')} AND outgoing relationships: #{out_rels.join(',')}"
+        true
+      else
+        puts "WARNING: #{uri} has outgoing relationships: #{out_rels.join(',')}"
+        true
+      end
+    elsif !in_rels.empty?
+      puts "WARNING: #{uri} has incoming relationships: #{in_rels.join(',')}"
+      true
+    else
+      false
+    end
+  end
+
+  def rels_by_direction(uri, direction = nil)
+    relationship = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
+    res = TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})#{relationship}() RETURN TYPE(relationship)})['data'].first
+    arr = Array(res).sort.uniq
+    arr
   end
 end
