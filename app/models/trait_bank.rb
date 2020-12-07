@@ -212,6 +212,21 @@ class TraitBank
     end
     alias_method :by_eol_pk, :data_dump_trait
 
+    def association_page_ids(page_id)
+      Rails.cache.fetch("trait_bank/association_page_ids/#{page_id}", expires_in: 1.day) do
+        q = %Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait), (trait)-[:object_page]->(obj_page:Page)
+          WITH collect(DISTINCT obj_page.page_id) AS obj_page_ids
+          MATCH (subj_page:Page)-[#{TRAIT_RELS}]->(trait:Trait), (trait)-[:object_page]->(:Page { page_id: #{page_id} })
+          WITH collect(DISTINCT subj_page.page_id) AS subj_page_ids, obj_page_ids
+          UNWIND (obj_page_ids + subj_page_ids) AS page_id
+          RETURN DISTINCT page_id
+        )
+        result = query(q)
+        result["data"].flatten
+      end
+    end
+
     def by_page(page_id, page = 1, per = 100)
       Rails.cache.fetch("trait_bank/by_page/#{page_id}", expires_in: 1.day) do
         q = "MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)"\

@@ -130,7 +130,7 @@ class PagesController < ApplicationController
     end.to_h
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
-    @associations = build_associations(@page.data)
+    @associations = build_page_associations(@page)
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
@@ -210,7 +210,7 @@ class PagesController < ApplicationController
     @data_groups = @predicate ? [@predicate] : sorted_groups_for_traits(@grouped_data)
     @resources = TraitBank.resources(filtered_data)
 
-    @associations = build_associations(@page.data)
+    @associations = build_page_associations(@page)
     setup_viz
 
     respond_to do |format|
