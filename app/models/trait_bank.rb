@@ -255,13 +255,13 @@ class TraitBank
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH group_predicate, page, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows AS trait_row
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject', page: page, trait_count: trait_count, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS subject_rows
-          MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH group_predicate, subject_rows, collect(DISTINCT { page: page, trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
@@ -287,12 +287,12 @@ class TraitBank
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH DISTINCT group_predicate
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject' }) AS subj_rows
-          MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:object_page]-(:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
@@ -422,13 +422,13 @@ class TraitBank
       Rails.cache.fetch("trait_bank/key_data/#{page_id}/v4/limit_#{limit}", expires_in: 1.day) do
         # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
         q = %Q(
-          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait),
+          OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait),
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))
           WITH page, predicate, head(collect(trait)) AS trait
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           WITH collect({ page_assoc_role: 'subject', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS subj_rows  
-          MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          OPTIONAL MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true
           WITH object_page, predicate, subj_rows, head(collect(trait)) AS trait
