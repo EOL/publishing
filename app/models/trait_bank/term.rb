@@ -196,8 +196,7 @@ class TraitBank
       end
 
       def delete(uri)
-        # Not going to bother with DETACH, since there should only be one!
-        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DELETE term})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DETACH DELETE term})
       end
 
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
