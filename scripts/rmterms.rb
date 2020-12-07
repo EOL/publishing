@@ -24,6 +24,7 @@ lines.each_with_index do |line,index|
   in_rels = rels_by_direction(uri, :incoming)
   out_rels.delete('synonym_of') # We don't really care about these.
   out_rels.delete('parent_term') # We don't really care about these.
+  out_rels.delete('units_term') # We don't really care about these.
   if !out_rels.empty?
     if !in_rels.empty?
       puts "WARNING: #{uri} has incoming relationships: #{in_rels.join(',')} AND outgoing relationships: #{out_rels.join(',')}"
@@ -45,3 +46,5 @@ deletes.each do |q|
   puts q
   TraitBank.query(q)
 end
+puts "=" * 120
+puts "Done. Deleted #{deletes.size} terms."
