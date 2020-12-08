@@ -269,6 +269,7 @@ class TraitBank
           WITH subject_rows, collect({ group_predicate: group_predicate, page_assoc_role: 'object', trait_count: trait_count, page: trait_row.page, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS object_rows
           UNWIND (subject_rows + object_rows) AS row
           WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role, row.trait_count AS trait_count, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource, (row.trait.eol_pk + row.group_predicate.eol_id + row.page_assoc_role) AS row_id
+          WHERE trait IS NOT NULL
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
@@ -300,6 +301,7 @@ class TraitBank
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'object' }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
           WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role
+          WHERE group_predicate IS NOT NULL
           RETURN group_predicate, page_assoc_role
         ))
 
@@ -436,6 +438,7 @@ class TraitBank
           WITH collect({ page_assoc_role: 'object', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
           WITH row.page_assoc_role AS page_assoc_role, row.page AS page, row.object_page AS object_page, row.predicate AS predicate, row.trait AS trait
+          WHERE trait IS NOT NULL
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
