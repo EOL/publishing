@@ -268,17 +268,17 @@ class TraitBank
           UNWIND trait_rows AS trait_row
           WITH subject_rows, collect({ group_predicate: group_predicate, page_assoc_role: 'object', trait_count: trait_count, page: trait_row.page, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS object_rows
           UNWIND (subject_rows + object_rows) AS row
-          WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role, row.trait_count AS trait_count, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource
+          WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role, row.trait_count AS trait_count, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource, (row.trait.eol_pk + row.group_predicate.eol_id + row.page_assoc_role) AS row_id
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
-          RETURN page_assoc_role, resource, page, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count
+          RETURN page_assoc_role, resource, page, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count, row_id
         ))
 
-        build_trait_array(res)
+        build_trait_array(res, identifier: 'row_id')
       end
     end
 
@@ -1216,7 +1216,7 @@ class TraitBank
     # NOTE: this method REQUIRES that some fields have a particular name.
     # ...which isn't very generalized, but it will do for our purposes...
     def build_trait_array(results, options={})
-      hashes = options[:flat_results] ? flat_results_to_hashes(results) : results_to_hashes(results)
+      hashes = options[:flat_results] ? flat_results_to_hashes(results) : results_to_hashes(results, options[:identifier])
       key = options[:key]
       log("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
       data = []
