@@ -178,8 +178,12 @@ class TraitBank
       trait_rel = page_id.nil? ? ":trait" : TRAIT_RELS
       q = %{MATCH (page:Page#{page_id_part})
           -[#{trait_rel}]->(trait:Trait { eol_pk: "#{id.gsub(/"/, '""')}" })
-          -[:supplier]->(resource:Resource)
-          MATCH (trait:Trait)-[:predicate]->(predicate:Term)
+          -[:supplier]->(resource:Resource),
+          (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term)
+          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          WITH group_predicate, head(collect({ page: page, trait: trait, predicate: predicate, resource: resource })) AS row
+          LIMIT 1
+          WITH group_predicate, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
@@ -189,7 +193,7 @@ class TraitBank
           OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
           OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
           OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
+          RETURN group_predicate, resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
             meta, meta_predicate, meta_units_term, meta_object_term, page }
           # ORDER BY LOWER(meta_predicate.name)}
       q += limit_and_skip_clause(page, per)
