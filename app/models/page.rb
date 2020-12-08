@@ -543,6 +543,10 @@ class Page < ApplicationRecord
     @data_loaded = true
     @data = data
   end
+  
+  def association_page_ids
+    TraitBank.association_page_ids(id)
+  end
 
   def redlist_status
     # TODO

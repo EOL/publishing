@@ -177,8 +177,12 @@ class TraitBank
       trait_rel = page_id.nil? ? ":trait" : TRAIT_RELS
       q = %{MATCH (page:Page#{page_id_part})
           -[#{trait_rel}]->(trait:Trait { eol_pk: "#{id.gsub(/"/, '""')}" })
-          -[:supplier]->(resource:Resource)
-          MATCH (trait:Trait)-[:predicate]->(predicate:Term)
+          -[:supplier]->(resource:Resource),
+          (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term)
+          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          WITH group_predicate, head(collect({ page: page, trait: trait, predicate: predicate, resource: resource })) AS row
+          LIMIT 1
+          WITH group_predicate, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
@@ -188,7 +192,7 @@ class TraitBank
           OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
           OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
           OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
+          RETURN group_predicate, resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
             meta, meta_predicate, meta_units_term, meta_object_term, page }
           # ORDER BY LOWER(meta_predicate.name)}
       q += limit_and_skip_clause(page, per)
@@ -210,6 +214,21 @@ class TraitBank
       })
     end
     alias_method :by_eol_pk, :data_dump_trait
+
+    def association_page_ids(page_id)
+      Rails.cache.fetch("trait_bank/association_page_ids/#{page_id}", expires_in: 1.day) do
+        q = %Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait), (trait)-[:object_page]->(obj_page:Page)
+          WITH collect(DISTINCT obj_page.page_id) AS obj_page_ids
+          MATCH (subj_page:Page)-[#{TRAIT_RELS}]->(trait:Trait), (trait)-[:object_page]->(:Page { page_id: #{page_id} })
+          WITH collect(DISTINCT subj_page.page_id) AS subj_page_ids, obj_page_ids
+          UNWIND (obj_page_ids + subj_page_ids) AS page_id
+          RETURN DISTINCT page_id
+        )
+        result = query(q)
+        result["data"].flatten
+      end
+    end
 
     def by_page(page_id, page = 1, per = 100)
       Rails.cache.fetch("trait_bank/by_page/#{page_id}", expires_in: 1.day) do
@@ -239,30 +258,31 @@ class TraitBank
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH group_predicate, page, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows AS trait_row
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject', page: page, trait_count: trait_count, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS subject_rows
-          MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH group_predicate, subject_rows, collect(DISTINCT { page: page, trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows AS trait_row
           WITH subject_rows, collect({ group_predicate: group_predicate, page_assoc_role: 'object', trait_count: trait_count, page: trait_row.page, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS object_rows
           UNWIND (subject_rows + object_rows) AS row
-          WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role, row.trait_count AS trait_count, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource
+          WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role, row.trait_count AS trait_count, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource, (row.trait.eol_pk + row.group_predicate.eol_id + row.page_assoc_role) AS row_id
+          WHERE trait IS NOT NULL
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
-          RETURN page_assoc_role, resource, page, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count
+          RETURN page_assoc_role, resource, page, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count, row_id
         ))
 
-        build_trait_array(res)
+        build_trait_array(res, identifier: 'row_id')
       end
     end
 
@@ -271,12 +291,12 @@ class TraitBank
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH DISTINCT group_predicate
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject' }) AS subj_rows
-          MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+          OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:object_page]-(:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
@@ -284,6 +304,7 @@ class TraitBank
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'object' }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
           WITH row.group_predicate AS group_predicate, row.page_assoc_role AS page_assoc_role
+          WHERE group_predicate IS NOT NULL
           RETURN group_predicate, page_assoc_role
         ))
 
@@ -406,13 +427,13 @@ class TraitBank
       Rails.cache.fetch("trait_bank/key_data/#{page_id}/v4/limit_#{limit}", expires_in: 1.day) do
         # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
         q = %Q(
-          MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait),
+          OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait),
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))
           WITH page, predicate, head(collect(trait)) AS trait
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           WITH collect({ page_assoc_role: 'subject', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS subj_rows  
-          MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          OPTIONAL MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true
           WITH object_page, predicate, subj_rows, head(collect(trait)) AS trait
@@ -420,6 +441,7 @@ class TraitBank
           WITH collect({ page_assoc_role: 'object', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
           WITH row.page_assoc_role AS page_assoc_role, row.page AS page, row.object_page AS object_page, row.predicate AS predicate, row.trait AS trait
+          WHERE trait IS NOT NULL
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
@@ -1200,7 +1222,7 @@ class TraitBank
     # NOTE: this method REQUIRES that some fields have a particular name.
     # ...which isn't very generalized, but it will do for our purposes...
     def build_trait_array(results, options={})
-      hashes = options[:flat_results] ? flat_results_to_hashes(results) : results_to_hashes(results)
+      hashes = options[:flat_results] ? flat_results_to_hashes(results) : results_to_hashes(results, options[:identifier])
       key = options[:key]
       log("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
       data = []

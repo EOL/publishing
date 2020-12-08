@@ -16,7 +16,7 @@ class DataController < ApplicationController
       @show_taxon = params[:show_taxon] && params[:show_taxon] == "true"
       render :layout => false
     else
-      redirect_to "#{page_data_path(page_id: @page.id, predicate: @data[:predicate][:uri])}#trait_id=#{@data[:id]}"
+      redirect_to "#{page_data_path(page_id: @page.id, predicate: @data[:group_predicate][:uri])}#trait_id=#{@data[:id]}"
     end
   end
 end
