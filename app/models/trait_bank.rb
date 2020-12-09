@@ -1,6 +1,5 @@
 # Abstraction between our traits and the implementation of their storage. ATM, we use neo4j. THE SCHEMA FOR TRAITS CAN
 # BE FOUND IN db/neo4j_schema.md ...please read that file before attempting to understand this one. :D
-require 'neo4j/core/cypher_session/adaptors/bolt'
 
 class TraitBank
   TRAIT_RELS = ":trait|:inferred_trait"
@@ -41,7 +40,7 @@ class TraitBank
         sleep(1)
         results = connection.execute_query(q, params)
       ensure
-        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
+        q_to_log = q.size > 80 && q !~ /\n/ ? q.gsub(/ +([A-Z ]+)/, "\n\\1") : q
         log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
@@ -569,11 +568,11 @@ class TraitBank
       term_condition = []
 
       if filter.predicate?
-        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.pred_uri, :predicate, params, gathered_terms)
+        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.predicate.uri, :predicate, params, gathered_terms)
       end
 
       if filter.object_term?
-        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.obj_uri, :object_term, params, gathered_terms)
+        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.object_term.uri, :object_term, params, gathered_terms)
       end
 
       if filter.obj_clade.present?
@@ -628,7 +627,7 @@ class TraitBank
     def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
       add_term_filter_meta_match(
         EolTerms.alias_uri('sex'),
-        filter.sex_uri,
+        filter.sex_term.uri,
         trait_var,
         "#{base_meta_var}_sex",
         matches,
@@ -637,7 +636,7 @@ class TraitBank
 
       add_term_filter_meta_match(
         EolTerms.alias_uri('lifestage'),
-        filter.lifestage_uri,
+        filter.lifestage_term.uri,
         trait_var,
         "#{base_meta_var}_ls",
         matches,
@@ -646,7 +645,7 @@ class TraitBank
 
       add_term_filter_meta_match(
         EolTerms.alias_uri('statistical_method'),
-        filter.statistical_method_uri,
+        filter.statistical_method_term.uri,
         trait_var,
         "#{base_meta_var}_stat",
         matches,

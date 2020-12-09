@@ -11,6 +11,10 @@ class Traits::DataViz::Sankey
       results = TraitBank::Stats.sankey_data(query)
       self.new(results, query, total_taxa)
     end
+
+    def result_id_key(i)
+      :"anc_obj#{i}_id"
+    end
   end
 
   def multiple_paths?
@@ -23,8 +27,17 @@ class Traits::DataViz::Sankey
     @num_axes = query.filters.length
     @total_taxa = total_taxa
 
-    query_uris = Set.new(query.filters.map { |f| f.obj_uri }.reject { |uri| uri.blank? })
-    result_rows = query_results.map { |r| ResultRow.new(r, query, query_uris) }
+    query_obj_terms = Set.new(query.filters.map { |f| f.object_term }.reject { |t| t.nil? })
+
+    result_term_ids = query_results.map do |r|
+      query.filters.map.with_index do |_, i|
+        r[self.class.result_id_key(i)]
+      end
+    end.flatten.uniq
+    result_terms = TermNode.where(id: result_term_ids)
+    result_terms_by_id = result_terms.map { |t| [t.id, t] }.to_h
+
+    result_rows = query_results.map { |r| ResultRow.new(r, query, result_terms_by_id, query_obj_terms) }
     nodes_per_axis = build_nodes_per_axis(result_rows)
     @nodes = nodes_per_axis.flatten
     other_nodes = build_other_nodes_per_axis(result_rows, nodes_per_axis) 
@@ -70,7 +83,7 @@ class Traits::DataViz::Sankey
           matching_node
         else
           other_node = Node.new(
-            @query.filters[i].obj_uri,
+            @query.filters[i].object_term,
             i,
             r.page_ids, 
             true,
@@ -140,21 +153,22 @@ class Traits::DataViz::Sankey
     attr_reader :page_ids
     attr_accessor :nodes
 
-    def initialize(row, query, query_uris)
+    def initialize(row, query, result_terms_by_id, query_obj_terms)
       @page_ids = Set.new(row[:page_ids])
       @nodes = Array.new(query.filters.length)
+
       query.page_count_sorted_filters.each_with_index do |f, i|
-        uri_key = :"anc_obj#{i}_uri"
-        uri = row[uri_key]
+        result_id = row[Traits::DataViz::Sankey.result_id_key(i)]
+        result_term = result_terms_by_id[result_id]
         node_query = query.deep_dup
         search_order_index = query.filters.find_index(f) # order of axes should match original user search
-        node_query.filters[search_order_index].obj_uri = uri 
+        node_query.filters[search_order_index].object_term = result_term 
 
         @nodes[search_order_index] = Node.new(
-          uri,
+          result_term,
           search_order_index,
           @page_ids,
-          query_uris.include?(uri),
+          query_obj_terms.include?(result_term),
           node_query
         )
       end
@@ -182,10 +196,10 @@ class Traits::DataViz::Sankey
   end
 
   class Node
-    attr_reader :uri, :axis_id, :page_ids, :query
+    attr_reader :term, :axis_id, :page_ids, :query
 
-    def initialize(uri, axis_id, page_ids, is_query_term, query)
-      @uri = uri
+    def initialize(term, axis_id, page_ids, is_query_term, query)
+      @term = term
       @axis_id = axis_id
       @is_query_term = is_query_term
       @query = query
@@ -217,19 +231,19 @@ class Traits::DataViz::Sankey
     end
 
     def id
-      "#{@uri}-#{@axis_id}"
+      "#{@term.id}-#{@axis_id}"
     end
 
     def ==(other)
       self.class === other and
-        other.uri == @uri and
+        other.term.id == @term.id and
         other.axis_id == @axis_id
     end
 
     alias eql? ==
 
     def hash
-      @uri.hash ^ @axis_id.hash
+      @term.id.hash ^ @axis_id.hash
     end
   end
 

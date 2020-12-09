@@ -117,9 +117,12 @@ gem 'client_side_validations', '~> 16.1'
 gem 'client_side_validations-simple_form', '~> 9.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus', '~> 1.3'
+
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'neo4j', '~> 9.4'
-# Sitemap
+gem 'activegraph', '~> 10.0.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
+gem 'neo4j-ruby-driver', '~> 1.7.0' 
+
+#Sitemap
 gem 'sitemap_generator', '~> 6.1'
 
 # url slug support

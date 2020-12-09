@@ -159,19 +159,19 @@ class TraitBank
           return CheckResult.invalid("query must have a single predicate filter")
         end
 
-        pred_uri = query.predicate_filters.first.pred_uri
-        pred_result = check_predicate(pred_uri)
+        predicate = query.predicate_filters.first.predicate
+        pred_result = check_predicate(predicate)
         return pred_result if !pred_result.valid?
 
         if query.object_term_filters.any?
           return CheckResult.invalid("query must not have any object term filters")
         end
 
-        if !query.filters.first.units_for_pred?
+        if !query.filters.first.units_for_predicate?
           return CheckResult.invalid("query predicate does not have numerical values")
         end
 
-        if !TraitBank::Term.any_direct_records_for_pred?(pred_uri)
+        if !TraitBank::Term.any_direct_records_for_pred?(predicate.uri)
           return CheckResult.invalid("predicate does not have any directly associated records")
         end
 
@@ -185,13 +185,13 @@ class TraitBank
         end
 
         filter = query.filters.first
-        pred_uri = filter.pred_uri
+        predicate = filter.predicate
 
-        if pred_uri.present?
-          pred_result = check_predicate(pred_uri)
+        if predicate.present?
+          pred_result = check_predicate(predicate)
           return pred_result if !pred_result.valid?
 
-          if filter.units_for_pred?
+          if filter.units_for_predicate?
             return CheckResult.invalid("query predicate has numerical values")
           end
 
@@ -271,7 +271,7 @@ class TraitBank
 
         if filter.object_term?
           result.concat("-[#{TraitBank.parent_terms}]->(:Term { uri: $count_query_obj })")
-          params[:count_query_obj] = filter.obj_uri
+          params[:count_query_obj] = filter.object_term.uri
         end
 
         result.concat("\nWHERE #{anc_var}.is_hidden_from_select = false")
@@ -391,8 +391,8 @@ class TraitBank
         query_parts << "WITH #{anc_obj_vars.join(", ")}, collect(DISTINCT page.page_id) AS page_ids"
 
         # row id, named columns for return
-        query_parts << "WITH #{anc_obj_vars.map { |v| "#{v}.uri" }.join(" + '|' + ")} AS key, #{anc_obj_vars.map { |v| "#{v}.name AS #{v}_name, #{v}.uri AS #{v}_uri" }.join(", ")}, page_ids"
-        query_parts << "RETURN key, #{anc_obj_vars.map { |v| "#{v}_uri, #{v}_name" }.join(", ")}, page_ids"
+        query_parts << "WITH #{anc_obj_vars.map { |v| "#{v}.eol_id" }.join(" + '|' + ")} AS key, #{anc_obj_vars.map { |v| "#{v}.name AS #{v}_name, #{v}.eol_id AS #{v}_id" }.join(", ")}, page_ids"
+        query_parts << "RETURN key, #{anc_obj_vars.map { |v| "#{v}_id, #{v}_name" }.join(", ")}, page_ids"
         query_parts << "ORDER BY size(page_ids) DESC"
       end
 
@@ -421,11 +421,9 @@ class TraitBank
         end
       end
 
-      def check_predicate(uri)
-        predicate = uri && TermNode.find(uri)
-
+      def check_predicate(predicate)
         if predicate.nil?
-          return CheckResult.invalid("failed to retrieve a Term with uri #{uri}")
+          return CheckResult.invalid("predicate can't be nil")
         end
 
         CheckResult.valid

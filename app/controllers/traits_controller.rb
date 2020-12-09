@@ -4,7 +4,7 @@ class TraitsController < ApplicationController
   helper :data
 
   before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
-  before_action :build_query, only: [:search_results, :search_form]
+  before_action :build_query, only: [:create_search, :search_results, :search_form]
   before_action :set_title, only: [:search, :search_results]
 
   PER_PAGE = 50
@@ -18,6 +18,14 @@ class TraitsController < ApplicationController
   def search
     @query = TermQuery.new(:result_type => :taxa)
     @query.filters.build
+  end
+
+  def create_search
+    @query.remove_really_blank_filters
+
+    redirect_to term_search_results_path(params: {
+      tq: @query.to_short_params
+    })
   end
 
   def search_results
@@ -67,14 +75,16 @@ class TraitsController < ApplicationController
   end
 
   def show
+    predicate = TermNode.find_by(uri: params[:uri])
+
     filter_options = if params[:obj_uri]
       {
-        :pred_uri => params[:uri],
-        :obj_uri => params[:obj_uri]
+        :predicate_id => predicate.id,
+        :object_term_id => TermNode.find_by(uri: params[:obj_uri]).id
       }
     else
       {
-        :pred_uri => params[:uri]
+        :predicate_id => predicate.id
       }
     end
 
@@ -90,18 +100,16 @@ class TraitsController < ApplicationController
     params.require(:term_query).permit(TermQuery.expected_params)
   end
 
+  def short_tq_params
+    params.require(:tq).permit(TermQuery.expected_short_params)
+  end
+
   def build_query
-    @query = TermQuery.new(tq_params)
+    @query = params[:tq].present? ? TermQuery.from_short_params(short_tq_params) : TermQuery.new(tq_params)
     @query.filters[params[:show_extra_fields].to_i].show_extra_fields = true if params[:show_extra_fields]
     @query.filters[params[:hide_extra_fields].to_i].clear_extra_fields if params[:hide_extra_fields]
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
-    blank_predicate_filters_must_search_any
-  end
-
-  # TODO: Does this logic belong in TermQuery?
-  def blank_predicate_filters_must_search_any
-    @query.filters.each { |f| f.op = :is_any if f.pred_uri.blank? }
   end
 
   def paginate_term_search_data(data, query)
