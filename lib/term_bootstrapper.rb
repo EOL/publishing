@@ -130,7 +130,10 @@ class TermBootstrapper
   def equivalent_terms(term_from_gem, term_from_neo4j)
     return true if term_from_gem == term_from_neo4j # simple, fast check
     term_from_gem.keys.each do |key|
-      if term_from_gem[key].to_s != term_from_neo4j[key].to_s
+      if (
+          (key == 'eol_id' && term_from_gem[key] != term_from_neo4j[key]) || # if one has an integer eol_id and the other a string, they aren't equivalent
+          term_from_gem[key].to_s != term_from_neo4j[key].to_s 
+      )
         # Ignore false-like values compared to false:
         next if term_from_gem[key] == 'false' && term_from_neo4j[key].blank?
         next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
