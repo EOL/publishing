@@ -48,3 +48,5 @@ Thanks.
 Add neo4j_driver_url, neo4j_user, neo4j_password to secrets.yml (see sample)
 `$ bundle update eol\_terms && rails r "TermBootstrapper.new.load"` to convert string eol\_ids to integers.
 
+2020-12-09 (jrice):
+`rails r "TraitBank::Admin.create_constraints"`
