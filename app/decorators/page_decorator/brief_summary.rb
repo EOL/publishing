@@ -288,7 +288,10 @@ class PageDecorator
         )
         solitary = first_trait_for_obj_uris(EolTerms.alias_uri('solitary'))
         begin_traits = [solitary, circadian].compact
-        trophic = first_trait_for_pred_uri(EolTerms.alias_uri('trophic_level'))
+        trophic = first_trait_for_pred_uri(
+          EolTerms.alias_uri('trophic_level'), 
+          exclude_values: [EolTerms.alias_uri('variable')]
+        )
 
         add_sentence do |subj, is, _|
           sentence = nil
@@ -713,14 +716,19 @@ class PageDecorator
         traits
       end
 
-      def first_trait_for_pred_uri(pred_uri)
+      def first_trait_for_pred_uri(pred_uri, options = {})
+        exclude_values = options[:exclude_values]
         terms = gather_terms(pred_uri)
 
         terms.each do |term|
           recs = @page.grouped_data[term]
 
           if recs && recs.any?
-            return recs.first
+            if exclude_values&.any?
+              return recs.find { |r| !exclude_values.include?(r[:object_term][:uri]) }
+            else
+              return recs.first
+            end
           end
         end
 
