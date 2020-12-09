@@ -6,7 +6,7 @@ module TraitDataVizHelper
       {
         label: name,
         prompt_text: obj_prompt_text(query, datum, name),
-        search_path: datum.noclick? ? nil : term_search_results_path(term_query: datum.query.to_short_params),
+        search_path: datum.noclick? ? nil : term_search_results_path(tq: datum.query.to_short_params),
         count: datum.count
       }
     end
@@ -21,7 +21,7 @@ module TraitDataVizHelper
         min: b.min,
         limit: b.limit,
         count: b.count,
-        queryPath: term_search_results_path(term_query: b.query.to_short_params),
+        queryPath: term_search_results_path(tq: b.query.to_short_params),
         promptText: hist_prompt_text(query, b, units_text)
       }
     end
@@ -49,7 +49,7 @@ module TraitDataVizHelper
         pageIds: n.page_ids.to_a,
         axisId: n.axis_id,
         clickable: !n.query_term?,
-        searchPath: term_search_results_path(term_query: n.query.to_short_params),
+        searchPath: term_search_results_path(tq: n.query.to_short_params),
         promptText: t("traits.data_viz.sankey_node_hover", term_name: name)
       } 
     end

@@ -29,11 +29,16 @@ class TermQuery < ApplicationRecord
   end
 
   def to_short_params
-    {
-      c: clade&.id,
+    params = {
       r: result_type,
       f: filters.map.with_index { |f, i| f.to_short_params }
     }
+
+    if clade
+      params[:c] = clade.id
+    end
+
+    params
   end
 
   def predicate_filters

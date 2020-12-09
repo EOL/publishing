@@ -86,37 +86,15 @@ module Traits
       end
     end
 
-    # unsupported
-    def pie
-      @query = TermQuery.new(term_query_params)
-      result = TraitBank::Stats.obj_counts(@query)
-      counts = TraitBank.term_search(@query, count: true)
-      total = counts.primary_for_query(@query)
-      min_threshold = 0.05 * total
-      other_count = 0
-      @data = []
-
-      result.each do |row|
-        if result.length > 20 && row[:count] < min_threshold
-          other_count += row[:count]
-        else
-          @data << viz_result_from_row(@query, row)
-        end
-      end
-
-      @data << ObjVizResult.other(other_count)
-      render_common
-    end
-
     def bar
-      @query = TermQuery.new(term_query_params)
+      @query = TermQuery.from_short_params(term_query_params)
       result = TraitBank::Stats.obj_counts(@query, BAR_CHART_LIMIT)
       @data = result.collect { |r| viz_result_from_row(@query, r) }
       render_common
     end
 
     def hist
-      @query = TermQuery.new(term_query_params)
+      @query = TermQuery.from_short_params(term_query_params)
       counts = TraitBank.term_search(@query, { count: true })
       result = TraitBank::Stats.histogram(@query, counts.primary_for_query(@query))
       @data = HistData.new(result, @query)
@@ -124,7 +102,7 @@ module Traits
     end
 
     def sankey
-      @query = TermQuery.new(term_query_params)
+      @query = TermQuery.from_short_params(term_query_params)
       counts = TraitBank.term_search(@query, { count: true })
       @sankey = Traits::DataViz::Sankey.create_from_query(@query, counts.primary_for_query(@query))
       set_sankey_about_text
@@ -159,7 +137,7 @@ module Traits
     end
 
     def term_query_params
-      params.require(:term_query).permit(TermQuery.expected_params)
+      params.require(:term_query).permit(TermQuery.expected_short_params)
     end
 
     def set_1d_about_text

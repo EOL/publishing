@@ -71,9 +71,11 @@ class TermQueryFilter < ApplicationRecord
     end
 
     def to_short_params
-      to_params.map do |k, v|
+      params = to_params.map do |k, v|
         [LONG_TO_SHORT_PARAMS[k], v]
       end.to_h
+
+      params.delete_if { |k, v| v.blank? }
     end
   end
 
@@ -257,6 +259,7 @@ class TermQueryFilter < ApplicationRecord
       s.to_short_params 
     end  
 
+    short_params.delete_if { |k, v| v.blank? }
     short_params
   end
 
