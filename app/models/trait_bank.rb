@@ -40,7 +40,7 @@ class TraitBank
         sleep(1)
         results = connection.execute_query(q, params)
       ensure
-        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
+        q_to_log = q.size > 80 && q !~ /\n/ ? q.gsub(/ +([A-Z ]+)/, "\n\\1") : q
         log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
