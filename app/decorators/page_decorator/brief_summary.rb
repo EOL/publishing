@@ -725,7 +725,7 @@ class PageDecorator
 
           if recs && recs.any?
             if exclude_values&.any?
-              return recs.find { |r| !exclude_values.include?(r[:object_term][:uri]) }
+              return recs.find { |r| !exclude_values.include?(r.dig(:object_term, :uri)) }
             else
               return recs.first
             end
