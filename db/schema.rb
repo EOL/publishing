@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_175735) do
+ActiveRecord::Schema.define(version: 2020_12_10_204026) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -399,11 +399,9 @@ ActiveRecord::Schema.define(version: 2020_11_27_175735) do
 
   create_table "languages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "code", limit: 12, null: false
-    t.string "group", limit: 12
     t.boolean "can_browse_site", default: false, null: false
     t.integer "locale_id"
     t.index ["code"], name: "index_languages_on_code"
-    t.index ["group"], name: "index_languages_on_group"
     t.index ["locale_id"], name: "index_languages_on_locale_id"
   end
 
