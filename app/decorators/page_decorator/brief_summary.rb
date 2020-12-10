@@ -22,7 +22,6 @@ class PageDecorator
       @sentences = []
       @terms = []
 
-      @subj_count = 0
       @full_name_used = false
     end
 
@@ -75,10 +74,10 @@ class PageDecorator
       ]
 
       def add_sentence(options = {})
-        use_name = @subj_count == 0
+        use_name = !@full_name_used
         subj = use_name ? name_clause : pronoun_for_rank.capitalize
-        is = is_species? ? "is" : "are"
-        has = is_species? ? "has" : "have"
+        is = "are" # there was a time when there were multiple choices for this, and perhaps there will be again
+        has = "have"
         sentence = nil
 
         begin
@@ -90,21 +89,14 @@ class PageDecorator
         if sentence.present?
           if sentence.start_with?("#{subj} ")
             @full_name_used ||= use_name
-            @subj_count = (@subj_count + 1) % SUBJ_RESET
-          else
-            @subj_count = 0
           end
 
           @sentences << sentence
         end
       end
 
-      def report_name_used
-        @subj_count = 1
-      end
-
       def pronoun_for_rank
-        is_species? ? "it" : "they"
+        "they"
       end
 
       def is_above_family?
@@ -596,7 +588,6 @@ class PageDecorator
             "#{begin_part} #{form_part} %ss.", #extra s for plural, not a typo
             trait
           )
-          report_name_used
         end
       end
 
