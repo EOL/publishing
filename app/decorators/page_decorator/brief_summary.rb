@@ -273,7 +273,7 @@ class PageDecorator
         children = @page.native_node&.landmark_children(LandmarkChildLimit) || []
 
         if children.any?
-          taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical(Language.english), c.page) }
+          taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical(Locale.english), c.page) }
           add_sentence do |subj, _, __|
             "#{subj} includes groups like #{to_sentence(taxa_links)}."
           end
@@ -622,7 +622,7 @@ class PageDecorator
         return @a1_link if @a1_link
         @a1 ||= @page.ancestors.reverse.find { |a| a && a.minimal? }
         return nil if @a1.nil?
-        a1_name = @a1.page&.vernacular&.string || @a1.vernacular
+        a1_name = @a1.page&.vernacular(Locale.english)&.string || @a1.vernacular(Locale.english)
         # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
         a1_name = nil if a1_name&.match(' and ')
         a1_name ||= @a1.canonical
@@ -640,7 +640,7 @@ class PageDecorator
       def a2
         return @a2_link if @a2_link
         return nil if a2_node.nil?
-        a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
+        a2_name = a2_node.page&.vernacular(Locale.english)&.string || a2_node.vernacular(Locale.english)
         a2_name = nil if a2_name && a2_name =~ /family/i
         a2_name = nil if a2_name && a2_name =~ / and /i
         a2_name ||= a2_node.canonical_form
