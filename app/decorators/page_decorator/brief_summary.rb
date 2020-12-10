@@ -531,12 +531,12 @@ class PageDecorator
       end
 
       def flower_visitor_sentence
-        traits = traits_for_pred_uri(EolTerms.alias_uri('flowers_visited_by')).uniq do |t|
-          t.dig(:object_term, :uri)
-        end.slice(0, FLOWER_VISITOR_LIMIT)
+        page_ids = object_traits_for_pred_uri(EolTerms.alias_uri('visits_flowers_of')).map do |t|
+          t[:page_id]
+        end.uniq.slice(0, FLOWER_VISITOR_LIMIT)
 
-        if traits && traits.any?
-          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+        if page_ids.any?
+          parts = page_ids.collect { |page_id| association_sentence_part("%s", page_id) }
           add_sentence do |_, __, ___|
             "Flowers are visited by #{to_sentence(parts)}."
           end
@@ -754,11 +754,19 @@ class PageDecorator
       end
 
       def traits_for_pred_uri(pred_uri)
+        traits_for_pred_uri_helper(pred_uri, @page.grouped_data)
+      end
+
+      def object_traits_for_pred_uri(pred_uri)
+        traits_for_pred_uri_helper(pred_uri, @page.grouped_object_data)
+      end
+
+      def traits_for_pred_uri_helper(pred_uri, grouped_data)
         terms = gather_terms(pred_uri)
         traits = []
 
         terms.each do |term|
-          recs = @page.grouped_data[term]
+          recs = grouped_data[term]
 
           if recs
             traits += recs

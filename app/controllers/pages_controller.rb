@@ -129,8 +129,10 @@ class PagesController < ApplicationController
       [TraitGroup.new(trait[:predicate], trait[:page_assoc_role].to_sym), trait]
     end.to_h
     # get_media # NOTE: we're not *currently* showing them, but we will.
-    # TODO: we should really only load Associations if we need to:
+    
+    # For autogen summary text
     @associations = build_page_associations(@page)
+
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)

@@ -539,6 +539,11 @@ class Page < ApplicationRecord
     @data_loaded = true
     @data = data
   end
+
+  def object_data
+    @object_data = TraitBank.object_traits_by_page(id) unless @object_data
+    @object_data
+  end
   
   def association_page_ids
     TraitBank.association_page_ids(id)
@@ -623,6 +628,10 @@ class Page < ApplicationRecord
 
   def grouped_data
     @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
+  end
+
+  def grouped_object_data
+    @grouped_object_data ||= object_data.group_by { |t| t[:predicate][:uri] }
   end
 
   def grouped_data_by_obj_uri
