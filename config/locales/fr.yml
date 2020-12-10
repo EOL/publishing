@@ -1329,6 +1329,8 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: hôte de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: est tué par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasité par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: a un agent pathogène
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: est la proie de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visité par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: fleurs visitées par
     name:

@@ -1304,6 +1304,14 @@ pms:
     pagination:
       next: pàgina apress
       previous: pàgina precedenta
+    inverse_name:
+      fallback: anvers ëd «%{term_name}»
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a l'é mangià da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: ambient creà da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: a l'ha dj'ectoparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: a l'ha dj'endoparassita
+        http://eol(dot)org/schema/terms/HasDispersalVector: vetor ëd dëspersion për
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
