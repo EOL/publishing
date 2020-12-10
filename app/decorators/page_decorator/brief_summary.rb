@@ -561,34 +561,42 @@ class PageDecorator
         end
       end
 
-      def forms_sentence
-        forms_traits = @page.grouped_data[EolTerms.alias_uri('forms')] || [] #intentionally skip descendants of this term
+      def forms_sentence 
+        # intentionally skip descendants of this term
+        forms_traits = (@page.grouped_data[EolTerms.alias_uri('forms')] || []).uniq { |t| t.dig(:object_term, :uri) }
 
         if forms_traits.any?
-          lifestage_trait = forms_traits.find do |t|
+          lifestage_traits = forms_traits.find_all do |t|
             t.[](:lifestage_term)&.[](:name)&.present?
           end
 
-          if lifestage_trait
-            trait = lifestage_trait
-            lifestage = trait.dig(:lifestage_term, :name)&.capitalize
-          else
-            trait = forms_traits.first
-            lifestage = nil
+          other_traits = forms_traits.reject do |t|
+            t.[](:lifestage_term)&.[](:name)&.present?
           end
 
-          begin_part = [lifestage, name_clause].compact.join(" ")
-          form_part = term_sentence_part("%s", "form", nil, trait[:predicate])
-
-          if trait
-            add_sentence do |_, __, ___|
-              trait_sentence_part(
-                "#{begin_part} #{form_part} %ss.", #extra s for plural, not a typo
-                trait
-              )
-            end
-            report_name_used
+          if other_traits.any? && lifestage_traits.any?
+            sentence_traits = [other_traits.first, lifestage_traits.first]
+          elsif other_traits.any?
+            sentence_traits = other_traits[0..1]
+          elsif lifestage_traits.any?
+            sentence_traits = lifestage_traits[0..1]
           end
+
+          sentence_traits.each { |t| add_forms_sentence(t) }
+        end
+      end
+
+      def add_forms_sentence(trait)
+        lifestage = trait.dig(:lifestage_term, :name)
+        begin_part = [lifestage, name_clause].compact.join(" ")
+        form_part = term_sentence_part("%s", "form", nil, trait[:predicate])
+
+        add_sentence do |_, __, ___|
+          trait_sentence_part(
+            "#{begin_part} #{form_part} %ss.", #extra s for plural, not a typo
+            trait
+          )
+          report_name_used
         end
       end
 
