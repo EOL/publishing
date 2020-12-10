@@ -4,7 +4,7 @@
   %ul.desc-meta
     %li= t("terms.uri_field_html", :uri => link_to(term[:uri], term[:uri])).html_safe
     - if !term[:definition].blank?
-      %li= t("terms.definition_field_html", :definition => term[:definition]).html_safe
+      %li= t("terms.definition_field_html", :definition => i18n_term_defn(term)).html_safe
     - if !term[:comment].blank?
       %li= t("terms.comment_field_html", :comment => term[:comment]).html_safe
     - if local_assigns.include?(:source) && !source.blank?

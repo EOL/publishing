@@ -31,7 +31,7 @@ class TraitBank
       def create_constraints(drop = nil)
         contraints = {
           "Page" => [:page_id],
-          "Term" => [:uri]
+          "Term" => [:uri, :eol_id]
         }
         contraints.each do |label, fields|
           fields.each do |field|
@@ -51,9 +51,11 @@ class TraitBank
       # Your gun, your foot: USE CAUTION. This erases EVERYTHING irrevocably.
       def nuclear_option!
         remove_with_query(name: :n, q: "(n)")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
-      def remove_all_data_leave_terms
+      # Your gun, your foot: USE CAUTION. This erases (almost) EVERYTHING irrevocably.
+      def remove_all_data_leave_terms!
         remove_with_query(name: :meta, q: "(meta:MetaData)")
         remove_with_query(name: :trait, q: "(trait:Trait)")
         remove_with_query(name: :page, q: "(page:Page)")
@@ -67,6 +69,10 @@ class TraitBank
           q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
+          name: :rel,
+          q: "()-[rel:inferred_trait]-(:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        remove_with_query(
           name: :trait,
           q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
@@ -77,33 +83,35 @@ class TraitBank
       def remove_with_query(options = {})
         name = options[:name]
         q = options[:q]
-        delay = options[:delay] || 1 # Increasing this did not really help site
-                                     # performance. :|
-        size = options[:size] || 128
+        delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
+        size = options[:size] || 64
         count_before = count_type_for_resource(name, q)
+        count = 0
         return if count_before.nil? || ! count_before.positive?
-        iteration = 0
         loop do
           time_before = Time.now
-          log("--TB DELETE (#{size}):")
-          query("MATCH #{q} WITH #{name} LIMIT #{size} DETACH DELETE #{name}")
+          apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+          log("--TB_DEL: #{apoc}")
+          query(apoc)
           time_delta = Time.now - time_before
+          log("--TB_DEL: Took #{time_delta}.")
           count += size
           if count >= count_before
-            new_count = count_type_for_resource(name, q)
-            break unless new_count.positive?
+            count = count_type_for_resource(name, q)
+            break unless count.positive?
             if count >= 2 * count_before
               raise "I have been attempting to delete #{name} data for twice as long as expected. "\
-                    "Started with #{count_before} entries, now there are #{new_count}. Aborting."
+                    "Started with #{count_before} entries, now there are #{count}. Aborting."
             end
           end
-          size *= 2 if time_delta < 30 and size < 16_000
+          size *= 2 if time_delta < 15 and size <= 8192
+          size /= 2 if time_delta > 30
           sleep(delay)
         end
       end
 
       def count_type_for_resource(name, q)
-        query("MATCH #{q} RETURN COUNT(#{name})")['data']&.first&.first
+        query("MATCH #{q} RETURN COUNT(DISTINCT #{name})")['data']&.first&.first
       end
 
       # NOTE: this code is unused, but please don't delete it; we call it manually.

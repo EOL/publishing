@@ -240,7 +240,7 @@ module PagesHelper
       status = n.taxonomic_status&.name
       dwh_str = n.resource&.dwh? ? "a" : "b"
       key = "#{dwh_str}.#{n.italicized}"
-      key += ".#{node.rank_treat_as}" if include_rank && node.has_rank_treat_as?
+      key += ".#{node.rank_treat_as}" if include_rank && node&.has_rank_treat_as?
       key += ".#{status}" if include_status && status
       key
     end.values.sort_by do |v|

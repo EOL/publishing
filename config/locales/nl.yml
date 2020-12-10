@@ -251,19 +251,19 @@ nl:
       food_webs: Voedselwebben
       glossary: Woordenlijst
       help: Hulp
-      language_support: Taal Support
+      language_support: Taalondersteuning
       terms_of_use: Gebruiksvoorwaarden
       the_eol_forum: Het EOL Forum
       what_is_eol: Wat is EOL?
       whats_new: Nieuw
     discover:
       algae: Algen
-      amphibians: Amfibieen
+      amphibians: Amfibieën
       animals: Dieren
       archaea: Spinachtigen
-      bacteria: Bacterien
+      bacteria: Bacteriën
       birds: Vogels
-      crustaceans: Schaaldieren
+      crustaceans: Kreeftachtigen
       fishes: Vissen
       flowering_plants: Bedektzadigen
       fungi: Fungi
@@ -831,7 +831,7 @@ nl:
   recaptcha_error: Vertel alsjeblieft dat je geen robot bent.
   reference_compiled_from: Verwezen door %{links}
   reference_compiled_from_article: '%{source} artikel getiteld "%{name}"'
-  register_new_account: Registreer voor een nieuw account
+  register_new_account: Registreren voor een nieuw account
   resources:
     actions:
       import_traits: kenmerken importeren (uit repository)
@@ -1263,7 +1263,7 @@ nl:
     have_pending: U heeft al een download in behandeling voor deze zoekopdracht. Controleer
       uw <a href="%{url}">gebruikerspagina</a> om te zien of deze is voltooid.
   users:
-    account_migration_header: Als jij je voor 15 november 2018 geregistreerd hebt
+    account_migration_header: Als u zich voor 15 november 2018 geregistreerd hebt
       bij EOL.
     account_migration_notice: Uw accountgegevens, inclusief gebruikersnaam, bijbehorend
       e-mailadres, profielbeschrijving en eigen verzamelingen  zijn geïmporteerd in
@@ -1292,6 +1292,7 @@ nl:
     fields:
       name: 'Naam:'
       definition: 'definitie:'
+      attribution: 'Naamsvermelding:'
       comment: 'opmerking:'
       sections: 'secties:'
       is_hidden_from_glossary: 'verbergen van woordenlijst:'
@@ -1306,12 +1307,128 @@ nl:
       previous: vorige pagina
     name:
       by_uri:
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Erg klein
+        http://eol(dot)org/schema/HeadWidth: kopbreedte
+        http://eol(dot)org/schema/terms/AETinRange: Actuele Evapotranspiratie in de
+          geografische range
+        http://eol(dot)org/schema/terms/Absent: Niet aanwezig in regio
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: actieve groeiperiode
+        http://eol(dot)org/schema/terms/BloomColor: bloemkleur
+        http://eol(dot)org/schema/terms/BloomPeriod: bloeiperiode
+        http://eol(dot)org/schema/terms/BreedingHabitat: broedhabitat
+        http://eol(dot)org/schema/terms/CITES_I: CITES Appendix I
+        http://eol(dot)org/schema/terms/CITES_II: CITES Appendix II
+        http://eol(dot)org/schema/terms/CITES_III: CITES Appendix III
+        http://eol(dot)org/schema/terms/CNRatio: koolstf-tot-stikstof ratio
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: kalkrijke bodem tolerantie
+        http://eol(dot)org/schema/terms/CapitulumLength: Capitulum lengte
+        http://eol(dot)org/schema/terms/CellDepth: celdiepte
+        http://eol(dot)org/schema/terms/CellLength: cellengte
+        http://eol(dot)org/schema/terms/Colonial: Koloniaal
+        http://eol(dot)org/schema/terms/CommercialAvailability: commercieel beschikbaar
+        http://eol(dot)org/schema/terms/Cosmopolitan: Kosmopolitisch
+        http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: bekende marine soorten
+        http://eol(dot)org/schema/terms/EggDiameter: ei diameter
+        http://eol(dot)org/schema/terms/ExtinctionStatus: uitgestorven
+        http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: vetzuursamenstelling
+          van melk
+        http://eol(dot)org/schema/terms/FemalesPerGroup: Vrouwen per Group
+        http://eol(dot)org/schema/terms/FireResistance: vuurweerstand
+        http://eol(dot)org/schema/terms/FireTolerance: vuurtolerantie
+        http://eol(dot)org/schema/terms/FossilFirst: eerste verschijning
+        http://eol(dot)org/schema/terms/FrostFreeDays: vorstvrije dagen
+        http://eol(dot)org/schema/terms/FruitPersistence: fruit/zaad weerstand
+        http://eol(dot)org/schema/terms/FruitSeedColor: fruit of zaadkleur
+        http://eol(dot)org/schema/terms/HeadBodyLength: kopromplengte
+        http://eol(dot)org/schema/terms/HeadtoCoccyxLength: hoofd tot coccyx lengte
+        http://eol(dot)org/schema/terms/HomeRange: home range
+        http://eol(dot)org/schema/terms/HoneyBeePain: Honingbijpijnschaal
+        http://eol(dot)org/schema/terms/HumanLivestockToxicity: mens/vee toxiciteit
+        http://eol(dot)org/schema/terms/HumanPopulationDensity: menselijke populatiedichtheid
+        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: menselijke populatiedichtheid
+          wijziging
+        http://eol(dot)org/schema/terms/HypoconeShape: hypocone vorm
+        http://eol(dot)org/schema/terms/InitialMortalityRate: initial mortality rate
+        http://eol(dot)org/schema/terms/InterBirthInterval: inter-birth interval
+        http://eol(dot)org/schema/terms/InvasiveRange: invasive in
+        http://eol(dot)org/schema/terms/KnownSpecies: bekende mariene soort
+        http://eol(dot)org/schema/terms/LittersPerYear: aantal worpen per jaar
+        http://eol(dot)org/schema/terms/Log10Productivity: log10 productiviteit
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: man vrouw lichaamsgewichtverhouding
+        http://eol(dot)org/schema/terms/MaleTenure: Male Tenure
+        http://eol(dot)org/schema/terms/MalesPerGroup: Mannen per Groep
+        http://eol(dot)org/schema/terms/MantleLength: Mantle lengte
+        http://eol(dot)org/schema/terms/MarineLarvalDevelopmentStrategy: mariene larveontwikkelingsstrategie
+        http://eol(dot)org/schema/terms/MatingSystem: mating system
+        http://eol(dot)org/schema/terms/MiddleToeLength: middelste teenlengte
+        http://eol(dot)org/schema/terms/MidpointAltitude: midpoint hoogte
+        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: minerale samenstelling
+          van de melk
+        http://eol(dot)org/schema/terms/MoistureUse: vochtgebruik
+        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: sterftecijferverdubbelingstijd
+        http://eol(dot)org/schema/terms/NestType: nest type
+        http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: aantal nieuwe
+          soorten beschreven 1999-2008
+        http://eol(dot)org/schema/terms/NonInvasiveRange: not invasief in
+        http://eol(dot)org/schema/terms/NucleusLocation: nucleus locatie
+        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: aantal DNA Records
+          In GGBN
+        http://eol(dot)org/schema/terms/NumberOfHosts: aantal hosts
+        http://eol(dot)org/schema/terms/NumberOfSequencesInGenBank: aantal sequences
+          in GenBank
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: aantal openbare
+          records in BOLD
+        http://eol(dot)org/schema/terms/NumberRecordsInBOLD: aantal records in BOLD
+        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: aantal records in GBIF
+        http://eol(dot)org/schema/terms/NumberReferencesInBHL: aantal references in
+          BHL
+        http://eol(dot)org/schema/terms/NumberSpecimensInGGBN: aantal specimens in
+          GGBN
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: nutrient samenstelling
+          van melk
+        http://eol(dot)org/schema/terms/OceaniaRealm: Oceanisch gebied (eilanden)
+        http://eol(dot)org/schema/terms/OptimalGrowthTemperature: optimale groeitemperatuur
+        http://eol(dot)org/schema/terms/OuterEarLength: buitenoorlengte
+        http://eol(dot)org/schema/terms/OvaDiameter: eidiameter
+        http://eol(dot)org/schema/terms/OxygenSaturation: water O2 verzadiging
+        http://eol(dot)org/schema/terms/PlantHabit: PlantHabit
+        http://eol(dot)org/schema/terms/PlantingDensity: aantplantingsdichtheid
+        http://eol(dot)org/schema/terms/PopulationGroupSize: populatie groepsgrootte
+        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
+        http://eol(dot)org/schema/terms/ProsomeHeight: prosome hoogte
+        http://eol(dot)org/schema/terms/ProsomeLength: prosome lengte
+        http://eol(dot)org/schema/terms/RecordInGBIF: records in GBIF?
+        http://eol(dot)org/schema/terms/ReferenceInBHL: referenties in BHL?
+        http://eol(dot)org/schema/terms/SeedBank: zaadbank
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: schelphoogte, tweekleppigen
+        http://eol(dot)org/schema/terms/ShellLengthBivalve: schelplengte, tweekleppigen
+        http://eol(dot)org/schema/terms/SocialGroupSize: sociale groepgrootte
+        http://eol(dot)org/schema/terms/SocialSystem: social systeem
+        http://eol(dot)org/schema/terms/SoilDepth: bodemdiepte
+        http://eol(dot)org/schema/terms/SoilPH: bodem pH
+        http://eol(dot)org/schema/terms/SpecimensInGGBN: specimens in GGBN?
+        http://eol(dot)org/schema/terms/StandardLength: standaard lengte
+        http://eol(dot)org/schema/terms/TestesMass: Testes Mass
+        http://eol(dot)org/schema/terms/TropicalOcean: Tropische Oceaan
+        http://eol(dot)org/schema/terms/Uses: gebruikt voor
+        http://eol(dot)org/schema/terms/browsing: browser
+        http://eol(dot)org/schema/terms/burl: warrelknoest
+        http://eol(dot)org/schema/terms/crustose: korstvormig
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: zuurstof
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic zuur
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic zuur
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: lichaamslengte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofiet
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet
@@ -1329,7 +1446,6 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproductie
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: ouderzorg
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilinder
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vlucht
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: celvolume
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelet structuur
@@ -1382,45 +1498,8 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: bloemkleur
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: vruchtsoort
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: staartlengte
-        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
-        http://eol(dot)org/schema/terms/FossilFirst: eerste verschijning
-        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregio
-        http://www(dot)wikidata(dot)org/entity/Q33596: beweeglijkheid
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: waterdiepte
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropisch
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
-        http://eol(dot)org/schema/terms/paleo_megaannum: miljoen jaar geleden
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graden Celsius
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: individuen
-          per vierkante kilometer
-        http://eol(dot)org/schema/terms/millimeterspermonth: milimeters per maand
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dagen
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: maanden
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: jaren
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
-        http://semanticscience(dot)org/resource/SIO_001114: max
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: graden
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /dag
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /jaar
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: graden Farenheit
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: inch
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
-        http://purl(dot)org/obo/owl/UO#UO_0000034: weken
-        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /cel /dag
-        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/cel
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/dag
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/jaar
-        Unit: Eenheid
-        http://eol(dot)org/schema/terms/percentPerMonth: '%/maand'
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnen
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: voet
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inches
+        http://www(dot)wikidata(dot)org/entity/Q33596: beweeglijkheid
+        https://eol(dot)org/schema/terms/crustacean_feeder: Kreeftachtigeneter
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregio
 ...

@@ -26,26 +26,6 @@ module DataHelper
     end.compact
   end
 
-  def show_metadata(data)
-    return if data.nil?
-    return unless data[:meta] ||
-      data[:source] ||
-      data[:object_term] ||
-      data[:units]
-    if data[:metadata]
-      data[:metadata].each do |datum|
-        show_meta_data(datum)
-      end
-    end
-    show_definition(data[:predicate]) if data[:predicate]
-    show_definition(data[:object_term]) if data[:object_term]
-    show_definition(data[:units]) if data[:units]
-    show_modifier(:sex_term, data[:sex_term]) if data[:sex_term]
-    show_modifier(:lifestage_term, data[:lifestage_term]) if data[:lifestage_term]
-    show_modifier(:statistical_method_term, data[:statistical_method_term]) if data[:statistical_method_term]
-    show_source(data[:source]) if data[:source]
-  end
-
   def show_meta_data(datum)
     # Hard-coded exception for source, since it's duplicated:
     return if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
@@ -61,17 +41,19 @@ module DataHelper
     end
   end
 
-  def data_value(data)
+  def data_value(data, options={})
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
-    if @associations && (target_id = data[:object_page_id])
+
+    if @associations && data[:object_page_id]
+      target_id = options[:page_is_assoc_obj] ? data[:page_id] : data[:object_page_id]
       page = @associations[target_id]
       unless page
         Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
-        if Page.exists?(data[:object_page_id])
-          page = Page.find(data[:object_page_id])
+        if Page.exists?(target_id)
+          page = Page.find(target_id)
         else
-          return "[MISSING PAGE #{data[:object_page_id]}]"
+          return "[MISSING PAGE #{target_id}]"
         end
       end
       parts << link_to(name_for_page(page), page_path(page))
@@ -86,8 +68,12 @@ module DataHelper
     elsif val = data[:literal]
       parts << unlink(val).html_safe
     else
-      parts << "CORRUPTED VALUE:"
-      parts <<  value
+      if @associations && data[:object_page_id].nil?
+        parts << "NIL OBJECT_PAGE_ID for trait #{data[:eol_pk]}"
+      else
+        parts << "CORRUPTED VALUE:"
+        parts <<  value
+      end
     end
 
     parts.join(" ")
@@ -95,6 +81,10 @@ module DataHelper
 
   def i18n_term_name(term)
     TraitBank::Record.i18n_name(term)
+  end
+
+  def i18n_term_defn(term)
+    TraitBank::Record.i18n_defn(term)
   end
 
   def i18n_term_name_for_uri(uri)
@@ -110,11 +100,9 @@ module DataHelper
       uri
     end
   end
-      
 
-
-  def show_data_value(data)
-    value = data_value(data)
+  def show_data_value(data, options={})
+    value = data_value(data, options)
 
     haml_tag_if(data[:object_term], "div.a.js-data-val") do
       haml_concat value.html_safe # Traits allow HTML.
@@ -129,20 +117,6 @@ module DataHelper
       separated_list(modifiers)
     else
       nil
-    end
-  end
-
-  def show_definition(uri)
-    return unless uri && uri[:definition]
-    haml_tag(:div, I18n.t(:data_definition, data: uri[:name]), class: "ui secondary segment")
-    haml_tag(:div, class: "ui tertiary segment") do
-      haml_tag(:a, uri[:uri], href: uri[:uri], class: "uri_defn")
-      haml_tag(:br)
-      if uri[:definition].empty?
-        haml_concat("")
-      else
-        haml_concat(uri[:definition].html_safe)
-      end
     end
   end
 

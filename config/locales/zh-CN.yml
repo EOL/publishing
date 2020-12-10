@@ -1190,6 +1190,12 @@ zh-CN:
       previous: 上一页
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: 生态形态群性
+        http://eol(dot)org/schema/terms/FossilFirst: 首次出现
+        http://eol(dot)org/schema/terms/NativeRange: 原生地包括
+        http://eol(dot)org/schema/terms/Present: 地理分布包括
+        http://eol(dot)org/schema/terms/TrophicGuild: 营养群性
+        http://eol(dot)org/schema/terms/fossilOccPBDB: 化石出现次数
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: 硫酸钡
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 氧
@@ -1227,6 +1233,15 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: 黄昏行性的
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: 光合自养生物
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: 光异养生物
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: lu di
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 海洋的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: 淡水
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 森林
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: 草原
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 酸性的土壤
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 阀杆直径
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 叶大小等级
@@ -1259,7 +1274,6 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: 无性生殖
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移动
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 亲代抚育
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: 圆柱
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: 贮存器官
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: 跑着
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: 树上行动
@@ -1350,8 +1364,6 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 寄生
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: 被寄生
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 有宿主
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: 授粉
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: 被授粉
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: 被捕食于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 向量是
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 吃
@@ -1385,64 +1397,8 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢长
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 身宽
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨宽
-        http://eol(dot)org/schema/terms/Present: 地理分布包括
-        http://eol(dot)org/schema/terms/FossilFirst: 首次出现
-        https://www(dot)wikidata(dot)org/entity/Q295469: 生态区
-        http://eol(dot)org/schema/terms/EcomorphologicalGuild: 生态形态群性
-        http://eol(dot)org/schema/terms/TrophicGuild: 营养群性
-        http://www(dot)wikidata(dot)org/entity/Q33596: 能动性
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: 水深
-        http://eol(dot)org/schema/terms/NativeRange: 原生地包括
-        http://eol(dot)org/schema/terms/fossilOccPBDB: 化石出现次数
         http://www(dot)wikidata(dot)org/entity/Q1053008: 营养级
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: lu di
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 森林
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 海洋的
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: 淡水
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: 热带的
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: 草原
-        http://eol(dot)org/schema/terms/paleo_megaannum: 百万年前
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 摄氏度
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: 每平方公里个数
-        http://eol(dot)org/schema/terms/millimeterspermonth: 毫米/月
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: 开尔文
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 日
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 月
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: 年
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: 瓦特
-        http://semanticscience(dot)org/resource/SIO_001114: 最大
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: 百分之
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 度
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /日
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /年
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: 华氏度
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: 英寸
-        http://eol(dot)org/schema/terms/perAcre: 每英亩
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU实用盐度单位
-        http://purl(dot)org/obo/owl/UO#UO_0000034: 周
-        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol/细胞/天
-        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/细胞
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/升
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: 克/平方厘米/天
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: 公斤/平方米/年
-        Unit: 单位
-        http://eol(dot)org/schema/terms/percentPerMonth: '%/月'
-        http://eol(dot)org/schema/terms/gramsPercm2PerYear: 克/平方公分/年
-        http://eol(dot)org/schema/terms/gramsPerMonth: 克/月
-        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: 毫米/3个月
-        http://eol(dot)org/schema/terms/millimetersPerFourMonths: 毫米/4个月
-        http://eol(dot)org/schema/terms/millimetersPerSixMonths: 毫米/6个月
-        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: 毫米/7个月
-        http://eol(dot)org/schema/terms/millimetersPerEightMonths: 毫米/8个月
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: 毫米/天
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: 毫米/秒
-        http://eol(dot)org/schema/terms/millimetersPerYear: 毫米/年
-        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/平方公分/小时
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 英吨
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
+        http://www(dot)wikidata(dot)org/entity/Q33596: 能动性
+        https://www(dot)wikidata(dot)org/entity/Q295469: 生态区
 ...

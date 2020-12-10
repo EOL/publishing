@@ -7,7 +7,7 @@ gem 'rails', '5.2.4.3'
 gem 'mysql2', '0.5.3'
 
 # "Internal" EOL gems:
-gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git'
+gem 'eol_terms', '>= 0.6.10', git: 'https://github.com/EOL/eol_terms.git'
 
 # Asset-related gems next:
 gem 'webpacker', '~> 5.x'
@@ -117,9 +117,12 @@ gem 'client_side_validations', '~> 16.1'
 gem 'client_side_validations-simple_form', '~> 9.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus', '~> 1.3'
+
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'neo4j', '~> 9.4'
-# Sitemap
+gem 'activegraph', '~> 10.0.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
+gem 'neo4j-ruby-driver', '~> 1.7.0' 
+
+#Sitemap
 gem 'sitemap_generator', '~> 6.1'
 
 # url slug support

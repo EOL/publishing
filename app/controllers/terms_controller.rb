@@ -1,7 +1,7 @@
 class TermsController < ApplicationController
   before_action :require_admin, only: [:update]
 
-  SCHEMA_URI_FORMAT = "http://eol.org/schema/terms/%s"
+  SCHEMA_URI_FORMAT = "https://eol.org/schema/terms/%s"
   META_OBJECT_URIS = {
     sex: [
       "http://purl.obolibrary.org/obo/PATO_0000383",
@@ -67,19 +67,20 @@ class TermsController < ApplicationController
   end
 
   def object_terms_for_pred
-    pred = params[:pred_uri]
+    pred = TermNode.find(params[:predicate_id].to_i)
     q = params[:query]
     res = TraitBank::Term.obj_terms_for_pred(pred, q) # NOTE: this is already cached by the class. ...is that wise?
     render :json => res
   end
 
   def meta_object_terms
-    pred = params[:pred]
+    pred = params[:meta_predicate]
     uris = META_OBJECT_URIS[pred.to_sym] || []
-    res = uris.map do |uri|
+    terms = TermNode.where(uri: uris)
+    res = terms.map do |term|
       {
-        name: TraitBank::Term.name_for_uri(uri),
-        uri: uri
+        name: term.i18n_name,
+        id: term.id
       }
     end
     render json: res
@@ -161,8 +162,18 @@ private
 
   def redirect_to_glossary_entry(uri)
     term = TraitBank::Term.term_as_hash(uri)
-    raise ActionController.RoutingError.new("Not Found") if !term
+
+    raise_not_found if !term
+
     first_letter = TraitBank::Term.letter_for_term(term)
+
+    raise_not_found if first_letter.nil?
+
     redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302
   end
+
+  def raise_not_found
+    raise ActionController.RoutingError.new("Not Found")
+  end
+
 end

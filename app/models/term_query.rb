@@ -15,6 +15,32 @@ class TermQuery < ApplicationRecord
 
   accepts_nested_attributes_for :filters
 
+  def self.from_short_params(short_params)
+    tq = self.new(
+      clade_id: short_params[:c], 
+      result_type: short_params[:r]
+    )
+
+    tq.filters = short_params[:f]&.map do |filter_params|
+      TermQueryFilter.from_short_params(filter_params)
+    end
+
+    tq
+  end
+
+  def to_short_params
+    params = {
+      r: result_type,
+      f: filters.map.with_index { |f, i| f.to_short_params }
+    }
+
+    if clade
+      params[:c] = clade.id
+    end
+
+    params
+  end
+
   def predicate_filters
     filters.select { |f| f.predicate? }
   end
@@ -69,18 +95,6 @@ class TermQuery < ApplicationRecord
     self.filters.build if filters.empty?
   end
 
-  def filters_inv_pred_last
-    self.filters.sort do |a, b|
-      if a.inverse_pred_uri && !b.inverse_pred_uri
-        1
-      elsif !a.inverse_pred_uri && b.inverse_pred_uri
-        -1
-      else
-        0
-      end
-    end
-  end
-
   def deep_dup
     copy = dup
     copy.filters = self.filters.collect { |f| f.dup }
@@ -128,31 +142,39 @@ class TermQuery < ApplicationRecord
         :clade_id,
         :result_type,
         :filters_attributes => [
-          :pred_uri,
-          :top_pred_uri,
-          :obj_uri,
+          :predicate_id,
+          :root_predicate_id,
+          :object_term_id,
           :obj_clade_id,
           :op,
           :num_val1,
           :num_val2,
-          :units_uri,
-          :sex_uri,
-          :lifestage_uri,
-          :statistical_method_uri,
+          :units_term_id,
+          :sex_term_id,
+          :lifestage_term_id,
+          :statistical_method_term_id,
           :resource_id,
           :show_extra_fields,
-          :pred_term_selects_attributes => [
+          :predicate_child_selects_attributes => [
             :type,
-            :parent_uri,
-            :selected_uri
+            :parent_term_id,
+            :selected_term_id
           ],
-          :obj_term_selects_attributes => [
+          :object_term_child_selects_attributes => [
             :type,
-            :parent_uri,
-            :selected_uri
+            :parent_term_id,
+            :selected_term_id
           ]
         ]
       ]
+    end
+
+    def expected_short_params
+        [
+          :c,
+          :r,
+          :f => TermQueryFilter.expected_short_params
+        ]
     end
   end
 

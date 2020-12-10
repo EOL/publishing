@@ -16,16 +16,8 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    result = TraitBank::Term.units_for_pred(filter.pred_uri) # NOTE: this is cached in the class.
-
-    return [] if result == :ordinal # TODO: better handling of this.
-
-    uris = [result[:units_uri]] unless uris
-    options = uris.map do |uri|
-      [TraitBank::Term.name_for_uri(uri), uri]
-    end
-
-    options_for_select(options, result[:units_uri])
+    units_term = filter.predicate.units_term
+    options_for_select([[units_term.i18n_name, units_term.id]], units_term.id)
   end
 
   def pred_name(uri)
@@ -54,7 +46,7 @@ module TermsHelper
 
   def filter_obj_name(filter)
     raise TypeError.new("filter does not have an object") if !filter.object?
-    filter.object_term? ? i18n_term_name_for_uri(filter.obj_uri) : filter.obj_clade.canonical
+    filter.object_term? ?  filter.object_term.i18n_name : filter.obj_clade.canonical
   end
 
   def filter_display_string(filter)
@@ -62,7 +54,7 @@ module TermsHelper
     prefix = "traits.search.filter_display."
 
     if filter.predicate?
-      pred_name = i18n_term_name_for_uri(filter.pred_uri)
+      pred_name = filter.predicate.i18n_name
 
       if filter.object?
         parts << t("#{prefix}pred_obj", pred: pred_name, obj: filter_obj_name(filter))
@@ -86,9 +78,9 @@ module TermsHelper
     end
 
     if filter.extra_fields?
-      parts << t("#{prefix}sex", value: i18n_term_name_for_uri(filter.sex_uri)) if filter.sex_term?
-      parts << t("#{prefix}lifestage", value: i18n_term_name_for_uri(filter.lifestage_uri)) if filter.lifestage_term?
-      parts << t("#{prefix}statistical_method", value: i18n_term_name_for_uri(filter.statistical_method_uri)) if filter.statistical_method_term?
+      parts << t("#{prefix}sex", value: filter.sex_term.i18n_name) if filter.sex_term?
+      parts << t("#{prefix}lifestage", value: filter.lifestage_term.i18n_name) if filter.lifestage_term?
+      parts << t("#{prefix}statistical_method", value: filter.statistical_method_term.i18n_name) if filter.statistical_method_term?
       parts << t("#{prefix}resource", value: filter.resource.name) if filter.resource
     end
 
@@ -109,7 +101,7 @@ module TermsHelper
 
   def term_options_for_select(term_select)
     term_array = term_select.terms.collect do |term|
-      [term[:name], term[:uri]]
+      [term.i18n_name, term.id]
     end
 
     if term_select.top_level?
@@ -127,32 +119,16 @@ module TermsHelper
 
     placeholder = I18n.t("traits.search.select.#{placeholder_key}")
 
-    options_for_select([[placeholder, nil]].concat(term_array), term_select.selected_uri)
+    options_for_select([[placeholder, nil]].concat(term_array), term_select.selected_term&.id)
   end
 
   def nested_term_selects(form, type)
-    type_str = "#{type}_term_selects"
+    type_str = "#{type}_child_selects"
     selects = form.object.send(type_str)
     nested_term_selects_helper(form, selects, type_str)
   end
 
   private
-    def is_any_display_string(filter)
-      pred_name(filter.pred_uri)
-    end
-
-    def is_obj_display_string(filter)
-      "#{pred_name(filter.pred_uri)}:  #{obj_name(filter.obj_uri)}"
-    end
-
-    def num_display_string(filter)
-      "#{pred_name(filter.pred_uri)} #{OP_DISPLAY[filter.op.to_sym]} #{filter.num_val1} #{units_name(filter.units_uri)}"
-    end
-
-    def range_display_string(filter)
-      "#{pred_name(filter.pred_uri)} in [#{filter.num_val1}, #{filter.num_val2}] #{units_name(filter.units_uri)}"
-    end
-
     def nested_term_selects_helper(form, selects, type_str)
       result = nil
 
