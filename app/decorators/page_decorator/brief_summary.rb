@@ -273,7 +273,7 @@ class PageDecorator
         children = @page.native_node&.landmark_children(LandmarkChildLimit) || []
 
         if children.any?
-          taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
+          taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical(Language.english), c.page) }
           add_sentence do |subj, _, __|
             "#{subj} includes groups like #{to_sentence(taxa_links)}."
           end
@@ -928,7 +928,7 @@ class PageDecorator
                              "(page not found)"
 
                            else
-                             view.link_to(target_page.name.html_safe, target_page)
+                             view.link_to(target_page.name(Language.english).html_safe, target_page)
                            end
         sprintf(format_str, target_page_part)
       end
