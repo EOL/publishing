@@ -53,7 +53,7 @@ module Traits
         @max_bi = data.last[i_bi].to_i
         @bw = self.class.to_d_or_i(data.first[i_bw])
         @min = self.class.to_d_or_i(data.first[i_min])
-        @units_term = TraitBank.term_record(query.filters.first.units_uri)
+        @units_term = TraitBank.term_record(query.filters.first.units_term.uri)
         @max_count = 0
 
         result_stack = data.collect do |d|
