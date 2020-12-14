@@ -587,7 +587,7 @@ private
       clade: @page,
       result_type: :taxa,
       filters_attributes: [{
-        pred_uri: EolTerms.alias_uri('habitat')
+        predicate_id: EolTerms.alias_hash('habitat')['eol_id']
       }]
     })
 
