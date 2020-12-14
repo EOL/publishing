@@ -26,12 +26,14 @@ class TraitBank
         raise ActiveRecord::RecordNotFound if hash.nil?
         hash.symbolize_keys
       end
+      alias_method :as_hash, :term_as_hash
 
       # Raises ActiveRecord::RecordNotFound if uri is invalid
       def term_record(uri)
         result = term(uri)
         result&.[]("data")&.symbolize_keys
       end
+      alias_method :as_record, :term_record
 
       # This version returns an "empty" term hash if there is no URI.
       # This version caches results for efficiency.
@@ -43,6 +45,7 @@ class TraitBank
         return nil unless res && res["data"] && res["data"].first
         @terms[uri] = res["data"].first.first
       end
+      alias_method :by_uri, :term
 
       # This method will detect existing Terms and either return the existing term or, if the :force option is set, update the
       # Term instead.
