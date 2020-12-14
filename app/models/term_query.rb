@@ -23,7 +23,7 @@ class TermQuery < ApplicationRecord
 
     tq.filters = short_params[:f]&.map do |filter_params|
       TermQueryFilter.from_short_params(filter_params)
-    end
+    end || []
 
     tq
   end
