@@ -777,7 +777,7 @@ class PageDecorator
       def add_extinction_sentence
         if extinct?
           add_sentence do |_, __, ___|
-            term_sentence_part("This species is %s.", "extinct", EolTerms.alias_uri('extinction'), extinct_trait[:object_term])
+            term_sentence_part("This species is %s.", "extinct", EolTerms.alias_uri('extinction_status'), extinct_trait[:object_term])
           end
 
           true
