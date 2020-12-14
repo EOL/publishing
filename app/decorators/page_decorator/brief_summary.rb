@@ -200,7 +200,7 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          marine_term = TraitBank::Term.term_as_hash(EolTerms.alias_uri('marine'))
+          marine_term = TraitBank::Term.term_record(EolTerms.alias_uri('marine'))
           add_sentence do |subj, are, _|
             term_sentence_part("#{subj} #{are} found in %s.", "marine habitat", EolTerms.alias_uri('habitat'), marine_term)
           end
