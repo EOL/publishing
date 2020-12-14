@@ -1312,6 +1312,19 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: a l'ha dj'ectoparassita
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: a l'ha dj'endoparassita
         http://eol(dot)org/schema/terms/HasDispersalVector: vetor ëd dëspersion për
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: òspit ëd
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: a l'ha dj'iperparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a l'ha 'n vetor
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: a l'é massà da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparassità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: a l'ha dj'euv butà ansima
+          da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: a l'ha dij parassitòid
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: a l'ha n'agent patògen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: a l'é la pijàita ëd
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: fior visità da
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
@@ -1368,6 +1381,10 @@ pms:
         http://eol(dot)org/schema/terms/CellShapeTransverse: forma dla célula pian
           trasversal
         http://eol(dot)org/schema/terms/CellSurfaceArea: àrea ëd surfassa dla célula
+        http://eol(dot)org/schema/terms/CellWidth: larghëssa dla célula
+        http://eol(dot)org/schema/terms/ChelaWidth: Larghëssa dla chela
+        http://eol(dot)org/schema/terms/ChlorophyllAConcentration: consentrassion
+          ëd clorofila A
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud

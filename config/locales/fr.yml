@@ -1324,11 +1324,18 @@ fr:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: est mangé par
         http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat créé par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: a des ectoparasites
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: a des endoparasites
         http://eol(dot)org/schema/terms/HasDispersalVector: vecteur de dispersion
           pour
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: hôte de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: est hyperparasité
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a un vecteur
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: est tué par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasité par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: a des œufs déposés par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasité par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: a des parasitoïdes
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: a un agent pathogène
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: est la proie de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visité par
