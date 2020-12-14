@@ -202,11 +202,11 @@ class PageDecorator
         if is_it_marine?
           marine_term = TraitBank::Term.term_as_hash(EolTerms.alias_uri('marine'))
           add_sentence do |subj, _, __|
-            term_sentence_part("#{subj} is found in %s.", "marine habitat", EolTerms.alias_uri('habitat'), marine_term)
+            term_sentence_part("#{subj} are found in %s.", "marine habitat", EolTerms.alias_uri('habitat'), marine_term)
           end
         elsif freshwater_trait.present?
           add_sentence do |subj, _, __|
-            term_sentence_part("#{subj} is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term])
+            term_sentence_part("#{subj} are associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term])
           end
         end
 
