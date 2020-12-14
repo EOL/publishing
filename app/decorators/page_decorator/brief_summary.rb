@@ -871,8 +871,8 @@ class PageDecorator
         result << conservation_sentence_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?
-          add_sentence do |subj, _, __|
-            "#{subj} is listed #{to_sentence(result)}."
+          add_sentence do |subj, are, _|
+            "#{subj} #{are} listed #{to_sentence(result)}."
           end
         end
 
