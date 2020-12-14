@@ -411,7 +411,9 @@ class PageDecorator
               trait_sentence_part("%s", match.trait)
             end)
 
-            "Reproduction is #{x_parts}."
+            is = extinct? ? 'was' : 'is'
+
+            "Reproduction #{is} #{x_parts}."
           end
         end
 
