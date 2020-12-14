@@ -5,7 +5,7 @@
 
 %a{ name: 'errors' }
 %h2 Recent Errors (Main Log)
-%pre= `tail -n 100 log/staging.log | grep -A 18 " error="`
+%pre= `tail -n 100 log/#{Rails.env}.log | grep -A 18 " error="`
 
 %h2 Delayed Job Log
 %p Only the last 20 lines are shown.
