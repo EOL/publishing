@@ -945,7 +945,7 @@ class PageDecorator
                              "(page not found)"
 
                            else
-                             view.link_to(target_page.name(Language.english).html_safe, target_page)
+                             view.link_to(target_page.name(Locale.english).html_safe, target_page)
                            end
         sprintf(format_str, target_page_part)
       end
