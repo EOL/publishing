@@ -575,7 +575,7 @@ class PageDecorator
       end
 
       def add_forms_sentence(trait)
-        lifestage = trait.dig(:lifestage_term, :name)
+        lifestage = trait.dig(:lifestage_term, :name)&.capitalize
         begin_part = [lifestage, name_clause].compact.join(" ")
         form_part = term_sentence_part("%s", "form", nil, trait[:predicate])
 
