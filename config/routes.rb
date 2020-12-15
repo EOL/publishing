@@ -106,7 +106,7 @@ Rails.application.routes.draw do
       resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
     end
 
-    resources :term_nodes, only: :show, constraints: { id: /http.*/ }
+    resources :term_nodes, only: :show
 
     get "/gbif_downloads/create" => "gbif_downloads#create"
 

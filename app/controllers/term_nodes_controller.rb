@@ -1,6 +1,6 @@
 class TermNodesController < ApplicationController
   def show
-    term_node = TermNode.find(params[:id])
+    term_node = TermNode.find(params[:id].to_i)
 
     url = if term_node.known_type?
       param = if term_node.predicate?
