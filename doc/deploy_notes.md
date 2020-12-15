@@ -53,3 +53,7 @@ Add neo4j_driver_url, neo4j_user, neo4j_password to secrets.yml (see sample)
 `rails r "TermBootstrapper.new.load"` to fix String eol_ids
 `rails r "Locale.rebuild\_language\_mappings"`
 `rails r "OrderedFallbackLocale.rebuild"`
+
+2020-12-15 (mvitale):
+`rails r "TermNode.reindex"`
+
