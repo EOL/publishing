@@ -2,31 +2,12 @@ class Publishing
   attr_accessor :log, :run, :last_run_at
   attr_reader :pub_log
 
-  def self.sync(options = {})
-    instance = self.new(options)
-    instance.sync
-  end
-
   def initialize(options)
     @pub_log = Publishing::PubLog.new(nil)
     @log = nil
     @repo = nil
     @page_ids = Set.new
     @last_run_at = options[:last_run_at].to_i if options.key?(:last_run_at)
-  end
-
-  def sync
-    abort_if_already_running
-    begin
-      @pub_log.log("Syncing with repository...")
-      get_import_run
-      get_resources
-      @pub_log.log('Sync with repository complete.', cat: :ends)
-      @run.update_attribute(:completed_at, Time.now)
-    ensure
-      ImportLog.all_clear!
-    end
-    @pub_log
   end
 
   def abort_if_already_running

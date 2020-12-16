@@ -831,7 +831,6 @@ en:
       show_warns:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
-      sync: "sync"
       clear_publishing: "clear lock"
       clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
     headers:
@@ -3211,4 +3210,3 @@ en:
         https://www(dot)wikidata(dot)org/entity/Q3711325: speed
         https://www(dot)wikidata(dot)org/entity/Q4296711: mitotic index
         https://www(dot)wikidata(dot)org/entity/Q57735866: mechanical defense
-

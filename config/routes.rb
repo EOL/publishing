@@ -87,7 +87,6 @@ Rails.application.routes.draw do
     resources :page_icons, only: [:create]
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
-      get 'sync', on: :collection
       get 'republish'
       get 'reindex'
       get 'fix_no_names'
