@@ -106,7 +106,7 @@ Rails.application.routes.draw do
       resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
     end
 
-    resources :term_nodes, only: :show, constraints: { id: /http.*/ }
+    resources :term_nodes, only: :show
 
     get "/gbif_downloads/create" => "gbif_downloads#create"
 
@@ -191,8 +191,9 @@ Rails.application.routes.draw do
 
     get "/terms/:uri" => "traits#show", :as => "term_records", :constraints => { :uri => /http.*/ }
     get "/terms/search" => "traits#search", :as => "term_search"
+    post "/terms/search_results" => "traits#create_search"
     get "/terms/search_results" => "traits#search_results", :as => "term_search_results"
-    get "/terms/search_form" => "traits#search_form", :as => "term_search_form"
+    post "/terms/search_form" => "traits#search_form", :as => "term_search_form"
 
     namespace :traits do
       get "/data_viz/pie" => "data_viz#pie"

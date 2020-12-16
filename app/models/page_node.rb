@@ -1,5 +1,5 @@
 class PageNode
-  include Neo4j::ActiveNode
+  include ActiveGraph::Node
 
   id_property :page_id
   property :descendant_count, default: 0

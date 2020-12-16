@@ -1304,6 +1304,27 @@ pms:
     pagination:
       next: pàgina apress
       previous: pàgina precedenta
+    inverse_name:
+      fallback: anvers ëd «%{term_name}»
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a l'é mangià da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: ambient creà da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: a l'ha dj'ectoparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: a l'ha dj'endoparassita
+        http://eol(dot)org/schema/terms/HasDispersalVector: vetor ëd dëspersion për
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: òspit ëd
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: a l'ha dj'iperparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a l'ha 'n vetor
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: a l'é massà da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparassità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: a l'ha dj'euv butà ansima
+          da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: a l'ha dij parassitòid
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: a l'ha n'agent patògen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: a l'é la pijàita ëd
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: fior visità da
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
@@ -1329,6 +1350,41 @@ pms:
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminos
         http://eol(dot)org/schema/terms/BloatPotential: potensial ëd gonfiament an
           sle bes-ce
+        http://eol(dot)org/schema/terms/BloomColor: color dlë spantiament
+        http://eol(dot)org/schema/terms/BloomPeriod: perìod dë spantiament
+        http://eol(dot)org/schema/terms/BodyShape: forma dël còrp
+        http://eol(dot)org/schema/terms/BodyVolume: volum dël còrp
+        http://eol(dot)org/schema/terms/BreedingHabitat: ambient ëd nuriment
+        http://eol(dot)org/schema/terms/BrowseAnimalPalatability: piasì për j'animaj
+          da pastura
+        http://eol(dot)org/schema/terms/BudSource: sorgiss dij but
+        http://eol(dot)org/schema/terms/CITES_I: Apendis I ëd CITES
+        http://eol(dot)org/schema/terms/CITES_II: Apendis II ëd CITES
+        http://eol(dot)org/schema/terms/CITES_III: Apendis III ëd CITES
+        http://eol(dot)org/schema/terms/CNRatio: rapòrt carbon su asòt
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: toleransa al teren
+          calcari
+        http://eol(dot)org/schema/terms/CapitulumLength: Longheur dla fiorìa
+        http://eol(dot)org/schema/terms/CarapaceLength: Longheur dël carapass
+        http://eol(dot)org/schema/terms/CarbohydrateCompositionOfMilk: composission
+          dël làit an carboidrà
+        http://eol(dot)org/schema/terms/CaudalFinShape: forma dl'ala caudal
+        http://eol(dot)org/schema/terms/CellDepth: profondeur dla célula
+        http://eol(dot)org/schema/terms/CellLength: longheur dla célula
+        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: maxÀrea/maxVolum
+          ëd la célula
+        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: minÀrea/minVolum
+          ëd la célula
+        http://eol(dot)org/schema/terms/CellShape3D: forma dla célula tridimensional
+        http://eol(dot)org/schema/terms/CellShapeFrontal: forma dla célula pian frontal
+        http://eol(dot)org/schema/terms/CellShapeMedian: forma dla célula pian median
+        http://eol(dot)org/schema/terms/CellShapeTransverse: forma dla célula pian
+          trasversal
+        http://eol(dot)org/schema/terms/CellSurfaceArea: àrea ëd surfassa dla célula
+        http://eol(dot)org/schema/terms/CellWidth: larghëssa dla célula
+        http://eol(dot)org/schema/terms/ChelaWidth: Larghëssa dla chela
+        http://eol(dot)org/schema/terms/ChlorophyllAConcentration: consentrassion
+          ëd clorofila A
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud

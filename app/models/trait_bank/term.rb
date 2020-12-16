@@ -26,12 +26,14 @@ class TraitBank
         raise ActiveRecord::RecordNotFound if hash.nil?
         hash.symbolize_keys
       end
+      alias_method :as_hash, :term_as_hash
 
       # Raises ActiveRecord::RecordNotFound if uri is invalid
       def term_record(uri)
         result = term(uri)
         result&.[]("data")&.symbolize_keys
       end
+      alias_method :as_record, :term_record
 
       # This version returns an "empty" term hash if there is no URI.
       # This version caches results for efficiency.
@@ -43,6 +45,7 @@ class TraitBank
         return nil unless res && res["data"] && res["data"].first
         @terms[uri] = res["data"].first.first
       end
+      alias_method :by_uri, :term
 
       # This method will detect existing Terms and either return the existing term or, if the :force option is set, update the
       # Term instead.
@@ -117,18 +120,24 @@ class TraitBank
       def query_for_update(properties)
         sets = []
         properties.keys.each do |property|
+          term_property = "term.#{property}"
+          value = nil
+
           if property.to_s =~ /^is_/ # Booleans are handled separately.
-            sets << "term.#{property} = #{properties[property] ? 'true' : 'false'}"
+            value = properties[property] ? 'true' : 'false'
           elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
             # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
           else
-            sets << if properties[property].nil?
-              "term.#{property} = ''"
+            value = if properties[property].nil?
+              ''
+            elsif properties[property].is_a?(Integer)
+              properties[property] # e.g., eol_id
             else
-              # NOTE: it could be the eol_id, which is actually a number. ...But we want to stringify it:
-              %{term.#{property} = "#{properties[property].to_s.gsub(/"/, '\"')}"}
+              "\"#{properties[property].to_s.gsub(/"/, '\"')}\""
             end
           end
+
+          sets << "#{term_property} = #{value}" if !value.nil?
         end
         "MATCH (term:Term { uri: '#{properties['uri']}' }) SET #{sets.join(', ')} RETURN term"
       end
@@ -190,8 +199,7 @@ class TraitBank
       end
 
       def delete(uri)
-        # Not going to bother with DETACH, since there should only be one!
-        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DELETE term})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DETACH DELETE term})
       end
 
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
@@ -262,19 +270,20 @@ class TraitBank
       # TODO: extract a Predicate class. There's a lot here and that's a logic way to break this up.
 
       # Keep checking the following methods for use in the codebase:
-      def obj_terms_for_pred(pred_uri, orig_qterm = nil)
+      def obj_terms_for_pred(predicate, orig_qterm = nil)
         qterm = orig_qterm.delete('"').downcase.strip
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}",
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{predicate.uri}/#{qterm}",
                           expires_in: CACHE_EXPIRATION_TIME) do
           name_field = Util::I18nUtil.term_name_property
           q = %Q{MATCH (object:Term { type: 'value',
-                 is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })}
+                 is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{predicate.uri}' })}
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
           q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
           res = query(q)
           res["data"] ? res["data"].map do |t|
             hash = t.first["data"].symbolize_keys
             hash[:name] = hash[:"#{name_field}"]
+            hash[:id] = hash[:eol_id]
             hash
           end : []
         end
@@ -433,7 +442,7 @@ class TraitBank
       def letters_for_glossary
         Rails.cache.fetch("trait_bank/letters_for_glossary", expires_in: CACHE_EXPIRATION_TIME) do
           q = "MATCH (term:Term{ is_hidden_from_glossary: false })\n"\
-              "WITH CASE substring(toLower(term.name), 0, 1) END AS letter\n"\
+              "WITH substring(toLower(term.name), 0, 1) AS letter\n"\
               "RETURN DISTINCT letter\n"\
               "ORDER BY letter"
           res = query(q)
@@ -487,7 +496,7 @@ class TraitBank
               res["data"].first.first
             else
               all = res["data"].map { |t| t.first["data"].symbolize_keys }
-              all.map! { |h| { name: h[:"#{name_field}"], uri: h[:uri] } } if qterm
+              all.map! { |h| { name: h[:"#{name_field}"], uri: h[:uri], id: h[:eol_id] } } if qterm
               all
             end
           else
@@ -522,7 +531,7 @@ class TraitBank
       def term_query(q)
         res = query(q)
         all = res["data"].map { |t| t.first["data"].symbolize_keys }
-        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri] } }
+        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri], id: h[:eol_id] } }
         all
       end
 

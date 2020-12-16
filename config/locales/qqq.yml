@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: EugeneZelenko
+# Author: Kareyac
 # Author: Optilete
 # Author: Pyscowicz
 # Author: Robby
@@ -1036,8 +1037,9 @@ qqq:
           live near the bottom a body of water.
         http://eol(dot)org/schema/terms/net_carbon_fixation_rate: net amount or mass
           of carbon converted from CO2 to organic compounds, per time
-        http://eol(dot)org/schema/terms/no: This statement is false; the answer to
-          this question is no.
+        http://eol(dot)org/schema/terms/no: |-
+          This statement is false; the answer to this question is no.
+          {{identical|No}}
         http://eol(dot)org/schema/terms/non-woodyEpipyte: Non-woody plants growing
           attached to external support without contact to the ground. Non-woody hemiepiphytes
           either germinate on other plants and then establish roots in the ground,
@@ -1222,8 +1224,9 @@ qqq:
           on the ground and later disconnect from the soil
         http://eol(dot)org/schema/terms/yearRound: An activity or period that continues
           throughout the entire year.
-        http://eol(dot)org/schema/terms/yes: This statement is true; the answer to
-          this question is yes.
+        http://eol(dot)org/schema/terms/yes: |-
+          This statement is true; the answer to this question is yes.
+          {{identical|Yes}}
         http://eol(dot)org/schema/terms/zoochory: Seed dispersal mediated by animals.
         http://eol(dot)org/terms/endemic: This organism is known to be endemic to
           this location or region
@@ -2562,9 +2565,9 @@ qqq:
           with a rate that varies from 0.3 - 5 cm / 1000 yr.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: A canopy designed to
           protect against precipitation or sunlight.
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: A skin obtained from
-          animals for human use typically from deer or cattle sources used to produce
-          leather, shoes, fashion accessories, musical instruments.
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: |-
+          A skin obtained from animals for human use typically from deer or cattle sources used to produce leather, shoes, fashion accessories, musical instruments.
+          {{identical|Hide}}
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000059: A soil consisting of
           the upper layer of soil on the surface consisting of loose material capable
           of supporting life composed of a mixture of mineral and organic matter.
@@ -2799,8 +2802,9 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: A morphological quality
           inhering in a bearer by virtue of the bearer's ratios of distances between
           its features (points, edges, surfaces and also holes etc).
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000128: A physical quality inhering
-          in a bearer that has mass near a gravitational body.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000128: |-
+          A physical quality inhering in a bearer that has mass near a gravitational body.
+          {{identical|Weight}}
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000273: A reproductive quality
           inhering in an organism or population by virtue of the bearer's potential
           reproductive capacity and measured by the number of gametes.

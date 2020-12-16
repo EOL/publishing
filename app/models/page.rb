@@ -459,19 +459,16 @@ class Page < ApplicationRecord
 
   # NAMES METHODS
 
-  def name(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string || scientific_name
+  def name(locale = nil)
+    vernacular(locale: locale)&.string || scientific_name
   end
 
-  def short_name_notags(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string || canonical_notags
+  def short_name_notags(locale = nil)
+    vernacular(locale: locale)&.string || canonical_notags
   end
 
-  def short_name(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string || canonical
+  def short_name(locale = nil)
+    vernacular(locale: locale)&.string || canonical
   end
 
   def canonical_notags
@@ -499,9 +496,8 @@ class Page < ApplicationRecord
     native_node.try(:rank)
   end
 
-  def vernacular_or_canonical(languages = nil)
-    languages ||= Language.current
-    vernacular(languages)&.string&.titlecase || canonical
+  def vernacular_or_canonical(locale = nil)
+    vernacular(locale: locale)&.string&.titlecase || canonical
   end
 
   # TRAITS METHODS
@@ -544,32 +540,17 @@ class Page < ApplicationRecord
     @data = data
   end
 
-  def redlist_status
-    # TODO
+  def object_data
+    @object_data = TraitBank.object_traits_by_page(id) unless @object_data
+    @object_data
+  end
+  
+  def association_page_ids
+    TraitBank.association_page_ids(id)
   end
 
-  def habitats
-    if geographic_context.nil? && @data_loaded
-      keys = grouped_data.keys & Eol::Uris.geographics
-      habitat = if keys.empty?
-        ""
-      else
-        habitats = []
-        keys.each do |uri|
-          recs = grouped_data[uri]
-          habitats += recs.map do |rec|
-            rec[:object_term] ? rec[:object_term][:name] : rec[:literal]
-          end
-        end
-        habitats.join(", ")
-      end
-      if geographic_context != habitat
-        update_attribute(:geographic_context, habitat)
-      end
-      habitat
-    else
-      geographic_context
-    end
+  def redlist_status
+    # TODO
   end
 
   def should_show_icon?
@@ -589,8 +570,6 @@ class Page < ApplicationRecord
     clear_caches
     recount
     iucn_status = nil
-    geographic_context = nil
-    habitats
     has_checked_marine = nil
     has_checked_extinct = nil
     # TODO: (for now) score_richness
@@ -619,7 +598,8 @@ class Page < ApplicationRecord
   def clear_caches
     [
       "/pages/#{id}/glossary",
-      "trait_bank/by_page/#{id}"
+      "trait_bank/by_page/#{id}",
+      "trait_bank/key_data/#{id}/v3/limit_#{KEY_DATA_LIMIT}"
     ].each do |cache|
       Rails.cache.delete(cache)
     end
@@ -648,6 +628,10 @@ class Page < ApplicationRecord
 
   def grouped_data
     @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
+  end
+
+  def grouped_object_data
+    @grouped_object_data ||= object_data.group_by { |t| t[:predicate][:uri] }
   end
 
   def grouped_data_by_obj_uri

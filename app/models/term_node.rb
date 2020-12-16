@@ -1,6 +1,8 @@
-class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
-  include Neo4j::ActiveNode
+class TermNode
+  include ActiveGraph::Node
   include Autocomplete
+
+  self.mapped_label_name = 'Term'
 
   property :name
   property :definition
@@ -12,9 +14,12 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   property :position
   property :trait_row_count, default: 0
   property :type
-  id_property :uri
+  property :uri
+  property :is_ordinal
+  id_property :eol_id
 
-  self.mapped_label_name = 'Term'
+  has_many :in, :children, type: :parent_term, model_class: :TermNode
+  has_one :out, :units_term, type: :units_term, model_class: :TermNode
 
   autocompletes "autocomplete_name"
 
@@ -43,7 +48,7 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
     end.to_h
   end
 
-  def i18n_name(locale)
+  def i18n_name(locale = I18n.locale)
     TraitBank::Record.i18n_name_for_locale({
       uri: uri,
       name: name
@@ -60,6 +65,10 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
 
   def known_type?
     predicate? || object_term?
+  end
+
+  def numeric_value_predicate?
+    is_ordinal || units_term.present?
   end
 end
 

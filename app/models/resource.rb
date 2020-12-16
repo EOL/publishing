@@ -173,7 +173,7 @@ class Resource < ApplicationRecord
 
   def remove_content
     # Traits:
-    count = TraitBank.count_by_resource_no_cache(id)
+    count = TraitBank.count_relationships_and_nodes_by_resource_no_cache(id)
     if count.zero?
       log("No traits, skipping.")
     else
@@ -389,6 +389,11 @@ class Resource < ApplicationRecord
     TraitBank::Slurp.load_csvs(self)
   end
 
+  # Note this does NOT include metadata!
+  def trait_count
+    TraitBank::Admin.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
+  end
+
   def traits_file
     Rails.public_path.join('data', "traits_#{id}.csv")
   end
@@ -400,21 +405,6 @@ class Resource < ApplicationRecord
   def remove_traits_files
     File.unlink(traits_file) if File.exist?(traits_file)
     File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
-  end
-
-  def import_media(since)
-    log = Publishing::PubLog.new(self)
-    repo = Publishing::Repository.new(resource: self, log: log, since: since)
-    log.log('Importing Media ONLY...')
-    begin
-      Publishing::PubMedia.import(self, log, repo)
-      log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
-        'media counts may be off.', cat: :infos)
-      log.complete
-    rescue => e
-      log.fail_on_error(e)
-    end
-    Rails.cache.clear
   end
 
   def self.autocomplete(query, options = {})

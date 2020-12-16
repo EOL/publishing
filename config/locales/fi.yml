@@ -592,6 +592,10 @@ fi:
       predator: Saalistaja
       prey: Saalis
       reset: tyhjennä
+      trophic_web_about: EOL:in ravintokartat esittävät yksittäisen lajin ravintosuhteita;
+        valittu laji esitetään niiden lajien kanssa joita se syö (saaliit), jotka
+        syövät sitä (saalistajat) ja muiden samoja lajeja syövien lajien kanssa (kilpailijat).
+        Napsauta kysymysmerkkiä ja saat tietää lisää.
     flash:
       reindexed: Välimuistit tälle sivulle on tyhjennetty. Lataa uudelleen nähdäksesi
         uudet arvot. Huomioi että tällä hetkellä tämä *ei* uudelleenindeksoi sivun
@@ -936,17 +940,20 @@ fi:
       previous: edellinen sivu
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/LittersPerYear: poikueita vuodessa
         http://eol(dot)org/schema/terms/Present: maantieteellisen levinneisyyden alueet
         http://eol(dot)org/schema/terms/fossilOccPBDB: fossiiliesiintymien määrä
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: happi
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: ruumiinpituus
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Ruumiinpituus kuonosta
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: ruumiinpituus kuonosta
           häntään
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: pelaginen vyöhyke
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: laidun
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: puu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0001256: ruumiinpituus
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: elinikä
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: sininen
@@ -966,7 +973,12 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: hedelmä
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistaa kohdetta
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: saalistaja
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: syö seuraav(i)a
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lehden väri
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kukan väri
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001256: ruumiinpituus
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: ruumiinpaino
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: poikueen koko
+        http://rs(dot)tdwg(dot)org/dwc/terms/habitat: elinympäristö
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: veden syvyys
 ...

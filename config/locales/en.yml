@@ -1277,6 +1277,26 @@ en:
     pagination:
       next: "next page"
       previous: "previous page"
+    inverse_name:
+      fallback: "inverse of '%{term_name}'"
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: is eaten by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat created by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: has ectoparasite
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: has endoparasite
+        http://eol(dot)org/schema/terms/HasDispersalVector: dispersal vector for
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: host of
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: has hyperparasite
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: has vector
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: is killed by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasitized by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: has eggs laid on by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitized by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: has parasitoid
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: has pathogen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: preyed upon by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visited by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: flowers visited by
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: very small

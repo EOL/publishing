@@ -65,6 +65,7 @@ class Publishing
       partner[:repository_id] = partner.delete(:id)
       partner = find_and_update_or_create(Partner, partner)
       resource[:partner_id] = partner.id
+      resource.delete(:opendata_url) # XXX: hack to remove unsupported attribute -- not sure how this worked before (mvitale, 11/13/20)
       resource = find_and_update_or_create(Resource, resource)
       @pub_log.log("New/updated resource: #{resource[:name]}")
     end
