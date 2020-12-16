@@ -169,6 +169,7 @@ class Resource < ApplicationRecord
   def destroy_callback
     clear_import_logs
     remove_content
+    import_logs.delete_all
   end
 
   def remove_content
