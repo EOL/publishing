@@ -290,7 +290,7 @@ class TraitBank
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           OPTIONAL MATCH #{EXEMPLAR_MATCH}
-          WITH group_predicate, trait, predicate, resource, exemplar_value
+          WITH group_predicate, page, trait, predicate, resource, exemplar_value
           ORDER BY group_predicate.uri ASC, #{EXEMPLAR_ORDER}
           WITH group_predicate, page, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows AS trait_row
@@ -299,7 +299,7 @@ class TraitBank
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
           OPTIONAL MATCH #{EXEMPLAR_MATCH}
-          WITH group_predicate, trait, predicate, resource, exemplar_value
+          WITH group_predicate, page, trait, predicate, resource, exemplar_value, subject_rows
           ORDER BY group_predicate.uri ASC, #{EXEMPLAR_ORDER}
           WITH group_predicate, subject_rows, collect(DISTINCT { page: page, trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
           UNWIND trait_rows AS trait_row
@@ -477,7 +477,7 @@ class TraitBank
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true
           OPTIONAL MATCH #{EXEMPLAR_MATCH}
-          WITH predicate, trait, object_page, exemplar_value
+          WITH predicate, trait, object_page, exemplar_value, subj_rows
           ORDER BY predicate.uri ASC, #{EXEMPLAR_ORDER}
           WITH object_page, predicate, subj_rows, head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row
           WITH object_page, predicate, subj_rows, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
