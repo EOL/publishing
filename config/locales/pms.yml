@@ -1385,6 +1385,16 @@ pms:
         http://eol(dot)org/schema/terms/ChelaWidth: Larghëssa dla chela
         http://eol(dot)org/schema/terms/ChlorophyllAConcentration: consentrassion
           ëd clorofila A
+        http://eol(dot)org/schema/terms/ChloroplastLocation: locassion dij cloroplast
+        http://eol(dot)org/schema/terms/ChloroplastNumber: nùmer ëd cloroplast
+        http://eol(dot)org/schema/terms/ChloroplastQuantity: quantità ëd cloroplast
+        http://eol(dot)org/schema/terms/CingulumLocation: locassion dla sentura
+        http://eol(dot)org/schema/terms/CingulumType: sòrt ëd sentura
+        http://eol(dot)org/schema/terms/CingulumWidth: larghëssa dla sentura
+        http://eol(dot)org/schema/terms/ClimateChangeVulnerabilityScore: Pontegi ëd
+          vulnerabilità al cangiament climàtich
+        http://eol(dot)org/schema/terms/Colonial: Colonial
+        http://eol(dot)org/schema/terms/CommercialAvailability: disponibilità comersial
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
