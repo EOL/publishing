@@ -341,10 +341,10 @@ class TraitBank
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
           (trait)-[:supplier]->(resource:Resource)
           WITH collect(DISTINCT resource) AS subj_resources
-          MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term),
+          OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term),
           (trait)-[:object_page]->(:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource)
           WITH collect(DISTINCT resource) AS obj_resources, subj_resources
