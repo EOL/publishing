@@ -352,10 +352,10 @@ class TraitBank
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
           (trait)-[:supplier]->(resource:Resource)
           WITH collect(DISTINCT resource) AS subj_resources
-          MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term),
+          OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term),
           (trait)-[:object_page]->(:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource)
           WITH collect(DISTINCT resource) AS obj_resources, subj_resources
@@ -473,15 +473,14 @@ class TraitBank
           WITH page, predicate, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           WITH collect({ page_assoc_role: 'subject', page: page, object_page: object_page, predicate: predicate, trait: trait, exemplar_value: exemplar_value }) AS subj_rows  
-          OPTIONAL MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true
           OPTIONAL MATCH #{EXEMPLAR_MATCH}
-          WITH predicate, trait, object_page, exemplar_value, subj_rows
+          WITH page, predicate, trait, object_page, exemplar_value, subj_rows
           ORDER BY predicate.uri ASC, #{EXEMPLAR_ORDER}
-          WITH object_page, predicate, subj_rows, head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row
-          WITH object_page, predicate, subj_rows, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
-          MATCH (page:Page)-[:trait]->(trait)
+          WITH page, object_page, predicate, subj_rows, head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row
+          WITH page, object_page, predicate, subj_rows, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
           WITH collect({ page_assoc_role: 'object', page: page, object_page: object_page, predicate: predicate, trait: trait, exemplar_value: exemplar_value }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
           WITH row.page_assoc_role AS page_assoc_role, row.page AS page, row.object_page AS object_page, row.predicate AS predicate, row.trait AS trait, row.exemplar_value AS exemplar_value

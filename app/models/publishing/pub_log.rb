@@ -5,10 +5,10 @@ class Publishing::PubLog
   def initialize(resource = nil, options = {})
     @resource = resource
     @logger = if @resource
-      if options[:use_existing_log] || @resource.import_logs.count.zero?
-        @resource.create_log # This is an ImportLog.
-      else
+      if options[:use_existing_log] || !@resource.import_logs.count.zero?
         @resource.import_logs.last
+      else
+        @resource.create_log # This is an ImportLog.
       end
     else
       nil

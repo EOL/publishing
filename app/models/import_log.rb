@@ -22,7 +22,11 @@ class ImportLog < ApplicationRecord
       if logging.any?
         info = "Currently publishing: "
         info += logging.map do |log|
-          info += "ImportLog##{log.id}: #{log.resource.name} (Resource##{log.resource_id})"
+          if log.resource
+            info += "ImportLog##{log.id}: #{log.resource.name} (Resource##{log.resource_id})"
+          else
+            info += "ImportLog##{log.id}: Missing Resource##{log.resource_id})"
+          end
         end.join(' ; ')
         return info
       end
