@@ -456,11 +456,10 @@ class TraitBank
           WITH page, predicate, head(collect(trait)) AS trait
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           WITH collect({ page_assoc_role: 'subject', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS subj_rows  
-          OPTIONAL MATCH (trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+          OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:predicate]->(predicate:Term)
           WHERE predicate.is_hidden_from_overview <> true
-          WITH object_page, predicate, subj_rows, head(collect(trait)) AS trait
-          MATCH (page:Page)-[:trait]->(trait)
+          WITH page, object_page, predicate, subj_rows, head(collect(trait)) AS trait
           WITH collect({ page_assoc_role: 'object', page: page, object_page: object_page, predicate: predicate, trait: trait }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
           WITH row.page_assoc_role AS page_assoc_role, row.page AS page, row.object_page AS object_page, row.predicate AS predicate, row.trait AS trait
