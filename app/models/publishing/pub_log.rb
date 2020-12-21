@@ -4,8 +4,9 @@ class Publishing::PubLog
 
   def initialize(resource = nil, options = {})
     @resource = resource
+    use_last_log = use_existing_log(options[:use_existing_log])
     @logger = if @resource
-      if options[:use_existing_log] || !@resource.import_logs.count.zero?
+      if use_last_log
         @resource.import_logs.last
       else
         @resource.create_log # This is an ImportLog.
@@ -13,6 +14,12 @@ class Publishing::PubLog
     else
       nil
     end
+  end
+
+  def use_last_log(option)
+    return true if option
+    return false if @resource.import_logs.count.zero?
+    return false if res.import_logs.last.created_at > 1.hour.ago
   end
 
   def start(what)
