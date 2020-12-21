@@ -545,7 +545,7 @@ DEPENDENCIES
   discourse_api (~> 0.38)
   draper (~> 4.0)
   elasticsearch (~> 6)
-  eol_terms (>= 0.7.01)!
+  eol_terms (>= 0.6.10)!
   factory_girl (~> 4.9)
   faker (~> 2.10)
   font-awesome-sass (~> 4.7)
