@@ -20,17 +20,18 @@ class TraitsController < ApplicationController
     @query.filters.build
   end
 
+  # The search form POSTs here and is redirected to a clean, short shareable url
   def create_search
     @query.remove_really_blank_filters
-
-    redirect_to term_search_results_path(params: {
-      tq: @query.to_short_params
-    })
+    redirect_to term_search_results_path(tq: @query.to_short_params), status: 302
   end
 
   def search_results
-    set_view_type
     @query.remove_really_blank_filters
+
+    redirect_to term_search_results_path(tq: @query.to_short_params), status: 301 if params[:term_query] # short params version is canonical
+
+    set_view_type
 
     respond_to do |fmt|
       fmt.html do
@@ -74,25 +75,11 @@ class TraitsController < ApplicationController
     render :layout => false
   end
 
+  # obsolete route, 301
   def show
-    predicate = TermNode.find_by(uri: params[:uri])
-
-    filter_options = if params[:obj_uri]
-      {
-        :predicate_id => predicate.id,
-        :object_term_id => TermNode.find_by(uri: params[:obj_uri]).id
-      }
-    else
-      {
-        :predicate_id => predicate.id
-      }
-    end
-
-    @query = TermQuery.new({
-      :filters => [TermQueryFilter.new(filter_options)],
-      :result_type => :record
-    })
-    search_common
+    # See TermsHelper#term_records_path
+    redirect_path = helpers.term_records_path(params)
+    redirect_to redirect_path, status: 301
   end
 
   private

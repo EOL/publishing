@@ -188,7 +188,7 @@ Rails.application.routes.draw do
 
     post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
-    get "/terms/:uri" => "traits#show", :as => "term_records", :constraints => { :uri => /http.*/ }
+    get "/terms/:uri" => "traits#show", :constraints => { :uri => /http.*/ }
     get "/terms/search" => "traits#search", :as => "term_search"
     post "/terms/search_results" => "traits#create_search"
     get "/terms/search_results" => "traits#search_results", :as => "term_search_results"
