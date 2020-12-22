@@ -503,7 +503,7 @@ private
       .order(:name)
 
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
-    orders = brief_summary_article_ids.any? ? ["articles.id IN (#{brief_summary_article_ids.join(",")})"] : []
+    orders = brief_summary_article_ids.any? ? ["articles.id IN (#{brief_summary_article_ids.join(",")}) DESC"] : []
     orders += [
       "resources.name",
       "articles.name IS NULL",
