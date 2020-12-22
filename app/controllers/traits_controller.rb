@@ -20,17 +20,18 @@ class TraitsController < ApplicationController
     @query.filters.build
   end
 
+  # The search form POSTs here and is redirected to a clean, short shareable url
   def create_search
     @query.remove_really_blank_filters
-
-    redirect_to term_search_results_path(params: {
-      tq: @query.to_short_params
-    })
+    redirect_to term_search_results_path(tq: @query.to_short_params), status: 302
   end
 
   def search_results
-    set_view_type
     @query.remove_really_blank_filters
+
+    redirect_to term_search_results_path(tq: @query.to_short_params), status: 301 if params[:term_query] # short params version is canonical
+
+    set_view_type
 
     respond_to do |fmt|
       fmt.html do
