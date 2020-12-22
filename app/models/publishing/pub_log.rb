@@ -19,7 +19,7 @@ class Publishing::PubLog
   def use_existing_log(option)
     return true if option
     return false if @resource.import_logs.count.zero?
-    return true if res.import_logs.last.created_at < 15.minutes.ago
+    return true if @resource.import_logs.last.created_at < 15.minutes.ago
     return false
   end
 
