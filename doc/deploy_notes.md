@@ -57,3 +57,7 @@ Add neo4j_driver_url, neo4j_user, neo4j_password to secrets.yml (see sample)
 2020-12-15 (mvitale):
 `rails r "TermNode.reindex"`
 
+=== For Deploys after 2020-12-22
+
+(to be continued...)
+
