@@ -4,23 +4,16 @@ class Publishing::PubLog
 
   def initialize(resource = nil, options = {})
     @resource = resource
-    use_last_log = use_existing_log(options[:use_existing_log])
-    @logger = if @resource
-      if use_last_log
-        @resource.import_logs.last
-      else
-        @resource.create_log # This is an ImportLog.
-      end
-    else
-      nil
-    end
+    @logger = @resource ? choose_logger(options[:use_existing_log]) : nil
   end
 
-  def use_existing_log(option)
-    return true if option
-    return false if @resource.import_logs.count.zero?
-    return true if @resource.import_logs.last.created_at < 15.minutes.ago
-    return false
+  def choose_logger(option)
+    return @resource.create_log if @resource.import_logs.count.zero?
+
+    last_log = @resource.import_logs.last
+    return last_log if option
+    return last_log if last_log.created_at > 15.minutes.ago
+    return @resource.create_log
   end
 
   def start(what)
