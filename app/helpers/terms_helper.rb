@@ -128,6 +128,35 @@ module TermsHelper
     nested_term_selects_helper(form, selects, type_str)
   end
 
+  # replaces old route helper
+  def term_records_path(options = {})
+    uri = options[:uri]
+    raise TypeError, 'uri required' if uri.nil?
+    obj_uri = options[:obj_uri]
+    object = options[:object]
+
+    term = TermNode.find_by(uri: uri)
+
+    tq_filter_params = if object 
+                  {
+                    object_term_id: term.id
+                  }
+                else
+                  obj_term = obj_uri.nil? ? nil : TermNode.find_by(uri: obj_uri)
+
+                  {
+                    predicate_id: term.id,
+                    object_term_id: obj_term&.id
+                  }
+                end 
+
+    tq = TermQuery.new({
+      filters: [TermQueryFilter.new(tq_filter_params)],
+      result_type: :record
+    })
+    term_search_results_path(tq: tq.to_short_params)
+  end
+
   private
     def nested_term_selects_helper(form, selects, type_str)
       result = nil

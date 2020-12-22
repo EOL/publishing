@@ -74,25 +74,11 @@ class TraitsController < ApplicationController
     render :layout => false
   end
 
+  # obsolete route, 301
   def show
-    predicate = TermNode.find_by(uri: params[:uri])
-
-    filter_options = if params[:obj_uri]
-      {
-        :predicate_id => predicate.id,
-        :object_term_id => TermNode.find_by(uri: params[:obj_uri]).id
-      }
-    else
-      {
-        :predicate_id => predicate.id
-      }
-    end
-
-    @query = TermQuery.new({
-      :filters => [TermQueryFilter.new(filter_options)],
-      :result_type => :record
-    })
-    search_common
+    # See TermsHelper#term_records_path
+    redirect_path = helpers.term_records_path(params)
+    redirect_to redirect_path, status: 301
   end
 
   private
