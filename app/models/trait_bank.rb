@@ -716,6 +716,7 @@ class TraitBank
         trait.source
         trait.remarks
         trait.method
+        trait.literal
         object_term.uri
         object_term.name
         object_term.definition
