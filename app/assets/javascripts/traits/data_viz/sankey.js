@@ -2,7 +2,9 @@
 window.Sankey = (function(exports) {
   exports.build = function() {
     const width = 850
-        , height = 520
+        , fullHeight = 520
+        , shortHeight = fullHeight / 2
+        , shortHeightCutoffNodes = 3
         ;
 
     var highlightLinks = [];
@@ -13,6 +15,8 @@ window.Sankey = (function(exports) {
         links: $data.data('links')
       }
     , numAxes = $data.data('axes')
+    , maxAxisNodes = $data.data('maxAxisNodes')
+    , height = maxAxisNodes > shortHeightCutoffNodes ? fullHeight : shortHeight
     ;
 
     const sankey = d3.sankey()

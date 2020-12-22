@@ -4,7 +4,7 @@ require "set"
 class Traits::DataViz::Sankey
   MAX_NODES_PER_AXIS = 10
 
-  attr_reader :nodes, :links
+  attr_reader :nodes, :links, :max_axis_nodes
 
   class << self
     def create_from_query(query, total_taxa)
@@ -39,6 +39,7 @@ class Traits::DataViz::Sankey
 
     result_rows = query_results.map { |r| ResultRow.new(r, query, result_terms_by_id, query_obj_terms) }
     nodes_per_axis = build_nodes_per_axis(result_rows)
+    @max_axis_nodes = nodes_per_axis.max { |a, b| a.length <=> b.length }
     @nodes = nodes_per_axis.flatten
     other_nodes = build_other_nodes_per_axis(result_rows, nodes_per_axis) 
     @nodes.concat(other_nodes)
