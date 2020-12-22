@@ -297,7 +297,7 @@ class TraitBank
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject', page: page, trait_count: trait_count, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS subject_rows
           OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          WHERE group_predicate.type = 'association' AND NOT (group_predicate)-[:synonym_of]->(:Term)
           OPTIONAL MATCH #{EXEMPLAR_MATCH}
           WITH group_predicate, page, trait, predicate, resource, exemplar_value, subject_rows
           ORDER BY group_predicate.uri ASC, #{EXEMPLAR_ORDER}
@@ -333,7 +333,7 @@ class TraitBank
           OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
           (trait)-[:object_page]-(:Page { page_id: #{page_id} }),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
+          WHERE group_predicate.type = 'association' AND NOT (group_predicate)-[:synonym_of]->(:Term)
           WITH DISTINCT group_predicate, subj_rows
           WITH collect({ group_predicate: group_predicate, page_assoc_role: 'object' }) AS obj_rows, subj_rows
           UNWIND (subj_rows + obj_rows) AS row
