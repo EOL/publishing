@@ -1401,7 +1401,28 @@ pms:
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapàusa
         http://eol(dot)org/schema/terms/DiatomSymmetryType: sòrt ëd simetrìa dël diàtom
         http://eol(dot)org/schema/terms/Diet: ël regim a comprend
+        http://eol(dot)org/schema/terms/DietBreadth: estension dël regim
+        http://eol(dot)org/schema/terms/DiscDiameter: Diàmeter dël disch
+        http://eol(dot)org/schema/terms/DispersalAge: età dla dispersion
+        http://eol(dot)org/schema/terms/DissolvedNitrate: consentrassion ëd nitrà
+          ant l'eva
+        http://eol(dot)org/schema/terms/DissolvedOxygen: consentrassion d'O2 dëslià
+          ant l'eva
+        http://eol(dot)org/schema/terms/DissolvedPhosphate: consentrassion ëd fosfà
+          ant l'eva
+        http://eol(dot)org/schema/terms/DissolvedSilicate: consentrassion ëd silicà
+          ant l'eva
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
+        http://eol(dot)org/schema/terms/EggDiameter: diàmeter ëd l'euv
+        http://eol(dot)org/schema/terms/EggLayingBegins: la pòsa ëd j'euv a ancamin-a
+        http://eol(dot)org/schema/terms/EggMass: massa dl'euv
+        http://eol(dot)org/schema/terms/EpiconeShape: forma dl'epicòno
+        http://eol(dot)org/schema/terms/ExtinctionStatus: stat d'estinsion
+        http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: composission d'àcid
+          grass dël làit
+        http://eol(dot)org/schema/terms/FemalesPerGroup: Fumele për partìa
+        http://eol(dot)org/schema/terms/FireResistance: arzistensa al feu
+        http://eol(dot)org/schema/terms/FireTolerance: toleransa al feu
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
