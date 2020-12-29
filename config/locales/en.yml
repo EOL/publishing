@@ -163,6 +163,7 @@ en:
     altitude: "altitude"
     author: "author"
     bibliographic_citation: "bibliographic citation"
+    contributor: "contributor"
     compiler: "compiler"
     creator: "creator"
     editor: "editor"
