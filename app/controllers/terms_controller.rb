@@ -12,7 +12,8 @@ class TermsController < ApplicationController
       "http://www.ebi.ac.uk/efo/EFO_0001272",
       "http://purl.obolibrary.org/obo/PATO_0001501",
       "http://purl.obolibrary.org/obo/PO_0007134",
-      "http://purl.obolibrary.org/obo/PO_0025340"
+      "http://purl.obolibrary.org/obo/PO_0025340",
+      "http://purl.obolibrary.org/obo/PATO_0001422"
     ],
     stat_meth: [
       "http://eol.org/schema/terms/average",
@@ -82,7 +83,7 @@ class TermsController < ApplicationController
         name: term.i18n_name,
         id: term.id
       }
-    end
+    end.sort { |a, b| a[:name] <=> b[:name] }
     render json: res
   end
 
