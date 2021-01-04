@@ -1423,7 +1423,18 @@ pms:
         http://eol(dot)org/schema/terms/FemalesPerGroup: Fumele për partìa
         http://eol(dot)org/schema/terms/FireResistance: arzistensa al feu
         http://eol(dot)org/schema/terms/FireTolerance: toleransa al feu
+        http://eol(dot)org/schema/terms/FoliagePorositySummer: porosità dël fujagi
+          d'istà
+        http://eol(dot)org/schema/terms/FoliagePorosityWinter: porosità dël fujagi
+          d'invern
+        http://eol(dot)org/schema/terms/FoliageTexture: consistensa dël fujagi
+        http://eol(dot)org/schema/terms/ForagingHabitat: ambient ëd pastura
+        http://eol(dot)org/schema/terms/ForagingTime: ora dla pastura
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
+        http://eol(dot)org/schema/terms/FossilLast: ùltima aparission
+        http://eol(dot)org/schema/terms/FrostFreeDays: dì sensa geilade
+        http://eol(dot)org/schema/terms/FruitPersistence: përsistensa dij frut e dle
+          smens
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica

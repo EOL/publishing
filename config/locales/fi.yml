@@ -645,7 +645,7 @@ fi:
       show_warns:
         one: näytä (%{count}) varoitus
         other: näytä (%{count}) varoitusta
-      sync: synkronoi koodivarannon kanssa
+      sync: synkronoi
     headers:
       index: Resurssit
     index:
