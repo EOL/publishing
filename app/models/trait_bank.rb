@@ -321,7 +321,7 @@ class TraitBank
     end
 
     def page_trait_groups(page_id, options = {})
-      key = "trait_bank/page_trait_groups/v1/#{page_id}"
+      key = "trait_bank/page_trait_groups/v2/#{page_id}"
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
@@ -342,7 +342,19 @@ class TraitBank
           RETURN group_predicate, page_assoc_role
         ))
 
-        res["data"].collect { |d| { group_predicate: d[0]["data"].symbolize_keys, page_assoc_role: d[1] } }
+        temp_result = res["data"].collect { |d| { group_predicate: d[0]["data"].symbolize_keys, page_assoc_role: d[1] } }
+        results_by_uri = temp_result.group_by { |g| g[:uri] }
+        final_result = []
+
+        results_by_uri.each do |uri, results|
+          if results.length > 1 && results.first[:is_symmetrical_association]
+            final_result << { group_predicate: results.first, page_assoc_role: 'both' }
+          else
+            final_result.concat(results)
+          end
+        end
+
+        final_result
       end
     end
 
@@ -413,7 +425,8 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           OPTIONAL MATCH #{EXEMPLAR_MATCH}
-          RETURN resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
+          WITH exemplar_value, resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, 'subject' AS page_assoc_role
+          RETURN resource, trait, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, page_assoc_role
           ORDER BY #{EXEMPLAR_ORDER}
         ))
 
@@ -422,7 +435,7 @@ class TraitBank
     end
 
     def page_obj_traits_for_pred(page_id, pred_uri, options = {})
-      key = "trait_bank/all_page_object_traits_for_pred/v2/#{page_id}/#{pred_uri}"
+      key = "trait_bank/all_page_object_traits_for_pred/v3/#{page_id}/#{pred_uri}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
@@ -435,6 +448,7 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          WITH resource, trait, page, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, 'object' AS page_assoc_role
           RETURN resource, trait, page, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
         ))
 
