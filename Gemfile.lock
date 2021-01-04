@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
-  revision: b0dcdfdc8633939e2cdcb2de8f143430c3094943
+  revision: f5708c949e89c4222222d4d002fbc7034aede70e
   branch: main
   specs:
-    eol_terms (0.7.01)
+    eol_terms (0.7.06)
       yaml
 
 GIT
@@ -514,7 +514,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yaml (0.1.0)
+    yaml (0.1.1)
     yard (0.9.25)
     zeitwerk (2.4.0)
 
