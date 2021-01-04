@@ -196,17 +196,30 @@ class PagesController < ApplicationController
       filtered_data = TraitBank.page_traits_by_group(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
       filter_resource_ids = TraitBank.all_page_trait_resource_ids(@page.id, pred_uri: nil)
     else
+      filtered_data = []
+      filter_resource_ids = Set.new
+
       if @trait_group.object?
-        filtered_data = TraitBank.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
-        filter_resource_ids = TraitBank.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
-      else
-        filtered_data = TraitBank.page_subj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
-        filter_resource_ids = TraitBank.page_subj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+        filtered_data.concat(
+          TraitBank.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
+        )
+        filter_resource_ids.add(
+          TraitBank.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+        )
+      end
+
+      if @trait_group.subject?
+        filtered_data.concat(
+          TraitBank.page_subj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
+        )
+        filter_resource_ids.add(
+          TraitBank.page_subj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+        )
       end
     end
 
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
-    @grouped_data = group_traits(filtered_data)
+    @grouped_data = group_traits(@filter_trait_groups, filtered_data)
     @data_groups = @predicate ? [@predicate] : sorted_groups_for_traits(@grouped_data)
     @resources = TraitBank.resources(filtered_data)
 
@@ -593,11 +606,11 @@ private
     @habitat_chart_query = query
   end
   
-  def group_traits(traits)
+  def group_traits(trait_groups, traits)
     grouped = {}
 
     traits.each do |trait|
-      groups_for_trait(trait).each do |group|
+      groups_for_trait(trait_groups, trait).each do |group|
         grouped[group] ||= []
         grouped[group] << trait
       end
@@ -610,18 +623,28 @@ private
     grouped_traits.keys.sort { |a, b| a.name <=> b.name }
   end
 
-  def groups_for_trait(trait)
+  def groups_for_trait(trait_groups, trait)
     gps = if trait[:group_predicate].is_a?(Array)
             trait[:group_predicate]
           else
             [trait[:group_predicate]]
           end
 
-    gps.map { |gp| TraitGroup.new(gp, @trait_group&.type || trait[:page_assoc_role].to_sym) }
+    gps.map do |gp| 
+      temp_group = TraitGroup.new(gp, trait[:page_assoc_role].to_sym) 
+      group = trait_groups.find { |g| g == temp_group }
+
+      if group.nil? && gp[:is_symmetrical_association]
+        temp_group = TraitGroup.new(gp, :both)
+        group = trait_groups.find { |g| g == temp_group }
+      end
+
+      group
+    end
   end
 
   class TraitGroup
-    VALID_TYPES = [:subject, :object]
+    VALID_TYPES = [:subject, :object, :both]
 
     attr_reader :term, :uri, :type
 
@@ -637,11 +660,11 @@ private
     end
 
     def subject?
-      @type == :subject
+      @type == :subject || @type == :both
     end
 
     def object?
-      @type == :object
+      @type == :object || @type == :both
     end
 
     def name
