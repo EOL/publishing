@@ -347,8 +347,8 @@ class TraitBank
         final_result = []
 
         results_by_uri.each do |uri, results|
-          if results.length > 1 && results.first[:is_symmetrical_association]
-            final_result << { group_predicate: results.first, page_assoc_role: 'both' }
+          if results.length > 1 && results.first[:group_predicate][:is_symmetrical_association]
+            final_result << { group_predicate: results.first[:group_predicate], page_assoc_role: 'both' }
           else
             final_result.concat(results)
           end
@@ -449,7 +449,7 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
           WITH resource, trait, page, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, 'object' AS page_assoc_role
-          RETURN resource, trait, page, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
+          RETURN resource, trait, page, predicate, group_predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, page_assoc_role
         ))
 
         build_trait_array(res)
