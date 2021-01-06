@@ -30,26 +30,69 @@ class TraitBank
     end
 
     def query(q, params={})
+      bolt_query(q, params)
+    end
+
+
+    def bolt_query(q, params={})
       start = Time.now
-      results = nil
+      response = nil
       q.sub(/\A\s+/, "")
       begin
-        results = connection.execute_query(q, params)
+        response = ActiveGraph::Base.query(q, params, wrap: false)
         stop = Time.now
-      rescue Excon::Error::Socket => e
-        log_error("Connection refused on query: #{q}")
-        sleep(0.1)
-        results = connection.execute_query(q, params)
-      rescue Excon::Error::Timeout => e
-        log_error("Timed out on query: #{q}")
-        sleep(1)
-        results = connection.execute_query(q, params)
       ensure
         q_to_log = q.size > 80 && q !~ /\n/ ? q.gsub(/ +([A-Z ]+)/, "\n\\1") : q
-        log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
+        log(">>TB TraitBank [activegraph] (#{stop ? stop - start : "F"}):\n#{q_to_log}")
       end
-      results
+
+      return nil if response.nil?
+      response_a = response.to_a # NOTE: you must call to_a since the raw response only allows for iterating through once
+
+      # Map neo4j-ruby-driver response to neography-like response
+      cols = response_a.first&.keys || []
+      data = response_a.map do |row|
+        cols.map do |col|
+          col_data = row[col]
+          if col_data.respond_to?(:properties)
+            { 
+              'data' => col_data.properties.stringify_keys,
+              'metadata' => { 'id' => col_data.id }
+            }
+          else
+            col_data
+          end
+        end
+      end
+
+      { 
+        'columns' => cols.map { |c| c.to_s }, # hashrocket for string keys
+        'data' => data
+      }
     end
+
+    # Unused but left in case bolt experiment doesn't work out
+    #def neography_query(q, params={})
+    #  start = Time.now
+    #  results = nil
+    #  q.sub(/\A\s+/, "")
+    #  begin
+    #    results = connection.execute_query(q, params)
+    #    stop = Time.now
+    #  rescue Excon::Error::Socket => e
+    #    log_error("Connection refused on query: #{q}")
+    #    sleep(0.1)
+    #    results = connection.execute_query(q, params)
+    #  rescue Excon::Error::Timeout => e
+    #    log_error("Timed out on query: #{q}")
+    #    sleep(1)
+    #    results = connection.execute_query(q, params)
+    #  ensure
+    #    q_to_log = q.size > 80 && q !~ /\n/ ? q.gsub(/ +([A-Z ]+)/, "\n\\1") : q
+    #    log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q_to_log}")
+    #  end
+    #  results
+    #end
 
     def quote(string)
       return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/
@@ -1500,7 +1543,7 @@ class TraitBank
         "WITH prey_rows + pred_rows + comp_rows AS all_rows "\
         "UNWIND all_rows AS row "\
         "WITH row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
-        "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, { metadata: { id: row.source.page_id + '-' + row.target.page_id } } AS id "\
+        "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, row.source.page_id + '-' + row.target.page_id AS id "\
         "RETURN type, source, target, id "\
 
       results_to_hashes(query(qs), "id")
