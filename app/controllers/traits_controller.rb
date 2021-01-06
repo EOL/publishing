@@ -49,22 +49,22 @@ class TraitsController < ApplicationController
           redirect_to new_user_session_path
         else
           if @query.valid?
-            url = term_search_results_url(:term_query => tq_params)
+            url = term_search_results_url(:tq => @query.to_short_params)
             if UserDownload.user_has_pending_for_query?(current_user, @query)
               flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
-              redirect_no_format
+              redirect_to url
             else
               data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
 
               if data.is_a?(UserDownload)
                 flash[:notice] = t("user_download.created", url: user_path(current_user))
-                redirect_no_format
+                redirect_to url
               else
                 send_data data
               end
             end
           else
-            redirect_no_format
+            redirect_to url
           end
         end
       end
@@ -140,10 +140,6 @@ class TraitsController < ApplicationController
     build_gbif_url(@count, pages, @query)
     data_viz_type(@query, @counts)
     render "search"
-  end
-
-  def redirect_no_format
-    redirect_to term_search_results_path(term_query: tq_params)
   end
 
   def set_title
