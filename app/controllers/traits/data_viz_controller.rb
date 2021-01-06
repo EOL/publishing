@@ -132,7 +132,7 @@ module Traits
           clade_id: query.clade_id,
           result_type: query.result_type,
           filters_attributes: [{
-            predicate_id: query.filters.first.predicate.id,
+            predicate_id: query.filters.first.predicate&.id,
             object_term_id: row[:obj][:eol_id] 
           }]
         }),
