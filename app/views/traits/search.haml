@@ -20,9 +20,9 @@
         %li.js-edit-filters
           %i{:'uk-icon' => "icon: pencil"}
           %span= t(".edit_filters")
-        %li.js-download-tsv{:'data-url' => term_search_results_path(:format => :csv)}
+        %li
           %i{:'uk-icon' => "icon: download"}
-          %span= t(".download_tsv")
+          = link_to(t(".download_tsv"), term_search_results_path(params: { tq: @query.to_short_params }, format: :csv))
         - if @gbif_url
           %li{:'uk-tooltip' => t(".gbif_search_hover")}
             %i{:'uk-icon' => "icon: link"}
@@ -39,10 +39,10 @@
           %li
             - if @view_type == "gallery"
               %i{:'uk-icon' => "icon: list"}
-              = link_to t(".switch_to_list"), term_search_results_path(term_query: @query.to_params, view: "list")
+              = link_to t(".switch_to_list"), term_search_results_path(tq: @query.to_short_params, view: "list")
             - else
               %i{:'uk-icon' => "icon: grid"}
-              = link_to t(".switch_to_gallery"), term_search_results_path(term_query: @query.to_params, view: "gallery")
+              = link_to t(".switch_to_gallery"), term_search_results_path(tq: @query.to_short_params, view: "gallery")
     - if @data_viz_type.present? 
       = render "shared/data_viz_contain", type: @data_viz_type, query: @query
       
