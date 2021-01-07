@@ -199,6 +199,9 @@ class PagesController < ApplicationController
       filtered_data = []
       filter_resource_ids = Set.new
 
+      filtered_data = []
+      filter_resource_ids = Set.new
+
       if @trait_group.object?
         filtered_data.concat(
           TraitBank.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
