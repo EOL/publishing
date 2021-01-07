@@ -18,6 +18,7 @@ class TermNode
   property :is_ordinal
   id_property :eol_id
 
+  has_many :out, :parents, type: :parent_term, model_class: :TermNode
   has_many :in, :children, type: :parent_term, model_class: :TermNode
   has_one :out, :units_term, type: :units_term, model_class: :TermNode
 
