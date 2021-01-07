@@ -180,10 +180,11 @@ class PagesController < ApplicationController
       a.name <=> b.name
     end
 
-    @trait_group = if params[:predicate]
+    @trait_group = if @filter_trait_groups.length == 1 
+                     @filter_trait_groups.first
+                   elsif params[:predicate]
                      group_type = params[:page_assoc_role]&.to_sym || :subject
                      @filter_trait_groups.find { |g| g.uri == params[:predicate] && g.type == group_type } 
-
                    else
                      nil
                    end
@@ -192,12 +193,9 @@ class PagesController < ApplicationController
     @traits_per_group = 5
 
     if @trait_group.nil?
-      @filtered_by_group = false
       filtered_data = TraitBank.page_traits_by_group(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
       filter_resource_ids = TraitBank.all_page_trait_resource_ids(@page.id, pred_uri: nil)
     else
-      @filtered_by_group = true
-
       if @trait_group.object?
         filtered_data = TraitBank.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
         filter_resource_ids = TraitBank.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
