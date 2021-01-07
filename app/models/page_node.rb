@@ -6,4 +6,6 @@ class PageNode
   property :obj_trait_count, default: 0
 
   self.mapped_label_name = 'Page'
+
+  has_many :out, :traits, type: :trait, model_class: :TraitNode
 end
