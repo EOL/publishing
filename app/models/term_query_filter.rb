@@ -99,7 +99,7 @@ class TermQueryFilter < ApplicationRecord
     p: :predicate_id,
     rp: :root_predicate_id,
     ot: :object_term_id,
-    op: :object_page_id,
+    oc: :obj_clade_id,
     u: :units_term_id,
     n1: :num_val1,
     n2: :num_val2,
@@ -243,7 +243,8 @@ class TermQueryFilter < ApplicationRecord
       sex_term_id: sex_term_id,
       lifestage_term_id: lifestage_term_id,
       statistical_method_term_id: statistical_method_term_id,
-      resource_id: resource_id
+      resource_id: resource_id,
+      obj_clade_id: obj_clade_id
     }
   end
   
@@ -346,7 +347,7 @@ class TermQueryFilter < ApplicationRecord
     @predicate_child_selects = selects
   end
 
-  def object_clade_node
+  def obj_clade_node
     return @obj_clade_node if @obj_clade_node
     @obj_clade_node = obj_clade_id.present? ? PageNode.find(obj_clade_id) : nil
   end
@@ -427,7 +428,7 @@ class TermQueryFilter < ApplicationRecord
         :p,
         :rp,
         :ot,
-        :op,
+        :oc,
         :u,
         :n1,
         :n2,
