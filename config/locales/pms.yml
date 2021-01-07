@@ -1435,6 +1435,7 @@ pms:
         http://eol(dot)org/schema/terms/FrostFreeDays: dì sensa geilade
         http://eol(dot)org/schema/terms/FruitPersistence: përsistensa dij frut e dle
           smens
+        http://eol(dot)org/schema/terms/FruitSeedColor: color dij frut o dle smens
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
