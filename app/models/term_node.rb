@@ -18,9 +18,11 @@ class TermNode
   property :is_ordinal
   id_property :eol_id
 
-  has_many :out, :parents, type: :parent_term, model_class: :TermNode
-  has_many :in, :children, type: :parent_term, model_class: :TermNode
+  has_many :out, :parent_terms, type: :parent_term, model_class: :TermNode
+  has_many :out, :synonyms, type: :synonym_of, model_class: :TermNode
   has_one :out, :units_term, type: :units_term, model_class: :TermNode
+
+  scope :not_synonym, -> (label) { as(label).where_not("(#{label})-[:synonym_of]->(:Term)") }
 
   autocompletes "autocomplete_name"
 
