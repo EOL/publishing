@@ -11,45 +11,13 @@ class TraitBank
   PRIMARY_EXEMPLAR_URI = "https://eol.org/schema/terms/primary"
   EXEMPLAR_MATCH = "(trait)-[:metadata]->(exemplar: MetaData), (exemplar)-[:predicate]->(:Term { uri: '#{EXEMPLAR_URI}' }), (exemplar)-[:object_term]->(exemplar_value:Term)"
   EXEMPLAR_ORDER = "exemplar_value IS NOT NULL DESC, exemplar_value.uri = '#{PRIMARY_EXEMPLAR_URI}' DESC"
+  PARENT_TERMS = ':parent_term|:synonym_of*0..'
 
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
     delegate :term, :term_record, :term_as_hash, to: TraitBank::Term
+    delegate :query, to: TraitBank::Connector
 
-    def connection
-      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
-    end
-
-    def ping
-      begin
-        connection.list_indexes
-      rescue Excon::Error::Socket => e
-        return false
-      end
-      true
-    end
-
-    def query(q, params={})
-      start = Time.now
-      results = nil
-      q.sub(/\A\s+/, "")
-      begin
-        results = connection.execute_query(q, params)
-        stop = Time.now
-      rescue Excon::Error::Socket => e
-        log_error("Connection refused on query: #{q}")
-        sleep(0.1)
-        results = connection.execute_query(q, params)
-      rescue Excon::Error::Timeout => e
-        log_error("Timed out on query: #{q}")
-        sleep(1)
-        results = connection.execute_query(q, params)
-      ensure
-        q_to_log = q.size > 80 && q !~ /\n/ ? q.gsub(/ +([A-Z ]+)/, "\n\\1") : q
-        log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
-      end
-      results
-    end
 
     def quote(string)
       return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/
@@ -585,10 +553,6 @@ class TraitBank
       end
     end
 
-    def parent_terms
-      @parent_terms ||= ":parent_term|:synonym_of*0.."
-    end
-
     def term_filter_where_term_part(anc_term_label, child_term_label, term_uri, term_type, params, gathered_terms)
       gathered_term = gathered_terms.find { |t| t.type == term_type }
 
@@ -675,8 +639,8 @@ class TraitBank
       obj_uri_param = "#{meta_var}_obj_uri"
       match =
         "(#{trait_var})-[:metadata]->(#{meta_var}:MetaData), "\
-        "(#{meta_var})-[:predicate]->(:Term)-[#{parent_terms}]->(:Term{ uri: $#{pred_uri_param} }), "\
-        "(#{meta_var})-[:object_term]->(:Term)-[#{parent_terms}]->(:Term{ uri: $#{obj_uri_param} })"
+        "(#{meta_var})-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(:Term{ uri: $#{pred_uri_param} }), "\
+        "(#{meta_var})-[:object_term]->(:Term)-[#{PARENT_TERMS}]->(:Term{ uri: $#{obj_uri_param} })"
       matches << match
       params[pred_uri_param] = pred_uri
       params[obj_uri_param] = obj_uri
@@ -921,7 +885,7 @@ class TraitBank
             else
               uri_param = "#{labeler.gathered_label}_uri"
               params[uri_param] = field.value
-              match = "MATCH (#{labeler.gathered_label}:Term)-[#{parent_terms}]->(#{include_tgt_vars ? labeler.tgt_label : ""}:Term{ uri: $#{uri_param} })"
+              match = "MATCH (#{labeler.gathered_label}:Term)-[#{PARENT_TERMS}]->(#{include_tgt_vars ? labeler.tgt_label : ""}:Term{ uri: $#{uri_param} })"
               match.concat("\nWITH collect(DISTINCT #{labeler.gathered_label}) AS #{labeler.gathered_list_label}")
               match.concat(", #{labeler.tgt_label}") if include_tgt_vars
             end
@@ -953,7 +917,7 @@ class TraitBank
       if gathered_term
         filter_term_match_no_hier(trait_var, child_term_var, term_type)
       else
-        "(#{trait_var})-[:#{term_type}]->(#{child_term_var}:Term)-[#{parent_terms}]->(#{anc_term_var}:Term)"
+        "(#{trait_var})-[:#{term_type}]->(#{child_term_var}:Term)-[#{PARENT_TERMS}]->(#{anc_term_var}:Term)"
       end
     end
 
@@ -1563,7 +1527,7 @@ class TraitBank
     end
 
     def predicate_filter_match_part(options)
-      options[:pred_uri] ? "-[#{parent_terms}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
+      options[:pred_uri] ? "-[#{PARENT_TERMS}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
     end
   end
 end
