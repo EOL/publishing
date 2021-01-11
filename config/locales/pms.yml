@@ -1436,6 +1436,19 @@ pms:
         http://eol(dot)org/schema/terms/FruitPersistence: përsistensa dij frut e dle
           smens
         http://eol(dot)org/schema/terms/FruitSeedColor: color dij frut o dle smens
+        http://eol(dot)org/schema/terms/FuelwoodSuitability: adatabilità për fene
+          dël combustìbil
+        http://eol(dot)org/schema/terms/GardenPersistent: àrea ëd përsistensa ant
+          ij giardin
+        http://eol(dot)org/schema/terms/GenerationTime: temp ëd generassion
+        http://eol(dot)org/schema/terms/GeographicRangeArea: spantiament geogràfich
+          (taja dl'àrea)
+        http://eol(dot)org/schema/terms/GerminationRequirements: condission për la
+          germinassion
+        http://eol(dot)org/schema/terms/GrainType: sòrt dë smens
+        http://eol(dot)org/schema/terms/GrassGrowthType: sòrt ëd chërsùa ëd l'erba
+        http://eol(dot)org/schema/terms/GrazeAnimalPalatability: gradiment për j'animaj
+          da pastura
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica

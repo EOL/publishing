@@ -63,7 +63,7 @@ zh-CN:
   button_add: 加入
   cancel: 取消
   change_my_password: 更新我的密码
-  change_your_password: 更改您的密码
+  change_your_password: 更新您的密码
   classifications:
     children:
       header_html:
@@ -91,7 +91,7 @@ zh-CN:
       vernaculars_count: 方言
       scientific_names_count: 学名
       referents_count: 参考文献
-      species_count: 种
+      species_count: 种类
       updated_at: 最后更新
   cms_page_date: 上次修改于
   collect_already_in_collection: 这已在此
@@ -184,7 +184,7 @@ zh-CN:
     editor: 编辑器
     latitude: 纬度
     license: 许可协议
-    location: 地方
+    location: 位置
     location_verbatim: 逐字的
     longitude: 经度
     original_media_file: 原始多媒体档案
@@ -459,7 +459,7 @@ zh-CN:
     Q13359: 明格里利亚语
     Q13330: 米兰德斯语
     Q13343: 莫克沙语
-    mn: 蒙古
+    mn: 蒙古语
     Q56426: 摩洛哥的阿拉伯语
     Q6944725: 位于坦桑尼亚、乌干达的姆韦拉
     Q13300: 纳瓦特尔语
@@ -550,7 +550,7 @@ zh-CN:
     te: 泰卢固字母
     th: 泰语
     tha: 泰语
-    bo: 藏文
+    bo: 藏语
     ti: 提格里尼亚语
     Q34159: 巴布亚皮钦语
     to: 汤加语
@@ -575,7 +575,7 @@ zh-CN:
     uz: 乌兹别克语
     ve: 文达语
     Q32747: 俄国的芬兰人说的语言
-    vi: 越南文
+    vi: 越南语
     vo: 沃拉普克语
     Q32858: 沃提克语
     wa: 华隆语
@@ -1138,7 +1138,7 @@ zh-CN:
     email: 电子邮箱
     to_commit_enter_current: 要提交您的更改，请输入您的密码
     form_labels:
-      age_confirm: 我13岁以上
+      age_confirm: 我是13岁以上
       tou_confirm_html: 我已阅读<a href='%{tou_path}'>使用条款</a>和<a href='%{privacy_path}'>隐私政策</a>
     headers:
       bio: 简短的传记
@@ -1227,58 +1227,108 @@ zh-CN:
         http://eol(dot)org/schema/terms/EggDiameter: 蛋的直径
         http://eol(dot)org/schema/terms/EggLayingBegins: 生蛋期开始
         http://eol(dot)org/schema/terms/EggMass: 蛋的重量
+        http://eol(dot)org/schema/terms/ExtinctionStatus: 灭绝状态
         http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: 奶里面的脂肪酸组成
         http://eol(dot)org/schema/terms/FireResistance: 火的忍度
         http://eol(dot)org/schema/terms/FossilFirst: 首次出现
+        http://eol(dot)org/schema/terms/FossilLast: 最后的出现
+        http://eol(dot)org/schema/terms/FruitSeedColor: 果子或种子的主要颜色
+        http://eol(dot)org/schema/terms/GrainType: 榖类
         http://eol(dot)org/schema/terms/HasToxin: 有毒素
         http://eol(dot)org/schema/terms/HeightStanding: 站着的高度
+        http://eol(dot)org/schema/terms/HumanPopulationDensity: 人口密度
+        http://eol(dot)org/schema/terms/InitialMortalityRate: 初始死亡率
+        http://eol(dot)org/schema/terms/KnownSpecies: 已知的海洋类
+        http://eol(dot)org/schema/terms/LittersPerYear: 每年母动物怀孕怀几次
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: 男跟女的体重比例
+        http://eol(dot)org/schema/terms/MiddleToeLength: 中脚趾的长度
+        http://eol(dot)org/schema/terms/MidpointAltitude: 中点海拨
+        http://eol(dot)org/schema/terms/MilkPhospholipids: 乳磷脂
+        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: 奶里的矿物成分
         http://eol(dot)org/schema/terms/NativeRange: 原生地包括
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: 奶里的营养组成
         http://eol(dot)org/schema/terms/OuterEarLength: 外耳朵的长度
+        http://eol(dot)org/schema/terms/OvaDiameter: 蛋的直径
+        http://eol(dot)org/schema/terms/OxygenSaturation: 水里的氧气饱和
         http://eol(dot)org/schema/terms/Present: 地理分布包括
         http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: 奶里面的蛋白质组成
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: 核糖核酸与脱氧核糖核酸的比例
         http://eol(dot)org/schema/terms/Salinity: 水里的盐分
+        http://eol(dot)org/schema/terms/SeedPerPound: 一磅有多少种子
+        http://eol(dot)org/schema/terms/SoilDepth: 泥的深度
+        http://eol(dot)org/schema/terms/SoilPH: 土壤酸碱度
+        http://eol(dot)org/schema/terms/SoilRequirements: 泥的要求
+        http://eol(dot)org/schema/terms/StandardLength: 标准长度
+        http://eol(dot)org/schema/terms/Territorial: 领土的
+        http://eol(dot)org/schema/terms/ToxicEffect: 有毒的反应
         http://eol(dot)org/schema/terms/TrophicGuild: 营养群性
+        http://eol(dot)org/schema/terms/TropicalOcean: 热带海洋
         http://eol(dot)org/schema/terms/Uses: 用来做
         http://eol(dot)org/schema/terms/WaterTemperature: 水的温度
+        http://eol(dot)org/schema/terms/amphibious: 两栖的
+        http://eol(dot)org/schema/terms/areaToMassRatio: 面积与质量的比例
+        http://eol(dot)org/schema/terms/breedingSeason: 配种时期
         http://eol(dot)org/schema/terms/clearWater: 清水
         http://eol(dot)org/schema/terms/cloud_forest: 云森林
+        http://eol(dot)org/schema/terms/competitive: 竞争的
+        http://eol(dot)org/schema/terms/cone: 园锥体
         http://eol(dot)org/schema/terms/dry_forest: 干的森林
         http://eol(dot)org/schema/terms/dwarfMales: 男矮子
         http://eol(dot)org/schema/terms/earlySpring: 春天的初期
         http://eol(dot)org/schema/terms/earlySummer: 夏天的初期
         http://eol(dot)org/schema/terms/eggColor: 蛋的颜色
+        http://eol(dot)org/schema/terms/eggDensity: 某个单位有多少蛋
+        http://eol(dot)org/schema/terms/eggYolky: 能看到蛋黄
+        http://eol(dot)org/schema/terms/endangered: 濒临
         http://eol(dot)org/schema/terms/extinct: 已经灭绝了
         http://eol(dot)org/schema/terms/extinctInTheWild: 野生的已经灭绝了
+        http://eol(dot)org/schema/terms/forestEdge: 森林边
         http://eol(dot)org/schema/terms/fossilOccPBDB: 化石出现次数
+        http://eol(dot)org/schema/terms/grayGreen: 灰灰缕缕的
         http://eol(dot)org/schema/terms/lateSpring: 春天的晚期
         http://eol(dot)org/schema/terms/lateSummer: 夏天的晚期
         http://eol(dot)org/schema/terms/lateWinter: 冬天的晚期
         http://eol(dot)org/schema/terms/midSpring: 春天的中期
         http://eol(dot)org/schema/terms/midSummer: 夏天的中期
+        http://eol(dot)org/schema/terms/migratory: 迁徙
         http://eol(dot)org/schema/terms/moderateRate: 中
         http://eol(dot)org/schema/terms/no: 否
         http://eol(dot)org/schema/terms/noHarem: 没有后宫
         http://eol(dot)org/schema/terms/noPaternalCare: 没有父亲的照顾
         http://eol(dot)org/schema/terms/notMonogamous: 不是一夫一妻
         http://eol(dot)org/schema/terms/otherBudSource: 其他
+        http://eol(dot)org/schema/terms/pH: 酸碱度
         http://eol(dot)org/schema/terms/paternalCare: 父亲的照顾
+        http://eol(dot)org/schema/terms/persistentSeedBank: 坚持
+        http://eol(dot)org/schema/terms/rhizomesOrRoots: 根
+        http://eol(dot)org/schema/terms/stomachCramps: 肚子抽筋
         http://eol(dot)org/schema/terms/succulent: 肉质
+        http://eol(dot)org/schema/terms/transientSeedBank: 易变
+        http://eol(dot)org/schema/terms/uncommon: 不平凡
         http://eol(dot)org/schema/terms/unknown: 未知
         http://eol(dot)org/schema/terms/wet_forest: 湿的森林
         http://eol(dot)org/schema/terms/whiteGrey: 白白灰灰的
+        http://eol(dot)org/schema/terms/yearRound: 整年
         http://eol(dot)org/schema/terms/yes: 是
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: 高
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: 直径
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: 中
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: 低
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: 早
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: 晚
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: 没有父母的照顾
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: 父母的照顾
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT_WARM: 热带水（暖）
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SUBST_SM: 沙泥
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP: 生存的温度
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: 是（什么）的组成
         http://purl(dot)bioontology(dot)org/ontology/CSP/2871-4249: 身体的温度
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: 体温
+        http://purl(dot)bioontology(dot)org/ontology/MSH/D054712: 生存的咸度
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: 特别大
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: 无
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/75367002: 血压
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: 前部
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: 硫酸钡
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 氧
@@ -1328,6 +1378,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: 池
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: 急流
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000040: 瀑布
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000043: 湿地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: 温泉
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: 地理的湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: 地里的河
@@ -1335,6 +1386,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000061: 地里的水体
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: 铁路
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: 洞
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: 隧道
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: 楼
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: 农业
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: 农场
@@ -1343,13 +1395,18 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: 海滩
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: 洞口
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: 湖面
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: 人做森林
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: 高原
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: 火山
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: 草原
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: 干的湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: 稻田
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: 水禾田
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: 海洞
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: lu di
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 海洋的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: 港口
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: 城市
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: 淡水
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: 大河
@@ -1357,23 +1414,54 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: 大湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: 小湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: 石头
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: 泥
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: 尘
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: 盐水
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: 水生
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: 木
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: 海滩的沙
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: 医院
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: 有沙的海滩
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: 池塘水
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002229: 有沙的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: 农业用的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: 森林的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: 花园的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: 水禾田的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: 干的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: 农场的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005750: 草原的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: 烧过的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005790: 红色的泥
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: 地里的水
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: 泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: 沙
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: 砂
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: 洞的地面
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 森林
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: 草原
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: 沙漠
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: 冰
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: 地面
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: 雨伞
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: 躲
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000081: 信
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 酸性的土壤
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: 水果的形状
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: 水果的颜色
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 阀杆直径
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: 叶的长度
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: 水果的长度
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 叶大小等级
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: 根茎植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: 叶复杂性
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: 叶脱落性
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: 种子大小
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: 水果的宽度
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: 叶形态
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: 草药
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: 叶状体直径
@@ -1391,16 +1479,20 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 一年生植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: 两年生植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: 多年生植物
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: 肉
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: 溯河繁殖的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: 下海繁殖的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: 两性的
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: 蛋
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 生殖
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009507: 叶绿体
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: 无性生殖
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移动
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 亲代抚育
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: 贮存器官
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: 跑着
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: 走行
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: 树上行动
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: 空中
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: 飞行
@@ -1411,19 +1503,24 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: 细胞直径
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: 细胞体积
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: 骨骼结构
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: 细胞量
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: 细胞质量
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: 壳体长度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: 木头密度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 细胞核长度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 细胞核宽度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000094: 叶绿体的形状
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000096: 叶绿体的颜色
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: 沟宽
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: 骨骼成分
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: 震级长度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: 次声波长度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000129: 细胞颜色
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0001256: 身体长度
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: 体格大小
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: 大型藻类
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: 寿命
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: 形状
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000128: 重量
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 黑色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: 蓝色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 绿色
@@ -1436,16 +1533,16 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: 倒置的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: 慢
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: 快
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: 高
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: 厚度
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 心形的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: 紫色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 褐色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: 橘色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: 细长的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 线性
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: 长寿
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: 寿命短
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 区域
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: 高寿命
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: 短寿命
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 面积
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: 体积
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: 可剥离性
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: 落叶的
@@ -1455,7 +1552,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: 黄绿
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: 掌状的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: 梯形
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 混合
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 混合的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: 薄片状的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: 已提高的质量
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: 已降低的质量
@@ -1495,11 +1592,12 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: 被吃
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 病原体
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: 有病原体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: 杀
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: 制备
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 寄生虫
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: 株高
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: 耐旱性
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 叶色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 叶子颜色
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 叶子形状
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: 根深
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
@@ -1509,20 +1607,24 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: 呼吸频率
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: 生命周期习惯
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: 耐盐性
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: 羽毛
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: 眼睛
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: 内骨骼
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: 蜂蜜
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: 矿化组织含有
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: 比例
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001256: 身体长度
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 身体质量
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: 行为昼夜节律
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: 一窝产仔数
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: 妊娠期
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: 生育期开始
-        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 尾长
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 尾巴长度
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: 股骨长
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢长
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 身宽
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨宽
-        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: 水深
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: 水深度
         http://www(dot)wikidata(dot)org/entity/Q1053008: 营养级
         http://www(dot)wikidata(dot)org/entity/Q33596: 能动性
         https://www(dot)wikidata(dot)org/entity/Q295469: 生态区
