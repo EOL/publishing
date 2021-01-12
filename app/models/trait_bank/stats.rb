@@ -1,7 +1,5 @@
 module TraitBank
   module Stats
-    include TraitBank::Constants
-
     CheckResult = Struct.new(:valid, :reason) do
       def valid?
         valid
@@ -21,6 +19,8 @@ module TraitBank
     OBJ_COUNT_LIMIT_PAD = 5
 
     class << self
+      include TraitBank::Constants
+
       delegate :log, to: TraitBank::Logger
 
       def obj_counts(query, limit)
@@ -37,7 +37,7 @@ module TraitBank
               end
           q.concat("\nLIMIT #{limit + OBJ_COUNT_LIMIT_PAD}")
           results = TraitBank::Connector.query(q, params)
-          filter_identical_count_ancestors(TraitBank.results_to_hashes(results, "obj"), limit)
+          filter_identical_count_ancestors(TraitBank::ResultHandling.results_to_hashes(results, "obj"), limit)
         end
       end
 
@@ -74,7 +74,7 @@ module TraitBank
         key = "trait_bank/stats/histogram/v3/#{query.to_cache_key}" # increment version number when changing query
         Rails.cache.fetch(key) do
           params = {}
-          trait_match_part = TraitBank.term_record_search_matches(query, params, trait_var: "t")
+          trait_match_part = TraitBank::Search.term_record_search_matches(query, params, trait_var: "t")
           count = query.record? ? "*" : "DISTINCT rec.page"
           buckets = [Math.sqrt(record_count), 20].min.ceil
 
@@ -145,7 +145,7 @@ module TraitBank
           sankey_add_anc_obj_case_part(parts, obj_var_pairs, anc_obj_vars)
           sankey_add_final_agg_and_return_parts(parts, anc_obj_vars)
 
-          TraitBank.results_to_hashes(
+          TraitBank::ResultHandling.results_to_hashes(
             TraitBank::Connector.query(parts.join("\n"), params), 
             'key'
           )
@@ -286,7 +286,7 @@ module TraitBank
         obj_var = "child_obj"
         trait_var = "trait"
         anc_var = "anc"
-        match_part = TraitBank.term_record_search_matches(query, params, always_match_obj: true, obj_var: obj_var, trait_var: trait_var)
+        match_part = TraitBank::Search.term_record_search_matches(query, params, always_match_obj: true, obj_var: obj_var, trait_var: trait_var)
 
         %Q(
           #{match_part}
@@ -302,7 +302,7 @@ module TraitBank
       def obj_counts_query_for_taxa(query, params)
         obj_var = "child_obj"
         anc_var = "anc"
-        match_part = TraitBank.term_page_search_matches(query, params, always_match_obj: true, obj_var: obj_var)
+        match_part = TraitBank::Search.term_page_search_matches(query, params, always_match_obj: true, obj_var: obj_var)
 
         %Q(
           #{match_part}
@@ -318,11 +318,11 @@ module TraitBank
       end
 
       def count_query_anc_obj_match(query, obj_var, anc_var, params)
-        result = "MATCH (#{obj_var})-[#{TraitBank.parent_terms}]->(#{anc_var}:Term)"
+        result = "MATCH (#{obj_var})-[#{PARENT_TERMS}]->(#{anc_var}:Term)"
         filter = query.filters.first
 
         if filter.object_term?
-          result.concat("-[#{TraitBank.parent_terms}]->(:Term { uri: $count_query_obj })")
+          result.concat("-[#{PARENT_TERMS}]->(:Term { uri: $count_query_obj })")
           params[:count_query_obj] = filter.object_term.uri
         end
 
@@ -414,9 +414,9 @@ module TraitBank
             # The latter approach results in a query plan that gets all of the children of the tgt_obj (many in the case of a broad Term like Northern Hemisphere),
             # then does the other half of the query and joins the results. Using a WHERE clause resutls in a SemiApply which filters the results of the OPTIONAL MATCH
             # one by one using the WHERE clause test. tl;dr: WHERE results in going "up" the term hierarchy, and never down, which is better.
-            "OPTIONAL MATCH (#{pair[:obj]})-[#{TraitBank.parent_terms}]->(#{anc_obj_var}:Term)\nWHERE (#{anc_obj_var})-[:parent_term]->(#{pair[:tgt_obj]})"
+            "OPTIONAL MATCH (#{pair[:obj]})-[#{PARENT_TERMS}]->(#{anc_obj_var}:Term)\nWHERE (#{anc_obj_var})-[:parent_term]->(#{pair[:tgt_obj]})"
           else
-            "OPTIONAL MATCH (#{pair[:obj]})-[#{TraitBank.parent_terms}]->(#{anc_obj_var}:Term)\nWHERE NOT (#{anc_obj_var})-[:parent_term|:synonym_of]->(:Term)"
+            "OPTIONAL MATCH (#{pair[:obj]})-[#{PARENT_TERMS}]->(#{anc_obj_var}:Term)\nWHERE NOT (#{anc_obj_var})-[:parent_term|:synonym_of]->(:Term)"
           end
         end
 
