@@ -1,7 +1,7 @@
-class TraitBank
-  class Admin
+module TraitBank
+  module Admin
     class << self
-      delegate :create_page, :relate, :page_exists?, :query, :connection, to: TraitBank
+      delegate :relate, :query, :connection, to: TraitBank
       delegate :warn, :log_error, :log, to: TraitBank::Logger
 
       def setup
@@ -156,8 +156,8 @@ class TraitBank
           next if related.key?(page_id) # Pages may only have ONE parent.
           page = get_cached_pages(page_id)
           parent = get_cached_pages(parent_id)
-          create_page(page_id) unless page
-          create_page(parent_id) unless parent
+          TraitBank::Page.create_page(page_id) unless page
+          TraitBank::Page.create_page(parent_id) unless parent
           tries = 0
           begin
             res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
@@ -182,7 +182,7 @@ class TraitBank
       def get_cached_pages(page_id)
         @pages ||= {}
         return @pages[page_id] if @pages.has_key?(page_id)
-        page = page_exists?(page_id)
+        page = TraitBank::Page.page_exists?(page_id)
         page = page.first if page && page.is_a?(Array)
         @pages[page_id] = page
       end
@@ -192,7 +192,7 @@ class TraitBank
         dynamic_hierarchy = Resource.native
         Node.where(["resource_id = ?", dynamic_hierarchy.id]).find_each do |node|
           name = node.canonical_form
-          page = page_exists?(node.page_id)
+          page = TraitBank::Page.page_exists?(node.page_id)
           next unless page
           page = page.first if page
           connection.set_node_properties(page, { "name" => name })

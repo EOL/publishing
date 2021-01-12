@@ -1,7 +1,4 @@
 class TraitBank::Denormalizer
-  delegate :connection, to: TraitBank
-  delegate :query, to: TraitBank
-  delegate :count_pages, to: TraitBank
   attr_reader :fixed
 
   class << self
@@ -23,7 +20,7 @@ class TraitBank::Denormalizer
   end
 
   def set_canonicals
-    @pages_count = count_pages # 4,332,394 as of this writing...
+    @pages_count = TraitBank::Page.count_pages # 4,332,394 as of this writing...
     log "Looks like there are #{@pages_count} pages to check (#{(@pages_count / @limit).ceil} batches)..."
     loop do
       results = get_pages
@@ -54,7 +51,7 @@ class TraitBank::Denormalizer
 
   def fix_canonical(id, name)
     name.gsub!('"', '\\"')
-    query(%{MATCH (page:Page { page_id: #{id} }) SET page.canonical = "#{name}" })
+    TraitBank::Connector.query(%{MATCH (page:Page { page_id: #{id} }) SET page.canonical = "#{name}" })
     @fixed += 1
   end
 
@@ -67,7 +64,7 @@ class TraitBank::Denormalizer
     q = %{MATCH (page:Page) RETURN page.page_id, page.canonical}
     q += " SKIP #{@skip}" if @skip.positive?
     q += " LIMIT #{@limit}"
-    results = query(q)
+    results = TraitBank::Connector.query(q)
     @skip += @limit
     return nil if results.nil? || !results.key?("data") || results["data"].empty?
     results["data"]
