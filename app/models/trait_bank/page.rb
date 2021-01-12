@@ -9,7 +9,7 @@ module TraitBank
         TraitBank::Caching.add_hash_to_key(key, options)
 
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
@@ -49,7 +49,7 @@ module TraitBank
         TraitBank::Caching.add_hash_to_key(key, options)
 
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
             (trait)-[:supplier]->(resource:Resource)
             WITH collect(DISTINCT resource) AS subj_resources
@@ -70,7 +70,7 @@ module TraitBank
         add_hash_to_key(key, options)
 
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_match_part(options)},
             (trait)-[:supplier]->(resource:Resource)
             RETURN DISTINCT resource.resource_id
@@ -85,7 +85,7 @@ module TraitBank
         add_hash_to_key(key, options)
 
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             MATCH (:Page)-[#{TRAIT_RELS}]-(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_match_part(options)},
             (trait)-[:object_page]->(:Page { page_id: #{page_id} }),
             (trait)-[:supplier]->(resource:Resource)
@@ -101,7 +101,7 @@ module TraitBank
         TraitBank::Caching.add_hash_to_key(key, options)
 
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term{ uri: '#{pred_uri}'}),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
@@ -124,7 +124,7 @@ module TraitBank
         TraitBank::Caching.add_hash_to_key(key, options)
 
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term{ uri: '#{pred_uri}'}),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])}),
             (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} })
@@ -144,7 +144,7 @@ module TraitBank
         key = "trait_bank/page_trait_groups/v1/#{page_id}"
         TraitBank::Caching.add_hash_to_key(key, options)
         Rails.cache.fetch(key) do
-          res = TraitBank::Connector.query(%Q(
+          res = TraitBank.query(%Q(
             OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
@@ -202,7 +202,7 @@ module TraitBank
             LIMIT #{limit}
           )
 
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           TraitBank::ResultHandling.build_trait_array(res)
         end
       end
@@ -240,7 +240,7 @@ module TraitBank
             WHERE page_id IS NOT NULL
             RETURN DISTINCT page_id
           )
-          result = TraitBank::Connector.query(q)
+          result = TraitBank.query(q)
           result["data"].flatten
         end
       end
@@ -261,7 +261,7 @@ module TraitBank
             RETURN trait, page, resource, predicate, object_page, units, sex_term, lifestage_term, statistical_method_term
           )
 
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           TraitBank::ResultHandling.build_trait_array(res)
         end
       end

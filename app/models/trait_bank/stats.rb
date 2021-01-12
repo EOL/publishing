@@ -36,7 +36,7 @@ module TraitBank
                 obj_counts_query_for_records(query, params)
               end
           q.concat("\nLIMIT #{limit + OBJ_COUNT_LIMIT_PAD}")
-          results = TraitBank::Connector.query(q, params)
+          results = TraitBank.query(q, params)
           filter_identical_count_ancestors(TraitBank::ResultHandling.results_to_hashes(results, "obj"), limit)
         end
       end
@@ -78,7 +78,7 @@ module TraitBank
           count = query.record? ? "*" : "DISTINCT rec.page"
           buckets = [Math.sqrt(record_count), 20].min.ceil
 
-          TraitBank::Connector.query(%Q[
+          TraitBank.query(%Q[
             #{trait_match_part}
             WITH page, toFloat(t.normal_measurement) AS m
             WITH collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
@@ -146,7 +146,7 @@ module TraitBank
           sankey_add_final_agg_and_return_parts(parts, anc_obj_vars)
 
           TraitBank::ResultHandling.results_to_hashes(
-            TraitBank::Connector.query(parts.join("\n"), params), 
+            TraitBank.query(parts.join("\n"), params), 
             'key'
           )
         end
@@ -266,7 +266,7 @@ module TraitBank
           "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, { metadata: { id: row.source.page_id + '-' + row.target.page_id } } AS id "\
           "RETURN type, source, target, id "\
 
-        results_to_hashes(TraitBank::Connector.query(qs), "id")
+        results_to_hashes(TraitBank.query(qs), "id")
       end
 
       def descendant_environments(page)
@@ -277,7 +277,7 @@ module TraitBank
           "WHERE predicate.uri = '#{EolTerms.alias_uri('habitat')}'\n"\
           "RETURN trait, predicate, object_term"
 
-        build_trait_array(TraitBank::Connector.query(qs))
+        build_trait_array(TraitBank.query(qs))
       end
 
       private

@@ -37,7 +37,7 @@ module TraitBank
         return { name: '', uri: '' } if uri.blank?
         @terms ||= {}
         return @terms[uri] if @terms.key?(uri)
-        res = TraitBank::Connector.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}" }) RETURN term})
+        res = TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}" }) RETURN term})
         return nil unless res && res["data"] && res["data"].first
         @terms[uri] = res["data"].first.first
       end
@@ -87,7 +87,7 @@ module TraitBank
         # TODO: Restore above comment, remove the next few lines:
         q = query_for_update(properties)
         puts q
-        res = TraitBank::Connector.query(q)
+        res = TraitBank.query(q)
         raise ActiveRecord::RecordNotFound if res.nil?
         res['data'].first&.first&.symbolize_keys
       end
@@ -104,11 +104,11 @@ module TraitBank
       end
 
       def remove_relationships(uri, name)
-        TraitBank::Connector.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->() DETACH DELETE rel})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->() DETACH DELETE rel})
       end
 
       def add_relationship(source_uri, name, target_uri)
-        TraitBank::Connector.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '\"')}" }),
+        TraitBank.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '\"')}" }),
                           (target:Term { uri: "#{target_uri.gsub(/"/, '\"')}" })
                           CREATE (term)-[:#{name}]->(target) })
       end
@@ -195,7 +195,7 @@ module TraitBank
       end
 
       def delete(uri)
-        TraitBank::Connector.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DETACH DELETE term})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DETACH DELETE term})
       end
 
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
@@ -253,13 +253,13 @@ module TraitBank
       end
 
       def descendants_of_term(uri)
-        terms = TraitBank::Connector.query(%Q{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri.gsub(/"/, '\"')}" })
+        terms = TraitBank.query(%Q{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri.gsub(/"/, '\"')}" })
                          RETURN DISTINCT term})
         terms["data"].map { |r| r.first["data"] }
       end
 
       def term_member_of(uri)
-        terms = TraitBank::Connector.query(%Q{MATCH (:Term { uri: "#{uri.gsub(/"/, '\"')}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
+        terms = TraitBank.query(%Q{MATCH (:Term { uri: "#{uri.gsub(/"/, '\"')}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
         terms["data"].map { |r| r.first }
       end
 
@@ -275,7 +275,7 @@ module TraitBank
                  is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{predicate.uri}' })}
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
           q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           res["data"] ? res["data"].map do |t|
             hash = t.first["data"].symbolize_keys
             hash[:name] = hash[:"#{name_field}"]
@@ -287,11 +287,11 @@ module TraitBank
 
       def any_obj_terms_for_pred?(pred)
         Rails.cache.fetch("trait_bank/pred_has_object_terms_2_checks/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
-          TraitBank::Connector.query(
+          TraitBank.query(
             %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)<-[:synonym_of|:parent_term*0..]-(:Term
               { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
           )["data"].any? ||
-          TraitBank::Connector.query(
+          TraitBank.query(
             %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)-[:synonym_of|:parent_term*0..]->(:Term
               { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
           )["data"].any?
@@ -301,9 +301,9 @@ module TraitBank
       # NOTE the order of args, here.
       def set_units_for_pred(units_uri, pred_uri)
         if units_uri =~ /^u/ # 'unitless', a secret code for "this is an ordinal measurement (and has no units)"
-          TraitBank::Connector.query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }) SET predicate.is_ordinal = true})
+          TraitBank.query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }) SET predicate.is_ordinal = true})
         else
-          TraitBank::Connector.query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }), (units_term:Term { uri: "#{units_uri}"})
+          TraitBank.query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }), (units_term:Term { uri: "#{units_uri}"})
             CREATE (predicate)-[:units_term]->(units_term)})
         end
       end
@@ -312,13 +312,13 @@ module TraitBank
         key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
 
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          ordinal = TraitBank::Connector.query(%{
+          ordinal = TraitBank.query(%{
             MATCH (predicate:Term { uri: "#{pred_uri}", is_ordinal: true }) RETURN predicate LIMIT 1
           })["data"].any?
           if ordinal
             :ordinal
           else
-            res = TraitBank::Connector.query(%{
+            res = TraitBank.query(%{
               MATCH (predicate:Term { uri: "#{pred_uri}" })-[:units_term]->(units_term:Term)
               RETURN units_term.name, units_term.uri LIMIT 1
             })["data"]
@@ -335,7 +335,7 @@ module TraitBank
       def any_direct_records_for_pred?(uri)
         key = "trait_bank/any_direct_records_for_pred?/#{uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          res = TraitBank::Connector.query(%{
+          res = TraitBank.query(%{
             MATCH (t:Trait)-[:predicate]->(:Term{uri: "#{uri.gsub(/"/, '""')}"})
             RETURN t LIMIT 1
           })["data"]
@@ -344,7 +344,7 @@ module TraitBank
       end
 
       def parents_of_term(term_uri)
-        result = TraitBank::Connector.query(%Q(
+        result = TraitBank.query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:parent_term]->(parent:Term)
           RETURN DISTINCT parent.uri
         ))
@@ -354,7 +354,7 @@ module TraitBank
 
       # NOTE: forces a limit of one (or nil, if none)
       def synonym_of_term(term_uri)
-        result = TraitBank::Connector.query(%Q(
+        result = TraitBank.query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:synonym_of]->(parent:Term)
           RETURN parent.uri
           LIMIT 1
@@ -365,7 +365,7 @@ module TraitBank
 
       # NOTE: forces a limit of one (or nil, if none)
       def units_for_term(term_uri)
-        result = TraitBank::Connector.query(%Q(
+        result = TraitBank.query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:units_term]->(unts_term:Term)
           RETURN unts_term.uri
           LIMIT 1
@@ -375,7 +375,7 @@ module TraitBank
       end
 
       def term_descendant_of_other?(term_uri, other_uri)
-        result = TraitBank::Connector.query(%Q(
+        result = TraitBank.query(%Q(
           MATCH p=(:Term{ uri: "#{term_uri}" })-[:parent_term*1..]->(:Term{ uri: "#{other_uri}" })
           RETURN p
           LIMIT 1
@@ -389,7 +389,7 @@ module TraitBank
         key = "trait_bank/terms_count"
         key += "/include_hidden" if hidden
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          res = TraitBank::Connector.query(
+          res = TraitBank.query(
             "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
             "WITH count(distinct(term.uri)) AS count "\
             "RETURN count"
@@ -409,7 +409,7 @@ module TraitBank
           q = "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
             "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
           q += TraitBank::Queries.limit_and_skip_clause(page, per)
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
         end
       end
@@ -430,7 +430,7 @@ module TraitBank
               "WHERE #{where} "\
               "RETURN term "\
               "ORDER BY toLower(term.name), toLower(term.uri)"
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           res["data"] ? res["data"].map { |t| t.first.symbolize_keys } : false
         end
       end
@@ -441,7 +441,7 @@ module TraitBank
               "WITH substring(toLower(term.name), 0, 1) AS letter\n"\
               "RETURN DISTINCT letter\n"\
               "ORDER BY letter"
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           res["data"] ? res["data"].map { |item| item.first } : false
         end
       end
@@ -486,7 +486,7 @@ module TraitBank
             q += "RETURN DISTINCT(term) ORDER BY LOWER(term.#{name_field}), LOWER(term.uri)"
             q += TraitBank::Queries.limit_and_skip_clause(page, per)
           end
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           if res["data"]
             if count
               res["data"].first.first
@@ -525,7 +525,7 @@ module TraitBank
       end
 
       def term_query(q)
-        res = TraitBank::Connector.query(q)
+        res = TraitBank.query(q)
         all = res["data"].map { |t| t.first["data"].symbolize_keys }
         all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri], id: h[:eol_id] } }
         all
@@ -618,12 +618,12 @@ module TraitBank
 
       def relate(how, from, to)
         begin
-          TraitBank::Connector.connection.create_relationship(how, from, to)
+          TraitBank.connection.create_relationship(how, from, to)
         rescue
           # Try again...
           begin
             sleep(0.1)
-            TraitBank::Connector.connection.create_relationship(how, from, to)
+            TraitBank.connection.create_relationship(how, from, to)
           rescue Neography::BadInputException => e
             TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
             TraitBank::Logger.log_error("** from: #{from}")

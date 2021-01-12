@@ -51,7 +51,7 @@ class TraitBank::Denormalizer
 
   def fix_canonical(id, name)
     name.gsub!('"', '\\"')
-    TraitBank::Connector.query(%{MATCH (page:Page { page_id: #{id} }) SET page.canonical = "#{name}" })
+    TraitBank.query(%{MATCH (page:Page { page_id: #{id} }) SET page.canonical = "#{name}" })
     @fixed += 1
   end
 
@@ -64,7 +64,7 @@ class TraitBank::Denormalizer
     q = %{MATCH (page:Page) RETURN page.page_id, page.canonical}
     q += " SKIP #{@skip}" if @skip.positive?
     q += " LIMIT #{@limit}"
-    results = TraitBank::Connector.query(q)
+    results = TraitBank.query(q)
     @skip += @limit
     return nil if results.nil? || !results.key?("data") || results["data"].empty?
     results["data"]

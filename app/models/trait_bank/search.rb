@@ -88,7 +88,7 @@ module TraitBank
           term_page_search(term_query, limit_and_skip, options)
         end
 
-        res = TraitBank::Connector.query(q[:query], q[:params])
+        res = TraitBank.query(q[:query], q[:params])
 
         TraitBank::Logger.log("&& TS SAVING Cache: #{key}")
         if options[:count]

@@ -2,7 +2,7 @@ module TraitBank
   module Resource
     class << self
       def find(id)
-        res = TraitBank::Connector.query("MATCH (resource:Resource { resource_id: #{id} }) RETURN resource LIMIT 1")
+        res = TraitBank.query("MATCH (resource:Resource { resource_id: #{id} }) RETURN resource LIMIT 1")
         res["data"] ? res["data"].first : false
       end
 
@@ -13,8 +13,8 @@ module TraitBank
         if (resource = find_resource(id))
           return resource
         end
-        resource = TraitBank::Connector.connection.create_node(resource_id: id)
-        TraitBank::Connector.connection.set_label(resource, 'Resource')
+        resource = TraitBank.connection.create_node(resource_id: id)
+        TraitBank.connection.set_label(resource, 'Resource')
         resource
       end
     end

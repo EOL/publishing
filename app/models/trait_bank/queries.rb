@@ -20,7 +20,7 @@ module TraitBank
       end
 
       def count_relationships_and_nodes_by_resource_no_cache(id)
-        res = TraitBank::Connector.query(
+        res = TraitBank.query(
           "MATCH (res:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[#{TRAIT_RELS}]-(page:Page) "\
           "USING INDEX res:Resource(resource_id) "\
           "WITH count(trait) as count "\
@@ -30,7 +30,7 @@ module TraitBank
 
       def count_by_resource_and_page(resource_id, page_id)
         Rails.cache.fetch("trait_bank/count_by_resource/#{resource_id}/pages/#{page_id}") do
-          res = TraitBank::Connector.query(
+          res = TraitBank.query(
             "MATCH (res:Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[#{TRAIT_RELS}]-(page:Page { page_id: #{page_id} }) "\
             "USING INDEX res:Resource(resource_id) USING INDEX page:Page(page_id) "\
             "WITH count(trait) as count "\
@@ -41,7 +41,7 @@ module TraitBank
 
       def count_by_page(page_id)
         Rails.cache.fetch("trait_bank/count_by_page/#{page_id}", expires_in: 1.day) do
-          res = TraitBank::Connector.query(
+          res = TraitBank.query(
             "MATCH (trait:Trait)<-[#{TRAIT_RELS}]-(page:Page { page_id: #{page_id} }) "\
             "WITH count(trait) as count "\
             "RETURN count")
@@ -51,7 +51,7 @@ module TraitBank
 
       def predicate_count_by_page(page_id)
         Rails.cache.fetch("trait_bank/predicate_count_by_page/#{page_id}", expires_in: 1.day) do
-          res = TraitBank::Connector.query(
+          res = TraitBank.query(
             "MATCH (page:Page { page_id: #{page_id} }) -[#{TRAIT_RELS}]->"\
             "(trait:Trait)-[:predicate]->(term:Term) "\
             "WITH count(distinct(term.uri)) AS count "\
@@ -62,7 +62,7 @@ module TraitBank
 
       def predicate_count
         Rails.cache.fetch("trait_bank/predicate_count", expires_in: 1.day) do
-          res = TraitBank::Connector.query(
+          res = TraitBank.query(
             "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
             "WITH count(distinct(term.uri)) AS count "\
             "RETURN count")
@@ -95,13 +95,13 @@ module TraitBank
               meta, meta_predicate, meta_units_term, meta_object_term, page }
             # ORDER BY LOWER(meta_predicate.name)}
         q += limit_and_skip_clause(page, per)
-        res = TraitBank::Connector.query(q)
+        res = TraitBank.query(q)
         TraitBank::ResultHandling.build_trait_array(res, group_meta_by_predicate: true)
       end
 
       def data_dump_trait(pk)
         id = pk.gsub(/"/, '""')
-        TraitBank::Connector.query(%{
+        TraitBank.query(%{
           MATCH (trait:Trait { eol_pk: "#{id}" })-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
           OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
           OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
@@ -129,13 +129,13 @@ module TraitBank
           # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
           #   "LOWER(trait.literal)", "trait.normal_measurement"])
           q += limit_and_skip_clause(page, per)
-          res = TraitBank::Connector.query(q)
+          res = TraitBank.query(q)
           TraitBank::ResultHandling.build_trait_array(res)
         end
       end
 
       def data_dump_page(page_id)
-        TraitBank::Connector.query(%{
+        TraitBank.query(%{
           MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:supplier]->(resource:Resource),
             (trait:Trait)-[:predicate]->(predicate:Term)
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
