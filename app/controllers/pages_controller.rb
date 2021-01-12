@@ -224,7 +224,7 @@ class PagesController < ApplicationController
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
     @grouped_data = group_traits(@filter_trait_groups, filtered_data)
     @data_groups = @predicate ? [@predicate] : sorted_groups_for_traits(@grouped_data)
-    @resources = TraitBank.resources(filtered_data)
+    @resources = Resource.for_traits(filtered_data)
 
     @associations = build_page_associations(@page)
     setup_viz

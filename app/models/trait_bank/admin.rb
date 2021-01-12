@@ -1,9 +1,6 @@
 module TraitBank
   module Admin
     class << self
-      delegate :relate, :query, :connection, to: TraitBank
-      delegate :warn, :log_error, :log, to: TraitBank::Logger
-
       def setup
         create_indexes
         create_constraints
@@ -15,7 +12,7 @@ module TraitBank
           Resource(resource_id) MetaData(eol_pk)}
         indexes.each do |index|
           begin
-            query("CREATE INDEX ON :#{index};")
+            TraitBank::Connector.query("CREATE INDEX ON :#{index};")
           rescue Neography::NeographyError => e
             if e.to_s =~ /already created/
               puts "Already have an index on #{index}, skipping."
@@ -38,7 +35,7 @@ module TraitBank
             begin
               name = 'o'
               name = label.downcase if drop && drop == :drop
-              query(
+              TraitBank::Connector.query(
                 "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
               )
             rescue Neography::NeographyError => e
@@ -95,10 +92,10 @@ module TraitBank
         loop do
           time_before = Time.now
           apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
-          log("--TB_DEL: #{apoc}")
-          query(apoc)
+          TraitBank::Logger.log("--TB_DEL: #{apoc}")
+          TraitBank::Connector.query(apoc)
           time_delta = Time.now - time_before
-          log("--TB_DEL: Took #{time_delta}.")
+          TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
           count += size
           if count >= count_before
             count = count_type_for_resource(name, q)
@@ -115,12 +112,12 @@ module TraitBank
       end
 
       def count_type_for_resource(name, q)
-        query("MATCH #{q} RETURN COUNT(DISTINCT #{name})")['data']&.first&.first
+        TraitBank::Connector.query("MATCH #{q} RETURN COUNT(DISTINCT #{name})")['data']&.first&.first
       end
 
       # NOTE: this code is unused, but please don't delete it; we call it manually.
       def delete_terms_in_domain(domain)
-        before = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
+        before = TraitBank::Connector.query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
         remove_with_query(name: :term, q: "(term:Term) WHERE term.uri =~ '#{domain}.*'")
         before
       end
@@ -160,7 +157,7 @@ module TraitBank
           TraitBank::Page.create_page(parent_id) unless parent
           tries = 0
           begin
-            res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
+            res = TraitBank::Connector.query("MATCH(from_page:Page { page_id: #{page_id}}) "\
               "MATCH(to_page:Page { page_id: #{parent_id}}) "\
               "MERGE(from_page)-[:parent]->(to_page)")
           rescue
@@ -188,21 +185,21 @@ module TraitBank
       end
 
       def rebuild_names
-        query("MATCH (page:Page) REMOVE page.name RETURN COUNT(*)")
+        TraitBank::Connector.query("MATCH (page:Page) REMOVE page.name RETURN COUNT(*)")
         dynamic_hierarchy = Resource.native
         Node.where(["resource_id = ?", dynamic_hierarchy.id]).find_each do |node|
           name = node.canonical_form
           page = TraitBank::Page.page_exists?(node.page_id)
           next unless page
           page = page.first if page
-          connection.set_node_properties(page, { "name" => name })
+          TraitBank::Connector.connection.set_node_properties(page, { "name" => name })
           puts "#{node.page_id} => #{name}"
         end
       end
 
       # NOTE: if you add any new caches IN THE TB CLASS, add them here.
       def clear_caches
-        warn("TRAITBANK CACHES CLEARED.")
+        TraitBank::Logger.warn("TRAITBANK CACHES CLEARED.")
         [
           "trait_bank/predicate_count",
           "trait_bank/terms_count",

@@ -8,7 +8,7 @@ class TraitBank::Slurp
       repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.traits_file, 'traits.tsv')
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
-      TraitBank.create_resource(resource.id)
+      TraitBank::Resource.create(resource.id)
       load_csvs(resource)
       resource.remove_traits_files
     end
@@ -233,7 +233,7 @@ class TraitBank::Slurp
         res_ids = read_field_from_traits_file(params[:read_resources], 'resource_id')
         return nil if res_ids.nil?
         res_ids.each do |resource_id|
-          TraitBank.create_resource(resource_id)
+          TraitBank::Resource.create(resource_id)
         end
       end
       break_up_large_files(filename) do |sub_filename|

@@ -509,7 +509,7 @@ module TraitBank
             "WHERE NOT (term)-[:parent_term]->(:Term) "\
             "AND NOT (term)-[:synonym_of]->(:Term) "\
             "AND term.is_hidden_from_overview = false "\
-            "AND term.type IN #{array_to_qs(types)} "\
+            "AND term.type IN #{TraitBank::Queries.array_to_qs(types)} "\
             "RETURN term "\
             "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
 
@@ -615,6 +615,32 @@ module TraitBank
       def term_name_prefix_match(label, qterm)
         "LOWER(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.delete('"').downcase}.*\" "
       end
+
+      def relate(how, from, to)
+        begin
+          TraitBank::Connector.connection.create_relationship(how, from, to)
+        rescue
+          # Try again...
+          begin
+            sleep(0.1)
+            TraitBank::Connector.connection.create_relationship(how, from, to)
+          rescue Neography::BadInputException => e
+            TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
+            TraitBank::Logger.log_error("** from: #{from}")
+            TraitBank::Logger.log_error("** to: #{to}")
+          rescue Neography::NeographyError => e
+            TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
+            TraitBank::Logger.log_error("** from: #{from}")
+            TraitBank::Logger.log_error("** to: #{to}")
+          rescue Excon::Error::Socket => e
+            puts "** TIMEOUT adding relationship"
+            TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
+            TraitBank::Logger.log_error("** from: #{from}")
+            TraitBank::Logger.log_error("** to: #{to}")
+          end
+        end
+      end
+
     end
   end
 end

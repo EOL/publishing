@@ -150,6 +150,12 @@ class Resource < ApplicationRecord
       %i[eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
         statistical_method source]
     end
+
+    def for_traits(traits)
+      resources = self.where(id: traits.map { |t| t[:resource_id] }.compact.uniq)
+      # A little magic to index an array as a hash:
+      Hash[ *resources.map { |r| [ r.id, r ] }.flatten ]
+    end
   end
 
   def unlock

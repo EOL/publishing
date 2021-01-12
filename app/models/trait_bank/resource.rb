@@ -1,0 +1,22 @@
+module TraitBank
+  module Resource
+    class << self
+      def find(id)
+        res = TraitBank::Connector.query("MATCH (resource:Resource { resource_id: #{id} }) RETURN resource LIMIT 1")
+        res["data"] ? res["data"].first : false
+      end
+
+      def create(id_param)
+        id = id_param.to_i
+        return "#{id_param} is not a valid positive integer id!" if
+          id_param.is_a?(String) && !id.positive? && id.to_s != id_param
+        if (resource = find_resource(id))
+          return resource
+        end
+        resource = TraitBank::Connector.connection.create_node(resource_id: id)
+        TraitBank::Connector.connection.set_label(resource, 'Resource')
+        resource
+      end
+    end
+  end
+end

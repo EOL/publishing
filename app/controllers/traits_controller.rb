@@ -135,7 +135,7 @@ class TraitsController < ApplicationController
     # TODO: code review here. I think we're creating a lot of cruft we don't use.
     paginate_term_search_data(data, @query)
     @is_terms_search = true
-    @resources = TraitBank.resources(data)
+    @resources = Resource.for_traits(data)
     @associations = build_associations(data)
     build_gbif_url(@count, pages, @query)
     data_viz_type(@query, @counts)

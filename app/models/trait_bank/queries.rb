@@ -151,6 +151,15 @@ module TraitBank
         })
       end
 
+      # each argument is expected to be an Array of strings
+      def array_to_qs(*args)
+        result = []
+        args.each do |uris|
+          result.concat(uris.collect { |uri| "'#{uri}'" })
+        end
+        "[#{result.join(", ")}]"
+      end
+
       private
       def quote(string)
         return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/

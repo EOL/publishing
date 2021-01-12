@@ -231,7 +231,7 @@ module TraitBank
       end
 
       def pred_prey_comp_for_page(page)
-        eats_string = array_to_qs([EolTerms.alias_uri('eats'), EolTerms.alias_uri('preys_on')])
+        eats_string = TraitBank::Queries.array_to_qs([EolTerms.alias_uri('eats'), EolTerms.alias_uri('preys_on')])
         limit_per_group = 100
         comp_limit = 10
 

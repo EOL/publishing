@@ -12,7 +12,7 @@ class DataController < ApplicationController
 
     if request.xhr?
       @associations = build_associations(data)
-      @resources = TraitBank.resources([@data])
+      @resources = Resource.for_traits([@data])
       @show_taxon = params[:show_taxon] && params[:show_taxon] == "true"
       render :layout => false
     else
