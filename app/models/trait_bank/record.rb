@@ -3,8 +3,8 @@
 # the code in the future to either extend the hash class itself or to force us
 # to pass around Record instances instead of hashes. ..For now, though, this is
 # simple enough.
-class TraitBank
-  class Record
+module TraitBank
+  module Record
     class << self
       def obj_term_uri(record)
         record.dig(:object_term, :uri)

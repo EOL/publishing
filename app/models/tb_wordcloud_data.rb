@@ -16,7 +16,7 @@ class TbWordcloudData
           "LIMIT #{PRED_LIMIT}"\
 
       puts "Running query"
-      raw_result = TraitBank.query(q)
+      raw_result = TraitBank::Connector.query(q)
       puts "Query finished, processing results"
 
       if raw_result && raw_result["data"]

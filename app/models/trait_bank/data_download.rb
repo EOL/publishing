@@ -12,7 +12,7 @@ class TraitBank
       # options:
       #   - force_new: true -- always create and background_build a UserDownload
       def term_search(term_query, user_id, url, options={})
-        count = TraitBank.term_search(
+        count = TraitBank::Search.term_search(
           term_query,
           { count: true },
         ).primary_for_query(term_query)

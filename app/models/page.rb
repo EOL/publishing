@@ -503,7 +503,7 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
-    TraitBank.key_data(id, KEY_DATA_LIMIT)
+    TraitBank::Page.key_data(id, KEY_DATA_LIMIT)
   end
 
   def has_data?
@@ -511,11 +511,11 @@ class Page < ApplicationRecord
   end
 
   def data_count
-    TraitBank.count_by_page(id)
+    TraitBank::Queries.count_by_page(id)
   end
 
   def predicate_count
-    TraitBank.predicate_count_by_page(id)
+    TraitBank::Queries.predicate_count_by_page(id)
   end
 
   # NOTE: This page size is "huge" because we don't want pagination for data.
@@ -527,7 +527,7 @@ class Page < ApplicationRecord
   # full TOC.)
   def data(page = 1, per = 2000)
     return @data[0..per] if @data
-    data = TraitBank.by_page(id, page, per)
+    data = TraitBank::Queries.by_page(id, page, per)
     @data_toc_needs_other = false
     @data_toc = data.flat_map do |t|
       next if t[:predicate][:section_ids].nil? # Usu. test data...
@@ -541,12 +541,12 @@ class Page < ApplicationRecord
   end
 
   def object_data
-    @object_data = TraitBank.object_traits_by_page(id) unless @object_data
+    @object_data = TraitBank::Page.object_traits_by_page(id) unless @object_data
     @object_data
   end
   
   def association_page_ids
-    TraitBank.association_page_ids(id)
+    TraitBank::Page.association_page_ids(id)
   end
 
   def redlist_status

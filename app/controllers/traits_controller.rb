@@ -102,7 +102,7 @@ class TraitsController < ApplicationController
   def paginate_term_search_data(data, query)
     Rails.logger.warn "&&TS Running count:"
     # @count = 1_000_000
-    @counts = TraitBank.term_search(query, { count: true })
+    @counts = TraitBank::Search.term_search(query, { count: true })
 
     @count = @counts.primary_for_query(query)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
@@ -120,7 +120,7 @@ class TraitsController < ApplicationController
     @page = params[:page] || 1
     @per_page = PER_PAGE
     Rails.logger.warn "&&TS Running search:"
-    res = TraitBank.term_search(@query, {
+    res = TraitBank::Search.term_search(@query, {
       :page => @page,
       :per => @per_page,
     })

@@ -100,7 +100,7 @@ module Traits
 
     def hist
       @query = TermQuery.from_short_params(term_query_params)
-      counts = TraitBank.term_search(@query, { count: true })
+      counts = TraitBank::Search.term_search(@query, { count: true })
       result = TraitBank::Stats.histogram(@query, counts.primary_for_query(@query))
       @data = HistData.new(result, @query)
       render_common
@@ -108,7 +108,7 @@ module Traits
 
     def sankey
       @query = TermQuery.from_short_params(term_query_params)
-      counts = TraitBank.term_search(@query, { count: true })
+      counts = TraitBank::Search.term_search(@query, { count: true })
       @sankey = Traits::DataViz::Sankey.create_from_query(@query, counts.primary_for_query(@query))
       set_sankey_about_text
       render_with_status(@sankey.multiple_paths?)

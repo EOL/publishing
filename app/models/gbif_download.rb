@@ -71,7 +71,7 @@ class GbifDownload < ApplicationRecord
   def run
     check_gbif_creds
 
-    page_ids = TraitBank.term_search(term_query, {
+    page_ids = TraitBank::Search.term_search(term_query, {
       page: 1,
       per: PAGE_LIMIT,
       id_only: true

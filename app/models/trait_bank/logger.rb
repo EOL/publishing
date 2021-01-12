@@ -1,4 +1,4 @@
-class TraitBank
+module TraitBank
   class Logger
     class << self
       def log(message, tag = nil)

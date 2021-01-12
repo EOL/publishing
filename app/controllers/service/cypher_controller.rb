@@ -74,7 +74,7 @@ class Service::CypherController < ServicesController
 
     # Do the query or command
     begin
-      results = TraitBank.query(cypher)
+      results = TraitBank::Connector.query(cypher)
       render_results(results, format)
     rescue Neo4j::Core::CypherSession::CypherError => e
       return render_bad_request(title: "Cypher syntax error: #{e.message}")
@@ -117,7 +117,7 @@ class Service::CypherController < ServicesController
 
     return nil unless
       authorize_admin_from_token!
-    render_results(TraitBank.query(
+    render_results(TraitBank::Connector.query(
                     "MATCH ()-[rel:#{relation}]-
                            (t:Trait)-[:supplier]->
                            (:Resource {resource_id: #{resource_id}})

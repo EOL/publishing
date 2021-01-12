@@ -1,4 +1,4 @@
-class TraitBank
+module TraitBank
   class TermSearchCounts
     # NOTE -- taxon search results do not include records, but record results do include taxa
     attr_reader :records, :pages

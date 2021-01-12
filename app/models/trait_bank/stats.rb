@@ -1,5 +1,7 @@
-class TraitBank
+module TraitBank
   module Stats
+    include TraitBank::Constants
+
     CheckResult = Struct.new(:valid, :reason) do
       def valid?
         valid
@@ -34,7 +36,7 @@ class TraitBank
                 obj_counts_query_for_records(query, params)
               end
           q.concat("\nLIMIT #{limit + OBJ_COUNT_LIMIT_PAD}")
-          results = TraitBank.query(q, params)
+          results = TraitBank::Connector.query(q, params)
           filter_identical_count_ancestors(TraitBank.results_to_hashes(results, "obj"), limit)
         end
       end
@@ -76,7 +78,7 @@ class TraitBank
           count = query.record? ? "*" : "DISTINCT rec.page"
           buckets = [Math.sqrt(record_count), 20].min.ceil
 
-          TraitBank.query(%Q[
+          TraitBank::Connector.query(%Q[
             #{trait_match_part}
             WITH page, toFloat(t.normal_measurement) AS m
             WITH collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
@@ -144,7 +146,7 @@ class TraitBank
           sankey_add_final_agg_and_return_parts(parts, anc_obj_vars)
 
           TraitBank.results_to_hashes(
-            TraitBank.query(parts.join("\n"), params), 
+            TraitBank::Connector.query(parts.join("\n"), params), 
             'key'
           )
         end
@@ -228,6 +230,56 @@ class TraitBank
         CheckResult.valid
       end
 
+      def pred_prey_comp_for_page(page)
+        eats_string = array_to_qs([EolTerms.alias_uri('eats'), EolTerms.alias_uri('preys_on')])
+        limit_per_group = 100
+        comp_limit = 10
+
+        # Fetch prey of page, predators of page, and predators of prey of page (competitors), limiting the number of results to:
+        # 100 prey
+        # 100 predators
+        # 10 competitors per prey
+        #
+        # The limit of 100 is way more than we really show to pad for results that get filtered out downstream.
+        qs = "MATCH (source:Page{page_id: #{page.id}}) "\
+          "OPTIONAL MATCH (source)-[#{TRAIT_RELS}]->(eats_trait:Trait)-[:predicate]->(eats_term:Term), "\
+          "(eats_trait)-[:object_page]->(eats_prey:Page) "\
+          "WHERE eats_term.uri IN #{eats_string} AND eats_prey.page_id <> source.page_id "\
+          "WITH DISTINCT source, eats_prey "\
+          "LIMIT #{limit_per_group} "\
+          "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey'}) AS prey_rows, source "\
+          "OPTIONAL MATCH (pred:Page)-[#{TRAIT_RELS}]->(pred_eats_trait:Trait)-[:object_page]->(source), (pred_eats_trait)-[:predicate]->(pred_eats_term:Term) "\
+          "WHERE pred_eats_term.uri IN #{eats_string} AND pred <> source "\
+          "WITH DISTINCT source, pred, prey_rows "\
+          "LIMIT #{limit_per_group} "\
+          "WITH collect({ group_id: source.page_id, source: pred, target: source, type: 'predator' }) AS pred_rows, prey_rows, source "\
+          "UNWIND prey_rows AS prey_row "\
+          "WITH prey_row.target AS prey_target, pred_rows, prey_rows, source "\
+          "OPTIONAL MATCH (comp_eats:Page)-[#{TRAIT_RELS}]->(comp_eats_trait:Trait)-[:object_page]->(prey_target), (comp_eats_trait)-[:predicate]->(comp_eats_term:Term) "\
+          "WHERE comp_eats_term.uri IN #{eats_string} AND prey_target <> comp_eats AND comp_eats <> source "\
+          "WITH prey_target, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_target.page_id, source: comp_eats, target: prey_target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
+          "UNWIND comp_rows AS comp_row "\
+          "WITH DISTINCT pred_rows, prey_rows, collect(comp_row) AS comp_rows "\
+          "WITH prey_rows + pred_rows + comp_rows AS all_rows "\
+          "UNWIND all_rows AS row "\
+          "WITH row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
+          "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, { metadata: { id: row.source.page_id + '-' + row.target.page_id } } AS id "\
+          "RETURN type, source, target, id "\
+
+        results_to_hashes(TraitBank::Connector.query(qs), "id")
+      end
+
+      def descendant_environments(page)
+        max_page_depth = 2
+        qs = "MATCH (page:Page)-[:parent*0..#{max_page_depth}]->(:Page{page_id: #{page.id}}),\n"\
+          "(page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),\n"\
+          "(trait)-[:object_term]->(object_term:Term)\n"\
+          "WHERE predicate.uri = '#{EolTerms.alias_uri('habitat')}'\n"\
+          "RETURN trait, predicate, object_term"
+
+        build_trait_array(TraitBank::Connector.query(qs))
+      end
+
       private
 
       def obj_counts_query_for_records(query, params)
@@ -281,7 +333,7 @@ class TraitBank
 
       # Usual trait search MATCHes, collect tgt_obj and obj nodes for each filter/page
       def add_sankey_match_part(term_query, query_parts, params, collected_obj_pairs_vars, obj_var_pairs)
-        query_parts << TraitBank.term_search_matches_helper(
+        query_parts << TraitBank::Search.term_search_matches_helper(
           term_query, 
           params, 
           always_match_obj: true, 

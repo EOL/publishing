@@ -174,7 +174,7 @@ class PagesController < ApplicationController
 
     set_noindex_if_needed(@page)
 
-    @filter_trait_groups = TraitBank.page_trait_groups(@page.id, resource_id: @resource&.id).map do |row|
+    @filter_trait_groups = TraitBank::Page.page_trait_groups(@page.id, resource_id: @resource&.id).map do |row|
       TraitGroup.new(row[:group_predicate], row[:page_assoc_role].to_sym)
     end.sort do |a, b|
       a.name <=> b.name
@@ -193,8 +193,8 @@ class PagesController < ApplicationController
     @traits_per_group = 5
 
     if @trait_group.nil?
-      filtered_data = TraitBank.page_traits_by_group(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
-      filter_resource_ids = TraitBank.all_page_trait_resource_ids(@page.id, pred_uri: nil)
+      filtered_data = TraitBank::Page.page_traits_by_group(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
+      filter_resource_ids = TraitBank::Page.all_page_trait_resource_ids(@page.id, pred_uri: nil)
     else
       filtered_data = []
       filter_resource_ids = Set.new
@@ -204,19 +204,19 @@ class PagesController < ApplicationController
 
       if @trait_group.object?
         filtered_data.concat(
-          TraitBank.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
+          TraitBank::Page.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
         )
         filter_resource_ids.add(
-          TraitBank.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+          TraitBank::Page.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
         )
       end
 
       if @trait_group.subject?
         filtered_data.concat(
-          TraitBank.page_subj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
+          TraitBank::Page.page_subj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
         )
         filter_resource_ids.add(
-          TraitBank.page_subj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
+          TraitBank::Page.page_subj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
         )
       end
     end
