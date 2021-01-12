@@ -52,7 +52,7 @@ class TraitBank
 
       Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
 
-      TraitBank.batch_term_search(@query, @options, @count) do |batch|
+      TraitBank::Search.batch_term_search(@query, @options, @count) do |batch|
         writer.write_batch(batch)
       end
 

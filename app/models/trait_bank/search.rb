@@ -42,6 +42,43 @@ module TraitBank
         end
       end
 
+      # term_page_search_matches/term_record_search_matches are intentionally left public for use outside of this module
+      def term_page_search_matches(term_query, params, options = {})
+        term_search_matches_helper(term_query, params, options) do |i, filter, trait_var, pred_var, obj_var|
+          if i == term_query.filters.length - 1
+            nil
+          else
+            "WITH DISTINCT page"
+          end
+        end
+      end
+
+      def term_record_search_matches(term_query, params, options = {})
+        trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
+
+        term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, filter, trait_var, pred_var, obj_var|
+          if term_query.filters.length > 1
+            if options[:count]
+              trait_ag = "count(DISTINCT #{trait_var})"
+            else
+              trait_ag = "collect(DISTINCT { trait: #{trait_var}, predicate: #{pred_var}})"
+            end
+
+            if i > 0
+              trait_ag = "(#{trait_ag} + #{trait_ag_var})"
+            end
+
+            "WITH page, #{trait_ag} AS #{trait_ag_var}"
+          else
+            nil
+          end
+        end
+      end
+
+
+      private
+
+
       def term_search_uncached(term_query, key, options)
         limit_and_skip = options[:page] ? TraitBank::Queries.limit_and_skip_clause(options[:page], options[:per]) : ""
 
@@ -337,6 +374,26 @@ module TraitBank
         { query: query, params: params }
       end
 
+      def term_page_search(term_query, limit_and_skip, options)
+        params = {}
+        match_part = term_page_search_matches(term_query, params)
+        with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
+        return_clause = if options[:count]
+                          "RETURN page_count"
+                        else options[:id_only]
+                          "RETURN DISTINCT page.page_id"
+                        end
+
+        query = %Q(
+          #{match_part}
+          #{with_count_clause}
+          #{return_clause}
+          #{limit_and_skip}
+        )
+
+        { query: query, params: params }
+      end
+
       def record_optional_matches_and_returns(limit_and_skip, options)
         optional_matches = [
           "(trait)-[:object_term]->(object_term:Term)",
@@ -545,58 +602,6 @@ module TraitBank
         )
       end
 
-      def term_page_search_matches(term_query, params, options = {})
-        term_search_matches_helper(term_query, params, options) do |i, filter, trait_var, pred_var, obj_var|
-          if i == term_query.filters.length - 1
-            nil
-          else
-            "WITH DISTINCT page"
-          end
-        end
-      end
-
-      def term_record_search_matches(term_query, params, options = {})
-        trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
-
-        term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, filter, trait_var, pred_var, obj_var|
-          if term_query.filters.length > 1
-            if options[:count]
-              trait_ag = "count(DISTINCT #{trait_var})"
-            else
-              trait_ag = "collect(DISTINCT { trait: #{trait_var}, predicate: #{pred_var}})"
-            end
-
-            if i > 0
-              trait_ag = "(#{trait_ag} + #{trait_ag_var})"
-            end
-
-            "WITH page, #{trait_ag} AS #{trait_ag_var}"
-          else
-            nil
-          end
-        end
-      end
-
-
-      def term_page_search(term_query, limit_and_skip, options)
-        params = {}
-        match_part = term_page_search_matches(term_query, params)
-        with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
-        return_clause = if options[:count]
-                          "RETURN page_count"
-                        else options[:id_only]
-                          "RETURN DISTINCT page.page_id"
-                        end
-
-        query = %Q(
-          #{match_part}
-          #{with_count_clause}
-          #{return_clause}
-          #{limit_and_skip}
-        )
-
-        { query: query, params: params }
-      end
     end
   end
 end
