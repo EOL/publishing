@@ -1,4 +1,4 @@
-class TraitBank::Connector
+module TraitBank::Connector
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
 
