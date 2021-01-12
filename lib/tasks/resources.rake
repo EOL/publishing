@@ -30,7 +30,7 @@ task resources: :environment do
     else
       print "NO IMPORT LOGS. "
     end
-    traits = TraitBank.count_by_resource(resource.id)
+    traits = TraitBank::Queries.count_by_resource(resource.id)
     print "#{traits} traits " unless traits.zero?
     show_count(resource, :media)
     show_count(resource, :articles)

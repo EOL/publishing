@@ -37,5 +37,5 @@
               .ui.label= "new"
           %td= link_to(number_with_delimiter(resource.nodes.count), resource_nodes_path(resource))
           %td= number_with_delimiter(resource.media.count)
-          %td= number_with_delimiter(TraitBank.count_by_resource(resource.id))
+          %td= number_with_delimiter(TraitBank::Queries.count_by_resource(resource.id))
 = paginate @resources

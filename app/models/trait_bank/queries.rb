@@ -3,11 +3,6 @@ module TraitBank
     class << self
       include TraitBank::Constants
 
-      def quote(string)
-        return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/
-        %Q{"#{string.gsub(/"/, "\\\"")}"}
-      end
-
       def limit_and_skip_clause(page = 1, per = 50)
         # I don't know why the default values don't work, but:
         page ||= 1
@@ -16,11 +11,6 @@ module TraitBank
         add = " LIMIT #{per}"
         add = " SKIP #{skip}#{add}" if skip > 0
         add
-      end
-
-      def count
-        res = TraitBank::Connector.query("MATCH (trait:Trait)<-[#{TRAIT_RELS}]-(page:Page) WITH count(trait) as count RETURN count")
-        res["data"] ? res["data"].first.first : false
       end
 
       def count_by_resource(id)
@@ -80,25 +70,6 @@ module TraitBank
         end
       end
 
-      def order_clause(options)
-        %Q{ ORDER BY #{order_clause_array(options).join(", ")}}
-      end
-
-      def trait_exists?(resource_id, pk)
-        raise "NO resource ID!" if resource_id.blank?
-        raise "NO resource PK!" if pk.blank?
-        res = TraitBank::Connector.query(
-          "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
-          "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
-          "RETURN trait")
-        res["data"] ? res["data"].first : false
-      end
-
-      # NOTE: this method is unused in the code, it's here for convenience when debugging.
-      def by_eol_pk(eol_pk)
-        by_trait_and_page({id: eol_pk}, nil)
-      end
-
       def by_trait_and_page(input, page_id, page = 1, per = 200)
         id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
         page_id_part = page_id.nil? ? "" : "{ page_id: #{page_id} }"
@@ -141,7 +112,6 @@ module TraitBank
             meta_units_term.uri, sex_term.uri, lifestage_term.uri, statistical_method_term.uri, meta.source
         })
       end
-      alias_method :by_eol_pk, :data_dump_trait
 
       def by_page(page_id, page = 1, per = 100)
         Rails.cache.fetch("trait_bank/by_page/#{page_id}", expires_in: 1.day) do
@@ -181,6 +151,16 @@ module TraitBank
         })
       end
 
+      private
+      def quote(string)
+        return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/
+        %Q{"#{string.gsub(/"/, "\\\"")}"}
+      end
+
+      def order_clause(options)
+        %Q{ ORDER BY #{order_clause_array(options).join(", ")}}
+      end
+      
       # TODO: add association to the sort... normal_measurement comes after literal, so it will be ignored
       def order_clause_array(options)
         options[:sort] ||= ""
@@ -208,19 +188,6 @@ module TraitBank
           sorts.map! { |sort| "#{sort} DESC" }
         end
         sorts
-      end
-
-      def resource_filter_part(resource_id)
-        if resource_id
-          "{ resource_id: #{resource_id} }"
-        else
-          ""
-        end
-      end
-
-
-      def predicate_filter_match_part(options)
-        options[:pred_uri] ? "-[#{PARENT_TERMS}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
       end
     end
   end
