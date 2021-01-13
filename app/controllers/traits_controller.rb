@@ -99,12 +99,10 @@ class TraitsController < ApplicationController
     @query.filters.build(:op => :is_any) if params[:add_filter]
   end
 
-  def paginate_term_search_data(data, query)
+  def paginate_term_search_data(data, search, query)
     Rails.logger.warn "&&TS Running count:"
     # @count = 1_000_000
-    @counts = TraitBank::Search.term_search(query, { count: true })
-
-    @count = @counts.primary_for_query(query)
+    @count = search.count
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
     if query.taxa?
@@ -120,10 +118,10 @@ class TraitsController < ApplicationController
     @page = params[:page] || 1
     @per_page = PER_PAGE
     Rails.logger.warn "&&TS Running search:"
-    res = TraitBank::Search.term_search(@query, {
-      :page => @page,
-      :per => @per_page,
-    })
+    @search = TraitSearch.new(@query)
+      .per_page(@per_page)
+      .page(@page)
+    res = @search.results
     data = res[:data]
     @raw_res = res[:raw_res].to_json
     build_query_for_display(res)
@@ -133,7 +131,7 @@ class TraitsController < ApplicationController
     @pages = pages.map { |p| [p.id, p] }.to_h
 
     # TODO: code review here. I think we're creating a lot of cruft we don't use.
-    paginate_term_search_data(data, @query)
+    paginate_term_search_data(data, @search, @query)
     @is_terms_search = true
     @resources = Resource.for_traits(data)
     @associations = build_associations(data)
