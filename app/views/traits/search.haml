@@ -6,7 +6,7 @@
 
   - if @pages
     .js-filter-list
-      - hdr_opts = { range_begin: @grouped_data.offset_value + 1, range_end: @grouped_data.offset_value + @grouped_data.length, total: @grouped_data.total_count }
+      - hdr_opts = { range_begin: @search.grouped_data.offset_value + 1, range_end: @search.grouped_data.offset_value + @search.grouped_data.length, total: @search.grouped_data.total_count }
       -if @query.record?
         - hdr_opts[:page_count] = @counts.pages
       - filter_hdr_val_key = ".result_header_#{@query.record? ? 'records' : 'taxa'}"
@@ -47,8 +47,8 @@
       = render "shared/data_viz_contain", type: @data_viz_type, query: @query
       
     - if @query.record?
-      = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }
-    - elsif @result_pages.any?
+      = render 'data_table', { data: @search.grouped_data, pages: @pages, data_viz: @data_viz }
+    - elsif @search.grouped_data.any?
       - if @view_type == "gallery"
         = render 'page_gallery', { pages: @result_pages }
       - else

@@ -99,21 +99,6 @@ class TraitsController < ApplicationController
     @query.filters.build(:op => :is_any) if params[:add_filter]
   end
 
-  def paginate_term_search_data(data, search, query)
-    Rails.logger.warn "&&TS Running count:"
-    # @count = 1_000_000
-    @count = search.count
-    @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
-
-    if query.taxa?
-      @result_pages = @grouped_data.map do |datum|
-        @pages[datum[:page_id]]
-      end.compact
-
-      @result_pages = PageSearchDecorator.decorate_collection(@result_pages)
-    end
-  end
-
   def search_common
     @page = params[:page] || 1
     @per_page = PER_PAGE
@@ -121,21 +106,19 @@ class TraitsController < ApplicationController
     @search = TraitSearch.new(@query)
       .per_page(@per_page)
       .page(@page)
-    res = @search.results
-    data = res[:data]
-    @raw_res = res[:raw_res].to_json
-    build_query_for_display(res)
-    ids = data.map { |t| t[:page_id] }.uniq
+    @raw_query = @search.pretty_cypher
+  
+    data = @search.query_response[:data] # TODO: eliminate, make query_response private
+    ids = data.map { |t| t[:page_id] }.uniq 
     # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
     pages = Page.where(:id => ids).with_hierarchy
     @pages = pages.map { |p| [p.id, p] }.to_h
 
     # TODO: code review here. I think we're creating a lot of cruft we don't use.
-    paginate_term_search_data(data, @search, @query)
     @is_terms_search = true
     @resources = Resource.for_traits(data)
     @associations = build_associations(data)
-    build_gbif_url(@count, pages, @query)
+    build_gbif_url(@search.count, pages, @query)
     data_viz_type(@query, @counts)
     render "search"
   end
