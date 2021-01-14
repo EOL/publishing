@@ -106,19 +106,19 @@ class TraitsController < ApplicationController
     @search = TraitSearch.new(@query)
       .per_page(@per_page)
       .page(@page)
-    @raw_query = @search.pretty_cypher
   
-    data = @search.query_response[:data] # TODO: eliminate, make query_response private
-    ids = data.map { |t| t[:page_id] }.uniq 
+    #data = @search.query_response[:data] # TODO: eliminate, make query_response private
+    #ids = data.map { |t| t[:page_id] }.uniq 
     # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
-    pages = Page.where(:id => ids).with_hierarchy
-    @pages = pages.map { |p| [p.id, p] }.to_h
+
+    #pages = Page.where(:id => ids).with_hierarchy
+    #@pages = pages.map { |p| [p.id, p] }.to_h
 
     # TODO: code review here. I think we're creating a lot of cruft we don't use.
     @is_terms_search = true
-    @resources = Resource.for_traits(data)
-    @associations = build_associations(data)
-    build_gbif_url(@search.count, pages, @query)
+    #@resources = Resource.for_traits(data)
+    #@associations = build_associations(data)
+    #build_gbif_url(@search.count, pages, @query)
     data_viz_type(@query, @counts)
     render "search"
   end

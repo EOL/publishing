@@ -1,6 +1,7 @@
-# Not an ActiveRecord model, but behaves kind of like one.
+# Bridge between TraitNodes and their associated ActiveRecord models (e.g., Page, Resource)
+# Efficiently loads these associated models in batches.
+# TODO: should this live in app/models or lib? It behaves like a model (and is intended to be used as such), so maybe this is the right place?
 class Trait
-  private_class_method :new # use for_eol_pks
   attr_accessor :trait_node
   delegate_missing_to :trait_node
 
@@ -8,6 +9,8 @@ class Trait
     @trait_node = trait_node
     @record_assocs = record_assocs
   end
+
+  private_class_method :new # use for_eol_pks
 
   # TODO: can/should these be generalized?
   def resource
@@ -22,7 +25,7 @@ class Trait
     @object_page ||= @record_assocs.page(@trait_node.object_page&.page_id)
   end
 
-  # eol_pks -- array of String
+  # Factory method
   def self.for_eol_pks(eol_pks)
     nodes = TraitNode.where(eol_pk: eol_pks)
       .with_associations(
@@ -37,7 +40,11 @@ class Trait
         :resource
       ) 
     record_assocs = RecordAssociations.new(nodes)
-    nodes.map { |n| self.new(n, record_assocs) }
+    nodes.map { |n| new(n, record_assocs) }
+  end
+
+  def self.wrap_node(trait_node)
+    new(trait_node, RecordAssociations.new([trait_node]))
   end
 
   private
@@ -49,7 +56,7 @@ class Trait
     def resource(id)
       return nil if id.nil?
 
-      @resources ||= Resource.where(id: @trait_nodes.map { |t| t.resource&.resource_id })
+      @resources ||= Resource.where(id: @trait_nodes.map { |t| t.resource&.resource_id }.uniq)
         .map { |r| [r.id, r] }.to_h
 
       @resources[id]
@@ -66,7 +73,7 @@ class Trait
           page_ids << t.object_page.id if t.object_page
         end
 
-        @pages = Page.where(id: page_ids).map { |p| [p.id, p] }.to_h
+        @pages = Page.where(id: page_ids.uniq).map { |p| [p.id, p] }.to_h
       end
 
       @pages[id]

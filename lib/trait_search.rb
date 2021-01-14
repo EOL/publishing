@@ -30,8 +30,11 @@ class TraitSearch
   end
 
   def count
-    @count ||= TraitBank::Search.term_search(@query, count: true)
-      .primary_for_query(@query)
+    counts.primary_for_query(@query)
+  end
+
+  def page_count
+    counts.pages
   end
 
   def grouped_data
@@ -58,19 +61,28 @@ class TraitSearch
   end
 
   def query_response
-    @query_response ||= TraitBank::Search.term_search(@query, page: @page, per: @per_page)
+    options = {
+      page: @page,
+      per: @per_page,
+      id_only: true
+    }
+
+    @query_response ||= TraitBank::Search.term_search(@query, options)
   end
 
   private
   DEFAULT_PER_PAGE = 50
   DEFAULT_PAGE = 1
 
+  def counts
+    @counts = TraitBank::Search.term_search(@query, count: true)
+  end
 
   def process_trait_data(data)
-    data # TODO: implement
+    Trait.for_eol_pks(data)
   end
 
   def process_page_data(data)
-    PageSearchDecorator.decorate_collection(Page.where(id: data.map { |d| d[:page_id] }).with_hierarchy)
+    PageSearchDecorator.decorate_collection(Page.where(id: data).with_hierarchy)
   end
 end

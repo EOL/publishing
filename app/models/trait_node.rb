@@ -11,6 +11,7 @@ class TraitNode
   property :remarks
   property :method
   property :literal
+  property :scientific_name
 
   has_one :out, :predicate, type: :predicate, model_class: :TermNode
   has_one :out, :object_term, type: :object_term, model_class: :TermNode
@@ -22,5 +23,7 @@ class TraitNode
   has_one :in, :page, type: :trait, model_class: :PageNode
   has_one :out, :resource, type: :supplier, model_class: :ResourceNode
   has_many :out, :metadata, type: :metadata, model_class: :MetadataNode
+
+  alias :measurement_method :method # 'method' is a keyword, and thus can't be called with Trait#send(:method)
 end
 

@@ -350,20 +350,38 @@ module TraitBank
               RETURN page_count, record_count
             )
           else
+            unwind = 'UNWIND trait_rows AS trait_row'
+            with_return = if options[:id_only]
+                            %Q(
+                              WITH DISTINCT trait_row.trait AS trait
+                              RETURN trait.eol_pk
+                              #{limit_and_skip}
+                            )
+                          else
+                            %Q(
+                              WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate
+                              #{record_optional_matches_and_returns(limit_and_skip, options)}
+                            )
+                          end
             %Q(
-              UNWIND trait_rows AS trait_row
-              WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate
-              #{record_optional_matches_and_returns(limit_and_skip, options)}
+              #{unwind}
+              #{with_return}
             )
           end
         else
           if options[:count]
-            query = %Q(
+            %Q(
               WITH count(DISTINCT page) AS page_count, count(DISTINCT #{trait_var}) AS record_count
               RETURN page_count, record_count
             )
+          elsif options[:id_only]
+            %Q(
+              WITH DISTINCT trait
+              RETURN trait.eol_pk
+              #{limit_and_skip}
+            )
           else
-            query = %Q(
+            %Q(
               WITH DISTINCT page, #{trait_var} AS trait, #{pred_var} AS predicate
               #{record_optional_matches_and_returns(limit_and_skip, options)}
             )

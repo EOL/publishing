@@ -5,7 +5,7 @@ require "util/term_i18n"
 module DataHelper
   EXTRA_METADATA_KEYS = %i(
     citation
-    method
+    measurement_method
     remarks
     sample_size
     scientific_name
@@ -18,8 +18,8 @@ module DataHelper
 
   def trait_property_metadata(trait)
     EXTRA_METADATA_KEYS.collect do |key|
-      if trait.key? key
-        { label: t("traits.properties.#{key}"), value: trait[key] }
+      if value = trait.send(key)
+        { label: t("traits.properties.#{key}"), value: value }
       else
         nil
       end
@@ -75,6 +75,33 @@ module DataHelper
     parts.join(" ")
   end
 
+  # TODO: Move to decorator
+  def trait_display_value(trait, options={})
+    parts = []
+
+    if trait.object_page
+      page = options[:page_is_assoc_obj] ? trait.page : trait.object_page
+
+      unless page
+        return "[MISSING PAGE]"
+      end
+
+      parts << link_to(name_for_page(page), page_path(page))
+    elsif trait.object_term.i18n_name
+      value = trait.object_term.i18n_name
+      parts << value
+    elsif val = trait.measurement
+      parts << val.to_s
+      parts << trait.units_term.i18n_name if trait.units_term
+    elsif val = trait.literal
+      parts << unlink(val).html_safe
+    else
+      parts << "CORRUPTED VALUE for trait #{trait.id}"
+    end
+
+    parts.join(" ")
+  end
+
   def i18n_term_name(term)
     TraitBank::Record.i18n_name(term)
   end
@@ -105,9 +132,20 @@ module DataHelper
     end
   end
 
-  def modifier_txt(data)
-    # TODO: I am not confident enough to do this right now (demo tonight), but IO think this #reject should be #compact
-    modifiers = [ data[:sex_term], data[:lifestage_term], data[:statistical_method_term] ].reject { |x| x.nil? }
+  def show_trait_value(trait, options={})
+    value = trait_display_value(trait, options)
+
+    haml_tag_if(trait.object_term, "div.a.js-data-val") do
+      haml_concat value.html_safe # Traits allow HTML.
+    end
+  end
+
+  def modifier_txt(trait)
+    modifiers = [
+      trait.sex_term&.i18n_name,
+      trait.lifestage_term&.i18n_name,
+      trait.statistical_method_term&.i18n_name
+    ].compact
 
     if modifiers.any?
       separated_list(modifiers)
@@ -125,14 +163,12 @@ module DataHelper
     haml_tag(:div, value, class: "ui tertiary segment")
   end
 
-  def show_source_segment(data, resources)
-    if !resources
-      raise TypeError.new("resources parameter is required")
-    elsif resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
+  def show_source_segment(resource)
+    if resource
       link_txt = resource.name.blank? ? resource_path(resource) : resource.name
       link_to(link_txt, resource)
     else
-      logger.warn("resource #{data[:resource_id]} missing for trait")
+      logger.warn("resource missing for trait")
       I18n.t(:resource_missing)
     end
   end

@@ -1,14 +1,14 @@
 .l-terms
   .ui.dimmer.js-term-form-dimmer
     .ui.loader
-  .js-filter-form-contain{:class => @pages ? "is-hidden" : ""}
+  .js-filter-form-contain{:class => @search ? "is-hidden" : ""}
     = render "search_form"
 
-  - if @pages
+  - if @search
     .js-filter-list
       - hdr_opts = { range_begin: @search.grouped_data.offset_value + 1, range_end: @search.grouped_data.offset_value + @search.grouped_data.length, total: @search.grouped_data.total_count }
       -if @query.record?
-        - hdr_opts[:page_count] = @counts.pages
+        - hdr_opts[:page_count] = @search.page_count
       - filter_hdr_val_key = ".result_header_#{@query.record? ? 'records' : 'taxa'}"
       %h2.filter-hdr= t(filter_hdr_val_key, hdr_opts)
       %ul.show-filters
@@ -54,8 +54,8 @@
       - else
         = render 'page_table', { pages: @result_pages }
 
-- if @raw_query
-  .raw-query
-    .show-raw-query.js-show-raw-query= t(".show_query")
-    %textarea.is-hidden.raw-query-txt.js-raw-query= @raw_query
+  - if @search
+    .raw-query
+      .show-raw-query.js-show-raw-query= t(".show_query")
+      %textarea.is-hidden.raw-query-txt.js-raw-query= @search.pretty_cypher
 

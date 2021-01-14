@@ -4,15 +4,21 @@ class DataController < ApplicationController
   protect_from_forgery
 
   def show
-    data = TraitBank::Queries.by_trait_and_page(params[:id], params[:page_id])
-    raise ActiveRecord::RecordNotFound if !data || data.empty?
-    @data = data.first
-    @page = Page.find(@data[:page_id])
+    trait_node = TraitNode
+      .query_as(:trait)
+      .match('(page:Page)-[:trait|:inferred_trait]->(trait)')
+      .where('trait.eol_pk': params[:id], 'page.page_id': params[:page_id].to_i)
+      .return(:trait)
+      .limit(1)
+      .first&.[](:trait)
+
+    raise ActiveRecord::RecordNotFound unless trait_node
+
+    @trait = Trait.wrap_node(trait_node)
+    @page = Page.find(params[:page_id])
     @hide_pred_when_closed = params[:hide_pred_when_closed].present? ? params[:hide_pred_when_closed] : false
 
     if request.xhr?
-      @associations = build_associations(data)
-      @resources = Resource.for_traits([@data])
       @show_taxon = params[:show_taxon] && params[:show_taxon] == "true"
       render :layout => false
     else

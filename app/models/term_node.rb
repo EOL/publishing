@@ -23,6 +23,8 @@ class TermNode
   has_many :out, :parents, type: :parent_term, model_class: :TermNode
   has_many :out, :synonyms, type: :synonym_of, model_class: :TermNode
   has_one :out, :units_term, type: :units_term, model_class: :TermNode
+  has_one :in, :trait, type: :predicate, model_class: :TraitNode
+  has_one :in, :metadata, type: :predicate, model_class: :MetadataNode
 
   scope :not_synonym, -> (label) { as(label).where_not("(#{label})-[:synonym_of]->(:Term)") }
 
