@@ -58,9 +58,9 @@ zh-CN:
     setting_header: 名称在“面包屑”
     types:
       scientific: 科学的
-      vernacular: 方言
+      vernacular: 白话
   button_create: 创造
-  button_add: 加入
+  button_add: 加
   cancel: 取消
   change_my_password: 更新我的密码
   change_your_password: 更新您的密码
@@ -82,13 +82,13 @@ zh-CN:
       score: 丰富度得分
       page_contents_count: 相关内容
       missing: 本页物种的丰富与否尚待计算。
-      media_count: 媒体文件
+      media_count: 媒体
       articles_count: 文章
       links_count: 链接
       maps_count: 地图
       data_count: 数据
       nodes_count: 节点
-      vernaculars_count: 方言
+      vernaculars_count: 白话
       scientific_names_count: 学名
       referents_count: 参考文献
       species_count: 种类
@@ -112,7 +112,7 @@ zh-CN:
   collected_pages:
     delete_button: 删除
     edit_button: 编辑
-    delete_confirm: 您确定？
+    delete_confirm: 您确定吗？
     destroyed_flash: '%{name}从此收藏中删除'
   collection_association_added_to_collection: 添加%{associated}在收藏%{link}%{name}
   collection_associations_empty: 没有别的收藏与此相关。可以点击其他收藏上的“相关”键使它们出现在此页面。
@@ -128,14 +128,14 @@ zh-CN:
       label: 添加可更改此收藏的用户
       placeholder: 全名或用户名
     actions:
-      associate: 相关
+      associate: 关联
       download_taxa_csv: 下载分类群数据逗号分隔值文件
       delete: 删除
       edit: 编辑
       sort: 排序
     collection_type:
       normal: 标准
-      gallery: 库
+      gallery: 廊
     delete_confirm: 这将删除所有收藏并无法取消回复。你确定吗？
     destroyed: '"%{name}"已被永久删除。'
     pages_count:
@@ -217,7 +217,7 @@ zh-CN:
   delete_account_button: 删除您的账户
   filter_by_license: 许可协议
   filter_by_license_any_item: 任何授权
-  filter_by_medium_subtype: 样式
+  filter_by_medium_subtype: 类型
   filter_by_medium_any_item: 任何类型
   filter_by_resource: 提供者
   filter_by_resource_any_item: 任何提供者
@@ -230,7 +230,7 @@ zh-CN:
       citing_eol: 引用EOL
       contact_us: 联系我们
       data_services: 数据服务
-      donate: 资助
+      donate: 捐赠
       education: 教育
       food_webs: 食物网
       glossary: 术语表
@@ -247,20 +247,20 @@ zh-CN:
       archaea: 古生菌
       bacteria: 细菌
       birds: 鸟
-      crustaceans: 甲壳类动物
+      crustaceans: 甲壳类
       fishes: 鱼类
       flowering_plants: 开花植物
       fungi: 真菌
       insects: 昆虫
-      invertebrates: 无脊椎动物
+      invertebrates: 无脊椎类
       mammals: 哺乳类
       molds: 模具
       mushrooms: 蘑菇
-      mollusks: 软体动物
+      mollusks: 软体类
       plants: 植物
       protists: 生物体
-      reptiles: 爬行动物
-      spiders: 爬虫
+      reptiles: 爬行类
+      spiders: 蜘蛛
       trees: 树木
       viruses: 病毒
       worms: 虫
@@ -273,12 +273,12 @@ zh-CN:
     stats_cleared: 此统计数据已被重新计算。
   language: 语言
   languages:
-    ab: 阿布哈西亚文
+    ab: 阿布哈西亚语
     Q27683: 亚齐语
     Q27776: 阿迪格语
-    aa: 阿法尔文
+    aa: 阿法尔语
     af: 南非语
-    ak: 阿肯文
+    ak: 阿肯语
     alb: 阿尔巴尼亚语
     sq: 阿尔巴尼亚语
     Q131339: 阿勒曼尼语
@@ -298,7 +298,7 @@ zh-CN:
     Q33151: 邦加
     ba: 巴什基尔语
     eu: 巴斯克语
-    Q29540: 巴伐利亚方言
+    Q29540: 巴伐利亚语
     be: 白俄罗斯语
     Q8836490: 本德语
     bn: 孟加拉语
@@ -313,7 +313,7 @@ zh-CN:
     bg: 保加利亚语
     my: 缅甸语
     Q33120: 布里亚特语
-    Q880301: 卡真人的法语
+    Q880301: 卡真法语
     Q35156: 车
     Q2591230: 古法文；古吉拉特文
     ca: 加泰罗尼亚语；巴伦西亚语
@@ -323,10 +323,10 @@ zh-CN:
     ch: 查莫罗语
     Q33281: 查瓦坎语
     ce: 车臣语
-    Q33388: 切诺基
+    Q33388: 切诺基语
     Q33265: 夏延语
     ny: 齐佩瓦语
-    zh: 汉文
+    zh: 汉语
     chi: 汉语
     Q32979: 乔克托语
     cu: 古教会斯拉夫语
@@ -362,7 +362,7 @@ zh-CN:
     gl: 加利西亚语
     Q33475: 赣语
     lg: 干达语
-    ka: 格鲁吉亚文
+    ka: 格鲁吉亚语
     de: 德语
     deu: 德语
     Q5575236: 果阿的孔卡尼语
@@ -380,7 +380,7 @@ zh-CN:
     Q35978: 希利盖农语
     hi: 印地语
     ho: 希利摩陀语
-    hu: 保加利亚语
+    hu: 匈牙利语
     is: 冰岛语
     ice: 冰岛语
     io: 伊多语
@@ -424,7 +424,7 @@ zh-CN:
     Q36206: 腊克语
     lo: 老挝语
     lao: 老挝语
-    la: 拉丁字母
+    la: 拉丁语
     lv: 拉脱维亚语
     Q1160372: 拉兹语
     Q36106: 利古里亚语
@@ -436,7 +436,7 @@ zh-CN:
     Q33754: 伦巴第语
     Q168446: 下萨克森
     Q13286: 下索宾语
-    lu: 卢巴-卡丹加
+    lu: 卢巴-卡丹加语
     Q3437661: 陆格鲁语； 班图语之一
     lb: 卢森堡语
     Q35787: 马萨伊语
@@ -468,8 +468,8 @@ zh-CN:
     nd: 北恩德贝勒语
     nr: 南恩德贝勒语
     ng: 恩东加语
-    Q33845: 那不勒斯方言
-    ne: 尼泊尔
+    Q33845: 那不勒斯语
+    ne: 尼泊尔语
     Q28224: 北弗里斯兰语
     Q19933293: 北卢里语
     se: 北萨米语
@@ -489,9 +489,9 @@ zh-CN:
     os: 奥塞迪语
     pi: 马里
     pa: 旁遮普语
-    fa: 波斯语字母
+    fa: 波斯语
     Q23014: 法耳次语
-    Q34024: 庇卡底方言
+    Q34024: 庇卡底语
     Q15085: 皮埃蒙特语
     Q2429648: 婴秀语
     pl: 波兰语
@@ -547,14 +547,14 @@ zh-CN:
     Q34318: 塔里什语
     ta: 泰米尔语
     tt: 鞑靼语
-    te: 泰卢固字母
+    te: 泰卢固语
     th: 泰语
     tha: 泰语
     bo: 藏语
     ti: 提格里尼亚语
     Q34159: 巴布亚皮钦语
     to: 汤加语
-    Q180937: 阿尔巴尼亚托斯克方言
+    Q180937: 阿尔巴尼亚托斯克语
     ts: 聪加语
     tn: 茨瓦纳语
     Q34251: 图鲁语
@@ -616,7 +616,7 @@ zh-CN:
       js_map: 无标题的互动地图
       js_map_of: '%{page_name}的互动地图'
     subclasses:
-      image: 映像
+      image: 图片
       video: 视频
       sound: 声音
       map_image: 地图

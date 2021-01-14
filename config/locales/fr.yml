@@ -10,6 +10,7 @@
 # Author: Jhammock
 # Author: PhilW
 # Author: Pols12
+# Author: Tektasc
 # Author: Thibaut120094
 # Author: Ugofan
 # Author: Urhixidur
@@ -1360,9 +1361,16 @@ fr:
           anaérobique
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: longueur bras plus disque
         http://eol(dot)org/schema/terms/Ash_content: contenu des cendres
+        http://eol(dot)org/schema/terms/Attached: Attaché au substrat
         http://eol(dot)org/schema/terms/BillLength: longueur du bec
+        http://eol(dot)org/schema/terms/Bioluminescent: bioluminescent
+        http://eol(dot)org/schema/terms/BloatPotential: Susceptibilité du bétail au
+          ballonnement
         http://eol(dot)org/schema/terms/BloomColor: couleur des fleurs
         http://eol(dot)org/schema/terms/BloomPeriod: période de floraison
+        http://eol(dot)org/schema/terms/BodyShape: morphologie
+        http://eol(dot)org/schema/terms/BodyVolume: masse corporelle
+        http://eol(dot)org/schema/terms/BreedingHabitat: Habitat de reproduction optimal
         http://eol(dot)org/schema/terms/CellLength: longueur de la cellule
         http://eol(dot)org/schema/terms/CellWidth: largeur de la cellule
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: espèces marines

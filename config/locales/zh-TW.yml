@@ -1,6 +1,7 @@
 # Messages for Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Carrot Li
 # Author: Kly
 # Author: Taieol
 # Author: Winston Sung
@@ -8,7 +9,7 @@
 # Author: 沈澄心
 ---
 zh-TW:
-  language_name: 繁體中文
+  language_name: 英語
   about:
     trait_bank:
       title: 特質資料庫
@@ -316,8 +317,8 @@ zh-TW:
     Q33388: 切羅基語
     Q33265: 夏安語
     ny: 齊切瓦、尼揚賈語
-    zh: 中文
-    chi: 中文
+    zh: 漢語
+    chi: 漢語
     Q32979: 喬克托語
     cu: 舊教會斯拉夫語
     cv: 楚瓦什語
@@ -545,7 +546,7 @@ zh-TW:
     som: 索馬利亞語
     st: 塞索托語
     es: 西班牙、卡斯蒂利亞西班牙語
-    slv: 西語
+    slv: 西班牙語
     Q2638144: 蘇庫馬語
     su: 巽他語
     sw: 斯瓦希里語
@@ -1233,8 +1234,15 @@ zh-TW:
       previous: 上一頁
     name:
       by_uri:
+        http://eol(dot)org/schema/HeadWidth: 頭寬度
+        http://eol(dot)org/schema/terms/AgeAtMaturity: 成熟的年齡
+        http://eol(dot)org/schema/terms/CellDepth: 細胞深度
+        http://eol(dot)org/schema/terms/CellLength: 細胞長度
+        http://eol(dot)org/schema/terms/CellWidth: 細胞寬度
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: 形態同功群
         http://eol(dot)org/schema/terms/FossilFirst: 首次出現
+        http://eol(dot)org/schema/terms/FruitSeedColor: 果子或種子的主要顏色
+        http://eol(dot)org/schema/terms/GrainType: 榖類
         http://eol(dot)org/schema/terms/NativeRange: 包含的本地範圍
         http://eol(dot)org/schema/terms/Present: 包含的地理分佈
         http://eol(dot)org/schema/terms/TrophicGuild: 取食同功群
