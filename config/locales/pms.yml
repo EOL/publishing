@@ -1455,6 +1455,19 @@ pms:
         http://eol(dot)org/schema/terms/HeadBodyLength: longheur testa-còrp
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: longheur da la testa a
           la sinta
+        http://eol(dot)org/schema/terms/HedgeTolerance: toleransa a la pastura
+        http://eol(dot)org/schema/terms/HeightStanding: autëssa da 'n pe
+        http://eol(dot)org/schema/terms/HindTarsusLength: longheur dël tars posterior
+        http://eol(dot)org/schema/terms/HomeRange: àrea doméstica
+        http://eol(dot)org/schema/terms/HoneyBeePain: Scala ëd dolor dl'avìa dl'amel
+        http://eol(dot)org/schema/terms/HumanLivestockToxicity: tossicità për j'uman
+          e le bes-ce
+        http://eol(dot)org/schema/terms/HumanPopulationDensity: densità dla popolassion
+          uman-a
+        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: modificassion
+          dla densità ëd popolassion uman-a
+        http://eol(dot)org/schema/terms/HypoconeShape: forma dl'ipocòno
+        http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
