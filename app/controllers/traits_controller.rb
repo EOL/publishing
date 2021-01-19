@@ -116,11 +116,9 @@ class TraitsController < ApplicationController
 
     # TODO: code review here. I think we're creating a lot of cruft we don't use.
     @is_terms_search = true
-    #@resources = Resource.for_traits(data)
-    #@associations = build_associations(data)
-    
+   
     # TODO: restore
-    #build_gbif_url(@search.count, pages, @query)
+    build_gbif_url(@query, @search)
     data_viz_type(@query, @search)
     render "search"
   end
@@ -129,10 +127,10 @@ class TraitsController < ApplicationController
     @page_title = t("page_titles.traits.search")
   end
 
-  def build_gbif_url(total_count, pages, query)
-    if query.taxa? && total_count > 0 && Resource.gbif
-      if total_count <= GBIF_LINK_LIMIT
-        gbif_params = pages.collect do |p|
+  def build_gbif_url(query, search)
+    if query.taxa? && search.count > 0 && Resource.gbif
+      if search.count <= GBIF_LINK_LIMIT
+        gbif_params = query.grouped_data.collect do |p|
           pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
           pk ? "taxon_key=#{pk}" : nil
         end.compact
@@ -140,7 +138,7 @@ class TraitsController < ApplicationController
         if gbif_params.any?
           @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
         end
-      elsif total_count <= GBIF_DOWNLOAD_LIMIT && GbifDownload.enabled_for_user?(current_user)
+      elsif search.count <= GBIF_DOWNLOAD_LIMIT && GbifDownload.enabled_for_user?(current_user)
         @create_gbif_download_url = gbif_downloads_create_path(term_query: query.to_params)
       end
     end
