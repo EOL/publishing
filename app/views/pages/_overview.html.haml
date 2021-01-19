@@ -4,7 +4,8 @@
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
-    - if !summary.sentence.blank? || @page.has_data?
+    -# TODO: fix summary terms, reenable
+    - if false && (!summary.sentence.blank? || @page.has_data?)
       .desc
         - if !summary.sentence.blank?
           %p= summary.sentence.html_safe
@@ -26,14 +27,14 @@
               .sample-trait-key.a= group.name
               = render partial: "terms/desc_meta", locals: { term: group.term, search_link: true }
             %div
-              - val = data_value(trait, page_is_assoc_obj: group.object?).html_safe
-              - if trait[:object_page_id]
-                - page_id_for_url = group.object? ? trait[:page_id] : trait[:object_page_id]
+              - val = trait_display_value(trait, page_is_assoc_obj: group.object?).html_safe
+              - if trait.object_page
+                - page_id_for_url = group.object? ? trait.page.id : trait.object_page.id
                 - url = page_path(page_id_for_url)
                 = link_to val, url, :class => "sample-trait-val"
-              - elsif trait[:object_term]
+              - elsif trait.object_term
                 .sample-trait-val.a= val
-                = render partial: "terms/desc_meta", locals: { term: trait[:object_term], search_link: true, pred_uri: group.uri }
+                = render partial: "terms/desc_meta", locals: { term: trait.object_term, search_link: true, predicate: group.term }
               - else
                 .sample-trait-val= val
 

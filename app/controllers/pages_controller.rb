@@ -125,10 +125,7 @@ class PagesController < ApplicationController
     set_noindex_if_needed(@page)
     @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
-    @key_data = @page.key_data.map do |trait|
-      [PageTraitPredicateGroup.new(trait[:predicate], trait[:page_assoc_role].to_sym), trait]
-    end.to_h
-    # get_media # NOTE: we're not *currently* showing them, but we will.
+    @key_data = @page.key_data    # get_media # NOTE: we're not *currently* showing them, but we will.
     
     # For autogen summary text
     @associations = build_page_associations(@page)

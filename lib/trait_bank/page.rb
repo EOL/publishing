@@ -166,44 +166,38 @@ module TraitBank
         end
       end
 
-      def key_data(page_id, limit)
-        Rails.cache.fetch("trait_bank/key_data/#{page_id}/v5/limit_#{limit}", expires_in: 1.day) do
+      def key_data_pks(page, limit)
+        Rails.cache.fetch("trait_bank/key_data_pks/#{page.id}/v1/limit_#{limit}", expires_in: 1.day) do
           # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
-          q = %Q(
-            OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait),
-            (trait)-[:predicate]->(predicate:Term)
-            WHERE predicate.is_hidden_from_overview <> true AND (NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))
-            OPTIONAL MATCH #{EXEMPLAR_MATCH}
-            WITH page, predicate, trait, exemplar_value
-            ORDER BY predicate.uri ASC, #{EXEMPLAR_ORDER}
-            WITH page, predicate, head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row
-            WITH page, predicate, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
-            OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
-            WITH collect({ page_assoc_role: 'subject', page: page, object_page: object_page, predicate: predicate, trait: trait, exemplar_value: exemplar_value }) AS subj_rows  
-            OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
-            (trait)-[:predicate]->(predicate:Term)
-            WHERE predicate.is_hidden_from_overview <> true
-            OPTIONAL MATCH #{EXEMPLAR_MATCH}
-            WITH page, predicate, trait, object_page, exemplar_value, subj_rows
-            ORDER BY predicate.uri ASC, #{EXEMPLAR_ORDER}
-            WITH page, object_page, predicate, subj_rows, head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row
-            WITH page, object_page, predicate, subj_rows, trait_row.trait AS trait, trait_row.exemplar_value AS exemplar_value
-            WITH collect({ page_assoc_role: 'object', page: page, object_page: object_page, predicate: predicate, trait: trait, exemplar_value: exemplar_value }) AS obj_rows, subj_rows
-            UNWIND (subj_rows + obj_rows) AS row
-            WITH row.page_assoc_role AS page_assoc_role, row.page AS page, row.object_page AS object_page, row.predicate AS predicate, row.trait AS trait, row.exemplar_value AS exemplar_value
-            WHERE trait IS NOT NULL
-            OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
-            OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
-            OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
-            OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
-            OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-            RETURN page, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, page_assoc_role
-            ORDER BY #{EXEMPLAR_ORDER}
-            LIMIT #{limit}
-          )
-
-          res = TraitBank.query(q)
-          TraitBank::ResultHandling.build_trait_array(res)
+          page.page_node.query_as(:page)
+            .optional_match("(page)-[#{TRAIT_RELS}]->(trait:Trait)", "(trait)-[:predicate]->(predicate:Term)")
+            .where("predicate.is_hidden_from_overview <> true")
+            .where('(NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))')
+            .break
+            .optional_match(EXEMPLAR_MATCH)
+            .with(:page, :predicate, :trait, :exemplar_value)
+            .order_by('predicate.uri ASC', EXEMPLAR_ORDER)
+            .break
+            .with(:page, :predicate, 'head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row')
+            .break
+            .with(:page, "collect({ trait: trait_row.trait, exemplar_value: trait_row.exemplar_value, page_assoc_role: 'subject' }) AS subj_rows")
+            .break
+            .optional_match("(:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:object_page]->(page)", '(trait)-[:predicate]->(predicate:Term)')
+            .where('predicate.is_hidden_from_overview <> true')
+            .break
+            .optional_match(EXEMPLAR_MATCH)
+            .with(:subj_rows, :trait, :page, :predicate, :exemplar_value)
+            .order_by('predicate.uri ASC', EXEMPLAR_ORDER)
+            .break
+            .with(:subj_rows, :predicate, 'head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row')
+            .break
+            .with("(subj_rows + collect({ trait: trait_row.trait, exemplar_value: trait_row.exemplar_value, page_assoc_role: 'object'})) AS rows")
+            .unwind('rows AS row')
+            .with('row.trait AS trait', 'row.exemplar_value AS exemplar_value', 'row.page_assoc_role AS page_assoc_role')
+            .where('trait IS NOT NULL')
+            .return('trait.eol_pk AS trait_pk', 'page_assoc_role')
+            .order(EXEMPLAR_ORDER)
+            .limit(limit)
         end
       end
 

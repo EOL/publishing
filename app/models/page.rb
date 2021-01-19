@@ -503,7 +503,19 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
-    TraitBank::Page.key_data(id, KEY_DATA_LIMIT)
+    tb_result = TraitBank::Page.key_data_pks(self, KEY_DATA_LIMIT)
+    traits_by_id = Trait.for_eol_pks(tb_result.map { |row| row[:trait_pk] })
+      .map { |t| [t.id, t] }
+      .to_h
+
+    tb_result.map do |row| 
+      trait = traits_by_id[row[:trait_pk]]
+
+      [
+        PageTraitPredicateGroup.new(trait.predicate, row[:page_assoc_role].to_sym),
+        trait
+      ]
+    end.to_h
   end
 
   def has_data?
