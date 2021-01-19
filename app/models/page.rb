@@ -736,6 +736,10 @@ class Page < ApplicationRecord
       nil
   end
 
+  def page_node
+    PageNode.find(id)
+  end
+
   private
   def first_image_content
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }

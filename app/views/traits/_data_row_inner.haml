@@ -21,13 +21,11 @@
       %div
         - if open_row || !hide_pred_when_closed
           .trait-pred.term-info-a.a.js-predicate= trait.predicate.i18n_name
-        -# TODO: implement
           = render :partial => "terms/desc_meta", :locals => { :term => trait.predicate, :search_link => true }
       .trait-val
         - show_trait_value(trait, page_is_assoc_obj: page_is_assoc_obj)
-        -# TODO: implement
-          - if trait.object_term
-            = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true, :pred_uri => trait[:predicate][:uri] }
+        - if trait.object_term
+          = render :partial => "terms/desc_meta", :locals => { :term => trait.object_term, :search_link => true, :predicate => trait.predicate }
       - modifier_content = modifier_txt(trait)
       - if modifier_content
         .trait-mod= modifier_content
@@ -38,12 +36,11 @@
           %li.meta-item
             %div
               .meta-pred.a= datum.predicate.i18n_name
-              = render :partial => "terms/desc_meta", :locals => { :term => datum[:predicate], :search_link => false }
+              = render :partial => "terms/desc_meta", :locals => { :term => datum.predicate, :search_link => false }
             .meta-val
               - show_trait_value(datum)
               - if datum.object_term
-                -# TODO: implement
-                = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
+                = render :partial => "terms/desc_meta", :locals => { :term => datum.object_term, :search_link => false }
         - extra_metadata.each do |m|
           %li.meta-item
             .meta-pred= m[:label]

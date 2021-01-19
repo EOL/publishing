@@ -87,7 +87,7 @@ module DataHelper
       end
 
       parts << link_to(name_for_page(page), page_path(page))
-    elsif trait.object_term.i18n_name
+    elsif trait.object_term
       value = trait.object_term.i18n_name
       parts << value
     elsif val = trait.measurement

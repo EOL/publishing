@@ -6,4 +6,8 @@ class ResourceNode
   id_property :resource_id
 
   has_one :in, :trait, type: :supplier, model_class: :Trait
+
+  def resource
+    Resource.find(id)
+  end
 end

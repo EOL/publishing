@@ -126,7 +126,7 @@ class PagesController < ApplicationController
     @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
     @key_data = @page.key_data.map do |trait|
-      [TraitGroup.new(trait[:predicate], trait[:page_assoc_role].to_sym), trait]
+      [PageTraitPredicateGroup.new(trait[:predicate], trait[:page_assoc_role].to_sym), trait]
     end.to_h
     # get_media # NOTE: we're not *currently* showing them, but we will.
     
@@ -171,64 +171,27 @@ class PagesController < ApplicationController
 
   def data
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
-
-    set_noindex_if_needed(@page)
-
-    @filter_trait_groups = TraitBank::Page.page_trait_groups(@page.id, resource_id: @resource&.id).map do |row|
-      TraitGroup.new(row[:group_predicate], row[:page_assoc_role].to_sym)
-    end.sort do |a, b|
-      a.name <=> b.name
-    end
-
-    @trait_group = if @filter_trait_groups.length == 1 
-                     @filter_trait_groups.first
-                   elsif params[:predicate]
-                     group_type = params[:page_assoc_role]&.to_sym || :subject
-                     @filter_trait_groups.find { |g| g.uri == params[:predicate] && g.type == group_type } 
-                   else
-                     nil
-                   end
-    @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
+    @selected_resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
+    @predicate_groups = PageTraitPredicateGroup.for_page(@page, resource: @selected_resource)
+    @selected_predicate_group = params[:predicate] ?
+      PageTraitPredicateGroup.new(
+        TermNode.find(params[:predicate].to_i), 
+        params[:page_assoc_role]&.to_sym || :subject
+      ) : 
+      nil
+    @selected_predicate_groups = @selected_predicate_group ? [@selected_predicate_group] : @predicate_groups
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @traits_per_group = 5
+    trait_result = Trait.for_page_trait_predicate_groups(@page, @selected_predicate_groups, limit: @selected_predicate_group ? nil : @traits_per_group, resource: @selected_resource)
+    @grouped_data = trait_result[:grouped_traits]
+    @resources = @selected_predicate_group ? 
+      trait_result[:all_traits].map { |t| t.resource }.uniq :
+      @page.page_node.traits.resource.uniq
+    @resources.sort! { |a, b| a.name <=> b.name }
 
-    if @trait_group.nil?
-      filtered_data = TraitBank::Page.page_traits_by_group(@page.id, limit: @traits_per_group, resource_id: @resource&.id)
-      filter_resource_ids = TraitBank::Page.all_page_trait_resource_ids(@page.id, pred_uri: nil)
-    else
-      filtered_data = []
-      filter_resource_ids = Set.new
-
-      filtered_data = []
-      filter_resource_ids = Set.new
-
-      if @trait_group.object?
-        filtered_data.concat(
-          TraitBank::Page.page_obj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
-        )
-        filter_resource_ids.add(
-          TraitBank::Page.page_obj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
-        )
-      end
-
-      if @trait_group.subject?
-        filtered_data.concat(
-          TraitBank::Page.page_subj_traits_for_pred(@page.id, @trait_group.uri, resource_id: @resource&.id)
-        )
-        filter_resource_ids.add(
-          TraitBank::Page.page_subj_trait_resource_ids(@page.id, pred_uri: @trait_group.uri)
-        )
-      end
-    end
-
-    @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
-    @grouped_data = group_traits(@filter_trait_groups, filtered_data)
-    @data_groups = @predicate ? [@predicate] : sorted_groups_for_traits(@grouped_data)
-    @resources = Resource.for_traits(filtered_data)
-
-    @associations = build_page_associations(@page)
     setup_viz
 
+    set_noindex_if_needed(@page)
     respond_to do |format|
       format.html do
         if request.xhr?
@@ -607,83 +570,5 @@ private
 
     @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query).valid?
     @habitat_chart_query = query
-  end
-  
-  def group_traits(trait_groups, traits)
-    grouped = {}
-
-    traits.each do |trait|
-      groups_for_trait(trait_groups, trait).each do |group|
-        grouped[group] ||= []
-        grouped[group] << trait
-      end
-    end
-
-    grouped
-  end
-
-  def sorted_groups_for_traits(grouped_traits)
-    grouped_traits.keys.sort { |a, b| a.name <=> b.name }
-  end
-
-  def groups_for_trait(trait_groups, trait)
-    gps = if trait[:group_predicate].is_a?(Array)
-            trait[:group_predicate]
-          else
-            [trait[:group_predicate]]
-          end
-
-    gps.map do |gp| 
-      temp_group = TraitGroup.new(gp, trait[:page_assoc_role].to_sym) 
-      group = trait_groups.find { |g| g == temp_group }
-
-      if group.nil? && gp[:is_symmetrical_association]
-        temp_group = TraitGroup.new(gp, :both)
-        group = trait_groups.find { |g| g == temp_group }
-      end
-
-      group
-    end
-  end
-
-  class TraitGroup
-    VALID_TYPES = [:subject, :object, :both]
-
-    attr_reader :term, :uri, :type
-
-    def initialize(term, type)
-      raise TypeError, "type #{type} invalid" unless VALID_TYPES.include?(type)
-
-      @term = term
-      @uri = @term[:uri]
-
-      raise TypeError, "missing uri for term" if @uri.blank?
-
-      @type = type
-    end
-
-    def subject?
-      @type == :subject || @type == :both
-    end
-
-    def object?
-      @type == :object || @type == :both
-    end
-
-    def name
-      object? ? TraitBank::Record.i18n_inverse_name(@term) : TraitBank::Record::i18n_name(@term)
-    end
-
-    def ==(other)
-      self.class === other and
-        other.uri == @uri and
-        other.type == @type
-    end
-
-    alias eql? ==
-
-    def hash
-      @uri.hash ^ @type.hash
-    end
   end
 end

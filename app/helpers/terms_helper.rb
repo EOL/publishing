@@ -157,6 +157,22 @@ module TermsHelper
     term_search_results_path(tq: tq.to_short_params)
   end
 
+  def show_all_records_path(predicate, object_term)
+    # intended to replace term_records_path, which deals with term hashes
+    raise TypeError, 'at least one of predicate or object_term must be present' if predicate.nil? && object_term.nil?
+
+    tq_filter_params = {
+      predicate_id: predicate&.id,
+      object_term_id: object_term&.id
+    }
+
+    tq = TermQuery.new({
+      filters: [TermQueryFilter.new(tq_filter_params)],
+      result_type: :record
+    })
+    term_search_results_path(tq: tq.to_short_params)
+  end
+
   private
     def nested_term_selects_helper(form, selects, type_str)
       result = nil

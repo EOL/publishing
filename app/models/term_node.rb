@@ -62,6 +62,13 @@ class TermNode
     }, locale)
   end
 
+  def i18n_definition
+    TraitBank::Record.i18n_defn({
+      uri: uri,
+      definition: definition
+    })
+  end
+
   def predicate?
     !object_term?   
   end
