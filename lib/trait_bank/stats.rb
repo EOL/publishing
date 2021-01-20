@@ -266,7 +266,7 @@ module TraitBank
           "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, { metadata: { id: row.source.page_id + '-' + row.target.page_id } } AS id "\
           "RETURN type, source, target, id "\
 
-        results_to_hashes(TraitBank.query(qs), "id")
+        TraitBank::ResultHandling.results_to_hashes(TraitBank.query(qs), "id")
       end
 
       def descendant_environments(page)
@@ -277,7 +277,7 @@ module TraitBank
           "WHERE predicate.uri = '#{EolTerms.alias_uri('habitat')}'\n"\
           "RETURN trait, predicate, object_term"
 
-        build_trait_array(TraitBank.query(qs))
+        TraitBank::ResultHandling.build_trait_array(TraitBank.query(qs))
       end
 
       private

@@ -717,7 +717,7 @@ class Page < ApplicationRecord
       if !rank&.r_species? # all nodes must be species, so bail
         { nodes: [], links: [] }
       else
-        relationships = TraitBank.pred_prey_comp_for_page(self)
+        relationships = TraitBank::Stats.pred_prey_comp_for_page(self)
         handle_pred_prey_comp_relationships(relationships)
       end
     end
