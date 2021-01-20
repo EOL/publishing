@@ -5,6 +5,7 @@ class TraitNode
 
   id_property :eol_pk
   property :measurement
+  property :normal_measurement
   property :sample_size
   property :citation
   property :source

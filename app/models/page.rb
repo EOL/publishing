@@ -1,6 +1,7 @@
 class Page < ApplicationRecord
   include Autocomplete
   include HasVernaculars
+  include Page::Traits
 
   set_vernacular_fk_field(:page_id)
 

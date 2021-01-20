@@ -40,6 +40,7 @@ class Trait
           :page, 
           :resource
         ) 
+
       record_assocs = RecordAssociations.new(nodes)
       nodes.map { |n| new(n, record_assocs) }
     end
@@ -83,7 +84,20 @@ class Trait
     end
 
     def wrap_node(trait_node)
+      return nil if trait_node.nil?
       new(trait_node, RecordAssociations.new([trait_node]))
+    end
+
+    def populate_pk_result(result)
+      result_a = result.to_a
+      traits_by_id = for_eol_pks(result_a.map { |row| row[:trait_pk] }).map { |t| [t.id, t] }.to_h
+      value = result_a.map do |row|
+        row_h = row.to_h
+        row_h[:trait] = traits_by_id[row[:trait_pk]]
+        row_h
+      end
+
+      value
     end
 
     private
@@ -130,7 +144,9 @@ class Trait
     def extract_grouped_trait_pks(pks_by_group)
       pks_by_group.map { |row| row[:trait_pks] }.flatten
     end
+    # end private
   end
+  # end class << self
 
   private
   ListWithCount = Struct.new(:traits, :count) do 
@@ -170,5 +186,7 @@ class Trait
 
       @pages[id]
     end
+
   end
+  # end private
 end

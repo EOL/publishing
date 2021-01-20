@@ -41,7 +41,12 @@ class TermNode
     def search_import
       self.all(:t).where("t.is_hidden_from_overview = false AND NOT (t)-[:synonym_of]->(:Term)")
     end
+
+    def find_by_alias(a)
+      find_by(alias: a)
+    end
   end
+  # end class << self
 
   def search_data
     {
@@ -84,5 +89,6 @@ class TermNode
   def numeric_value_predicate?
     is_ordinal || units_term.present?
   end
+
 end
 

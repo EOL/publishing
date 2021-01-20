@@ -4,14 +4,13 @@
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
-    -# TODO: fix summary terms, reenable
-    - if false && (!summary.sentence.blank? || @page.has_data?)
+    - if !summary.sentence.blank? || @page.has_data?
       .desc
         - if !summary.sentence.blank?
           %p= summary.sentence.html_safe
           - summary.terms.each do |term|
             - if term.term
-              = render "terms/desc_meta", term: term.term, pred_uri: term.pred_uri, toggle: term.toggle_selector, source: term.source, search_link: true
+              = render "terms/desc_meta", term: term.term, predicate: term.predicate, toggle: term.toggle_selector, source: term.source, search_link: true
         - if @page.has_data?
           - if @page.key_data.any?
             - attributes_key = "eol_has_data_for_n_attributes_including_html"
