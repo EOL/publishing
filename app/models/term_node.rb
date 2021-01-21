@@ -89,6 +89,5 @@ class TermNode
   def numeric_value_predicate?
     is_ordinal || units_term.present?
   end
-
 end
 
