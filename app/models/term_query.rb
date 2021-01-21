@@ -21,8 +21,8 @@ class TermQuery < ApplicationRecord
       result_type: short_params[:r]
     )
 
-    tq.filters = short_params[:f]&.map do |filter_params|
-      TermQueryFilter.from_short_params(filter_params)
+    tq.filters = short_params[:f]&.keys&.sort&.map do |k|
+      TermQueryFilter.from_short_params(short_params[:f][k])
     end || []
 
     tq
@@ -31,7 +31,7 @@ class TermQuery < ApplicationRecord
   def to_short_params
     params = {
       r: result_type,
-      f: filters.map.with_index { |f, i| f.to_short_params }
+      f: filters.map.with_index { |f, i| [i, f.to_short_params] }.to_h
     }
 
     if clade
