@@ -1067,11 +1067,6 @@ en:
     scientific_names: "names"
     users: "users"
     references: "references"
-  support:
-    array:
-      words_connector: ", "
-      two_words_connector: " and "
-      last_word_connector: ", and "
   term_query:
     validations:
       empty_filters_error_record: "you must provide a filter with an attribute or value for record searches"

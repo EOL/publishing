@@ -62,65 +62,6 @@ qqq:
     articles: '{{Identical|Article}}'
     pages: '{{Identical|Page}}'
     scientific_names: '{{Identical|Name}}'
-  support:
-    array:
-      words_connector: |-
-        Used for Array#to_sentence, see https://guides.rubyonrails.org/v4.2/i18n.html
-        (This is used as the separator in lists containing more than 2 items, before all items except the first and last one).
-
-        Note the presence or absence of some leading or trailing space (this depends on each language but theey are currently not visibible in the HTML form for the English source). Unfortunately, they are truncated automatically by Translatewiki.net, unless they are reencoded syntaxically (using <code>&amp;#32;</code>)
-
-        See also:
-        * {{Msg-eol|Website-support.array.words connector}}
-        * {{Msg-eol|Website-support.array.two words connector}}
-        * {{Msg-eol|Website-support.array.last word connector}}
-        * https://github.com/rails/rails/blob/master/activesupport/lib/active_support/locale/en.yml#L33 for the actual English source:
-        <pre>
-        # Used in array.to_sentence.
-          support:
-            array:
-              words_connector: ", "
-              two_words_connector: " and "
-              last_word_connector: ", and "
-        </pre>
-      two_words_connector: |-
-        Used for Array#to_sentence, see https://guides.rubyonrails.org/v4.2/i18n.html
-        (This is used before the last item of a list containng exactly 2 items, where for example the comma separator is generally omitted).
-
-        Note the presence or absence of some leading or trailing space (this depends on each language but they are currently not visible in the HTML form for the English source). Unfortunately, they are truncated automatically by Translatewiki.net, unless they are reencoded syntaxically (using <code>&amp;#32;</code>)
-
-        See also:
-        * {{Msg-eol|Website-support.array.words connector}}
-        * {{Msg-eol|Website-support.array.two words connector}}
-        * {{Msg-eol|Website-support.array.last word connector}}
-        * https://github.com/rails/rails/blob/master/activesupport/lib/active_support/locale/en.yml#L33 for the actual English source:
-        <pre>
-        # Used in array.to_sentence.
-          support:
-            array:
-              words_connector: ", "
-              two_words_connector: " and "
-              last_word_connector: ", and "
-        </pre>
-      last_word_connector: |-
-        Used for Array#to_sentence, see https://guides.rubyonrails.org/v4.2/i18n.html
-        (This is used before the last item of a list with more than 2 items, where an extra comma separator may be prepended in some languages like English, but not in all languages).
-
-        Note the presence or absence of some leading or trailing space (this depends on each language but they are currently not visible in the HTML form for the English source). Unfortunately, they are truncated automatically by Translatewiki.net, unless they are reencoded syntaxically (using <code>&amp;#32;</code>)
-
-        See also:
-        * {{Msg-eol|Website-support.array.words connector}}
-        * {{Msg-eol|Website-support.array.two words connector}}
-        * {{Msg-eol|Website-support.array.last word connector}}
-        * https://github.com/rails/rails/blob/master/activesupport/lib/active_support/locale/en.yml#L33 for the actual English source:
-        <pre>
-        # Used in array.to_sentence.
-          support:
-            array:
-              words_connector: ", "
-              two_words_connector: " and "
-              last_word_connector: ", and "
-        </pre>
   traits:
     search_form:
       search: '{{Identical|Search}}'
