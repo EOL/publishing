@@ -1435,8 +1435,18 @@ fr:
         http://eol(dot)org/schema/terms/EggDiameter: diamètre de l'ovule
         http://eol(dot)org/schema/terms/EggLayingBegins: la ponte commence
         http://eol(dot)org/schema/terms/EggMass: masse d'oeuf
+        http://eol(dot)org/schema/terms/EpiconeShape: forme de l'épicône
+        http://eol(dot)org/schema/terms/ExtinctionStatus: statut de conservation
+        http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: teneur du lait
+          en acides gras
         http://eol(dot)org/schema/terms/FemalesPerGroup: Femelles par groupe
         http://eol(dot)org/schema/terms/FireResistance: résistance au feu
+        http://eol(dot)org/schema/terms/FireTolerance: résilience aux feux
+        http://eol(dot)org/schema/terms/FoliagePorositySummer: perméabilité estivale
+          du feuillage
+        http://eol(dot)org/schema/terms/FoliagePorosityWinter: perméabilité hivernale
+          du feuillage
+        http://eol(dot)org/schema/terms/FoliageTexture: texture du feuillage
         http://eol(dot)org/schema/terms/FossilFirst: première apparition
         http://eol(dot)org/schema/terms/FossilLast: dernier aspect
         http://eol(dot)org/schema/terms/FruitSeedColor: couleur des fruits ou des

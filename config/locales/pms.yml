@@ -1468,6 +1468,12 @@ pms:
           dla densità ëd popolassion uman-a
         http://eol(dot)org/schema/terms/HypoconeShape: forma dl'ipocòno
         http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
+        http://eol(dot)org/schema/terms/InterBirthInterval: antërval antra le nassense
+        http://eol(dot)org/schema/terms/IntroducedRange: l'àrea d'antrodussion a comprend
+        http://eol(dot)org/schema/terms/InvasiveRange: invasiv an
+        http://eol(dot)org/schema/terms/KnownSpecies: spece marenghe conossùe
+        http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
+        http://eol(dot)org/schema/terms/Log10Productivity: log10 dla produtività
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
