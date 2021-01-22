@@ -2,7 +2,7 @@ require "zip"
 require "csv"
 require "set"
 
-class TraitBank
+module TraitBank
   class DataDownload
     BATCH_SIZE = 50_000
 
