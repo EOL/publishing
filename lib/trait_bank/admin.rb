@@ -28,7 +28,10 @@ module TraitBank
       def create_constraints(drop = nil)
         contraints = {
           "Page" => [:page_id],
-          "Term" => [:uri, :eol_id]
+          "Term" => [:uri, :eol_id],
+          "Trait" => [:eol_pk],
+          "Resource" => [:resource_id],
+          "MetaData" => [:eol_pk]
         }
         contraints.each do |label, fields|
           fields.each do |field|
