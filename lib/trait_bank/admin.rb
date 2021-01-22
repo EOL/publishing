@@ -37,9 +37,13 @@ module TraitBank
             begin
               name = 'o'
               name = label.downcase if drop && drop == :drop
-              TraitBank.query(
-                "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
-              )
+              # You cannot have an index on a constrained field. Sorry about the rescue nil, this is a MINOR operation
+              # and it throws an error if the index doesn't exist:
+              TraitBank.query("DROP INDEX ON :#{label}(#{field})") rescue nil
+
+              constraint_query = "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
+              puts constraint_query
+              puts TraitBank.query(constraint_query)
             rescue Neography::NeographyError => e
               raise e unless e.message =~ /already exists/ || e.message =~ /No such constraint/
             end
