@@ -73,7 +73,10 @@ module EolWebsite
 
     # point autocomplete to localized fields
     config.x.autocomplete_i18n_enabled = true
-
     config.active_job.queue_adapter = :sidekiq
+
+    # neo4j log
+    config.neo4j.logger = ActiveSupport::TaggedLogging.new(::Logger.new(Rails.root.join('log', 'traitbank.log')))
+    config.neo4j.logger.level = :debug
   end
 end
