@@ -10,5 +10,23 @@ class PageNode
   # you have to query manually if you want both types.
   has_many :out, :traits, type: :trait, model_class: :TraitNode
   has_many :out, :inferred_traits, type: :inferred_trait, model_class: :TraitNode
+
+  def trait_resource_ids
+    query_as(:page)
+      .optional_match(
+        '(page)-[:trait|:inferred_trait*0..]->(trait:Trait)',
+        '(trait)-[:supplier]->(resource:Resource)'
+      )
+      .with('page, collect(DISTINCT resource) AS subj_resources')
+      .optional_match(
+        '(trait:Trait)-[:object_page]->(page)',
+        '(trait)-[:supplier]->(resource:Resource)'
+      )
+      .with('collect(DISTINCT resource) + subj_resources AS resources')
+      .unwind('resources AS resource')
+      .with('DISTINCT resource.resource_id AS resource_id')
+      .where('resource_id IS NOT NULL')
+      .pluck(:resource_id)
+  end
 end
 

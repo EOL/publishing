@@ -91,7 +91,7 @@ class PageTraitPredicateGroup
       if options[:resource]
         query = query
           .match('(trait)-[:supplier]->(resource:Resource)')
-          .where('resource.id': options[:resource].id)
+          .where('resource.resource_id': options[:resource].id)
       end
 
       query.with_distinct(:group_predicate)

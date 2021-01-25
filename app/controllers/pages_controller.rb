@@ -182,9 +182,8 @@ class PagesController < ApplicationController
     trait_result = Trait.for_page_trait_predicate_groups(@page, @selected_predicate_groups, limit: @selected_predicate_group ? nil : @traits_per_group, resource: @selected_resource)
     @grouped_data = trait_result[:grouped_traits]
     @resources = @selected_predicate_group ? 
-      trait_result[:all_traits].map { |t| t.resource }.uniq :
-      @page.page_node.traits.resource.uniq
-    @resources.sort! { |a, b| a.name <=> b.name }
+      trait_result[:all_traits].map { |t| t.resource }.compact.sort { |a, b| a.name <=> b.name } :
+      Resource.where(id: @page.page_node.trait_resource_ids).order(:name)
 
     setup_viz
 
