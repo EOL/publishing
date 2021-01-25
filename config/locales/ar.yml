@@ -96,7 +96,6 @@ ar:
       referents_count: المصادر
       species_count: نوع
       updated_at: آخر تحديث
-  cms_page_date: 'اخر تحديث في:'
   collect_already_in_collection: (انها بالفعل هنا)
   collect_already_in_collection_will_add_icon: اضف وسائل الأعلام الى %{page}
   collect_icon_title: اضف "%{item} من %{page}" الى...
@@ -747,7 +746,6 @@ ar:
       show_warns:
         one: إظهار التحذير (%{count})
         other: إظهار التحذيرات (%{count})
-      sync: تزامن مع مستودع
       clear_publishing: مسح القفل
       clear_publishing_confirm: هذا سوف "ينهي" كل النشر، ويمكن أن يسبب مشاكل إذا تم
         استخدامه أثناء النشر النشط، هل أنت واثق؟
@@ -971,11 +969,6 @@ ar:
     scientific_names: أسماء
     users: المستخدمون
     references: المراجع
-  support:
-    array:
-      words_connector: ،
-      two_words_connector: و
-      last_word_connector: و
   term_query:
     validations:
       empty_filters_error_record: يجب عليك توفير مرشحا بسمة أو قيمة لعمليات البحث

@@ -70,7 +70,6 @@ fi:
       referents_count: viitteet
       species_count: lajit
       updated_at: viimeksi päivitetty
-  cms_page_date: 'Viimeksi muokattu:'
   collect_already_in_collection: (se on jo täällä)
   collect_already_in_collection_will_add_icon: (lisää mediaa sivulle "%{page}")
   collect_icon_title: Lisää "%{item}" sivulta "%{page}" sivulle…
@@ -645,7 +644,6 @@ fi:
       show_warns:
         one: näytä (%{count}) varoitus
         other: näytä (%{count}) varoitusta
-      sync: synkronoi koodivarannon kanssa
     headers:
       index: Resurssit
     index:
@@ -837,11 +835,6 @@ fi:
     scientific_names: nimet
     users: käyttäjät
     references: viitteet
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: ja
-      last_word_connector: ', ja'
   terms:
     attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Kommentti:</strong> %{comment}

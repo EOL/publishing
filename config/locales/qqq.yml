@@ -1067,7 +1067,7 @@ qqq:
         http://eol(dot)org/schema/terms/sheltered: not exposed
         http://eol(dot)org/schema/terms/shortPersistentSeedBank: Of seed bank longevity.
           Seed bank longevity is  > 1 and <= 5 yr.
-        'http://eol(dot)org/schema/terms/skeletal_density ': automatically added during
+        http://eol(dot)org/schema/terms/skeletal_density: automatically added during
           harvest
         http://eol(dot)org/schema/terms/solitary: Solitary animals are those that
           spend a majority of their lives without others of their species, with possible

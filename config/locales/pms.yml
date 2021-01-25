@@ -91,7 +91,6 @@ pms:
       referents_count: referent
       species_count: spece
       updated_at: agiornà l'ùltima vira
-  cms_page_date: 'Ùltima modìfica:'
   collect_already_in_collection: (a-i é già)
   collect_already_in_collection_will_add_icon: (gionté ël mojen a «%{page}»)
   collect_icon_title: Gionté «%{item}» da la pàgina « %{page} » a…
@@ -187,6 +186,7 @@ pms:
     altitude: autëssa
     author: autor
     bibliographic_citation: sitassion bibliogràfica
+    contributor: contributor
     compiler: compilador
     creator: creator
     editor: editor
@@ -838,7 +838,6 @@ pms:
       show_warns:
         one: smon-e l'avertiment (%{count})
         other: smon-e j'avertiment (%{count})
-      sync: sincronisé
       clear_publishing: gavé ël luchet
       clear_publishing_confirm: Sòn a «livrërà» tute le publicassion, e a peul creé
         dij problema s'a l'é dovrà durant na publicassion. É-lo sigur ?
@@ -1066,11 +1065,6 @@ pms:
     scientific_names: nòm
     users: utent
     references: arferiment
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: ' e'
-      last_word_connector: ', e'
   term_query:
     validations:
       empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për
@@ -1385,8 +1379,103 @@ pms:
         http://eol(dot)org/schema/terms/ChelaWidth: Larghëssa dla chela
         http://eol(dot)org/schema/terms/ChlorophyllAConcentration: consentrassion
           ëd clorofila A
+        http://eol(dot)org/schema/terms/ChloroplastLocation: locassion dij cloroplast
+        http://eol(dot)org/schema/terms/ChloroplastNumber: nùmer ëd cloroplast
+        http://eol(dot)org/schema/terms/ChloroplastQuantity: quantità ëd cloroplast
+        http://eol(dot)org/schema/terms/CingulumLocation: locassion dla sentura
+        http://eol(dot)org/schema/terms/CingulumType: sòrt ëd sentura
+        http://eol(dot)org/schema/terms/CingulumWidth: larghëssa dla sentura
+        http://eol(dot)org/schema/terms/ClimateChangeVulnerabilityScore: Pontegi ëd
+          vulnerabilità al cangiament climàtich
+        http://eol(dot)org/schema/terms/Colonial: Colonial
+        http://eol(dot)org/schema/terms/CommercialAvailability: disponibilità comersial
+        http://eol(dot)org/schema/terms/Cosmopolitan: Cosmopolita
+        http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: spece marenghe conossùe
+        http://eol(dot)org/schema/terms/DevelopmentalMode: meud ëd dësvlup
+        http://eol(dot)org/schema/terms/DiapauseInitiation: diapàusa
+        http://eol(dot)org/schema/terms/DiatomSymmetryType: sòrt ëd simetrìa dël diàtom
+        http://eol(dot)org/schema/terms/Diet: ël regim a comprend
+        http://eol(dot)org/schema/terms/DietBreadth: estension dël regim
+        http://eol(dot)org/schema/terms/DiscDiameter: Diàmeter dël disch
+        http://eol(dot)org/schema/terms/DispersalAge: età dla dispersion
+        http://eol(dot)org/schema/terms/DissolvedNitrate: consentrassion ëd nitrà
+          ant l'eva
+        http://eol(dot)org/schema/terms/DissolvedOxygen: consentrassion d'O2 dëslià
+          ant l'eva
+        http://eol(dot)org/schema/terms/DissolvedPhosphate: consentrassion ëd fosfà
+          ant l'eva
+        http://eol(dot)org/schema/terms/DissolvedSilicate: consentrassion ëd silicà
+          ant l'eva
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
+        http://eol(dot)org/schema/terms/EggDiameter: diàmeter ëd l'euv
+        http://eol(dot)org/schema/terms/EggLayingBegins: la pòsa ëd j'euv a ancamin-a
+        http://eol(dot)org/schema/terms/EggMass: massa dl'euv
+        http://eol(dot)org/schema/terms/EpiconeShape: forma dl'epicòno
+        http://eol(dot)org/schema/terms/ExtinctionStatus: stat d'estinsion
+        http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: composission d'àcid
+          grass dël làit
+        http://eol(dot)org/schema/terms/FemalesPerGroup: Fumele për partìa
+        http://eol(dot)org/schema/terms/FireResistance: arzistensa al feu
+        http://eol(dot)org/schema/terms/FireTolerance: toleransa al feu
+        http://eol(dot)org/schema/terms/FoliagePorositySummer: porosità dël fujagi
+          d'istà
+        http://eol(dot)org/schema/terms/FoliagePorosityWinter: porosità dël fujagi
+          d'invern
+        http://eol(dot)org/schema/terms/FoliageTexture: consistensa dël fujagi
+        http://eol(dot)org/schema/terms/ForagingHabitat: ambient ëd pastura
+        http://eol(dot)org/schema/terms/ForagingTime: ora dla pastura
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
+        http://eol(dot)org/schema/terms/FossilLast: ùltima aparission
+        http://eol(dot)org/schema/terms/FrostFreeDays: dì sensa geilade
+        http://eol(dot)org/schema/terms/FruitPersistence: përsistensa dij frut e dle
+          smens
+        http://eol(dot)org/schema/terms/FruitSeedColor: color dij frut o dle smens
+        http://eol(dot)org/schema/terms/FuelwoodSuitability: adatabilità për fene
+          dël combustìbil
+        http://eol(dot)org/schema/terms/GardenPersistent: àrea ëd përsistensa ant
+          ij giardin
+        http://eol(dot)org/schema/terms/GenerationTime: temp ëd generassion
+        http://eol(dot)org/schema/terms/GeographicRangeArea: spantiament geogràfich
+          (taja dl'àrea)
+        http://eol(dot)org/schema/terms/GerminationRequirements: condission për la
+          germinassion
+        http://eol(dot)org/schema/terms/GrainType: sòrt dë smens
+        http://eol(dot)org/schema/terms/GrassGrowthType: sòrt ëd chërsùa ëd l'erba
+        http://eol(dot)org/schema/terms/GrazeAnimalPalatability: gradiment për j'animaj
+          da pastura
+        http://eol(dot)org/schema/terms/HabitatBreadth: larghëssa dl'ambient
+        http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
+        http://eol(dot)org/schema/terms/HasToxin: a l'ha na tossin-a
+        http://eol(dot)org/schema/terms/HeadBodyLength: longheur testa-còrp
+        http://eol(dot)org/schema/terms/HeadtoCoccyxLength: longheur da la testa a
+          la sinta
+        http://eol(dot)org/schema/terms/HedgeTolerance: toleransa a la pastura
+        http://eol(dot)org/schema/terms/HeightStanding: autëssa da 'n pe
+        http://eol(dot)org/schema/terms/HindTarsusLength: longheur dël tars posterior
+        http://eol(dot)org/schema/terms/HomeRange: àrea doméstica
+        http://eol(dot)org/schema/terms/HoneyBeePain: Scala ëd dolor dl'avìa dl'amel
+        http://eol(dot)org/schema/terms/HumanLivestockToxicity: tossicità për j'uman
+          e le bes-ce
+        http://eol(dot)org/schema/terms/HumanPopulationDensity: densità dla popolassion
+          uman-a
+        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: modificassion
+          dla densità ëd popolassion uman-a
+        http://eol(dot)org/schema/terms/HypoconeShape: forma dl'ipocòno
+        http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
+        http://eol(dot)org/schema/terms/InterBirthInterval: antërval antra le nassense
+        http://eol(dot)org/schema/terms/IntroducedRange: l'àrea d'antrodussion a comprend
+        http://eol(dot)org/schema/terms/InvasiveRange: invasiv an
+        http://eol(dot)org/schema/terms/KnownSpecies: spece marenghe conossùe
+        http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
+        http://eol(dot)org/schema/terms/Log10Productivity: log10 dla produtività
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: rapòrt ëd massa antra
+          mas-cc e fumela
+        http://eol(dot)org/schema/terms/MaleTenure: Soen dij mas-cc
+        http://eol(dot)org/schema/terms/MalesPerGroup: Mas-cc për Partìa
+        http://eol(dot)org/schema/terms/MantleLength: Longheur dël mantel
+        http://eol(dot)org/schema/terms/MarineLarvalDevelopmentStrategy: strategìa
+          ëd dësvlup dle gate marenghe
+        http://eol(dot)org/schema/terms/MatingSystem: strategìa d'arprodussion
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica

@@ -70,7 +70,6 @@ el:
       scientific_names_count: επιστημονικά ονόματα
       species_count: είδη
       updated_at: Τελευταία ενημέρωση
-  cms_page_date: 'Τελευταία τροποποίηση στις:'
   collect_already_in_collection: (είναι ήδη εδώ)
   collect_already_in_collection_will_add_icon: (προσθήκη πολυμέσων στο "%{page}")
   collect_icon_title: Προσθήκη %{item} από τη %{page} σελίδα στο
@@ -627,7 +626,6 @@ el:
         other: εμφάνιση όλων (%{count})
       show_warns:
         other: ένα=εμφάνιση προειδοποίησης (%{count})
-      sync: Συγχρονισμός
     headers:
       index: Πόροι
     index:
@@ -821,11 +819,6 @@ el:
     scientific_names: Ονόματα
     users: χρήστες
     references: Παραπομπές
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: και
-      last_word_connector: ', και'
   term_query_filter:
     validations:
       blank_error: πρέπει να προσδιορίσετε ένα χαρακτηριστικό ή μία τιμή

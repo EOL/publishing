@@ -10,6 +10,7 @@
 # Author: Jhammock
 # Author: PhilW
 # Author: Pols12
+# Author: Tektasc
 # Author: Thibaut120094
 # Author: Ugofan
 # Author: Urhixidur
@@ -94,7 +95,6 @@ fr:
       referents_count: référents
       species_count: espèce
       updated_at: dernière mise à jour
-  cms_page_date: 'Dernière modification :'
   collect_already_in_collection: (déjà présent ici)
   collect_already_in_collection_will_add_icon: (ajouter le média à la page « %{page} »)
   collect_icon_title: Ajouter « %{item} » depuis la page « %{page} » vers...
@@ -192,6 +192,7 @@ fr:
     altitude: altitude
     author: auteur
     bibliographic_citation: citation bibliographique
+    contributor: contributeur
     compiler: compilateur
     creator: créateur
     editor: éditeur
@@ -845,7 +846,6 @@ fr:
       show_warns:
         one: afficher l’avertissement (%{count})
         other: afficher les avertissements (%{count})
-      sync: synchroniser
       clear_publishing: effacer le verrou
       clear_publishing_confirm: Cela « terminera » toutes les publications et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
@@ -1078,11 +1078,6 @@ fr:
     scientific_names: noms
     users: utilisateurs
     references: références
-  support:
-    array:
-      words_connector: ',&#32;'
-      two_words_connector: '&#32;et&#32;'
-      last_word_connector: '&#32;et&#32;'
   term_query:
     validations:
       empty_filters_error_record: vous devez fournir un filtre avec un attribut ou
@@ -1357,27 +1352,136 @@ fr:
         http://eol(dot)org/schema/terms/AminoAcidCompositionOfMilk: composition amino-acide
           du lait
         http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: tolérance à un sol
-          anaérobique
+          anaérobie
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: longueur bras plus disque
         http://eol(dot)org/schema/terms/Ash_content: contenu des cendres
+        http://eol(dot)org/schema/terms/Attached: Attaché au substrat
         http://eol(dot)org/schema/terms/BillLength: longueur du bec
+        http://eol(dot)org/schema/terms/Bioluminescent: bioluminescent
+        http://eol(dot)org/schema/terms/BloatPotential: Susceptibilité du bétail au
+          ballonnement
         http://eol(dot)org/schema/terms/BloomColor: couleur des fleurs
         http://eol(dot)org/schema/terms/BloomPeriod: période de floraison
+        http://eol(dot)org/schema/terms/BodyShape: morphologie
+        http://eol(dot)org/schema/terms/BodyVolume: volume corporel
+        http://eol(dot)org/schema/terms/BreedingHabitat: Habitat de reproduction optimal
+        http://eol(dot)org/schema/terms/BrowseAnimalPalatability: appétence d'un animal
+          brouteur
+        http://eol(dot)org/schema/terms/BudSource: source de bourgeons
+        http://eol(dot)org/schema/terms/CITES_I: CITES Appendice I
+        http://eol(dot)org/schema/terms/CITES_II: CITES Appendice II
+        http://eol(dot)org/schema/terms/CITES_III: CITES Appendice III
+        http://eol(dot)org/schema/terms/CNRatio: rapport carbone sur azote
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: tolérance au sol
+          calcaire
+        http://eol(dot)org/schema/terms/CapitulumLength: longueur de capitulum
+        http://eol(dot)org/schema/terms/CarapaceLength: longueur de carapace
+        http://eol(dot)org/schema/terms/CarbohydrateCompositionOfMilk: teneur du lait
+          en carbohydrate
+        http://eol(dot)org/schema/terms/CaudalFinShape: forme de nageoire caudale
+        http://eol(dot)org/schema/terms/CellDepth: taille typique de cellule
         http://eol(dot)org/schema/terms/CellLength: longueur de la cellule
+        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: surface maximale
+          cellule/volume maximum
+        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: surface minimale
+          cellule/volume minimum
+        http://eol(dot)org/schema/terms/CellShape3D: représentation tridimensionnelle
+          de cellule
+        http://eol(dot)org/schema/terms/CellShapeFrontal: section frontale de cellule
+        http://eol(dot)org/schema/terms/CellShapeMedian: section médiane de cellule
+        http://eol(dot)org/schema/terms/CellShapeTransverse: section transverse de
+          cellule
+        http://eol(dot)org/schema/terms/CellSurfaceArea: surface cellulaire
         http://eol(dot)org/schema/terms/CellWidth: largeur de la cellule
+        http://eol(dot)org/schema/terms/ChelaWidth: largeur de Chela
+        http://eol(dot)org/schema/terms/ChlorophyllAConcentration: concentration en
+          chlorophylle a
+        http://eol(dot)org/schema/terms/ChloroplastLocation: localisation des chloroplastes
+        http://eol(dot)org/schema/terms/ChloroplastNumber: nombre de chloroplastes
+        http://eol(dot)org/schema/terms/ChloroplastQuantity: quantité de chloroplastes
+        http://eol(dot)org/schema/terms/CingulumLocation: localisation du cingulum
+        http://eol(dot)org/schema/terms/CingulumType: type de cingulum
+        http://eol(dot)org/schema/terms/CingulumWidth: largeur du cingulum
+        http://eol(dot)org/schema/terms/ClimateChangeVulnerabilityScore: Score de
+          Vulnérabilité au Changement Climatique
+        http://eol(dot)org/schema/terms/Colonial: colonial
+        http://eol(dot)org/schema/terms/CommercialAvailability: disponibilité sur
+          le marché
+        http://eol(dot)org/schema/terms/Cosmopolitan: cosmopolite
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: espèces marines
           connues
+        http://eol(dot)org/schema/terms/DevelopmentalMode: spécification
+        http://eol(dot)org/schema/terms/DiapauseInitiation: diapause
+        http://eol(dot)org/schema/terms/DiatomSymmetryType: symétrie de base d'un
+          diatomée
         http://eol(dot)org/schema/terms/Diet: la diète comprend
+        http://eol(dot)org/schema/terms/DietBreadth: régime alimentaire
+        http://eol(dot)org/schema/terms/DiscDiameter: diamètre du disque
+        http://eol(dot)org/schema/terms/DispersalAge: âge de dispersion
+        http://eol(dot)org/schema/terms/DissolvedNitrate: concentration en nitrates
+          dans l'eau
+        http://eol(dot)org/schema/terms/DissolvedOxygen: concentration en O2 dissous
+          dans l'eau
+        http://eol(dot)org/schema/terms/DissolvedPhosphate: concentration en phosphates
+          dans l'eau
+        http://eol(dot)org/schema/terms/DissolvedSilicate: concentration en silicates
+          dans l'eau
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporation écomorphologique
         http://eol(dot)org/schema/terms/EggDiameter: diamètre de l'ovule
+        http://eol(dot)org/schema/terms/EggLayingBegins: la ponte commence
+        http://eol(dot)org/schema/terms/EggMass: masse d'oeuf
+        http://eol(dot)org/schema/terms/EpiconeShape: forme de l'épicône
+        http://eol(dot)org/schema/terms/ExtinctionStatus: statut de conservation
+        http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: teneur du lait
+          en acides gras
         http://eol(dot)org/schema/terms/FemalesPerGroup: Femelles par groupe
         http://eol(dot)org/schema/terms/FireResistance: résistance au feu
+        http://eol(dot)org/schema/terms/FireTolerance: résilience aux feux
+        http://eol(dot)org/schema/terms/FoliagePorositySummer: perméabilité estivale
+          du feuillage
+        http://eol(dot)org/schema/terms/FoliagePorosityWinter: perméabilité hivernale
+          du feuillage
+        http://eol(dot)org/schema/terms/FoliageTexture: texture du feuillage
+        http://eol(dot)org/schema/terms/ForagingHabitat: habitat de nidification
+        http://eol(dot)org/schema/terms/ForagingTime: période de reproduction
         http://eol(dot)org/schema/terms/FossilFirst: première apparition
-        http://eol(dot)org/schema/terms/FossilLast: dernier aspect
+        http://eol(dot)org/schema/terms/FossilLast: extinction
+        http://eol(dot)org/schema/terms/FrostFreeDays: jours sans gel
+        http://eol(dot)org/schema/terms/FruitPersistence: à fruits/graines persistantes
         http://eol(dot)org/schema/terms/FruitSeedColor: couleur des fruits ou des
           graines
+        http://eol(dot)org/schema/terms/FuelwoodSuitability: convenance au bois énergie
+        http://eol(dot)org/schema/terms/GardenPersistent: portée de persistance de
+          jardin
+        http://eol(dot)org/schema/terms/GenerationTime: durée d’une génération
+        http://eol(dot)org/schema/terms/GeographicRangeArea: portée géographique (taille
+          de la zone)
+        http://eol(dot)org/schema/terms/GerminationRequirements: nécessités pour la
+          germination
+        http://eol(dot)org/schema/terms/GrainType: type de graine
+        http://eol(dot)org/schema/terms/GrassGrowthType: type de croissance de l’herbe
+        http://eol(dot)org/schema/terms/GrazeAnimalPalatability: palatabilité animale
+          de pâture
+        http://eol(dot)org/schema/terms/HasToxin: possède une toxine
+        http://eol(dot)org/schema/terms/InvasiveRange: envahissant
+        http://eol(dot)org/schema/terms/KnownSpecies: Espèces marines connues
+        http://eol(dot)org/schema/terms/LittersPerYear: litres par an
         http://eol(dot)org/schema/terms/Log10Productivity: log10 productivité
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: Indice de masse corporelle
+          entre mâles et femelles
+        http://eol(dot)org/schema/terms/MalesPerGroup: Mâles par groupe
+        http://eol(dot)org/schema/terms/MatingSystem: stratégie de reproduction
+        http://eol(dot)org/schema/terms/MiddleToeLength: longueur du tertius
+        http://eol(dot)org/schema/terms/MilkPhospholipids: phospholipides du lait
+        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: Composition minérale
+          du lait
+        http://eol(dot)org/schema/terms/MoistureUse: adaptation à l'humidité
         http://eol(dot)org/schema/terms/NativeRange: la portée native inclut
+        http://eol(dot)org/schema/terms/NestType: type de nid
+        http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: nombre d'espèces
+          décrites entre 1999 et 2008
+        http://eol(dot)org/schema/terms/NonInvasiveRange: non envahissant
+        http://eol(dot)org/schema/terms/NucleusLocation: localisation du noyau
         http://eol(dot)org/schema/terms/OvaDiameter: diamètre de l'ovule
         http://eol(dot)org/schema/terms/PlantingDensity: densité de plantation
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durée de développement

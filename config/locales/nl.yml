@@ -97,7 +97,6 @@ nl:
       referents_count: verwijzingen
       species_count: soorten
       updated_at: laatst bijgewerkt
-  cms_page_date: 'Laatst gewijzigd op:'
   collect_already_in_collection: (het is reeds hier)
   collect_already_in_collection_will_add_icon: (voeg media bij "%{page}")
   collect_icon_title: Voeg "%{item}" van de "%{page}" pagina toe aan...
@@ -844,7 +843,6 @@ nl:
       show_warns:
         one: toon waarschuwing (%{count})
         other: toon waarschuwingen (%{count})
-      sync: sync
       clear_publishing: verwijder vergrendeling
       clear_publishing_confirm: Hiermee wordt al het publiceren 'voltooid' en kan
         het problemen veroorzaken als het wordt gebruikt tijdens het actief publiceren.
@@ -1072,11 +1070,6 @@ nl:
     scientific_names: namen
     users: gebruikers
     references: verwijzingen
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: en
-      last_word_connector: ', en'
   term_query:
     validations:
       empty_filters_error_record: u moet een filter voorzien van een eigenschap of
