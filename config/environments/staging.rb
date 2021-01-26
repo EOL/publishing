@@ -15,7 +15,9 @@ Rails.application.configure do
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
   
-  config.log_level = :info
+  # TODO: revert -- this is set to debug for testing on beta 
+  config.log_level = :debug
+
   config.assets.debug = false
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
