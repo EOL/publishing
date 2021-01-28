@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Agaafd
+# Author: ArdaDemirel
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
 # Author: MuratTheTurkish
@@ -34,7 +35,7 @@ tr:
   account_already_linked: hesabınız zaten EOL ile bağlantılı
   account_not_linked: hesabınız EOL ile bağlantılı değil
   advanced: gelişmiş
-  are_you_sure_delete_account: EOL hesabınızı silmek istediğinize emin misiniz?
+  are_you_sure_delete_account: EOL hesabınızı silmek istediğinizden emin misiniz?
   article:
     actions:
       collect: topla
@@ -51,7 +52,7 @@ tr:
   autocomplete:
     see_all:
       one: diğer sonuçları görüntüle
-      other: '%{count} sonucunu tümünü görüntüle'
+      other: '%{count} tüm sonuçları görüntüle '
   breadcrumbs:
     notices:
       canonical: Bilimsel isimler artık sayfa kırıntılarında gösterilecek
@@ -100,8 +101,8 @@ tr:
   collect_icon_title: '"%{page}" sayfasından "%{item}" öğesini ekleyin…'
   collect_new_collection: Yeni Koleksiyon Adı
   collect_new_collection_title: …Yeni Bir Koleksiyon
-  collect_no_existing_collections: Henüz hiç yok! Soldaki formu kullanarak bir tane
-    oluşturun.
+  collect_no_existing_collections: Henüz sahip değilsiniz! Soldaki formu kullanarak
+    bir tane oluşturun.
   collect_select_collection: …Koleksiyonlarınızdan Biri
   collect_title: Şuraya "%{item}" ekle…
   collected_page_added_to_collection: <a href='%{link}'>%{name}</a> koleksiyonuna

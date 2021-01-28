@@ -1476,7 +1476,54 @@ pms:
         http://eol(dot)org/schema/terms/MarineLarvalDevelopmentStrategy: strategìa
           ëd dësvlup dle gate marenghe
         http://eol(dot)org/schema/terms/MatingSystem: strategìa d'arprodussion
+        http://eol(dot)org/schema/terms/MiddleToeLength: longheur dël dil mesan
+        http://eol(dot)org/schema/terms/MidpointAltitude: autëssa dël pont mesan
+        http://eol(dot)org/schema/terms/MilkPhospholipids: fosfolìpid dël làit
+        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: composission mineral
+          dël làit
+        http://eol(dot)org/schema/terms/MoistureUse: adatament a l'umidità
+        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: temp d'ardobiament
+          dël tass ëd mortalità
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
+        http://eol(dot)org/schema/terms/NestType: sòrt ëd ni
+        http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: nùmer dë spece
+          descrivùe antra 'l 1999 e ël 2008
+        http://eol(dot)org/schema/terms/NonInvasiveRange: nen anvasiva
+        http://eol(dot)org/schema/terms/NucleusLocation: locassion ëd la nos
+        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: nùmer d'Argistrassion
+          d'ADN an GGBN
+        http://eol(dot)org/schema/terms/NumberOfHosts: nùmer d'òspit
+        http://eol(dot)org/schema/terms/NumberOfSequencesInGenBank: nùmer ëd sequense
+          an GenBank
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: nùmer d'argistrassion
+          pùbliche an BOLD
+        http://eol(dot)org/schema/terms/NumberRecordsInBOLD: nùmer d'argistrassion
+          an BOLD
+        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: nùmer d'argistrassion
+          an GBIF
+        http://eol(dot)org/schema/terms/NumberReferencesInBHL: nùmer d'arferiment
+          an BHL
+        http://eol(dot)org/schema/terms/NumberSpecimensInGGBN: nùmer d'esemplar an
+          GGBN
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: composission dij
+          nuriment ant ël làit
+        http://eol(dot)org/schema/terms/OceaniaRealm: ël regn dl'Osseania (ìsole)
+        http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
+          otimal
+        http://eol(dot)org/schema/terms/OuterEarLength: longheur dl'orija esterna
+        http://eol(dot)org/schema/terms/OvaDiameter: diàmeter ëd l'ovet
+        http://eol(dot)org/schema/terms/OxygenSaturation: saturassion ëd l'eva an
+          O2
+        http://eol(dot)org/schema/terms/PETinRange: tass d'evapotraspirassion potensial
+          ëd na zòna geogràfica
+        http://eol(dot)org/schema/terms/PercentSpeciesCurrentlyDescribed: përsentual
+          dë spece marenghe descrivùe atualman
+        http://eol(dot)org/schema/terms/PercentSurveyedSpeciesNotYetKnownToScience: përsentual
+          dë spece studià ancor nen repertorià da la siensa
+        http://eol(dot)org/schema/terms/PercentSynonyms: përsentual ëd sinònim antra
+          le spece marenghe
+        http://eol(dot)org/schema/terms/PlantHabit: Comportament ëd la pianta
+        http://eol(dot)org/schema/terms/PlantingDensity: densità ëd piantassion
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij

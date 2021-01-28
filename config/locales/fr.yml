@@ -1463,6 +1463,14 @@ fr:
         http://eol(dot)org/schema/terms/GrazeAnimalPalatability: palatabilité animale
           de pâture
         http://eol(dot)org/schema/terms/HasToxin: possède une toxine
+        http://eol(dot)org/schema/terms/HoneyBeePain: Echelle de Douleur sur l'Abeille
+        http://eol(dot)org/schema/terms/HumanLivestockToxicity: toxicité relative
+          homme/bétail
+        http://eol(dot)org/schema/terms/HumanPopulationDensity: densité de population
+          humaine
+        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: changements
+          de densité de population humaine
+        http://eol(dot)org/schema/terms/HypoconeShape: forme de l'hypocone
         http://eol(dot)org/schema/terms/InvasiveRange: envahissant
         http://eol(dot)org/schema/terms/KnownSpecies: Espèces marines connues
         http://eol(dot)org/schema/terms/LittersPerYear: litres par an
@@ -1482,16 +1490,77 @@ fr:
           décrites entre 1999 et 2008
         http://eol(dot)org/schema/terms/NonInvasiveRange: non envahissant
         http://eol(dot)org/schema/terms/NucleusLocation: localisation du noyau
+        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: nombre d'Enregistrements
+          d'ADN dans GGBN
+        http://eol(dot)org/schema/terms/NumberOfSequencesInGenBank: nombre de séquences
+          dans GenBank
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: nombre d'enregistrements
+          publiques dans BOLD
+        http://eol(dot)org/schema/terms/NumberRecordsInBOLD: nombre d'enregistrements
+          dans BOLD
+        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: nombre d'enregistrements
+          dans GBIF
+        http://eol(dot)org/schema/terms/NumberReferencesInBHL: nombre de références
+          de BHL
+        http://eol(dot)org/schema/terms/NumberSpecimensInGGBN: nombre de spécimens
+          dans GGBN
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: Nutriments présents
+          dans le lait
+        http://eol(dot)org/schema/terms/OptimalGrowthTemperature: température de croissance
+          optimale
         http://eol(dot)org/schema/terms/OvaDiameter: diamètre de l'ovule
+        http://eol(dot)org/schema/terms/OxygenSaturation: saturation de l'eau en 02
+        http://eol(dot)org/schema/terms/PETinRange: taux d'évapotranspiration potentielle
+          d'une zone géographique
+        http://eol(dot)org/schema/terms/PercentSpeciesCurrentlyDescribed: pourcentage
+          d'espèces marines décrites à ce jour
+        http://eol(dot)org/schema/terms/PercentSurveyedSpeciesNotYetKnownToScience: pourcentage
+          d'espèces étudiées encore non répertoriées
+        http://eol(dot)org/schema/terms/PercentSynonyms: pourcentage de synonymes
+          entre les espèces marines
         http://eol(dot)org/schema/terms/PlantingDensity: densité de plantation
+        http://eol(dot)org/schema/terms/PopulationGroupSize: taille d'un groupe d'individus
+        http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: émergence de pousses
+          après un incendie
+        http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: survie des pousses
+          après incendie
+        http://eol(dot)org/schema/terms/PrecipitationInRange: précipitations dans
+          une zone géographique
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durée de développement
           prénatal
         http://eol(dot)org/schema/terms/Present: la distribution géographique inclut
+        http://eol(dot)org/schema/terms/Propagule: propagule
+        http://eol(dot)org/schema/terms/ProsomeHeight: hauteur du prosome
+        http://eol(dot)org/schema/terms/ProsomeLength: longueur du prosome
+        http://eol(dot)org/schema/terms/ProsomeWidth: largeur du prosome
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: Composition protéique
+          du lait
+        http://eol(dot)org/schema/terms/ProteinPotential: apports en protéines
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapport ARN:ADN
+        http://eol(dot)org/schema/terms/RecordInBOLD: enregistrements dans BOLD?
+        http://eol(dot)org/schema/terms/RecordInGBIF: enregistrements dans GBIF?
+        http://eol(dot)org/schema/terms/ReferenceInBHL: références dans BHL?
+        http://eol(dot)org/schema/terms/ReproductiveSkew: Biais Reproducteur
+        http://eol(dot)org/schema/terms/RespClip: capacité de repousse après une taille
+        http://eol(dot)org/schema/terms/RespDist: capacité de repousse après des perturbations
+        http://eol(dot)org/schema/terms/RespFire: capacité de repousse après un incendie
+        http://eol(dot)org/schema/terms/ResproutAbility: capacité de repousse après
+          une taille
         http://eol(dot)org/schema/terms/Salinity: salinité de l'eau
+        http://eol(dot)org/schema/terms/SeedBank: banque de graines
+        http://eol(dot)org/schema/terms/SeedPerPound: graines par livre
         http://eol(dot)org/schema/terms/SeedPeriodBegin: début de la période des graines
         http://eol(dot)org/schema/terms/SeedPeriodEnd: fin de la période des graines
+        http://eol(dot)org/schema/terms/SeedSpreadRate: vitesse de colonisation des
+          semences
+        http://eol(dot)org/schema/terms/SeedlingSurvival: survie des pousses
+        http://eol(dot)org/schema/terms/SequenceInGenBank: séquences dans GenBank?
         http://eol(dot)org/schema/terms/SexualSystem: système sexuel
         http://eol(dot)org/schema/terms/ShadeTolerance: tolérance à l'ombre
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: hauteur de coquille, bivalve
+        http://eol(dot)org/schema/terms/ShellLengthBivalve: longueur de coquille,
+          bivalve
+        http://eol(dot)org/schema/terms/SkeletalDensity: densité squelettique
         http://eol(dot)org/schema/terms/SocialGroupSize: taille du groupe social
         http://eol(dot)org/schema/terms/SocialSystem: système social
         http://eol(dot)org/schema/terms/StandardLength: longueur standard
