@@ -1524,7 +1524,23 @@ pms:
           le spece marenghe
         http://eol(dot)org/schema/terms/PlantHabit: Comportament ëd la pianta
         http://eol(dot)org/schema/terms/PlantingDensity: densità ëd piantassion
+        http://eol(dot)org/schema/terms/PopulationGroupSize: taja ëd na partìa ëd
+          popolassion
+        http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: emergensa ëd chërsùe
+          apress un feu
+        http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: dzorvivensa dle
+          piantin-e apress un feu
+        http://eol(dot)org/schema/terms/PrecipitationInRange: pressipitassion an na
+          zòna geogràfica
+        http://eol(dot)org/schema/terms/PrecipitationTolerance: toleransa a le pressipitassion
+        http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durà dël dësvlup
+          prenatal
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
+        http://eol(dot)org/schema/terms/PrimaryGrowthForm: forma ëd chërsùa primaria
+        http://eol(dot)org/schema/terms/PrimaryMacronutrientRequirements: condission
+          ëd macronuriment primarie
+        http://eol(dot)org/schema/terms/PropagationMethod: métod ëd propagassion dël
+          piantin
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
