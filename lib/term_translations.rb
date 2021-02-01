@@ -2,7 +2,7 @@ require "util/term_i18n"
 require "fileutils"
 
 class TermTranslations
-  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter, TermNames::StaticDataAdapter]
+  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter, TermNames::EolTermsAdapter]
   ADAPTERS_BY_NAME = ADAPTERS.collect { |a| [a.name, a] }.to_h
   LOCALE_FILE_DIR = Rails.application.root.join("config", "locales", "terms")
   TERM_LIMIT = 1500 # XXX: arbitrary limit based on Jen's estimates. Revisit as necessary.
@@ -97,9 +97,15 @@ class TermTranslations
     end
 
     def results_to_entries(results)
-      results.collect do |result|
-        [Util::TermI18n.uri_to_key(result.uri), result.value]
-      end.to_h
+      entries = []
+
+      results.each do |result|
+        next if result.value.blank? # don't write blank definitions etc.
+
+        entries << [Util::TermI18n.uri_to_key(result.uri), result.value]
+      end
+
+      entries.to_h
     end
 
     def write_yaml(locale, path, hash)
