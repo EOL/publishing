@@ -29,7 +29,7 @@ class TraitsController < ApplicationController
   def search_results
     @query.remove_really_blank_filters
 
-    redirect_to term_search_results_path(tq: @query.to_short_params), status: 301 if params[:term_query] # short params version is canonical
+    return redirect_to term_search_results_path(tq: @query.to_short_params), status: 301 if params[:term_query] # short params version is canonical
 
     set_view_type
 
