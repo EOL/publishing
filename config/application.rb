@@ -41,6 +41,7 @@ module EolWebsite
     config.neo4j.driver.url = Rails.application.secrets.neo4j_driver_url
     config.neo4j.driver.username = Rails.application.secrets.neo4j_user
     config.neo4j.driver.password = Rails.application.secrets.neo4j_password
+    config.neo4j.driver.config.encryption = false
 
     # Search for classes in the lib directory
     config.autoload_paths += %W(#{config.root}/lib)
