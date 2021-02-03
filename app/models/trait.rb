@@ -115,7 +115,7 @@ class Trait
 
       query = page.page_node.query_as(:page)
         .match(trait_match)
-        .match("(trait)-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(group_predicate:Term)")
+        .match("(trait)-[:predicate]->(:Term)-[#{TraitBank::Constants::PARENT_TERMS}]->(group_predicate:Term)")
         .where('group_predicate.eol_id': groups.map { |g| g.term_id })
 
       if options[:resource]

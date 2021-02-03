@@ -14,7 +14,7 @@ class PageNode
   def trait_resource_ids
     query_as(:page)
       .optional_match(
-        '(page)-[:trait|:inferred_trait*0..]->(trait:Trait)',
+        '(page)-[:trait|:inferred_trait]->(trait:Trait)',
         '(trait)-[:supplier]->(resource:Resource)'
       )
       .with('page, collect(DISTINCT resource) AS subj_resources')

@@ -3,8 +3,6 @@
 # :object - if the page only has traits where (trait)-[:object_page]->(page) belonging to the predicate
 # :both - if the page has traits that belong to both cases
 class PageTraitPredicateGroup
-  include TraitBank::Constants
-
   VALID_TYPES = [:subject, :object, :both]
 
   attr_accessor :term, :type
@@ -51,6 +49,8 @@ class PageTraitPredicateGroup
   end
 
   class << self
+    include TraitBank::Constants
+
     def for_page(page, options = {})
       subj_preds = subj_preds_for_page(page.page_node, options)
       obj_preds = obj_preds_for_page(page.page_node, options)
