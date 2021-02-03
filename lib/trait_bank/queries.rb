@@ -77,7 +77,7 @@ module TraitBank
         q = %{MATCH (page:Page#{page_id_part})
             -[#{trait_rel}]->(trait:Trait { eol_pk: "#{id.gsub(/"/, '""')}" })
             -[:supplier]->(resource:Resource),
-            (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term)
+            (trait:Trait)-[:predicate]->(predicate:Term)-[#{PARENT_TERMS}]->(group_predicate:Term)
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
             WITH group_predicate, head(collect({ page: page, trait: trait, predicate: predicate, resource: resource })) AS row
             LIMIT 1

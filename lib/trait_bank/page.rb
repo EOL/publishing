@@ -10,7 +10,7 @@ module TraitBank
 
         Rails.cache.fetch(key) do
           res = TraitBank.query(%Q(
-            OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+            OPTIONAL MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[#{PARENT_TERMS}]->(group_predicate:Term),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
             OPTIONAL MATCH #{EXEMPLAR_MATCH}
@@ -19,7 +19,7 @@ module TraitBank
             WITH group_predicate, page, collect(DISTINCT { trait: trait, predicate: predicate, resource: resource })[0..#{limit}] AS trait_rows, count(DISTINCT trait) AS trait_count
             UNWIND trait_rows AS trait_row
             WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject', page: page, trait_count: trait_count, trait: trait_row.trait, predicate: trait_row.predicate, resource: trait_row.resource }) AS subject_rows
-            OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
+            OPTIONAL MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[#{PARENT_TERMS}]->(group_predicate:Term), (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} }),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
             OPTIONAL MATCH #{EXEMPLAR_MATCH}
@@ -102,7 +102,7 @@ module TraitBank
 
         Rails.cache.fetch(key) do
           res = TraitBank.query(%Q(
-            MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term{ uri: '#{pred_uri}'}),
+            MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[#{PARENT_TERMS}]->(group_predicate:Term{ uri: '#{pred_uri}'}),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
             OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
@@ -125,7 +125,7 @@ module TraitBank
 
         Rails.cache.fetch(key) do
           res = TraitBank.query(%Q(
-            MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term{ uri: '#{pred_uri}'}),
+            MATCH (page:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[#{PARENT_TERMS}]->(group_predicate:Term{ uri: '#{pred_uri}'}),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])}),
             (trait)-[:object_page]->(object_page:Page { page_id: #{page_id} })
             OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
@@ -145,12 +145,12 @@ module TraitBank
         TraitBank::Caching.add_hash_to_key(key, options)
         Rails.cache.fetch(key) do
           res = TraitBank.query(%Q(
-            OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+            OPTIONAL MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(group_predicate:Term),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
             WITH DISTINCT group_predicate
             WITH collect({ group_predicate: group_predicate, page_assoc_role: 'subject' }) AS subj_rows
-            OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(group_predicate:Term),
+            OPTIONAL MATCH (:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(group_predicate:Term),
             (trait)-[:object_page]-(:Page { page_id: #{page_id} }),
             (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
             WHERE NOT (group_predicate)-[:synonym_of]->(:Term)

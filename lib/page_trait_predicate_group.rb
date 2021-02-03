@@ -3,6 +3,8 @@
 # :object - if the page only has traits where (trait)-[:object_page]->(page) belonging to the predicate
 # :both - if the page has traits that belong to both cases
 class PageTraitPredicateGroup
+  include TraitBank::Constants
+
   VALID_TYPES = [:subject, :object, :both]
 
   attr_accessor :term, :type
@@ -85,7 +87,7 @@ class PageTraitPredicateGroup
       query = page_node.query_as(:page)
         .match(trait_match)
         .match('(trait)-[:predicate]->(predicate:Term)')
-        .match('(predicate)-[:parent_term|:synonym_of*0..]->(group_predicate:Term)')
+        .match("(predicate)-[#{PARENT_TERMS}]->(group_predicate:Term)")
         .where_not('(group_predicate)-[:synonym_of]->(:Term)')
 
       if options[:resource]

@@ -1,6 +1,8 @@
 # This represents an attempt to separate out a bunch of trait-fetching methods for Page 
 class Page
   module Traits
+    include TraitBank::Constants
+
     # Includes descendants of with_object_term Terms option
     def has_data_for_predicate(predicate, options)
       options = options.merge({ match_object_descendants: true })
@@ -28,7 +30,7 @@ class Page
 
     def first_trait_for_object_terms(object_terms, options = {})
       trait_match = options[:match_object_descendants] ? 
-        '(trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(object_term:Term)' :
+        "(trait)-[:object_term]->(:Term)-[#{PARENT_TERMS}]->(object_term:Term)" :
         '(trait)-[:object_term]->(object_term:Term)'
 
       page_node.query_as(:page)
@@ -54,7 +56,7 @@ class Page
 
       q = page_node.query_as(:page)
         .match(trait_match)
-        .match('(trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(parent_predicate:Term)')
+        .match("(trait)-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(parent_predicate:Term)")
         .where('parent_predicate.eol_id': predicate_ids)
 
       for_object_term = options[:for_object_term]
@@ -63,7 +65,7 @@ class Page
       if options[:with_object_term] || (for_object_term && !match_object_descendants)
         q = q.match('(trait)-[:object_term]->(object_term:Term)')
       elsif match_object_descendants
-        q = q.match('(trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(object_term:Term)')
+        q = q.match("(trait)-[:object_term]->(:Term)-[#{PARENT_TERMS}]->(object_term:Term)")
       end
 
       if for_object_term
