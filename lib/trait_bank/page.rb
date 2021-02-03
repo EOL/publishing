@@ -170,6 +170,7 @@ module TraitBank
         Rails.cache.fetch("trait_bank/key_data_pks/#{page.id}/v1/limit_#{limit}", expires_in: 1.day) do
           # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
           page.page_node.query_as(:page)
+            .break
             .optional_match("(page)-[#{TRAIT_RELS}]->(trait:Trait)", "(trait)-[:predicate]->(predicate:Term)")
             .where("predicate.is_hidden_from_overview <> true")
             .where('(NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))')
