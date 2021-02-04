@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Codenstory
+# Author: Gomdoli
 # Author: Nuevo Paso
 # Author: SeoJeongHo
 # Author: Ykhwong
@@ -16,7 +17,10 @@ ko:
   are_you_sure_delete_account: EOL 계정을 정말로 지우시겠습니까?
   article:
     header:
+      blank: (이 문서에는 본문이 없습니다.)
+      body: 본문
       language: '언어: %{language}'
+      title: 제목
       untitled: 제목 없음
     name:
       missing: 제목 없음
@@ -86,6 +90,7 @@ ko:
   content_attributions_labels:
     altitude: 고도
     author: 만든이
+    contributor: 기여자
     compiler: 컴파일러
     creator: 만든이
     editor: 편집자
@@ -141,10 +146,20 @@ ko:
     created: GBIF 다운로드 작업이 생성되었습니다. <a href="%{url}">사용자 프로필 페이지</a>에서 상태를 확인하세요
   language: 언어
   languages:
+    ab: 압하스어
+    Q27683: 아체어
+    Q27776: 아디게어
+    aa: 아파르어
+    af: 아프리칸스어
+    ak: 아칸어
     alb: 알바니아어
     sq: 알바니아어
+    Q131339: 알레만어
+    am: 암하라어
     ar: 아랍어
+    an: 아라곤어
     hy: 아르메니아어
+    as: 아삼어
     az: 아제르바이잔어
     bs: 보스니아어
     Q750553: 브라질 포르투갈어
@@ -314,7 +329,6 @@ ko:
       republish: 다시 게시
       show_all:
         other: 모두 보기 (%{count})
-      sync: 동기화
     headers:
       index: 자료
     no_events: 없음!
@@ -427,11 +441,6 @@ ko:
     scientific_names: 이름
     users: 사용자
     references: 참고문헌
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: 그리고
-      last_word_connector: ', 그리고'
   term_query_filter:
     validations:
       invalid_uri: 유효하지 않은 URI
@@ -499,12 +508,23 @@ ko:
       previous: 이전 페이지
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/yes: 예
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 산소
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 마그네슘 (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: 화산
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: 빙산
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: 열대 사막
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 호수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: 우산
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: 숨기기
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 수생 식물
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 검정
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 초록
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003008: RO 0003008
+        http://purl(dot)org/obo/owlATOL_0001660: 총 길이
+        http://rs(dot)tdwg(dot)org/dwc/terms/decimalLatitude: 위도
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0004820: 인구 성비
 ...

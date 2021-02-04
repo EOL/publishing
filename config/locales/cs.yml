@@ -5,6 +5,7 @@
 # Author: Juandev
 # Author: Setnicka
 # Author: Spotter
+# Author: Watt
 ---
 cs:
   language_name: Anglicky
@@ -79,7 +80,6 @@ cs:
       referents_count: reference
       species_count: druhy
       updated_at: naposledy aktualizováno
-  cms_page_date: 'Poslední změna:'
   collect_already_in_collection: (již je zde)
   collect_already_in_collection_will_add_icon: (přidat média na "%{page}")
   collect_new_collection: Nový Název Sbírky
@@ -197,6 +197,15 @@ cs:
     filter_by_attribute: filtrovat podle atributu
     filter_by_language: filtrovat podle jazyka
   footer:
+    eol_info:
+      contact_us: Kontaktujte nás
+      data_services: Datové služby
+      donate: Darovat
+      education: Vzdělávání
+      glossary: Slovník
+      help: Nápověda
+      language_support: Jazyková podpora
+      terms_of_use: Podmínky užití
     discover:
       algae: Řasy
       amphibians: Obojživelníci
@@ -222,128 +231,128 @@ cs:
       viruses: Viry
   language: Jazyk
   languages:
-    Q29507: Asturianština
-    Q33357: Krymská tatarština
-    Q33634: Kalmyčtina
-    Q35939: Kreolská jamajština
-    Q36730: Turečtina, Ottomanština
-    Q56426: Marocká arabština
-    Q750553: Brazilská portugalština
-    Q9292: Ázerbájdžánština
     ab: Abcházština
     af: Afrikánština
-    an: Aragonština
+    sq: Albánština
     ar: Arabština
+    an: Aragonština
+    hy: Arménština
     as: Assámština
+    Q29507: Asturianština
+    Q9292: Ázerbájdžánština
     az: Ázerbájdžánština
+    eu: Baskičtina
     be: Běloruština
-    bg: Bulharština
-    bh: Bihárské jazyky
     bn: Bengálština
-    bo: Tibetština
-    br: Bretonština
+    bh: Bihárské jazyky
+    nb: Norština
     bs: Bosenština
+    Q750553: Brazilská portugalština
+    br: Bretonština
+    bg: Bulharština
+    my: Barmština
     ca: Katalánština
+    km: Khmérština
     ce: Čečenština
-    co: Korsičtina
-    cs: Čeština
+    ny: Čičevština
+    zh: Čínština
     cu: Staroslověnština
     cv: Čuvačština
-    cy: Welšština
+    co: Korsičtina
+    Q33357: Krymská tatarština
+    hr: Chorvatština
+    cs: Čeština
     da: Dánština
-    de: Němčina
-    el: Řečtina
+    nl: Vlámština
     en: Angličtina
     eo: Esperanto
-    es: Španělština; Kastilština
     et: Estonština
-    eu: Baskičtina
-    fa: Perština
-    fi: Finština
     fo: Faroeština
+    fi: Finština
     fr: Francouzština
-    fy: Západní frísština
-    ga: Irština
-    gd: Galština; Skotská galština
+    gd: Skotská galština
     gl: Galícijština
+    ka: Gruzínština
+    de: Němčina
+    el: Řečtina
+    ht: Haitiština, Haitská kreolština
     he: Hebrejština
     hi: Hindština
-    hr: Chorvatština
-    ht: Haitiština, Haitská kreolština
     hu: Maďarština
-    hy: Arménština
-    ia: Interlingua (Mezinárodní asociace pomocných jazyků)
-    id: Indonésština
     is: Islandština
+    id: Indonésština
+    ia: Interlingua (Mezinárodní asociace pomocných jazyků)
+    ga: Irština
     it: Italština
+    Q35939: Kreolská jamajština
     ja: Japonština
     jv: Javánština
-    ka: Gruzínština
-    kg: Kongžština
+    Q33634: Kalmyčtina
     kk: Kazašština
-    km: Khmérština
+    rw: Kinyarwanda
+    kg: Kongžština
     ko: Korejština
     ku: Kurdština
-    la: Latina
-    lb: Lucemburština
-    li: Limburština
     lo: Laoština
-    lt: Litevština
+    la: Latina
     lv: Lotyšština
-    mi: Maorština
+    li: Limburština
+    lt: Litevština
+    lb: Lucemburština
     mk: Makedonština
-    mn: Mongolština
     mt: Maltézština
-    my: Barmština
-    nb: Norština
-    ne: Nepálština
-    nl: Vlámština
-    nn: Nynorsk Norština
-    none: Neurčeno
+    mi: Maorština
+    mn: Mongolština
+    Q56426: Marocká arabština
     nv: Navajština
-    ny: Čičevština
+    ne: Nepálština
+    nn: Nynorsk Norština
     os: Ossetijština
     pa: Pandžábština
+    fa: Perština
     pl: Polština
-    ps: Paštúnština
     pt: Portugalština
+    ps: Paštúnština
     qu: Kečuánština
     ro: Rumunština; Moldavština; Moldovan
     ru: Ruština
-    rw: Kinyarwanda
+    sm: Samoaština
+    sg: Sango
     sa: Sanskrit
     sc: Sardinijština
+    sr: Srbština
+    sn: Shona
     sd: Sindhi
-    sg: Sango
     si: Sinhálština
     sk: Slovenština
     sl: Slovinština
-    sm: Samoaština
-    sn: Shona
     so: Somálština
-    sq: Albánština
-    sr: Srbština
+    es: Španělština; Kastilština
+    sw: Swahilština
     ss: Swati
     sv: Švédština
-    sw: Swahilština
+    ty: Tahitština
     ta: Tamilština
+    tt: Tatarština
     te: Teluguština
     th: Thajština
-    tk: Turkmenština
+    bo: Tibetština
     to: Tongština
     tr: Turečtina
-    tt: Tatarština
-    ty: Tahitština
+    Q36730: Turečtina, Ottomanština
+    tk: Turkmenština
     ug: Ujgurština
     uk: Ukrajinština
+    none: Neurčeno
     ur: Urdština
     uz: Uzbečtina
     vi: Vietnamština
     wa: Waloonština
+    cy: Welšština
+    fy: Západní frísština
     yi: Jiddiš
     yo: Yorubština
     za: Čínština
-    zh: Čínština
     zu: Zulujština
   layout_sign_in: Přihlásit se
   layout_sign_up: Zaregistrovat se

@@ -9,12 +9,14 @@
 # Author: Killarnee
 # Author: Schmackes
 # Author: Symposiarch
+# Author: Tiin
 # Author: Umherirrender
 ---
 de:
   language_name: Deutsch
   about:
     trait_bank:
+      title: TraitBank
       body_html: "<p>Das technische und Datenverwaltungsteam von EOL bezeichnet die
         strukturierten Datenressourcen von EOL - Merkmale und andere Attributdaten,
         ökologische Wechselwirkungen, und unsere eigene Taxonomy, die Dynamic Working
@@ -48,6 +50,8 @@ de:
       untitled: Ohne Titel
     name:
       missing: Ohne Titel
+  article_from_partner: bereitgestellt von %{partner}
+  article_duplicate: dieser Artikel wird auch in "%{section}" angezeigt
   breadcrumbs:
     notices:
       canonical: Wissenschaftliche Bezeichnungen werden ab jetzt in den Seiten breadcrumbs
@@ -83,7 +87,6 @@ de:
       scientific_names_count: wissenschaftliche Bezeichnungen
       species_count: Spezies
       updated_at: Zuletzt aktualisiert
-  cms_page_date: 'Letzte Änderung um:'
   collect_already_in_collection: (Es ist schon hier)
   collect_already_in_collection_will_add_icon: (füge Medien zu "%{page}" hinzu)
   collect_icon_title: Füge "%{item}" von der Seite "%{page}" zu
@@ -94,7 +97,10 @@ de:
   collect_select_collection: '...eine Ihrer Sammlungen'
   collect_title: Ergänze "%{item}" zu
   collected_page_added_to_collection: Ergänze %{page} zur Sammlung <a href='%{link}'>%{name}</a>
+  collected_page_already_in_collection: Das war bereits in deiner Sammlung.
   collected_pages_title: Seiten
+  collected_pages_medium:
+    destroyed_flash: Bild von gesammelter Seite entfernt.
   collection_associations:
     destroyed_flash: '%{name} ist nicht länger mit dieser Sammlung verbunden'
   collected_pages:
@@ -218,19 +224,47 @@ de:
     stats_cleared: Die Statistiken wurden neu berechnet.
   language: Sprache
   languages:
+    ab: Abchasisch
+    Q27683: Achinesisch
+    Q27776: Adygeisch
+    aa: Afar
+    af: Afrikaans
+    ak: Akan
     alb: Albanisch
     sq: Albanisch
+    Q131339: Alemannisch
+    am: Amharisch
     ar: Arabisch
     an: Aragonisch
+    hy: Armenisch
+    as: Assamesisch
     Q29507: Asturisch
+    Q56590: Atikamekw
+    av: Awarisch
+    ae: Avestisch
+    ay: Aymara
     Q9292: Aserbaidschanisch
     az: Aserbaidschanisch
+    Q33070: Balinesisch
+    bm: Bambara
+    Q33151: Banjaresisch
+    ba: Baschkirisch
     eu: Baskisch
+    Q29540: Bayrisch
+    be: Belarussisch
+    Q8836490: Bende
     bn: Bengalisch
+    bh: Bihari-Sprachen
+    bi: Bislama
+    nb: Bokmål, Norwegisch; Norwegisches Bokmål
+    Q4941378: Bondei
     bs: Bosnisch
+    Q33202: Brahui
     Q750553: Brasilianisches Portugiesisch
     br: Bretonisch
     bg: Bulgarisch
+    my: Birmanisch
+    Q33120: Burjatisch
     ca: Katalanisch; Valencianisch
     Q33388: Cherokee
     co: Korsisch
@@ -243,6 +277,7 @@ de:
     fi: Finnisch
     fin: Finnisch
     fr: Französisch
+    fra: Französisch
     gd: Schottisch-Gälisch
     gl: Galizisch
     ka: Georgisch
@@ -279,6 +314,8 @@ de:
   layout_sign_up: Registrieren
   layout_sign_out: Abmelden
   literature_and_references_header: Literatur und Verweise
+  maps:
+    empty: Es sind keine Karten für diese Seite verfügbar.
   medium:
     untitled:
       image: Unbenanntes Bild
@@ -310,6 +347,7 @@ de:
     education: Bildung
     search:
       placeholder: Durchsuche EOL...
+    trait_bank: TraitBank
   page_title: Enzyklopädie des Lebens
   page_title_search: 'Durchsuche: %{query}'
   page_vernaculars_empty: Mit diesem Taxon sind keine verbreiteten Namen verbunden.
@@ -362,6 +400,7 @@ de:
       clear_publishing_confirm: Dies will alle Veröffentlichung fertigstellen und
         kann Probleme verursachen, wenn es verwendet wird während aktiv veröffentlicht
         wird. Sind sie sicher?
+  resource_missing: Ressource nicht gefunden
   scientific_name:
     status_title:
       accepted: Akzeptierte Namen
@@ -377,6 +416,9 @@ de:
   search_results:
     medium_article: Artikel
     medium_image: Bild
+    medium_map: Karte
+    medium_sound: Ton
+    medium_video: Video
     empty: Keine Ergebnisse.
     field_matches:
       description: 'Stimmt mit der Beschreibung überein:'
@@ -424,11 +466,6 @@ de:
     scientific_names: Namen
     users: Benutzer
     references: Referenzen
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: und
-      last_word_connector: ', und'
   term_query_filter:
     validations:
       invalid_uri: Ungültige URL
@@ -471,6 +508,8 @@ de:
       previous: vorherige Seite
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/FossilFirst: erstes Auftreten
+        http://eol(dot)org/schema/terms/Present: Geographische Verteilung enthält
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brüten
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Bariumsulfat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: Sauerstoff
@@ -490,6 +529,8 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Körperlänge
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: Zitzenzahl
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: dämmerungsaktiv
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Fluss
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: küstennah
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: saurer Boden
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: Rhizompflanze
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: Kryptophyt
@@ -548,21 +589,4 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ernährt sich von
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: Verhältnis
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Körpermasse
-        http://eol(dot)org/schema/terms/Present: Geographische Verteilung enthält
-        http://eol(dot)org/schema/terms/FossilFirst: erstes Auftreten
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: küstennah
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Fluss
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
-        http://semanticscience(dot)org/resource/SIO_001114: max.
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: Prozent
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: Grad
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: Grad Fahrenheit
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: Zoll
-        http://purl(dot)org/obo/owl/UO#UO_0000034: Wochen
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/Tag
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sek
-        http://eol(dot)org/schema/terms/millimetersPerYear: mm/Jahr
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: Tonnen
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: Fuß
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: Zoll
 ...

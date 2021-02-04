@@ -1541,6 +1541,20 @@ pms:
           ëd macronuriment primarie
         http://eol(dot)org/schema/terms/PropagationMethod: métod ëd propagassion dël
           piantin
+        http://eol(dot)org/schema/terms/Propagule: propàgol
+        http://eol(dot)org/schema/terms/ProsomeHeight: autëssa dël prosòma
+        http://eol(dot)org/schema/terms/ProsomeLength: longheur dël prosòma
+        http://eol(dot)org/schema/terms/ProsomeWidth: larghëssa dël prosòma
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composission protèica
+          dël làit
+        http://eol(dot)org/schema/terms/ProteinPotential: potensial protèich
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapòrt ARN:ADN
+        http://eol(dot)org/schema/terms/RangeMidpointLatitude: latitùdin dël pont
+          mesan ëd la zòna
+        http://eol(dot)org/schema/terms/RecordInBOLD: argistrassion an BOLD?
+        http://eol(dot)org/schema/terms/RecordInGBIF: argistrassion an GBIF?
+        http://eol(dot)org/schema/terms/ReferenceInBHL: arferiment an BHL?
+        http://eol(dot)org/schema/terms/ReproductiveSkew: Deviassion arprodutiva
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
