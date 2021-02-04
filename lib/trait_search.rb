@@ -39,8 +39,6 @@ class TraitSearch
     data = query_response[:data]
     processed_data = @query.record? ? process_trait_data(data) : process_page_data(data)
     @grouped_data = Kaminari.paginate_array(processed_data, total_count: count).page(@page).per(@per_page)
-
-    # TODO: new response types
   end
 
   def pretty_cypher
