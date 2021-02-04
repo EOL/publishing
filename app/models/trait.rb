@@ -26,6 +26,10 @@ class Trait
   end
 
   class << self
+    def find(eol_pk)
+      wrap_node(TraitNode.find(eol_pk))
+    end
+
     # Factory method
     def for_eol_pks(eol_pks)
       nodes = TraitNode.where(eol_pk: eol_pks)

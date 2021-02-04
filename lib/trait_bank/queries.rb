@@ -70,35 +70,6 @@ module TraitBank
         end
       end
 
-      def by_trait_and_page(input, page_id, page = 1, per = 200)
-        id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
-        page_id_part = page_id.nil? ? "" : "{ page_id: #{page_id} }"
-        trait_rel = page_id.nil? ? ":trait" : TRAIT_RELS
-        q = %{MATCH (page:Page#{page_id_part})
-            -[#{trait_rel}]->(trait:Trait { eol_pk: "#{id.gsub(/"/, '""')}" })
-            -[:supplier]->(resource:Resource),
-            (trait:Trait)-[:predicate]->(predicate:Term)-[#{PARENT_TERMS}]->(group_predicate:Term)
-            WHERE NOT (group_predicate)-[:synonym_of]->(:Term)
-            WITH group_predicate, head(collect({ page: page, trait: trait, predicate: predicate, resource: resource })) AS row
-            LIMIT 1
-            WITH group_predicate, row.page AS page, row.trait AS trait, row.predicate AS predicate, row.resource AS resource
-            OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
-            OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
-            OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
-            OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
-            OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-            OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
-            OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
-            OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
-            OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-            RETURN group_predicate, resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
-              meta, meta_predicate, meta_units_term, meta_object_term, page }
-            # ORDER BY toLower(meta_predicate.name)}
-        q += limit_and_skip_clause(page, per)
-        res = TraitBank.query(q)
-        TraitBank::ResultHandling.build_trait_array(res, group_meta_by_predicate: true)
-      end
-
       def data_dump_trait(pk)
         id = pk.gsub(/"/, '""')
         TraitBank.query(%{

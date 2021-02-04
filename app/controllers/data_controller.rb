@@ -1,28 +1,33 @@
 class DataController < ApplicationController
   include DataAssociations
+  include TraitBank::Constants
+
   helper :data
   protect_from_forgery
 
   def show
-    trait_node = TraitNode
-      .query_as(:trait)
-      .match('(page:Page)-[:trait|:inferred_trait]->(trait)')
-      .where('trait.eol_pk': params[:id], 'page.page_id': params[:page_id].to_i)
-      .return(:trait)
-      .limit(1)
-      .first&.[](:trait)
+    @trait = Trait.find(params[:id])
+    page_id = params[:page_id]&.to_i
+    trait_rels = page_id.nil? ? ':trait' : TRAIT_RELS
 
-    raise ActiveRecord::RecordNotFound unless trait_node
+    q = @trait.query_as(:trait)
+      .match("(page:Page)-[#{trait_rels}]->(trait)")
+      .match("(trait)-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(group_predicate:Term)")
+      .where_not('(group_predicate)-[:synonym_of]->(:Term)')
 
-    @trait = Trait.wrap_node(trait_node)
-    @page = Page.find(params[:page_id])
-    @hide_pred_when_closed = params[:hide_pred_when_closed].present? ? params[:hide_pred_when_closed] : false
+    q = q.where('page.page_id': params[:page_id].to_i) if page_id.present?
+      
+    query_result = q.return(:page, :group_predicate).limit(1)&.first
+
+    raise ActiveRecord::RecordNotFound if query_result.nil?
+
+    @page = Page.find(query_result[:page].page_id)
 
     if request.xhr?
       @show_taxon = params[:show_taxon] && params[:show_taxon] == "true"
       render :layout => false
     else
-      redirect_to "#{page_data_path(page_id: @page.id, predicate: @data[:group_predicate][:uri])}#trait_id=#{@data[:id]}"
+      redirect_to "#{page_data_path(page_id: @page.id, predicate_id: query_result[:group_predicate].id)}#trait_id=#{@trait.id}"
     end
   end
 end
