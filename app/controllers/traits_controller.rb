@@ -107,17 +107,6 @@ class TraitsController < ApplicationController
       .per_page(@per_page)
       .page(@page)
   
-    #data = @search.query_response[:data] # TODO: eliminate, make query_response private
-    #ids = data.map { |t| t[:page_id] }.uniq 
-    # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
-
-    #pages = Page.where(:id => ids).with_hierarchy
-    #@pages = pages.map { |p| [p.id, p] }.to_h
-
-    # TODO: code review here. I think we're creating a lot of cruft we don't use.
-    @is_terms_search = true
-   
-    # TODO: restore
     build_gbif_url(@query, @search)
     data_viz_type(@query, @search)
     render "search"
