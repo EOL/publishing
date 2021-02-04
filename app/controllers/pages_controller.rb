@@ -170,9 +170,9 @@ class PagesController < ApplicationController
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
     @selected_resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @predicate_groups = PageTraitPredicateGroup.for_page(@page, resource: @selected_resource)
-    @selected_predicate_group = params[:predicate] ?
+    @selected_predicate_group = params[:predicate_id] ?
       PageTraitPredicateGroup.new(
-        TermNode.find(params[:predicate].to_i), 
+        TermNode.find(params[:predicate_id].to_i), 
         params[:page_assoc_role]&.to_sym || :subject
       ) : 
       nil
