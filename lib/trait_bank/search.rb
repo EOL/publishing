@@ -42,7 +42,7 @@ module TraitBank
         end
       end
 
-      # term_page_search_matches/term_record_search_matches are intentionally left public for use outside of this module
+      # term_page_search_matches/term_record_search_matches/term_search_matches_helper are intentionally left public for use outside of this module
       def term_page_search_matches(term_query, params, options = {})
         term_search_matches_helper(term_query, params, options) do |i, filter, trait_var, pred_var, obj_var|
           if i == term_query.filters.length - 1
@@ -75,9 +75,96 @@ module TraitBank
         end
       end
 
+      def term_search_matches_helper(term_query, params, options = {})
+        filters = term_query.page_count_sorted_filters
+        filter_parts = []
+        clade_matched = term_query.clade_node && (
+          filters.empty? ||
+          term_query.clade_node.descendant_count < term_query.page_count_sorted_filters.first.min_distinct_page_count
+        )
+        gathered_term_matches, gathered_terms = gather_terms_matches(
+          filters,
+          params,
+          first_filter_gather_all: clade_matched,
+          include_tgt_vars: options[:with_tgt_vars]
+        )
+
+        add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched, with_tgt_vars: options[:with_tgt_vars])
+
+        filters.each_with_index do |filter, i|
+          filter_matches = []
+          filter_wheres = []
+          obj_term_labeler = TraitBank::QueryFieldLabeler.new(options[:obj_var], :object_term, i)
+          pred_labeler = TraitBank::QueryFieldLabeler.new(options[:pred_var], :predicate, i)
+
+          trait_var = filters.length == 1 && options[:trait_var] ? options[:trait_var] : "trait#{i}"
+          base_meta_var = "meta#{i}"
+          gathered_terms_for_filter = gathered_terms.shift
+
+          clade_matched ||= add_clade_where_conditional(clade_matched, i, filter, term_query, filter_parts)
+          page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
+
+          filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
+
+          if filter.object_term?
+            filter_matches << filter_term_match(trait_var, obj_term_labeler.tgt_label, obj_term_labeler.label, :object_term, gathered_terms_for_filter)
+          elsif options[:always_match_obj]
+            filter_matches << filter_term_match_no_hier(trait_var, obj_term_labeler.label, :object_term)
+          end
+
+          if filter.obj_clade.present?
+            gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
+            obj_clade_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.obj_clade_field, i)
+
+            if gathered_clade
+              filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
+            else
+              filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
+            end
+          end
+
+          if filter.predicate?
+            filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, options[:pred_var] || pred_labeler.label, :predicate, gathered_terms_for_filter)
+          elsif options[:always_match_pred]
+            filter_matches << filter_term_match_no_hier(trait_var, pred_labeler.label, :predicate)
+          end
+
+          filter_wheres << term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
+          filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i == filters.length - 1
+          add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
+          add_term_filter_resource_match(filter, trait_var, filter_matches, params)
+
+          match_where = %Q(
+            MATCH #{filter_matches.join(", ")}
+            WHERE #{filter_wheres.join(" AND ")}
+          )
+
+          with = options[:with_tgt_vars] ?
+            yield(i, filter, trait_var, pred_labeler.label, pred_labeler.tgt_label, obj_term_labeler.label, obj_term_labeler&.tgt_label) :
+            yield(i, filter, trait_var, pred_labeler&.label, obj_term_labeler&.label)
+
+          if with.present?
+            add_gathered_terms(with, gathered_terms, with_tgt_vars: options[:with_tgt_vars])
+
+            if term_query.clade && !clade_matched
+              with.concat(", pages")
+            end
+          end
+
+          if with
+            filter_parts << "#{match_where}\n#{with}"
+          else
+            filter_parts << match_where
+          end
+        end
+
+        %Q(
+          #{gathered_term_matches.join("\n")}
+          #{filter_parts.join("\n")}
+        )
+      end
 
       private
-
 
       def term_search_uncached(term_query, key, options)
         limit_and_skip = options[:page] ? TraitBank::Queries.limit_and_skip_clause(options[:page], options[:per]) : ""
@@ -529,95 +616,6 @@ module TraitBank
 
           with_query.concat(", #{gt_part}")
         end
-      end
-
-      def term_search_matches_helper(term_query, params, options = {})
-        filters = term_query.page_count_sorted_filters
-        filter_parts = []
-        clade_matched = term_query.clade_node && (
-          filters.empty? ||
-          term_query.clade_node.descendant_count < term_query.page_count_sorted_filters.first.min_distinct_page_count
-        )
-        gathered_term_matches, gathered_terms = gather_terms_matches(
-          filters,
-          params,
-          first_filter_gather_all: clade_matched,
-          include_tgt_vars: options[:with_tgt_vars]
-        )
-
-        add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched, with_tgt_vars: options[:with_tgt_vars])
-
-        filters.each_with_index do |filter, i|
-          filter_matches = []
-          filter_wheres = []
-          obj_term_labeler = TraitBank::QueryFieldLabeler.new(options[:obj_var], :object_term, i)
-          pred_labeler = TraitBank::QueryFieldLabeler.new(options[:pred_var], :predicate, i)
-
-          trait_var = filters.length == 1 && options[:trait_var] ? options[:trait_var] : "trait#{i}"
-          base_meta_var = "meta#{i}"
-          gathered_terms_for_filter = gathered_terms.shift
-
-          clade_matched ||= add_clade_where_conditional(clade_matched, i, filter, term_query, filter_parts)
-          page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
-
-          filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
-
-          if filter.object_term?
-            filter_matches << filter_term_match(trait_var, obj_term_labeler.tgt_label, obj_term_labeler.label, :object_term, gathered_terms_for_filter)
-          elsif options[:always_match_obj]
-            filter_matches << filter_term_match_no_hier(trait_var, obj_term_labeler.label, :object_term)
-          end
-
-          if filter.obj_clade.present?
-            gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
-            obj_clade_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.obj_clade_field, i)
-
-            if gathered_clade
-              filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
-            else
-              filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
-            end
-          end
-
-          if filter.predicate?
-            filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, options[:pred_var] || pred_labeler.label, :predicate, gathered_terms_for_filter)
-          elsif options[:always_match_pred]
-            filter_matches << filter_term_match_no_hier(trait_var, pred_labeler.label, :predicate)
-          end
-
-          filter_wheres << term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
-          filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i == filters.length - 1
-          add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
-          add_term_filter_resource_match(filter, trait_var, filter_matches, params)
-
-          match_where = %Q(
-            MATCH #{filter_matches.join(", ")}
-            WHERE #{filter_wheres.join(" AND ")}
-          )
-
-          with = options[:with_tgt_vars] ?
-            yield(i, filter, trait_var, pred_labeler.label, pred_labeler.tgt_label, obj_term_labeler.label, obj_term_labeler&.tgt_label) :
-            yield(i, filter, trait_var, pred_labeler&.label, obj_term_labeler&.label)
-
-          if with.present?
-            add_gathered_terms(with, gathered_terms, with_tgt_vars: options[:with_tgt_vars])
-
-            if term_query.clade && !clade_matched
-              with.concat(", pages")
-            end
-          end
-
-          if with
-            filter_parts << "#{match_where}\n#{with}"
-          else
-            filter_parts << match_where
-          end
-        end
-
-        %Q(
-          #{gathered_term_matches.join("\n")}
-          #{filter_parts.join("\n")}
-        )
       end
 
     end
