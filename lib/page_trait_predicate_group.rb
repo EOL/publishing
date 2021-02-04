@@ -56,7 +56,10 @@ class PageTraitPredicateGroup
     include TraitBank::Constants
 
     def for_page(page, options = {})
-      Rails.cache.fetch("page_trait_predicate_group/for_page/#{page.id}") do
+      key = "page_trait_predicate_group/for_page/#{page.id}"
+      TraitBank::Caching.add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
         subj_preds = subj_preds_for_page(page.page_node, options)
         obj_preds = obj_preds_for_page(page.page_node, options)
         obj_preds_by_id = obj_preds.map { |p| [p.id, p] }.to_h
