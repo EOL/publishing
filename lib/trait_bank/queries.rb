@@ -93,7 +93,7 @@ module TraitBank
             OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
             RETURN group_predicate, resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
               meta, meta_predicate, meta_units_term, meta_object_term, page }
-            # ORDER BY LOWER(meta_predicate.name)}
+            # ORDER BY toLower(meta_predicate.name)}
         q += limit_and_skip_clause(page, per)
         res = TraitBank.query(q)
         TraitBank::ResultHandling.build_trait_array(res, group_meta_by_predicate: true)
@@ -126,8 +126,8 @@ module TraitBank
             "OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page) "\
             "RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term"
 
-          # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
-          #   "LOWER(trait.literal)", "trait.normal_measurement"])
+          # q += order_clause(by: ["toLower(predicate.name)", "toLower(object_term.name)",
+          #   "toLower(trait.literal)", "trait.normal_measurement"])
           q += limit_and_skip_clause(page, per)
           res = TraitBank.query(q)
           TraitBank::ResultHandling.build_trait_array(res)
@@ -189,7 +189,7 @@ module TraitBank
             # though it will require more work to keep "up to date" (e.g.: if the
             # name of an object term changes, all associated traits will have to
             # change).
-            ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+            ["toLower(predicate.name)", "toLower(info_term.name)", "trait.normal_measurement", "toLower(trait.literal)"]
           end
         # NOTE: "ties" for traits are resolved by species name.
         sorts << "page.name" unless options[:by]

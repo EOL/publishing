@@ -407,7 +407,7 @@ module TraitBank
         key += "/include_hidden" if hidden
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
-            "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
+            "RETURN DISTINCT(term) ORDER BY toLower(term.name), toLower(term.uri)"
           q += TraitBank::Queries.limit_and_skip_clause(page, per)
           res = TraitBank.query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
@@ -483,7 +483,7 @@ module TraitBank
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
-            q += "RETURN DISTINCT(term) ORDER BY LOWER(term.#{name_field}), LOWER(term.uri)"
+            q += "RETURN DISTINCT(term) ORDER BY toLower(term.#{name_field}), toLower(term.uri)"
             q += TraitBank::Queries.limit_and_skip_clause(page, per)
           end
           res = TraitBank.query(q)
@@ -511,7 +511,7 @@ module TraitBank
             "AND term.is_hidden_from_overview = false "\
             "AND term.type IN #{TraitBank::Queries.array_to_qs(types)} "\
             "RETURN term "\
-            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
+            "ORDER BY toLower(term.#{Util::I18nUtil.term_name_property}), term.uri"
 
         term_query(q)
       end
@@ -520,7 +520,7 @@ module TraitBank
         q = "MATCH (term:Term)-[:parent_term]->(:Term{ uri:'#{uri}' }) "\
             "WHERE NOT (term)-[:synonym_of]->(:Term) "\
             "RETURN term "\
-            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
+            "ORDER BY toLower(term.#{Util::I18nUtil.term_name_property}), term.uri"
         term_query(q)
       end
 
@@ -613,7 +613,7 @@ module TraitBank
 
       private
       def term_name_prefix_match(label, qterm)
-        "LOWER(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.delete('"').downcase}.*\" "
+        "toLower(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.delete('"').downcase}.*\" "
       end
 
       def relate(how, from, to)
