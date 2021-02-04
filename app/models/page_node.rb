@@ -12,22 +12,24 @@ class PageNode
   has_many :out, :inferred_traits, type: :inferred_trait, model_class: :TraitNode
 
   def trait_resource_ids
-    query_as(:page)
-      .break
-      .optional_match(
-        '(page)-[:trait|:inferred_trait]->(trait:Trait)',
-        '(trait)-[:supplier]->(resource:Resource)'
-      )
-      .with('page, collect(DISTINCT resource) AS subj_resources')
-      .optional_match(
-        '(trait:Trait)-[:object_page]->(page)',
-        '(trait)-[:supplier]->(resource:Resource)'
-      )
-      .with('collect(DISTINCT resource) + subj_resources AS resources')
-      .unwind('resources AS resource')
-      .with('DISTINCT resource.resource_id AS resource_id')
-      .where('resource_id IS NOT NULL')
-      .pluck(:resource_id)
+    Rails.cache.fetch("page_node/#{id}/trait_resource_ids") do
+      query_as(:page)
+        .break
+        .optional_match(
+          '(page)-[:trait|:inferred_trait]->(trait:Trait)',
+          '(trait)-[:supplier]->(resource:Resource)'
+        )
+        .with('page, collect(DISTINCT resource) AS subj_resources')
+        .optional_match(
+          '(trait:Trait)-[:object_page]->(page)',
+          '(trait)-[:supplier]->(resource:Resource)'
+        )
+        .with('collect(DISTINCT resource) + subj_resources AS resources')
+        .unwind('resources AS resource')
+        .with('DISTINCT resource.resource_id AS resource_id')
+        .where('resource_id IS NOT NULL')
+        .pluck(:resource_id)
+    end
   end
 end
 

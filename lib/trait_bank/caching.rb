@@ -2,8 +2,9 @@ module TraitBank
   module Caching
     class << self
       def add_hash_to_key(key, hash)
-        hash.each do |k, v|
-          key.concat("/#{k}_#{v}")
+        hash.keys.sort.each do |k|
+          v = hash[k]
+          key.concat("/#{k}_#{v}") if !v.nil?
         end
       end
     end

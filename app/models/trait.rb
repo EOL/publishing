@@ -144,6 +144,7 @@ class Trait
     def extract_grouped_trait_pks(pks_by_group)
       pks_by_group.map { |row| row[:trait_pks] }.flatten
     end
+
     # end private
   end
   # end class << self

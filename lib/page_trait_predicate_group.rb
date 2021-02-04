@@ -19,6 +19,10 @@ class PageTraitPredicateGroup
     @term.id
   end
 
+  def id
+    "#{term_id}_#{@type}"
+  end
+
   def uri
     @term.uri
   end
@@ -52,26 +56,28 @@ class PageTraitPredicateGroup
     include TraitBank::Constants
 
     def for_page(page, options = {})
-      subj_preds = subj_preds_for_page(page.page_node, options)
-      obj_preds = obj_preds_for_page(page.page_node, options)
-      obj_preds_by_id = obj_preds.map { |p| [p.id, p] }.to_h
-      groups = []
+      Rails.cache.fetch("page_trait_predicate_group/for_page/#{page.id}") do
+        subj_preds = subj_preds_for_page(page.page_node, options)
+        obj_preds = obj_preds_for_page(page.page_node, options)
+        obj_preds_by_id = obj_preds.map { |p| [p.id, p] }.to_h
+        groups = []
 
-      subj_preds.each do |p|
-        group = if obj_preds_by_id.delete(p.id)
-                  new(p, :both)
-                else
-                  new(p, :subject)
-                end
+        subj_preds.each do |p|
+          group = if obj_preds_by_id.delete(p.id)
+                    new(p, :both)
+                  else
+                    new(p, :subject)
+                  end
 
-        groups << group
+          groups << group
+        end
+
+        obj_preds_by_id.values.each do |p|
+          groups << new(p, :object)
+        end
+
+        groups.sort { |a, b| a.name <=> b.name }
       end
-
-      obj_preds_by_id.values.each do |p|
-        groups << new(p, :object)
-      end
-
-      groups.sort { |a, b| a.name <=> b.name }
     end
 
     private
