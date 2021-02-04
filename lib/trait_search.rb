@@ -1,4 +1,6 @@
 class TraitSearch
+  attr_accessor :query
+
   def initialize(term_query)
     raise TypeError, "term_query can't be nil" if term_query.nil?
 
@@ -6,12 +8,6 @@ class TraitSearch
     @per_page = DEFAULT_PER_PAGE
     @page = DEFAULT_PAGE
   end  
-
-  def query
-    @query
-
-    self
-  end
 
   def per_page(value)
     raise TypeError, 'must be > 0' unless value > 0
