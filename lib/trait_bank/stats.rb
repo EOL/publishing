@@ -264,7 +264,7 @@ module TraitBank
           "UNWIND all_rows AS row "\
           "WITH row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
           "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, row.source.page_id + '-' + row.target.page_id AS id "\
-          "RETURN type, source, target, id "\
+          "RETURN type, source, target, id"
 
         TraitBank::ResultHandling.results_to_hashes(TraitBank.query(qs), "id")
       end
