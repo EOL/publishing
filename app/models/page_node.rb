@@ -13,6 +13,7 @@ class PageNode
 
   def trait_resource_ids
     query_as(:page)
+      .break
       .optional_match(
         '(page)-[:trait|:inferred_trait]->(trait:Trait)',
         '(trait)-[:supplier]->(resource:Resource)'
