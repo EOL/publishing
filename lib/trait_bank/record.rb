@@ -22,6 +22,7 @@ module TraitBank
         record.dig(:resource, :resource_id)
       end
 
+      # These name methods work on TermNodes as well as hashes since the former's attributes can be accessed with []
       def i18n_name_for_locale(record, locale)
         i18n_attr_for_locale(record, :name, locale)
       end

@@ -36,8 +36,7 @@ class PageTraitPredicateGroup
   end
 
   def name
-    # TODO: fix
-    object? ? TraitBank::Record.i18n_inverse_name(@term) : TraitBank::Record::i18n_name(@term)
+    object? ? @term.i18n_inverse_name : @term.i18n_name
   end
 
   def ==(other)

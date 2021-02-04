@@ -61,10 +61,11 @@ class TermNode
   end
 
   def i18n_name(locale = I18n.locale)
-    TraitBank::Record.i18n_name_for_locale({
-      uri: uri,
-      name: name
-    }, locale)
+    TraitBank::Record.i18n_name_for_locale(self, locale)
+  end
+
+  def i18n_inverse_name
+    TraitBank::Record.i18n_inverse_name(self)
   end
 
   def i18n_definition
