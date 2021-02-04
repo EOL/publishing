@@ -79,7 +79,7 @@ class PageTraitPredicateGroup
           groups << new(p, :object)
         end
 
-        groups.sort { |a, b| a.name <=> b.name }
+        groups.sort { |a, b| a.name.downcase <=> b.name.downcase }
       end
     end
 
