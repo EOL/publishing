@@ -91,7 +91,6 @@ mk:
       referents_count: наведувања
       species_count: видови
       updated_at: последна поднова
-  cms_page_date: 'Последна поднова:'
   collect_already_in_collection: (веќе е тука)
   collect_already_in_collection_will_add_icon: (додај слика/снимка во „%{page}“)
   collect_icon_title: Додај го „%{item}“ од страницата „%{page}“ во…
@@ -835,7 +834,6 @@ mk:
       show_warns:
         one: прикажи предупредување (%{count})
         other: прикажи предупредувања (%{count})
-      sync: усогласи
       clear_publishing: поништи заклученост
       clear_publishing_confirm: Со ова ќе ги „завршите“ сите објавувања и може да
         предизвика проблеми ако се користи додека трае тековно објавување. Дали сте
@@ -1064,11 +1062,6 @@ mk:
     scientific_names: имиња
     users: корисници
     references: наводи
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: и
-      last_word_connector: ' и'
   term_query:
     validations:
       empty_filters_error_record: мора да укажете филтер со својство или вредност
@@ -1298,6 +1291,11 @@ mk:
     pagination:
       next: следна страница
       previous: претходна страница
+    inverse_name:
+      fallback: обратно на „%{term_name}“
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: го јаде
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: живеалиштето го создава
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: многу мал
@@ -1432,8 +1430,8 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000201: суптропска листопадна
           шума
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: умерена листопадна шума
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: суптропски
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: умерен
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: суптропско
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: умерено
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: средоземна ретка шума
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000209: суптропска зимзелена
           шума

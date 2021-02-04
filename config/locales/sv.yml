@@ -63,7 +63,6 @@ sv:
       referents_count: referenser
       species_count: arter
       updated_at: senast uppdaterad
-  cms_page_date: 'Senast ändrad:'
   collect_already_in_collection: (den är redan här)
   collect_already_in_collection_will_add_icon: (lägg till media i "%{page}")
   collect_icon_title: Lägg till "%{item}" från sidan "%{page}" i…
@@ -898,11 +897,6 @@ sv:
     scientific_names: namn
     users: användare
     references: referenser
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: och
-      last_word_connector: ', och'
   term_query_filter:
     validations:
       blank_error: måste ange ett attribut eller värde

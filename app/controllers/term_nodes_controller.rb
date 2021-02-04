@@ -9,12 +9,12 @@ class TermNodesController < ApplicationController
         :object_term_id
       end
 
-      term_search_results_path(term_query: TermQuery.new({
+      term_search_results_path(tq: TermQuery.new({
         result_type: :record,
         filters: [
           TermQueryFilter.new(param => term_node.id)
         ]
-      }).to_params)
+      }).to_short_params)
     else
       term_node.uri
     end

@@ -1,6 +1,8 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Agaafd
+# Author: ArdaDemirel
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
 # Author: MuratTheTurkish
@@ -33,7 +35,7 @@ tr:
   account_already_linked: hesabınız zaten EOL ile bağlantılı
   account_not_linked: hesabınız EOL ile bağlantılı değil
   advanced: gelişmiş
-  are_you_sure_delete_account: EOL hesabınızı silmek istediğinize emin misiniz?
+  are_you_sure_delete_account: EOL hesabınızı silmek istediğinizden emin misiniz?
   article:
     actions:
       collect: topla
@@ -50,7 +52,7 @@ tr:
   autocomplete:
     see_all:
       one: diğer sonuçları görüntüle
-      other: '%{count} sonucunu tümünü görüntüle'
+      other: '%{count} tüm sonuçları görüntüle '
   breadcrumbs:
     notices:
       canonical: Bilimsel isimler artık sayfa kırıntılarında gösterilecek
@@ -94,14 +96,13 @@ tr:
       referents_count: referensları
       species_count: türler
       updated_at: son güncelleme
-  cms_page_date: 'Son Değiştirme Tarihi:'
   collect_already_in_collection: (zaten burada)
   collect_already_in_collection_will_add_icon: ("%{page}" içine medya ekleyin)
   collect_icon_title: '"%{page}" sayfasından "%{item}" öğesini ekleyin…'
   collect_new_collection: Yeni Koleksiyon Adı
   collect_new_collection_title: …Yeni Bir Koleksiyon
-  collect_no_existing_collections: Henüz hiç yok! Soldaki formu kullanarak bir tane
-    oluşturun.
+  collect_no_existing_collections: Henüz sahip değilsiniz! Soldaki formu kullanarak
+    bir tane oluşturun.
   collect_select_collection: …Koleksiyonlarınızdan Biri
   collect_title: Şuraya "%{item}" ekle…
   collected_page_added_to_collection: <a href='%{link}'>%{name}</a> koleksiyonuna
@@ -190,6 +191,7 @@ tr:
     altitude: rakım
     author: yazar
     bibliographic_citation: bibliyografik atıf
+    contributor: Katkıda bulunan
     compiler: derleyici
     creator: oluşturan
     editor: editör
@@ -839,7 +841,6 @@ tr:
       show_warns:
         one: uyarı göster (%{count})
         other: uyarı göster (%{count})
-      sync: senkronize et
       clear_publishing: kilidi kaldır
       clear_publishing_confirm: Bu, tüm yayınları 'bitirir' ve aktif olarak yayınlanırken
         kullanılırsa sorunlara neden olabilir. Emin misiniz?
@@ -1065,11 +1066,6 @@ tr:
     scientific_names: isimler
     users: kullanıcılar
     references: kaynaklar
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: ' ve'
-      last_word_connector: ', ve'
   term_query:
     validations:
       empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren
@@ -1833,7 +1829,7 @@ tr:
         http://eol(dot)org/schema/terms/shallowInfaunal: sığ infaunal
         http://eol(dot)org/schema/terms/sheltered: korunaklı
         http://eol(dot)org/schema/terms/shortPersistentSeedBank: kısa süreli
-        'http://eol(dot)org/schema/terms/skeletal_density ': iskelet yoğunluğu
+        http://eol(dot)org/schema/terms/skeletal_density: iskelet yoğunluğu
         http://eol(dot)org/schema/terms/solitary: yalnız
         http://eol(dot)org/schema/terms/southernArcticDwarfShrubSubzone: Güney Kutup
           cüce çalı alt bölgesi

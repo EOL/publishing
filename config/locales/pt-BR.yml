@@ -94,7 +94,6 @@ pt-BR:
       referents_count: referentes
       species_count: espécies
       updated_at: Última atualização
-  cms_page_date: 'Última modificação em:'
   collect_already_in_collection: (já está aqui)
   collect_already_in_collection_will_add_icon: (adicionar mídia a "%{page}")
   collect_icon_title: Adicionar "%{item}" da página "%{page}" para a…
@@ -189,6 +188,7 @@ pt-BR:
     altitude: altitude
     author: autor
     bibliographic_citation: citação bibliográfica
+    contributor: Contribuidor
     compiler: compilador
     creator: criador
     editor: editor
@@ -619,7 +619,6 @@ pt-BR:
       republish: republicar
       reindex: reindexar
       index: voltar para todos os recursos
-      sync: sincronizar
       clear_publishing: bloqueio claro
       clear_publishing_confirm: Isso 'concluirá' toda a publicação e poderá causar
         problemas se usado durante a publicação ativa. Você tem certeza?
@@ -792,11 +791,6 @@ pt-BR:
     scientific_names: nomes
     users: usuários
     references: referências
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: e
-      last_word_connector: ',e'
   term_query:
     validations:
       empty_filters_error_record: você deve fornecer um filtro com um atributo ou
