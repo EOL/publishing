@@ -199,6 +199,7 @@ module TraitBank
             .return('trait.eol_pk AS trait_pk', 'page_assoc_role')
             .order(EXEMPLAR_ORDER)
             .limit(limit)
+            .to_a
         end
       end
 
