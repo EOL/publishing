@@ -130,7 +130,7 @@ class TraitsController < ApplicationController
   def build_gbif_url(query, search)
     if query.taxa? && search.count > 0 && Resource.gbif
       if search.count <= GBIF_LINK_LIMIT
-        gbif_params = query.grouped_data.collect do |p|
+        gbif_params = search.grouped_data.collect do |p|
           pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
           pk ? "taxon_key=#{pk}" : nil
         end.compact
