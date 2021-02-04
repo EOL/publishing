@@ -39,6 +39,7 @@ class Page
         .where('object_term.eol_id': extract_term_arg_ids(object_terms))
         .return(:trait)
         .limit(1)
+        .proxy_as(TraitNode, :trait)
         &.first
     end
 
