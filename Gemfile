@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 # The REALLY basic stuff stays at the top:
 
-gem 'rails', '5.2.4.3'
+gem 'rails', '5.2.4.4'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 
 # "Internal" EOL gems:
-gem 'eol_terms', '>= 0.6.10', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
+gem 'eol_terms', '>= 0.7.08', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
 # Asset-related gems next:
 gem 'webpacker', '~> 5.x'
@@ -15,11 +15,11 @@ gem 'webpacker', '~> 5.x'
 # SASS
 gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.10'
+gem 'jbuilder', '~> 2.10.2' # NOTE: as of Jan 2021, there is a 2.11, we should try swtiching next month.
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
-gem 'jquery-rails', '~> 4.3'
+gem 'jquery-rails', '~> 4.4'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 1.0', group: :doc
+gem 'sdoc', '~> 2.0', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12'
@@ -31,8 +31,8 @@ gem 'uglifier', '~> 4.2'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
-gem 'unicorn', '~> 5.5'
-gem 'unicorn-worker-killer', '~> 0.4'
+gem 'unicorn', '~> 5.8'
+gem 'unicorn-worker-killer', '~> 0.4' # NOTE: there's now a unicorn-worker-killer-2 which we should switch to.
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
@@ -120,7 +120,7 @@ gem 'typhoeus', '~> 1.3'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'activegraph', '~> 10.0.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
-gem 'neo4j-ruby-driver', '~> 1.7.0' 
+gem 'neo4j-ruby-driver', '~> 1.7.0'
 
 #Sitemap
 gem 'sitemap_generator', '~> 6.1'
