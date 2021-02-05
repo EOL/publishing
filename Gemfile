@@ -152,25 +152,25 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.7'
+  gem 'web-console', '~> 3'
 
   # Spring speeds up development by keeping your application running in the background.
   # Read more: https://github.com/rails/spring
-  gem 'spring', '~> 2.1'
+  gem 'spring', '~> 2'
 
   # I removed "mailcatcher" the docs (https://mailcatcher.me/) actually say as much: DON'T include it. Just install it
   # if you want to use it and ... uh... use it.
 
   # For benchmarking queries:
-  gem 'meta_request', '~> 0.7'
+  gem 'meta_request', '~> 0'
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.8'
-  gem 'better_errors', '~> 2.6'
-  gem 'capybara', '3.30.0'
-  gem 'factory_girl', '~> 4.9'
-  gem 'faker', '~> 2.10'
-  gem 'rack_session_access', '~> 0.2'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'rspec-rails', '~> 3'
+  gem 'better_errors', '~> 2'
+  gem 'capybara', '3'
+  gem 'factory_girl', '~> 4'
+  gem 'faker', '~> 2'
+  gem 'rack_session_access', '~> 0'
+  gem 'shoulda-matchers', '~> 4'
 end
