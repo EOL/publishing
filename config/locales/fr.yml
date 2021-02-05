@@ -1429,7 +1429,7 @@ fr:
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporation écomorphologique
         http://eol(dot)org/schema/terms/EggDiameter: diamètre de l'ovule
         http://eol(dot)org/schema/terms/EggLayingBegins: la ponte commence
-        http://eol(dot)org/schema/terms/EggMass: masse d'oeuf
+        http://eol(dot)org/schema/terms/EggMass: poids d'un oeuf
         http://eol(dot)org/schema/terms/EpiconeShape: forme de l'épicône
         http://eol(dot)org/schema/terms/ExtinctionStatus: statut de conservation
         http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: teneur du lait
@@ -1487,8 +1487,8 @@ fr:
         http://eol(dot)org/schema/terms/KnownSpecies: Espèces marines connues
         http://eol(dot)org/schema/terms/LittersPerYear: litres par an
         http://eol(dot)org/schema/terms/Log10Productivity: log10 productivité
-        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: Indice de masse corporelle
-          entre mâles et femelles
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: Rapport d'indice
+          de masse corporelle entre mâles et femelles
         http://eol(dot)org/schema/terms/MaleTenure: Exerce la position de mâle
         http://eol(dot)org/schema/terms/MalesPerGroup: Mâles par groupe
         http://eol(dot)org/schema/terms/MantleLength: longueur du manteau
@@ -1529,7 +1529,7 @@ fr:
         http://eol(dot)org/schema/terms/OceaniaRealm: le royaume Océanien (îles)
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: température de croissance
           optimale
-        http://eol(dot)org/schema/terms/OuterEarLength: longueur de l’oreille externe
+        http://eol(dot)org/schema/terms/OuterEarLength: longueur du pavillon auriculaire
         http://eol(dot)org/schema/terms/OvaDiameter: diamètre de l'ovule
         http://eol(dot)org/schema/terms/OxygenSaturation: saturation de l'eau en 02
         http://eol(dot)org/schema/terms/PETinRange: taux d'évapotranspiration potentielle
@@ -1540,6 +1540,7 @@ fr:
           d'espèces étudiées encore non répertoriées
         http://eol(dot)org/schema/terms/PercentSynonyms: pourcentage de synonymes
           entre les espèces marines
+        http://eol(dot)org/schema/terms/PlantHabit: PlantHabit
         http://eol(dot)org/schema/terms/PlantingDensity: densité de plantation
         http://eol(dot)org/schema/terms/PopulationGroupSize: taille d'un groupe d'individus
         http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: émergence de pousses
@@ -1555,8 +1556,8 @@ fr:
         http://eol(dot)org/schema/terms/PrimaryGrowthForm: forme de croissance primaire
         http://eol(dot)org/schema/terms/PrimaryMacronutrientRequirements: besoins
           de macronutriments primaires
-        http://eol(dot)org/schema/terms/PropagationMethod: méthode de propagation
-          de la plante
+        http://eol(dot)org/schema/terms/PropagationMethod: Méthode de multiplication
+          végétative pour une plante
         http://eol(dot)org/schema/terms/Propagule: propagule
         http://eol(dot)org/schema/terms/ProsomeHeight: hauteur du prosome
         http://eol(dot)org/schema/terms/ProsomeLength: longueur du prosome
@@ -1593,6 +1594,7 @@ fr:
         http://eol(dot)org/schema/terms/ShellLengthBivalve: longueur de coquille,
           bivalve
         http://eol(dot)org/schema/terms/SkeletalDensity: densité squelettique
+        http://eol(dot)org/schema/terms/SkeletalReinforcement: renforcement du squelette
         http://eol(dot)org/schema/terms/SocialGroupSize: taille du groupe social
         http://eol(dot)org/schema/terms/SocialSystem: système social
         http://eol(dot)org/schema/terms/SoilDepth: profondeur du sol
@@ -1605,6 +1607,8 @@ fr:
           du tarsométatarse + tertius
         http://eol(dot)org/schema/terms/TarsusLength: longueur du tarse
         http://eol(dot)org/schema/terms/TemperateOcean: Océan tempéré
+        http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: température
+          à la latitude du point moyen de la zone
         http://eol(dot)org/schema/terms/TemperatureInRange: température d'une zone
           géographique
         http://eol(dot)org/schema/terms/TemperatureTolerance: tolérance au froid
@@ -1623,11 +1627,42 @@ fr:
         http://eol(dot)org/schema/terms/ToxicEffect: effet toxique
         http://eol(dot)org/schema/terms/TrophicGuild: guilde trophique
         http://eol(dot)org/schema/terms/TropicalOcean: Océan tropical
+        http://eol(dot)org/schema/terms/TypeSpecimenRepository: dépôt du spécimen
+          type
+        http://eol(dot)org/schema/terms/UndescribedSpeciesInMuseumCollections: espèces
+          marines non décrites présentes dans les collections des musées
+        http://eol(dot)org/schema/terms/UndiscoveredMorphospecies: morpho-espèces
+          marines non découvertes
+        http://eol(dot)org/schema/terms/UndiscoveredSpeciesMolecularCryptic: espèces
+          non découvertes (cryptique moléculaire)
+        http://eol(dot)org/schema/terms/Uses: utilisé pour
+        http://eol(dot)org/schema/terms/VegetativeSpreadRate: vitesse de colonisation
+          végétative
+        http://eol(dot)org/schema/terms/VocalizationBehavior: vocalisation
         http://eol(dot)org/schema/terms/WaterTemperature: température de l'eau
+        http://eol(dot)org/schema/terms/WeaningAge: sevrage
+        http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: stratégies d'alimentation
+          du zooplancton
+        http://eol(dot)org/schema/terms/acicular: aciculaire (en forme d'aiguille)
+        http://eol(dot)org/schema/terms/activeForaging: en quête de nourriture
+        http://eol(dot)org/schema/terms/activityCycleOther: nocturne/crépusculaire,
+          cathéméral, crépusculaire ou diurne/crépusculaire
+        http://eol(dot)org/schema/terms/adaptiveStrategy: stratégie adaptative
+        http://eol(dot)org/schema/terms/alternatingReproduction: métagenèse
+        http://eol(dot)org/schema/terms/ambush: prédateur embusqué
         http://eol(dot)org/schema/terms/amphibious: amphibie
+        http://eol(dot)org/schema/terms/androviviparous: androvivipare
+        http://eol(dot)org/schema/terms/anemochory: anémochorie
+        http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: acide ante-isooctadécanoïque
+        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: acide ante-isotetradécanoïque
+        http://eol(dot)org/schema/terms/aquatic: adapté à la vie aquatique
+        http://eol(dot)org/schema/terms/areaToMassRatio: rapport surface/masse
+        http://eol(dot)org/schema/terms/bodyMassDry: poids d'extrait sec
+        http://eol(dot)org/schema/terms/bodyMassWet: masse corporelle hydrique
         http://eol(dot)org/schema/terms/clearWater: eau claire
         http://eol(dot)org/schema/terms/colonyDensity: densité de la colonie
         http://eol(dot)org/schema/terms/competitive: compétitif
+        http://eol(dot)org/schema/terms/dryMass: Poids sec
         http://eol(dot)org/schema/terms/eggColor: couleur de l'oeuf
         http://eol(dot)org/schema/terms/fossilOccPBDB: nombre d’occurrences de fossiles
         http://eol(dot)org/schema/terms/highCNRatio: haut (>59)
@@ -1642,6 +1677,7 @@ fr:
         http://eol(dot)org/schema/terms/succulent: succulent
         http://eol(dot)org/schema/terms/terrestrialPlant: plante terrestre
         http://eol(dot)org/schema/terms/vulnerable: vulnérable
+        http://eol(dot)org/schema/terms/wetMass: masse hydrique
         http://eol(dot)org/schema/terms/wet_forest: forêt humide
         http://eol(dot)org/schema/terms/yes: oui
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: haut
@@ -1711,6 +1747,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: longueur du corps, du
           museau à la queue
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nombre de mamelles
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000790: lait en poudre
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crépusculaire
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: autophototrophie
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: hétérophototrophe
@@ -1912,7 +1949,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volume de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: structure du squelette
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000018: forme du noyau
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: masse de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: poids de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Taille de la coquille
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densité du bois
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longueur du noyau
@@ -2217,6 +2254,12 @@ fr:
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: distribution
           géographique entière
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/humanAgriculture(dot)owl#Horticulture: horticulture
+        'http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area ': masse
+          d'une feuille par unité de surface
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: azote
+          d'une feuille par quantité d'extrait sec
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: poids
+          des graines sèches
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tube externe
         http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: partie
           spécifique de feuille

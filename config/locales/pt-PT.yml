@@ -55,7 +55,6 @@ pt-PT:
       referents_count: referentes
       species_count: espécies
       updated_at: última atualização
-  cms_page_date: 'Última modificação às:'
   collect_already_in_collection: (já está aqui)
   collect_already_in_collection_will_add_icon: (adicionar multimédia a "%{page}")
   collect_new_collection: Nome da Nova Coleção
@@ -425,11 +424,6 @@ pt-PT:
     nodes: nodos
     users: utilizadores
     references: referências
-  support:
-    array:
-      words_connector: ','
-      two_words_connector: ' e'
-      last_word_connector: ' e'
   terms:
     comment_field_html: <strong>Comentário:</strong> %{comment}
     definition_field_html: <strong>Definição:</strong> %{definition}

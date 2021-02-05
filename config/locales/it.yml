@@ -80,7 +80,6 @@ it:
       nodes_count: nodi
       vernaculars_count: vernacolari
       scientific_names_count: nomi scientifici
-  cms_page_date: 'Ultima modificazione:'
   collect_already_in_collection: (è già qui)
   collect_already_in_collection_will_add_icon: (aggiungi media a "%{page}")
   collect_icon_title: Aggiungi "%{item}" da "%{page}" pagina a…
@@ -323,9 +322,6 @@ it:
   stats:
     pages: pagine
     users: utenti
-  support:
-    array:
-      two_words_connector: ' e'
   term_query_filter:
     validations:
       invalid_uri: URI non corretto
@@ -377,7 +373,6 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: perenne
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissazione dell'azoto
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: riproduzione asessuata
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abbondanza
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: struttura scheletrica
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
@@ -411,38 +406,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: semplice
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: composto
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: impollina
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: impollinato da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: mangia
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: mangiato da
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produce
-        http://eol(dot)org/schema/terms/paleo_megaannum: milioni di anni fa
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: gradi Celsius
-        http://eol(dot)org/schema/terms/millimeterspermonth: millimetri per mese
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: giorni
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mesi
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: anni
-        http://semanticscience(dot)org/resource/SIO_001114: max
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: gradi
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /giorno
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /anno
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: pollice
-        http://purl(dot)org/obo/owl/UO#UO_0000034: settimane
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
-        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/giorno
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/anno
-        Unit: Unità
-        http://eol(dot)org/schema/terms/percentPerMonth: '%/mese'
-        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/anno
-        http://eol(dot)org/schema/terms/gramsPerMonth: g/mese
-        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3 mesi
-        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4 mesi
-        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6 mesi
-        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7 mesi
-        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8 mesi
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/giorno
-        http://eol(dot)org/schema/terms/millimetersPerYear: mm/anno
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: piedi
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pollici
 ...
