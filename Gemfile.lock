@@ -590,7 +590,7 @@ DEPENDENCIES
   sass-rails
   sdoc (~> 2.0)
   searchkick (~> 4.4)
-  shoulda-matchers
+  shoulda-matchers (~> 4)
   sidekiq
   simple_form (~> 5.0)
   simplecov (~> 0)
