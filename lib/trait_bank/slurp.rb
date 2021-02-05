@@ -5,13 +5,19 @@ class TraitBank::Slurp
     delegate :query, to: TraitBank
 
     def iterative_query(head, q)
-      query(%Q(
+      response = ActiveGraph::Base.query(%Q(
         CALL apoc.periodic.iterate(
-          '#{head}',
-          '#{q}',
+          "#{head}",
+          "#{q}",
           { batchSize: 10000, parallel: false }
         )
-      ))
+      )).first
+
+      failed_batches = response[:failedBatches]
+
+      if failed_batches > 0
+        raise "TraitBank::Slurp.iterative_query had #{failed_batches} failed batches!\nErrors: #{response[:errorMessages]}"
+      end
     end
 
     def load_resource_from_repo(resource)
@@ -410,11 +416,11 @@ class TraitBank::Slurp
 
     def rebuild_ancestry_group(file, version)
       # Nuke it from orbit:
-      execute_clauses(csv_query_head(file), ['MERGE (:Page { page_id: toInt(row.page_id) })'])
-      execute_clauses(csv_query_head(file), ['MERGE (:Page { page_id: toInt(row.parent_id) })'])
+      execute_clauses(csv_query_head(file), ['MERGE (:Page { page_id: toInteger(row.page_id) })'])
+      execute_clauses(csv_query_head(file), ['MERGE (:Page { page_id: toInteger(row.parent_id) })'])
       execute_clauses(csv_query_head(file), [
-                      'MATCH (page:Page { page_id: toInt(row.page_id) })',
-                      'MATCH (parent:Page { page_id: toInt(row.parent_id) })',
+                      'MATCH (page:Page { page_id: toInteger(row.page_id) })',
+                      'MATCH (parent:Page { page_id: toInteger(row.parent_id) })',
                       "MERGE (page)-[:parent { ancestry_version: #{version} }]->(parent)"])
     end
 
@@ -469,7 +475,7 @@ class TraitBank::Slurp
     # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
     def autocast_val(attr)
       # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
-      return "toInt(#{attr.val})" if attr.key =~ /_(num|id)$/
+      return "toInteger(#{attr.val})" if attr.key =~ /_(num|id)$/
       attr.val
     end
 
