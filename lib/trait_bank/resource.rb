@@ -10,7 +10,7 @@ module TraitBank
         id = id_param.to_i
         return "#{id_param} is not a valid positive integer id!" if
           id_param.is_a?(String) && !id.positive? && id.to_s != id_param
-        if (resource = find_resource(id))
+        if (resource = find(id))
           return resource
         end
         resource = TraitBank::Admin.connection.create_node(resource_id: id)
