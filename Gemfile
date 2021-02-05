@@ -52,11 +52,11 @@ gem 'activerecord-import', '~> 1.0'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 1.0'
 # Faster startup:
-gem 'bootsnap', '~> 1.4', require: false
+gem 'bootsnap', '~> 1.7', require: false
 # To aid in reindexing ElasticSearch. See also activejob-traffic_control; also requires redis.
 # gem 'connection_pool', '~> 2.2'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 2.3'
+gem 'counter_culture', '~> 2.7'
 # Cron jobs:
 gem 'crono', '~> 1.1'
 # Run background jobs:
@@ -64,14 +64,14 @@ gem 'daemons', '~> 1.3'
 # Memcached (not for development):
 gem 'dalli', '~> 2.7'
 # Background jobs (to be run by daemons, q.v.):
-gem 'delayed_job', '~> 4.1.8'
-gem 'delayed_job_active_record', '~> 4.1.4'
+gem 'delayed_job', '~> 4.1'
+gem 'delayed_job_active_record', '~> 4.1'
 # Devise handles authentication and some authorization:
 gem 'devise', '~> 4.7'
 gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
 # Discourse handles comments and chat:
-gem 'discourse_api', '~> 0.38'
+gem 'discourse_api', '~> 0.40'
 # Model decoration
 gem 'draper', '~> 4.0'
 # Icons
@@ -87,25 +87,25 @@ gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails', '~> 2.0'
 # HTTP client
-gem 'http', '~> 4.3'
+gem 'http', '~> 4.4'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
 # Neography is used for our Triple Store for now:
-gem 'neography', git: "https://github.com/EOL/neography"
+gem 'neography', '~> 1.8', git: "https://github.com/EOL/neography"
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
-gem 'oj', '~> 3.10'
+gem 'oj', '~> 3.11'
 # Debugging:
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
 gem 'pundit', '~> 2.1'
 # Turing test:
-gem 'recaptcha', '~> 5.3', require: 'recaptcha/rails'
+gem 'recaptcha', '~> 5.6', require: 'recaptcha/rails'
 # Zip file support
 gem 'rubyzip', '~> 2.2'
 # ElasticSearch via SearchKick:
-gem 'searchkick', '~> 4' # Needs to stay in sync (ish) with the elasticsearch gem.
+gem 'searchkick', '~> 4.4' # Needs to stay in sync (ish) with the elasticsearch gem.
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
 gem 'sidekiq'
 gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
@@ -113,23 +113,23 @@ gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that 
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
 gem 'simple_form', '~> 5.0'
-gem 'client_side_validations', '~> 16.1'
+gem 'client_side_validations', '~> 16.2'
 gem 'client_side_validations-simple_form', '~> 9.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
-gem 'typhoeus', '~> 1.3'
+gem 'typhoeus', '~> 1.4'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'activegraph', '~> 10.0.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
-gem 'neo4j-ruby-driver', '~> 1.7.0'
+gem 'activegraph', '~> 10.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
+gem 'neo4j-ruby-driver', '~> 1.7'
 
 #Sitemap
 gem 'sitemap_generator', '~> 6.1'
 
 # url slug support
-gem 'friendly_id', '~> 5.2.4'
+gem 'friendly_id', '~> 5.4'
 
 # translations in JS
-gem 'i18n-js'
+gem 'i18n-js', '~> 3.8'
 
 group :development, :test do
   gem 'active_record_query_trace', '~> 1.7'
