@@ -6,7 +6,8 @@ class TraitBank::Slurp
 
     def iterative_query(head, q)
       query(%Q(
-        CALL apoc.periodic.iterate('#{head}',
+        CALL apoc.periodic.iterate(
+          '#{head}',
           '#{q}',
           { batchSize: 10000, parallel: false }
         )
@@ -361,7 +362,7 @@ class TraitBank::Slurp
     def csv_query_head(filename, where_clause = nil)
       where_clause ||= '1=1'
       file = filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
-      "CALL apoc.load.csv('#{file}', { header: true}) YIELD map AS row WITH row WHERE #{where_clause} "
+      "CALL apoc.load.csv('#{file}', { header: true}) YIELD map AS row WITH row WHERE #{where_clause} RETURN row"
     end
 
     # TODO: extract the file-writing to a method that takes a block.
