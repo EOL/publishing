@@ -4,6 +4,15 @@ class TraitBank::Slurp
   class << self
     delegate :query, to: TraitBank
 
+    def iterative_query(head, q)
+      query(%Q(
+        CALL apoc.periodic.iterate('#{head}',
+          '#{q}',
+          { batchSize: 10000, parallel: false }
+        )
+      ))
+    end
+
     def load_resource_from_repo(resource)
       repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.traits_file, 'traits.tsv')
@@ -89,15 +98,6 @@ class TraitBank::Slurp
       end
 
       private
-
-      def iterative_query(head, q)
-        query(%Q(
-          CALL apoc.periodic.iterate('#{head}',
-            '#{q}',
-            { batchSize: 10000, parallel: false }
-          )
-        ))
-      end
 
       def build_attributes(attr_configs)
         attr_configs_copy = attr_configs.dup
