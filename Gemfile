@@ -132,22 +132,22 @@ gem 'friendly_id', '~> 5.4'
 gem 'i18n-js', '~> 3.8'
 
 group :development, :test do
-  gem 'active_record_query_trace', '~> 1.7'
+  gem 'active_record_query_trace', '~> 1'
   # Security analysis:
-  gem 'brakeman', '~> 4.8', :require => false
+  gem 'brakeman', '~> 5', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '~> 11.1'
+  gem 'byebug', '~> 11'
   # Coveralls tracks our spec coverage:
-  gem 'coveralls', '~> 0.7', require: false
+  gem 'coveralls', '~> 0', require: false
   # Rails told me to add this to my development group. I don't know why, but I'm ... listening.
-  gem 'listen', '~> 3.2'
+  gem 'listen', '~> 3'
   # Rubocop... which technically you want on your *system*, but ...
-  gem 'rubocop', '0.80.1' # Being very specific because this is a PITA to update even a tiny bit!
-  gem 'rubocop-performance', '1.5.2'
-  gem 'rubocop-rails', '2.4.1'
+  gem 'rubocop', '0.93.1' # Being very specific because this is a PITA to update even a tiny bit!
+  gem 'rubocop-performance', '1.9.2'
+  gem 'rubocop-rails', '2.9.1'
   # Simplecov, oddly, to add configuration for Coveralls.
-  gem 'simplecov', '~> 0.18'
-  gem 'solargraph'
+  gem 'simplecov', '~> 0'
+  gem 'solargraph', '~> 0'
 end
 
 group :development do
