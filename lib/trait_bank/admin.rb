@@ -1,6 +1,12 @@
 module TraitBank
   module Admin
     class << self
+
+      # TODO: replace with neo4j-ruby-driver/activegraph and remove Neography from Gemfile
+      def connection
+        @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
+      end
+
       def setup
         create_indexes
         create_constraints
@@ -10,15 +16,17 @@ module TraitBank
       def create_indexes
         indexes = %w{ Term(name) }
         indexes.each do |index|
-          begin
-            TraitBank.query("CREATE INDEX ON :#{index};")
-          rescue Neography::NeographyError => e
-            if e.to_s =~ /already created/
-              puts "Already have an index on #{index}, skipping."
-            else
-              raise e
-            end
-          end
+          TraitBank.query("CREATE INDEX ON :#{index};")
+
+          # TraitBank.query no longer uses Neography. Preserving in case this is needed.
+          # - mvitale
+          #rescue Neography::NeographyError => e
+          #  if e.to_s =~ /already created/
+          #    puts "Already have an index on #{index}, skipping."
+          #  else
+          #    raise e
+          #  end
+          #end
         end
       end
 
@@ -34,19 +42,20 @@ module TraitBank
         }
         contraints.each do |label, fields|
           fields.each do |field|
-            begin
-              name = 'o'
-              name = label.downcase if drop && drop == :drop
-              # You cannot have an index on a constrained field. Sorry about the rescue nil, this is a MINOR operation
-              # and it throws an error if the index doesn't exist:
-              TraitBank.query("DROP INDEX ON :#{label}(#{field})") rescue nil
+            name = 'o'
+            name = label.downcase if drop && drop == :drop
+            # You cannot have an index on a constrained field. Sorry about the rescue nil, this is a MINOR operation
+            # and it throws an error if the index doesn't exist:
+            TraitBank.query("DROP INDEX ON :#{label}(#{field})") rescue nil
 
-              constraint_query = "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
-              puts constraint_query
-              puts TraitBank.query(constraint_query)
-            rescue Neography::NeographyError => e
-              raise e unless e.message =~ /already exists/ || e.message =~ /No such constraint/
-            end
+            constraint_query = "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
+            puts constraint_query
+            puts TraitBank.query(constraint_query)
+
+            # Same as above.
+            #rescue Neography::NeographyError => e
+            #  raise e unless e.message =~ /already exists/ || e.message =~ /No such constraint/
+            #end
           end
         end
       end
@@ -198,7 +207,7 @@ module TraitBank
           page = TraitBank::Page.page_exists?(node.page_id)
           next unless page
           page = page.first if page
-          TraitBank.connection.set_node_properties(page, { "name" => name })
+          connection.set_node_properties(page, { "name" => name })
           puts "#{node.page_id} => #{name}"
         end
       end

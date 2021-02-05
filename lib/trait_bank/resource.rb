@@ -13,8 +13,8 @@ module TraitBank
         if (resource = find_resource(id))
           return resource
         end
-        resource = TraitBank.connection.create_node(resource_id: id)
-        TraitBank.connection.set_label(resource, 'Resource')
+        resource = TraitBank::Admin.connection.create_node(resource_id: id)
+        TraitBank::Admin.connection.set_label(resource, 'Resource')
         resource
       end
     end

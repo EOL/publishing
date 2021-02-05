@@ -64,7 +64,7 @@ module TraitBank
         uri = properties.delete('uri') # We already have this.
         begin
           update_relationships(uri, properties)
-          connection.set_node_properties(existing_term, properties)
+          TraitBank::Admin.connection.set_node_properties(existing_term, properties)
         rescue => e # rubocop:disable Style/RescueStandardError
           # This method is typically run as part of a script, so I'm just using STDOUT here:
           puts "ERROR: failed to update term #{properties['uri']}"
@@ -171,9 +171,9 @@ module TraitBank
 
       def create_new(properties)
         removed = remove_relationship_properties(properties)
-        term_node = connection.create_node(properties)
+        term_node = TraitBank::Admin.connection.create_node(properties)
         # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        connection.set_label(term_node, 'Term')
+        TraitBank::Admin.connection.set_label(term_node, 'Term')
         # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
         # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
         update_relationships(properties['uri'], removed) unless removed.blank?
@@ -618,12 +618,12 @@ module TraitBank
 
       def relate(how, from, to)
         begin
-          TraitBank.connection.create_relationship(how, from, to)
+          TraitBank::Admin.connection.create_relationship(how, from, to)
         rescue
           # Try again...
           begin
             sleep(0.1)
-            TraitBank.connection.create_relationship(how, from, to)
+            TraitBank::Admin.connection.create_relationship(how, from, to)
           rescue Neography::BadInputException => e
             TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
             TraitBank::Logger.log_error("** from: #{from}")
