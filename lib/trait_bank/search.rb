@@ -266,7 +266,7 @@ module TraitBank
           end
 
           units_param = "#{trait_var}_u"
-          params[units_param] = filter.units_uri
+          params[units_param] = filter.units_term.uri
 
           parts << "("\
           "#{trait_var}.normal_measurement IS NOT NULL "\

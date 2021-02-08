@@ -415,8 +415,14 @@ class TermQueryFilter < ApplicationRecord
       if numeric?
         if predicate_id.blank?
           errors.add(:predicate_id, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
-        elsif range? && num_val1 > num_val2
+        end
+
+        if range? && num_val1 > num_val2
           errors.add(:num_val2, I18n.t("term_query_filter.validations.range_invalid_error"))
+        end
+
+        if units_term.nil?
+          errors.add(:units_term_id, I18n.t("term_query_filter.validations.units_blank_error"))
         end
       end
     end

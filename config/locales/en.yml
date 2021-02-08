@@ -1079,6 +1079,7 @@ en:
       pred_uri_blank_obj_clade_error: "can't be blank with a target clade"
       pred_uri_blank_numeric_error: "can't be blank with a numeric value"
       range_invalid_error: "must be >= to first value"
+      units_blank_error: "units can't be blank for a numerical search"
   terms:
     attribution_field_html: "<strong>Attribution:</strong> <a href='%{attribution}'>%{attribution}</a>"
     comment_field_html: "<strong>Comment:</strong> %{comment}"
