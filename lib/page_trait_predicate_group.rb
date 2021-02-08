@@ -95,7 +95,7 @@ class PageTraitPredicateGroup
       query = page_node.query_as(:page)
         .match(trait_match)
         .match('(trait)-[:predicate]->(predicate:Term)')
-        .match("(predicate)-[#{PARENT_TERMS}]->(group_predicate:Term)")
+        .match("(predicate)-[:synonym_of*0..]->(group_predicate:Term)")
         .where_not('(group_predicate)-[:synonym_of]->(:Term)')
 
       if options[:resource]
