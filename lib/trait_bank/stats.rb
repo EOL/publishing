@@ -21,8 +21,6 @@ module TraitBank
     class << self
       include TraitBank::Constants
 
-      delegate :log, to: TraitBank::Logger
-
       def obj_counts(query, limit)
         raise_if_query_invalid_for_counts(query)
 

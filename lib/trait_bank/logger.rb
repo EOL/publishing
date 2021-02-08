@@ -2,18 +2,17 @@ module TraitBank
   class Logger
     class << self
       LOGGER = Rails.application.config.neo4j.logger
-      def log(message, tag = nil)
-        tag ||= 'INFO'
-        time = Time.now
-        LOGGER.tagged(tag) { LOGGER.warn("[#{time.strftime('%F %T')}] #{message}") }
+
+      def log(message)
+        LOGGER.info(message)
       end
 
       def warn(message)
-        log(message, 'WARN')
+        LOGGER.warn(message)
       end
 
       def log_error(message)
-        log(message, 'ERR')
+        LOGGER.error(message)
       end
     end
   end

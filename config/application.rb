@@ -77,7 +77,11 @@ module EolWebsite
     config.active_job.queue_adapter = :sidekiq
 
     # neo4j log
-    config.neo4j.logger = ActiveSupport::TaggedLogging.new(::Logger.new(Rails.root.join('log', 'traitbank.log')))
-    config.neo4j.logger.level = :debug
+    config.neo4j.logger = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', 'traitbank.log')))
+    config.neo4j.logger.level = Logger::DEBUG
+    config.neo4j.logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime} [#{severity}]: #{msg}\n"
+    end
+    config.neo4j.pretty_logged_cypher_queries = true
   end
 end

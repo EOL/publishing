@@ -1,7 +1,6 @@
 module TraitBank
   module Admin
     class << self
-
       # TODO: replace with neo4j-ruby-driver/activegraph and remove Neography from Gemfile
       def connection
         @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)

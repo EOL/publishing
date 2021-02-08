@@ -2,21 +2,13 @@
 # BE FOUND IN db/neo4j_schema.md ...please read that file before attempting to understand this one. :D
 module TraitBank
   class << self
-    delegate :log, :warn, :log_error, to: TraitBank::Logger
-
     def query(q, params={})
-      start = Time.now
       response = nil
       q.sub(/\A\s+/, "")
-      begin
-        response = ActiveGraph::Base.query(q, params, wrap: false)
-        stop = Time.now
-      ensure
-        q_to_log = q.size > 80 && q !~ /\n/ ? q.gsub(/ +([A-Z ]+)/, "\n\\1") : q
-        log(">>TB TraitBank [activegraph] (#{stop ? stop - start : "F"}):\n#{q_to_log}")
-      end
+      response = ActiveGraph::Base.query(q, params, wrap: false)
 
       return nil if response.nil?
+
       response_a = response.to_a # NOTE: you must call to_a since the raw response only allows for iterating through once
 
       # Map neo4j-ruby-driver response to neography-like response
