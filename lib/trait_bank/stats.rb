@@ -81,6 +81,7 @@ module TraitBank
           TraitBank.query(%Q[
             #{trait_match_part}
             WITH page, toFloat(t.normal_measurement) AS m
+            WHERE m IS NOT NULL
             WITH collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
             WITH recs, max, min, max - min AS range
             WITH recs, #{self.num_fn_for_range("max", "ceil")} AS max,

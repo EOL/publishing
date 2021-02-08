@@ -42,6 +42,7 @@ module Traits
         end
       end
 
+      # TODO: update to use TermNode rather than TraitBank query methods
       def initialize(tb_result, query)
         cols = tb_result["columns"]
         data = tb_result["data"]
@@ -53,7 +54,7 @@ module Traits
 
         raise TypeError, 'failed to get a units term for query' if units_uri.nil?
 
-        @units_term = TraitBank.term_record(units_uri)
+        @units_term = TraitBank::Term.term_record(units_uri)
 
         @max_bi = data.last[i_bi].to_i
         @bw = self.class.to_d_or_i(data.first[i_bw])
