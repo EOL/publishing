@@ -279,21 +279,18 @@ module TraitBank
         parts.join(" AND ")
       end
 
-      def add_term_filter_meta_match(pred_uri, obj_uri, trait_var, meta_var, matches, params)
-        pred_uri_param = "#{meta_var}_pred_uri"
+      def add_term_filter_meta_match(rel_type, obj_uri, trait_var, meta_var, matches, params)
         obj_uri_param = "#{meta_var}_obj_uri"
-        match =
-          "(#{trait_var})-[:metadata]->(#{meta_var}:MetaData), "\
-          "(#{meta_var})-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(:Term{ uri: $#{pred_uri_param} }), "\
-          "(#{meta_var})-[:object_term]->(:Term)-[#{PARENT_TERMS}]->(:Term{ uri: $#{obj_uri_param} })"
+
+        match = "(#{trait_var})-[:#{rel_type}]->(:Term{ uri: $#{obj_uri_param} })"
+
         matches << match
-        params[pred_uri_param] = pred_uri
         params[obj_uri_param] = obj_uri
       end
 
       def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
         add_term_filter_meta_match(
-          EolTerms.alias_uri('sex'),
+          'sex_term',
           filter.sex_term.uri,
           trait_var,
           "#{base_meta_var}_sex",
@@ -302,7 +299,7 @@ module TraitBank
         ) if filter.sex_term?
 
         add_term_filter_meta_match(
-          EolTerms.alias_uri('lifestage'),
+          'lifestage_term',
           filter.lifestage_term.uri,
           trait_var,
           "#{base_meta_var}_ls",
@@ -311,7 +308,7 @@ module TraitBank
         ) if filter.lifestage_term?
 
         add_term_filter_meta_match(
-          EolTerms.alias_uri('statistical_method'),
+          'statistical_method_term',
           filter.statistical_method_term.uri,
           trait_var,
           "#{base_meta_var}_stat",
