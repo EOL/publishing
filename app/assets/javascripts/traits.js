@@ -176,7 +176,7 @@
       display: 'name',
       limit: Infinity,
       source: EOL.searchResources
-    }, 'id', null);
+    }, 'id', fetchForm);
 
     $('.js-add-filter').click(function(e) {
       e.preventDefault();

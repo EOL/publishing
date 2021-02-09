@@ -265,14 +265,13 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def blank?
-    predicate_id.blank? && object_term_id.blank? && obj_clade.nil?
+    predicate_id.blank? && object_term_id.blank? && obj_clade.nil? && resource.nil?
   end
 
   def extra_fields_blank?
     sex_term_id.blank? &&
     lifestage_term_id.blank? &&
-    statistical_method_term_id.blank? &&
-    resource.blank?
+    statistical_method_term_id.blank?
   end
     
   def really_blank?
@@ -404,6 +403,7 @@ class TermQueryFilter < ApplicationRecord
       errors.add(:predicate_id, I18n.t("term_query_filter.validations.blank_error"))
       errors.add(:object_term_id, I18n.t("term_query_filter.validations.blank_error"))
       errors.add(:obj, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:resource_name, I18n.t("term_query_filter.validations.blank_error"))
     elsif obj_clade.present? 
       if predicate_id.blank?
         errors.add(:predicate_id, I18n.t("pred_uri_blank_obj_clade_error"))

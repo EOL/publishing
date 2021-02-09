@@ -129,15 +129,14 @@ module TraitBank
             filter_matches << filter_term_match_no_hier(trait_var, pred_labeler.label, :predicate)
           end
 
-          filter_wheres << term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
+          filter_where = term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
+          filter_wheres << filter_where unless filter_where.nil?
           filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i == filters.length - 1
           add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
           add_term_filter_resource_match(filter, trait_var, filter_matches, params)
 
-          match_where = %Q(
-            MATCH #{filter_matches.join(", ")}
-            WHERE #{filter_wheres.join(" AND ")}
-          )
+          match_where = "MATCH #{filter_matches.join(", ")}"
+          match_where.concat("\nWHERE #{filter_wheres.join(" AND ")}") if filter_wheres.any?
 
           with = options[:with_tgt_vars] ?
             yield(i, filter, trait_var, pred_labeler.label, pred_labeler.tgt_label, obj_term_labeler.label, obj_term_labeler&.tgt_label) :
@@ -246,7 +245,7 @@ module TraitBank
           term_condition << term_filter_where_obj_clade_part(obj_clade_labeler.tgt_label, obj_clade_labeler.label, filter.obj_clade.id, params, gathered_terms)
         end
 
-        parts << "#{term_condition.join(" AND ")}"
+        parts << "#{term_condition.join(" AND ")}" if term_condition.any?
 
         if filter.numeric?
           conditions = []
@@ -276,7 +275,7 @@ module TraitBank
           conditions.each { |c| params[c[:param]] = c[:val] }
         end
 
-        parts.join(" AND ")
+        parts.any? ? parts.join(" AND ") : nil
       end
 
       def add_term_filter_meta_match(rel_type, obj_uri, trait_var, meta_var, matches, params)
