@@ -267,7 +267,13 @@ class TraitBank::RecordDownloadWriter
 
   def join_metas(metas)
     metas.map do |meta|
-      meta[:object_term] ? handle_term(meta[:object_term]) : meta[:literal]
+      if meta[:object_term].present?
+        handle_term(meta[:object_term])
+      elsif meta[:measurement].present?
+        meta[:measurement]
+      else
+        meta[:literal]
+      end
     end.uniq.join(" | ")
   end
 
