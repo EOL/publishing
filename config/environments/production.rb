@@ -60,7 +60,7 @@ Rails.application.configure do
   config.lograge.enabled = true
   config.lograge.ignore_actions = ['PagesController#ping', 'HomePageController#index']
   cache_addr = Rails.application.secrets.cache_url
-  config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
+  config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL", compress: true }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
