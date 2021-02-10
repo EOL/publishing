@@ -25,6 +25,11 @@ class Trait
     @object_page ||= @record_assocs.page(@trait_node.object_page&.page_id)
   end
 
+  # Not eager-loaded
+  def inferred_pages
+    @inferred_pages = Page.where(id: @trait_node.inferred_pages.map { |p| p.id })
+  end
+
   class << self
     def find(eol_pk)
       wrap_node(TraitNode.find(eol_pk))
@@ -49,44 +54,6 @@ class Trait
       nodes.map { |n| new(n, record_assocs) }
     end
     
-    def for_page_trait_predicate_groups(page, groups, options = {})
-      subj_groups = groups.select { |g| g.subject? }
-      obj_groups = groups.select { |g| g.object? }
-      subj_trait_pks_by_group = page_subj_trait_pks_by_group(page, subj_groups, options) 
-      obj_trait_pks_by_group = page_obj_trait_pks_by_group(page, obj_groups, options) 
-      all_trait_pks = (
-        extract_grouped_trait_pks(subj_trait_pks_by_group) +
-        extract_grouped_trait_pks(obj_trait_pks_by_group)
-      ).uniq
-      all_traits = for_eol_pks(all_trait_pks)
-      all_traits_by_id = all_traits.map { |t| [t.id, t] }.to_h
-
-      subj_traits_by_pred = build_traits_by_pred(subj_trait_pks_by_group, all_traits_by_id)
-      obj_traits_by_pred = build_traits_by_pred(obj_trait_pks_by_group, all_traits_by_id)
-
-      grouped_traits = {}
-
-      subj_traits_by_pred.each do |pred, traits|
-        obj_traits = obj_traits_by_pred.delete(pred)
-
-        if obj_traits
-          traits.add(obj_traits)
-          group = PageTraitPredicateGroup.new(pred, :both)
-        else
-          group = PageTraitPredicateGroup.new(pred, :subject)
-        end
-
-        grouped_traits[group] = traits
-      end
-
-      obj_traits_by_pred.each do |pred, traits|
-        group = PageTraitPredicateGroup.new(pred, :object)
-        grouped_traits[group] = traits
-      end
-
-      { all_traits: all_traits, grouped_traits: grouped_traits }
-    end
-
     def wrap_node(trait_node)
       return nil if trait_node.nil?
       new(trait_node, RecordAssociations.new([trait_node]))
@@ -103,63 +70,10 @@ class Trait
 
       value
     end
-
-    private
-    def page_subj_trait_pks_by_group(page, groups, options)
-      page_trait_pks_by_group_helper(page, groups, '(page)-[:trait|:inferred_trait]->(trait:Trait)', options)
-    end
-
-    def page_obj_trait_pks_by_group(page, groups, options)
-      page_trait_pks_by_group_helper(page, groups, '(trait:Trait)-[:object_page]->(page)', options)
-    end
-
-    def page_trait_pks_by_group_helper(page, groups, trait_match, options)
-      raise ':limit option required for multiple groups' if groups.length > 1 && !options[:limit]
-      group_limit_str = options[:limit] ? "[0..#{options[:limit]}]" : ''
-
-      query = page.page_node.query_as(:page)
-        .match(trait_match)
-        .match("(trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(group_predicate:Term)")
-        .where('group_predicate.eol_id': groups.map { |g| g.term_id })
-
-      if options[:resource]
-        query = query
-          .match('(trait)-[:supplier]->(resource:Resource)')
-          .where('resource.resource_id': options[:resource].id)
-      end
-
-      # 'break' necessary to force the above where clauses to apply to the MATCH rather than OPTIONAL MATCH :(
-      query.break.optional_match(TraitBank::Constants::EXEMPLAR_MATCH)
-        .with(:group_predicate, :trait)
-        .order_by('group_predicate.eol_id', TraitBank::Constants::EXEMPLAR_ORDER)
-        .return(:group_predicate, "collect(DISTINCT trait.eol_pk)#{group_limit_str} AS trait_pks, count(DISTINCT trait) as trait_count").to_a
-    end
-
-    def build_traits_by_pred(rows, traits_by_id)
-      rows.map do |row|
-        pred = row[:group_predicate]
-        trait_pks = row[:trait_pks]
-        count = row[:trait_count]
-        traits = trait_pks.map { |pk| traits_by_id[pk] }
-        [pred, ListWithCount.new(traits, count)]
-      end.to_h
-    end
-
-    def extract_grouped_trait_pks(pks_by_group)
-      pks_by_group.map { |row| row[:trait_pks] }.flatten
-    end
-
-    # end private
   end
   # end class << self
 
   private
-  ListWithCount = Struct.new(:traits, :count) do 
-    def add(other)
-      traits.concat(other.traits)
-      self.count += other.count
-    end
-  end
 
   class RecordAssociations
     def initialize(trait_nodes)

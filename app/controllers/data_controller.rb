@@ -7,27 +7,26 @@ class DataController < ApplicationController
 
   def show
     @trait = Trait.find(params[:id])
-    page_id = params[:page_id]&.to_i
-    trait_rels = page_id.nil? ? ':trait' : TRAIT_RELS
+    page_id = params[:page_id]
+    @page = page_id.present? ? Page.find(page_id) : @trait.page
 
-    q = @trait.query_as(:trait)
-      .match("(page:Page)-[#{trait_rels}]->(trait)")
-      .match("(trait)-[:predicate]->(:Term)-[#{PARENT_TERMS}]->(group_predicate:Term)")
-      .where_not('(group_predicate)-[:synonym_of]->(:Term)')
+    trait_has_page = @page.nil? ||
+                     @trait.page == @page || 
+                     @trait.object_page == @page || 
+                     @trait.inferred_page_ids.include?(@page)
 
-    q = q.where('page.page_id': params[:page_id].to_i) if page_id.present?
-      
-    query_result = q.return(:page, :group_predicate).limit(1)&.first
-
-    raise ActiveRecord::RecordNotFound if query_result.nil?
-
-    @page = Page.find(query_result[:page].page_id)
+    raise ActiveRecord::RecordNotFound unless trait_has_page
 
     if request.xhr?
       @show_taxon = params[:show_taxon] && params[:show_taxon] == "true"
       render :layout => false
     else
-      redirect_to "#{page_data_path(page_id: @page.id, predicate_id: query_result[:group_predicate].id)}#trait_id=#{@trait.id}"
+      group_predicate = @trait.query_as(:trait)
+        .match('(trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(group_predicate:Term)')
+        .where_not('(group_predicate)-[:synonym_of]->(:Term)')
+        .proxy_as(TermNode, :group_predicate).first
+
+      redirect_to "#{page_data_path(page_id: @page.id, predicate_id: group_predicate.id)}#trait_id=#{@trait.id}"
     end
   end
 end

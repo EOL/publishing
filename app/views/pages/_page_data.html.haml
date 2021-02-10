@@ -32,5 +32,5 @@
               - if @selected_predicate_group.nil? && trait_count_for_group.present? && @traits_per_group < trait_count_for_group
                 = link_to(t(".n_hidden_show_all_noname", count: trait_count_for_group - @traits_per_group), page_data_path(page_id: @page.id, page_assoc_role: group.type, predicate_id: group.term_id))
         - traits.each do |trait|
-          = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => true, :page_is_assoc_obj => trait[:page_assoc_role] == 'object' }
+          = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => true, :page_is_assoc_obj => trait.page_role == :object }
 

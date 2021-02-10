@@ -5,7 +5,7 @@
 - cache(key) do
   - Rails.logger.info("&& TB Cached #{key}")
   - page_is_assoc_obj = local_assigns.fetch(:page_is_assoc_obj, false)
-  - page_id_for_expand = page_is_assoc_obj && trait.object_page? ? trait.object_page.id : page.id
+  - page_id_for_expand = page_is_assoc_obj && trait.object_page ? trait.object_page.id : page.id
   - show_taxon_on_expand = show_taxon || page_is_assoc_obj
 
   .trait.js-data-row{ class: "js-data-row-#{open_row ? 'open' : 'closed' }",  data: { :'show-path' => datum_path(:id => trait.id, :page_id => page_id_for_expand, :show_taxon => show_taxon_on_expand, hide_pred_when_closed: hide_pred_when_closed), :id => trait.id } }

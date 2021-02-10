@@ -22,6 +22,7 @@ class TraitNode
   has_one :out, :sex_term, type: :sex_term, model_class: :TermNode
   has_one :out, :object_page, type: :object_page, model_class: :PageNode
   has_one :in, :page, type: :trait, model_class: :PageNode
+  has_many :in, :inferred_pages, type: :inferred_trait, model_class: :PageNode
   has_one :out, :resource, type: :supplier, model_class: :ResourceNode
   has_many :out, :metadata, type: :metadata, model_class: :MetadataNode
 

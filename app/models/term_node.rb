@@ -16,6 +16,7 @@ class TermNode
   property :type
   property :uri
   property :is_ordinal
+  property :is_symmetrical_association
   id_property :eol_id
 
 
