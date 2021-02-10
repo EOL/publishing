@@ -100,7 +100,7 @@ class TraitsController < ApplicationController
   end
 
   def search_common
-    @page = params[:page] || 1
+    @page = params[:page]&.to_i || 1
     @per_page = PER_PAGE
     Rails.logger.warn "&&TS Running search:"
     @search = TraitSearch.new(@query)
