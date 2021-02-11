@@ -27,10 +27,14 @@ module TraitBank
         end
       end
 
-      { 
+      result = { 
         'columns' => cols.map { |c| c.to_s }, # hashrocket for string keys
         'data' => data
       }
+
+      result['plan'] = response.summary.plan.to_h unless response.summary.plan.nil?
+
+      result
     end
   end
 end
