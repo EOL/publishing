@@ -1,7 +1,7 @@
 FROM ruby:2.6.5
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
-LABEL last_full_rebuild="2020-01-09"
+LABEL last_full_rebuild="2021-02-11"
 
 RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
@@ -10,8 +10,10 @@ RUN apt-get update -q && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir /etc/ssmtp
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -q && \
+    apt-get install -qq -y npm
+
+RUN npm install -g --no-fund yarn
 
 RUN apt-get update -q && \
     apt-get install -qq -y yarn && \
