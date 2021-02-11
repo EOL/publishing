@@ -13,7 +13,7 @@ class DataController < ApplicationController
     trait_has_page = @page.nil? ||
                      @trait.page == @page || 
                      @trait.object_page == @page || 
-                     @trait.inferred_page_ids.include?(@page)
+                     @trait.inferred_pages.include?(@page)
 
     raise ActiveRecord::RecordNotFound unless trait_has_page
 
