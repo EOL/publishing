@@ -193,6 +193,7 @@ nl:
     altitude: Hoogte
     author: auteur
     bibliographic_citation: bibliografisch citaat
+    contributor: bijdrager
     compiler: samensteller
     creator: Maker
     editor: Bewerker
@@ -1298,6 +1299,16 @@ nl:
     pagination:
       next: volgende pagina
       previous: vorige pagina
+    inverse_name:
+      fallback: tegenovergestelde van '%{term_name}'
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: wordt gegeten door
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat gemaakt door
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: heeft ectoparasiet
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: heeft endoparasiet
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: host van
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: heeft hyperparasiet
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: wordt geparasiteerd door
     name:
       by_uri:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Erg klein

@@ -84,6 +84,9 @@ diq:
     collection_type:
       normal: normal
       gallery: galeriye
+    log:
+      page:
+        remove: '%{user} pela %{page} darde we'
     search:
       placeholder: Koleksiyoni bıvinê...
       submit: cı geyre

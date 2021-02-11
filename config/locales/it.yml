@@ -4,6 +4,7 @@
 # Author: Beta16
 # Author: G313
 # Author: JackLantern
+# Author: R.caredda1
 # Author: Ubibi
 ---
 it:
@@ -80,6 +81,7 @@ it:
       nodes_count: nodi
       vernaculars_count: vernacolari
       scientific_names_count: nomi scientifici
+      species_count: specie
   collect_already_in_collection: (è già qui)
   collect_already_in_collection_will_add_icon: (aggiungi media a "%{page}")
   collect_icon_title: Aggiungi "%{item}" da "%{page}" pagina a…
@@ -137,29 +139,49 @@ it:
         add: '%{user} ha aggiunto un''associazione alla collezione %{associated}'
     sort:
       hierarchy: gerarchia
+      sci_name: nome scientifico, A-Z
       sci_name_rev: nome scientifico, Z-A
+      sort_field: annotazione, A-Z
+  complete_registration: Per favore prosegui con la registrazione
+  content_appears_on: 'Incluso nelle seguenti pagine:'
+  content_attributions_header: Informazioni sulla fonte
   content_attributions_labels:
+    altitude: altitudine
     author: autore
     bibliographic_citation: citazione bibliografica
+    contributor: collaboratore
+    compiler: compilatore automatico
     creator: creatore
     editor: editore
     latitude: latitudine
+    license: licenza
     location: posizione
+    location_verbatim: alla lettera
     longitude: longitudine
+    original_media_file: file multimediale originale
+    owner: diritto d'autore
     photographer: fotografo
+    publisher: editore
     project: progetto
     provider: fornitore
+    resource_label: sito associato
+    rights_statement: dichiarazione dei diritti
     source: fonte
     view_source_label: originale
     view_source_link: vedi l'immagine originale
+    view_source_page_link: consulta la fonte
   content_not_in_any_collection_image: Questa immagine non figura in nessuna collezione.
   content_not_in_any_collection_sound: Questo audio non figura in nessuna collezione.
   content_not_in_any_collection_video: Questo video non figura in nessuna collezione.
   data:
     modifier:
+      lifestage_term: Stadio di sviluppo dell'organismo misurato
       statistical_method_term: Metodo statistico utilizzato per la misurazione
   dear_username_with_comma: Caro %{username},
+  delete_account_button: Cancella la tua utenza
+  filter_by_license_any_item: qualsiasi licenza
   filter_by_medium_subtype: tipo
+  filter_by_medium_any_item: qualsiasi tipo
   filter_by_resource: fornitore
   filter_by_resource_any_item: qualsiasi fornitore
   filters:
@@ -168,12 +190,19 @@ it:
     filter_by_provider: filtra per fornitore
   footer:
     eol_info:
+      citing_eol: Citare EOL
       contact_us: Contattaci
+      data_services: Servizi informatici
       donate: Dona
       education: Istruzione
+      food_webs: Rete alimentare
       glossary: Glossario
+      help: Aiuto
+      language_support: Supporto linguistico
       terms_of_use: Condizioni d'uso
+      the_eol_forum: Il forum di EOL
       what_is_eol: Cos'è EOL?
+      whats_new: Cosa c'è di nuovo?
     discover:
       amphibians: Anfibi
       animals: Animali
@@ -182,6 +211,7 @@ it:
       birds: Uccelli
       crustaceans: Crostacei
       fishes: Pesci
+      flowering_plants: Piante da fiore
       fungi: Funghi
       insects: Insetti
       invertebrates: Invertebrati
@@ -196,8 +226,10 @@ it:
       trees: Alberi
       viruses: Virus
       worms: Vermi
+    eol_is_hosted_by: 'EOL è ospitata da:'
   forgot_your_password: Hai dimenticato la password?
   landing_page:
+    header: Accesso globale alle conoscenze sulle forme di vita presenti sulla Terra
     stats_cleared: Le statistiche sono state ricalcolate.
   language: Lingua
   languages:
@@ -219,7 +251,9 @@ it:
     ita: Italiano
     ja: Giapponese
     jp: Giapponese
+    Q36106: Ligure
     li: Limburghese
+    lit: Lituano
     Q33754: Lombardo
     mk: Macedone
     ms: Malese
@@ -238,22 +272,58 @@ it:
     rus: Russo
     sa: Sanscrito
     sc: Sardo
+    Q845441: Sardo sassarese
+    Q14549: Scozzese
+    sr: Serbo
     Q33973: Siciliano
     si: Singalese
+    sk: Slovacco
+    slk: Slovacco
+    sl: Sloveno
+    so: Somalo
+    som: Somalo
+    st: Sotho del sud
     slv: Spagnolo
     swe: Svedese
+    ty: Tahitiano
     to: Tongano
+    Q56240: Arabo tunisino
     tr: Turco
     tur: Turco
+    Q36730: Turco, ottomano
     ukr: Ucraino
     Q100103: Fiammingo occidentale
+    fy: Isole Frisone occidentali
+  layout_sign_in: Accedi
+  layout_sign_up: Registrati
+  layout_sign_out: Esci
+  literature_and_references_header: Letteratura e consultazioni
+  maps:
+    empty: Non ci sono mappe disponibili per questa pagina.
+    other_maps_title: Mappe non interattive
   medium:
     untitled:
       video_of: Video di %{page_name}
+  medium_collect_button: archivia media
+  medium_description_blank: Nessuna descrizione per questo oggetto.
   medium_header_title: 'Titolo:'
+  names:
+    prefer: preferire
+  nav:
+    about: Informazioni
+    discuss: Discuti
+    search:
+      no_results_html: <strong>Nessun risultato confermato</strong><br />Premi Invio
+        per visualizzare i risultati senza revisione
+      placeholder: Cerca in EOL...
+  page_title: Enciclopedia della Vita
   pages:
+    actions:
+      reindex: reindicizzare
     batch_lookup:
       query: interrogazione
+      query_cant_be_blank: la ricerca non può essere vuota
+      search: cerca
     resource_names:
       rank:
         r_domain: Dominio

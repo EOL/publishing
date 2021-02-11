@@ -9,6 +9,7 @@
 # Author: Geryescalier
 # Author: Ihojose
 # Author: Jakeukalane
+# Author: JamesB
 # Author: Jesusmc
 # Author: Joanmp17
 # Author: Madamebiblio
@@ -749,6 +750,8 @@ es:
       blank_error: debe especificar un atributo o valor
       multi_obj_error: no puede ser un término objetivo y un clado de destino
       pred_uri_blank_obj_clade_error: no puede estar en blanco con un clado objetivo
+      units_blank_error: las unidades no se pueden estar en blanco para una  búsqueda
+        numérica
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
     record_url: URL del registro

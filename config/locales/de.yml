@@ -11,6 +11,7 @@
 # Author: Symposiarch
 # Author: Tiin
 # Author: Umherirrender
+# Author: Wolfdietmann
 ---
 de:
   language_name: Deutsch
@@ -469,6 +470,7 @@ de:
   term_query_filter:
     validations:
       invalid_uri: Ungültige URL
+      units_blank_error: Einheiten können bei einer numerischen Suche nicht leer sein
   terms:
     scientific_name: wissenschaftliche Bezeichnung
     source: Quelle
