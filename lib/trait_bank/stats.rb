@@ -179,6 +179,19 @@ module TraitBank
         CheckResult.valid
       end
 
+      def check_query_valid_for_assoc(query)
+        if query.filters.length != 1
+          return CheckResult.invalid("query must have a single filter")
+        end
+
+        filter = query.filters.first
+
+        if filter.predicate.type != "association"
+          return CheckResult.invalid("predicate must be association")
+        end
+
+        CheckResult.valid
+      end
 
       def check_query_valid_for_counts(query)
         if query.filters.length != 1

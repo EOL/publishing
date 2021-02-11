@@ -320,6 +320,14 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
+  function loadAssoc() {
+    var $contain = $('.js-assoc-contain');
+
+    if ($contain.length) {
+      loadViz($contain, () => { console.log('loaded association viz') });
+    }
+  }
+
   function loadViz($contain, ready) {
     $.get($contain.data('loadPath'), (result) => {
       $contain.find('.js-viz-spinner').remove();
@@ -338,6 +346,7 @@ window.TraitDataViz = (function(exports) {
   exports.loadBarChart = loadBarChart;
   exports.loadHistogram = loadHistogram;
   exports.loadSankey = loadSankey;
+  exports.loadAssoc = loadAssoc;
 
   return exports;
 })({});
@@ -346,6 +355,7 @@ $(function() {
   TraitDataViz.loadBarChart();
   TraitDataViz.loadHistogram();
   TraitDataViz.loadSankey();
+  TraitDataViz.loadAssoc();
 })
 
 

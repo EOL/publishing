@@ -115,6 +115,10 @@ module Traits
       render_with_status(@sankey.multiple_paths?)
     end
 
+    def assoc
+      render text: "not implemented yet!"
+    end
+
     private
     def render_common
       render_with_status(@data.length > 1)
@@ -143,7 +147,7 @@ module Traits
     end
 
     def term_query_params
-      params.require(:term_query).permit(TermQuery.expected_short_params)
+      params.require(:tq).permit(TermQuery.expected_short_params)
     end
 
     def set_1d_about_text
