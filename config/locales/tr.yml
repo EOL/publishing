@@ -5,6 +5,7 @@
 # Author: ArdaDemirel
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
+# Author: Joseph
 # Author: MuratTheTurkish
 # Author: Stonecy
 # Author: Sucsuzz
@@ -1080,6 +1081,7 @@ tr:
       pred_uri_blank_obj_clade_error: hedef grupla boş bırakılamaz
       pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
       range_invalid_error: ilk değere >= olmalıdır
+      units_blank_error: sayısal bir aramada birim boş olamaz
   terms:
     attribution_field_html: <strong>Atıf:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Yorum:</strong> %{comment}

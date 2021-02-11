@@ -1081,6 +1081,7 @@ pms:
         bërsaj
       pred_uri_blank_numeric_error: a peul pa esse veuid con un valor numérich
       range_invalid_error: a dev esse magior o ugual al prim valor
+      units_blank_error: j'unità a peulo nen esse veuide për n'arserca numérica
   terms:
     attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Coment:</strong> %{comment}
@@ -1555,6 +1556,18 @@ pms:
         http://eol(dot)org/schema/terms/RecordInGBIF: argistrassion an GBIF?
         http://eol(dot)org/schema/terms/ReferenceInBHL: arferiment an BHL?
         http://eol(dot)org/schema/terms/ReproductiveSkew: Deviassion arprodutiva
+        http://eol(dot)org/schema/terms/RespClip: capassità ëd chërse ancor apress
+          ël taj
+        http://eol(dot)org/schema/terms/RespDist: capassità ëd chërse ancor apress
+          dle përturbassion
+        http://eol(dot)org/schema/terms/RespFire: capassità ëd chërse torna apress
+          un feu
+        http://eol(dot)org/schema/terms/ResproutAbility: capassità ëd chërse ancor
+          apress un taj
+        http://eol(dot)org/schema/terms/Salinity: salinità ëd l'eva
+        http://eol(dot)org/schema/terms/SeedAbundance: abondansa dël frut o dla smens
+        http://eol(dot)org/schema/terms/SeedBank: banca dle smens
+        http://eol(dot)org/schema/terms/SeedBankLong: SeedBankLong
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà

@@ -2,12 +2,12 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aaribaud
-# Author: Abijeet Patro
 # Author: Alno
 # Author: Crochet.david
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
+# Author: LittleNemo
 # Author: PhilW
 # Author: Pols12
 # Author: Tektasc
@@ -1092,6 +1092,7 @@ fr:
       pred_uri_blank_obj_clade_error: ne peut pas rester vide avec un clade cible
       pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
       range_invalid_error: doit être supérieur ou égal à la première valeur
+      units_blank_error: Les unités ne peuvent être vides pour une recherche numérique
   terms:
     attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
     comment_field_html: <strong>Commentaire :</strong> %{comment}
@@ -1657,12 +1658,17 @@ fr:
         http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: acide ante-isotetradécanoïque
         http://eol(dot)org/schema/terms/aquatic: adapté à la vie aquatique
         http://eol(dot)org/schema/terms/areaToMassRatio: rapport surface/masse
+        http://eol(dot)org/schema/terms/autochory: autochorie
         http://eol(dot)org/schema/terms/bodyMassDry: poids d'extrait sec
         http://eol(dot)org/schema/terms/bodyMassWet: masse corporelle hydrique
         http://eol(dot)org/schema/terms/clearWater: eau claire
         http://eol(dot)org/schema/terms/colonyDensity: densité de la colonie
         http://eol(dot)org/schema/terms/competitive: compétitif
+        http://eol(dot)org/schema/terms/cuneiform: cunéiforme
+        http://eol(dot)org/schema/terms/dahllite: dahllite
         http://eol(dot)org/schema/terms/dryMass: Poids sec
+        http://eol(dot)org/schema/terms/earlySpring: début du printemps
+        http://eol(dot)org/schema/terms/earlySummer: début de l'été
         http://eol(dot)org/schema/terms/eggColor: couleur de l'oeuf
         http://eol(dot)org/schema/terms/fossilOccPBDB: nombre d’occurrences de fossiles
         http://eol(dot)org/schema/terms/highCNRatio: haut (>59)
