@@ -21,6 +21,13 @@ class PagesController < ApplicationController
     "page_url" => -> (qs, page, url) { url }
   }
   MIN_CLOUD_WORDS = 6
+  WORDCLOUD_PREDICATES = [TermNode.find_by_alias('habitat')]
+  TROPHIC_WEB_PREDICATES = [
+    TermNode.find_by_alias('eats'),
+    TermNode.find_by_alias('is_eaten_by'),
+    TermNode.find_by_alias('preys_on'),
+    TermNode.find_by_alias('preyed_upon_by')
+  ]
 
   HABITAT_CHART_BLACKLIST_IDS = Set.new([
     1,
@@ -489,20 +496,16 @@ private
   def setup_viz
     @show_wordcloud = false
     @show_trophic_web = false
-    pred_uri = @predicate&.[](:uri)
+    return if @selected_predicate_group.nil?
 
     if (
-      pred_uri &&
-      pred_uri == EolTerms.alias_uri('habitat') &&
+      WORDCLOUD_PREDICATES.include?(@selected_predicate_group.term) &&
       @page.native_node.rank &&
       Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
     )
       setup_wordcloud
     elsif (
-      pred_uri == EolTerms.alias_uri('eats') ||
-      pred_uri == EolTerms.alias_uri('is_eaten_by') ||
-      pred_uri == EolTerms.alias_uri('preys_on') ||
-      pred_uri == EolTerms.alias_uri('preyed_upon_by')
+      TROPHIC_WEB_PREDICATES.include?(@selected_predicate_group.term)
     )
       setup_trophic_web
     end
@@ -524,25 +527,10 @@ private
   end
 
   def setup_wordcloud
-    word_counts = {}
+    wordcloud = Wordcloud.new(@page, TermNode.find_by_alias('habitat'))
 
-    recs = @page.grouped_data[EolTerms.alias_uri('habitat')]
-
-    recs.select do |rec|
-      rec[:object_term]
-    end.each do |rec|
-      name = TraitBank::Record.i18n_name(rec[:object_term])
-      cur_count = word_counts[name] || 0
-      word_counts[name] = cur_count + 1
-    end
-
-    if word_counts.length >= MIN_CLOUD_WORDS
-      @wordcloud_words = word_counts.entries.collect do |entry|
-        {
-          text: entry[0],
-          weight: entry[1]
-        }
-      end.to_json
+    if wordcloud.length > MIN_CLOUD_WORDS
+      @wordcloud_words = wordcloud.to_json
       @show_wordcloud = true
     end
   end
