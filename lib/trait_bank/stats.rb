@@ -151,6 +151,31 @@ module TraitBank
         end
       end
 
+      def assoc_data(query)
+        raise_if_query_invalid_for_assoc(query)
+        params = {}
+
+        begin_part = TraitBank::Search.term_record_search_matches(
+          query, 
+          params, 
+          always_match_obj_clade: true, 
+          obj_clade_var: :obj_clade, 
+          trait_var: :trait
+        )
+
+        # TODO: logic for above/below family/genus etc.
+        q = %Q(
+          #{begin_part}
+          MATCH (page)-[:parent*0..]->(subj_group:Page{ rank: 'family' }), (obj_clade)-[:parent*0..]->(obj_group{ rank: 'family' })
+          WITH subj_group, obj_group, count(distinct trait) AS trait_count
+          RETURN subj_group, obj_group, trait_count
+          ORDER BY trait_count DESC
+          LIMIT 50
+        )
+
+        TraitBank.query(q, params)
+      end
+
       def check_query_valid_for_histogram(query, count)
         if count < MIN_RECORDS_FOR_HIST
           return CheckResult.invalid("record count doesn't meet minimum of #{MIN_RECORDS_FOR_HIST}")
@@ -479,6 +504,14 @@ module TraitBank
 
       def raise_if_query_invalid_for_sankey(query)
         result = check_query_valid_for_sankey(query)
+
+        if !result.valid
+          raise TypeError.new(result.reason)
+        end
+      end
+
+      def raise_if_query_invalid_for_assoc(query)
+        result = check_query_valid_for_assoc(query)
 
         if !result.valid
           raise TypeError.new(result.reason)

@@ -116,7 +116,9 @@ module Traits
     end
 
     def assoc
-      render text: "not implemented yet!"
+      @query = TermQuery.from_short_params(term_query_params)
+      result = TraitBank::Stats.assoc_data(@query)
+      render json: result.to_json
     end
 
     private
