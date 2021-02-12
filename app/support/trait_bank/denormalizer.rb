@@ -50,7 +50,7 @@ class TraitBank::Denormalizer
       UNWIND update_data AS datum
       MATCH (p:Page)
       WHERE p.page_id = datum.page_id
-      SET p.canonical = datum.canonical, p.rank = datum.rank
+      SET p.canonical = datum.canonical, p.rank = datum.rank, p.landmark = datum.landmark
       RETURN count(*) AS count
     ), update_data: batch_data).first[:count]
     @fixed += updated_count
@@ -59,10 +59,12 @@ class TraitBank::Denormalizer
   def build_update_data(ids)
     ::Page.references(native_node: :rank).includes(native_node: :rank)
       .where('pages.id': ids).map do |p| 
+        landmark = p.native_node&.no_landmark? ? nil : p.native_node&.landmark
         { 
           page_id: p.id, 
-          canonical: p.native_node&.canonical_form || '',
-          rank: p.rank&.treat_as&.[](2..) || '' # treat_as value is prefixed with r_, so get the substring starting at 2
+          canonical: p.native_node&.canonical_form,
+          rank: p.rank&.treat_as&.[](2..), # treat_as value is prefixed with r_, so get the substring starting at 2
+          landmark: landmark
         }
     end
   end
