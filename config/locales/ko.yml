@@ -444,6 +444,7 @@ ko:
   term_query_filter:
     validations:
       invalid_uri: 유효하지 않은 URI
+      units_blank_error: 수치 검색에서 단위는 빈칸으로 둘 수 없습니다
   terms:
     definition_field_html: <strong>정의:</strong> %{definition}
     source_field_html: <strong>출처:</strong> <a href='%{source}'>%{source}</a>
