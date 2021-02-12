@@ -9,7 +9,7 @@ class TraitBank::Slurp
         CALL apoc.periodic.iterate(
           "#{head}",
           "#{q}",
-          { batchSize: 10000, parallel: false }
+          { batchSize: 1000, parallel: false }
         )
       )).first
 
