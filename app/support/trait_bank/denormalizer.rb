@@ -2,14 +2,14 @@ class TraitBank::Denormalizer
   attr_reader :fixed
 
   class << self
-    def set_canonicals(options = {})
+    def update_attributes(options = {})
       denormalizer = new(options)
-      denormalizer.set_canonicals
+      denormalizer.update_attributes
     end
 
-    def set_canonicals_by_page_id(ids, options = {})
+    def update_attributes_by_page_id(ids, options = {})
       denormalizer = new(options)
-      denormalizer.set_canonicals_by_page_id(ids)
+      denormalizer.update_attributes_by_page_id(ids)
     end
   end
 
@@ -19,55 +19,59 @@ class TraitBank::Denormalizer
     @fixed = 0
   end
 
-  def set_canonicals
-    @pages_count = TraitBank::Page.count_pages # 4,332,394 as of this writing...
-    log "Looks like there are #{@pages_count} pages to check (#{(@pages_count / @limit).ceil} batches)..."
+  def update_attributes
+    @pages_count = PageNode.count # 4,332,394 as of this writing...
+    log "Looks like there are #{@pages_count} pages to check (#{((@pages_count * 1.0) / @limit).ceil} batches)..."
     loop do
-      results = get_pages
-      break if results.nil?
+      page_ids = get_page_ids
+      break if page_ids.empty?
       log "Handing #{@skip}/#{@pages_count}..."
-      fix_page_ids(results)
+      fix_page_ids(page_ids)
     end
     @fixed
   end
 
-  def set_canonicals_by_page_id(ids)
+  def update_attributes_by_page_id(ids)
     ActiveRecord::Base.connection.reconnect!
     ids.in_groups_of(@limit, false) do |group_of_ids|
-      pages = map_page_ids_to_canonical(group_of_ids)
-      pages.each do |id, name|
-        fix_canonical(id, name)
-      end
+      update_data = build_update_data(group_of_ids)
+      do_batch_update(update_data)
     end
   end
 
-  # NOTE: current_names is an array of arrays; each inner array is [id, name]
-  def fix_page_ids(current_names)
-    pages = map_page_ids_to_canonical(current_names.map(&:first))
-    current_names.each do |page_id, canonical|
-      fix_canonical(page_id, pages[page_id]) if pages[page_id] != canonical
+  def fix_page_ids(page_ids)
+    update_data = build_update_data(page_ids.compact)
+    do_batch_update(update_data)
+  end
+
+  def do_batch_update(batch_data)
+    updated_count = ActiveGraph::Base.query(%Q(
+      WITH $update_data AS update_data
+      UNWIND update_data AS datum
+      MATCH (p:Page)
+      WHERE p.page_id = datum.page_id
+      SET p.canonical = datum.canonical, p.rank = datum.rank
+      RETURN count(*) AS count
+    ), update_data: batch_data).first[:count]
+    @fixed += updated_count
+  end
+
+  def build_update_data(ids)
+    ::Page.references(native_node: :rank).includes(native_node: :rank)
+      .where('pages.id': ids).map do |p| 
+        { 
+          page_id: p.id, 
+          canonical: p.native_node&.canonical_form || '',
+          rank: p.rank&.treat_as&.[](2..) || '' # treat_as value is prefixed with r_, so get the substring starting at 2
+        }
     end
   end
 
-  def fix_canonical(id, name)
-    name.gsub!('"', '\\"')
-    TraitBank.query(%{MATCH (page:Page { page_id: #{id} }) SET page.canonical = "#{name}" })
-    @fixed += 1
-  end
-
-  def map_page_ids_to_canonical(ids)
-    safe_ids = ids.sort.compact
-    Hash[*Page.joins([:native_node]).where(id: safe_ids).pluck('pages.id, nodes.canonical_form').flatten]
-  end
-
-  def get_pages
-    q = %{MATCH (page:Page) RETURN page.page_id, page.canonical}
-    q += " SKIP #{@skip}" if @skip.positive?
-    q += " LIMIT #{@limit}"
-    results = TraitBank.query(q)
+  def get_page_ids
+    page_q = PageNode.all.limit(@limit)
+    page_q = page_q.skip(@skip) if @skip.positive?
     @skip += @limit
-    return nil if results.nil? || !results.key?("data") || results["data"].empty?
-    results["data"]
+    page_q.pluck(:id)
   end
 
   # TODO: handle this better.

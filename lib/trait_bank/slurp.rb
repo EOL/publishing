@@ -69,7 +69,7 @@ class TraitBank::Slurp
     def post_load_cleanup(id)
       page_ids = read_field_from_traits_file(id, 'page_id')&.sort&.uniq&.compact
       return nil if page_ids.blank?
-      fix_page_names_for_new_pages(page_ids)
+      fix_new_page_attributes(page_ids)
     end
 
     def read_field_from_traits_file(id, field)
@@ -89,8 +89,8 @@ class TraitBank::Slurp
       values.keys
     end
 
-    def fix_page_names_for_new_pages(page_ids)
-      TraitBank::Denormalizer.set_canonicals_by_page_id(page_ids)
+    def fix_new_page_attributes(page_ids)
+      TraitBank::Denormalizer.update_attributes_by_page_id(page_ids)
     end
 
     class NodeConfig
