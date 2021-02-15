@@ -1568,6 +1568,15 @@ pms:
         http://eol(dot)org/schema/terms/SeedAbundance: abondansa dël frut o dla smens
         http://eol(dot)org/schema/terms/SeedBank: banca dle smens
         http://eol(dot)org/schema/terms/SeedBankLong: SeedBankLong
+        http://eol(dot)org/schema/terms/SeedPerPound: smens për livra
+        http://eol(dot)org/schema/terms/SeedPeriodBegin: prinsipi dël perìod ëd le
+          smens
+        http://eol(dot)org/schema/terms/SeedPeriodEnd: fin dël perìod ëd le smens
+        http://eol(dot)org/schema/terms/SeedSpreadRate: andi dë spantiament ëd le
+          smens
+        http://eol(dot)org/schema/terms/SeedlingSurvival: dzorvivensa dij piantin
+        http://eol(dot)org/schema/terms/SequenceInGenBank: sequense an GenBank?
+        http://eol(dot)org/schema/terms/SexualSystem: sistema sessual
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
