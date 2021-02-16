@@ -361,6 +361,8 @@ module TraitBank
         if include_meta # NOTE: it's necessary to return meta.eol_pk for downstream result processing
           returns.concat(%w[
             meta.eol_pk
+            meta.literal
+            meta.measurement
             meta_predicate.uri
             meta_predicate.name
             meta_predicate.definition
