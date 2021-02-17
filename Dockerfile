@@ -42,7 +42,7 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
-RUN gem install bundler:2.1.2
+RUN gem install bundler:2.1.4
 RUN bundle config set without 'test development staging'
 RUN bundle install --jobs 10 --retry 5
 # Skipping this for now. The secrets file does not appear to work at this stage. :\
