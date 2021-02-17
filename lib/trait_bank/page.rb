@@ -204,15 +204,6 @@ module TraitBank
         end
       end
 
-      def create_page(id)
-        if (page = page_exists?(id))
-          return page
-        end
-        page = connection.create_node(page_id: id)
-        connection.set_label(page, "Page")
-        page
-      end
-
       def count_pages
         q = "MATCH (page:Page) RETURN COUNT(page)"
         res = query(q)

@@ -135,7 +135,9 @@ class TermBootstrapper
           term_from_gem[key].to_s != term_from_neo4j[key].to_s 
       )
         # Ignore false-like values compared to false:
+        next if term_from_gem[key] == [] && term_from_neo4j[key].blank?
         next if term_from_gem[key] == 'false' && term_from_neo4j[key].blank?
+        next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
         next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
         puts "TERM #{term_from_gem['uri']} does not match on '#{key}':\n"\
              "gem: {#{term_from_gem[key]}}\n"\
@@ -192,9 +194,14 @@ class TermBootstrapper
   def uri_has_relationships?(uri)
     out_rels = rels_by_direction(uri, :outgoing)
     in_rels = rels_by_direction(uri, :incoming)
-    out_rels.delete('synonym_of') # We don't really care about these.
-    out_rels.delete('parent_term') # We don't really care about these.
-    out_rels.delete('units_term') # We don't really care about these.
+
+    # We don't really care about these.
+    out_rels.delete('synonym_of') 
+    out_rels.delete('parent_term') 
+    out_rels.delete('units_term') 
+    out_rels.delete('object_for_predicate')
+    in_rels.delete('object_for_predicate')
+
     if !out_rels.empty?
       if !in_rels.empty?
         puts "WARNING: #{uri} has incoming relationships: #{in_rels.join(',')} AND outgoing relationships: #{out_rels.join(',')}"

@@ -165,14 +165,10 @@ module TraitBank
           parent_id = node.parent.page_id
           next if page_id == parent_id
           next if related.key?(page_id) # Pages may only have ONE parent.
-          page = get_cached_pages(page_id)
-          parent = get_cached_pages(parent_id)
-          TraitBank::Page.create_page(page_id) unless page
-          TraitBank::Page.create_page(parent_id) unless parent
           tries = 0
           begin
-            res = TraitBank.query("MATCH(from_page:Page { page_id: #{page_id}}) "\
-              "MATCH(to_page:Page { page_id: #{parent_id}}) "\
+            res = TraitBank.query("MERGE (from_page:Page { page_id: #{page_id}}) "\
+              "MERGE (to_page:Page { page_id: #{parent_id}}) "\
               "MERGE(from_page)-[:parent]->(to_page)")
           rescue
             tries += 1
@@ -188,14 +184,6 @@ module TraitBank
       def dumb_log(what)
         puts "[#{Time.now}] #{what}"
         STDOUT.flush
-      end
-
-      def get_cached_pages(page_id)
-        @pages ||= {}
-        return @pages[page_id] if @pages.has_key?(page_id)
-        page = TraitBank::Page.page_exists?(page_id)
-        page = page.first if page && page.is_a?(Array)
-        @pages[page_id] = page
       end
 
       def rebuild_names

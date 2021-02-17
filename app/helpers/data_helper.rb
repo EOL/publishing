@@ -18,7 +18,7 @@ module DataHelper
 
   def trait_property_metadata(trait)
     EXTRA_METADATA_KEYS.collect do |key|
-      if value = trait.send(key)
+      if (value = trait.send(key)).present?
         { label: t("traits.properties.#{key}"), value: value }
       else
         nil
@@ -90,11 +90,11 @@ module DataHelper
     elsif trait.object_term
       value = trait.object_term.i18n_name
       parts << value
-    elsif val = trait.measurement
-      parts << val.to_s
+    elsif trait.measurement.present?
+      parts << trait.measurement.to_s
       parts << trait.units_term.i18n_name if trait.units_term
-    elsif val = trait.literal
-      parts << unlink(val).html_safe
+    elsif trait.literal.present?
+      parts << unlink(trait.literal).html_safe
     else
       parts << "CORRUPTED VALUE for trait #{trait.id}"
     end
