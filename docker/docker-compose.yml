@@ -2,7 +2,7 @@ version: '3.0' # NOTE: this is NOT a version of the *file*, it's a version of th
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
-    container_name: eol-backend-elasticsearch
+    container_name: publishing_elasticsearch
     restart: always
     environment:
       - RAILS_ENV
@@ -15,58 +15,58 @@ services:
         hard: -1
     volumes:
       - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /data/eol-backend-elasticsearch/data:/var/data/elasticsearch
-      - /data/eol-backend-elasticsearch/log:/var/log/elasticsearch
+      - /data/publishing_elasticsearch/data:/var/data/elasticsearch
+      - /data/publishing_elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
     networks:
-      - eolnet
+      - publishing_network
   elasticsearch2:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
-    container_name: eol-backend-elasticsearch2
+    container_name: publishing_elasticsearch2
     environment:
       - RAILS_ENV
       - cluster.name=eol-search-${RAILS_ENV}
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - "discovery.zen.ping.unicast.hosts=[eol-backend-elasticsearch,eol-backend-elasticsearch3]"
+      - "discovery.zen.ping.unicast.hosts=[publishing_elasticsearch,publishing_elasticsearch3]"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /data/eol-backend-elasticsearch2/data:/var/data/elasticsearch
-      - /data/eol-backend-elasticsearch2/log:/var/log/elasticsearch
+      - /data/publishing_elasticsearch2/data:/var/data/elasticsearch
+      - /data/publishing_elasticsearch2/log:/var/log/elasticsearch
     networks:
-      - eolnet
+      - publishing_network
   elasticsearch3:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
-    container_name: eol-backend-elasticsearch3
+    container_name: publishing_elasticsearch3
     environment:
       - cluster.name=eol-search-${RAILS_ENV}
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - "discovery.zen.ping.unicast.hosts=[eol-backend-elasticsearch,eol-backend-elasticsearch2]"
+      - "discovery.zen.ping.unicast.hosts=[publishing_elasticsearch,publishing_elasticsearch2]"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /data/eol-backend-elasticsearch3/data:/var/data/elasticsearch
-      - /data/eol-backend-elasticsearch3/log:/var/log/elasticsearch
+      - /data/publishing_elasticsearch3/data:/var/data/elasticsearch
+      - /data/publishing_elasticsearch3/log:/var/log/elasticsearch
     networks:
-      - eolnet
+      - publishing_network
   memcached:
     image: memcached
-    container_name: eol-backend-memcached
+    container_name: publishing_memcached
     restart: always
     environment:
       - TZ=America/New_York
     command: memcached -m 4096m
     networks:
-      - eolnet
+      - publishing_network
   neo4j:
     image: neo4j
     container_name: neo4j
@@ -91,7 +91,7 @@ services:
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
       - ./resources/templates/apoc.conf:/conf/apoc.conf
     networks:
-      - eolnet
+      - publishing_network
     ports:
       - 7473:7473
       - 7474:7474
@@ -111,7 +111,7 @@ services:
        - /u/data/eol_publishing_mysql_ENV_temp:/tmp
        - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
     networks:
-      - eolnet
+      - publishing_network
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     image: redis:6.0
     container_name: redis
@@ -119,7 +119,7 @@ services:
     ports:
       - 6379:6379
     networks:
-      - eolnet
+      - publishing_network
   pub_web:
     build: ..
     image: eol_website
@@ -132,8 +132,8 @@ services:
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_publishing.conf:/etc/supervisord.conf
-      - /data/eol-backend-tramea:/app/public/data
-      - /data/eol-backend-tramea-private-data:/app/data
+      - /data/publishing_tramea:/app/public/data
+      - /data/publishing_tramea-private-data:/app/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
       - mysql
@@ -143,7 +143,7 @@ services:
     ports:
        - 3000:3000
     networks:
-      - eolnet
+      - publishing_network
   pub_jobs:
     build: ..
     image: eol_website
@@ -157,8 +157,8 @@ services:
     volumes: # NOTE: YES, it shares the data volumes with production, so you can download the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_jobs.conf:/etc/supervisord.conf
-      - /data/eol-backend-tramea:/app/public/data
-      - /data/eol-backend-tramea-private-data:/app/data
+      - /data/publishing_tramea:/app/public/data
+      - /data/publishing_tramea-private-data:/app/data
       - /eol/tmp/eol_website_jobs:/tmp
     depends_on:
       - mysql
@@ -167,7 +167,7 @@ services:
       - elasticsearch
       - redis
     networks:
-      - eolnet
+      - publishing_network
   newrelic:
     image: newrelic/infrastructure:latest
     container_name: newrelic
@@ -183,5 +183,5 @@ services:
       - ../config/newrelic_logging:/etc/newrelic-infra/logging.d
     restart: unless-stopped
 networks:
-  eolnet:
+  publishing_network:
     driver: bridge
