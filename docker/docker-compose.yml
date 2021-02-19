@@ -126,7 +126,6 @@ services:
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS=redis://redis:6379
       - REDIS_PROVIDER=EOL_REDIS
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
@@ -139,13 +138,11 @@ services:
       - neo4j
       - memcached
       - elasticsearch
-      - redis
     links:
       - elasticsearch
       - memcached:memcached
       - mysql
       - neo4j
-      - redis
     ports:
        - 3000:3000
     networks:
