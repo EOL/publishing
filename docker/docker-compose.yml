@@ -132,8 +132,8 @@ services:
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_publishing.conf:/etc/supervisord.conf
-      - /data/publishing_tramea:/app/public/data
-      - /data/publishing_tramea-private-data:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_web_private:/app/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
       - mysql
@@ -157,8 +157,8 @@ services:
     volumes: # NOTE: YES, it shares the data volumes with production, so you can download the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_jobs.conf:/etc/supervisord.conf
-      - /data/publishing_tramea:/app/public/data
-      - /data/publishing_tramea-private-data:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_web_private:/app/data
       - /eol/tmp/eol_website_jobs:/tmp
     depends_on:
       - mysql
