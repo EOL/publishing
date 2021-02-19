@@ -118,6 +118,8 @@ services:
     restart: always
     ports:
       - 6379:6379
+    networks:
+      - eolnet
   pub_web:
     build: ..
     image: eol_website
@@ -138,11 +140,6 @@ services:
       - neo4j
       - memcached
       - elasticsearch
-    links:
-      - elasticsearch
-      - memcached:memcached
-      - mysql
-      - neo4j
     ports:
        - 3000:3000
     networks:
@@ -168,12 +165,6 @@ services:
       - neo4j
       - memcached
       - elasticsearch
-      - redis
-    links:
-      - elasticsearch
-      - memcached
-      - mysql
-      - neo4j
       - redis
     networks:
       - eolnet
