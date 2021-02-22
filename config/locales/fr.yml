@@ -24,28 +24,27 @@ fr:
     trait_bank:
       title: TraitBank
       body_html: |-
-        <p>L’équipe technique et de gestion des données de l’EdlV (''EOL'' en anglais) se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques et notre classification native, la Hiérarchie de travail dynamique – désignées collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
-        <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
-        <p>Désormais, vous pouvez <a href="%{example_search_path}">rechercher</a> ou naviguer dans l’EdlV par données structurées, ou les télécharger,ou vous pouvez en prendre connaissance dans notre nouvel onglet de vue générale sous forme de <a href="%{autogen_page_path}">texte autogénéré</a>. Comme le reste du contenu de l’EdlV, tout ceci est disponible pour la réutilisation et vous est fourni avec les données détaillées d’attribution afin que vous puissiez les créditer si vous les utiliser dans votre propre travail.</p>
+        <p>L’équipe technique et de gestion des données de l’EdlV (''EOL'' en anglais) se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques et notre classification native, la Hiérarchie de travail dynamique – désignées collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
+        <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
+        <p>Désormais, vous pouvez <a href="%{example_search_path}">rechercher</a> ou naviguer dans l’EdlV par données structurées, les télécharger, ou en prendre connaissance dans notre nouvel onglet de vue générale sous forme de <a href="%{autogen_page_path}">texte autogénéré</a>. Comme le reste du contenu de l’EdlV, tout ceci est disponible pour la réutilisation et vous est fourni avec les données détaillées d’attribution afin que vous puissiez les créditer si vous les utilisez dans votre propre travail.</p>
         <p>Ces données sont modélisées comme un <a href="%{property_graph_url}">graphe de propriété</a> dans <a href="%{neo4j_url}">neo4j</a>. Des <a href="%{data_services_path}">services de données</a> sont également disponibles.</p>
   account_already_linked: votre compte est déjà lié à l’EdlV
   account_not_linked: votre compte n’est pas lié à l’EdlV
   advanced: avancé
-  are_you_sure_delete_account: Êtes-vous sûr de vouloir supprimer votre compte sur
-    l’EdlV ?
+  are_you_sure_delete_account: Voulez-vous vraiment supprimer votre compte sur l’EdlV ?
   article:
     actions:
       collect: collecter
     header:
       blank: (Il n’y a pas de corps pour cet article.)
       body: Corps
-      language: 'langue : %{language}'
+      language: 'langue : %{language}'
       title: Titre
       untitled: Sans titre
     name:
       missing: Sans titre
   article_from_partner: fourni par %{partner}
-  article_duplicate: cet article est aussi affiché dans « %{section} »
+  article_duplicate: cet article est aussi affiché dans « %{section} »
   autocomplete:
     see_all:
       one: voir un autre résultat
@@ -103,7 +102,7 @@ fr:
   collect_no_existing_collections: Vous n’en avez encore aucun ! En créer un en utilisant
     le formulaire sur la gauche.
   collect_select_collection: '... une de vos collections'
-  collect_title: Ajouter « %{item} » à...
+  collect_title: Ajouter « %{item} » à...
   collected_page_added_to_collection: '%{page} ajouté à la collection <a href="%{link}">%{name}</a>.'
   collected_page_already_in_collection: C’était déjà dans votre collection.
   collected_pages_title: Pages
@@ -114,7 +113,7 @@ fr:
   collected_pages:
     delete_button: supprimer
     edit_button: modifier
-    delete_confirm: Êtes-vous sûr ?
+    delete_confirm: Êtes-vous sûr(e) ?
     destroyed_flash: '%{name} a été supprimé de cette collection.'
   collection_association_added_to_collection: « %{associated} » ajouté à la collection
     <a href="%{link}">« %{name} »</a>.
@@ -211,7 +210,7 @@ fr:
       one: Référence
       other: Références
     resource_label: site partenaire
-    resource_pk: '(id : %{key})'
+    resource_pk: '(id : %{key})'
     rights_statement: déclaration des droits
     source: source
     spatial_location: spatial
@@ -249,11 +248,11 @@ fr:
       food_webs: Réseaux de nourriture
       glossary: Glossaire
       help: Aide
-      language_support: Support de langue
+      language_support: Soutien linguistique
       terms_of_use: Conditions d’utilisation
       the_eol_forum: Le forum EdlV
-      what_is_eol: Qu’est-ce que l’EdlV ?
-      whats_new: Quoi de neuf ?
+      what_is_eol: Qu’est-ce que l’EdlV ?
+      whats_new: Quoi de neuf ?
     discover:
       algae: Algues
       amphibians: Amphibiens
@@ -278,8 +277,8 @@ fr:
       trees: Arbres
       viruses: Virus
       worms: Vers
-    eol_is_hosted_by: 'L’EdlV est hébergée par :'
-  forgot_your_password: Mot de passe oublié ?
+    eol_is_hosted_by: 'L’EdlV est hébergée par :'
+  forgot_your_password: Mot de passe oublié ?
   gbif_download:
     created: tâche de téléchargement GBIF créée. Vérifier votre <a href="%{url}">page
       de profil utilisateur</a> pour voir son état
@@ -333,7 +332,7 @@ fr:
     Q880301: français cadien
     Q35156: Car
     Q2591230: cashinahua
-    ca: catalan ; valencien
+    ca: catalan ; valencien
     Q33239: cébuano
     khm: khmer central
     km: khmer central
@@ -342,7 +341,7 @@ fr:
     ce: tchétchène
     Q33388: tchéroki
     Q33265: cheyenne
-    ny: chewa ; chichewa ; nyanja
+    ny: chewa ; chichewa ; nyanja
     zh: chinois
     chi: chinois
     Q32979: chacta
@@ -359,10 +358,10 @@ fr:
     da: danois
     Q3362072: digo
     Q56466: dinka
-    dv: divehi ; maldivien
+    dv: divehi ; maldivien
     Q18415595: dotyali
-    dut: néerlandais ; flamand
-    nl: néerlandais ; flamand
+    dut: néerlandais ; flamand
+    nl: néerlandais ; flamand
     dz: dzongkha
     dzo: dzongkha
     Q4126517: inuktitut canadien oriental
@@ -383,7 +382,7 @@ fr:
     gd: gaélique écossais
     gl: galicien
     Q33475: gan
-    lg: ganda ; luganda
+    lg: ganda ; luganda
     ka: Géorgien
     de: allemand
     deu: allemand
@@ -395,7 +394,7 @@ fr:
     gn: guarani
     gu: gouderati
     Q33303: haïda
-    ht: haïtien ; créole haïtien
+    ht: haïtien ; créole haïtien
     ha: haoussa
     Q35756: haya
     he: Hébreu
@@ -414,7 +413,7 @@ fr:
     id: indonésien
     Q33509: ingouche
     ia: interlingua (association de langue auxilliaire internationale)
-    ie: interlingue ; occidental
+    ie: interlingue ; occidental
     iu: inuktitut
     ik: inupiaq
     Q33595: iraqw
@@ -437,7 +436,7 @@ fr:
     ks: cachemiri
     Q33690: cachoube
     kk: kazakh
-    ki: kikuyu ; gikuyu
+    ki: kikuyu ; gikuyu
     Q11005332: kinga
     Q11732519: kingindo
     rw: kinyarwanda
@@ -446,7 +445,7 @@ fr:
     kg: kikongo
     ko: coréen
     kor: coréen
-    kj: kuanyama ; kwanyama
+    kj: kuanyama ; kwanyama
     ku: kurde
     Q36206: lak
     lo: lao
@@ -497,7 +496,7 @@ fr:
     Q13300: nahuatl
     Q3508074: naï
     na: nauru
-    nv: navajo ; navaho
+    nv: navajo ; navaho
     nd: ndébélé du Nord
     nr: ndébélé du Sud
     ng: ndonga
@@ -536,10 +535,10 @@ fr:
     pol: polonais
     Q36748: pontique
     pt: portugais
-    ps: pachto ; pachtoune
+    ps: pachto ; pachtoune
     qu: quechua
     Q584983: rangui
-    ro: roumain ; moldave
+    ro: roumain ; moldave
     rm: romanche
     rn: roundi
     ru: russe
@@ -561,7 +560,7 @@ fr:
     Q56482: Shan
     sn: shona
     Q34004: shona
-    ii: yi du Sichuan ; nuosu
+    ii: yi du Sichuan ; nuosu
     Q33973: sicilien
     sd: sindhi
     si: cinghalais
@@ -571,7 +570,7 @@ fr:
     so: somali
     som: somali
     st: sotho du Sud
-    es: espagnol ; castillan
+    es: espagnol ; castillan
     slv: espagnol
     Q2638144: soukouma
     su: soundanais
@@ -663,8 +662,8 @@ fr:
       js_map: carte interactive
   medium_collect_button: collecter les médias
   medium_description_blank: Il n’y a aucune description fournie pour cet objet.
-  medium_header_title: 'Titre :'
-  medium_header_description: 'Description :'
+  medium_header_title: 'Titre :'
+  medium_header_description: 'Description :'
   names:
     hide_langs:
       one: masquer une langue
@@ -691,7 +690,7 @@ fr:
       other: Meilleure image pour les pages
   page_icon_created: Image « %{name} » déplacée en haut.
   page_title: Encyclopédie de la Vie
-  page_title_search: 'Recherche : %{query}'
+  page_title_search: 'Recherche : %{query}'
   page_vernaculars_empty: Il n’y a aucun nom commun associé avec ce taxon.
   pages:
     actions:
@@ -785,7 +784,7 @@ fr:
       prey: Proie
       reset: réinitialiser
       trophic_web_about: Les diagrammes de réseau de nourriture de l’EdlV se focalisent
-        sur les relations de nourriture d’une espèce ; ils montrent l’espèce ciblée
+        sur les relations de nourriture d’une espèce ; ils montrent l’espèce ciblée
         entourée des espèces dont elle se nourrie (proie), les espèces qui se nourrissent
         d’elle (prédateurs) et les autres espèces qui se nourrissent des mêmes proies
         (compétiteurs potentiels). Cliquer pour en savoir plus.
@@ -807,7 +806,7 @@ fr:
       media: média
       names: noms
     iucn_status:
-      label: 'État selon l’IUCN :'
+      label: 'État selon l’IUCN :'
       ex: éteint (EX)
       ew: éteint à l’état sauvage (EW)
       cr: en danger critique (CR)
@@ -819,7 +818,7 @@ fr:
       ne: non évalué (NE)
       unknown: inconnu (pas d’enregistrement)
     unresolved_name: Nom non-résolu
-    unresolved_name_prefix: 'Nom non résolu :'
+    unresolved_name_prefix: 'Nom non résolu :'
   page_titles:
     pages:
       data: données de %{page_name}
@@ -832,7 +831,7 @@ fr:
   recaptcha: Recaptcha
   recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
   reference_compiled_from: Référencé par %{links}
-  reference_compiled_from_article: '%{source} article intitulé « %{name} »'
+  reference_compiled_from_article: Article de %{source} intitulé « %{name} »
   register_new_account: Enregistrer un nouveau compte
   resources:
     actions:
@@ -847,9 +846,9 @@ fr:
         one: afficher l’avertissement (%{count})
         other: afficher les avertissements (%{count})
       clear_publishing: effacer le verrou
-      clear_publishing_confirm: Cela « terminera » toutes les publications et peut
-        poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
-        sûr ?
+      clear_publishing_confirm: Cela « terminera » toutes les publications et peut
+        poser des problèmes si ceci est utilisé lors de publications actives. En êtes-vous
+        sûr(e) ?
     headers:
       index: Ressources
       import_log: Importer le journal pour %{resource}
@@ -866,7 +865,7 @@ fr:
         zero: rien à publier
         one: une publication en attente
         other: '%{count} à publier'
-    no_events: Aucun !
+    no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
     status_title:
@@ -885,7 +884,7 @@ fr:
       cannot_combine_paths: Impossible de combiner les résultats avec %{path}
       more_than_one_species: Impossible de combiner les résultats pour %{species}
       more_than_two_terms: 'Impossible de combiner les résultats pour plus de deux
-        termes : %{terms}'
+        termes : %{terms}'
     n_articles:
       one: '%{count} article'
       other: '%{count} articles'
@@ -921,35 +920,35 @@ fr:
       one: '%{count} page'
       other: '%{count} pages'
     collection_page_count_and_users:
-      one: '%{count} page ; maintenue par %{users_sentence}'
-      other: '%{count} pages ; maintenues par %{users_sentence}'
+      one: '%{count} page ; maintenue par %{users_sentence}'
+      other: '%{count} pages ; maintenues par %{users_sentence}'
     collected_media:
-      title: 'médias collectés depuis cette page :'
+      title: 'médias collectés depuis cette page :'
     medium_article: Article
     medium_image: Image
     medium_map: Carte
     medium_sound: Son
     medium_video: Vidéo
-    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
-    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
-    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
-    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
-    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
+    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
+    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
+    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
+    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
+    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
     field_matches:
-      description: 'correspond à la description :'
-      resource_pk: 'correspond à l’ID externe :'
-      bio: 'correspond à la biographie :'
-      tag_line: 'correspond à la ligne balisée :'
+      description: 'correspond à la description :'
+      resource_pk: 'correspond à l’ID externe :'
+      bio: 'correspond à la biographie :'
+      tag_line: 'correspond à la ligne balisée :'
       resources:
-        one: 'correspond à la ressources :'
-        other: 'correspond aux ressource :'
+        one: 'correspond à la ressources :'
+        other: 'correspond aux ressource :'
       synonyms:
-        one: 'correspond au synonyme synonyme :'
-        other: 'correspond au synonymex synonymes :'
+        one: 'correspond au synonyme :'
+        other: 'correspond aux synonymes :'
       vernaculars:
-        one: 'correspond au nom usuel :'
-        other: 'correspond aux noms usuels :'
+        one: 'correspond au nom usuel :'
+        other: 'correspond aux noms usuels :'
     section_titles:
       collections:
         one: '%{count} collection'
@@ -969,7 +968,7 @@ fr:
       users:
         one: '%{count} utilisateur'
         other: '%{count} utilisateurs'
-    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
+    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
       n_articles:
         zero: Aucun article
@@ -981,12 +980,12 @@ fr:
       n_media:
         one: 1 MEDIUM
         other: '%{count} MEDIA'
-    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
+    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
   search_suggestion:
     actions:
       create: créer une nouvelle suggestion de recherche
-    created: Suggestion de recherche créée pour « %{match} »
-    destroyed: Suggestion de recherche annulée pour « %{match} »
+    created: Suggestion de recherche créée pour « %{match} »
+    destroyed: Suggestion de recherche annulée pour « %{match} »
     new:
       header: Créer une suggestion de recherche
     update:
@@ -1052,7 +1051,7 @@ fr:
       text: obligatoire
       mark: '*'
     error_notification:
-      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
+      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
     labels:
       defaults:
         email: Adresse électronique
@@ -1094,18 +1093,18 @@ fr:
       range_invalid_error: doit être supérieur ou égal à la première valeur
       units_blank_error: Les unités ne peuvent être vides pour une recherche numérique
   terms:
-    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
-    comment_field_html: <strong>Commentaire :</strong> %{comment}
-    definition_field_html: <strong>Définition :</strong> %{definition}
-    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
+    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
+    comment_field_html: <strong>Commentaire :</strong> %{comment}
+    definition_field_html: <strong>Définition :</strong> %{definition}
+    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
     record_url: URL d’enregistrement
     scientific_name: nom scientifique
     show_all_records: afficher tous les enregistrements
     source: source
-    uri_field_html: <strong>URI :</strong> %{uri}
+    uri_field_html: <strong>URI :</strong> %{uri}
     index:
       select_page_above: Choisir une page ci-dessus pour commencer.
-  data_definition: définition de « %{data} »
+  data_definition: définition de « %{data} »
   traits:
     data_viz:
       about_this_chart: à propos de ce graphique
@@ -1300,13 +1299,13 @@ fr:
       header: Modification de %{uri}
       submit: Enregistrer
     fields:
-      name: 'nom :'
-      definition: 'définition :'
-      attribution: 'attribution :'
-      comment: 'commentaire :'
-      sections: 'sections :'
-      is_hidden_from_glossary: 'masquer dans le glossaire :'
-      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
+      name: 'nom :'
+      definition: 'définition :'
+      attribution: 'attribution :'
+      comment: 'commentaire :'
+      sections: 'sections :'
+      is_hidden_from_glossary: 'masquer dans le glossaire :'
+      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
     glossary:
       full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
       predicate_title: Glossaire des termes des types de données sur l’EdlV
@@ -1356,17 +1355,17 @@ fr:
           anaérobie
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: longueur bras plus disque
         http://eol(dot)org/schema/terms/Ash_content: contenu des cendres
-        http://eol(dot)org/schema/terms/Attached: Attaché au substrat
+        http://eol(dot)org/schema/terms/Attached: attaché au substrat
         http://eol(dot)org/schema/terms/BillLength: longueur du bec
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminescent
-        http://eol(dot)org/schema/terms/BloatPotential: Susceptibilité du bétail au
+        http://eol(dot)org/schema/terms/BloatPotential: susceptibilité du bétail au
           ballonnement
         http://eol(dot)org/schema/terms/BloomColor: couleur des fleurs
         http://eol(dot)org/schema/terms/BloomPeriod: période de floraison
         http://eol(dot)org/schema/terms/BodyShape: morphologie
         http://eol(dot)org/schema/terms/BodyVolume: volume corporel
-        http://eol(dot)org/schema/terms/BreedingHabitat: Habitat de reproduction optimal
-        http://eol(dot)org/schema/terms/BrowseAnimalPalatability: appétence d'un animal
+        http://eol(dot)org/schema/terms/BreedingHabitat: habitat de reproduction
+        http://eol(dot)org/schema/terms/BrowseAnimalPalatability: appétence d’un animal
           brouteur
         http://eol(dot)org/schema/terms/BudSource: source de bourgeons
         http://eol(dot)org/schema/terms/CITES_I: CITES Appendice I
@@ -1382,60 +1381,58 @@ fr:
         http://eol(dot)org/schema/terms/CaudalFinShape: forme de nageoire caudale
         http://eol(dot)org/schema/terms/CellDepth: taille typique de cellule
         http://eol(dot)org/schema/terms/CellLength: longueur de la cellule
-        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: surface maximale
-          cellule/volume maximum
-        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: surface minimale
-          cellule/volume minimum
-        http://eol(dot)org/schema/terms/CellShape3D: représentation tridimensionnelle
-          de cellule
+        http://eol(dot)org/schema/terms/CellMaxAreaPerMaxVolume: surface cellulaire
+          maximum / volume maximum
+        http://eol(dot)org/schema/terms/CellMinAreaPerMinVolume: surface cellulaire
+          minimum / volume minimum
+        http://eol(dot)org/schema/terms/CellShape3D: forme tridimensionnelle de cellule
         http://eol(dot)org/schema/terms/CellShapeFrontal: section frontale de cellule
         http://eol(dot)org/schema/terms/CellShapeMedian: section médiane de cellule
         http://eol(dot)org/schema/terms/CellShapeTransverse: section transverse de
           cellule
         http://eol(dot)org/schema/terms/CellSurfaceArea: surface cellulaire
-        http://eol(dot)org/schema/terms/CellWidth: largeur de la cellule
-        http://eol(dot)org/schema/terms/ChelaWidth: largeur de Chela
+        http://eol(dot)org/schema/terms/CellWidth: largeur cellulaire
+        http://eol(dot)org/schema/terms/ChelaWidth: largeur de chela
         http://eol(dot)org/schema/terms/ChlorophyllAConcentration: concentration en
-          chlorophylle a
+          chlorophylle A
         http://eol(dot)org/schema/terms/ChloroplastLocation: position des chloroplastes
         http://eol(dot)org/schema/terms/ChloroplastNumber: nombre de chloroplastes
         http://eol(dot)org/schema/terms/ChloroplastQuantity: quantité de chloroplastes
         http://eol(dot)org/schema/terms/CingulumLocation: position du cingulum
         http://eol(dot)org/schema/terms/CingulumType: type de cingulum
         http://eol(dot)org/schema/terms/CingulumWidth: largeur du cingulum
-        http://eol(dot)org/schema/terms/ClimateChangeVulnerabilityScore: Score de
-          Vulnérabilité au Changement Climatique
+        http://eol(dot)org/schema/terms/ClimateChangeVulnerabilityScore: score de
+          vulnérabilité au changement climatique
         http://eol(dot)org/schema/terms/Colonial: colonial
-        http://eol(dot)org/schema/terms/CommercialAvailability: disponibilité sur
-          le marché
+        http://eol(dot)org/schema/terms/CommercialAvailability: disponibilité commerciale
         http://eol(dot)org/schema/terms/Cosmopolitan: cosmopolite
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: espèces marines
           connues
-        http://eol(dot)org/schema/terms/DevelopmentalMode: spécification
+        http://eol(dot)org/schema/terms/DevelopmentalMode: mode de développement
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapause
-        http://eol(dot)org/schema/terms/DiatomSymmetryType: symétrie de base d'un
+        http://eol(dot)org/schema/terms/DiatomSymmetryType: symétrie de base d’une
           diatomée
-        http://eol(dot)org/schema/terms/Diet: la diète comprend
-        http://eol(dot)org/schema/terms/DietBreadth: régime alimentaire
+        http://eol(dot)org/schema/terms/Diet: le régime comprend
+        http://eol(dot)org/schema/terms/DietBreadth: variété du régime alimentaire
         http://eol(dot)org/schema/terms/DiscDiameter: diamètre du disque
         http://eol(dot)org/schema/terms/DispersalAge: âge de dispersion
         http://eol(dot)org/schema/terms/DissolvedNitrate: concentration en nitrates
-          dans l'eau
+          dans l’eau
         http://eol(dot)org/schema/terms/DissolvedOxygen: concentration en O2 dissous
-          dans l'eau
+          dans l’eau
         http://eol(dot)org/schema/terms/DissolvedPhosphate: concentration en phosphates
-          dans l'eau
+          dans l’eau
         http://eol(dot)org/schema/terms/DissolvedSilicate: concentration en silicates
-          dans l'eau
+          dans l’eau
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporation écomorphologique
-        http://eol(dot)org/schema/terms/EggDiameter: diamètre de l'ovule
+        http://eol(dot)org/schema/terms/EggDiameter: diamètre de l’ovule
         http://eol(dot)org/schema/terms/EggLayingBegins: la ponte commence
-        http://eol(dot)org/schema/terms/EggMass: poids d'un oeuf
-        http://eol(dot)org/schema/terms/EpiconeShape: forme de l'épicône
-        http://eol(dot)org/schema/terms/ExtinctionStatus: statut de conservation
+        http://eol(dot)org/schema/terms/EggMass: poids d’un œuf
+        http://eol(dot)org/schema/terms/EpiconeShape: forme de l’épicône
+        http://eol(dot)org/schema/terms/ExtinctionStatus: état d’extinction
         http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: teneur du lait
           en acides gras
-        http://eol(dot)org/schema/terms/FemalesPerGroup: Femelles par groupe
+        http://eol(dot)org/schema/terms/FemalesPerGroup: femelles par groupe
         http://eol(dot)org/schema/terms/FireResistance: résistance au feu
         http://eol(dot)org/schema/terms/FireTolerance: résilience aux feux
         http://eol(dot)org/schema/terms/FoliagePorositySummer: perméabilité estivale
@@ -1446,9 +1443,9 @@ fr:
         http://eol(dot)org/schema/terms/ForagingHabitat: habitat de nidification
         http://eol(dot)org/schema/terms/ForagingTime: période de reproduction
         http://eol(dot)org/schema/terms/FossilFirst: première apparition
-        http://eol(dot)org/schema/terms/FossilLast: extinction
+        http://eol(dot)org/schema/terms/FossilLast: dernière apparition
         http://eol(dot)org/schema/terms/FrostFreeDays: jours sans gel
-        http://eol(dot)org/schema/terms/FruitPersistence: à fruits/graines persistantes
+        http://eol(dot)org/schema/terms/FruitPersistence: persistance des fruits / graines
         http://eol(dot)org/schema/terms/FruitSeedColor: couleur des fruits ou des
           graines
         http://eol(dot)org/schema/terms/FuelwoodSuitability: convenance au bois énergie
@@ -1461,8 +1458,8 @@ fr:
           germination
         http://eol(dot)org/schema/terms/GrainType: type de graine
         http://eol(dot)org/schema/terms/GrassGrowthType: type de croissance de l’herbe
-        http://eol(dot)org/schema/terms/GrazeAnimalPalatability: palatabilité animale
-          de pâture
+        http://eol(dot)org/schema/terms/GrazeAnimalPalatability: palatabilité de pâture
+          animale
         http://eol(dot)org/schema/terms/HabitatBreadth: taille de l’habitat
         http://eol(dot)org/schema/terms/HasDispersalVector: a un vecteur de dispersion
         http://eol(dot)org/schema/terms/HasToxin: possède une toxine
@@ -1473,23 +1470,23 @@ fr:
         http://eol(dot)org/schema/terms/HeightStanding: hauteur debout
         http://eol(dot)org/schema/terms/HindTarsusLength: longueur du tarse antérieur
         http://eol(dot)org/schema/terms/HomeRange: périmètre de domicile
-        http://eol(dot)org/schema/terms/HoneyBeePain: Echelle de Douleur sur l'Abeille
+        http://eol(dot)org/schema/terms/HoneyBeePain: Échelle de douleur sur l’abeille
         http://eol(dot)org/schema/terms/HumanLivestockToxicity: toxicité relative
           homme/bétail
         http://eol(dot)org/schema/terms/HumanPopulationDensity: densité de population
           humaine
         http://eol(dot)org/schema/terms/HumanPopulationDensityChange: changements
           de densité de population humaine
-        http://eol(dot)org/schema/terms/HypoconeShape: forme de l'hypocone
+        http://eol(dot)org/schema/terms/HypoconeShape: forme de l’hypocone
         http://eol(dot)org/schema/terms/InitialMortalityRate: taux de mortalité initiale
         http://eol(dot)org/schema/terms/InterBirthInterval: intervalle entre naissances
         http://eol(dot)org/schema/terms/IntroducedRange: inclus les zones d’introduction
-        http://eol(dot)org/schema/terms/InvasiveRange: envahissant
-        http://eol(dot)org/schema/terms/KnownSpecies: Espèces marines connues
+        http://eol(dot)org/schema/terms/InvasiveRange: invasif en
+        http://eol(dot)org/schema/terms/KnownSpecies: espèces marines connues
         http://eol(dot)org/schema/terms/LittersPerYear: litres par an
         http://eol(dot)org/schema/terms/Log10Productivity: log10 productivité
-        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: Rapport d'indice
-          de masse corporelle entre mâles et femelles
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: rapport de masse
+          corporelle entre mâles et femelles
         http://eol(dot)org/schema/terms/MaleTenure: Exerce la position de mâle
         http://eol(dot)org/schema/terms/MalesPerGroup: Mâles par groupe
         http://eol(dot)org/schema/terms/MantleLength: longueur du manteau
@@ -1499,51 +1496,51 @@ fr:
         http://eol(dot)org/schema/terms/MiddleToeLength: longueur du tertius
         http://eol(dot)org/schema/terms/MidpointAltitude: altitude du point moyen
         http://eol(dot)org/schema/terms/MilkPhospholipids: phospholipides du lait
-        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: Composition minérale
+        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: composition minérale
           du lait
-        http://eol(dot)org/schema/terms/MoistureUse: adaptation à l'humidité
+        http://eol(dot)org/schema/terms/MoistureUse: utilisation de l’humidité
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: durée de doublement
           du taux de mortalité
         http://eol(dot)org/schema/terms/NativeRange: la portée native inclut
         http://eol(dot)org/schema/terms/NestType: type de nid
-        http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: nombre d'espèces
+        http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: nombre d’espèces
           décrites entre 1999 et 2008
-        http://eol(dot)org/schema/terms/NonInvasiveRange: non envahissant
+        http://eol(dot)org/schema/terms/NonInvasiveRange: non invasif en
         http://eol(dot)org/schema/terms/NucleusLocation: position du noyau
-        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: nombre d'Enregistrements
-          d'ADN dans GGBN
+        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: nombre d’enregistrements
+          d’ADN dans GGBN
         http://eol(dot)org/schema/terms/NumberOfHosts: nombre d’hôtes
         http://eol(dot)org/schema/terms/NumberOfSequencesInGenBank: nombre de séquences
           dans GenBank
-        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: nombre d'enregistrements
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: nombre d’enregistrements
           publiques dans BOLD
-        http://eol(dot)org/schema/terms/NumberRecordsInBOLD: nombre d'enregistrements
+        http://eol(dot)org/schema/terms/NumberRecordsInBOLD: nombre d’enregistrements
           dans BOLD
-        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: nombre d'enregistrements
+        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: nombre d’enregistrements
           dans GBIF
         http://eol(dot)org/schema/terms/NumberReferencesInBHL: nombre de références
           de BHL
         http://eol(dot)org/schema/terms/NumberSpecimensInGGBN: nombre de spécimens
           dans GGBN
-        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: Nutriments présents
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: nutriments présents
           dans le lait
         http://eol(dot)org/schema/terms/OceaniaRealm: le royaume Océanien (îles)
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: température de croissance
           optimale
         http://eol(dot)org/schema/terms/OuterEarLength: longueur du pavillon auriculaire
-        http://eol(dot)org/schema/terms/OvaDiameter: diamètre de l'ovule
-        http://eol(dot)org/schema/terms/OxygenSaturation: saturation de l'eau en 02
-        http://eol(dot)org/schema/terms/PETinRange: taux d'évapotranspiration potentielle
-          d'une zone géographique
+        http://eol(dot)org/schema/terms/OvaDiameter: diamètre de l’ovule
+        http://eol(dot)org/schema/terms/OxygenSaturation: saturation de l’eau en O<sub>2</sub>
+        http://eol(dot)org/schema/terms/PETinRange: taux d’évapotranspiration potentielle
+          d’une zone géographique
         http://eol(dot)org/schema/terms/PercentSpeciesCurrentlyDescribed: pourcentage
-          d'espèces marines décrites à ce jour
+          d’espèces marines décrites à ce jour
         http://eol(dot)org/schema/terms/PercentSurveyedSpeciesNotYetKnownToScience: pourcentage
-          d'espèces étudiées encore non répertoriées
+          d’espèces étudiées encore non répertoriées
         http://eol(dot)org/schema/terms/PercentSynonyms: pourcentage de synonymes
           entre les espèces marines
         http://eol(dot)org/schema/terms/PlantHabit: PlantHabit
         http://eol(dot)org/schema/terms/PlantingDensity: densité de plantation
-        http://eol(dot)org/schema/terms/PopulationGroupSize: taille d'un groupe d'individus
+        http://eol(dot)org/schema/terms/PopulationGroupSize: taille d’un groupe d’individus
         http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: émergence de pousses
           après un incendie
         http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: survie des pousses
@@ -1557,40 +1554,40 @@ fr:
         http://eol(dot)org/schema/terms/PrimaryGrowthForm: forme de croissance primaire
         http://eol(dot)org/schema/terms/PrimaryMacronutrientRequirements: besoins
           de macronutriments primaires
-        http://eol(dot)org/schema/terms/PropagationMethod: Méthode de multiplication
+        http://eol(dot)org/schema/terms/PropagationMethod: méthode de multiplication
           végétative pour une plante
         http://eol(dot)org/schema/terms/Propagule: propagule
         http://eol(dot)org/schema/terms/ProsomeHeight: hauteur du prosome
         http://eol(dot)org/schema/terms/ProsomeLength: longueur du prosome
         http://eol(dot)org/schema/terms/ProsomeWidth: largeur du prosome
-        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: Composition protéique
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composition protéique
           du lait
         http://eol(dot)org/schema/terms/ProteinPotential: apports en protéines
-        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapport ARN:ADN
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapport ARN/ADN
         http://eol(dot)org/schema/terms/RangeMidpointLatitude: latitude du barycentre
           de la zone
-        http://eol(dot)org/schema/terms/RecordInBOLD: enregistrements dans BOLD?
-        http://eol(dot)org/schema/terms/RecordInGBIF: enregistrements dans GBIF?
-        http://eol(dot)org/schema/terms/ReferenceInBHL: références dans BHL?
-        http://eol(dot)org/schema/terms/ReproductiveSkew: Biais Reproducteur
+        http://eol(dot)org/schema/terms/RecordInBOLD: enregistrements dans BOLD ?
+        http://eol(dot)org/schema/terms/RecordInGBIF: enregistrements dans GBIF ?
+        http://eol(dot)org/schema/terms/ReferenceInBHL: références dans BHL ?
+        http://eol(dot)org/schema/terms/ReproductiveSkew: Biais reproducteur
         http://eol(dot)org/schema/terms/RespClip: capacité de repousse après une taille
         http://eol(dot)org/schema/terms/RespDist: capacité de repousse après des perturbations
         http://eol(dot)org/schema/terms/RespFire: capacité de repousse après un incendie
         http://eol(dot)org/schema/terms/ResproutAbility: capacité de repousse après
           une taille
-        http://eol(dot)org/schema/terms/Salinity: salinité de l'eau
-        http://eol(dot)org/schema/terms/SeedAbundance: abondance du fruit/semence
+        http://eol(dot)org/schema/terms/Salinity: salinité de l’eau
+        http://eol(dot)org/schema/terms/SeedAbundance: abondance de fruit/semence
         http://eol(dot)org/schema/terms/SeedBank: banque de graines
         http://eol(dot)org/schema/terms/SeedBankLong: SeedBankLong
         http://eol(dot)org/schema/terms/SeedPerPound: graines par livre
-        http://eol(dot)org/schema/terms/SeedPeriodBegin: début de la période des graines
-        http://eol(dot)org/schema/terms/SeedPeriodEnd: fin de la période des graines
+        http://eol(dot)org/schema/terms/SeedPeriodBegin: début de période des graines
+        http://eol(dot)org/schema/terms/SeedPeriodEnd: fin de période des graines
         http://eol(dot)org/schema/terms/SeedSpreadRate: vitesse de colonisation des
           semences
         http://eol(dot)org/schema/terms/SeedlingSurvival: survie des pousses
-        http://eol(dot)org/schema/terms/SequenceInGenBank: séquences dans GenBank?
+        http://eol(dot)org/schema/terms/SequenceInGenBank: séquences dans GenBank ?
         http://eol(dot)org/schema/terms/SexualSystem: système sexuel
-        http://eol(dot)org/schema/terms/ShadeTolerance: tolérance à l'ombre
+        http://eol(dot)org/schema/terms/ShadeTolerance: tolérance à l’ombre
         http://eol(dot)org/schema/terms/ShellHeightBivalve: hauteur de coquille, bivalve
         http://eol(dot)org/schema/terms/ShellLengthBivalve: longueur de coquille,
           bivalve
@@ -1601,7 +1598,7 @@ fr:
         http://eol(dot)org/schema/terms/SoilDepth: profondeur du sol
         http://eol(dot)org/schema/terms/SoilPH: pH du sol
         http://eol(dot)org/schema/terms/SoilRequirements: qualités du sol
-        http://eol(dot)org/schema/terms/SpecimensInGGBN: spécimens dans GGBN?
+        http://eol(dot)org/schema/terms/SpecimensInGGBN: spécimens dans GGBN ?
         http://eol(dot)org/schema/terms/StandardLength: longueur standard
         http://eol(dot)org/schema/terms/SulcusType: type de sillon
         http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: longueur
@@ -1610,21 +1607,21 @@ fr:
         http://eol(dot)org/schema/terms/TemperateOcean: Océan tempéré
         http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: température
           à la latitude du point moyen de la zone
-        http://eol(dot)org/schema/terms/TemperatureInRange: température d'une zone
+        http://eol(dot)org/schema/terms/TemperatureInRange: température d’une zone
           géographique
         http://eol(dot)org/schema/terms/TemperatureTolerance: tolérance au froid
         http://eol(dot)org/schema/terms/Territorial: territorial
         http://eol(dot)org/schema/terms/TestesMass: Poids des testicules
         http://eol(dot)org/schema/terms/TestisLocation: position du testicule
-        http://eol(dot)org/schema/terms/ThreatenedEndangeredStatus: statut d'espèce
+        http://eol(dot)org/schema/terms/ThreatenedEndangeredStatus: statut d’espèce
           menacée ou en danger
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Forêts humides
           de Pindaré
-        http://eol(dot)org/schema/terms/TotalSpecies: total des espèces (avis d'expert)
-        http://eol(dot)org/schema/terms/TotalUnknownSpeciesExpert: total d'espèces
+        http://eol(dot)org/schema/terms/TotalSpecies: total des espèces (avis d’expert)
+        http://eol(dot)org/schema/terms/TotalUnknownSpeciesExpert: total d’espèces
           marines inconnues
         http://eol(dot)org/schema/terms/TotalUnknownSpeciesStatisticalModel: total
-          d'espèces inconnues (modèle statistique)
+          d’espèces inconnues (modèle statistique)
         http://eol(dot)org/schema/terms/ToxicEffect: effet toxique
         http://eol(dot)org/schema/terms/TrophicGuild: guilde trophique
         http://eol(dot)org/schema/terms/TropicalOcean: Océan tropical
@@ -1639,12 +1636,12 @@ fr:
         http://eol(dot)org/schema/terms/Uses: utilisé pour
         http://eol(dot)org/schema/terms/VegetativeSpreadRate: vitesse de colonisation
           végétative
-        http://eol(dot)org/schema/terms/VocalizationBehavior: vocalisation
+        http://eol(dot)org/schema/terms/VocalizationBehavior: comportement de vocalisation
         http://eol(dot)org/schema/terms/WaterTemperature: température de l'eau
-        http://eol(dot)org/schema/terms/WeaningAge: sevrage
-        http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: stratégies d'alimentation
+        http://eol(dot)org/schema/terms/WeaningAge: âge de sevrage
+        http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: mode d’alimentation
           du zooplancton
-        http://eol(dot)org/schema/terms/acicular: aciculaire (en forme d'aiguille)
+        http://eol(dot)org/schema/terms/acicular: aciculaire (en forme d’aiguille)
         http://eol(dot)org/schema/terms/activeForaging: en quête de nourriture
         http://eol(dot)org/schema/terms/activityCycleOther: nocturne/crépusculaire,
           cathéméral, crépusculaire ou diurne/crépusculaire
@@ -1654,12 +1651,12 @@ fr:
         http://eol(dot)org/schema/terms/amphibious: amphibie
         http://eol(dot)org/schema/terms/androviviparous: androvivipare
         http://eol(dot)org/schema/terms/anemochory: anémochorie
-        http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: acide ante-isooctadécanoïque
-        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: acide ante-isotetradécanoïque
+        http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: acide anté-isooctadécanoïque
+        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: acide anté-isotétradécanoïque
         http://eol(dot)org/schema/terms/aquatic: adapté à la vie aquatique
         http://eol(dot)org/schema/terms/areaToMassRatio: rapport surface/masse
         http://eol(dot)org/schema/terms/autochory: autochorie
-        http://eol(dot)org/schema/terms/bodyMassDry: poids d'extrait sec
+        http://eol(dot)org/schema/terms/bodyMassDry: poids d’extrait sec
         http://eol(dot)org/schema/terms/bodyMassWet: masse corporelle hydrique
         http://eol(dot)org/schema/terms/clearWater: eau claire
         http://eol(dot)org/schema/terms/colonyDensity: densité de la colonie
@@ -1668,8 +1665,9 @@ fr:
         http://eol(dot)org/schema/terms/dahllite: dahllite
         http://eol(dot)org/schema/terms/dryMass: Poids sec
         http://eol(dot)org/schema/terms/earlySpring: début du printemps
-        http://eol(dot)org/schema/terms/earlySummer: début de l'été
+        http://eol(dot)org/schema/terms/earlySummer: début de l’été
         http://eol(dot)org/schema/terms/eggColor: couleur de l'oeuf
+        http://eol(dot)org/schema/terms/endangered: en voie de disparition
         http://eol(dot)org/schema/terms/fossilOccPBDB: nombre d’occurrences de fossiles
         http://eol(dot)org/schema/terms/highCNRatio: haut (>59)
         http://eol(dot)org/schema/terms/lowCNRatio: bas (<23)
@@ -1999,14 +1997,14 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: courte durée de vie
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: aire
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuilles caduques
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: caduque
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: conifère
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semi-persistant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: muabilité
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: feuillage caduque
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: feuillage persistant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: feuillage semi-persistant
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: enroulement
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: vert jaune
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digitalis
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapèze
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapézoïdal
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mélangé
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminaire
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: qualité améliorée
@@ -2018,7 +2016,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: haute tolérance
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: faible tolérance
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposé
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: décoration
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornementation
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorphisme sexuel
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: semblable à une feuille
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: semblable à un bâton
@@ -2058,8 +2056,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002627: est tué par
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produit
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: klepto-parasite de
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: possède des oeufs dessus
-          par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: a des œufs déposés par
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: hauteur de la plante
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolérance à la sécheresse
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: couleur de feuille
@@ -2084,7 +2081,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001256: longueur du corps
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: masse corporelle
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: rythme circadien comportemental
-        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taille de couvée/nichée/portée
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taille de couvée / nichée / portée
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durée de la période de
           gestation
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: début de fertilité
@@ -2104,29 +2101,31 @@ fr:
           aquitanien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: Âge
           bajocien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: Ere
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: Ère
           du barrémien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: Âge
           bathonien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: Âge
           berriasien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: Burdigalien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: Calabrien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: Âge
+          burdigalien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: Âge
+          calabrien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: Âge
           callovien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: Période
           cambrienne
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: Âge
           cambrien étage 10
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: Âge
           cambrien étage 3
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: Âge
           cambrien étage 4
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: Âge
           cambrien étage 5
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: Âge
           campanien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Âge
           capitanien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: Période
           carbonifère
@@ -2135,9 +2134,9 @@ fr:
           cénomanien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: Ère
           cénozoïque
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: Âge
           changhsingien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: Âge
           chattien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: Âge
           coniacien
@@ -2147,14 +2146,15 @@ fr:
           cryogénienne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: Période
           du dévonien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: Age drumien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: Âge drumien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: Période
           édiacarienne
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: Age emsien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: Gélasien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: Âge emsien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: Âge
+          gélasien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: Âge
           gorstien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: Âge
           gzhélien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: Âge
           hettangien
@@ -2162,12 +2162,12 @@ fr:
           homérien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: Période
           jurassique
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: Âge
           kassimovien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: Âge katien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: Âge
           kimméridgien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: Âge
           kungurien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: Âge
           ladinien
@@ -2179,8 +2179,8 @@ fr:
           mésozoïque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: Époque
           du dévonien moyen
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: Pléistocène
-          moyen
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: Âge
+          du pléistocène moyen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: Sous-période
           mississippienne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: Période
@@ -2201,15 +2201,16 @@ fr:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: Ère
           paléozoïque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pennsylvanian: Sous-période
-          du pennsylvanien
+          pennsylvanienne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: Période
           permienne
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: Eon
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: Éon
           phanérozoïque
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: Pléistocène
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: Époque
+          du pléistocène
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: Âge
           pliensbachien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: Age pragien
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: Âge pragien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: Âge
           rhuddanien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: Période
@@ -2218,7 +2219,7 @@ fr:
           sandbien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: Âge
           santonien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: Âge
           serpukhovien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: Période
           silurienne
@@ -2230,11 +2231,11 @@ fr:
           tithonien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: Âge
           toarcien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: Âge
           torthonien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: Âge
           tournaisien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: Âge
           trémadocien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: Période
           du triassique
@@ -2242,33 +2243,33 @@ fr:
           turonien
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperCretaceous: Époque
           du crétacé supérieur
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: Pléistocène
-          supérieur
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: Âge
+          du pléistocène supérieur
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: Âge
           valanginien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: Age viséen
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: Âge viséen
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: Âge
           yprésien
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: Age
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: Âge
           zancléen
         http://rs(dot)tdwg(dot)org/dwc/terms/decimalLatitude: latitude
         http://rs(dot)tdwg(dot)org/dwc/terms/decimalLongitude: longitude
         http://rs(dot)tdwg(dot)org/dwc/terms/habitat: habitat
-        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur de l'eau
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur de l’eau
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: état
           de conservation
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: distribution
           géographique entière
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/humanAgriculture(dot)owl#Horticulture: horticulture
         'http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area ': masse
-          d'une feuille par unité de surface
+          d’une feuille par unité de surface
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: azote
-          d'une feuille par quantité d'extrait sec
+          d’une feuille par quantité d’extrait sec
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: poids
           des graines sèches
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tube externe
         http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: partie
-          spécifique de feuille
+          spécifique de la feuille
         http://www(dot)owl-ontologies(dot)com/unnamed(dot)owl#Dimorphism: dimorphisme
           sexuel
         http://www(dot)wikidata(dot)org/entity/Q1053008: niveau trophique

@@ -1,6 +1,7 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 3bbo
 # Author: Amira.88
 # Author: HitomiAkane
 # Author: Meno25
@@ -36,7 +37,7 @@ ar:
   account_already_linked: حسابك مرتبط بالفعل بEOL
   account_not_linked: حسابك غير مرتبط بEOL
   advanced: المتقدمة
-  are_you_sure_delete_account: هل انت متأكد من أن تريد حذف حسابك في EOL ؟
+  are_you_sure_delete_account: هل انت متأكد من حذف حسابك في EOL؟
   article:
     actions:
       collect: تجميع
@@ -286,6 +287,7 @@ ar:
     aa: العفارية
     af: الأفريكانية
     ak: الأكانية
+    alb: الألبانية
     sq: الألبانية
     am: الأمهرية
     ar: العربية
@@ -372,6 +374,7 @@ ar:
     ha: الهوسا
     Q35756: هايا
     he: العبرية
+    heb: العبرية
     Q3129390: هيهي
     hz: هيريرو
     Q35978: هيليجينون
@@ -379,6 +382,7 @@ ar:
     ho: هيري موتو
     hu: الهنغارية
     is: الآيسلندية
+    ice: الآيسلندية
     io: إيدو
     ig: الإيجبو
     Q35936: إيلوكانو
@@ -545,6 +549,7 @@ ar:
     Q32858: الفوتية
     wa: والون
     cy: الويلزية
+    wel: الويلزية
     fy: الفريزية الغربية
     wo: الولوفية
     xh: الكوسية
@@ -994,6 +999,7 @@ ar:
   traits:
     data_viz:
       about_this_chart: حول هذا المخطط
+      page_habitat_header: '%{name}مساكن'
     properties:
       method: طريقة القياس
       scientific_name: الاسم العلمي
@@ -1099,6 +1105,9 @@ ar:
     pagination:
       next: الصفحة التالية
       previous: الصفحة السابقة
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يُؤكل بواسطة
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
