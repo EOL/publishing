@@ -139,23 +139,12 @@ module Traits
           @children = Set.new
         end
 
-        def add_child(page)
-          @children.add(Node.new(page))
+        def add_child(node)
+          @children.add(node)
         end
 
         def has_child?(node)
           @children.include?(node)
-        end
-
-        def ==(other)
-          self.class === other and
-            other.page == @page
-        end
-
-        alias eql? ==
-
-        def hash
-          @page.hash
         end
 
         def to_h
@@ -184,8 +173,11 @@ module Traits
 
         page_ancestors.each do |ancestry|
           page_root_node = Node.new(ancestry.first)
+          cur_node = page_root_node
           ancestry[1..].each do |page|
-            page_root_node.add_child(page)
+            prev_node = cur_node
+            cur_node = Node.new(page)
+            prev_node.add_child(cur_node)
           end
 
           if !root_node
@@ -193,13 +185,10 @@ module Traits
             next
           end
 
-          # NOTE: you were here!
-          debugger
-
           candidate_lca = root_node
-          while candidate_lca == page_root_node
-            page_root_node = page_root_node.children.first
-            if new_candidate_lca = candidate_lca.children.find(page_root_node)
+          while candidate_lca.page == page_root_node.page
+            page_root_node = page_root_node.children.first # there's only one child
+            if new_candidate_lca = candidate_lca.children.find { |c| c.page == page_root_node.page }
               candidate_lca = new_candidate_lca
             else
               candidate_lca.add_child(page_root_node)

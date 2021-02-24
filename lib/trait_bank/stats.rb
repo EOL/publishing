@@ -212,7 +212,11 @@ module TraitBank
           return CheckResult.invalid("query must have a single filter")
         end
 
-        filter = query.filters.first
+        predicate = query.filters.first.predicate
+
+        if predicate.nil?
+          return CheckResult.invalid("filter must have a predicate")
+        end
 
         if filter.predicate.type != "association"
           return CheckResult.invalid("predicate must be association")
