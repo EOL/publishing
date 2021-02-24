@@ -125,7 +125,7 @@ class TraitsController < ApplicationController
         end.compact
 
         if gbif_params.any?
-          @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
+          @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}&occurrence_status=present"
         end
       elsif search.count <= GBIF_DOWNLOAD_LIMIT && GbifDownload.enabled_for_user?(current_user)
         @create_gbif_download_url = gbif_downloads_create_path(term_query: query.to_params)

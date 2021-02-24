@@ -18,7 +18,7 @@ class GbifDownload < ApplicationRecord
   }
 
   PAGE_LIMIT = 100_000
-  GBIF_CREATE_URI = URI("https://api.gbif.org/v1/occurrence/download/request")
+  GBIF_CREATE_URI = URI("https://api.gbif.org/v1/occurrence/download/request?occurrence_status=present")
   GBIF_USERNAME = Rails.application.config.x.gbif_credentials[:username]
   GBIF_PASSWORD = Rails.application.config.x.gbif_credentials[:password]
 
