@@ -163,17 +163,20 @@ module TraitBank
           trait_var: :trait
         )
 
-        # TODO: logic for above/below family/genus etc.
         q = %Q(
           #{begin_part}
-          MATCH (page)-[:parent*0..]->(subj_group:Page{ rank: 'family' }), (obj_clade)-[:parent*0..]->(obj_group{ rank: 'family' })
-          WITH subj_group, obj_group, count(distinct trait) AS trait_count
-          RETURN subj_group, obj_group, trait_count
-          ORDER BY trait_count DESC
-          LIMIT 50
+          MATCH (page)-[:parent*0..]->(subj_group:Page{ rank: 'species' }), (obj_clade)-[:parent*0..]->(obj_group{ rank: 'species' })
+          WHERE subj_group <> obj_group
+          RETURN DISTINCT subj_group.page_id AS subj_group_id, obj_group.page_id AS obj_group_id
         )
 
-        TraitBank.query(q, params)
+        TraitBank.query(q, params)["data"].map do |row|
+          {
+            subj_group_id: row[0],
+            obj_group_id: row[1],
+            trait_count: row[2]
+          }
+        end
       end
 
       def check_query_valid_for_histogram(query, count)

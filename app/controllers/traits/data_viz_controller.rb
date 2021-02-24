@@ -92,6 +92,126 @@ module Traits
       end
     end
 
+    class AssocData
+      def initialize(query)
+        result = TraitBank::Stats.assoc_data(query)
+        page_ids = Set.new
+
+        result.each do |row|
+          page_ids.add(row[:subj_group_id])
+          page_ids.add(row[:obj_group_id])
+        end
+
+        pages = Page.includes(native_node: { node_ancestors: { ancestor: :page }}).where(id: page_ids)
+        page_ancestors = pages.map do |p|
+          p.node_ancestors.map { |a| a.ancestor.page }
+        end
+        @root_node = build_page_hierarchy(page_ancestors)
+
+        pages_by_id = pages.map { |p| [p.id, p] }.to_h
+        seen_pair_ids = Set.new
+        @data = result.map do |row|
+          subj_group = page_hash(row, :subj_group_id, pages_by_id)
+          obj_group = page_hash(row, :obj_group_id, pages_by_id)
+
+          pair_id = [subj_group[:page_id], obj_group[:page_id]].sort.join('_')
+
+          next nil if seen_pair_ids.include?(pair_id) # arbitrarily drop one half of circular relationships
+
+          seen_pair_ids.add(pair_id)
+          
+          {
+            subj_group: subj_group,
+            obj_group: obj_group
+          }
+        end.compact
+      end
+
+      def to_json
+        { root_node: @root_node.to_h, links: @data }.to_json
+      end
+
+      private
+      class Node
+        attr_accessor :page, :children
+        def initialize(page)
+          @page = page
+          @children = Set.new
+        end
+
+        def add_child(page)
+          @children.add(Node.new(page))
+        end
+
+        def has_child?(node)
+          @children.include?(node)
+        end
+
+        def ==(other)
+          self.class === other and
+            other.page == @page
+        end
+
+        alias eql? ==
+
+        def hash
+          @page.hash
+        end
+
+        def to_h
+          children_h = @children.map { |c| c.to_h }
+
+          {
+            page_id: @page.id,
+            name: @page.name,
+            children: children_h
+          }
+        end
+      end
+
+      def page_hash(row, key, pages)
+        id = row[key]
+        page = pages[id]
+
+        {
+          page_id: id,
+          name: page.name
+        }
+      end
+
+      def build_page_hierarchy(page_ancestors)
+        root_node = nil
+
+        page_ancestors.each do |ancestry|
+          page_root_node = Node.new(ancestry.first)
+          ancestry[1..].each do |page|
+            page_root_node.add_child(page)
+          end
+
+          if !root_node
+            root_node = page_root_node
+            next
+          end
+
+          # NOTE: you were here!
+          debugger
+
+          candidate_lca = root_node
+          while candidate_lca == page_root_node
+            page_root_node = page_root_node.children.first
+            if new_candidate_lca = candidate_lca.children.find(page_root_node)
+              candidate_lca = new_candidate_lca
+            else
+              candidate_lca.add_child(page_root_node)
+              break
+            end
+          end
+        end
+
+        root_node
+      end
+    end
+
     def bar
       @query = TermQuery.from_short_params(term_query_params)
       result = TraitBank::Stats.obj_counts(@query, BAR_CHART_LIMIT)
@@ -117,8 +237,7 @@ module Traits
 
     def assoc
       @query = TermQuery.from_short_params(term_query_params)
-      result = TraitBank::Stats.assoc_data(@query)
-      render json: result.to_json
+      @data = AssocData.new(@query)
     end
 
     private

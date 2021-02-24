@@ -324,7 +324,10 @@ window.TraitDataViz = (function(exports) {
     var $contain = $('.js-assoc-contain');
 
     if ($contain.length) {
-      loadViz($contain, () => { console.log('loaded association viz') });
+      loadViz($contain, () => {  
+        const data = $contain.find('.js-assoc').data('json');
+        console.log(data);
+      });
     }
   }
 
