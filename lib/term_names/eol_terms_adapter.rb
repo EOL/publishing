@@ -1,9 +1,9 @@
 class TermNames::EolTermsAdapter
   EXCLUDE_URI_PATTERN = /.*(geonames)|(wikidata).*/
   EXCLUDE_PROPERTIES = [
-    :is_hidden_from_select,
-    :is_hidden_from_overview,
-    :is_hidden_from_glossary
+    'is_hidden_from_select',
+    'is_hidden_from_overview',
+    'is_hidden_from_glossary'
   ]
 
   def self.name
@@ -22,6 +22,10 @@ class TermNames::EolTermsAdapter
   end
 
   def include_default_locale?
+    true
+  end
+
+  def skip_definitions?
     true
   end
 

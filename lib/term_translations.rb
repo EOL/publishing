@@ -86,7 +86,7 @@ class TermTranslations
 
       yaml_hash = {}
       yaml_hash["name"] = { "by_uri" => name_entries } if name_entries.any?
-      yaml_hash["definition"] = { "by_uri" => defn_entries } if defn_entries.any?
+      yaml_hash["definition"] = { "by_uri" => defn_entries } if defn_entries.any? unless adapter.respond_to?(:skip_definitions?) && adapter.skip_definitions? # we still need the definitions for the qqq file, but don't write them to the en file
 
       puts "Writing results for locale #{locale} to #{file_path}"
       write_yaml(locale, file_path, yaml_hash)
