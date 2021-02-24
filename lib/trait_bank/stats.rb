@@ -218,7 +218,7 @@ module TraitBank
           return CheckResult.invalid("filter must have a predicate")
         end
 
-        if filter.predicate.type != "association"
+        if predicate.type != "association"
           return CheckResult.invalid("predicate must be association")
         end
 

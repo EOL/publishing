@@ -106,7 +106,7 @@ module Traits
         page_ancestors = pages.map do |p|
           p.node_ancestors.map { |a| a.ancestor.page }
         end
-        @root_node = build_page_hierarchy(page_ancestors)
+        @root_node = build_page_hierarchy(page_ids, page_ancestors)
 
         pages_by_id = pages.map { |p| [p.id, p] }.to_h
         seen_pair_ids = Set.new
@@ -168,12 +168,13 @@ module Traits
         }
       end
 
-      def build_page_hierarchy(page_ancestors)
+      def build_page_hierarchy(all_page_ids, page_ancestors)
         root_node = nil
 
         page_ancestors.each do |ancestry|
           page_root_node = Node.new(ancestry.first)
           cur_node = page_root_node
+
           ancestry[1..].each do |page|
             prev_node = cur_node
             cur_node = Node.new(page)
@@ -186,7 +187,7 @@ module Traits
           end
 
           candidate_lca = root_node
-          while candidate_lca.page == page_root_node.page
+          while candidate_lca.page == page_root_node.page && page_root_node.children.any?
             page_root_node = page_root_node.children.first # there's only one child
             if new_candidate_lca = candidate_lca.children.find { |c| c.page == page_root_node.page }
               candidate_lca = new_candidate_lca
@@ -195,6 +196,11 @@ module Traits
               break
             end
           end
+        end
+
+        # We always end up with a hierarchy rooted at life, which may or may not be the actual lowest common ancestor for the pages in the result set. Walk down the tree until we get to the actual lca.
+        while root_node.children.length == 1 && !all_page_ids.include?(root_node.page.id)
+          root_node = root_node.children.first
         end
 
         root_node
