@@ -14,6 +14,7 @@
 # Author: Joanmp17
 # Author: Madamebiblio
 # Author: Ncr
+# Author: Nipungorantla
 # Author: Optilete
 # Author: Silverie04
 # Author: Whytheonlyone
@@ -198,6 +199,7 @@ es:
     altitude: altitud
     author: autor/a
     bibliographic_citation: cita bibliográfica
+    contributor: Colaborador
     compiler: Compilador
     creator: creador/a
     editor: editor
@@ -351,6 +353,7 @@ es:
     en: Inglés
     eo: Esperanto
     et: Estonio
+    ee: Oveja
     fj: Fiyiano
     fi: Finlandés
     fr: Francés
@@ -510,6 +513,7 @@ es:
       name_recognized_by: |2-
 
         Reconocido por %{by}
+      name_recognized_by_w_status: '%{status} según %{by}'
       rank:
         r_domain: Dominio
         r_subdomain: Subdominio
@@ -562,6 +566,7 @@ es:
         ver los valores nuevos, hay que volver a cargarla. Cabe destacar que, por
         el momento, esta acción *no* reindiza las imágenes de la página. Esa funcionalidad
         se implementará más adelante.
+    native_node_missing_warning: Ninguna información de jerarquía disponible
     tabs:
       articles: artículos
       classifications: Clasificaciones
@@ -808,6 +813,8 @@ es:
       value_eg: 'Valor (p. ej.: herbívoro)'
   trophic_web:
     group_descriptions:
+      competitor: competidor de %{source_name}
+      prey: comido por %{source_name}
       source: Especie focal
   trust:
     unreviewed: Sin revisar
@@ -825,6 +832,8 @@ es:
       cambios
     form_labels:
       age_confirm: Tengo al menos 13 años
+      tou_confirm_html: He leído los <a href='%{tou_path}'>Condiciones de uso</a>
+        and <a href='%{privacy_path}'>Política de privacidad</a>
     headers:
       bio: Semblanza breve
       collections: Colecciones

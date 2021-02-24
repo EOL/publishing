@@ -8,6 +8,7 @@
 # Author: Jhonnatanricardo
 # Author: Leonardo9387
 # Author: Leosls
+# Author: Mariagarbin
 # Author: Rafaelff
 # Author: Rodrigo Pavani
 # Author: TheEduGobi
@@ -312,14 +313,17 @@ pt-BR:
     Q750553: Português do Brasil
     br: Bretã
     bg: Búlgaro
+    Q35156: Carro
     ca: Catalão; Valenciano
     ch: Chamorro
     Q33281: Chavacano
     ce: Chechena
     ny: Nianja; Cinianja; Chewa
     zh: Chinês
+    chi: Chinês
     cu: Antigo eslavo eclesiástico
     cv: Tchuvache
+    Q37041: Chinês clássico
     co: Corsa
     cr: Cree
     Q33357: Tártaro da Crimeia
@@ -800,6 +804,7 @@ pt-BR:
     validations:
       blank_error: deve especificar um atributo ou valor
       invalid_uri: URI inválida
+      units_blank_error: unidades não podem ser vazias para uma pesquisa numérica
   terms:
     attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Comentário:</strong> %{comment}
@@ -957,11 +962,85 @@ pt-BR:
     pagination:
       next: próxima página
       previous: página anterior
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: é comido por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat criado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: tem ectoparasita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: tem endoparasita
+        http://eol(dot)org/schema/terms/HasDispersalVector: vetor de dispersão por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: hospedeiro de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: tem hiperparasita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: tem vetor
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: é morto por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparasitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: tem ovos postos por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: tem parasitóide
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: tem patógeno
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: predado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: flores visitadas por
     name:
       by_uri:
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Muito pequeno
+        http://eol(dot)org/schema/HeadWidth: largura da cabeça
+        http://eol(dot)org/schema/terms/Absent: não apresentado em região
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: período de crescimento
+          ativo
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: idade ao abrir os olhos
+        http://eol(dot)org/schema/terms/AgeAtMaturity: idade na maturidade
+        http://eol(dot)org/schema/terms/AminoAcidCompositionOfMilk: composição de
+          aminoácidos do leite
+        http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: tolerância anaeróbica
+          do solo
+        http://eol(dot)org/schema/terms/ArmPlusDiscLength: braço mais comprimento
+          do disco
+        http://eol(dot)org/schema/terms/EggDiameter: diâmetro do ovo
+        http://eol(dot)org/schema/terms/EggMass: massa do ovo
+        http://eol(dot)org/schema/terms/FemalesPerGroup: Fêmeas por Grupo
+        http://eol(dot)org/schema/terms/FireResistance: resistência ao fogo
         http://eol(dot)org/schema/terms/FossilFirst: primeiro aparecimento
         http://eol(dot)org/schema/terms/Present: distribuição geográfica inclui
+        http://eol(dot)org/schema/terms/SoilPH: PH do solo
+        http://eol(dot)org/schema/terms/Territorial: territorial
+        http://eol(dot)org/schema/terms/eggColor: cor do ovo
+        http://eol(dot)org/schema/terms/eggDensity: densidade do ovo
+        http://eol(dot)org/schema/terms/endangered: em ameaça de extinção
+        http://eol(dot)org/schema/terms/extinct: extinto(a)
         http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocorrências fósseis
+        http://eol(dot)org/schema/terms/pH: PH
+        http://eol(dot)org/schema/terms/paternalCare: Cuidado Paterno
+        http://eol(dot)org/schema/terms/persistentSeedBank: persistente
+        http://eol(dot)org/schema/terms/terrestrialPlant: planta terrestre
+        http://eol(dot)org/schema/terms/uncommon: incomum
+        http://eol(dot)org/schema/terms/unknown: desconhecido
+        http://eol(dot)org/schema/terms/vulnerable: vulnerável
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: alto
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: diâmetro
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: médio
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54166: variável
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: baixo
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: cedo
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tarde
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: sem carinho parental
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: carinho paternal
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/CPLX: espécies complexas
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DEV: mecanismo de desenvolvimento
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/JMOB: mobilidade juvenil
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LDEV: desenvolvimento larval
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: modo larval de desenvolvimento
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MAT: idade na primeira
+          reprodução
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: biodifusor
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SPERM: tipo de esperma
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: estratégia de reprodução
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRUCT: estrutura de alimentação
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2871-4249: temperatura corporal
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura corporal
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D059646: tamanho do genoma
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: nenhum
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/75367002: pressão sanguínea
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: ninhada
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Sulfato de Bário
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigênio
@@ -982,6 +1061,8 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: ácido undecanóico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: sulfato de cálcio hemi-hidratado
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato de cálcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: combustível
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: corante
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: ácido pentadecanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: ácido isotetradecanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: ácido tridecanoico
@@ -989,8 +1070,22 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfato de cálcio
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: comprimento corporal
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: comprimento corporal,
+          do nariz à cauda
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautótrofo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000026: poço
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: lagoa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: ferrovia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: caverna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: túnel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: aqueduto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: edifício
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agricultural
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: fazenda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: cadeia de montanhas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: montanha
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matagal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marinho bentônico

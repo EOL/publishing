@@ -1577,6 +1577,24 @@ pms:
         http://eol(dot)org/schema/terms/SeedlingSurvival: dzorvivensa dij piantin
         http://eol(dot)org/schema/terms/SequenceInGenBank: sequense an GenBank?
         http://eol(dot)org/schema/terms/SexualSystem: sistema sessual
+        http://eol(dot)org/schema/terms/ShadeTolerance: toleransa a l'ombra
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: autëssa dla cuchija, bivàlvola
+        http://eol(dot)org/schema/terms/ShellLengthBivalve: longheur ëd la cuchija,
+          bivàlvola
+        http://eol(dot)org/schema/terms/ShootRootRatio: rapòrt gamb/rèis (RGR)
+        http://eol(dot)org/schema/terms/SkeletalDensity: densità schelétrica
+        http://eol(dot)org/schema/terms/SkeletalReinforcement: ranforsament ëschelétrich
+        http://eol(dot)org/schema/terms/SocialGroupSize: taja dla partìa sossial
+        http://eol(dot)org/schema/terms/SocialSystem: sistema sossial
+        http://eol(dot)org/schema/terms/SoilDepth: profondeur dël seul
+        http://eol(dot)org/schema/terms/SoilPH: pH dël teren
+        http://eol(dot)org/schema/terms/SoilRequirements: qualità dël teren
+        http://eol(dot)org/schema/terms/SpecimensInGGBN: esemplar an GGBN?
+        http://eol(dot)org/schema/terms/StandardLength: longheur ëstàndard
+        http://eol(dot)org/schema/terms/SulcusType: sòrt ëd sorch
+        http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: longheur
+          ëd tarsimetatarsi + dil mesan
+        http://eol(dot)org/schema/terms/TarsusLength: longheur dël tarsi
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
