@@ -75,7 +75,6 @@ module DataHelper
     parts.join(" ")
   end
 
-  # TODO: Move to decorator
   def trait_display_value(trait, options={})
     parts = []
 

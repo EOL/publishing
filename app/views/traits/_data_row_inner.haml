@@ -32,7 +32,7 @@
     - extra_metadata = trait_property_metadata(trait)
     - if open_row && (page || trait.metadata.any? || extra_metadata.any?)
       %ul.meta-items.js-meta-items
-        - trait.metadata.each do |datum|
+        - trait.grouped_metadata.each do |datum|
           %li.meta-item
             %div
               .meta-pred.a= datum.predicate.i18n_name
