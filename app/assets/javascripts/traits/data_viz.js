@@ -1,4 +1,5 @@
 //= require traits/data_viz/sankey
+//= require traits/data_viz/assoc
 window.TraitDataViz = (function(exports) {
   var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 
@@ -324,10 +325,7 @@ window.TraitDataViz = (function(exports) {
     var $contain = $('.js-assoc-contain');
 
     if ($contain.length) {
-      loadViz($contain, () => {  
-        const data = $contain.find('.js-assoc').data('json');
-        console.log(data);
-      });
+      loadViz($contain, () => AssocViz.build($contain));
     }
   }
 
