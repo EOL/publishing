@@ -176,7 +176,7 @@ module Traits
 
           {
             pageId: @page.id,
-            name: @page.vernacular_or_canonical,
+            name: breadcrumb_type == BreadcrumbType.vernacular ? @page.vernacular_or_canonical : @page.canonical,
             children: children_h,
             objPageIds: @obj_page_ids.to_a
           }

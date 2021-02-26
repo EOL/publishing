@@ -69,7 +69,7 @@ window.AssocViz = (function(exports) {
         .append('text')
           .style('cursor', 'default')
           .attr('font-style', d => d.data.name.includes('<i>') ? 'italic' : null)
-          .text(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name)
+          .html(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name)
           .each(function(d) { d.text = this; })
           .on('mouseover', handleTextMouseover)
           .on('mouseout', handleTextMouseout)
