@@ -93,6 +93,9 @@ module Traits
     end
 
     class AssocData
+      MAX_PAGES = 200
+      MIN_PAGES = 5 
+
       def initialize(query)
         result = TraitBank::Stats.assoc_data(query)
         page_ids = Set.new
@@ -108,29 +111,39 @@ module Traits
           obj_page_id_map[subj_page_id] << obj_page_id
         end
 
-        pages = Page.includes(native_node: { node_ancestors: { ancestor: :page }}).where(id: page_ids)
-        page_ancestors = pages.map do |p|
-          p.node_ancestors.map { |a| a.ancestor.page }.concat([p])
+        if page_ids.length > MAX_PAGES || page_ids.length < MIN_PAGES 
+          @should_display = false
+        else
+          @should_display = true
+
+          pages = Page.includes(native_node: { node_ancestors: { ancestor: :page }}).where(id: page_ids)
+          page_ancestors = pages.map do |p|
+            p.node_ancestors.map { |a| a.ancestor.page }.concat([p])
+          end
+          @root_node = build_page_hierarchy(page_ids, obj_page_id_map, page_ancestors)
+
+          pages_by_id = pages.map { |p| [p.id, p] }.to_h
+          seen_pair_ids = Set.new
+          @data = result.map do |row|
+            subj_group = page_hash(row, :subj_group_id, pages_by_id)
+            obj_group = page_hash(row, :obj_group_id, pages_by_id)
+
+            pair_id = [subj_group[:page_id], obj_group[:page_id]].sort.join('_')
+
+            next nil if seen_pair_ids.include?(pair_id) # arbitrarily drop one half of circular relationships
+
+            seen_pair_ids.add(pair_id)
+            
+            {
+              subjGroup: subj_group,
+              objGroup: obj_group
+            }
+          end.compact
         end
-        @root_node = build_page_hierarchy(page_ids, obj_page_id_map, page_ancestors)
+      end
 
-        pages_by_id = pages.map { |p| [p.id, p] }.to_h
-        seen_pair_ids = Set.new
-        @data = result.map do |row|
-          subj_group = page_hash(row, :subj_group_id, pages_by_id)
-          obj_group = page_hash(row, :obj_group_id, pages_by_id)
-
-          pair_id = [subj_group[:page_id], obj_group[:page_id]].sort.join('_')
-
-          next nil if seen_pair_ids.include?(pair_id) # arbitrarily drop one half of circular relationships
-
-          seen_pair_ids.add(pair_id)
-          
-          {
-            subjGroup: subj_group,
-            objGroup: obj_group
-          }
-        end.compact
+      def should_display?
+        @should_display
       end
 
       def to_json
@@ -251,6 +264,7 @@ module Traits
     def assoc
       @query = TermQuery.from_short_params(term_query_params)
       @data = AssocData.new(@query)
+      render_with_status(@data.should_display?)
     end
 
     private

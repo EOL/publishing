@@ -34,8 +34,8 @@ window.AssocViz = (function(exports) {
     const radius = 350
         , width = 900
         , colorNone = '#ccc'
-        , colorIn = '#00f'
-        , colorOut = '#f00'
+        , colorIn = '#4c2c92'
+        , colorOut = '#2e8540'
         ;
 
     const data = $container.find('.js-assoc').data('json')
@@ -56,7 +56,7 @@ window.AssocViz = (function(exports) {
 
     const node = svg.append('g')
         .attr('font-family', 'sans-serif')
-        .attr('font-size', 9)
+        .attr('font-size', 11)
       .selectAll('g')
       .data(root.leaves())
       .join('g')

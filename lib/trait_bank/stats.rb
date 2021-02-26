@@ -17,6 +17,7 @@ module TraitBank
     RECORD_THRESHOLD = 20_000
     MIN_RECORDS_FOR_HIST = 4
     OBJ_COUNT_LIMIT_PAD = 5
+    ASSOC_SUMMARIZE_THRESHOLD = 200
 
     class << self
       include TraitBank::Constants
@@ -162,11 +163,20 @@ module TraitBank
           obj_clade_var: :obj_clade, 
           trait_var: :trait
         )
+        target_rank = assoc_data_target_rank(query)
+        wheres = ['subj_group <> obj_group']
+
+        if target_rank.nil?
+          target_rank_part = ''
+          wheres << 'NOT (:Page)-[:parent]->(subj_group) AND NOT (:Page)-[:parent]->(obj_group)'
+        else
+          target_rank_part = "{ rank: '#{target_rank}' }"
+        end
 
         q = %Q(
           #{begin_part}
-          MATCH (page)-[:parent*0..]->(subj_group:Page{ rank: 'species' }), (obj_clade)-[:parent*0..]->(obj_group{ rank: 'species' })
-          WHERE subj_group <> obj_group
+          MATCH (page)-[:parent*0..]->(subj_group:Page#{target_rank_part}), (obj_clade)-[:parent*0..]->(obj_group#{target_rank_part})
+          WHERE #{wheres.join(' AND ')}
           RETURN DISTINCT subj_group.page_id AS subj_group_id, obj_group.page_id AS obj_group_id
         )
 
@@ -325,6 +335,39 @@ module TraitBank
       end
 
       private
+
+      def assoc_data_target_rank(query)
+        page_count = TraitSearch.new(query).page_count
+        clade_target = assoc_data_target_rank_for_clades(query)
+
+        if clade_target.present? && page_count <= ASSOC_SUMMARIZE_THRESHOLD #species is default
+          :species
+        else
+          clade_target
+        end 
+      end
+
+      def assoc_data_target_rank_for_clades(query)
+        subj_treat_as = query.clade&.rank&.treat_as
+        obj_treat_as = query.filters.first&.obj_clade&.treat_as
+
+        max_treat_as = [subj_treat_as, obj_treat_as].compact.map do |treat_as|
+          Rank.treat_as[treat_as]
+        end.max
+
+        if (
+          max_treat_as.nil? ||
+          max_treat_as < Rank.treat_as[:r_family]
+        )
+          :family
+        elsif (
+          max_treat_as <= Rank.treat_as[:r_species]
+        )
+          :species
+        else
+          nil
+        end
+      end
 
       def obj_counts_query_for_records(query, params)
         obj_var = "child_obj"
