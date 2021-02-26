@@ -104,8 +104,6 @@ module Traits
           obj_page_id = row[:obj_group_id]
           page_ids.add(subj_page_id)
           page_ids.add(obj_page_id)
-          subj_page_id_map[obj_page_id] ||= []
-          subj_page_id_map[obj_page_id] << subj_page_id
           obj_page_id_map[subj_page_id] ||= []
           obj_page_id_map[subj_page_id] << obj_page_id
         end
@@ -114,7 +112,7 @@ module Traits
         page_ancestors = pages.map do |p|
           p.node_ancestors.map { |a| a.ancestor.page }.concat([p])
         end
-        @root_node = build_page_hierarchy(page_ids, subj_page_id_map, obj_page_id_map, page_ancestors)
+        @root_node = build_page_hierarchy(page_ids, obj_page_id_map, page_ancestors)
 
         pages_by_id = pages.map { |p| [p.id, p] }.to_h
         seen_pair_ids = Set.new
@@ -145,7 +143,6 @@ module Traits
         def initialize(page)
           @page = page
           @children = Set.new
-          @subj_page_ids = Set.new
           @obj_page_ids = Set.new
         end
 
@@ -161,19 +158,14 @@ module Traits
           @obj_page_ids.merge(obj_page_ids)
         end
 
-        def add_subj_page_ids(subj_page_ids)
-          @subj_page_ids.merge(subj_page_ids)
-        end
-
         def to_h
           children_h = @children.map { |c| c.to_h }
 
           {
             pageId: @page.id,
-            name: @page.name,
+            name: @page.vernacular_or_canonical,
             children: children_h,
-            objPageIds: @obj_page_ids.to_a,
-            subjPageIds: @subj_page_ids.to_a
+            objPageIds: @obj_page_ids.to_a
           }
         end
       end
@@ -188,7 +180,7 @@ module Traits
         }
       end
 
-      def build_page_hierarchy(all_page_ids, subj_page_id_map, obj_page_id_map, page_ancestors)
+      def build_page_hierarchy(all_page_ids, obj_page_id_map, page_ancestors)
         root_node = nil
 
         page_ancestors.each_with_index do |ancestry|
@@ -200,10 +192,8 @@ module Traits
             cur_node = Node.new(page)
 
             if i == ancestry.length - 2 # leaf node is last element, - 2 because this is a slice starting at 1
-              subj_page_ids = subj_page_id_map[page.id]
               obj_page_ids = obj_page_id_map[page.id]
               cur_node.add_obj_page_ids(obj_page_ids) if obj_page_ids
-              cur_node.add_subj_page_ids(subj_page_ids) if subj_page_ids
             end
 
             prev_node.add_child(cur_node)

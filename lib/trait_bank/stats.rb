@@ -165,7 +165,7 @@ module TraitBank
 
         q = %Q(
           #{begin_part}
-          MATCH (page)-[:parent*0..]->(subj_group:Page{ rank: 'family' }), (obj_clade)-[:parent*0..]->(obj_group{ rank: 'family' })
+          MATCH (page)-[:parent*0..]->(subj_group:Page{ rank: 'species' }), (obj_clade)-[:parent*0..]->(obj_group{ rank: 'species' })
           WHERE subj_group <> obj_group
           RETURN DISTINCT subj_group.page_id AS subj_group_id, obj_group.page_id AS obj_group_id
         )
