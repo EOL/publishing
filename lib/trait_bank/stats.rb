@@ -349,7 +349,7 @@ module TraitBank
 
       def assoc_data_target_rank_for_clades(query)
         subj_treat_as = query.clade&.rank&.treat_as
-        obj_treat_as = query.filters.first&.obj_clade&.treat_as
+        obj_treat_as = query.filters.first.obj_clade&.rank&.treat_as
 
         max_treat_as = [subj_treat_as, obj_treat_as].compact.map do |treat_as|
           Rank.treat_as[treat_as]
