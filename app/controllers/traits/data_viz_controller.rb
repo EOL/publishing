@@ -96,7 +96,7 @@ module Traits
       MAX_PAGES = 200
       MIN_PAGES = 5 
 
-      def initialize(query)
+      def initialize(query, breadcrumb_type)
         result = TraitBank::Stats.assoc_data(query)
         page_ids = Set.new
         subj_page_id_map = {}
@@ -120,7 +120,7 @@ module Traits
           page_ancestors = pages.map do |p|
             p.node_ancestors.map { |a| a.ancestor.page }.concat([p])
           end
-          @root_node = build_page_hierarchy(page_ids, obj_page_id_map, page_ancestors)
+          @root_node = build_page_hierarchy(page_ids, obj_page_id_map, page_ancestors, breadcrumb_type)
 
           pages_by_id = pages.map { |p| [p.id, p] }.to_h
           seen_pair_ids = Set.new
@@ -153,10 +153,11 @@ module Traits
       private
       class Node
         attr_accessor :page, :children
-        def initialize(page)
+        def initialize(page, breadcrumb_type)
           @page = page
           @children = Set.new
           @obj_page_ids = Set.new
+          @breadcrumb_type = breadcrumb_type
         end
 
         def add_child(node)
@@ -176,7 +177,7 @@ module Traits
 
           {
             pageId: @page.id,
-            name: breadcrumb_type == BreadcrumbType.vernacular ? @page.vernacular_or_canonical : @page.canonical,
+            name: @breadcrumb_type == BreadcrumbType.vernacular ? @page.vernacular_or_canonical : @page.canonical,
             children: children_h,
             objPageIds: @obj_page_ids.to_a
           }
@@ -193,16 +194,16 @@ module Traits
         }
       end
 
-      def build_page_hierarchy(all_page_ids, obj_page_id_map, page_ancestors)
+      def build_page_hierarchy(all_page_ids, obj_page_id_map, page_ancestors, breadcrumb_type)
         root_node = nil
 
         page_ancestors.each_with_index do |ancestry|
-          page_root_node = Node.new(ancestry.first)
+          page_root_node = Node.new(ancestry.first, breadcrumb_type)
           cur_node = page_root_node
 
           ancestry[1..].each_with_index do |page, i|
             prev_node = cur_node
-            cur_node = Node.new(page)
+            cur_node = Node.new(page, breadcrumb_type)
 
             if i == ancestry.length - 2 # leaf node is last element, - 2 because this is a slice starting at 1
               obj_page_ids = obj_page_id_map[page.id]
@@ -263,7 +264,7 @@ module Traits
 
     def assoc
       @query = TermQuery.from_short_params(term_query_params)
-      @data = AssocData.new(@query)
+      @data = AssocData.new(@query, breadcrumb_type)
       render_with_status(@data.should_display?)
     end
 

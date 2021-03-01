@@ -17,7 +17,7 @@ module TraitBank
     RECORD_THRESHOLD = 20_000
     MIN_RECORDS_FOR_HIST = 4
     OBJ_COUNT_LIMIT_PAD = 5
-    ASSOC_SUMMARIZE_THRESHOLD = 200
+    MAX_ASSOC_TAXA = 200
 
     class << self
       include TraitBank::Constants
@@ -154,19 +154,14 @@ module TraitBank
 
       def assoc_data(query)
         raise_if_query_invalid_for_assoc(query)
-        params = {}
 
-        begin_part = TraitBank::Search.term_record_search_matches(
-          query, 
-          params, 
-          always_match_obj_clade: true, 
-          obj_clade_var: :obj_clade, 
-          trait_var: :trait
-        )
         target_rank = assoc_data_target_rank(query)
+        return [] if target_rank.nil?
+
+        params = {}
         wheres = ['subj_group <> obj_group']
 
-        if target_rank.nil?
+        if target_rank == :leaf
           target_rank_part = ''
           wheres << 'NOT (:Page)-[:parent]->(subj_group) AND NOT (:Page)-[:parent]->(obj_group)'
         else
@@ -174,7 +169,7 @@ module TraitBank
         end
 
         q = %Q(
-          #{begin_part}
+          #{assoc_data_begin_part(query, params)}
           MATCH (page)-[:parent*0..]->(subj_group:Page#{target_rank_part}), (obj_clade)-[:parent*0..]->(obj_group#{target_rank_part})
           WHERE #{wheres.join(' AND ')}
           RETURN DISTINCT subj_group.page_id AS subj_group_id, obj_group.page_id AS obj_group_id
@@ -187,6 +182,39 @@ module TraitBank
             trait_count: row[2]
           }
         end
+      end
+
+      def assoc_data_counts(query)
+        params = {}
+
+        q = %Q(
+          #{assoc_data_begin_part(query, params)}
+          WITH collect(page) + collect(obj_clade) AS pages
+          UNWIND pages AS page
+          WITH distinct page
+          WHERE NOT (:Page)-[:parent]->(page)
+          OPTIONAL MATCH (page)-[:parent*0..]->(genus:Page{ rank: 'genus' })
+          OPTIONAL MATCH (page)-[:parent*0..]->(family:Page{ rank: 'family' })
+          WITH count(page) AS leaf_count, sum(CASE WHEN genus IS NULL THEN 0 ELSE 1 END) AS genus_count,
+            sum(CASE WHEN family IS NULL THEN 0 ELSE 1 END) AS family_count
+          RETURN leaf_count, genus_count, family_count
+        )
+
+        result = ActiveGraph::Base.query(q, params).first.to_h
+
+        Rails.logger.debug("assoc data counts for query #{query}: #{result}")
+
+        result
+      end
+
+      def assoc_data_begin_part(query, params)
+        TraitBank::Search.term_record_search_matches(
+          query, 
+          params, 
+          always_match_obj_clade: true, 
+          obj_clade_var: :obj_clade, 
+          trait_var: :trait
+        )
       end
 
       def check_query_valid_for_histogram(query, count)
@@ -337,14 +365,20 @@ module TraitBank
       private
 
       def assoc_data_target_rank(query)
-        page_count = TraitSearch.new(query).page_count
+        counts = assoc_data_counts(query)
         clade_target = assoc_data_target_rank_for_clades(query)
 
-        if clade_target.present? && page_count <= ASSOC_SUMMARIZE_THRESHOLD #species is default
-          :species
-        else
-          clade_target
-        end 
+        result = [
+          [:r_leaf, counts[:leaf_count]], 
+          [:r_genus, counts[:genus_count]], 
+          [:r_family, counts[:family_count]]
+        ].find do |c| 
+          rank = c[0]
+          rank_match = rank == :r_leaf || Rank.treat_as[rank] >= Rank.treat_as[clade_target] # clade must be of equal or greater specificity than clade_target. We want the most specific level that matches the MAX_ASSOC_TAXA threshold, hence the order.
+          rank_match && c[1] <= MAX_ASSOC_TAXA
+        end
+
+        result&.[](0)&.[](2..)&.to_sym # return nil, :leaf, :genus or :family
       end
 
       def assoc_data_target_rank_for_clades(query)
@@ -359,13 +393,13 @@ module TraitBank
           max_treat_as.nil? ||
           max_treat_as < Rank.treat_as[:r_family]
         )
-          :family
+          :r_family
         elsif (
-          max_treat_as <= Rank.treat_as[:r_species]
+          max_treat_as < Rank.treat_as[:r_genus]
         )
-          :species
+          :r_genus
         else
-          nil
+          :r_leaf
         end
       end
 
