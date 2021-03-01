@@ -71,7 +71,6 @@ qqq:
       submit: '{{Identical|Save}}'
     name:
       by_uri:
-      by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: a measure of specific growth
           rate
         https://eol(dot)org/schema/terms/abnormal_habitat_choice: An organism migrates
@@ -99,6 +98,10 @@ qqq:
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: A maturity quality inhering
           in an individual by virtue of the individual having attained sexual maturity
           and full growth
+        https://eol(dot)org/schema/terms/adventive: A possibly ambiguous term used
+          to describe the presence of the taxon in a region. Common definitions include
+          newly arrived; vagrant; in flux. May or may not have been introduced by
+          human activity.
         http://eol(dot)org/schema/terms/aerial: organisms adapted to spending a considerable
           part of their life in the air, away from the ground, vegetation or water.
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: Behavior related to the
@@ -288,9 +291,9 @@ qqq:
           formula BaO4S. Virtually insoluble in water at room temperature, it is mostly
           used as a component in oil well drilling fluid it occurs naturally as the
           mineral barite
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 'All tissues outside the
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: All tissues outside the
           vascular cambium or the xylem; in older trees may be divided into dead outer
-          bark and living inner bark, which consists of secondary phloem. '
+          bark and living inner bark, which consists of secondary phloem.
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: Basal metabolic
           rate (BMR) is the amount of energy expended daily by humans and other animals
           at rest. Rest is defined as existing in a neutrally temperate environment
@@ -356,10 +359,10 @@ qqq:
           supply of water from rainfall, maintaining waterlogged conditions on the
           ground. Blanket bogs are ombrotrophic or rain fed, and as a result their
           pH lies between 3.5 and 4.2.
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: 'Ventilation occurs
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: Ventilation occurs
           when animals flush their burrows with overlying water for respiratory and
           feeding purposes. Blind-ended ventilation occurs when I-shaped burrows are
-          flushed uni- or bidirectionally depending on the permeability of the sediment '
+          flushed uni- or bidirectionally depending on the permeability of the sediment
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: A liquid tissue; its major
           function is to transport oxygen throughout the body. It also supplies the
           tissues with nutrients, removes waste products, and contains various components
@@ -381,9 +384,8 @@ qqq:
           body of all descendants of the coelenterates and certain primitive worms,
           formed by the splitting of the embryonic mesoderm into two layers. In mammals
           it forms the peritoneal, pleural, and pericardial cavities
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 'A measurement of the
-          longest dimension of a body, typically between two distinct ends of the
-          body. '
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: A measurement of the longest
+          dimension of a body, typically between two distinct ends of the body.
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: The amount of matter in
           the body of an organism.
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: internal temperature
@@ -400,9 +402,8 @@ qqq:
           latitude bare, flat area covered with large angular rocks.
         https://eol(dot)org/schema/terms/brittlestar_feeder: a carnivore that feeds
           primarily on brittle-stars
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: 'A quality inhering in
-          a bearer by virtue of the bearer''s width being notably higher than its
-          length. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: A quality inhering in
+          a bearer by virtue of the bearer's width being notably higher than its length.
         http://eol(dot)org/schema/terms/broadcastSpawner: Broadcast spawners scatter
           their eggs into the water; they spawn numerous small eggs that develop rapidly.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: A broadleaf forest biome
@@ -412,12 +413,12 @@ qqq:
           habitat or shelter
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: Incubation of eggs by
           the parent.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 'A color consisting of
-          dark orange, red, of very low intensity. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: A color consisting of
+          dark orange, red, of very low intensity.
         http://eol(dot)org/schema/terms/browsing: herbivore that eats parts of plants
           including high-growing shrubs and trees.
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: An undeveloped shoot system
-        http://eol(dot)org/schema/terms/BudSource: 'Location of bud bank for resprouting. '
+        http://eol(dot)org/schema/terms/BudSource: Location of bud bank for resprouting.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: A permanent walled and
           roofed construction.
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: A material entity used
@@ -430,14 +431,14 @@ qqq:
           which the grain has grown in a deformed manner. It is commonly found in
           the form of a rounded outgrowth on a tree trunk or branch that is filled
           with small knots from dormant buds.
-        https://eol(dot)org/schema/terms/burrow_builder: 'an animal that excavates
+        https://eol(dot)org/schema/terms/burrow_builder: an animal that excavates
           holes or tunnels into soil or benthic sediment to create a space suitable
           for habitation, temporary refuge, or as a byproduct of locomotion. Inhabited
           burrows function as a refuge, protecting the inhabitants from predation
           and environmental extremes. They provide physical support for the digging
           and feeding activities of the burrow inhabitants. The harsh chemical environment
           deep in aquatic burrows must be counteracted by active or passive irrigation
-          of burrow water.  '
+          of burrow water.
         https://eol(dot)org/schema/terms/burrowDepth: Depth within soil, sediment
           or rock that a burrow of this species is typically located.
         https://eol(dot)org/schema/terms/burrowDiameter: diameter of the cross section
@@ -488,9 +489,9 @@ qqq:
           with no flow or a controlled flow used for navigation, drainage or irrigation.
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: A long, hollow or pithy,
           jointed woody stem that usually lives only one or two years.
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: 'A vegetation layer
-          which is formed by a collection of individual plant crowns, themselves constituting
-          part of the aboveground portion of a plant community. '
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: A vegetation layer which
+          is formed by a collection of individual plant crowns, themselves constituting
+          part of the aboveground portion of a plant community.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: Relatively narrow, deep
           depression with steep sides, the bottom of which generally has a continuous
           slope.
@@ -635,8 +636,8 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: Single birth offspring
           quantity.  The proportion or number of offspring produced from a single
           pregnancy (mammals) or ovulation (fish) or nesting (birds).
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: 'A length unit which is
-          equal to one hundredth of a meter or 10^[-2] m. '
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: A length unit which is
+          equal to one hundredth of a meter or 10^[-2] m.
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: Cubic centimeter. A volume
           unit which is equal to one millionth of a cubic meter or 10^[-9] m^[3],
           or to 1 ml
@@ -685,17 +686,18 @@ qqq:
         https://eol(dot)org/schema/terms/concave_mirror_eyes: single-chambered eyes
           in which the image is formed not by a lens but by a concave mirror; the
           back of the eye contains a mirror that reflects light to the photoreceptors.
+        http://eol(dot)org/schema/terms/cone: '{definition missing}'
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: A conifer woodland is
           a woodland which has a tree community primarily composed of coniferous trees,
           from the Division Pinophyta, also known as Coniferophyta or Coniferae.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: A coniferous forest
           biome is a forest biome which contains densely packed populations or communities
           of coniferous trees, strongly limiting light penetration to the forest floor.
-        http://eol(dot)org/schema/terms/conservationDependent: 'The category is part
+        http://eol(dot)org/schema/terms/conservationDependent: The category is part
           of the IUCN 1994 Categories & Criteria (version 2.3), which is no longer
           used in evaluation of taxa, but persists in the IUCN Red List for taxa evaluated
           prior to 2001. It was assigned to species or lower taxa which were dependent
-          on conservation efforts to prevent the taxon becoming threatened with extinction. '
+          on conservation efforts to prevent the taxon becoming threatened with extinction.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: Conservation-focused
           active ecosystem management process. An active management process which
           has the conservation of an ecosystem, or a part thereof, as its primary
@@ -795,20 +797,21 @@ qqq:
           and Zimbabwe. They are generally found in higher rainfall flat plateau areas,
           and have river-like branching forms which may be nowhere very large, but
           common enough to add up to a large area.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: '{{identical|Day}}'
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: a state resulting from
           the cessation of the bearer's life
         https://eol(dot)org/schema/terms/decapod_feeder: a carnivore that feeds primarily
           on decapods
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: 'Deciduous (plant):  A
           quality inhering in a plant by virtue of the bearer''s disposition to shed
-          foliage. '
+          foliage.'
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: a forest in which the
           majority of trees shed foliage simultaneously in response to seasonal change.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: A quality that has a
           value that is decreased compared to normal or average
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: 'A positional quality
-          inhering in a bearer by virtue of the bearer''s lying or growing on the
-          ground but with erect or rising tips. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: A positional quality
+          inhering in a bearer by virtue of the bearer's lying or growing on the ground
+          but with erect or rising tips.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: sediment that accumulates
           in the flat or very gently sloping areas of the deep ocean basin floor.
           The three main types are siliceous oozes, calcareous oozes, and red clays.
@@ -862,8 +865,8 @@ qqq:
           this organism.
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: includes the esophagus,
           stomach, small and large intestine, anus, liver, biliary tract, and pancreas.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: 'having distinct parts
-          arising from a common point or center. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: having distinct parts
+          arising from a common point or center.
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: A methyl sulfide in which
           the sulfur atom is substituted by two methyl groups.
         https://eol(dot)org/schema/terms/dioicous: In the haploid (gametophyte) lifestage
@@ -886,8 +889,8 @@ qqq:
           or upper surface of the body; opposite of ventral.
         https://eol(dot)org/schema/terms/dorsal_fin: swimming mainly using undulations
           of the dorsal fin
-        https://eol(dot)org/schema/terms/dorsoventral_undulatory: 'swimming by generating
-          thrust using dorso-ventral undulations of the body. '
+        https://eol(dot)org/schema/terms/dorsoventral_undulatory: swimming by generating
+          thrust using dorso-ventral undulations of the body.
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: Of or involving the back
           and belly of the main body.
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: Downward conveyors
@@ -1064,7 +1067,7 @@ qqq:
           Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 'Evergreen (plant): A
           quality inhering in a plant by virtue of the bearer''s disposition to retain
-          foliage. '
+          foliage.'
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: An area of a planet's
           surface which is primarily covered by a forest in which the majority of
           trees maintain their foliage despite seasonal change.
@@ -1147,8 +1150,8 @@ qqq:
           notes taken in the field about the Event.
         http://eol(dot)org/schema/terms/FireResistance: The ability of an organism
           to resist burning.
-        http://eol(dot)org/schema/terms/FireTolerance: 'The relative ability of a
-          plant to resprout, regrow, or reestablish from residual seed after a fire. '
+        http://eol(dot)org/schema/terms/FireTolerance: The relative ability of a plant
+          to resprout, regrow, or reestablish from residual seed after a fire.
         http://eol(dot)org/schema/terms/FossilFirst: The first appearance of this
           taxon in the fossil record.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: A narrow, verical cave
@@ -1172,8 +1175,8 @@ qqq:
           is a savanna biome which has very wet to saturated soil moisture content.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000256: The stream channel and
           adjacent areas that carry flood flows in a flood plain.
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 'A flower anatomy and morphology
-          trait (TO:0000499) which is associated with the color of the flower (PO:0009046). '
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: A flower anatomy and morphology
+          trait (TO:0000499) which is associated with the color of the flower (PO:0009046).
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: An open artificial water
           channel, that leads water from a diversion dam or weir completely aside
           a natural flow, often an elevated box structure (typically wood) that follows
@@ -1189,8 +1192,8 @@ qqq:
           or parasites) and hence transferring them from one individual to another.
           A fomite can be anything such as a cloth or mop heads so when cleaning this
           is important to remember that this could aid when spreading pathogenic organisms.
-        http://eol(dot)org/schema/terms/ForagingHabitat: 'Primary habitat where the
-          species forages during the breeding season.  '
+        http://eol(dot)org/schema/terms/ForagingHabitat: Primary habitat where the
+          species forages during the breeding season.
         https://eol(dot)org/schema/terms/foram_feeder: a consumer that feeds primarily
           on foraminifera
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: whole plant forbacious
@@ -1201,12 +1204,10 @@ qqq:
           terrestrial biome which includes, across its entire spatial extent, densely
           packed vegetation which strongly limits light penetration to the forest
           floor.
-        http://eol(dot)org/schema/terms/ForkLength: refers to the length of a fish
-          measured from the tip of the snout to the end of the middle caudal fin rays
-          and is used in fishes in which it is difficult to tell where the vertebral
-          column ends
-        http://eol(dot)org/schema/terms/fossorialOrGround: 'An organism that is adapted
-          to terrestrial life below ground, on or near the ground.  '
+        http://eol(dot)org/schema/terms/ForkLength: length of a fish from the tip
+          of the snout to the end of the middle caudal fin rays
+        http://eol(dot)org/schema/terms/fossorialOrGround: An organism that is adapted
+          to terrestrial life below ground, on or near the ground.
         http://eol(dot)org/schema/terms/groundDwelling: An organism that spends most
           of its time on the ground or underground.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: A biome that applies
@@ -1232,8 +1233,8 @@ qqq:
           parts one or more seeds (PO:0009010)
         http://eol(dot)org/schema/terms/FruitSeedColor: The predominant and conspicuous
           color of the mature fruit or seed from a landscaping aesthetics standpoint.
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 'A fruit anatomy and morphology
-          trait (TO:0002629) which is associated with the type of a fruit (PO:0009001). '
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: A fruit anatomy and morphology
+          trait (TO:0002629) which is associated with the type of a fruit (PO:0009001).
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: An energy-rich substance
           that can be transformed with release of usable energy.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000216: A hole in the Earth's
@@ -1257,9 +1258,9 @@ qqq:
         http://eol(dot)org/schema/terms/GenerationTime: In population biology, the
           generation time is a quantity that reflects the average time between two
           consecutive generations. Reciprocal of Generation Frequency
-        http://eol(dot)org/schema/terms/genotype: "(zool., obsol.) the specimen on
-          which a genus or subgenus is based; see also generitype; or any specimen\\r\\nof
-          the type species of a genus."
+        http://eol(dot)org/schema/terms/genotype: (zool., obsol.) the specimen on
+          which a genus or subgenus is based; see also generitype; or any specimen\r\nof
+          the type species of a genus.
         http://eol(dot)org/schema/terms/Present: This organism is known to be present
           in this location or region
         http://eol(dot)org/schema/terms/GeographicRangeArea: The total extent of the
@@ -1356,14 +1357,14 @@ qqq:
           division of the body.
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: The distance from the
           head to the caudal vertebrae in the coccygeal region.
-        http://eol(dot)org/schema/terms/HeadBodyLength: 'Head-body length is the total
+        http://eol(dot)org/schema/terms/HeadBodyLength: Head-body length is the total
           length from tip of nose to anus, base of tail or vent (i.e. tail length
-          is excluded).  '
+          is excluded).
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000153: The upper part of a
           river system, denoting the upper basin and source streams of a river.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 'A concave 3-D shape
-          quality inhering in a bearer by virtue of the bearer''s having a sinus or
-          rounded lobe at the base. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: A concave 3-D shape quality
+          inhering in a bearer by virtue of the bearer's having a sinus or rounded
+          lobe at the base.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: An upland moor or sandy
           area dominated by low shrubby vegetation including heather.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: A dense growth of shrubbery
@@ -1405,10 +1406,10 @@ qqq:
           by lowlands.
         http://eol(dot)org/schema/terms/HindTarsusLength: The hind foot length, from
           heel to toe.
-        http://eol(dot)org/schema/terms/hispidose: "(equivalent to ‘bottlebrush’)
-          describes branching where sub-branches radiate in all directions from main
-          branches and where corallites on sub-branches are generally elongate. Applied
-          only to the genus Acropora"
+        http://eol(dot)org/schema/terms/hispidose: (equivalent to ‘bottlebrush’) describes
+          branching where sub-branches radiate in all directions from main branches
+          and where corallites on sub-branches are generally elongate. Applied only
+          to the genus Acropora
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002243: Histosols comprise soils
           formed in organic material. These vary from soils developed in predominantly
           moss peat in boreal, arctic and subarctic regions, via moss peat, reeds/
@@ -1586,12 +1587,13 @@ qqq:
           rock such as limestone or dolomite. These landscapes display distinctive
           surface features and underground drainages, and in some examples there may
           be little or no surface drainage.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: '{definition missing}'
         http://purl(dot)obolibrary(dot)org/obo/UO_0000009: Kilograms. A mass unit
           which is equal to the mass of the International Prototype Kilogram kept
           by the BIPM at Svres, France.
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: 'An area density unit which
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: An area density unit which
           is equal to the mass of an object in kilograms divided by the surface area
-          in meters squared. '
+          in meters squared.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000410: An elevated area such
           as a hill, ridge or old lava dome inside or downslope from an area of active
           volcanism. New lava flows will cover the surrounding land, isolating the
@@ -1673,9 +1675,9 @@ qqq:
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: The
           ratio of the quantity of nitrogen in the leaf or component thereof, i.e.
           leaf lamina or leaflet, per respective unit dry mass
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 'A leaf anatomy and morphology
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: A leaf anatomy and morphology
           trait (TO:0000748) which is associated with the variation in shapes and
-          forms of a leaf (PO:0025034). '
+          forms of a leaf (PO:0025034).
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: A plant's disposition
           to lose leaves by a natural process
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: similar in appearance
@@ -1743,9 +1745,9 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: A natural karst landform
           consisting of a flat, incised surface of exposed limestone that resembles
           artificial pavement.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 'A shape quality inhering
-          in a bearer by virtue of the bearer''s being narrow, with the two opposite
-          margins parallel. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: A shape quality inhering
+          in a bearer by virtue of the bearer's being narrow, with the two opposite
+          margins parallel.
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: a loosely defined term
           for substances of biological origin that are soluble in nonpolar solvents.
           They consist of saponifiable lipids, such as glycerides (fats and oils)
@@ -1761,8 +1763,8 @@ qqq:
           municipality, waterBody, island, islandGroup). This term may contain information
           modified from the original to correct perceived errors or standardize the
           description.
-        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 'Self-propelled movement
-          of a cell or organism from one location to another. '
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: Self-propelled movement
+          of a cell or organism from one location to another.
         http://eol(dot)org/schema/terms/log10gram: The metric unit of mass (gram)
           expressed on a logarithmic-scale (base 10).
         http://eol(dot)org/schema/terms/longPersistentSeedBank: Of seed bank longevity.
@@ -1791,7 +1793,7 @@ qqq:
           a longer period of time during extremely low tides.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: 'decreased tolerance
           to: A tolerance quality inhering in a bearer by virtue of the bearer''s
-          decreased ability to endure a stimulus. '
+          decreased ability to endure a stimulus.'
         http://eol(dot)org/schema/terms/lowEpifaunal: Organism living on the surface
           of the substratum in the immediate vicinity of the seafloor.
         http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: a data item which is
@@ -2019,8 +2021,8 @@ qqq:
         http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: Zone C, per
           the Circumpolar Arctic Vegetation Map (CAVM Team 2003)
         http://eol(dot)org/schema/terms/MiddleToeLength: length of the middle toe
-        http://eol(dot)org/schema/terms/migratory: 'makes regular daily or seasonal
-          movements between different regions or habitats '
+        http://eol(dot)org/schema/terms/migratory: makes regular daily or seasonal
+          movements between different regions or habitats
         http://eol(dot)org/schema/terms/paleo_megaannum: 1 megaannum in the past.
           Megaannum, Ma. is a unit of time equal to one million (10<sup>6</sup>) years.
         http://semanticscience(dot)org/resource/SIO_001113: a minimal value is smallest
@@ -2038,9 +2040,9 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: a chemical substance that
           is normally crystalline formed and has been formed as a result of geological
           processes.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 'A composition quality
-          inhering in a bearer by virtue of the bearer''s being composed of more than
-          one identifiable entities. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: A composition quality
+          inhering in a bearer by virtue of the bearer's being composed of more than
+          one identifiable entities.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: A mixed forest biome
           is a forest biome which contains densely packed populations or communities
           of broadleaf and coniferous trees, strongly limiting light penetration to
@@ -2068,8 +2070,8 @@ qqq:
           is neither relatively high nor low.
         http://eol(dot)org/schema/terms/moderateLifeSpan: A life span which is neither
           relatively low nor relatively high.
-        http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: "~6.022×10^23
-          molecules or particles per meter squared per day"
+        http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: ~6.022×10^23
+          molecules or particles per meter squared per day
         https://eol(dot)org/schema/terms/mollusk_foot: muscular underside of a mollusk,
           which has adapted to different purposes in different classes. The foot carries
           a pair of statocysts, which act as balance sensors. In gastropods, it secretes
@@ -2086,8 +2088,8 @@ qqq:
         http://eol(dot)org/schema/terms/monandry: Protogynous hermaphrodites with
           only juvenile females, where a certain percentage of females changes into
           (terminal) males are termed monandric.
-        http://purl(dot)obolibrary(dot)org/obo/PORO_0000412: 'Linear, nonradiate spicule,
-          or a spicule type not having more than two rays along one axis. '
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000412: Linear, nonradiate spicule,
+          or a spicule type not having more than two rays along one axis.
         https://eol(dot)org/schema/terms/monoicous: In the haploid (gametophyte) lifestage
           of a moss or fern, the antheridia (male) and archegonia (female) reproductive
           organs occur on the same individual plant. They may be borne on different
@@ -2119,7 +2121,7 @@ qqq:
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: 'The mortality
           rate doubling time (MRDT) is considered to be a measure of the rate of ageing.  It
           is estimated from the slope of the Gompertz curve by: MRDT = 0.693/G  where
-          G is the exponential (Gompertz) mortality rate coefficient. '
+          G is the exponential (Gompertz) mortality rate coefficient.'
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: A landform that extends
           above the surrounding terrain in a limited area. A mountain is generally
           steeper than a hill, but there is no universally accepted standard definition
@@ -2222,10 +2224,10 @@ qqq:
           per hour
         https://eol(dot)org/schema/terms/nanograpperkilgramperminute: Nanogram per
           kilogram per minute
-        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 'The process in which nitrogen
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: The process in which nitrogen
           is taken from its relatively inert molecular form (N2) in the atmosphere
           and converted into nitrogen compounds useful for other chemical processes,
-          such as ammonia, nitrate and nitrogen dioxide. '
+          such as ammonia, nitrate and nitrogen dioxide.
         https://eol(dot)org/schema/terms/nanomolpergram: A concentration unit equal
           to one billionth of a mole (or 10^[-9] mol) of a substance per gram total
           mass of a solution, mixture or structure
@@ -2245,8 +2247,8 @@ qqq:
           or germinate on the ground and later disconnect from the soil
         http://eol(dot)org/schema/terms/northernArcticDwarfShrubSubzone: Zone B, per
           the Circumpolar Arctic Vegetation Map (CAVM Team 2003)
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 'A 1D measurement of a
-          nucleus along its longest axis. '
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: A 1D measurement of a
+          nucleus along its longest axis.
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: A 1D measurement of a
           nucleus along its shortest axis.
         http://eol(dot)org/schema/terms/fossilOccPBDB: The number of fossil occurrences
@@ -2353,19 +2355,20 @@ qqq:
           when a wide meander from a stream or a river is cut off to form a lake.
           They are called oxbow lakes due to the distinctive curved shape that results
           from this process.
-        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: 'Monaxon (diactinal)
-          spicule pointed at both ends (a-m in figure). Different types are distinguished
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: Monaxon (diactinal) spicule
+          pointed at both ends (a-m in figure). Different types are distinguished
           by shape and tip morphology. Shape may be fusiform (a), angulate (b), centrotylote
           (c), curved (d), or flexuous (e). Tips may be acerate (f), asymmetrical
           (g), blunt (h), conical (i), hastate (j), mucronate (k), stepped (1), or
-          symmetrical (m). '
+          symmetrical (m).
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: molecular oxygen, O2
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: 'An
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: An
           ounce (abbreviated oz) is usually the international avoirdupois ounce as
           used in the United States customary and British imperial systems, which
-          is equal to one sixteenth of a pound or approximately 28 grams. '
+          is equal to one sixteenth of a pound or approximately 28 grams.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: A flooded parcel of
           arable land used for growing rice and other semiaquatic crops.
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: ..
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: Hand shaped
         https://eol(dot)org/schema/terms/palmeiral: palm tree woodland
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: A low oval elevation
@@ -2381,6 +2384,8 @@ qqq:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: All of the
           specimens in the syntype series of a species or infraspecific taxon other
           than the lectotype itself. Also called "lectoparatype". [Zoo.]
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: automatically added during
+          harvest
         http://eol(dot)org/schema/terms/paratopotype: A paratype from the same locality
           as the holotype
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: All of the specimens
@@ -2393,8 +2398,8 @@ qqq:
           seen", etc. [Zoo./Bot.]
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: this term applies
           to a species that provides any parental care to its offspring
-        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 'A reproductive behavior
-          in which a parent cares for and rears offspring. '
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: A reproductive behavior
+          in which a parent cares for and rears offspring.
         http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: small and
           individual structural elements that function as supporting structure/enclosure,
           e.g. spicules in sponges.
@@ -2668,10 +2673,10 @@ qqq:
           separated) of names of people, groups, or organizations responsible for
           recording the original Occurrence. The primary collector or observer, especially
           one who applies a personal identifier (recordNumber), should be listed first.
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: 'A color hue with high
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: A color hue with high
           wavelength of the long-wave end of the visible spectrum, evoked in the human
           observer by radiant energy with wavelengths of approximately 630 to 750
-          nanometers. '
+          nanometers.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000045: Red clay, also known
           as pelagic clay, accumulates in the deepest and most remote areas of the
           ocean. Containing less than 30% biogenic material, its composition is a
@@ -2724,9 +2729,9 @@ qqq:
           one reproduction event, (semelparous) or multiple events (iteroparous)'
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: An artificial body of
           water, often contained by a dam, constructed for the purpose of water storage.
-        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: 'plant substance that consists
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: plant substance that consists
           of a complex mixture of organic aromatic compounds such as mono-, sesqui-,
-          and diterpenoids. '
+          and diterpenoids.
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: The total amount of oxygen
           consumed or carbon lost metabolically per unit time
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: The organs involved in
@@ -2736,8 +2741,8 @@ qqq:
           to resprout following top (above ground biomass) removal.
         http://eol(dot)org/schema/terms/RespDist: Resprouting ability after an undefined
           disturbance that removed most of the aboveground biomass.
-        http://eol(dot)org/schema/terms/RespFire: 'Resprouting ability one year after
-          being ca. 100% scorched or burned by fire. '
+        http://eol(dot)org/schema/terms/RespFire: Resprouting ability one year after
+          being ca. 100% scorched or burned by fire.
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: a plant having a rhizome,
           a modified subterranean plant stem that sends out roots and shoots from
           its nodes
@@ -2802,7 +2807,7 @@ qqq:
           deepest soil layer where roots were present and the longest root measured
           in the layer.
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: 'root: A plant axis (PO:0025004)
-          that is part of a root system (PO:0025025). '
+          that is part of a root system (PO:0025025).'
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: The act of locomoting
           on limbs with body off the ground such that periodically none of the limbs
           are touching the ground.
@@ -2836,9 +2841,9 @@ qqq:
           for great biodiversity.'
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: Tolerance to the high salt
           content in the growth medium.
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: "(Bipedal jumping.) Behavior
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: (Bipedal jumping.) Behavior
           related to the upward thrust produced by the rapid, simultaneous extension
-          of the hind legs with the intend to rise in the air"
+          of the hind legs with the intend to rise in the air
         http://rs(dot)tdwg(dot)org/dwc/terms/samplingEffort: The amount of effort
           expended during an Event.
         http://rs(dot)tdwg(dot)org/dwc/terms/samplingProtocol: The name of, reference
@@ -2909,9 +2914,9 @@ qqq:
           substance comprised of any particulate matter that can be transported by
           fluid flow and which eventually is deposited as a layer of solid particles
           on the bedor bottom of a body of water or other liquid.
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: 'multi-tissue plant structures
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: multi-tissue plant structures
           that develop from a plant ovule and have as parts a plant embryo enclosed
-          in a seed coat. '
+          in a seed coat.
         http://eol(dot)org/schema/terms/SeedBank: Location of persistent seed bank
           (longevity > 1 yr).
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: the
@@ -2991,9 +2996,9 @@ qqq:
         http://eol(dot)org/schema/terms/sheltered: not exposed
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000545: A beach which is armoured
           with pebbles or small to medium sized cobbles.
-        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: 'A shoot axis that is the
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: A shoot axis that is the
           most distal part of a shoot system and has as parts a shoot apical meristem
-          and the youngest leaf primordia. '
+          and the youngest leaf primordia.
         http://eol(dot)org/schema/terms/ShootRootRatio: The quotient of the dry weight
           of the shoots produced during a given growth period divided by the dry weight
           of the roots esp. for crop plants.
@@ -3108,12 +3113,12 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: A point where groundwater
           or steam flows out of the ground, and is thus where the aquifer surface
           meets the ground surface or where there is a fissure.
-        https://eol(dot)org/schema/terms/springing: "(Quadrupedal jumping) Progression
+        https://eol(dot)org/schema/terms/springing: (Quadrupedal jumping) Progression
           composed of a series of leaps in which the hind legs supply the chief propulsive
           force, lifting the body completely from the ground and forward. The fore
           feet touch the ground simultaneously or in close sequence; the body rolls
           forward over these as in a vault; the hind feet, overstepping the fore feet,
-          at least in greatest speed, come down next and again lift the body forward"
+          at least in greatest speed, come down next and again lift the body forward
         http://eol(dot)org/schema/terms/squamulose: tightly clustered and slightly
           flattened pebble-like units
         http://purl(dot)obolibrary(dot)org/obo/PO_0009029: A microsporophyll bearing
@@ -3262,8 +3267,8 @@ qqq:
           the thermal energy of a system
         http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: The temperature
           at the range midpoint latitude of an organism.
-        http://eol(dot)org/schema/terms/TemperatureInRange: 'Monthly temperature within
-          the geographic range of a taxon.  '
+        http://eol(dot)org/schema/terms/TemperatureInRange: Monthly temperature within
+          the geographic range of a taxon.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002323: temporal distribution
           pattern of process occurrences
         http://eol(dot)org/schema/terms/tenagophyte: an amphibious plant, the juvenile
@@ -3577,8 +3582,8 @@ qqq:
           gas can be pumped or brought to the surface.
         http://eol(dot)org/schema/terms/bodyMassWet: Mass of one individual of this
           taxon, living or fresh, without desiccation
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000449: 'a type of wetland with
-          soils that are saturated with water for part or all of the growing season. '
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000449: a type of wetland with
+          soils that are saturated with water for part or all of the growing season.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000043: An area that is inundated
           or saturated by surface or ground water at a frequency and duration sufficient
           to support, and that under normal circumstances do support, a prevalence
@@ -3590,9 +3595,9 @@ qqq:
           water (depths of 2,000 m/6,600 ft or greater), fewer scavenger species exist,
           and the carcass can provide sustenance for a complex localized ecosystem
           over periods of decades.'
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: 'An achromatic color
-          of maximum brightness; the color of objects that reflect nearly all light
-          of all visible wavelengths. '
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: An achromatic color of
+          maximum brightness; the color of objects that reflect nearly all light of
+          all visible wavelengths.
         http://eol(dot)org/schema/terms/whiteGrey: A color between white and black
           colors, closer to white.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000374: A protected area with
@@ -3623,12 +3628,12 @@ qqq:
           on the ground and later disconnect from the soil
         http://eol(dot)org/schema/terms/yearRound: An activity or period that continues
           throughout the entire year.
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: 'A time unit which is equal
-          to 12 months which in science is taken to be equal to 365.25 days. '
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: 'A color hue with medium
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: A time unit which is equal
+          to 12 months which in science is taken to be equal to 365.25 days.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: A color hue with medium
           wavelength of that portion of the visible spectrum lying between orange
           and green, evoked in the human observer by radiant energy with wavelengths
-          of approximately 570 to 590 nanometers. '
+          of approximately 570 to 590 nanometers.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: A color consisting of
           yellow and green hues.
         http://eol(dot)org/schema/terms/yes: This statement is true; the answer to
@@ -3733,6 +3738,9 @@ qqq:
           of cells being joined end to end giving a thread-like appearance.
         http://eol(dot)org/schema/terms/activelyMobile: uses self-propelled locomotion
           to change location on a regular basis
+        http://eol(dot)org/schema/terms/NonInvasiveRange: Information about the jurisdictions
+          where the taxon is present but not considered to be an invasive organism
+          due to its negative impact on human welfare or ecosystems.
         http://eol(dot)org/schema/terms/Territorial: In ethology, territory is the
           sociographical area that an animal of a particular species consistently
           defends against conspecifics, or, occasionally, animals of other species.
@@ -4039,3 +4047,4 @@ qqq:
           host.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: An estuary which is
           composed primarily of brackish water
+...
