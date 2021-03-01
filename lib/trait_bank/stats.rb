@@ -192,12 +192,17 @@ module TraitBank
           WITH collect(page) + collect(obj_clade) AS pages
           UNWIND pages AS page
           WITH distinct page
-          WHERE NOT (:Page)-[:parent]->(page)
+          OPTIONAL MATCH (page)-[:parent*0..]->(species:Page{ rank: 'species' })
           OPTIONAL MATCH (page)-[:parent*0..]->(genus:Page{ rank: 'genus' })
           OPTIONAL MATCH (page)-[:parent*0..]->(family:Page{ rank: 'family' })
-          WITH count(page) AS leaf_count, sum(CASE WHEN genus IS NULL THEN 0 ELSE 1 END) AS genus_count,
-            sum(CASE WHEN family IS NULL THEN 0 ELSE 1 END) AS family_count
-          RETURN leaf_count, genus_count, family_count
+          WITH collect(distinct { rank: 'species', page: species }) + collect(distinct { rank: 'family', page: family }) + collect(distinct { rank: 'genus', page: genus }) AS pages
+          UNWIND pages as page
+          WITH page
+          WHERE page.page IS NOT NULL
+          WITH sum(CASE WHEN page.rank = 'species' THEN 1 ELSE 0 END) AS species_count, 
+            sum(CASE WHEN page.rank = 'genus' THEN 1 ELSE 0 END) AS genus_count,
+            sum(CASE WHEN page.rank = 'family' THEN 1 ELSE 0 END) AS family_count
+          RETURN species_count, genus_count, family_count
         )
 
         result = ActiveGraph::Base.query(q, params).first.to_h
@@ -246,6 +251,10 @@ module TraitBank
       end
 
       def check_query_valid_for_assoc(query)
+        unless query.record?
+          return CheckResult.invalid("query must have result type 'record'")
+        end
+
         if query.filters.length != 1
           return CheckResult.invalid("query must have a single filter")
         end
@@ -258,6 +267,12 @@ module TraitBank
 
         if predicate.type != "association"
           return CheckResult.invalid("predicate must be association")
+        end
+
+        max_treat_as = query.filters.first.max_clade_rank_treat_as
+
+        if !max_treat_as.nil? && max_treat_as > Rank.treat_as[:r_species]
+          return CheckResult.invalid("Query can't have subj/obj clade filter with rank > species")
         end
 
         CheckResult.valid
@@ -369,12 +384,12 @@ module TraitBank
         clade_target = assoc_data_target_rank_for_clades(query)
 
         result = [
-          [:r_leaf, counts[:leaf_count]], 
+          [:r_species, counts[:species_count]], 
           [:r_genus, counts[:genus_count]], 
           [:r_family, counts[:family_count]]
         ].find do |c| 
           rank = c[0]
-          rank_match = rank == :r_leaf || Rank.treat_as[rank] >= Rank.treat_as[clade_target] # clade must be of equal or greater specificity than clade_target. We want the most specific level that matches the MAX_ASSOC_TAXA threshold, hence the order.
+          rank_match = Rank.treat_as[rank] >= Rank.treat_as[clade_target] # clade must be of equal or greater specificity than clade_target. We want the most specific level that matches the MAX_ASSOC_TAXA threshold, hence the order.
           rank_match && c[1] <= MAX_ASSOC_TAXA
         end
 
@@ -382,12 +397,7 @@ module TraitBank
       end
 
       def assoc_data_target_rank_for_clades(query)
-        subj_treat_as = query.clade&.rank&.treat_as
-        obj_treat_as = query.filters.first.obj_clade&.rank&.treat_as
-
-        max_treat_as = [subj_treat_as, obj_treat_as].compact.map do |treat_as|
-          Rank.treat_as[treat_as]
-        end.max
+        max_treat_as = query.filters.first.max_clade_rank_treat_as
 
         if (
           max_treat_as.nil? ||
@@ -399,7 +409,7 @@ module TraitBank
         )
           :r_genus
         else
-          :r_leaf
+          :r_species
         end
       end
 
