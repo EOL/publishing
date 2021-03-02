@@ -117,7 +117,7 @@ module Traits
 
     def assoc
       @query = TermQuery.from_short_params(term_query_params)
-      @data = AssocViz.new(@query, breadcrumb_type)
+      @data = AssocViz.new(@query, helpers, breadcrumb_type)
       render_with_status(@data.should_display?)
     end
 

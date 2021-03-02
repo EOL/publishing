@@ -2,7 +2,9 @@ class AssocViz
   MAX_PAGES = 200
   MIN_PAGES = 5 
 
-  def initialize(query, breadcrumb_type)
+  def initialize(query, helpers, breadcrumb_type)
+    @query = query
+    @helpers = helpers
     result = TraitBank::Stats.assoc_data(query)
     page_ids = Set.new
     obj_page_id_map = {}
@@ -58,11 +60,13 @@ class AssocViz
   private
   class Node
     attr_accessor :page, :children
-    def initialize(page, breadcrumb_type)
+    def initialize(page, query, helpers, breadcrumb_type)
       @page = page
       @children = Set.new
       @obj_page_ids = Set.new
       @breadcrumb_type = breadcrumb_type
+      @base_query = query
+      @helpers = helpers
     end
 
     def add_child(node)
@@ -77,6 +81,18 @@ class AssocViz
       @obj_page_ids.merge(obj_page_ids)
     end
 
+    def search_path
+      query = @base_query.deep_dup
+
+      if @obj_page_ids.any?
+        query.clade = @page
+      else
+        query.filters.first.obj_clade = @page
+      end
+
+      @helpers.term_search_results_path(tq: query.to_short_params)
+    end
+
     def to_h
       children_h = @children.map { |c| c.to_h }
 
@@ -84,10 +100,12 @@ class AssocViz
         pageId: @page.id,
         name: @breadcrumb_type == BreadcrumbType.vernacular ? @page.vernacular_or_canonical : @page.canonical,
         children: children_h,
-        objPageIds: @obj_page_ids.to_a
+        objPageIds: @obj_page_ids.to_a,
+        searchPath: search_path
       }
     end
   end
+
   def page_hash(row, key, pages)
     id = row[key]
     page = pages[id]
@@ -102,12 +120,12 @@ class AssocViz
     root_node = nil
 
     page_ancestors.each_with_index do |ancestry|
-      page_root_node = Node.new(ancestry.first, breadcrumb_type)
+      page_root_node = Node.new(ancestry.first, @query, @helpers, breadcrumb_type)
       cur_node = page_root_node
 
       ancestry[1..].each_with_index do |page, i|
         prev_node = cur_node
-        cur_node = Node.new(page, breadcrumb_type)
+        cur_node = Node.new(page, @query, @helpers, breadcrumb_type)
 
         if i == ancestry.length - 2 # leaf node is last element, - 2 because this is a slice starting at 1
           obj_page_ids = obj_page_id_map[page.id]

@@ -67,12 +67,13 @@ window.AssocViz = (function(exports) {
         .attr('text-anchor', d => d.x < Math.PI ? 'start' : 'end')
         .attr('transform', d => d.x >= Math.PI ? 'rotate(180)' : null)
         .append('text')
-          .style('cursor', 'default')
+          .style('cursor', 'pointer')
           .attr('font-style', d => d.data.name.includes('<i>') ? 'italic' : null)
           .html(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name)
           .each(function(d) { d.text = this; })
           .on('mouseover', handleTextMouseover)
           .on('mouseout', handleTextMouseout)
+          .on('click', handleTextClick)
         ;
 
     ;
@@ -104,6 +105,10 @@ window.AssocViz = (function(exports) {
       d3.selectAll(d.objLinks.map(d => d.subj.text)).attr('fill', null).attr('font-weight', null);
       d3.selectAll(d.subjLinks.map(d => d.path)).attr('stroke', null);
       d3.selectAll(d.subjLinks.map(d => d.obj.text)).attr('fill', null).attr('font-weight', null);
+    }
+
+    function handleTextClick(event, d) {
+      window.location.href = d.data.searchPath;
     }
   }
 
