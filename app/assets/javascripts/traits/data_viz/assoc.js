@@ -32,7 +32,7 @@ window.AssocViz = (function(exports) {
 
   exports.build = function($container) {
     const radius = 350
-        , width = 900
+        , width = 850
         , colorNone = '#ccc'
         , colorIn = '#4c2c92'
         , colorOut = '#2e8540'
@@ -48,8 +48,8 @@ window.AssocViz = (function(exports) {
             .angle(d => d.x)
         , svg = d3.select('.js-assoc')
           .append('svg')
-            .style('width', width)
-            .style('height', width)
+            .style('max-width', width)
+            .style('max-height', width)
             .style('display', 'block')
             .style('margin', '0 auto')
             .attr('viewBox', [-width / 2, -width / 2, width, width]) // coordinate (0, 0) is at center of svg viewBox
