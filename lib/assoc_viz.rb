@@ -86,8 +86,10 @@ class AssocViz
 
       if @obj_page_ids.any?
         query.clade = @page
+        query.filters.first.obj_clade = nil
       else
         query.filters.first.obj_clade = @page
+        query.clade = nil
       end
 
       @helpers.term_search_results_path(tq: query.to_short_params)

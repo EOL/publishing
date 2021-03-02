@@ -67,7 +67,7 @@ window.AssocViz = (function(exports) {
         .attr('text-anchor', d => d.x < Math.PI ? 'start' : 'end')
         .attr('transform', d => d.x >= Math.PI ? 'rotate(180)' : null)
         .append('text')
-          .style('cursor', 'pointer')
+          .style('cursor', d => isNodePathCurPath(d) ? 'default' : 'pointer')
           .attr('font-style', d => d.data.name.includes('<i>') ? 'italic' : null)
           .html(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name)
           .each(function(d) { d.text = this; })
@@ -108,7 +108,13 @@ window.AssocViz = (function(exports) {
     }
 
     function handleTextClick(event, d) {
-      window.location.href = d.data.searchPath;
+      if (!isNodePathCurPath(d)) {
+        window.location.href = d.data.searchPath;
+      }
+    }
+
+    function isNodePathCurPath(d) {
+      return d.data.searchPath == (window.location.pathname + window.location.search);
     }
   }
 
