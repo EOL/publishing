@@ -152,6 +152,7 @@ module TraitBank
         end
       end
 
+      AssocResult = Struct.new(:data, :rank)
       def assoc_data(query)
         raise_if_query_invalid_for_assoc(query)
 
@@ -160,13 +161,7 @@ module TraitBank
 
         params = {}
         wheres = ['subj_group <> obj_group']
-
-        if target_rank == :leaf
-          target_rank_part = ''
-          wheres << 'NOT (:Page)-[:parent]->(subj_group) AND NOT (:Page)-[:parent]->(obj_group)'
-        else
-          target_rank_part = "{ rank: '#{target_rank}' }"
-        end
+        target_rank_part = "{ rank: '#{target_rank}' }"
 
         q = %Q(
           #{assoc_data_begin_part(query, params)}
@@ -175,13 +170,15 @@ module TraitBank
           RETURN DISTINCT subj_group.page_id AS subj_group_id, obj_group.page_id AS obj_group_id
         )
 
-        TraitBank.query(q, params)["data"].map do |row|
+        data = TraitBank.query(q, params)["data"].map do |row|
           {
             subj_group_id: row[0],
             obj_group_id: row[1],
             trait_count: row[2]
           }
         end
+
+        AssocResult.new(data, target_rank)
       end
 
       def assoc_data_counts(query)
@@ -393,7 +390,7 @@ module TraitBank
           rank_match && c[1] <= MAX_ASSOC_TAXA
         end
 
-        result&.[](0)&.[](2..)&.to_sym # return nil, :leaf, :genus or :family
+        result&.[](0)&.[](2..)&.to_sym # return nil, :species, :genus or :family
       end
 
       def assoc_data_target_rank_for_clades(query)

@@ -6,10 +6,12 @@ class AssocViz
     @query = query
     @helpers = helpers
     result = TraitBank::Stats.assoc_data(query)
+    @allow_clicks = result.rank != :species
+    result_data = result.data
     page_ids = Set.new
     obj_page_id_map = {}
 
-    result.each do |row|
+    result_data.each do |row|
       subj_page_id = row[:subj_group_id]
       obj_page_id = row[:obj_group_id]
       page_ids.add(subj_page_id)
@@ -31,7 +33,7 @@ class AssocViz
 
       pages_by_id = pages.map { |p| [p.id, p] }.to_h
       seen_pair_ids = Set.new
-      @data = result.map do |row|
+      @data = result_data.map do |row|
         subj_group = page_hash(row, :subj_group_id, pages_by_id)
         obj_group = page_hash(row, :obj_group_id, pages_by_id)
 
@@ -54,7 +56,10 @@ class AssocViz
   end
 
   def to_json
-    @root_node.to_h.to_json
+    {
+      rootNode: @root_node.to_h,
+      allowClicks: @allow_clicks
+    }.to_json
   end
 
   private
@@ -86,10 +91,8 @@ class AssocViz
 
       if @obj_page_ids.any?
         query.clade = @page
-        query.filters.first.obj_clade = nil
       else
         query.filters.first.obj_clade = @page
-        query.clade = nil
       end
 
       @helpers.term_search_results_path(tq: query.to_short_params)

@@ -39,7 +39,8 @@ window.AssocViz = (function(exports) {
         ;
 
     const data = $container.find('.js-assoc').data('json')
-        , root = d3.cluster().size([2 * Math.PI, radius - 50])(populateLinks(d3.hierarchy(data)))
+        , allowClicks = data.allowClicks
+        , root = d3.cluster().size([2 * Math.PI, radius - 50])(populateLinks(d3.hierarchy(data.rootNode)))
               .sort((a, b) => d3.ascending(a.height, b.height) || d3.ascending(a.data.name, b.data.name))
         , links = root.leaves().flatMap(d => d.subjLinks)
         , line = d3.lineRadial()
@@ -67,7 +68,7 @@ window.AssocViz = (function(exports) {
         .attr('text-anchor', d => d.x < Math.PI ? 'start' : 'end')
         .attr('transform', d => d.x >= Math.PI ? 'rotate(180)' : null)
         .append('text')
-          .style('cursor', d => isNodePathCurPath(d) ? 'default' : 'pointer')
+          .style('cursor', d => isNodeClickable(d) ? 'pointer' : 'default')
           .attr('font-style', d => d.data.name.includes('<i>') ? 'italic' : null)
           .html(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name)
           .each(function(d) { d.text = this; })
@@ -108,9 +109,13 @@ window.AssocViz = (function(exports) {
     }
 
     function handleTextClick(event, d) {
-      if (!isNodePathCurPath(d)) {
+      if (isNodeClickable(d)) {
         window.location.href = d.data.searchPath;
       }
+    }
+
+    function isNodeClickable(d) {
+      return allowClicks && !isNodePathCurPath(d);
     }
 
     function isNodePathCurPath(d) {
