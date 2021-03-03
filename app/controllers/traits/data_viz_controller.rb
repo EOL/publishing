@@ -115,6 +115,13 @@ module Traits
       render_with_status(@sankey.multiple_paths?)
     end
 
+    def assoc
+      @query = TermQuery.from_short_params(term_query_params)
+      @data = AssocViz.new(@query, helpers, breadcrumb_type)
+      @about_text_key = 'about_this_chart_tooltip_assoc'
+      render_with_status(@data.should_display?)
+    end
+
     private
     def render_common
       render_with_status(@data.length > 1)
@@ -143,7 +150,7 @@ module Traits
     end
 
     def term_query_params
-      params.require(:term_query).permit(TermQuery.expected_short_params)
+      params.require(:tq).permit(TermQuery.expected_short_params)
     end
 
     def set_1d_about_text

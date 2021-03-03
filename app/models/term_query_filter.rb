@@ -397,6 +397,15 @@ class TermQueryFilter < ApplicationRecord
     @root_predicate ||= TermNode.find(root_predicate_id)
   end
 
+  def max_clade_rank_treat_as
+    subj_treat_as = term_query.clade&.rank&.treat_as
+    obj_treat_as = obj_clade&.rank&.treat_as
+
+    [subj_treat_as, obj_treat_as].compact.map do |treat_as|
+      Rank.treat_as[treat_as]
+    end.max
+  end
+
   private
   def validation
     if blank?

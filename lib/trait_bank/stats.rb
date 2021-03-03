@@ -17,6 +17,7 @@ module TraitBank
     RECORD_THRESHOLD = 20_000
     MIN_RECORDS_FOR_HIST = 4
     OBJ_COUNT_LIMIT_PAD = 5
+    MAX_ASSOC_TAXA = 200
 
     class << self
       include TraitBank::Constants
@@ -151,6 +152,73 @@ module TraitBank
         end
       end
 
+      AssocResult = Struct.new(:data, :rank)
+      def assoc_data(query)
+        raise_if_query_invalid_for_assoc(query)
+
+        target_rank = assoc_data_target_rank(query)
+        return [] if target_rank.nil?
+
+        params = {}
+        wheres = ['subj_group <> obj_group']
+        target_rank_part = "{ rank: '#{target_rank}' }"
+
+        q = %Q(
+          #{assoc_data_begin_part(query, params)}
+          MATCH (page)-[:parent*0..]->(subj_group:Page#{target_rank_part}), (obj_clade)-[:parent*0..]->(obj_group#{target_rank_part})
+          WHERE #{wheres.join(' AND ')}
+          RETURN DISTINCT subj_group.page_id AS subj_group_id, obj_group.page_id AS obj_group_id
+        )
+
+        data = TraitBank.query(q, params)["data"].map do |row|
+          {
+            subj_group_id: row[0],
+            obj_group_id: row[1],
+            trait_count: row[2]
+          }
+        end
+
+        AssocResult.new(data, target_rank)
+      end
+
+      def assoc_data_counts(query)
+        params = {}
+
+        q = %Q(
+          #{assoc_data_begin_part(query, params)}
+          WITH collect(page) + collect(obj_clade) AS pages
+          UNWIND pages AS page
+          WITH distinct page
+          OPTIONAL MATCH (page)-[:parent*0..]->(species:Page{ rank: 'species' })
+          OPTIONAL MATCH (page)-[:parent*0..]->(genus:Page{ rank: 'genus' })
+          OPTIONAL MATCH (page)-[:parent*0..]->(family:Page{ rank: 'family' })
+          WITH collect(distinct { rank: 'species', page: species }) + collect(distinct { rank: 'family', page: family }) + collect(distinct { rank: 'genus', page: genus }) AS pages
+          UNWIND pages as page
+          WITH page
+          WHERE page.page IS NOT NULL
+          WITH sum(CASE WHEN page.rank = 'species' THEN 1 ELSE 0 END) AS species_count, 
+            sum(CASE WHEN page.rank = 'genus' THEN 1 ELSE 0 END) AS genus_count,
+            sum(CASE WHEN page.rank = 'family' THEN 1 ELSE 0 END) AS family_count
+          RETURN species_count, genus_count, family_count
+        )
+
+        result = ActiveGraph::Base.query(q, params).first.to_h
+
+        Rails.logger.debug("assoc data counts for query #{query}: #{result}")
+
+        result
+      end
+
+      def assoc_data_begin_part(query, params)
+        TraitBank::Search.term_record_search_matches(
+          query, 
+          params, 
+          always_match_obj_clade: true, 
+          obj_clade_var: :obj_clade, 
+          trait_var: :trait
+        )
+      end
+
       def check_query_valid_for_histogram(query, count)
         if count < MIN_RECORDS_FOR_HIST
           return CheckResult.invalid("record count doesn't meet minimum of #{MIN_RECORDS_FOR_HIST}")
@@ -179,6 +247,33 @@ module TraitBank
         CheckResult.valid
       end
 
+      def check_query_valid_for_assoc(query)
+        unless query.record?
+          return CheckResult.invalid("query must have result type 'record'")
+        end
+
+        if query.filters.length != 1
+          return CheckResult.invalid("query must have a single filter")
+        end
+
+        predicate = query.filters.first.predicate
+
+        if predicate.nil?
+          return CheckResult.invalid("filter must have a predicate")
+        end
+
+        if predicate.type != "association"
+          return CheckResult.invalid("predicate must be association")
+        end
+
+        max_treat_as = query.filters.first.max_clade_rank_treat_as
+
+        if !max_treat_as.nil? && max_treat_as > Rank.treat_as[:r_species]
+          return CheckResult.invalid("Query can't have subj/obj clade filter with rank > species")
+        end
+
+        CheckResult.valid
+      end
 
       def check_query_valid_for_counts(query)
         if query.filters.length != 1
@@ -280,6 +375,40 @@ module TraitBank
       end
 
       private
+
+      def assoc_data_target_rank(query)
+        counts = assoc_data_counts(query)
+        clade_target = assoc_data_target_rank_for_clades(query)
+
+        result = [
+          [:r_species, counts[:species_count]], 
+          [:r_genus, counts[:genus_count]], 
+          [:r_family, counts[:family_count]]
+        ].find do |c| 
+          rank = c[0]
+          rank_match = Rank.treat_as[rank] >= Rank.treat_as[clade_target] # clade must be of equal or greater specificity than clade_target. We want the most specific level that matches the MAX_ASSOC_TAXA threshold, hence the order.
+          rank_match && c[1] <= MAX_ASSOC_TAXA
+        end
+
+        result&.[](0)&.[](2..)&.to_sym # return nil, :species, :genus or :family
+      end
+
+      def assoc_data_target_rank_for_clades(query)
+        max_treat_as = query.filters.first.max_clade_rank_treat_as
+
+        if (
+          max_treat_as.nil? ||
+          max_treat_as < Rank.treat_as[:r_family]
+        )
+          :r_family
+        elsif (
+          max_treat_as < Rank.treat_as[:r_genus]
+        )
+          :r_genus
+        else
+          :r_species
+        end
+      end
 
       def obj_counts_query_for_records(query, params)
         obj_var = "child_obj"
@@ -466,6 +595,14 @@ module TraitBank
 
       def raise_if_query_invalid_for_sankey(query)
         result = check_query_valid_for_sankey(query)
+
+        if !result.valid
+          raise TypeError.new(result.reason)
+        end
+      end
+
+      def raise_if_query_invalid_for_assoc(query)
+        result = check_query_valid_for_assoc(query)
 
         if !result.valid
           raise TypeError.new(result.reason)

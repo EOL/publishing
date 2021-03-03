@@ -1,4 +1,5 @@
 //= require traits/data_viz/sankey
+//= require traits/data_viz/assoc
 window.TraitDataViz = (function(exports) {
   var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 
@@ -320,6 +321,14 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
+  function loadAssoc() {
+    var $contain = $('.js-assoc-contain');
+
+    if ($contain.length) {
+      loadViz($contain, () => AssocViz.build($contain));
+    }
+  }
+
   function loadViz($contain, ready) {
     $.get($contain.data('loadPath'), (result) => {
       $contain.find('.js-viz-spinner').remove();
@@ -338,6 +347,7 @@ window.TraitDataViz = (function(exports) {
   exports.loadBarChart = loadBarChart;
   exports.loadHistogram = loadHistogram;
   exports.loadSankey = loadSankey;
+  exports.loadAssoc = loadAssoc;
 
   return exports;
 })({});
@@ -346,6 +356,7 @@ $(function() {
   TraitDataViz.loadBarChart();
   TraitDataViz.loadHistogram();
   TraitDataViz.loadSankey();
+  TraitDataViz.loadAssoc();
 })
 
 

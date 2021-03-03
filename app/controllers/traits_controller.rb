@@ -134,7 +134,9 @@ class TraitsController < ApplicationController
   end
 
   def data_viz_type(query, search)
-    if TraitBank::Stats.check_query_valid_for_counts(query).valid
+    if TraitBank::Stats.check_query_valid_for_assoc(query).valid
+      @data_viz_type = :assoc
+    elsif TraitBank::Stats.check_query_valid_for_counts(query).valid
       @data_viz_type = :bar
     elsif TraitBank::Stats.check_query_valid_for_histogram(query, search.count).valid
       @data_viz_type = :hist

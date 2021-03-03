@@ -1097,6 +1097,7 @@ en:
     data_viz:
       about_this_chart: "about this chart"
       about_this_chart_tooltip_1d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a bar from the chart to narrow your search results. Note that any given species may be included in more than one bar."
+      about_this_chart_tooltip_assoc: "This is a summary based upon data available in EOL. It may be incomplete! You can hover over a taxon name to highlight its relationships. A green link signifies that the hovered taxon is the subject of the association; a purple one signifies that it is the object. Larger searches are summarized by genus or family. You can narrow these down by clicking a taxon name."
       about_this_chart_tooltip_sankey_2d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Note that any given species may be included in more than one category in the same axis."
       about_this_chart_tooltip_sankey_3+: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Note that any given species may be included in more than one category in the same axis. In a highlighted subset display, these multi-value species will be counted multiple times in other axes."
       other_term_name: "other %{term_name}"

@@ -1,15 +1,18 @@
 -if type == :pie
   - classes = "js-pie-contain"
-  - load_path = traits_data_viz_pie_path(term_query: query.to_short_params)
+  - load_path = traits_data_viz_pie_path(tq: query.to_short_params)
 - elsif type == :bar
   - classes = "viz-contain-bar js-bar-contain"
-  - load_path = traits_data_viz_bar_path(term_query: query.to_short_params)
+  - load_path = traits_data_viz_bar_path(tq: query.to_short_params)
 - elsif type == :hist
   - classes = "viz-contain-hist js-hist-contain"
-  - load_path = traits_data_viz_hist_path(term_query: query.to_short_params)
+  - load_path = traits_data_viz_hist_path(tq: query.to_short_params)
 - elsif type == :sankey
   - classes = "viz-contain-sankey js-sankey-contain"
-  - load_path = traits_data_viz_sankey_path(term_query: query.to_short_params)
+  - load_path = traits_data_viz_sankey_path(tq: query.to_short_params)
+- elsif type = :assoc
+  - classes = "viz-contain-assoc js-assoc-contain"
+  - load_path = traits_data_viz_assoc_path(tq: query.to_short_params)
 
 .viz-contain{ class: classes, data: { :'load-path' => load_path }}
   - if local_assigns.include?(:header) || local_assigns.include?(:description)

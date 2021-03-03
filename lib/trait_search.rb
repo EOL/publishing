@@ -69,7 +69,7 @@ class TraitSearch
   DEFAULT_PAGE = 1
 
   def counts
-    @counts = TraitBank::Search.term_search(@query, count: true)
+    @counts ||= TraitBank::Search.term_search(@query, count: true)
   end
 
   def process_trait_data(data)

@@ -112,11 +112,11 @@ module TraitBank
             filter_matches << filter_term_match_no_hier(trait_var, obj_term_labeler.label, :object_term)
           end
 
-          if filter.obj_clade.present?
+          if filter.obj_clade.present? || options[:always_match_obj_clade]
             gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
-            obj_clade_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.obj_clade_field, i)
+            obj_clade_labeler = TraitBank::QueryFieldLabeler.new(options[:obj_clade_var], :object_clade, i)
 
-            if gathered_clade
+            if gathered_clade || !filter.obj_clade
               filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
             else
               filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
