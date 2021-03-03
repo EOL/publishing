@@ -680,51 +680,52 @@ diq:
   term:
     name:
       by_uri:
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksicen
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsiyum (Ca)
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (Mg)
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eikosanoik asid
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: undekanoik asit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: kalsiyum sulfat dihidrat
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: kalsiyum sulfat hemihidrate
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: kalsiyum karbonatı
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: florit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatite
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: Kalsiyum fosfat
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: suriyeya şıfaqi
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: Awa şirın
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çere
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Hera asidik
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: vaş
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geophyte
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helophyte
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Vaşo aquatik
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidromous
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: gureyneno
-        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatite
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Vaşo aquatik
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: siya
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: mawi
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: kıho
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: sıpe
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: gırse
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: tadeyaye
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: hêdêna
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: pêt
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: Şekılê zerri
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: mor
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: Kahwe
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: turuncuu
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: pel nêrıznen
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: gıştın
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezoid
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsiyum (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: kalsiyum karbonatı
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: Kalsiyum fosfat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: kalsiyum sulfat dihidrat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: kalsiyum sulfat hemihidrate
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: suriyeya şıfaqi
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: silindir
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: nımız biyayen
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: gıştın
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eikosanoik asid
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: pel nêrıznen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: pêt
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: florit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: Awa şirın
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geophyte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çere
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: kıho
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: Şekılê zerri
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: vaş
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: tadeyaye
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: gırse
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: lathlike
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: turuncuu
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksicen
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: mor
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rhizome
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rêçey
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: gureyneno
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: hêdêna
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: undekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: sıpe
 ...

@@ -183,7 +183,7 @@ es:
       placeholder: Buscar en la colección…
       submit: buscar
     sort:
-      hierarchy: jerarquía
+      hierarchy: hierarhia
       position: fecha de adición
       sci_name: nombre científico, A-Z
       sci_name_rev: nombre científico, Z-A
@@ -334,9 +334,16 @@ es:
     Q750553: Portugués brasileño
     br: Bretón
     bg: Búlgaro
-    Q880301: Cajun Francés
-    Q35156: el carro
-    ca: Catalán; valenciano
+    my: Birmano
+    Q33120: Buryat
+    Q35037: Businenge Tongo
+    Q880301: Francés Cajun
+    Q35156: carro
+    Q2591230: Cashinahua
+    ca: Catalán; Valenciano
+    Q33239: Cebuano
+    ch: Chamorro
+    Q33281: Chavacano
     ce: Checheno
     Q33388: Cheroqui
     Q33265: Cheyenne
@@ -347,8 +354,11 @@ es:
     kw: Córnico
     Q33357: Tártaro de Crimea
     hr: Croata
+    hrv: Croata
     cs: Checo
     da: Danés
+    Q3362072: Digo
+    dut: neerlandés; flamenco
     nl: Holandés; flamenco
     en: Inglés
     eo: Esperanto
@@ -900,13 +910,14 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitado por
     name:
       by_uri:
-        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: muy pequeño
-        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reproducción asexual
-        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
-        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
+        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: proporción
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: muy pequeño
 ...

@@ -1311,199 +1311,170 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: wordt geparasiteerd door
     name:
       by_uri:
-        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Erg klein
-        http://eol(dot)org/schema/HeadWidth: kopbreedte
-        http://eol(dot)org/schema/terms/AETinRange: Actuele Evapotranspiratie in de
-          geografische range
-        http://eol(dot)org/schema/terms/Absent: Niet aanwezig in regio
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/maand'
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: actieve groeiperiode
-        http://eol(dot)org/schema/terms/BloomColor: bloemkleur
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadroom
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: eenjarig
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: waterplant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: gebied
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: bast
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: tweejarig
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: zwart
         http://eol(dot)org/schema/terms/BloomPeriod: bloeiperiode
-        http://eol(dot)org/schema/terms/BreedingHabitat: broedhabitat
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blauw
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: lichaamslengte
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: bruin
+        http://eol(dot)org/schema/terms/browsing: browser
+        http://eol(dot)org/schema/terms/burl: warrelknoest
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: kalkrijke bodem tolerantie
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
+        http://eol(dot)org/schema/terms/CapitulumLength: Capitulum lengte
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catadroom
+        http://eol(dot)org/schema/terms/CellDepth: celdiepte
+        http://eol(dot)org/schema/terms/CellLength: cellengte
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: celmassa
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: celvolume
         http://eol(dot)org/schema/terms/CITES_I: CITES Appendix I
         http://eol(dot)org/schema/terms/CITES_II: CITES Appendix II
         http://eol(dot)org/schema/terms/CITES_III: CITES Appendix III
-        http://eol(dot)org/schema/terms/CNRatio: koolstf-tot-stikstof ratio
-        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: kalkrijke bodem tolerantie
-        http://eol(dot)org/schema/terms/CapitulumLength: Capitulum lengte
-        http://eol(dot)org/schema/terms/CellDepth: celdiepte
-        http://eol(dot)org/schema/terms/CellLength: cellengte
-        http://eol(dot)org/schema/terms/Colonial: Koloniaal
-        http://eol(dot)org/schema/terms/CommercialAvailability: commercieel beschikbaar
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: klimplant
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensaal van
         http://eol(dot)org/schema/terms/Cosmopolitan: Kosmopolitisch
-        http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: bekende marine soorten
+        https://eol(dot)org/schema/terms/crustacean_feeder: Kreeftachtigeneter
+        http://eol(dot)org/schema/terms/crustose: korstvormig
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilinder
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dagen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: bladverliezend
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: graden
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graden Celsius
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: eet
         http://eol(dot)org/schema/terms/EggDiameter: ei diameter
-        http://eol(dot)org/schema/terms/ExtinctionStatus: uitgestorven
-        http://eol(dot)org/schema/terms/FattyAcidCompositionOfMilk: vetzuursamenstelling
-          van melk
-        http://eol(dot)org/schema/terms/FemalesPerGroup: Vrouwen per Group
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: groenblijvend
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: Snel
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: voet
         http://eol(dot)org/schema/terms/FireResistance: vuurweerstand
         http://eol(dot)org/schema/terms/FireTolerance: vuurtolerantie
         http://eol(dot)org/schema/terms/FossilFirst: eerste verschijning
-        http://eol(dot)org/schema/terms/FrostFreeDays: vorstvrije dagen
-        http://eol(dot)org/schema/terms/FruitPersistence: fruit/zaad weerstand
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vlucht
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: bloemkleur
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriet
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: fruit
         http://eol(dot)org/schema/terms/FruitSeedColor: fruit of zaadkleur
-        http://eol(dot)org/schema/terms/HeadBodyLength: kopromplengte
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: vruchtsoort
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/dag
+        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofiet
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: green
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: heeft waard(plant)
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: hoofd tot coccyx lengte
+        http://eol(dot)org/schema/HeadWidth: kopbreedte
+        http://eol(dot)org/schema/terms/HeadBodyLength: kopromplengte
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hartvormig
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic zuur
         http://eol(dot)org/schema/terms/HomeRange: home range
-        http://eol(dot)org/schema/terms/HoneyBeePain: Honingbijpijnschaal
-        http://eol(dot)org/schema/terms/HumanLivestockToxicity: mens/vee toxiciteit
-        http://eol(dot)org/schema/terms/HumanPopulationDensity: menselijke populatiedichtheid
-        http://eol(dot)org/schema/terms/HumanPopulationDensityChange: menselijke populatiedichtheid
-          wijziging
-        http://eol(dot)org/schema/terms/HypoconeShape: hypocone vorm
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inches
         http://eol(dot)org/schema/terms/InitialMortalityRate: initial mortality rate
         http://eol(dot)org/schema/terms/InterBirthInterval: inter-birth interval
         http://eol(dot)org/schema/terms/InvasiveRange: invasive in
-        http://eol(dot)org/schema/terms/KnownSpecies: bekende mariene soort
-        http://eol(dot)org/schema/terms/LittersPerYear: aantal worpen per jaar
-        http://eol(dot)org/schema/terms/Log10Productivity: log10 productiviteit
-        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: man vrouw lichaamsgewichtverhouding
-        http://eol(dot)org/schema/terms/MaleTenure: Male Tenure
-        http://eol(dot)org/schema/terms/MalesPerGroup: Mannen per Groep
-        http://eol(dot)org/schema/terms/MantleLength: Mantle lengte
-        http://eol(dot)org/schema/terms/MarineLarvalDevelopmentStrategy: mariene larveontwikkelingsstrategie
-        http://eol(dot)org/schema/terms/MatingSystem: mating system
-        http://eol(dot)org/schema/terms/MiddleToeLength: middelste teenlengte
-        http://eol(dot)org/schema/terms/MidpointAltitude: midpoint hoogte
-        http://eol(dot)org/schema/terms/MineralCompositionOfMilk: minerale samenstelling
-          van de melk
-        http://eol(dot)org/schema/terms/MoistureUse: vochtgebruik
-        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: sterftecijferverdubbelingstijd
-        http://eol(dot)org/schema/terms/NestType: nest type
-        http://eol(dot)org/schema/terms/NewSpeciesDescribed1999to2008: aantal nieuwe
-          soorten beschreven 1999-2008
-        http://eol(dot)org/schema/terms/NonInvasiveRange: not invasief in
-        http://eol(dot)org/schema/terms/NucleusLocation: nucleus locatie
-        http://eol(dot)org/schema/terms/NumberDNARecordsInGGBN: aantal DNA Records
-          In GGBN
-        http://eol(dot)org/schema/terms/NumberOfHosts: aantal hosts
-        http://eol(dot)org/schema/terms/NumberOfSequencesInGenBank: aantal sequences
-          in GenBank
-        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: aantal openbare
-          records in BOLD
-        http://eol(dot)org/schema/terms/NumberRecordsInBOLD: aantal records in BOLD
-        http://eol(dot)org/schema/terms/NumberRecordsInGBIF: aantal records in GBIF
-        http://eol(dot)org/schema/terms/NumberReferencesInBHL: aantal references in
-          BHL
-        http://eol(dot)org/schema/terms/NumberSpecimensInGGBN: aantal specimens in
-          GGBN
-        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: nutrient samenstelling
-          van melk
-        http://eol(dot)org/schema/terms/OceaniaRealm: Oceanisch gebied (eilanden)
-        http://eol(dot)org/schema/terms/OptimalGrowthTemperature: optimale groeitemperatuur
-        http://eol(dot)org/schema/terms/OuterEarLength: buitenoorlengte
-        http://eol(dot)org/schema/terms/OvaDiameter: eidiameter
-        http://eol(dot)org/schema/terms/OxygenSaturation: water O2 verzadiging
-        http://eol(dot)org/schema/terms/PlantHabit: PlantHabit
-        http://eol(dot)org/schema/terms/PlantingDensity: aantplantingsdichtheid
-        http://eol(dot)org/schema/terms/PopulationGroupSize: populatie groepsgrootte
-        http://eol(dot)org/schema/terms/Present: geografische verspreiding bevat
-        http://eol(dot)org/schema/terms/ProsomeHeight: prosome hoogte
-        http://eol(dot)org/schema/terms/ProsomeLength: prosome lengte
-        http://eol(dot)org/schema/terms/RecordInGBIF: records in GBIF?
-        http://eol(dot)org/schema/terms/ReferenceInBHL: referenties in BHL?
-        http://eol(dot)org/schema/terms/SeedBank: zaadbank
-        http://eol(dot)org/schema/terms/ShellHeightBivalve: schelphoogte, tweekleppigen
-        http://eol(dot)org/schema/terms/ShellLengthBivalve: schelplengte, tweekleppigen
-        http://eol(dot)org/schema/terms/SocialGroupSize: sociale groepgrootte
-        http://eol(dot)org/schema/terms/SocialSystem: social systeem
-        http://eol(dot)org/schema/terms/SoilDepth: bodemdiepte
-        http://eol(dot)org/schema/terms/SoilPH: bodem pH
-        http://eol(dot)org/schema/terms/SpecimensInGGBN: specimens in GGBN?
-        http://eol(dot)org/schema/terms/StandardLength: standaard lengte
-        http://eol(dot)org/schema/terms/TestesMass: Testes Mass
-        http://eol(dot)org/schema/terms/TropicalOcean: Tropische Oceaan
-        http://eol(dot)org/schema/terms/Uses: gebruikt voor
-        http://eol(dot)org/schema/terms/browsing: browser
-        http://eol(dot)org/schema/terms/burl: warrelknoest
-        http://eol(dot)org/schema/terms/crustose: korstvormig
-        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: zuurstof
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic zuur
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriet
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic zuur
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: lichaamslengte
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: zoetwater
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bos
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofiet
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: plantgroeivorm
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Boom
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: struik
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: klimplant
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: waterplant
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: eenjarig
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: tweejarig
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: overblijvende
-        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadroom
-        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catadroom
-        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom
-        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproductie
-        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
-        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: ouderzorg
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vlucht
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: celvolume
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelet structuur
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: celmassa
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: schelplengte
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: houtdichtheid
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: nucleuslengte
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelet bevat
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: zwart
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blauw
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: green
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rood
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: wit
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: geel
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normaal)
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: groot
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: Langzaam
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: Snel
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: dikte
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hartvormig
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purper
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: bruin
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranje
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineair
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: gebied
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: bladverliezend
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: groenblijvend
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: geelgroen
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexueel dimorf
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: bladachtig
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: bast
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: fruit
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: wortels
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: zaden
-        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: eenvoudig
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: predeert op
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensaal van
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasiteerd op
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: wordt geparasiteerd door
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: heeft waard(plant)
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: eet
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: wordt gegeten door
-        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produceert
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: planthoogte
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic zuur
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/jaar
+        http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: bekende marine soorten
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: groot
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: bladkleur
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: bladvorm
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: bloemkleur
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: vruchtsoort
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: bladachtig
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineair
+        http://eol(dot)org/schema/terms/LittersPerYear: aantal worpen per jaar
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: man vrouw lichaamsgewichtverhouding
+        http://eol(dot)org/schema/terms/MaleTenure: Male Tenure
+        http://eol(dot)org/schema/terms/MantleLength: Mantle lengte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
+        http://eol(dot)org/schema/terms/MatingSystem: mating system
+        http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normaal)
+        http://eol(dot)org/schema/terms/MiddleToeLength: middelste teenlengte
+        http://eol(dot)org/schema/terms/millimeterspermonth: milimeters per maand
+        http://eol(dot)org/schema/terms/paleo_megaannum: miljoen jaar geleden
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: maanden
+        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: sterftecijferverdubbelingstijd
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: nucleuslengte
+        http://eol(dot)org/schema/terms/NumberOfHosts: aantal hosts
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: aantal openbare
+          records in BOLD
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: nutrient samenstelling
+          van melk
+        http://eol(dot)org/schema/terms/OptimalGrowthTemperature: optimale groeitemperatuur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranje
+        http://eol(dot)org/schema/terms/OuterEarLength: buitenoorlengte
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: zuurstof
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasiteerd op
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: wordt geparasiteerd door
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: ouderzorg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: overblijvende
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: plantgroeivorm
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: planthoogte
+        http://eol(dot)org/schema/terms/PlantingDensity: aantplantingsdichtheid
+        http://eol(dot)org/schema/terms/PopulationGroupSize: populatie groepsgrootte
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: predeert op
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produceert
+        http://eol(dot)org/schema/terms/ProsomeHeight: prosome hoogte
+        http://eol(dot)org/schema/terms/ProsomeLength: prosome lengte
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purper
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rood
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproductie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: wortels
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: zaden
+        http://eol(dot)org/schema/terms/SeedBank: zaadbank
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexueel dimorf
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: schelphoogte, tweekleppigen
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: schelplengte
+        http://eol(dot)org/schema/terms/ShellLengthBivalve: schelplengte, tweekleppigen
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: struik
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: eenvoudig
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelet bevat
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelet structuur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: Langzaam
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
+        http://eol(dot)org/schema/terms/SocialGroupSize: sociale groepgrootte
+        http://eol(dot)org/schema/terms/SocialSystem: social systeem
+        http://eol(dot)org/schema/terms/StandardLength: standaard lengte
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: staartlengte
+        http://eol(dot)org/schema/terms/TestesMass: Testes Mass
+        http://eol(dot)org/schema/terms/OceaniaRealm: Oceanisch gebied (eilanden)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: dikte
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnen
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Boom
+        http://eol(dot)org/schema/terms/TropicalOcean: Tropische Oceaan
+        http://eol(dot)org/schema/terms/Uses: gebruikt voor
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Erg klein
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: waterdiepte
-        http://www(dot)wikidata(dot)org/entity/Q33596: beweeglijkheid
-        https://eol(dot)org/schema/terms/crustacean_feeder: Kreeftachtigeneter
-        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregio
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: wit
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: houtdichtheid
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: jaren
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: geel
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: geelgroen
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /cel /dag
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/cel
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
+        http://eol(dot)org/schema/terms/Colonial: Koloniaal
+        http://eol(dot)org/schema/terms/NonInvasiveRange: not invasief in
 ...

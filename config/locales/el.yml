@@ -985,142 +985,175 @@ el:
       previous: προηγούμενη σελίδα
     name:
       by_uri:
-        http://eol(dot)org/schema/terms/FossilFirst: πρώτη εμφάνιση
-        http://eol(dot)org/schema/terms/Present: Η γεωγραφική κατανομή περιλαμβάνει
-        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: επώαση
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: θειικό βάριο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: οξυγόνο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Εξαδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: ασβέστιο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: μαγνήσιο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: Πουρίνες
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: ουρικό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: Εικοσανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: Οκταδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: Τετραδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: Δωδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: Δεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: Επταδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: διένυδρο θειικό ασβέστιο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: ημιένυδρο θειικό ασβέστιο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: ανθρακικό ασβέστιο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: Πενταδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: ισοτετραδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: φθορίτης
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: ασβεστίτης
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: αραγονίτης
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: βατερίτης
+        http://eol(dot)org/schema/terms/percentPerMonth: επί τοις εκατό/μήνα
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: αφθονία
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Όξινο χώμα
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: εναέρια
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: αμφίδρομα
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: ετήσιο
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: απατίτης
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: Υδροξυαπατίτης
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: αραγονίτης
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: περιοχή
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: αφυλετική αναπαραγωγή
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: θειικό βάριο
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: κλαδί
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: διετές
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: βιογενές διοξείδιο του
           πυριτίου
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: φωσφορικό ασβέστιο
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: ισοεξαδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: μήκος σώματος
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: ζώα του λυκόφωτος
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: φωτοαυτότροφος
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: φωτοετερότροφος
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: Υδάτινο
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: Θαλάσσιοι βενθικοί
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Δάσος
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: λιβάδι
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Ποταμός
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: παράκτιος
-        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Όξινο χώμα
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: Διάμετρος του μίσχου
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: μάζα καρπού
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: Η μορφολογία του φύλλου
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: ποώδες
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: δέντρο
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: θάμνος
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: αναρριχητικό
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: αγροστώδη
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: ετήσιο
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: διετές
-        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: αμφίδρομα
-        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: αναπαραγωγή
-        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: αφυλετική αναπαραγωγή
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: τρέξιμο
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: εναέρια
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: πτήση
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: αναπήδηση
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: αφθονία
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: διάμετρος κυττάρου
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: όγκος κυττάρου
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: η δομή του σκελετού
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: κυτταρική μάζα
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: μήκος κελύφους
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: μήκος πυρήνα
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: πλάτος πυρήνα
-        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: μέγεθος σώματος
-        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: μακροφύκη
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: προσδόκιμο ζωής
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: σχήμα
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: Μαύρο
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: μπλε
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: πράσινο
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: κόκκινο
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: λευκό
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: κίτρινο
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: μεσαίο (φυσιολογικό)
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: μεγάλο
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: μικρό
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: ανεστραμμένος
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: μειωμένος
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: αυξημένος
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: πάχος
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: σε σχήμα καρδιάς
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: μωβ
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: καφέ
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: Πορτοκαλί
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: επιμηκυσμένο
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: γραμμικός
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: μεγάλο προσδόκιμο ζωής
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: μικρό προσδόκιμο ζωής
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: περιοχή
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: όγκος
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: κιτρινοπράσινο
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: αυξημένη ποιότητα
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: μειωμένη ποιότητα
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: μήκος σώματος
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: μάζα σώματος
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: πλάτος σώματος
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: πλατύς
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: υψηλή ανοχή σε
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: χαμηλή ανοχή σε
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: εκτεθειμένος
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: κλαδί
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: ρίζωμα
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: Φρούτο
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: Ρίζες
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Καρπός
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Ενδιαίτημα
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: Θηρεύει
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: Συμβιώτης
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: Παράσιτο του
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: Παρασιτείται από
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: Έχει ως ξενιστή
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: θηρεύεται από
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: Είναι φορέας για
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: τρέφεται με
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: τρώγεται από
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: Παθογόνο του
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: έχει ως παθογόνο
-        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: παράγει
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: ύψος του φυτού
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: επώαση
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: καφέ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: ασβεστίτης
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: ασβέστιο
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: ανθρακικό ασβέστιο
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: φωσφορικό ασβέστιο
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: διένυδρο θειικό ασβέστιο
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: ημιένυδρο θειικό ασβέστιο
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: διάμετρος κυττάρου
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: κυτταρική μάζα
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: όγκος κυττάρου
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: αναρριχητικό
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: παράκτιος
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: ζώα του λυκόφωτος
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: κύλινδρος
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: ημέρες
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: Δεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: μειωμένη ποιότητα
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: βαθμοί
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: Βαθμοί κελσίου
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: Δωδεκανοϊκό οξύ
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: Αντοχή στην ξηρασία
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: Χρώμα του φύλλου
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: Σχήμα του φύλλου
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: Χρώμα του άνθους
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: Τύπος φρούτου
-        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: Ρυθμός φωτοσύνθεσης
-        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: Ρυθμός αναπνοής
-        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: Ανθεκτικότητα στην αλατότητα
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: τρέφεται με
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: Εικοσανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: επιμηκυσμένο
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: Ενδοσκελετός
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: εκτεθειμένος
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: αυξημένος
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: πόδια
+        http://eol(dot)org/schema/terms/FossilFirst: πρώτη εμφάνιση
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: πτήση
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: Χρώμα του άνθους
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: φθορίτης
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Δάσος
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: Φρούτο
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: Τύπος φρούτου
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: γραμμάρια/τετραγωνικά
+          εκατοστά/μέρα
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: γραμμάρια/τετραγωνικά
+          εκατοστά/χρόνια
+        http://eol(dot)org/schema/terms/gramsPerMonth: γραμμάρια/μήνα
+        http://eol(dot)org/schema/terms/Present: Η γεωγραφική κατανομή περιλαμβάνει
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: διάρκεια περιόδου κύησης
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: αγροστώδη
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: λιβάδι
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: πράσινο
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Ενδιαίτημα
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: Έχει ως ξενιστή
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: έχει ως παθογόνο
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: σε σχήμα καρδιάς
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: Επταδεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: ποώδες
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Εξαδεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: μεγάλο προσδόκιμο ζωής
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: υψηλή ανοχή σε
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: Υδροξυαπατίτης
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: ίντσες
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: αυξημένη ποιότητα
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: ανεστραμμένος
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: τρώγεται από
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: Είναι φορέας για
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: ισοεξαδεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: ισοτετραδεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: Κέλβιν
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: κιλά/τετραγωνικά
+          μέτρα/χρόνο
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: μεγάλο
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: Χρώμα του φύλλου
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: Η μορφολογία του φύλλου
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: Σχήμα του φύλλου
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: προσδόκιμο ζωής
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: γραμμικός
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: μικρό προσδόκιμο ζωής
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: χαμηλή ανοχή σε
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: μακροφύκη
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: μαγνήσιο
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: Υδάτινο
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: Θαλάσσιοι βενθικοί
+        http://semanticscience(dot)org/resource/SIO_001114: μέγιστο
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: μεσαίο (φυσιολογικό)
+        http://eol(dot)org/schema/terms/millimeterspermonth: χιλιοστά ανά μήνα
+        http://eol(dot)org/schema/terms/paleo_megaannum: Εκατομμύρια χρόνια πριν
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: ο ανοργανοποιημένος
           ιστός περιλαμβάνει
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: χιλιοστά/3 μήνες
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: χιλιοστά/4 μήνες
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: χιλιοστά/6 μήνες
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: χιλιοστά/7 μήνες
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: χιλιοστά/8 μήνες
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: χιλιοστά/ημέρα
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: χιλιοστά/δευτερόλεπτο
+        http://eol(dot)org/schema/terms/millimetersPerYear: χιλιοστά/έτος
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: μήνες
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: μήκος πυρήνα
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: πλάτος πυρήνα
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: Οκταδεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: Πορτοκαλί
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: οξυγόνο
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: Παράσιτο του
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: Παρασιτείται από
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: Παθογόνο του
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: Πενταδεκανοϊκό οξύ
+        http://eol(dot)org/schema/terms/perAcre: ανά εκτάριο
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: τις εκατό
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: φωτοαυτότροφος
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: φωτοετερότροφος
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: Ρυθμός φωτοσύνθεσης
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: ύψος του φυτού
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: θηρεύεται από
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: Θηρεύει
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: παράγει
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: Πουρίνες
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: μωβ
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: αναλογία
-        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: μάζα σώματος
-        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: διάρκεια περιόδου κύησης
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: κόκκινο
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: αναπαραγωγή
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: Ρυθμός αναπνοής
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: ρίζωμα
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Ποταμός
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: Ρίζες
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: τρέξιμο
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: Ανθεκτικότητα στην αλατότητα
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: αναπήδηση
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Καρπός
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: μάζα καρπού
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: σχήμα
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: μήκος κελύφους
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: θάμνος
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: η δομή του σκελετού
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: μειωμένος
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: μικρό
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: Διάμετρος του μίσχου
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: Συμβιώτης
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: Μήκος ουράς
-        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: πλάτος σώματος
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: Τετραδεκανοϊκό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: πάχος
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: τόνοι
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: δέντρο
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: ουρικό οξύ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: βατερίτης
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: όγκος
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: βάθος νερού
-        http://www(dot)wikidata(dot)org/entity/Q33596: ικανότητα κίνησης
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: λευκό
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: χρόνια
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: κίτρινο
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: κιτρινοπράσινο
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: μικρομόλ/κύτταρο/μέρα
+        http://eol(dot)org/schema/terms/µmol_cell-1: μικρομόλ/κύτταρο
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: μικρομόλ/λίτρο
 ...

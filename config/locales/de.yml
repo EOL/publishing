@@ -4,6 +4,7 @@
 # Author: Bergrübe
 # Author: DraconicDark
 # Author: Elliot
+# Author: FF11
 # Author: Katja
 # Author: Kghbln
 # Author: Killarnee
@@ -510,85 +511,96 @@ de:
       previous: vorherige Seite
     name:
       by_uri:
-        http://eol(dot)org/schema/terms/FossilFirst: erstes Auftreten
-        http://eol(dot)org/schema/terms/Present: Geographische Verteilung enthält
-        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brüten
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Bariumsulfat
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: Sauerstoff
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Palmitinsäure
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: Magnesium (Mg)
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: Purine
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: Harnsäure
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: Behensäure
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: Caprinsäure
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: Kalziumsulfat Halbhydrat
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: Fluorit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: Calcit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: Vaterit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: Apatit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: Hydroxylapatit
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Körperlänge
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: Zitzenzahl
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: dämmerungsaktiv
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Fluss
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: küstennah
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: saurer Boden
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: Rhizompflanze
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: Kryptophyt
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: Sumpfpflanze
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: Wasserpflanze
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Baum
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: Strauch
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: Kletterpflanze
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Wasserpflanze
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: läuft
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: Erwachsener
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: Luft
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: gleitend
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: Hüpfen
-        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: Körpergröße
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: Lebenserwartung
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: Form
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: Apatit
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Wasserpflanze
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: Fläche
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Bariumsulfat
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: Rinde
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: schwarz
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blau
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Körperlänge
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Körpermasse
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breit
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brüten
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: braun
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: Calcit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: Kalziumsulfat Halbhydrat
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: Kletterpflanze
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: küstennah
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: dämmerungsaktiv
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: Caprinsäure
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: niedrige Qualität
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: Grad
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: Behensäure
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ernährt sich von
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: verlängert
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: immergrün
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: sichtbar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: schnell
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: Fuß
+        http://eol(dot)org/schema/terms/FossilFirst: erstes Auftreten
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: Fluorit
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: Frucht
+        http://eol(dot)org/schema/terms/Present: Geographische Verteilung enthält
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: Kryptophyt
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: gleitend
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grün
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Lebensraum
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: herzförmig
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: Sumpfpflanze
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Palmitinsäure
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: Wasserpflanze
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: Hydroxylapatit
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: Zoll
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: erhöhte Qualität
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertiert
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: groß
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: Lebenserwartung
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: Magnesium (Mg)
+        http://semanticscience(dot)org/resource/SIO_001114: max.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: gemischt
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/Tag
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sek
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/Jahr
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: Sauerstoff
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: gefingert
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: Prozent
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: jagt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: niederliegend
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: Purine
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: Verhältnis
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rot
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: Rhizompflanze
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: Rhizom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Fluss
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: Wurzeln
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: läuft
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: Hüpfen
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: sekundäres Xylem
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Samen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: Form
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: Strauch
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: einfach
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsam
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: Zitzenzahl
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: Tonnen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezförmig
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Baum
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: Harnsäure
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: Vaterit
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: Volumen
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: weiß
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: gelb
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normal)
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: groß
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertiert
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsam
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: schnell
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: herzförmig
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: braun
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: verlängert
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: Fläche
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: Volumen
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: immergrün
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: gelb-grün
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezförmig
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: gemischt
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: erhöhte Qualität
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: niedrige Qualität
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breit
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: niederliegend
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: sichtbar
-        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: gefingert
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: Rinde
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: Rhizom
-        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: sekundäres Xylem
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: Frucht
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: Wurzeln
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Samen
-        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: einfach
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Lebensraum
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: jagt
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ernährt sich von
-        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: Verhältnis
-        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Körpermasse
 ...
