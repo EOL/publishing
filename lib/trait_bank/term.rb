@@ -53,7 +53,7 @@ module TraitBank
         force = properties.delete(:force)
         properties = properties.transform_keys(&:to_s)
         raise 'Cannot create a term without a URI' unless properties['uri']
-        existing_term = term(properties['uri'])
+        existing_term = TermNode.where(uri: properties['uri'])&.first
         return existing_term if existing_term && !force
 
         clean_properties(properties)
@@ -67,7 +67,7 @@ module TraitBank
         uri = properties.delete('uri') # We already have this.
         begin
           update_relationships(uri, properties)
-          TraitBank::Admin.connection.set_node_properties(existing_term, properties)
+          existing_term.update!(properties)
         rescue => e # rubocop:disable Style/RescueStandardError
           # This method is typically run as part of a script, so I'm just using STDOUT here:
           puts "ERROR: failed to update term #{properties['uri']}"
@@ -174,11 +174,7 @@ module TraitBank
 
       def create_new(properties)
         removed = remove_relationship_properties(properties)
-        term_node = TraitBank::Admin.connection.create_node(properties)
-        # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        TraitBank::Admin.connection.set_label(term_node, 'Term')
-        # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
-        # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
+        term_node = TermNode.create!(properties)
         update_relationships(properties['uri'], removed) unless removed.blank?
         increment_terms_count_cache
         term_node
@@ -199,28 +195,6 @@ module TraitBank
 
       def delete(uri)
         TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DETACH DELETE term})
-      end
-
-      # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
-
-      def child_has_parent(curi, puri)
-        cterm = term(curi)
-        pterm = term(puri)
-        raise "missing child" if cterm.nil?
-        raise "missing parent" if pterm.nil?
-        child_term_has_parent_term(cterm, pterm)
-      end
-
-      def is_synonym_of(curi, puri)
-        cterm = term(curi)
-        pterm = term(puri)
-        raise "missing synonym" if cterm.nil?
-        raise "missing source of synonym" if pterm.nil?
-        relate(:synonym_of, cterm, pterm)
-      end
-
-      def child_term_has_parent_term(cterm, pterm)
-        relate(:parent_term, cterm, pterm)
       end
 
       # NOTE: unused method; this is meant for debugging.
@@ -251,7 +225,6 @@ module TraitBank
 
       def should_hide_from_select?(term)
         return true if !term['synonym_of_uri'].nil? # hide, if there are any synonym terms
-
         false
       end
 
@@ -618,32 +591,7 @@ module TraitBank
       def term_name_prefix_match(label, qterm)
         "toLower(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.delete('"').downcase}.*\" "
       end
-
-      def relate(how, from, to)
-        begin
-          TraitBank::Admin.connection.create_relationship(how, from, to)
-        rescue
-          # Try again...
-          begin
-            sleep(0.1)
-            TraitBank::Admin.connection.create_relationship(how, from, to)
-          rescue Neography::BadInputException => e
-            TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
-            TraitBank::Logger.log_error("** from: #{from}")
-            TraitBank::Logger.log_error("** to: #{to}")
-          rescue Neography::NeographyError => e
-            TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
-            TraitBank::Logger.log_error("** from: #{from}")
-            TraitBank::Logger.log_error("** to: #{to}")
-          rescue Excon::Error::Socket => e
-            puts "** TIMEOUT adding relationship"
-            TraitBank::Logger.log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
-            TraitBank::Logger.log_error("** from: #{from}")
-            TraitBank::Logger.log_error("** to: #{to}")
-          end
-        end
-      end
-
     end
   end
 end
+

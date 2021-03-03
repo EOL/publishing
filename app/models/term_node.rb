@@ -11,12 +11,16 @@ class TermNode
   property :attribution
   property :is_hidden_from_overview
   property :is_hidden_from_glossary
+  property :is_hidden_from_select
+  property :is_text_only
+  property :is_inverse_only
   property :position
   property :trait_row_count, default: 0
   property :type
   property :uri
   property :is_ordinal
   property :is_symmetrical_association
+  property :alias
   id_property :eol_id
 
 

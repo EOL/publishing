@@ -1,11 +1,6 @@
 module TraitBank
   module Admin
     class << self
-      # TODO: replace with neo4j-ruby-driver/activegraph and remove Neography from Gemfile
-      def connection
-        @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
-      end
-
       def setup
         create_indexes
         create_constraints
@@ -191,10 +186,9 @@ module TraitBank
         dynamic_hierarchy = Resource.native
         Node.where(["resource_id = ?", dynamic_hierarchy.id]).find_each do |node|
           name = node.canonical_form
-          page = TraitBank::Page.page_exists?(node.page_id)
+          page = PageNode.where(page_id: node.page_id)&.first
           next unless page
-          page = page.first if page
-          connection.set_node_properties(page, { "name" => name })
+          page.update!(name: name)
           puts "#{node.page_id} => #{name}"
         end
       end

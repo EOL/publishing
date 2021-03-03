@@ -90,8 +90,6 @@ gem 'haml-rails', '~> 2.0'
 gem 'http', '~> 4.4'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
-# Neography is used for our Triple Store for now:
-gem 'neography', '~> 1.8', git: "https://github.com/EOL/neography"
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
