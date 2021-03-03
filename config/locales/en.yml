@@ -1276,7 +1276,6 @@ en:
       fallback: "inverse of '%{term_name}'"
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: is eaten by
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat created by
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: has ectoparasite
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: has endoparasite
         http://eol(dot)org/schema/terms/HasDispersalVector: dispersal vector for
