@@ -3,8 +3,11 @@ module TraitBank
   # Handles all of the methods specific to a :Term node.
   module Term
     RELATIONSHIP_PROPERTIES = {
-      'parent_uris' => 'parent_term', 'synonym_of_uri' => 'synonym_of', 'units_term_uri' => 'units_term',
-      'object_for_predicate_uri' => 'object_for_predicate'
+      'parent_uris' => 'parent_term', 
+      'synonym_of_uri' => 'synonym_of', 
+      'units_term_uri' => 'units_term',
+      'object_for_predicate_uri' => 'object_for_predicate',
+      'inverse_of_uri' => 'inverse_of'
     }.freeze
     CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
     TERM_TYPES = {
