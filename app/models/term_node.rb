@@ -67,7 +67,8 @@ class TermNode
   end
 
   def i18n_name(locale = I18n.locale)
-    TraitBank::Record.i18n_name_for_locale(self, locale)
+    # :: prefix b/c TermNode.reindex was broken without it
+    ::TraitBank::Record.i18n_name_for_locale(self, locale)
   end
 
   def i18n_inverse_name
