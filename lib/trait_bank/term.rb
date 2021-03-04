@@ -56,7 +56,6 @@ module TraitBank
         existing_term = TermNode.where(uri: properties['uri'])&.first
         return existing_term if existing_term && !force
 
-        clean_properties(properties)
         return update_existing(existing_term, properties) if existing_term
 
         create_new(properties)
@@ -64,6 +63,7 @@ module TraitBank
 
       # This method assumes you have an existing term object that you pulled from neo4j. Use #update if you just have a hash.
       def update_existing(existing_term, properties)
+        clean_properties(properties)
         uri = properties.delete('uri') # We already have this.
         begin
           update_relationships(uri, properties)
@@ -78,21 +78,13 @@ module TraitBank
         existing_term
       end
 
-      # This method takes a hash as its argument. If you pulled a term from neo4j, use #update_existing
+      # This method takes a hash as its argument. If you have a TermNode already, use #update_existing
       # This method will only update fields that are passed in. Other fields will keep their existing values.
-      # On success, this always returns a hash with *symbolized* keys.
       def update(possibly_frozen_properties)
         properties = possibly_frozen_properties.dup.transform_keys(&:to_s)
         raise 'Cannot update a term without a URI.' unless properties['uri']
-        clean_properties(properties)
-        update_relationships(properties['uri'], properties)
-        # res = query(query_for_update(properties))
-        # TODO: Restore above comment, remove the next few lines:
-        q = query_for_update(properties)
-        puts q
-        res = TraitBank.query(q)
-        raise ActiveRecord::RecordNotFound if res.nil?
-        res['data'].first&.first&.symbolize_keys
+        term_node = TermNode.find_by(uri: properties['uri'])
+        update_existing(term_node, properties)
       end
 
       def update_relationships(uri, properties)
@@ -107,38 +99,16 @@ module TraitBank
       end
 
       def remove_relationships(uri, name)
-        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->() DETACH DELETE rel})
+        TraitBank.query(%{
+          MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->() 
+          DETACH DELETE rel
+        })
       end
 
       def add_relationship(source_uri, name, target_uri)
         TraitBank.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '\"')}" }),
                           (target:Term { uri: "#{target_uri.gsub(/"/, '\"')}" })
                           CREATE (term)-[:#{name}]->(target) })
-      end
-
-      def query_for_update(properties)
-        sets = []
-        properties.keys.each do |property|
-          term_property = "term.#{property}"
-          value = nil
-
-          if property.to_s =~ /^is_/ # Booleans are handled separately.
-            value = properties[property] ? 'true' : 'false'
-          elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
-            # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
-          else
-            value = if properties[property].nil?
-              ''
-            elsif properties[property].is_a?(Integer)
-              properties[property] # e.g., eol_id
-            else
-              "\"#{properties[property].to_s.gsub(/"/, '\"')}\""
-            end
-          end
-
-          sets << "#{term_property} = #{value}" if !value.nil?
-        end
-        "MATCH (term:Term { uri: '#{properties['uri']}' }) SET #{sets.join(', ')} RETURN term"
       end
 
       def clean_properties(properties)
