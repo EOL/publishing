@@ -1336,7 +1336,10 @@ pms:
         http://eol(dot)org/schema/terms/acicular: acicular (a forma ëd gucia)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: sorgiss càuda àcida
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: sëccament ëd min-a àcid
+        http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: lagh ëd min-a
+          d'eva dossa assìdich
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: seul àcid
+        http://eol(dot)org/schema/terms/activeForaging: arserca ëd nuriment ativa
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: perìod ëd chërsùa ativa
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aéreo
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: tass ëd neuva chërsùa

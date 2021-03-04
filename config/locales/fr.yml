@@ -1347,6 +1347,7 @@ fr:
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: période de croissance
           active
         http://eol(dot)org/schema/terms/adaptiveStrategy: stratégie adaptative
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: Adulte
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aérien
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aérosol
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: taux de nouvelle

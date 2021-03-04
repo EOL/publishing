@@ -325,6 +325,7 @@ da:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brun
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: kanal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: ler
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dage
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: grader
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: spiser
@@ -352,6 +353,7 @@ da:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rødder
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: frø
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: skelet
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsom
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: lille
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: længde på hale

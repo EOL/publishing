@@ -1236,8 +1236,10 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: 空中
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: 氣懸膠體
         http://eol(dot)org/schema/terms/AgeAtMaturity: 成熟的年齡
+        http://eol(dot)org/schema/terms/amphibious: 兩棲
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: 兩向洄游
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: 溯河洄游
+        https://eol(dot)org/schema/terms/andromonoecious: 雄花兩性花
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 一年生植物
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: 磷灰石
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 水生植物
@@ -1287,6 +1289,7 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: 顏色
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: 片利共生與
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: 複葉
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: 化妝品
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: 晨昏性
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: 圓柱
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 日
@@ -1296,6 +1299,12 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: 傾伏
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 度
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 攝氏溫度
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: 樹林小谷地
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: 沙漠
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: 沙漠與乾燥灌木叢
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: 沙漠綠洲
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: 沙漠沙洲
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: 沙漠灌木叢
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: 掌狀
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: 二十二酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: 十二酸
@@ -1318,6 +1327,7 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: 股骨長度
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨寬度
         http://eol(dot)org/schema/terms/FossilFirst: 首次出現
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: 峽灣
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: 飛行
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: 螢石
