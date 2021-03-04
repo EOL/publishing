@@ -192,6 +192,10 @@ class TermQueryFilter < ApplicationRecord
     !num_val1.blank? && !num_val2.blank? && num_val1 != num_val2
   end
 
+  def for_inverse_predicate?
+    predicate? && predicate.inverse_only?
+  end
+
   def to_s
     pieces = []
     pieces << "op: :#{op}"
@@ -382,7 +386,7 @@ class TermQueryFilter < ApplicationRecord
 
   def pred_field
     if predicate?
-      Field.new(predicate.uri, predicate.trait_row_count, :predicate)
+      Field.new(predicate.uri_for_search, predicate.trait_row_count_for_search, :predicate)
     else
       nil
     end

@@ -13,7 +13,6 @@ class TermNode
   property :is_hidden_from_glossary
   property :is_hidden_from_select
   property :is_text_only
-  property :is_inverse_only
   property :position
   property :trait_row_count, default: 0
   property :type
@@ -30,7 +29,7 @@ class TermNode
   has_one :out, :units_term, type: :units_term, model_class: :TermNode
   has_one :in, :trait, type: :predicate, model_class: :TraitNode
   has_one :in, :metadata, type: :predicate, model_class: :MetadataNode
-  has_one :out, :inverse_of, type: :inverse_of, model_class: :TermNode
+  has_one :out, :inverse, type: :inverse_of, model_class: :TermNode
 
   scope :not_synonym, -> (label) { as(label).where_not("(#{label})-[:synonym_of]->(:Term)") }
 
@@ -96,6 +95,18 @@ class TermNode
 
   def numeric_value_predicate?
     is_ordinal || units_term.present?
+  end
+
+  def inverse_only?
+    inverse.present?
+  end
+
+  def uri_for_search
+    inverse_only? ? inverse.uri : uri
+  end
+
+  def trait_row_count_for_search
+    inverse_only? ? inverse.trait_row_count : trait_row_count
   end
 end
 

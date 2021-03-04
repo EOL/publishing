@@ -57,6 +57,7 @@ module TraitBank
         trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
 
         term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, filter, trait_var, pred_var, obj_var|
+          filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
           if term_query.filters.length > 1
             if options[:count]
               trait_ag = "count(DISTINCT #{trait_var})"
@@ -104,7 +105,7 @@ module TraitBank
           clade_matched ||= add_clade_where_conditional(clade_matched, i, filter, term_query, filter_parts)
           page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
-          filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
+          filter_matches << page_trait_match_for_filter(term_query, filter, page_node, trait_var)
 
           if filter.object_term?
             filter_matches << filter_term_match(trait_var, obj_term_labeler.tgt_label, obj_term_labeler.label, :object_term, gathered_terms_for_filter)
@@ -115,11 +116,22 @@ module TraitBank
           if filter.obj_clade.present? || options[:always_match_obj_clade]
             gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
             obj_clade_labeler = TraitBank::QueryFieldLabeler.new(options[:obj_clade_var], :object_clade, i)
+            match_clade = !gathered_clade && filter.obj_clade
 
-            if gathered_clade || !filter.obj_clade
-              filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
+            if filter.for_inverse_predicate?
+              if match_clade
+                filter_matches << "(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
+                filter_matches << "(#{obj_clade_labeler.label})-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var})"
+              else
+
+                filter_matches << "(#{obj_clade_labeler.label}:Page)-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var})"
+              end
             else
-              filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
+              if match_clade
+                filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
+              else
+                filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
+              end
             end
           end
 
@@ -164,6 +176,14 @@ module TraitBank
       end
 
       private
+
+      def page_trait_match_for_filter(term_query, filter, page_node, trait_var)
+        if filter.for_inverse_predicate?
+          "(#{trait_var}:Trait)-[:object_page]->#{page_node}"
+        else
+          "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
+        end
+      end
 
       def term_search_uncached(term_query, key, options)
         limit_and_skip = options[:page] ? TraitBank::Queries.limit_and_skip_clause(options[:page], options[:per]) : ""
@@ -234,7 +254,7 @@ module TraitBank
         term_condition = []
 
         if filter.predicate?
-          term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.predicate.uri, :predicate, params, gathered_terms)
+          term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.predicate.uri_for_search, :predicate, params, gathered_terms)
         end
 
         if filter.object_term?
