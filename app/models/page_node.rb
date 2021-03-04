@@ -4,6 +4,8 @@ class PageNode
   id_property :page_id
   property :descendant_count, default: 0
   property :obj_trait_count, default: 0
+  property :obj_trait_distinct_subj_count, default: 0
+  property :subj_trait_row_count, default: 0
 
   self.mapped_label_name = 'Page'
   # NOTE: There's no activegraph support for multiple types, e.g., :trait|:inferred_trait, so 

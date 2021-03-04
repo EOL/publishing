@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
-  revision: 1e94c2a6dcacf65675f1617222b4ed6e9d79047c
+  revision: b5c11444e79203510e2b5ec4782a77fc02b99802
   branch: inverse_terms
   specs:
     eol_terms (0.7.14)
