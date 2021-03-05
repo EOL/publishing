@@ -381,7 +381,10 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def obj_clade_field
-    obj_clade_id.present? ? Field.new(obj_clade_id, obj_clade_node.obj_trait_count, :object_clade) : nil
+    return nil if obj_clade_node..nil?
+
+    count = for_inverse_predicate? ? obj_clade_node.subj_trait_row_count : obj_clade_node.obj_trait_count
+    Field.new(obj_clade_id, count, :object_clade)
   end 
 
   def obj_term_field
