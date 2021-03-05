@@ -22,31 +22,53 @@ class PageStatUpdater
       end 
     end
 
-    def update_batch(batch)
-      q = %Q(
+    private
+    def page_batch_part(batch)
+      %Q(
         MATCH (anc:Page)
         WHERE (:Page)-[:parent*2]->(anc)
         WITH anc
         ORDER BY anc.page_id
         SKIP #{batch * BATCH_SIZE}
         LIMIT #{BATCH_SIZE}
-        MATCH (desc:Page)-[:parent*0..]->(anc)
-        OPTIONAL MATCH (subj_page:Page)-[:trait|inferred_trait]->(obj_trait:Trait)-[:object_page]->(desc)
-        WITH anc, desc, collect(DISTINCT obj_trait) AS obj_traits, collect(DISTINCT subj_page) AS desc_obj_trait_subjs
-        OPTIONAL MATCH (desc)-[:trait|inferred_trait]->(trait:Trait)
-        WITH anc, desc, sum(CASE WHEN trait IS NULL THEN 0 ELSE 1 END) AS desc_subj_trait_row_count, obj_traits, desc_obj_trait_subjs
-        UNWIND obj_traits AS obj_trait
-        WITH anc, count(DISTINCT desc) AS desc_count, sum(desc_subj_trait_row_count) AS subj_trait_row_count, count(obj_trait) AS obj_trait_count, collect(desc_obj_trait_subjs) AS desc_obj_trait_subjs_lists
-        UNWIND desc_obj_trait_subjs_lists AS obj_trait_subjs
-        UNWIND obj_trait_subjs AS obj_trait_subj
-        WITH anc, desc_count, subj_trait_row_count, obj_trait_count, count(DISTINCT obj_trait_subj) AS obj_trait_distinct_subj_count
-        SET anc.descendant_count = desc_count
-        SET anc.obj_trait_count = obj_trait_count
-        SET anc.obj_trait_distinct_subj_count = obj_trait_distinct_subj_count
-        SET anc.subj_trait_row_count = subj_trait_row_count
+        MATCH (p:Page)-[:parent*0..]->(anc)
       )
+    end
 
-      TraitBank.query(q)
+    # TODO: Add count of distinct objects for subject traits
+    def update_batch(batch)
+      update_subj_trait_stats(batch)
+      update_obj_trait_stats(batch)
+    end
+
+    def update_subj_trait_stats(batch)
+      ActiveGraph::Base.query(%Q(
+        #{page_batch_part(batch)}
+        OPTIONAL MATCH trait_row=(p)-[:trait|inferred_trait]->(trait:Trait)
+        OPTIONAL MATCH (trait)-[:object_page]->(obj:Page)
+        WITH anc, count(distinct p) AS desc_count, collect(distinct trait_row) AS trait_rows, collect(distinct obj) as objs
+        UNWIND trait_rows AS trait_row
+        WITH anc, desc_count, sum(CASE WHEN trait_row IS NULL THEN 0 ELSE 1 END) AS trait_row_count, objs
+        UNWIND objs AS obj
+        WITH anc, desc_count, trait_row_count, sum(CASE WHEN obj IS NULL THEN 0 ELSE 1 END) AS obj_count
+        SET anc.descendant_count = desc_count
+        SET anc.subj_trait_row_count = trait_row_count
+        SET anc.subj_trait_distinct_obj_count = obj_count
+      ))
+    end
+
+    def update_obj_trait_stats(batch)
+      ActiveGraph::Base.query(%Q(
+        #{page_batch_part(batch)}
+        OPTIONAL MATCH (subj:Page)-[:trait|inferred_trait]->(trait:Trait)-[:object_page]->(p)
+        WITH anc, collect(distinct trait) AS traits, collect(distinct subj) AS subjs
+        UNWIND traits AS trait
+        WITH anc, sum(CASE WHEN trait IS NULL THEN 0 ELSE 1 END) AS trait_count, subjs
+        UNWIND subjs AS subj
+        WITH anc, trait_count, sum(CASE WHEN subj IS NULL THEN 0 ELSE 1 END) AS subj_count
+        SET anc.obj_trait_count = trait_count
+        SET anc.obj_trait_distinct_subj_count = subj_count
+      ))
     end
   end
 end

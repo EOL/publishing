@@ -369,7 +369,15 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def min_distinct_page_count
-    [predicate, object_term].compact.map { |t| t.distinct_page_count }.min || 0
+    counts = [predicate&.distinct_page_count, object_term&.distinct_page_count]
+
+    if for_inverse_predicate?
+      counts << obj_clade&.subj_trait_distinct_obj_count
+    else
+      counts << obj_clade&.obj_trait_distinct_subj_count
+    end
+
+    counts.compact.min
   end
 
   def obj_clade_field
