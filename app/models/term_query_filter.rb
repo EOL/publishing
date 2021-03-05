@@ -372,16 +372,16 @@ class TermQueryFilter < ApplicationRecord
     counts = [predicate&.distinct_page_count, object_term&.distinct_page_count]
 
     if for_inverse_predicate?
-      counts << obj_clade&.subj_trait_distinct_obj_count
+      counts << obj_clade_node&.subj_trait_distinct_obj_count
     else
-      counts << obj_clade&.obj_trait_distinct_subj_count
+      counts << obj_clade_node&.obj_trait_distinct_subj_count
     end
 
     counts.compact.min
   end
 
   def obj_clade_field
-    return nil if obj_clade_node..nil?
+    return nil if obj_clade_node.nil?
 
     count = for_inverse_predicate? ? obj_clade_node.subj_trait_row_count : obj_clade_node.obj_trait_count
     Field.new(obj_clade_id, count, :object_clade)

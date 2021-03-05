@@ -20,20 +20,20 @@
           %p= t(".#{attributes_key}", :count => @page.predicate_count, data_path: page_data_path(@page))
     -if @key_data.any?
       %ul.sample-traits
-        - @key_data.sort_by { |k, v| k.name || 'zzz' }.each do |group, trait|
+        - @key_data.sort_by { |k, v| k.name || 'zzz' }.each do |predicate, trait|
           %li
             %div
-              .sample-trait-key.a= group.name
-              = render partial: "terms/desc_meta", locals: { term: group.term, search_link: true }
+              .sample-trait-key.a= predicate.name
+              = render partial: "terms/desc_meta", locals: { term: predicate, search_link: true }
             %div
-              - val = trait_display_value(trait, page_is_assoc_obj: group.object?).html_safe
+              - val = trait_display_value(trait, page_is_assoc_obj: predicate.inverse_only?).html_safe
               - if trait.object_page
-                - page_id_for_url = group.object? ? trait.page.id : trait.object_page.id
+                - page_id_for_url = predicate.inverse_only? ? trait.page.id : trait.object_page.id
                 - url = page_path(page_id_for_url)
                 = link_to val, url, :class => "sample-trait-val"
               - elsif trait.object_term
                 .sample-trait-val.a= val
-                = render partial: "terms/desc_meta", locals: { term: trait.object_term, search_link: true, predicate: group.term }
+                = render partial: "terms/desc_meta", locals: { term: trait.object_term, search_link: true, predicate: predicate }
               - else
                 .sample-trait-val= val
 

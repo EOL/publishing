@@ -513,7 +513,7 @@ class Page < ApplicationRecord
       trait = traits_by_id[row[:trait_pk]]
 
       [
-        PageTraitPredicateGroup.new(trait.predicate, row[:page_assoc_role].to_sym),
+        row[:predicate],
         trait
       ]
     end.to_h

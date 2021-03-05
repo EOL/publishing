@@ -176,19 +176,21 @@ class PagesController < ApplicationController
   def data
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
     @selected_resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
-    @selected_predicate_group = params[:predicate_id] ?
-      PageTraitPredicateGroup.new(
-        TermNode.find(params[:predicate_id].to_i), 
-        params[:page_assoc_role]&.to_sym || :subject
-      ) : 
+    @selected_predicate = params[:predicate_id] ?
+      TermNode.find(params[:predicate_id].to_i) :
       nil
     @traits_per_group = 5
-    grouped_trait_result = PageTraitPredicateGroup.grouped_traits_for_page(@page, resource: @selected_resource, limit: @selected_predicate_group ? nil : @traits_per_group, selected_group: @selected_predicate_group)
+    grouped_trait_result = TraitBank::Page.grouped_traits_for_page(
+      @page, 
+      resource: @selected_resource, 
+      limit: @selected_predicate ? nil : @traits_per_group, 
+      selected_predicate: @selected_predicate
+    )
     @grouped_data = grouped_trait_result[:grouped_traits]
-    @predicate_groups = @grouped_data.keys.sort { |a, b| a.name <=> b.name }
-    @selected_predicate_groups = @selected_predicate_group ? [@selected_predicate_group] : @predicate_groups
+    @predicates = @grouped_data.keys.sort { |a, b| a.name <=> b.name }
+    @selected_predicates = @selected_predicate ? [@selected_predicate] : @predicates
     @page_title = t("page_titles.pages.data", page_name: @page.name)
-    @resources = @selected_predicate_group ? 
+    @resources = @selected_predicate ? 
       grouped_trait_result[:all_traits].map { |t| t.resource }.compact.sort { |a, b| a.name <=> b.name }.uniq :
       Resource.where(id: @page.page_node.trait_resource_ids).order(:name)
 
