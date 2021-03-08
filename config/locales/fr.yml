@@ -1318,7 +1318,6 @@ fr:
       fallback: inverse de « %{term_name} »
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: est mangé par
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat créé par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: a des ectoparasites
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: a des endoparasites
         http://eol(dot)org/schema/terms/HasDispersalVector: vecteur de dispersion
@@ -1347,7 +1346,7 @@ fr:
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: période de croissance
           active
         http://eol(dot)org/schema/terms/adaptiveStrategy: stratégie adaptative
-        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: Adulte
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adulte
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aérien
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aérosol
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: taux de nouvelle
