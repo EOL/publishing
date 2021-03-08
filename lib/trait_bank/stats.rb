@@ -281,6 +281,11 @@ module TraitBank
         end
 
         filter = query.filters.first
+
+        if !filter.predicate? && !filter.object_term?
+          return CheckResult.invalid("filter must have a predicate or an object term")
+        end
+
         predicate = filter.predicate
 
         if predicate.present?
