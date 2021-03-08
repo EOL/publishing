@@ -326,6 +326,7 @@ da:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: kanal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: ler
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: farve
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dage
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: grader
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: spiser
@@ -336,12 +337,15 @@ da:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: ferskvand
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frugt
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: frugttype
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: lim
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: grus
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grøn
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: havn
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hjerteformet
+        http://semanticscience(dot)org/resource/SIO_000040: højde
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: is
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: stor
+        http://semanticscience(dot)org/resource/SIO_000041: længde
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: måneder
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: ingen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
@@ -353,10 +357,12 @@ da:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rødder
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: frø
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: størrelse
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: skelet
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsom
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: lille
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: længde på hale
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: tænder
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: træ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: paraply
         http://purl(dot)obolibrary(dot)org/obo/RO_0002619: besøgt af

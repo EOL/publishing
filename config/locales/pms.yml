@@ -1102,6 +1102,12 @@ pms:
         an EdV. A podrìa esse incoplet! A peul selessioné na bara dal gràfich pr'astrenze
         ij sò arzultà d'arserca. Ch'a nòta che na spece a peul esse comprèisa an pi
         che un-a bara.
+      about_this_chart_tooltip_assoc: Cost-sì a l'é un resumé basà an sij dàit disponìbij
+        an EdV. A podrìa esse incomplet! A peul passeje ël rat ansima a 'n nòm ëd
+        tassonomìa për evidensié soe relassion. Na liura vërda a veul dì che cola
+        tassonomìa a l'é ël soget ëd n'associassion; un-a porpra a veul dì ch'a l'é
+        l'oget. J'arsërche pi larghe a son sintetisà dal géner o la famija. A peul
+        ëstrenzje an ësgnacand un nòm ëd tassonomìa.
       about_this_chart_tooltip_sankey_2d: Cost-sì a l'é un resumé basà an sij dàit
         disponìbij an EdV. A podrìa esse incomplet! A peul selessioné na categorìa
         su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Ch'a nòta che na dàita
@@ -1303,7 +1309,6 @@ pms:
       fallback: anvers ëd «%{term_name}»
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a l'é mangià da
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: ambient creà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: a l'ha dj'ectoparassita
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: a l'ha dj'endoparassita
         http://eol(dot)org/schema/terms/HasDispersalVector: vetor ëd dëspersion për
@@ -1341,6 +1346,8 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: seul àcid
         http://eol(dot)org/schema/terms/activeForaging: arserca ëd nuriment ativa
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: perìod ëd chërsùa ativa
+        http://eol(dot)org/schema/terms/adaptiveStrategy: strategìa adatativa
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: adesiv
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aéreo
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: tass ëd neuva chërsùa
           apress la cujìa

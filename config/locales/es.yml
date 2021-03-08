@@ -774,6 +774,8 @@ es:
     show_all_records: mostrar todos los registros
     source: fuente
     uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Elige una página arriba para empezar.
   data_definition: definición de «%{data}»
   traits:
     data_viz:
@@ -899,7 +901,6 @@ es:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: es comido por
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: hábitat creado por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: tiene ectoparásito
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: tiene endoparásito
         http://eol(dot)org/schema/terms/HasDispersalVector: vector de dispersión para

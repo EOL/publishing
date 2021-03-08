@@ -263,9 +263,9 @@ qqq:
           into the ocean.
         http://eol(dot)org/schema/terms/autochory: Seed dispersal by gravity, without
           the assistance of any dispersal vector (= unassisted dispersal).
-        http://eol(dot)org/schema/terms/average: A vague term indicating a measure
-          of central tendency, like a mean, median, or a more complex measure like
-          a mean of subgrouped means
+        http://eol(dot)org/schema/terms/average: |-
+          A vague term indicating a measure of central tendency, like a mean, median, or a more complex measure like a mean of subgrouped means
+          {{identical|Average}}
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: An area of calm water
           unaffected by the current of a stream.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: An arid terrain with
@@ -664,6 +664,7 @@ qqq:
           series of loops
         http://eol(dot)org/schema/terms/colonyDensity: in a colonial organism, the
           number of individuals per area or per volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: '{{identical|Color}}'
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: two organisms living together
           in more or less intimate association in a relationship in which one benefits
           and the other is unaffected
@@ -2693,6 +2694,7 @@ qqq:
         http://eol(dot)org/schema/terms/reefTerrace: '"fore reef terrace": the uppermost
           portion of the fore reef; a flat plain beginning at the base of the buttress
           or mixed zone, at a depth of about 60 m'
+        http://eol(dot)org/schema/reference/referenceID: '{{identical|Reference}}'
         https://eol(dot)org/schema/terms/reflecting_superposition_eyes: superposition
           compound eyes where each ommatidium is equipped with a set of plane mirrors,
           aligned at right angles, forming a square. Rays entering the eye at an oblique
@@ -3037,6 +3039,7 @@ qqq:
           often both, by water. Sinkholes may vary in size from less than a meter
           to several hundred meters both in diameter and depth, and vary in form from
           soil-lined bowls to bedrock-edged chasms.
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: '{{identical|Size}}'
         http://eol(dot)org/schema/terms/SkeletalDensity: mass density of skeletal
           elements of the organism
         http://eol(dot)org/schema/terms/SkeletalReinforcement: The nature of structural
@@ -3086,8 +3089,9 @@ qqq:
           a dense, strongly structured, clayey subsurface horizon that has a high
           proportion of adsorbed Na and/or Mg ions. Solonetz that contain free soda
           (Na2CO3) are strongly alkaline (field pH > 8.5).
-        http://purl(dot)org/dc/terms/source: A related resource from which the described
-          resource is derived.
+        http://purl(dot)org/dc/terms/source: |-
+          A related resource from which the described resource is derived.
+          {{identical|Source}}
         http://eol(dot)org/schema/terms/southernArcticDwarfShrubSubzone: Zone D, per
           the Circumpolar Arctic Vegetation Map (CAVM Team 2003)
         http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: the

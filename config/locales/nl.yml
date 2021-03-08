@@ -1303,7 +1303,6 @@ nl:
       fallback: tegenovergestelde van '%{term_name}'
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: wordt gegeten door
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: habitat gemaakt door
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: heeft ectoparasiet
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: heeft endoparasiet
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: host van

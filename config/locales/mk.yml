@@ -1295,7 +1295,6 @@ mk:
       fallback: обратно на „%{term_name}“
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: го јаде
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008505: живеалиштето го создава
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '% месечно'
