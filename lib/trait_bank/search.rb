@@ -57,7 +57,6 @@ module TraitBank
         trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
 
         term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, filter, trait_var, pred_var, obj_var|
-          filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
           if term_query.filters.length > 1
             if options[:count]
               trait_ag = "count(DISTINCT #{trait_var})"
