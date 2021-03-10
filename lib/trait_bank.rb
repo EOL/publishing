@@ -4,8 +4,8 @@ module TraitBank
   class << self
     def query(q, params={})
       response = nil
-      q.gsub!(/^\s+/, "")
-      response = ActiveGraph::Base.query(q, params, wrap: false)
+      clean_q = q.gsub(/^\s+/, "")
+      response = ActiveGraph::Base.query(clean_q, params, wrap: false)
 
       return nil if response.nil?
 
