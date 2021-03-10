@@ -403,11 +403,11 @@ module TraitBank
 
         if (
           max_treat_as.nil? ||
-          max_treat_as < Rank.treat_as[:r_family]
+          max_treat_as <= Rank.treat_as[:r_family]
         )
           :r_family
         elsif (
-          max_treat_as < Rank.treat_as[:r_genus]
+          max_treat_as <= Rank.treat_as[:r_genus]
         )
           :r_genus
         else
