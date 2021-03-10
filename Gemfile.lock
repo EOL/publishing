@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/EOL/neo4j-ruby-driver.git
-  revision: 350fc964224f2b2e6b543a8f5f081b4c15c647ab
-  branch: master
+  revision: fe5438fb945dc0262acd8602131de830899e9bcc
+  branch: 1.7
   specs:
-    neo4j-ruby-driver (1.7.4.20210309163624)
+    neo4j-ruby-driver (1.7.5.20210310150725)
       activesupport
       ffi
       recursive-open-struct

@@ -118,7 +118,7 @@ gem 'typhoeus', '~> 1.4'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'activegraph', '~> 10.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
-gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: 'master'
+gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 
 #Sitemap
 gem 'sitemap_generator', '~> 6.1'
