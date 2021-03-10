@@ -157,7 +157,7 @@ module TraitBank
         raise_if_query_invalid_for_assoc(query)
 
         target_rank = assoc_data_target_rank(query)
-        return [] if target_rank.nil?
+        return AssocData.new([], nil) if target_rank.nil?
 
         params = {}
         wheres = ['subj_group <> obj_group']
