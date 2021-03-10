@@ -4,22 +4,6 @@ class TraitBank::Slurp
   class << self
     delegate :query, to: TraitBank
 
-    def iterative_query(head, q)
-      response = ActiveGraph::Base.query(%Q(
-        CALL apoc.periodic.iterate(
-          "#{head}",
-          "#{q}",
-          { batchSize: 1000, parallel: false }
-        )
-      )).first
-
-      failed_batches = response[:failedBatches]
-
-      if failed_batches > 0
-        raise "TraitBank::Slurp.iterative_query had #{failed_batches} failed batches!\nErrors: #{response[:errorMessages]}"
-      end
-    end
-
     def load_resource_from_repo(resource)
       repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.traits_file, 'traits.tsv')
@@ -105,7 +89,6 @@ class TraitBank::Slurp
       end
 
       private
-
       def build_attributes(attr_configs)
         attr_configs_copy = attr_configs.dup
         @pk_attr = build_attribute(attr_configs_copy.shift)
@@ -368,7 +351,7 @@ class TraitBank::Slurp
     def csv_query_head(filename, where_clause = nil)
       where_clause ||= '1=1'
       file = filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
-      "CALL apoc.load.csv('#{file}', { header: true}) YIELD map AS row WITH row WHERE #{where_clause} RETURN row"
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause} "
     end
 
     # TODO: extract the file-writing to a method that takes a block.
@@ -416,26 +399,26 @@ class TraitBank::Slurp
 
     def rebuild_ancestry_group(file, version)
       # Nuke it from orbit:
-      execute_clauses(csv_query_head(file), ['MERGE (:Page { page_id: toInteger(row.page_id) })'])
-      execute_clauses(csv_query_head(file), ['MERGE (:Page { page_id: toInteger(row.parent_id) })'])
-      execute_clauses(csv_query_head(file), [
+      execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInteger(row.page_id) })'])
+      execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInteger(row.parent_id) })'])
+      execute_clauses([csv_query_head(file), 
                       'MATCH (page:Page { page_id: toInteger(row.page_id) })',
                       'MATCH (parent:Page { page_id: toInteger(row.parent_id) })',
                       "MERGE (page)-[:parent { ancestry_version: #{version} }]->(parent)"])
     end
 
-    def execute_clauses(query_head, clauses)
-      iterative_query(query_head, clauses.join("\n"))
+    def execute_clauses(clauses)
+      autocommit_query(clauses.join("\n"))
     end
 
     def build_nodes(config, head)
       pk_attr = config.pk_attr
-      q = "MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{autocast_val(pk_attr)} })"
+      q = "#{head}MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{autocast_val(pk_attr)} })"
       config.other_attrs.each do |attr|
         q << set_attribute(config.name, attr, 'CREATE')
         q << set_attribute(config.name, attr, 'MATCH')
       end
-      iterative_query(head, q)
+      autocommit_query(q)
     end
 
     def merge_triple(options)
@@ -448,7 +431,7 @@ class TraitBank::Slurp
       subj = triple[0].to_s
       pred = triple[1].to_s
       obj  = triple[2].to_s
-      q = ''
+      q = head
 
       # MATCH any required nodes:
       nodes.each do |node|
@@ -465,7 +448,7 @@ class TraitBank::Slurp
       end
 
       # Then merge the triple:
-      iterative_query(head, "#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
+      autocommit_query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
     end
 
     def set_attribute(name, attribute, on_set)
@@ -489,6 +472,12 @@ class TraitBank::Slurp
 
     def is_true(field)
       "(#{field} = 'true')"
+    end
+
+    def autocommit_query(q) # for use with WITH PERIODIC COMMIT queries (CSV loading)
+      ActiveGraph::Base.session do |session|
+        session.run(q)
+      end
     end
   end
 end
