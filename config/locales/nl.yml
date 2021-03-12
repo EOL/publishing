@@ -1086,6 +1086,8 @@ nl:
       pred_uri_blank_numeric_error: Kan niet leeg gelaten worden bij een nummerieke
         waarde
       range_invalid_error: moet >= zijn dan de eerste waarde
+      units_blank_error: eenheden kunnen niet leeg gelaten worden voor een numerieke
+        zoekopdracht
   terms:
     attribution_field_html: <strong>Attributie:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Reactie:</strong> %{comment}
@@ -1106,6 +1108,13 @@ nl:
         beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt een staaf uit de
         grafiek selecteren om uw zoekresultaten te verfijnen. Merk op dat een bepaalde
         soort in meer dan één balk kan voorkomen.
+      about_this_chart_tooltip_assoc: Dit is een samenvatting op basis van gegevens
+        die beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt de muiscursor
+        op de naam van een taxon plaatsen om de relaties ervan te laten tonen. Een
+        groene link geeft aan dat het geselecteerde taxon het subject is van de associatie;
+        een paarse geeft aan dat het het object is. Grotere zoekopdrachten worden
+        samengevat op geslacht of familie. U kunt deze beperken door op de naam van
+        een taxon te klikken.
       about_this_chart_tooltip_sankey_2d: Dit is een samenvatting op basis van gegevens
         die beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt een categorie
         uit elke as selecteren om uw zoekresultaten te verfijnen. Merk op dat een
@@ -1305,13 +1314,21 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: wordt gegeten door
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: heeft ectoparasiet
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: heeft endoparasiet
+        http://eol(dot)org/schema/terms/HasDispersalVector: dispersal vector voor
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: host van
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: heeft hyperparasiet
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: heeft vector
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: wordt gedood door
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasiteerd door
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: wordt geparasiteerd door
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: bezocht door
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/maand'
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: actieve groeiperiode
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adult
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alpiene gletjser
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadroom
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: eenjarig
