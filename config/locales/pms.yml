@@ -1348,11 +1348,34 @@ pms:
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: perìod ëd chërsùa ativa
         http://eol(dot)org/schema/terms/adaptiveStrategy: strategìa adatativa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: adesiv
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: seul ëd creja
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adult
+        https://eol(dot)org/schema/terms/adventive: arivà an
+        http://eol(dot)org/schema/terms/aerial: aéreo
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aéreo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: ambient aéreo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: età
+          aeronian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aereosòl
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: tass ëd neuva chërsùa
           apress la cujìa
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: agatossin-e
+        http://eol(dot)org/schema/terms/age At Dispersal: età a la dëspersion
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: età a la duvertura ëd j'euj
         http://eol(dot)org/schema/terms/AgeAtMaturity: età a la maduridà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agrìcol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: meterial agrìcol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: seul agrìcol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: trassa agrìcola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: rumenta agrìcola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: rumenta agrìcola
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: età albian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: ambient alcalin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: pian-a alcalin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: ambient alcalin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: sorgiss càuda alcalin-a
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: alolectotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: aloneotipo
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: anfìdrom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anàdrom
         http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: toleransa a 'n teren

@@ -505,5 +505,5 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianco
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: anni
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giallo
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
 ...

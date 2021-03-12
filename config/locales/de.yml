@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Anna7321
 # Author: Bergrübe
 # Author: DraconicDark
 # Author: Elliot
@@ -554,6 +555,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: herzförmig
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: Sumpfpflanze
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Palmitinsäure
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: Gastgeber von
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: Wasserpflanze
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: Hydroxylapatit
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: Zoll
@@ -590,6 +592,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: Form
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: Strauch
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: einfach
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: Skelett
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsam
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: Zitzenzahl
@@ -603,4 +606,6 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: weiß
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: gelb
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: gelb-grün
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: Isotyp
 ...

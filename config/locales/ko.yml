@@ -559,6 +559,7 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: 열대 사막
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: 우산
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: 화산
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: 와트
         http://eol(dot)org/schema/terms/yes: 예
         http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
         http://eol(dot)org/schema/terms/µg_cm-2: µg/cm^2
@@ -568,6 +569,7 @@ ko:
         http://eol(dot)org/schema/terms/cubicMicrometer: µm^3
         https://eol(dot)org/schema/terms/micromolpergram: µmol/g
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: µmol/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
         http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
         http://eol(dot)org/schema/terms/perPound: /lb
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz

@@ -1035,6 +1035,8 @@ sv:
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: svanslängd
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: tjockhet
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volym
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: watt
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: trädensitet
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: år
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
 ...
