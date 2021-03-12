@@ -57,9 +57,10 @@ class TraitBank::Denormalizer
   end
 
   def build_update_data(ids)
-    ::Page.references(native_node: :rank).includes(native_node: :rank)
+    ::Page.includes(native_node: :rank)
       .where('pages.id': ids).map do |p| 
         landmark = p.native_node&.no_landmark? ? nil : p.native_node&.landmark
+
         { 
           page_id: p.id, 
           canonical: p.native_node&.canonical_form,
