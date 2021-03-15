@@ -1376,6 +1376,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: sorgiss càuda alcalin-a
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: alolectotipo
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: aloneotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: alotipo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: delta aluvional
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: pian-a aluvional
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: seul aluvional
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: giassé alpin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: seul alpin
+        http://eol(dot)org/schema/terms/alternatingReproduction: alternesse ëd generassion
+        http://eol(dot)org/schema/terms/ambush: predator d'amboscada
+        https://eol(dot)org/schema/terms/ampharetid_feeder: an nuriss d'anfaretid
+        http://eol(dot)org/schema/terms/amphibious: anfibi
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: anfìdrom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anàdrom
         http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: toleransa a 'n teren
