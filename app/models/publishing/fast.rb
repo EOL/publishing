@@ -302,7 +302,7 @@ class Publishing
     end
 
     def publish_traits
-      TraitBank::Slurp.load_resource_from_repo(@resource)
+      TraitBank::Slurp.new(@resource, @log).load_resource_from_repo
     end
 
     def page_contents_required?
