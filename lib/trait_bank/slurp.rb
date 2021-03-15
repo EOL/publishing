@@ -229,7 +229,7 @@ class TraitBank::Slurp
     break_up_large_files(filename) do |sub_filename|
       # build nodes required by all rows
       nodes.each do |node|
-        build_nodes(node, csv_query_head(filename, nil))
+        build_nodes(node, csv_query_head(sub_filename, nil))
       end
 
       wheres.each do |clause, where_config|
