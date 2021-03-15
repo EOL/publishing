@@ -463,7 +463,7 @@ class TraitBank::Slurp
   end
 
   def autocommit_query(q) # for use with WITH PERIODIC COMMIT queries (CSV loading)
-    @logger&.info("Executing PERIODIC COMMIT query:\n#{q}")
+    #@logger&.info("Executing PERIODIC COMMIT query:\n#{q}")
 
     ActiveGraph::Base.session do |session|
       session.run(q)
