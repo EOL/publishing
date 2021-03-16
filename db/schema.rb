@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_10_204026) do
+ActiveRecord::Schema.define(version: 2021_03_16_190656) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -232,6 +232,14 @@ ActiveRecord::Schema.define(version: 2020_12_10_204026) do
     t.boolean "old_is_duplicate", default: false, null: false
     t.boolean "old_is_low_quality", default: false, null: false
     t.text "comment"
+  end
+
+  create_table "data_integrity_checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.integer "type"
+    t.integer "status"
+    t.text "message"
+    t.datetime "started_at"
+    t.datetime "completed_at"
   end
 
   create_table "delayed_jobs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
