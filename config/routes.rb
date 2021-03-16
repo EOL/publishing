@@ -219,7 +219,7 @@ Rails.application.routes.draw do
         end
       end
 
-      get "/data_integrity_checks" => "data_integrity_checks#index"
+      resources :data_integrity_checks, only: %i(index show)
       get "/data_integrigy_checks/run" => "data_integrity_checks#run", as: :data_integrity_checks_run
     end
 

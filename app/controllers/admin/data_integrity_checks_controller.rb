@@ -1,6 +1,14 @@
 class Admin::DataIntegrityChecksController < AdminController
   def index
-    @checks_by_type = DataIntegrityCheck.all_most_recent
+    @checks = DataIntegrityCheck.all_most_recent
+  end
+
+  def show
+    @type = params.require(:id)
+    @limit = 20
+    @checks = DataIntegrityCheck.where(type: @type).order('created_at DESC').limit(@limit).map do |record|
+      { type: @type, record: record }
+    end
   end
 
   def run

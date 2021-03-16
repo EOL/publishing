@@ -29,8 +29,8 @@ class DataIntegrityCheck < ApplicationRecord
 
     def all_most_recent
       types.map do |k, v|
-        [k, self.where(type: v).order('created_at DESC').limit(1)&.first]
-      end.to_h
+        { type: k, record: self.where(type: v).order('created_at DESC').limit(1)&.first }
+      end
     end
 
     def run(type)
