@@ -50,7 +50,6 @@ class DataIntegrityCheck < ApplicationRecord
     update!(started_at: Time.now)
 
     begin
-      debugger
       result = TYPES_TO_CLASSES[type.to_sym].new.run
       status = result.status
       message = result.message

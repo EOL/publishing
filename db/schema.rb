@@ -240,8 +240,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_220041) do
     t.text "message"
     t.datetime "started_at"
     t.datetime "completed_at"
-    t.datetime "created_at", default: "2021-03-16 22:02:59", null: false
-    t.datetime "updated_at", default: "2021-03-16 22:02:59", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "delayed_jobs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
