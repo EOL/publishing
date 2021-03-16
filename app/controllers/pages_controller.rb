@@ -498,16 +498,16 @@ private
   def setup_viz
     @show_wordcloud = false
     @show_trophic_web = false
-    return if @selected_predicate_group.nil?
+    return if @selected_predicate.nil?
 
     if (
-      WORDCLOUD_PREDICATES.include?(@selected_predicate_group.term) &&
+      WORDCLOUD_PREDICATES.include?(@selected_predicate) &&
       @page.native_node.rank &&
       Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
     )
       setup_wordcloud
     elsif (
-      TROPHIC_WEB_PREDICATES.include?(@selected_predicate_group.term)
+      TROPHIC_WEB_PREDICATES.include?(@selected_predicate)
     )
       setup_trophic_web
     end
