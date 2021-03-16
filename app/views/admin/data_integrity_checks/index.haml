@@ -1,0 +1,26 @@
+%h1 Data Integrity Checks
+
+%table.uk-table
+  %thead
+    %tr
+      %th type
+      %th status
+      %th message
+      %th created
+      %th started
+      %th completed
+      %th
+  %tbody
+    - @checks_by_type.each do |k, v|
+      - if v.nil?
+        - status = "not yet run"
+      - else
+        - status = v.status
+      %tr
+        %td= k
+        %td= status
+        %td= v&.message
+        %td= v&.created_at
+        %td= v&.started_at
+        %td= v&.completed_at
+        %td= link_to 're-run', admin_data_integrity_checks_run_path(type: k)

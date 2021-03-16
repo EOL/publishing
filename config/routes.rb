@@ -218,6 +218,9 @@ Rails.application.routes.draw do
           end
         end
       end
+
+      get "/data_integrity_checks" => "data_integrity_checks#index"
+      get "/data_integrigy_checks/run" => "data_integrity_checks#run", as: :data_integrity_checks_run
     end
 
     get "/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content", to: redirect("/docs/what-is-eol/citing-eol-and-eol-content")
