@@ -36,7 +36,7 @@ module RecordBelongsToNode
 
         instance_variable_set(
           instance_var_name,
-          klass.find(Integer(self.read_attribute(id_field_name)))
+          klass.find_by(id: Integer(self.read_attribute(id_field_name)))
         )
       end
     end

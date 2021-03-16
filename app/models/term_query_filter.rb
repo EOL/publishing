@@ -92,7 +92,7 @@ class TermQueryFilter < ApplicationRecord
   }
 
   def predicate?
-    predicate_id.present?
+    predicate.present?
   end
 
   SHORT_TO_LONG_PARAMS = {
@@ -269,7 +269,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def blank?
-    predicate_id.blank? && object_term_id.blank? && obj_clade.nil? && resource.nil?
+    predicate.nil? && object_term.nil? && obj_clade.nil? && resource.nil?
   end
 
   def extra_fields_blank?
