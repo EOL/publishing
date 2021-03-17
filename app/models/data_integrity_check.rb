@@ -4,8 +4,8 @@ class DataIntegrityCheck < ApplicationRecord
 
   enum type: {
     circular_relationships: 0,
-    #same_name_not_synonym: 1,
-    #ancestry_depth: 2
+    same_name_not_synonym: 1,
+    term_ancestry_height: 2
   }
 
   enum status: {
@@ -18,7 +18,9 @@ class DataIntegrityCheck < ApplicationRecord
   }
 
   TYPES_TO_CLASSES = {
-    circular_relationships: DataIntegrityCheck::CircularRelationships
+    circular_relationships: DataIntegrityCheck::CircularRelationships,
+    same_name_not_synonym: DataIntegrityCheck::SameNameNotSynonym,
+    term_ancestry_height: DataIntegrityCheck::TermAncestryHeight
   }
 
   class << self
