@@ -34,7 +34,7 @@ class DataIntegrityCheck::DuplicateTraits
 			AND ((t1)-[:statistical_method_term]->(:Term)<-[:statistical_method_term]-(t2) OR (NOT (t1)-[:statistical_method_term]->(:Term) AND NOT (t2)-[:statistical_method_term]->(:Term)))
 			AND apoc.map.removeKey(properties(t1), 'eol_pk') = apoc.map.removeKey(properties(t2), 'eol_pk')
 			WITH DISTINCT t1, t2
-			RETURN count(*) AS count
+			RETURN count(*) / 2 AS count
 		}
 
 		ActiveGraph::Base.query(query, limit: limit, skip: batch * limit).to_a.first

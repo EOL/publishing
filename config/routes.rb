@@ -219,6 +219,7 @@ Rails.application.routes.draw do
         end
       end
 
+      get "/data_integrity_checks/run_all" => "data_integrity_checks#run_all", as: :data_integrity_checks_run_all
       resources :data_integrity_checks, only: %i(index show)
       get "/data_integrity_checks/:type/run" => "data_integrity_checks#run", as: :data_integrity_checks_run
       get "/data_integrity_checks/:type/detailed_report" => "data_integrity_checks#detailed_report", as: :data_integrity_checks_detailed_report

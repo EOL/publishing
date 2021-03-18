@@ -11,6 +11,11 @@ class Admin::DataIntegrityChecksController < AdminController
     end
   end
 
+  def run_all
+    DataIntegrityCheck.run_all
+    redirect_to action: "index"
+  end
+
   def run
     type = params.require(:type)
     message = DataIntegrityCheck.run(type) ? 'created' : 'already pending'

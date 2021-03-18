@@ -49,6 +49,10 @@ class DataIntegrityCheck < ApplicationRecord
       true
     end
 
+    def run_all
+      types.keys.each { |k| run(k) }
+    end
+
     def detailed_report(type)
       class_for_type(type).new.detailed_report
     end
@@ -57,7 +61,6 @@ class DataIntegrityCheck < ApplicationRecord
       class_for_type(type).new.respond_to?(:detailed_report)
     end
 
-    private
     def class_for_type(type)
       TYPES_TO_CLASSES[type.to_sym]
     end
@@ -67,15 +70,17 @@ class DataIntegrityCheck < ApplicationRecord
     update!(started_at: Time.now)
 
     begin
-      result = class_for_type(type).new.run
-      status = result.status
-      message = result.message
+      result = self.class.class_for_type(type).new.run
+      self.status = result.status
+      self.message = result.message
     rescue => e 
-      status = :errored
-      message = e.message
+      self.status = :errored
+      self.message = e.message
+      raise e
+    ensure
+      self.completed_at = Time.now
+      save!
     end
-
-    update!(status: status, message: message, completed_at: Time.now)
   end
   handle_asynchronously :background_run, queue: 'data_integrity'
 end

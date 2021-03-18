@@ -13,6 +13,6 @@ class DataIntegrityCheck::CircularRelationships
   end
 
   def build_count_message(count)
-    "#{count} circular relationship(s) found"
+    "#{count} pairs of terms with circular relationship(s) found"
   end
 end

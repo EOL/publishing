@@ -9,7 +9,7 @@ class DataIntegrityCheck::SameNameNotSynonym
       WHERE t1 <> t2 aND t1.name = t2.name AND NOT (t1)-[:synonym_of]->(t2) AND NOT (t2)-[:synonym_of]->(t1)
       AND NOT (t2)-[:synonym_of]->(:Term)<-[:synonym_of]-(t1)
       WITH DISTINCT t1, t2
-      RETURN count(*) AS count
+      RETURN count(*) / 2 AS count
     }
   end
 
