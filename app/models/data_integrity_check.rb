@@ -8,7 +8,8 @@ class DataIntegrityCheck < ApplicationRecord
     term_ancestry_height: 2,
 		extinction_status: 3,
     size_wo_units: 4,
-    migrated_metadata: 5
+    migrated_metadata: 5,
+    named_metadata_candidates: 6
   }
 
   enum status: {
@@ -26,7 +27,8 @@ class DataIntegrityCheck < ApplicationRecord
     term_ancestry_height: DataIntegrityCheck::TermAncestryHeight,
 		extinction_status: DataIntegrityCheck::ExtinctionStatus,
     size_wo_units: DataIntegrityCheck::SizeWoUnits,
-    migrated_metadata: DataIntegrityCheck::MigratedMetadata
+    migrated_metadata: DataIntegrityCheck::MigratedMetadata,
+    named_metadata_candidates: DataIntegrityCheck::NamedMetadataCandidates
   }
 
   class << self
