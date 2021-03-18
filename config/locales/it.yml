@@ -392,6 +392,8 @@ it:
   stats:
     pages: pagine
     users: utenti
+  term_query:
+    invalid_obsolete: INVALIDO/OBSOLETO
   term_query_filter:
     validations:
       invalid_uri: URI non corretto

@@ -1,6 +1,7 @@
 # Messages for Czech (čeština)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Georg101
 # Author: Jachym
 # Author: Juandev
 # Author: Setnicka
@@ -151,6 +152,7 @@ cs:
     altitude: nadmořská výška
     author: autor
     bibliographic_citation: bibliografická citace
+    contributor: Přispěvatel
     compiler: překladatel
     creator: autor
     editor: editor
@@ -196,8 +198,10 @@ cs:
   filters:
     filter_by_attribute: filtrovat podle atributu
     filter_by_language: filtrovat podle jazyka
+    filter_by_provider: filtrovat podle poskytovatele
   footer:
     eol_info:
+      citing_eol: citace EOL
       contact_us: Kontaktujte nás
       data_services: Datové služby
       donate: Darovat
@@ -206,6 +210,9 @@ cs:
       help: Nápověda
       language_support: Jazyková podpora
       terms_of_use: Podmínky užití
+      the_eol_forum: fórum EOL
+      what_is_eol: Co je EOL
+      whats_new: Co je nového
     discover:
       algae: Řasy
       amphibians: Obojživelníci
@@ -229,19 +236,33 @@ cs:
       spiders: Pavouci
       trees: Stromy
       viruses: Viry
+      worms: Žížaly
+    eol_is_hosted_by: 'EOL je hostováno:'
+  forgot_your_password: Zapomněli jste heslo
+  landing_page:
+    header: Globální přístup k znalostem o životě na zemi
+    stats_cleared: Statistiky byly přepočítány
   language: Jazyk
   languages:
     ab: Abcházština
+    aa: Afar
     af: Afrikánština
+    ak: Akan
+    alb: Albánština
     sq: Albánština
+    am: Amharština
     ar: Arabština
     an: Aragonština
     hy: Arménština
     as: Assámština
     Q29507: Asturianština
+    Q56590: Atikamekwština
+    av: Avarština
     Q9292: Ázerbájdžánština
     az: Ázerbájdžánština
+    Q33070: Balinésština
     eu: Baskičtina
+    Q29540: Bavorština
     be: Běloruština
     bn: Bengálština
     bh: Bihárské jazyky
@@ -256,6 +277,7 @@ cs:
     ce: Čečenština
     ny: Čičevština
     zh: Čínština
+    chi: Čínština
     cu: Staroslověnština
     cv: Čuvačština
     co: Korsičtina
@@ -267,6 +289,7 @@ cs:
     en: Angličtina
     eo: Esperanto
     et: Estonština
+    est: Estonština
     fo: Faroeština
     fi: Finština
     fr: Francouzština
@@ -360,7 +383,131 @@ cs:
   literature_and_references_header: Literatura a reference
   maps:
     empty: Pro tuto stránku nejsou k dispozici žádné mapy.
+  pages:
+    batch_lookup:
+      query_cant_be_blank: žádost nemůže být prázdná
+      search: hledat
+    filter_menu:
+      show_all: Zobrazit vše
+    page_data:
+      n_hidden_show_all_noname:
+        one: 1 skrytý záznam — ukázat vše
+        other: '%{count} skrytý záznam — ukázat vše'
+      show_all: ukázat vše
+    resource_names:
+      name_recognized_by: Poznáno %{by}
+      name_recognized_by_w_rank: '%{rank} poznáno %{by}'
+      name_recognized_by_w_status: '%{status} podle %{by}'
+      rank:
+        r_domain: Doména
+        r_subdomain: Poddoména
+        r_infradomain: Infradoména
+        r_superkingdom: Superkrálovství
+        r_kingdom: Království
+        r_subkingdom: Podkrálovství
+        r_infrakingdom: Infrakrálovství
+        r_class: Třída
+        r_subclass: Podtřída
+        r_order: Pořadí
+        r_family: Rodina
+        r_tribe: Kmen
+        r_species: Druhy
+        r_subspecies: Poddruhy
+        r_form: Tvar
+      username_missing: uživatel %{user_id}
+    trophic_web:
+      competitor: Soupeř
+      globi_credit_html: data z <a href='%{url}'>GloBI</a>
+      predator: Predátor
+      prey: Kořist
+      reset: Obnovit
+    native_node_missing_warning: není k dispozici žádná informace o hierarchii
+    tabs:
+      articles: články
+      classifications: klasifikace
+      data: data
+      literature_and_references: literatura & zdroje
+      overview: přehled
+      maps: mapy
+      media: média
+      names: názvy
+    iucn_status:
+      label: 'Stav IUCN:'
+      ex: vyhynulý (EX)
+      ew: vyhynulý v přírodě (EW)
+      cr: kriticky ohrožený (CR)
+      en: ohrožený (EN)
+      vu: ohrožitelný (VU)
+      nt: blízký k vyhynutí (NT)
+      ne: neměřeno (NE)
+      unknown: neznámo (není záznam)
+    unresolved_name: Nerozluštěný název
+    unresolved_name_prefix: 'Nerozluštěný název:'
+  page_titles:
+    pages:
+      data: '%{page_name} data'
+      media: media %{page_name}
+      articles: '%{page_name} články'
+  recaptcha: Recaptcha
+  recaptcha_error: Prosím potvrďtě, že nejste robot.
+  register_new_account: Registrovat nový účet
+  resources:
+    actions:
+      republish: zveřejnit
+      index: zpět ke všem zdrojům
+      clear_publishing: vymazat zámek
+    headers:
+      index: Zdroje
+    no_events: Nic
+  resource_missing: Zdroj nenalezen
+  scientific_name:
+    status_title:
+      accepted: Přijaté názvy
+      alternative: Alternativní názvy
+      preferred: Preferované názvy
+      unusable: Nepoužitelné názvy
+      synonym: Synonyma
+  scientific_names_header: Vědecké názvy
+  send_me_reset_password_instructions: Pošlete mi návod k obnovení hesla
+  search_results:
+    medium_article: článek
+    medium_image: Obrázek
+    medium_map: Mapa
+    medium_sound: Zvuk
+    medium_video: Video
+    empty: Žádné výsledky.
+    field_matches:
+      description: shoduje se s popisem
   sign_in: Přihlásit se
+  simple_form:
+    "yes": Ano
+    "no": Ne
+    required:
+      text: povinné
+      mark: '*'
+    error_notification:
+      default_message: 'Prosím prohlédněte si problémy níže:'
+    labels:
+      defaults:
+        email: e-mail
+        password: heslo
+        password_confirmation: potvrzení hesla
+        remember_me: Pamatovat si mě
+        username: Uživatelsk jméno
+        bio: Bio
+  stats:
+    articles: články
+    collections: Sbírky
+    data: datové záznamy
+    media: média
+    pages: stránky
+    nodes: uzly
+    scientific_names: název
+    users: Uživatelé
+    references: Zdroje
+  traits:
+    properties:
+      scientific_name: Vědecký název
   user:
     form_labels:
       age_confirm: Je mi alespoň 13 let
