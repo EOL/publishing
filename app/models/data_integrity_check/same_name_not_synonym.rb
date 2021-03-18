@@ -9,6 +9,7 @@ class DataIntegrityCheck::SameNameNotSynonym
       MATCH (t1:Term), (t2:Term)
       WHERE t1 <> t2 aND t1.name = t2.name AND NOT (t1)-[:synonym_of]->(t2) AND NOT (t2)-[:synonym_of]->(t1)
       AND NOT (t2)-[:synonym_of]->(:Term)<-[:synonym_of]-(t1)
+      AND t1.eol_id < t2.eol_id
       WITH DISTINCT t1, t2
     CYPHER
   end
@@ -16,7 +17,7 @@ class DataIntegrityCheck::SameNameNotSynonym
   def query
     <<~CYPHER
       #{query_common}
-      RETURN count(*) / 2 AS count
+      RETURN count(*) AS count
     CYPHER
   end
 

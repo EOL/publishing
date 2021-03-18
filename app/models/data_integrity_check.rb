@@ -7,6 +7,8 @@ class DataIntegrityCheck < ApplicationRecord
     same_name_not_synonym: 1,
     term_ancestry_height: 2,
 		extinction_status: 3,
+    size_wo_units: 4,
+    migrated_metadata: 5
   }
 
   enum status: {
@@ -22,7 +24,9 @@ class DataIntegrityCheck < ApplicationRecord
     circular_relationships: DataIntegrityCheck::CircularRelationships,
     same_name_not_synonym: DataIntegrityCheck::SameNameNotSynonym,
     term_ancestry_height: DataIntegrityCheck::TermAncestryHeight,
-		extinction_status: DataIntegrityCheck::ExtinctionStatus
+		extinction_status: DataIntegrityCheck::ExtinctionStatus,
+    size_wo_units: DataIntegrityCheck::SizeWoUnits,
+    migrated_metadata: DataIntegrityCheck::MigratedMetadata
   }
 
   class << self

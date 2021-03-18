@@ -1,23 +1,6 @@
 class DataIntegrityCheck::ExtinctionStatus
   include DataIntegrityCheck::ZeroCountCheck
-
-  def detailed_report
-    query = 
-    <<~CYPHER
-      #{common_query}
-      RETURN DISTINCT p.page_id AS page_id
-    CYPHER
-
-    page_ids = ActiveGraph::Base.query(query).to_a.map { |r| r[:page_id] }
-    
-    <<~END
-      Query:
-      #{query}
-
-      Result: 
-      [#{page_ids.join(", ")}]
-    END
-  end
+  include DataIntegrityCheck::HasDetailedReport
 
   private
   def query
@@ -50,6 +33,13 @@ class DataIntegrityCheck::ExtinctionStatus
       WHERE NOT (other_trait2)-[:object_term]->(:Term{ uri: '#{extinct_uri }' })
       WITH p, other_trait1, other_trait2
       WHERE other_trait1 IS NOT NULL OR other_trait2 IS NOT NULL
+    CYPHER
+  end
+
+  def detailed_report_query
+    <<~CYPHER
+      #{common_query}
+      RETURN DISTINCT p.page_id AS page_id
     CYPHER
   end
 end
