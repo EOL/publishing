@@ -17,4 +17,9 @@ class Admin::DataIntegrityChecksController < AdminController
     flash[:notice]  = message
     redirect_to action: "index"
   end
+
+  def detailed_report
+    @type = params.require(:type)
+    @report = DataIntegrityCheck.detailed_report(@type)
+  end
 end

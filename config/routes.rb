@@ -220,7 +220,8 @@ Rails.application.routes.draw do
       end
 
       resources :data_integrity_checks, only: %i(index show)
-      get "/data_integrigy_checks/run" => "data_integrity_checks#run", as: :data_integrity_checks_run
+      get "/data_integrity_checks/:type/run" => "data_integrity_checks#run", as: :data_integrity_checks_run
+      get "/data_integrity_checks/:type/detailed_report" => "data_integrity_checks#detailed_report", as: :data_integrity_checks_detailed_report
     end
 
     get "/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content", to: redirect("/docs/what-is-eol/citing-eol-and-eol-content")

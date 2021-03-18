@@ -48,13 +48,26 @@ class DataIntegrityCheck < ApplicationRecord
       new.background_run_with_delay
       true
     end
+
+    def detailed_report(type)
+      class_for_type(type).new.detailed_report
+    end
+
+    def type_has_detailed_report?(type)
+      class_for_type(type).new.respond_to?(:detailed_report)
+    end
+
+    private
+    def class_for_type(type)
+      TYPES_TO_CLASSES[type.to_sym]
+    end
   end
 
   def background_run
     update!(started_at: Time.now)
 
     begin
-      result = TYPES_TO_CLASSES[type.to_sym].new.run
+      result = class_for_type(type).new.run
       status = result.status
       message = result.message
     rescue => e 

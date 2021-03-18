@@ -13,17 +13,23 @@
     - @checks.each do |check|
       - type = check[:type]
       - record = check[:record]
+
       - if record.nil?
         - status = "not yet run"
       - else
         - status = record.status
+
       %tr
         - if links
           %td= link_to type, admin_data_integrity_check_path(id: type)
         - else 
           %td= type
         %td= status
-        %td= record&.message
+        %td 
+          %span= record&.message
+          - if record && DataIntegrityCheck.type_has_detailed_report?(type)
+            %br
+            = link_to 'Click for detailed report', admin_data_integrity_checks_detailed_report_path(type: type)
         %td= record&.created_at
         %td= record&.started_at
         %td= record&.completed_at
