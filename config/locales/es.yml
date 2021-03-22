@@ -16,6 +16,7 @@
 # Author: Ncr
 # Author: Nipungorantla
 # Author: Optilete
+# Author: Rossnyev
 # Author: Silverie04
 # Author: Whytheonlyone
 ---
@@ -755,6 +756,7 @@ es:
     users: usuarios
     references: referencias
   term_query:
+    invalid_obsolete: NULO/OBSOLETO
     validations:
       empty_filters_error_record: debe proporcionar un filtro con un atributo o valor
         para las búsquedas de registros

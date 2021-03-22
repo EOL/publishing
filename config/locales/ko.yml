@@ -441,6 +441,8 @@ ko:
     scientific_names: 이름
     users: 사용자
     references: 참고문헌
+  term_query:
+    invalid_obsolete: 유효하지 않음/구식
   term_query_filter:
     validations:
       invalid_uri: 유효하지 않은 URI

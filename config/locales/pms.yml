@@ -1066,6 +1066,7 @@ pms:
     users: utent
     references: arferiment
   term_query:
+    invalid_obsolete: INVÀLID/OBSOLET
     validations:
       empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për
         j'arserche d'argistrassion
@@ -1387,9 +1388,17 @@ pms:
         https://eol(dot)org/schema/terms/ampharetid_feeder: an nuriss d'anfaretid
         http://eol(dot)org/schema/terms/amphibious: anfibi
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: anfìdrom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: anabranch
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anàdrom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: pàuta anaeròbica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: sediment anaeròbich
         http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: toleransa a 'n teren
           anaeròbich
+        https://eol(dot)org/schema/terms/anal_dorsal_fins: nov dla palma anal e dorsal
+        https://eol(dot)org/schema/terms/anal_fin: nov dla palma anal
+        https://eol(dot)org/schema/terms/andromonoecious: andromonòich
+        http://eol(dot)org/schema/terms/androviviparous: androvivìpar
+        http://eol(dot)org/schema/terms/anemochory: anemocorìa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica

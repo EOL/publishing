@@ -469,6 +469,8 @@ de:
     scientific_names: Namen
     users: Benutzer
     references: Referenzen
+  term_query:
+    invalid_obsolete: UNGÜLTIG/OBSOLET
   term_query_filter:
     validations:
       invalid_uri: Ungültige URL
