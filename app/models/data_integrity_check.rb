@@ -73,7 +73,7 @@ class DataIntegrityCheck < ApplicationRecord
   end
 
   def background_run
-    update!(started_at: Time.now)
+    update!(status: :running, started_at: Time.now)
 
     begin
       result = self.class.class_for_type(type).new.run
