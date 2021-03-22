@@ -309,6 +309,7 @@ cs:
     it: Italština
     Q35939: Kreolská jamajština
     ja: Japonština
+    jp: Japonština
     jv: Javánština
     Q33634: Kalmyčtina
     kk: Kazašština
@@ -351,6 +352,7 @@ cs:
     sl: Slovinština
     so: Somálština
     es: Španělština; Kastilština
+    slv: Španělština
     sw: Swahilština
     ss: Swati
     sv: Švédština
@@ -383,6 +385,28 @@ cs:
   literature_and_references_header: Literatura a reference
   maps:
     empty: Pro tuto stránku nejsou k dispozici žádné mapy.
+  medium:
+    untitled:
+      video: Nepojmenované video
+    subclasses:
+      image: Obrázek
+      video: video
+      sound: Zvuk
+      map_image: mapa
+      js_map: interaktivní mapa
+  medium_description_blank: Pro tento objekt nebyl dodán popis.
+  medium_header_title: 'Název:'
+  medium_header_description: 'Popis:'
+  names:
+    prefer: preferovat
+  nav:
+    about: O projektu
+    discuss: Diskuse
+    education: Vzdělávání
+    search:
+      placeholder: Hledat na EOL...
+  page_title: Encyklopedie života
+  page_title_search: 'Hledat: %{query}'
   pages:
     batch_lookup:
       query_cant_be_blank: žádost nemůže být prázdná
