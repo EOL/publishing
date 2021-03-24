@@ -50,6 +50,7 @@ module TermsHelper
   end
 
   def filter_display_string(filter)
+    return en_filter_display_string(filter) if I18n.locale == :en
     parts = []
     prefix = "traits.search.filter_display."
 
@@ -85,6 +86,48 @@ module TermsHelper
     end
 
     sanitize(parts.join("<br>"), tags: %w( br ))
+  end
+
+  def en_filter_display_string(filter)
+    parts = [en_filter_display_string_main_part(filter)]
+
+    # same as other langs
+    if filter.extra_fields?
+      other_parts = [filter.sex_term&.name, filter.lifestage_term&.name, filter.statistical_method_term&.name, filter.resource&.name].compact
+      parts << "(#{other_parts.join(", ")})"
+    end
+
+    sanitize(parts.join("<br>"), tags: %w( br ))
+  end
+
+  def en_filter_display_string_main_part(filter)
+    if filter.predicate 
+      if filter.object_term
+        "with #{filter.predicate.name}: #{filter.object_term.name}"
+      elsif filter.numeric?
+        value_part = if filter.range?
+                       "in [#{filter.num_val1}, #{filter.num_val2}]"
+                     else 
+                       op = if filter.gt?
+                              '>='
+                            elsif filter.lt?
+                              '<='
+                            else
+                              '='
+                            end
+                       "#{op} #{num_val}"
+                     end
+        "with #{filter.predicate.name} #{value_part}"
+      elsif filter.obj_clade 
+        "that #{filter.predicate.name} #{filter.obj_clade.name}"
+      elsif filter.association_pred?
+        "known to #{filter.predicate.name} some species"
+      else
+        "with known #{filter.predicate.name}"
+      end
+    else 
+      "with value #{filter.object_term.name}"
+    end
   end
 
   def term_query_display_string(tq)

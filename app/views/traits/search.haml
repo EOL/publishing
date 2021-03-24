@@ -13,9 +13,14 @@
       %h2.filter-hdr= t(filter_hdr_val_key, hdr_opts)
       %ul.show-filters
         - if @query.clade
-          %li.show-filter.show-filter-clade= t(".clade", clade: @query.clade.native_node&.canonical_form)
-        - @query.filters.each do |f|
+          %li.show-filter.show-filter-clade= I18n.locale == :en ? "in group #{@query.clade.native_node&.canonical_form}" : t(".clade", clade: @query.clade.native_node&.canonical_form)
+          - if I18n.locale == I18n.default_locale && @query.filters.any?
+            %li.show-filter-join AND
+        - @query.filters.each_with_index do |f, i|
           %li.show-filter= filter_display_string(f)
+          - if I18n.locale == I18n.default_locale && i < @query.filters.length - 1
+            %li.show-filter-join AND
+
       %ul.edit-filters-row
         %li.js-edit-filters
           %i{:'uk-icon' => "icon: pencil"}

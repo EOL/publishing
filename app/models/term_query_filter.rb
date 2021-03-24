@@ -421,6 +421,10 @@ class TermQueryFilter < ApplicationRecord
     end.max
   end
 
+  def num_val
+    [num_val1, num_val2].compact.first
+  end
+
   private
   def validation
     if blank?
