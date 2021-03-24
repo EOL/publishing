@@ -10,6 +10,11 @@ class Publishing
       publr.by_resource
     end
 
+    def self.traits_by_resource(resource)
+      publr = new(resource)
+      publr.traits_by_resource
+    end
+
     # e.g.: nohup rails r "Publishing::Fast.update_attributes_by_resource(Resource.find(724), ScientificName, [:dataset_name])" > dwh_datasets.log 2>&1 &
     def self.update_attributes_by_resource(resource, klass, fields)
       publr = new(resource)
@@ -143,6 +148,7 @@ class Publishing
         end
         @log.warn('All existing content has been destroyed for the resource.')
       end
+      can_clean_up = true
       begin
         unless @repo.exists?('nodes.tsv')
           raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
@@ -158,17 +164,7 @@ class Publishing
           @log.start('MediaContentCreator')
           MediaContentCreator.by_resource(@resource, log: @log)
         end
-        @log.start('Remove traits')
-        TraitBank::Admin.remove_for_resource(@resource)
-        @log.start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
-        can_clean_up = true
-        begin
-          publish_traits
-        rescue => e
-          backtrace = [e.backtrace[0]] + e.backtrace.grep(/\bapp\b/)[1..5]
-          @log.warn("Trait Publishing failed: #{e.message} FROM #{backtrace.join(' << ')}")
-          can_clean_up = false
-        end
+        publish_traits_with_cleanup(can_clean_up)
         @log.start('Resource#fix_native_nodes')
         @resource.fix_native_nodes
         propagate_reference_ids
@@ -179,13 +175,44 @@ class Publishing
         end
         Publishing::DynamicWorkingHierarchy.update(@resource, @log) if @resource.dwh?
       rescue => e
-        clean_up
+        clean_up if can_clean_up
         @log.fail_on_error(e)
       ensure
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
         @log.close
         ImportLog.all_clear!
       end
+    end
+
+    def traits_by_resource
+      abort_if_already_running
+      @log = @resource.import_logs.last
+      @repo = create_server_connection
+      can_clean_up = true
+      begin
+        publish_traits_with_cleanup(can_clean_up)
+      rescue => e
+        clean_up if can_clean_up
+        @log.fail_on_error(e)
+      ensure
+        @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
+        @log.close
+        ImportLog.all_clear!
+      end
+    end
+
+    def publish_traits_with_cleanup(can_clean_up)
+      @log.start('Remove traits')
+      TraitBank::Admin.remove_for_resource(@resource)
+      @log.start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
+      begin
+        publish_traits
+      rescue => e
+        backtrace = [e.backtrace[0]] + e.backtrace.grep(/\bapp\b/)[1..5]
+        @log.warn("Trait Publishing failed: #{e.message} FROM #{backtrace.join(' << ')}")
+        can_clean_up = false
+      end
+      clean_up if can_clean_up
     end
 
     def abort_if_already_running
