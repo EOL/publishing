@@ -1,5 +1,5 @@
 class TraitBank::Slurp
-  MAX_CSV_SIZE = 1_000_000
+  MAX_CSV_SIZE = 500_000
 
   delegate :query, to: TraitBank
 
@@ -229,7 +229,17 @@ class TraitBank::Slurp
     break_up_large_files(filename) do |sub_filename|
       # build nodes required by all rows
       nodes.each do |node|
-        build_nodes(node, csv_query_head(sub_filename, nil))
+        try_again = true
+        begin
+          build_nodes(node, csv_query_head(sub_filename, nil))
+        rescue => e
+          if try_again
+            try_again = false
+            @logger.warn("FAILED on build_nodes query (#{node.label}), will "\
+                         "re-try once...")
+            retry
+          end
+        end
       end
 
       wheres.each do |clause, where_config|
@@ -389,7 +399,7 @@ class TraitBank::Slurp
     # Nuke it from orbit:
     execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInteger(row.page_id) })'])
     execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInteger(row.parent_id) })'])
-    execute_clauses([csv_query_head(file), 
+    execute_clauses([csv_query_head(file),
                     'MATCH (page:Page { page_id: toInteger(row.page_id) })',
                     'MATCH (parent:Page { page_id: toInteger(row.parent_id) })',
                     "MERGE (page)-[:parent { ancestry_version: #{version} }]->(parent)"])
