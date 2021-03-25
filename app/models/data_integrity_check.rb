@@ -72,6 +72,19 @@ class DataIntegrityCheck < ApplicationRecord
     end
   end
 
+  def show_detailed_report?
+    klass = self.class.class_for_type(type)
+    self.class.type_has_detailed_report?(type) && 
+      (
+        failed? || 
+        (
+          passed? &&
+          klass.respond_to?(:show_detailed_report_on_pass?) &&
+          klass.show_detailed_report_on_pass?
+        )
+      )
+  end
+
   def background_run
     update!(status: :running, started_at: Time.now)
 

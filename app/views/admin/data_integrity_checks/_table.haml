@@ -27,7 +27,7 @@
         %td= status
         %td 
           %span= record&.message&.html_safe
-          - if links && record && record.failed? && DataIntegrityCheck.type_has_detailed_report?(type)
+          - if links && record && record.show_detailed_report?
             %br
             = link_to 'Click for detailed report', admin_data_integrity_checks_detailed_report_path(type: type)
         %td= record&.created_at
