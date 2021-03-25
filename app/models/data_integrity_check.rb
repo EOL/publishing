@@ -9,7 +9,9 @@ class DataIntegrityCheck < ApplicationRecord
 		extinction_status: 3,
     size_wo_units: 4,
     migrated_metadata: 5,
-    named_metadata_candidates: 6
+    named_metadata_candidates: 6,
+    exclusive_clade_predicates: 7,
+    incompatible_clade_predicates: 8
   }
 
   enum status: {
@@ -28,7 +30,9 @@ class DataIntegrityCheck < ApplicationRecord
 		extinction_status: DataIntegrityCheck::ExtinctionStatus,
     size_wo_units: DataIntegrityCheck::SizeWoUnits,
     migrated_metadata: DataIntegrityCheck::MigratedMetadata,
-    named_metadata_candidates: DataIntegrityCheck::NamedMetadataCandidates
+    named_metadata_candidates: DataIntegrityCheck::NamedMetadataCandidates,
+    exclusive_clade_predicates: DataIntegrityCheck::ExclusiveCladePredicatesCheck,
+    incompatible_clade_predicates: DataIntegrityCheck::IncompatibleCladePredicatesCheck
   }
 
   class << self
