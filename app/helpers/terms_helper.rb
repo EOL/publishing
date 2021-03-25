@@ -115,7 +115,7 @@ module TermsHelper
                             else
                               '='
                             end
-                       "#{op} #{num_val}"
+                       "#{op} #{filter.num_val}"
                      end
         "with #{filter.predicate.name} #{value_part}"
       elsif filter.obj_clade 
