@@ -9,11 +9,11 @@
       - hdr_opts = { range_begin: @search.grouped_data.offset_value + 1, range_end: @search.grouped_data.offset_value + @search.grouped_data.length, total: @search.grouped_data.total_count }
       -if @query.record?
         - hdr_opts[:page_count] = @search.page_count
-      - filter_hdr_val_key = ".result_header_#{@query.record? ? 'records' : 'taxa'}"
+      - filter_hdr_val_key = @query.clade && I18n.locale == I18n.default_locale ? ".result_header_notype" : ".result_header_#{@query.record? ? 'records' : 'taxa'}"
       %h2.filter-hdr= t(filter_hdr_val_key, hdr_opts)
       %ul.show-filters
         - if @query.clade
-          %li.show-filter.show-filter-clade= I18n.locale == :en ? "in group #{@query.clade.native_node&.canonical_form}" : t(".clade", clade: @query.clade.native_node&.canonical_form)
+          %li.show-filter.show-filter-clade= I18n.locale == :en ? "#{@query.clade.native_node&.canonical_form}" : t(".clade", clade: @query.clade.native_node&.canonical_form)
           - if I18n.locale == I18n.default_locale && @query.filters.any?
             %li.show-filter-join AND
         - @query.filters.each_with_index do |f, i|
