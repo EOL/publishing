@@ -14,8 +14,6 @@
       %ul.show-filters
         - if @query.clade
           %li.show-filter.show-filter-clade= I18n.locale == :en ? "#{@query.clade.native_node&.canonical_form}" : t(".clade", clade: @query.clade.native_node&.canonical_form)
-          - if I18n.locale == I18n.default_locale && @query.filters.any?
-            %li.show-filter-join AND
         - @query.filters.each_with_index do |f, i|
           %li.show-filter= filter_display_string(f)
           - if I18n.locale == I18n.default_locale && i < @query.filters.length - 1
