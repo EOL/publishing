@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
   revision: 07c326db349b17b15c09c65128956b73ad0ae9b3
-  branch: clade_predicates
+  branch: main
   specs:
     eol_terms (0.8.01)
       yaml
