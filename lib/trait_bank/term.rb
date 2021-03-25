@@ -2,13 +2,19 @@
 module TraitBank
   # Handles all of the methods specific to a :Term node.
   module Term
-    RELATIONSHIP_PROPERTIES = {
+    TERM_RELATIONSHIP_PROPERTIES = {
       'parent_uris' => 'parent_term', 
       'synonym_of_uri' => 'synonym_of', 
       'units_term_uri' => 'units_term',
       'object_for_predicate_uri' => 'object_for_predicate',
       'inverse_of_uri' => 'inverse_of'
     }.freeze
+    PAGE_RELATIONSHIP_PROPERTIES = {
+      'exclusive_to_clade_id' => 'exclusive_to_clade',
+      'incompatible_with_clade_id' => 'incompatible_with_clade'  
+    }.freeze
+    ALL_RELATIONSHIP_PROPERTIES = TERM_RELATIONSHIP_PROPERTIES.merge(PAGE_RELATIONSHIP_PROPERTIES).freeze
+
     CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
     TERM_TYPES = {
       predicate: ['measurement', 'association'],
@@ -88,12 +94,19 @@ module TraitBank
       end
 
       def update_relationships(uri, properties)
-        RELATIONSHIP_PROPERTIES.each do |property, name|
+        TERM_RELATIONSHIP_PROPERTIES.each do |property, name|
           if target_uris = properties.delete(property)
             remove_relationships(uri, name)
             Array(target_uris).each do |target_uri|
               add_relationship(uri, name, target_uri)
             end
+          end
+        end
+
+        PAGE_RELATIONSHIP_PROPERTIES.each do |property, name|
+          if target_page_id = properties.delete(property)
+            remove_relationships(uri, name)
+            add_page_relationship(uri, name, target_page_id)
           end
         end
       end
@@ -109,6 +122,16 @@ module TraitBank
         TraitBank.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '\"')}" }),
                           (target:Term { uri: "#{target_uri.gsub(/"/, '\"')}" })
                           CREATE (term)-[:#{name}]->(target) })
+      end
+
+      def add_page_relationship(source_uri, name, target_page_id)
+        TraitBank.query(
+          <<~CYPHER
+            MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '\"')}" }),
+            (page:Page { page_id: #{target_page_id.to_i} })
+            CREATE (term)-[:#{name}]->(page)
+          CYPHER
+        )
       end
 
       def clean_properties(properties)
@@ -136,7 +159,7 @@ module TraitBank
 
       def remove_relationship_properties(properties)
         removed = {}
-        RELATIONSHIP_PROPERTIES.keys.each do |property|
+        ALL_RELATIONSHIP_PROPERTIES.keys.each do |property|
           removed[property] = properties.delete(property) if properties.key?(property)
         end
         removed
