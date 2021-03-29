@@ -4,6 +4,7 @@
 # Author: Georg101
 # Author: Jachym
 # Author: Juandev
+# Author: Matěj Suchánek
 # Author: Setnicka
 # Author: Spotter
 # Author: Watt
@@ -473,7 +474,7 @@ cs:
       media: media %{page_name}
       articles: '%{page_name} články'
   recaptcha: Recaptcha
-  recaptcha_error: Prosím potvrďtě, že nejste robot.
+  recaptcha_error: Prosím potvrďte, že nejste robot.
   register_new_account: Registrovat nový účet
   resources:
     actions:
@@ -517,7 +518,7 @@ cs:
         password: heslo
         password_confirmation: potvrzení hesla
         remember_me: Pamatovat si mě
-        username: Uživatelsk jméno
+        username: Uživatelské jméno
         bio: Bio
   stats:
     articles: články

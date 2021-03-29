@@ -5,6 +5,7 @@
 # Author: G313
 # Author: JackLantern
 # Author: R.caredda1
+# Author: Toa
 # Author: Ubibi
 ---
 it:
@@ -82,6 +83,7 @@ it:
       vernaculars_count: vernacolari
       scientific_names_count: nomi scientifici
       species_count: specie
+      updated_at: ultimo aggiornamento
   collect_already_in_collection: (è già qui)
   collect_already_in_collection_will_add_icon: (aggiungi media a "%{page}")
   collect_icon_title: Aggiungi "%{item}" da "%{page}" pagina a…
@@ -123,6 +125,7 @@ it:
       placeholder: Nome intero o username
     actions:
       associate: associato
+      download_taxa_csv: Scarica CSV dei taxa
       delete: cancella
       edit: modifica
       sort: ordina
@@ -137,11 +140,21 @@ it:
     log:
       associated_collection:
         add: '%{user} ha aggiunto un''associazione alla collezione %{associated}'
+        remove: '%{user} ha rimosso un''associazione alla collezione %{associated}'
+      collection:
+        add: '%{user} ha creato la collezione'
+        change: '%{user} ha cambiato il campo %{field} da "%{from}" in "%{to}"'
+      page:
+        add: '%{user} ha aggiunto la pagina %{page}'
+        remove: '%{user} ha rimosso la pagina %{page}'
+    search:
+      submit: ricerca
     sort:
       hierarchy: gerarchia
       sci_name: nome scientifico, A-Z
       sci_name_rev: nome scientifico, Z-A
       sort_field: annotazione, A-Z
+    updated: Collezione aggiornata.
   complete_registration: Per favore prosegui con la registrazione
   content_appears_on: 'Incluso nelle seguenti pagine:'
   content_attributions_header: Informazioni sulla fonte
@@ -179,6 +192,7 @@ it:
       statistical_method_term: Metodo statistico utilizzato per la misurazione
   dear_username_with_comma: Caro %{username},
   delete_account_button: Cancella la tua utenza
+  filter_by_license: licenza
   filter_by_license_any_item: qualsiasi licenza
   filter_by_medium_subtype: tipo
   filter_by_medium_any_item: qualsiasi tipo
@@ -233,30 +247,67 @@ it:
     stats_cleared: Le statistiche sono state ricalcolate.
   language: Lingua
   languages:
+    ab: Abkhazo
+    Q27683: Acehnese
+    af: Afrikaans
     alb: Albanese
     sq: Albanese
+    Q131339: Alemanno
+    am: Amarico
+    ar: Arabo
+    an: Aragonese
+    hy: Armeno
+    as: Assamese
+    be: Bielorusso
+    Q750553: Portoghese brasiliano
+    bg: Bulgaro
+    my: Burmese
+    ca: Catalano; Valenciano
+    ce: Ceceno
+    zh: Cinese
     chi: Cinese
+    Q37041: Cinese classico
+    co: Còrso
+    hr: Croato
+    hrv: Croato
+    cs: Ceco
+    da: Danese
     en: Inglese
     eo: Esperanto
+    et: Estone
+    est: Estone
     fi: Finlandese
+    fin: Finlandese
     fr: Francese
+    fra: Francese
     gd: Gaelico scozzese
     ka: Georgiano
     de: Tedesco
+    deu: Tedesco
+    el: Greco moderno (1453-)
     gre: Greco
+    gu: Gujarati
     he: Ebraico
+    heb: Ebraico
+    hi: Hindi
+    hu: Ungherese
+    id: Indonesiano
     ia: Interlingua (International Auxiliary Language Association)
     ga: Irlandese
     it: Italiano
     ita: Italiano
     ja: Giapponese
     jp: Giapponese
+    ko: Coreano
+    kor: Coreano
     Q36106: Ligure
     li: Limburghese
+    lt: Lituano
     lit: Lituano
     Q33754: Lombardo
     mk: Macedone
     ms: Malese
+    mt: Maltese
     mlt: Maltese
     mn: Mongolo
     Q33845: Napoletano
@@ -265,7 +316,9 @@ it:
     nob: Norvegese
     nor: Norvegese
     oc: Occitano (post 1500)
+    Q28602: Aramaico ufficiale
     pa: Punjabi
+    pl: Polacco
     pol: Polacco
     pt: Portoghese
     ru: Russo
@@ -284,14 +337,21 @@ it:
     som: Somalo
     st: Sotho del sud
     slv: Spagnolo
+    sv: Svedese
     swe: Svedese
     ty: Tahitiano
+    th: Thailandese
+    tha: Thailandese
+    bo: Tibetano
     to: Tongano
     Q56240: Arabo tunisino
     tr: Turco
     tur: Turco
     Q36730: Turco, ottomano
+    uk: Ucraino
     ukr: Ucraino
+    none: Non specificato
+    vi: Vietnamita
     Q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
   layout_sign_in: Accedi
@@ -303,15 +363,30 @@ it:
     other_maps_title: Mappe non interattive
   medium:
     untitled:
+      image: Immagine senza titolo
+      image_of: Immagine di %{page_name}
+      video: Video senza titolo
       video_of: Video di %{page_name}
+      sound: Suono senza titolo
+      sound_of: Suono di %{page_name}
+      map: Mappa senza titolo
+      map_of: Mappa di %{page_name}
+    subclasses:
+      image: immagine
+      video: video
+      sound: suono
+      map_image: mappa
+      js_map: mappa interattiva
   medium_collect_button: archivia media
   medium_description_blank: Nessuna descrizione per questo oggetto.
   medium_header_title: 'Titolo:'
+  medium_header_description: 'Descrizione:'
   names:
     prefer: preferire
   nav:
     about: Informazioni
     discuss: Discuti
+    education: Istruzione
     search:
       no_results_html: <strong>Nessun risultato confermato</strong><br />Premi Invio
         per visualizzare i risultati senza revisione
@@ -321,24 +396,35 @@ it:
     actions:
       reindex: reindicizzare
     batch_lookup:
+      new_search: nuova ricerca
+      page_id: ID pagina
+      page_url: URL pagina
       query: interrogazione
       query_cant_be_blank: la ricerca non può essere vuota
       search: cerca
+    filter_menu:
+      show_all: mostra tutto
+    page_data:
+      show_all: mostra tutto
     resource_names:
       rank:
         r_domain: Dominio
+        r_subdomain: Sottodominio
         r_kingdom: Regno
         r_infrakingdom: Infraregno
         r_superphylum: Superphylum
         r_phylum: Phylum
         r_infraphylum: Infraphylum
+        r_superclass: Superclasse
         r_class: Classe
         r_subclass: Sottoclasse
         r_superorder: Superordine
         r_order: Ordine
         r_suborder: Sottordine
+        r_family: Famiglia
         r_subfamily: Sottofamiglia
         r_subgenus: Sottogenere
+        r_species: Specie
         r_infraspecies: Infraspecie
     tabs:
       articles: voci
@@ -358,6 +444,10 @@ it:
     full_name: '%{vernacular} (%{scientific})'
   search_results:
     medium_article: Voce
+    medium_image: Immagine
+    medium_map: Mappa
+    medium_sound: Suono
+    medium_video: Video
     empty: Nessun risultato.
   sections:
     associations: Associazioni
@@ -374,16 +464,28 @@ it:
     molecular_biology_and_genetics: Biologia molecolare e genetica
     morphology: Morfología
     names_and_taxonomy: Nomi e tassonomia
+    notes: Note
+    overview: Panoramica
+    physiology_and_cell_biology: Fisiologia e biologia cellulare
+    physical_description: Descrizione fisica
+    reproduction: Riproduzione
     risks: Rischi
+    size: Dimensione
     taxonomy: Tassonomia
+    threats: Minacce
     type_information: Tipo di informazione
     wikipedia: Wikipedia
+  settings: impostazioni
   sign_in: Entra
   simple_form:
     "yes": Sì
     "no": "No"
+    required:
+      text: obbligatorio
+      mark: '*'
     labels:
       defaults:
+        email: Indirizzo email
         password: Password
         password_confirmation: Conferma della password
         remember_me: Ricordarmi
@@ -391,6 +493,8 @@ it:
         bio: Biografia
   stats:
     pages: pagine
+    nodes: nodi
+    scientific_names: nomi
     users: utenti
   term_query:
     invalid_obsolete: INVALIDO/OBSOLETO
@@ -398,6 +502,7 @@ it:
     validations:
       invalid_uri: URI non corretto
   terms:
+    scientific_name: nome scientifico
     source: fonte
   traits:
     data_viz:
@@ -411,7 +516,7 @@ it:
     search:
       filter_display:
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'valore: %{obj}'
+        obj_only: 'con valore: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
       select:
@@ -476,7 +581,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineare
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa tolleranza
         http://semanticscience(dot)org/resource/SIO_001114: max
-        http://eol(dot)org/schema/terms/millimeterspermonth: millimetri per mese
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimetri al mese
         http://eol(dot)org/schema/terms/paleo_megaannum: milioni di anni fa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: misto
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3 mesi

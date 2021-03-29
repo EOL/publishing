@@ -10,6 +10,7 @@
 # Author: LittleNemo
 # Author: PhilW
 # Author: Pols12
+# Author: Scratcheur-2020Send
 # Author: Tektasc
 # Author: Thibaut120094
 # Author: Ugofan
@@ -1112,9 +1113,9 @@ fr:
     data_viz:
       about_this_chart: à propos de ce graphique
       about_this_chart_tooltip_1d: Ceci est un résumé basé sur les données disponibles
-        dans EdlV. Il peut être incomplet ! Vous pouvez sélectionner une barre du
-        graphique pour restreindre vos résultats de recherche. Notez qu’une espèce
-        donnée peut être comprise dans plus d’une barre.
+        dans l’EdlV. Il peut être incomplet ! Vous pouvez sélectionner une catégorie
+        du graphique pour affiner vos résultats de recherche. De nombreuses catégories
+        se recourent et une espèce peut être comprise dans plus d’une catégorie.
       about_this_chart_tooltip_assoc: Ceci est un résumé basé d’après les données
         disponibles sur l’EdlV. Il peut être incomplet ! Vous pouvez survoler un nom
         de taxon pour surligner ses relations. Un lien vert signifie que le taxon
@@ -1124,14 +1125,15 @@ fr:
       about_this_chart_tooltip_sankey_2d: Ceci est un résumé basé sur les données
         disponibles dans l’EdlV. Il peut être incomplet ! Vous pouvez sélectionner
         une catégorie sur un des axes pour restreindre vos résultats de recherche.
-        Notez qu’une espèce donnée peut être comprise dans plus d’une catégorie du
-        même axe.
+        De nombreuses catégories se recouvrent et une espèce peut être comprise dans
+        plus d’une catégorie du même axe.
       about_this_chart_tooltip_sankey_3+: Ceci est un résumé basé sur les données
         disponibles dans l’EdlV. Il peut être incomplet ! Vous pouvez sélectionner
         une catégorie sur un des axes pour restreindre vos résultats de recherche.
-        Notez qu’une espèce donnée peut être comprise dans plus d’une catégorie du
-        même axe. Dans un affichage de sous-ensemble mis en évidence, ces espèces
-        à valeurs multiples seront comptées plusieurs fois sur les autres axes.
+        De nombreuses catégories se recouvrent  et une espèce peut être comprise dans
+        plus d’une catégorie du même axe. Dans un affichage de sous-ensemble mis en
+        évidence, ces espèces à valeurs multiples seront comptées plusieurs fois sur
+        les autres axes.
       other_term_name: autre %{term_name}
       hist_value_label: valeur (%{units})
       n_other_records:
@@ -1186,7 +1188,7 @@ fr:
         gte: '%{pred} ≥ %{num_val} %{units}'
         lifestage: 'étape de vie : %{value}'
         lte: '%{pred} ≤ %{num_val} %{units}'
-        obj_only: 'valeur : %{obj}'
+        obj_only: 'avec la valeur : %{obj}'
         pred_obj: '%{pred} : %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} dans [%{num_val1}, %{num_val2}] %{units}'
@@ -1197,9 +1199,12 @@ fr:
       gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
         taxons dans vos résultats de recherche (limités à 50)
       result_header_records: Affichage des enregistrements de %{range_begin} à %{range_end}
-        sur %{total} pour %{page_count} taxons avec
+        sur %{total} pour %{page_count} taxons
       result_header_taxa: Affichage de %{range_begin} à %{range_end} sur %{total}
-        taxons avec
+        taxons
+      result_header_taxa_notaxa: Affichage de %{range_begin} à %{range_end} sur %{total}
+      result_header_records_notaxa: Affichage des enregistrements de %{range_begin}
+        à %{range_end} sur %{total}
       new_search: nouvelle recherche
       select:
         child_term: sélectionner une condition fille (facultatif)
@@ -1915,6 +1920,7 @@ fr:
         http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: date d’événement
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: feuillage persistant
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: forêt sempervirente
+        https://eol(dot)org/schema/terms/everse: everse
         http://eol(dot)org/schema/terms/excavating: excavateur
         http://eol(dot)org/schema/terms/explanate: exoplan
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposé
@@ -2666,6 +2672,7 @@ fr:
           paléozoïque
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmé
         https://eol(dot)org/schema/terms/palmeiral: palmeraie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: palsa
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: paralectotype
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasite de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasité par
@@ -2723,9 +2730,14 @@ fr:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: âge
           piacenzien
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: jetée
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: porcherie
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Forêts humides
           de Pindaré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: yeux en trous d’épingle
         http://eol(dot)org/schema/terms/pinnacleReef: récif pinacle
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000244: forêt de pins à pignon
+          et génévriers
         http://www(dot)marinespecies(dot)org/traits/Plankton: planctonique
         http://eol(dot)org/schema/terms/planktotrophic: planctotrophe
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forme de croissance
@@ -2751,6 +2763,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polaire
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polaire
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: désert polaire
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000325: poljé
         http://purl(dot)obolibrary(dot)org/obo/PO_0025281: pollen
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: pollinisé par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinise
@@ -2812,7 +2825,9 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: sédiment radioactif
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: voie ferrée
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000415: plage surélevée
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000185: tourbière en dôme
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000365: site Ramsar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: pâturage
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: rapides
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: ratio
         http://rs(dot)tdwg(dot)org/dwc/terms/recordedBy: enregistré par
@@ -2857,6 +2872,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000148: torrent
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000203: lac de crevasse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000496: rigole
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: bras mort
         http://eol(dot)org/schema/terms/riparianWetland: zone humide riparienne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rivière
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: lit fluvial
@@ -3022,16 +3038,22 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: sol
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000217: solfatare
         http://eol(dot)org/schema/terms/solitary: solitaire
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002252: solonchak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002255: solonetz
         http://purl(dot)org/dc/terms/source: source de la description
+        http://eol(dot)org/schema/terms/southernArcticDwarfShrubSubzone: sous-zone
+          d’arbustes nains de l’arctique sud
         http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: partie
           spécifique de la feuille
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000327: spéléothème
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002268: tourbière à sphaignes
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000543: sphérule
         http://purl(dot)obolibrary(dot)org/obo/PO_0025173: en forme d’épine
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: épines
         http://eol(dot)org/schema/terms/sponge_feeder: se nourrit d’éponges
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: récif d’éponges
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: source (d’eau aquifère)
+        https://eol(dot)org/schema/terms/springing: jaillissement
         http://eol(dot)org/schema/terms/StandardLength: longueur standard
         https://eol(dot)org/schema/terms/starfish_feeder: se nourrit d’étoiles de
           mer
@@ -3044,6 +3066,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000046: stemmates
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000262: steppe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005777: sol de steppe
+        http://eol(dot)org/schema/terms/stomachCramps: crampes d’estomac
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000183: désert rocheux
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: organe de stockage
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000142: rive de ruisseau
@@ -3381,6 +3404,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/GO_0050959: écholocation
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000165: bouche ou gueule
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001038: organes chordonaux
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001687: étriers
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001756: oreille moyenne tympanique
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0006583: statocyste
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0006860: vessie natatoire
@@ -3396,6 +3420,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000432: forêt marécageuse
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001866: prolate
         http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: cellule
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020049: foliole
         http://eol(dot)org/schema/terms/algal_filament: filament algal
         http://eol(dot)org/schema/terms/activelyMobile: mobile activement
         http://eol(dot)org/schema/terms/Colonial: colonial
@@ -3444,12 +3469,14 @@ fr:
         http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/cellule/jour
         http://eol(dot)org/schema/terms/physiologicalState: état physiologique
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: lentique
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monogame
         http://eol(dot)org/schema/terms/temporaryAquatic: aquatique temporaire
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: radialement symétrique
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: symétrique bilatéralement
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: polygyne
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: polyandre
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: libertinage
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: grimpant
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: isotype
         http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: code de la collection
@@ -3508,6 +3535,7 @@ fr:
         http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: mâles-femelles
           et hermaphrodites
         http://eol(dot)org/schema/terms/maleFlowers: fleurs mâles
+        http://eol(dot)org/schema/terms/manca: manca
         http://eol(dot)org/schema/terms/metamorph: métamorphe
         http://eol(dot)org/schema/terms/miracidium: miracidium
         http://eol(dot)org/schema/terms/morphotype: morphotype

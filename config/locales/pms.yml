@@ -1100,9 +1100,9 @@ pms:
     data_viz:
       about_this_chart: a propòsit ëd cost gràfich
       about_this_chart_tooltip_1d: Cost-sì a l'é un resumé basà an sij dàit disponìbil
-        an EdV. A podrìa esse incoplet! A peul selessioné na bara dal gràfich pr'astrenze
-        ij sò arzultà d'arserca. Ch'a nòta che na spece a peul esse comprèisa an pi
-        che un-a bara.
+        an EdV. A podrìa esse incoplet! A peul selessioné na categorìa dal gràfich
+        pr'astrenze ij sò arzultà d'arserca. Vàure categorìe a së dzorpon-o e na spece
+        a peul esse comprèisa an pi che na categorìa.
       about_this_chart_tooltip_assoc: Cost-sì a l'é un resumé basà an sij dàit disponìbij
         an EdV. A podrìa esse incomplet! A peul passeje ël rat ansima a 'n nòm ëd
         tassonomìa për evidensié soe relassion. Na liura vërda a veul dì che cola
@@ -1111,14 +1111,15 @@ pms:
         ëstrenzje an ësgnacand un nòm ëd tassonomìa.
       about_this_chart_tooltip_sankey_2d: Cost-sì a l'é un resumé basà an sij dàit
         disponìbij an EdV. A podrìa esse incomplet! A peul selessioné na categorìa
-        su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Ch'a nòta che na dàita
-        spece a peul esse comprèisa an pi che un-a categorìa dël midem ass.
+        su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Vàire categorìe a së
+        dzorpon-o e na spece a peul esse comprèisa an pi che un-a categorìa dël midem
+        ass.
       about_this_chart_tooltip_sankey_3+: Cost-sì a l'é un resumé basà an sij dàit
         disponìbij su EdV. A podrìo esse incomplet! A peul selessioné na categorìa
-        su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Ch'a nòta che na dàita
-        spece a peul esse comprèisa an pi che un-a categorìa dl'istess ass. An na
-        visualisassion ëd sot-ansem evidensià, coste spece a valor mùltipl a saran
-        contà vàire vire an sj'àutri ass.
+        su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Vàire categorìe a së
+        dzorpon-o e na spece a peul esse comprèisa an pi che un-a categorìa dl'istess
+        ass. An na visualisassion ëd sot-ansem evidensià, coste spece a valor mùltipl
+        a saran contà vàire vire an sj'àutri ass.
       other_term_name: àutr%{term_name}
       hist_value_label: valor (%{units})
       n_other_records:
@@ -1172,7 +1173,7 @@ pms:
         gte: '%{pred} >= %{num_val} %{units}'
         lifestage: 'tapa ëd vita: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'valor: %{obj}'
+        obj_only: 'con ël valor: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} an [%{num_val1}, %{num_val2}] %{units}'
@@ -1183,9 +1184,13 @@ pms:
       gbif_search_hover: trové j'argistrassion d'ocorensa an GBIF për le tassonomìe
         ant ij sò arzultà d'arserca (limità a 50)
       result_header_records: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
-        argistrassion për %{page_count} tassonomìe con
+        argistrassion për %{page_count} tassonomìe
       result_header_taxa: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
-        tassonomìe con
+        tassonomìe
+      result_header_taxa_notaxa: Visualisassion ëd %{range_begin} - %{range_end} su
+        %{total}
+      result_header_records_notaxa: Visualisassion dj'argistrassion %{range_begin}
+        - %{range_end} su %{total}
       new_search: neuva arserca
       select:
         child_term: selession na condission fieul (opsional)
@@ -1399,6 +1404,11 @@ pms:
         https://eol(dot)org/schema/terms/andromonoecious: andromonòich
         http://eol(dot)org/schema/terms/androviviparous: androvivìpar
         http://eol(dot)org/schema/terms/anemochory: anemocorìa
+        https://eol(dot)org/schema/terms/anguilliform: anguiliform
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: ambient animal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: giass animal
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: densità ëd popolassion
+          animal
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica

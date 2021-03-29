@@ -1101,17 +1101,18 @@ tr:
     data_viz:
       about_this_chart: bu grafik hakkında
       about_this_chart_tooltip_1d: Bu, EOL'de bulunan verilere dayalı bir özettir.
-        Eksik olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
-        Herhangi bir türün birden fazla çubuğa dahil edilebileceğini unutmayın.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için grafikten bir kategori
+        seçebilirsiniz. Birçok kategori çakışır ve bir tür birden fazla kategoriye
+        dahil edilebilir.
       about_this_chart_tooltip_sankey_2d: Bu, EOL'de bulunan verilere dayalı bir özettir.
         Eksik olabilir! Arama sonuçlarınızı daraltmak için herhangi bir eksende bir
-        kategori seçebilirsiniz. Herhangi bir türün aynı eksende birden fazla kategoriye
-        dahil edilebileceğini unutmayın.
+        kategori seçebilirsiniz. Birçok kategori çakışır ve bir tür, aynı eksende
+        birden fazla kategoriye dahil edilebilir.
       about_this_chart_tooltip_sankey_3+: Bu, EOL'de bulunan verilere dayalı bir özettir.
         Eksik olabilir! Arama sonuçlarınızı daraltmak için herhangi bir eksende bir
-        kategori seçebilirsiniz. Herhangi bir türün aynı eksende birden fazla kategoriye
-        dahil edilebileceğini unutmayın. Vurgulanan bir alt küme görüntüsünde, bu
-        çok değerli türler, diğer eksenlerde birden çok kez sayılacaktır.
+        kategori seçebilirsiniz. Birçok kategori çakışır ve bir tür, aynı eksende
+        birden fazla kategoriye dahil edilebilir. Vurgulanan bir alt küme görüntüsünde,
+        bu çok değerli türler, diğer eksenlerde birden çok kez sayılacaktır.
       other_term_name: diğer %{term_name}
       hist_value_label: değer (%{units})
       n_other_records:
@@ -1165,7 +1166,7 @@ tr:
         gte: '%{pred} >= %{num_val} %{units}'
         lifestage: 'yaşam evresi: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'değer: %{obj}'
+        obj_only: 'değer ile: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} içinde [%{num_val1}, %{num_val2}] %{units}'
@@ -1177,8 +1178,9 @@ tr:
         kayıtlarını bulun (sınır 50)
       result_header_records: '%{range_begin} gösteriliyor - %{page_count} takson için
         %{total} kayıttan %{range_end}'
-      result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
-        ile'
+      result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson'
+      result_header_records_notaxa: '%{total} için %{range_begin} - %{range_end} kayıtları
+        gösteriyor'
       new_search: yeni arama
       select:
         child_term: bir alt terimi seçin (isteğe bağlı)

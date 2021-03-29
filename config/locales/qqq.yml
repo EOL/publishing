@@ -1072,10 +1072,10 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: An area of a planet's
           surface which is primarily covered by a forest in which the majority of
           trees maintain their foliage despite seasonal change.
-        https://eol(dot)org/schema/terms/everse: the "direct" orientation of a retinal
-          surface, where the rhabdom, the transparent light receptive structure of
-          the cell, faces toward the incoming light. Generally more efficient at light
-          capture
+        https://eol(dot)org/schema/terms/everse: |-
+          The "direct" orientation of a retinal surface, where the rhabdom, the transparent light receptive structure of the cell, faces toward the incoming light. Generally more efficient at light capture.
+
+          ''Do not confuse this word with "inverse", which means exactly the opposite!''
         http://eol(dot)org/schema/terms/excavating: An organism which obtains food
           by excavating
         http://eol(dot)org/schema/terms/explanate: colonies spread horizontally as

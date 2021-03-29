@@ -5,6 +5,7 @@
 # Author: Bergrübe
 # Author: DraconicDark
 # Author: Elliot
+# Author: FF-11
 # Author: FF11
 # Author: Katja
 # Author: Kghbln
@@ -488,7 +489,12 @@ de:
     search:
       download_tsv: tsv herunterladen
       filter_display:
+        obj_only: 'mit Wert: %{obj}'
         statistical_method: 'Statistische Methode: %{value}'
+      result_header_records: Zeige %{range_begin} - %{range_end} von %{total} Einträgen
+        für %{page_count} Taxa
+      result_header_taxa: Zeige %{range_begin} - %{range_end} von %{total} Taxa
+      result_header_taxa_notaxa: Zeige %{range_begin} - %{range_end} von %{total}
     search_form:
       value: Wert
   user:
@@ -608,6 +614,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: weiß
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: gelb
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: gelb-grün
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: Isotyp
 ...
