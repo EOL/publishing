@@ -1,7 +1,7 @@
 module TraitDataVizHelper
-  def data_viz_data(query, data)
+  def count_viz_data(query, data)
     result = data.collect do |datum|
-      name = result_label(query, datum)
+      name = result_label(datum)
 
       {
         label: name,
@@ -70,8 +70,8 @@ module TraitDataVizHelper
   end
 
   private
-  def result_label(query, datum)
-    truncate(i18n_term_name(datum.obj), length: 25)
+  def result_label(datum)
+    truncate(datum.label, length: 25)
   end
 
   def obj_prompt_text(query, datum, name)

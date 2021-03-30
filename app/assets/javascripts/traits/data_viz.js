@@ -294,15 +294,8 @@ window.TraitDataViz = (function(exports) {
   }
 
   function loadBarChart() {
-    var $contain = $('.js-bar-contain');
+    loadBarChartHelper($('.js-bar-contain'));
 
-    if ($contain.length) {
-      loadViz($contain, () => {
-        $contain.find('.js-taxon-bar-chart').each(function() {
-          buildBarChart(this);
-        });
-      });
-    }
   }
 
   function loadHistogram() {
@@ -330,10 +323,16 @@ window.TraitDataViz = (function(exports) {
   }
 
   function loadTaxonSummary() {
-    var $contain = $('.js-taxon-summary-contain');
+    loadBarChartHelper($('.js-taxon-summary-contain'));
+  }
 
+  function loadBarChartHelper($contain) {
     if ($contain.length) {
-      loadViz($contain, () => console.log('done'))
+      loadViz($contain, () => {
+        $contain.find('.js-taxon-bar-chart').each(function() {
+          buildBarChart(this);
+        });
+      });
     }
   }
 

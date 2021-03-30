@@ -9,7 +9,7 @@ module Traits
 
     BAR_CHART_LIMIT = 15
 
-    ObjVizResult = Struct.new(:obj, :query, :count, :noclick) do
+    CountVizResult = Struct.new(:label, :query, :count, :noclick) do
       def noclick?
         noclick
       end
@@ -101,8 +101,26 @@ module Traits
 
     def taxon_summary 
       result = TraitBank::Stats.taxon_summary_data(@query, BAR_CHART_LIMIT)
-      @data = result.to_json
-      render_common
+
+      page_ids = result.map do |row| 
+        row[:family].page_id
+      end
+      pages_by_id = Page.where(id: page_ids).map { |p| [p.id, p] }.to_h
+
+      @data = result.map do |row|
+        query = @query.deep_dup
+        page = pages_by_id[row[:family].page_id]
+        query.clade = page
+
+        CountVizResult.new(
+          page.name,
+          query,
+          row[:count],
+          false
+        )
+      end
+
+      render_common(template: 'traits/data_viz/bar')
     end
 
     def hist
@@ -126,19 +144,19 @@ module Traits
     end
 
     private
-    def render_common
-      render_with_status(@data.length > 1)
+    def render_common(options = {})
+      render_with_status(@data.length > 1, options)
     end
 
-    def render_with_status(any_data)
+    def render_with_status(any_data, options = {})
       status = any_data ? :ok : :no_content
-      options = { status: status }
+      options[:status] = status
       render options
     end
       
     def viz_result_from_row(query, row)
-      ObjVizResult.new(
-        row[:obj],
+      CountVizResult.new(
+        TraitBank::Record.i18n_name(row[:obj]),
         TermQuery.new({
           clade_id: query.clade_id,
           result_type: query.result_type,
