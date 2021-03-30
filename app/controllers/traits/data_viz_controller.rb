@@ -9,7 +9,7 @@ module Traits
 
     BAR_CHART_LIMIT = 15
 
-    CountVizResult = Struct.new(:label, :query, :count, :noclick) do
+    CountVizResult = Struct.new(:label, :prompt, :query, :count, :noclick) do
       def noclick?
         noclick
       end
@@ -95,7 +95,7 @@ module Traits
 
     def bar
       result = TraitBank::Stats.obj_counts(@query, BAR_CHART_LIMIT)
-      @data = result.collect { |r| viz_result_from_row(@query, r) }
+      @data = result.collect { |r| obj_count_result_from_row(@query, r) }
       render_common
     end
 
@@ -107,18 +107,7 @@ module Traits
       end
       pages_by_id = Page.where(id: page_ids).map { |p| [p.id, p] }.to_h
 
-      @data = result.map do |row|
-        query = @query.deep_dup
-        page = pages_by_id[row[:family].page_id]
-        query.clade = page
-
-        CountVizResult.new(
-          page.name,
-          query,
-          row[:count],
-          false
-        )
-      end
+      @data = result.map { |row| taxon_summary_count_result_from_row(row, pages_by_id) }
 
       render_common(template: 'traits/data_viz/bar')
     end
@@ -154,9 +143,19 @@ module Traits
       render options
     end
       
-    def viz_result_from_row(query, row)
+    def obj_count_result_from_row(query, row)
+      name = TraitBank::Record.i18n_name(row[:obj])
+      prompt_prefix = datum.noclick? ? "" : "see_"
+
+      prompt = if query.record?
+                 I18n.t("traits.data_viz.#{prompt_prefix}n_obj_records", count: row[:count], obj_name: name)
+               else
+                 I18n.t("traits.data_viz.#{prompt_prefix}n_taxa_with", count: row[:count], obj_name: name)
+               end
+
       CountVizResult.new(
-        TraitBank::Record.i18n_name(row[:obj]),
+        name,
+        prompt,
         TermQuery.new({
           clade_id: query.clade_id,
           result_type: query.result_type,
@@ -167,6 +166,23 @@ module Traits
         }),
         row[:count],
         query.filters.first.object_term&.id == row[:obj][:eol_id]
+      )
+    end
+
+    def taxon_summary_count_result_from_row(row, pages_by_id)
+      query = @query.deep_dup
+      page = pages_by_id[row[:family].page_id]
+      query.clade = page
+      # TODO: these are probably not right -- talk to Jen
+      prompt_key = @query.record? ? "n_family_records" : "n_family_taxa"
+      prompt = I18n.t("traits.data_viz.#{prompt_key}", family: page.name, count: row[:count])
+
+      CountVizResult.new(
+        page.name,
+        prompt,
+        query,
+        row[:count],
+        false
       )
     end
 

@@ -1114,6 +1114,12 @@ en:
       page_habitat_header: "%{name} Habitats"
       page_habitat_explanation: "The environments in which many %{name} species are known to live. Select an environment to see its %{name} species checklist."
       pie_prompt: "mouse over a segment or key to highlight"
+      n_family_records: 
+        one: "click to see records for one taxon in family %{family}"
+        other: "click to see records for %{count} taxa in family %{family}"
+      n_family_taxa:
+        one: "click to see taxon in family %{family"
+        other: "click to see %{count} taxa in family %{family}"
       n_obj_records:
         one: "one record with \"%{obj_name}\""
         other: "%{count} records with \"%{obj_name}\""

@@ -5,7 +5,7 @@ module TraitDataVizHelper
 
       {
         label: name,
-        prompt_text: obj_prompt_text(query, datum, name),
+        prompt_text: datum.prompt,
         search_path: datum.noclick? ? nil : term_search_results_path(tq: datum.query.to_short_params),
         count: datum.count
       }
@@ -75,13 +75,6 @@ module TraitDataVizHelper
   end
 
   def obj_prompt_text(query, datum, name)
-    prefix = datum.noclick? ? "" : "see_"
-
-    if query.record?
-      t("traits.data_viz.#{prefix}n_obj_records", count: datum.count, obj_name: name)
-    else
-      t("traits.data_viz.#{prefix}n_taxa_with", count: datum.count, obj_name: name)
-    end
   end
 
   def hist_prompt_text(query, bucket, units_text)
