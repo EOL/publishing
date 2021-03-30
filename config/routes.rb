@@ -201,6 +201,7 @@ Rails.application.routes.draw do
       get "/data_viz/hist" => "data_viz#hist"
       get "/data_viz/sankey" => "data_viz#sankey"
       get "/data_viz/assoc" => "data_viz#assoc"
+      get "/data_viz/taxon_summary" => "data_viz#taxon_summary"
     end
 
     namespace :admin do

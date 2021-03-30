@@ -3,6 +3,7 @@ require "set"
 module Traits
   class DataVizController < ApplicationController
     before_action :set_1d_about_text, only: [:bar, :hist]
+    before_action :set_query
 
     layout "traits/data_viz"
 
@@ -93,14 +94,18 @@ module Traits
     end
 
     def bar
-      @query = TermQuery.from_short_params(term_query_params)
       result = TraitBank::Stats.obj_counts(@query, BAR_CHART_LIMIT)
       @data = result.collect { |r| viz_result_from_row(@query, r) }
       render_common
     end
 
+    def taxon_summary 
+      result = TraitBank::Stats.taxon_summary_data(@query, BAR_CHART_LIMIT)
+      @data = result.to_json
+      render_common
+    end
+
     def hist
-      @query = TermQuery.from_short_params(term_query_params)
       counts = TraitBank::Search.term_search(@query, { count: true })
       result = TraitBank::Stats.histogram(@query, counts.primary_for_query(@query))
       @data = HistData.new(result, @query)
@@ -108,7 +113,6 @@ module Traits
     end
 
     def sankey
-      @query = TermQuery.from_short_params(term_query_params)
       counts = TraitBank::Search.term_search(@query, { count: true })
       @sankey = Traits::DataViz::Sankey.create_from_query(@query, counts.primary_for_query(@query))
       set_sankey_about_text
@@ -116,7 +120,6 @@ module Traits
     end
 
     def assoc
-      @query = TermQuery.from_short_params(term_query_params)
       @data = AssocViz.new(@query, helpers, breadcrumb_type)
       @about_text_key = 'about_this_chart_tooltip_assoc'
       render_with_status(@data.should_display?)
@@ -163,6 +166,10 @@ module Traits
       else
         "about_this_chart_tooltip_sankey_2d"
       end
+    end
+
+    def set_query
+      @query = TermQuery.from_short_params(term_query_params)
     end
   end
 end

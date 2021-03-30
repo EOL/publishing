@@ -329,6 +329,14 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
+  function loadTaxonSummary() {
+    var $contain = $('.js-taxon-summary-contain');
+
+    if ($contain.length) {
+      loadViz($contain, () => console.log('done'))
+    }
+  }
+
   function loadViz($contain, ready) {
     $.get($contain.data('loadPath'), (result) => {
       $contain.find('.js-viz-spinner').remove();
@@ -348,6 +356,7 @@ window.TraitDataViz = (function(exports) {
   exports.loadHistogram = loadHistogram;
   exports.loadSankey = loadSankey;
   exports.loadAssoc = loadAssoc;
+  exports.loadTaxonSummary = loadTaxonSummary;
 
   return exports;
 })({});
@@ -357,6 +366,7 @@ $(function() {
   TraitDataViz.loadHistogram();
   TraitDataViz.loadSankey();
   TraitDataViz.loadAssoc();
+  TraitDataViz.loadTaxonSummary();
 })
 
 
