@@ -397,7 +397,224 @@ module TraitBank
           "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, row.source.page_id + '-' + row.target.page_id AS id "\
           "RETURN type, source, target, id"
 
-        valid_for_counts(query)
+        TraitBank::ResultHandling.results_to_hashes(TraitBank.query(qs), "id")
+      end
+
+      def descendant_environments(page)
+        max_page_depth = 2
+        qs = "MATCH (page:Page)-[:parent*0..#{max_page_depth}]->(:Page{page_id: #{page.id}}),\n"\
+          "(page)-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),\n"\
+          "(trait)-[:object_term]->(object_term:Term)\n"\
+          "WHERE predicate.uri = '#{EolTerms.alias_uri('habitat')}'\n"\
+          "RETURN trait, predicate, object_term"
+
+        TraitBank::ResultHandling.build_trait_array(TraitBank.query(qs))
+      end
+
+      private
+
+      def assoc_data_target_rank(query)
+        counts = assoc_data_counts(query)
+        clade_target = assoc_data_target_rank_for_clades(query)
+
+        result = [
+          [:r_species, counts[:species_count]], 
+          [:r_genus, counts[:genus_count]], 
+          [:r_family, counts[:family_count]]
+        ].find do |c| 
+          rank = c[0]
+          rank_match = Rank.treat_as[rank] >= Rank.treat_as[clade_target] # clade must be of equal or greater specificity than clade_target. We want the most specific level that matches the MAX_ASSOC_TAXA threshold, hence the order.
+          rank_match && c[1] <= MAX_ASSOC_TAXA
+        end
+
+        result&.[](0)&.[](2..)&.to_sym # return nil, :species, :genus or :family
+      end
+
+      def assoc_data_target_rank_for_clades(query)
+        max_treat_as = query.filters.first.max_clade_rank_treat_as
+
+        if (
+          max_treat_as.nil? ||
+          max_treat_as <= Rank.treat_as[:r_family]
+        )
+          :r_family
+        elsif (
+          max_treat_as <= Rank.treat_as[:r_genus]
+        )
+          :r_genus
+        else
+          :r_species
+        end
+      end
+
+      def obj_counts_query_for_records(query, params)
+        obj_var = "child_obj"
+        trait_var = "trait"
+        anc_var = "anc"
+        match_part = TraitBank::Search.term_record_search_matches(query, params, always_match_obj: true, obj_var: obj_var, trait_var: trait_var)
+
+        %Q(
+          #{match_part}
+          WITH #{obj_var}, count(distinct #{trait_var}) AS trait_count
+          #{count_query_anc_obj_match(query, obj_var, anc_var, params)}
+          WITH DISTINCT #{anc_var}, #{obj_var}, trait_count
+          WITH #{anc_var} AS obj, sum(trait_count) AS count
+          RETURN obj, count
+          ORDER BY count DESC
+        )
+      end
+
+      def obj_counts_query_for_taxa(query, params)
+        obj_var = "child_obj"
+        anc_var = "anc"
+        match_part = TraitBank::Search.term_page_search_matches(query, params, always_match_obj: true, obj_var: obj_var)
+
+        %Q(
+          #{match_part}
+          WITH #{obj_var}, collect(distinct page) as pages
+          #{count_query_anc_obj_match(query, obj_var, anc_var, params)}
+          WITH #{anc_var} AS obj, collect(pages) as list_of_lists_of_pages
+          WITH obj, reduce(output = [], p in list_of_lists_of_pages | output + p) AS pages
+          UNWIND pages AS page
+          WITH obj, count(distinct page) AS count
+          RETURN obj, count
+          ORDER BY count DESC
+        )
+      end
+
+      def count_query_anc_obj_match(query, obj_var, anc_var, params)
+        result = "MATCH (#{obj_var})-[#{PARENT_TERMS}]->(#{anc_var}:Term)"
+        filter = query.filters.first
+
+        if filter.object_term?
+          result.concat("-[#{PARENT_TERMS}]->(:Term { uri: $count_query_obj })")
+          params[:count_query_obj] = filter.object_term.uri
+        end
+
+        result.concat("\nWHERE #{anc_var}.is_hidden_from_select = false")
+
+        result
+      end
+
+      # Usual trait search MATCHes, collect tgt_obj and obj nodes for each filter/page
+      def add_sankey_match_part(term_query, query_parts, params, collected_obj_pairs_vars, obj_var_pairs)
+        query_parts << TraitBank::Search.term_search_matches_helper(
+          term_query, 
+          params, 
+          always_match_obj: true, 
+          with_tgt_vars: true
+        ) do |i, filter, trait_var, pred_var, tgt_pred_var, obj_var, tgt_obj_var|
+          with = "WITH page, "
+          collected_obj_pairs_var = nil
+          tgt_obj_var = filter.object_term? ? tgt_obj_var : nil
+
+          if i < term_query.filters.length - 1
+            collected_obj_pairs_var = obj_var + "_pairs"
+            collect = filter.object_term? ? 
+              "{ obj: #{obj_var}, tgt_obj: #{tgt_obj_var} }" :
+              "{ obj: #{obj_var} }"
+            with.concat("collect(#{collect}) AS #{collected_obj_pairs_var}")
+          else
+            with.concat("#{obj_var}")
+            with.concat(", #{tgt_obj_var}") if filter.object_term?
+          end
+
+          if collected_obj_pairs_vars.any?
+            with.concat(", #{collected_obj_pairs_vars.join(", ")}")
+          end
+
+          collected_obj_pairs_vars << collected_obj_pairs_var if collected_obj_pairs_var
+          obj_var_pairs << { obj: obj_var, tgt_obj: tgt_obj_var }
+
+          with
+        end
+      end
+
+      # Add query part to unwind lists of objects collected in first part of query, and return Array of variables referring to the unwound object pairs (e.g., <label> in 'UNWIND <pairs> AS <label>')
+      def sankey_add_unwind_obj_pairs_part(query_parts, collected_obj_pairs_vars, obj_var_pairs)
+        obj_pair_vars = []
+
+        query_parts << collected_obj_pairs_vars.map.with_index do |var, i|
+          pair_var = "#{obj_var_pairs[i][:obj]}_pair"
+          obj_pair_vars << pair_var
+          "UNWIND #{var} AS #{pair_var}"
+        end.join("\n")
+
+        obj_pair_vars
+      end
+
+      def sankey_add_collect_pages_per_objs_part(query_parts, obj_var_pairs, obj_pair_vars)
+        # Expand { tgt_obj: ..., obj: ... } pairs (labeled by labels in obj_pair_vars) back into separate variables using labels in obj_var_pairs.
+        obj_var_parts = obj_pair_vars.map.with_index do |pair, i|
+          part = "#{pair}.obj AS #{obj_var_pairs[i][:obj]}"
+
+          if obj_var_pairs[i][:tgt_obj]
+            part.concat(", #{pair}.tgt_obj AS #{obj_var_pairs[i][:tgt_obj]}")
+          end
+
+          part
+        end
+        
+        # We didn't collect the pairs for the last filter (they're already 'unwound', so to speak), so just pass them through
+        obj_var_parts << obj_var_pairs[-1][:obj]
+        obj_var_parts << obj_var_pairs[-1][:tgt_obj] if obj_var_pairs[-1][:tgt_obj]
+
+        # Collect pages per distinct combination of objects
+        query_parts << "WITH #{obj_var_parts.join(", ")}, collect(DISTINCT page) AS pages"
+      end
+
+      # Add query part to match the ancestor object Terms to return from the query, and return Array of the labels of said objects
+      def sankey_add_match_anc_objs_part(query_parts, obj_var_pairs)
+        anc_obj_vars = Array.new(obj_var_pairs.length)
+
+        # For each row, get the appropriate ancestor(s) of each object. In the case of a filter with an object term, we want the
+        # ancestor(s) that is a child of the object term; in the case of a predicate-only filter, it is the term(s) w/o a parent.
+
+        anc_matches = obj_var_pairs.map.with_index do |pair, i|
+          anc_obj_var = "anc_obj#{i}"
+          anc_obj_vars[i] = anc_obj_var
+
+          if pair[:tgt_obj]
+            # NOTE: using a WHERE here, rather than a single match that also expresses the where condition, makes a significant difference in query performance.
+            # The latter approach results in a query plan that gets all of the children of the tgt_obj (many in the case of a broad Term like Northern Hemisphere),
+            # then does the other half of the query and joins the results. Using a WHERE clause resutls in a SemiApply which filters the results of the OPTIONAL MATCH
+            # one by one using the WHERE clause test. tl;dr: WHERE results in going "up" the term hierarchy, and never down, which is better.
+            "OPTIONAL MATCH (#{pair[:obj]})-[#{PARENT_TERMS}]->(#{anc_obj_var}:Term)\nWHERE (#{anc_obj_var})-[:parent_term]->(#{pair[:tgt_obj]})"
+          else
+            "OPTIONAL MATCH (#{pair[:obj]})-[#{PARENT_TERMS}]->(#{anc_obj_var}:Term)\nWHERE NOT (#{anc_obj_var})-[:parent_term|:synonym_of]->(:Term)"
+          end
+        end
+
+        query_parts << anc_matches.join("\n")
+
+        anc_obj_vars
+      end
+
+      def sankey_add_anc_obj_case_part(query_parts, obj_var_pairs, anc_obj_vars)
+        # include original terms if they're the direct object (or synonym of direct object) of their matching traits
+        obj_cases = obj_var_pairs.map.with_index do |pair, i|
+          if pair[:tgt_obj]
+            "CASE WHEN #{anc_obj_vars[i]} IS NULL THEN #{pair[:tgt_obj]} ELSE #{anc_obj_vars[i]} END AS #{anc_obj_vars[i]}"
+          else
+            anc_obj_vars[i]
+          end
+        end
+        query_parts << "WITH #{obj_cases.join(", ")}, pages"
+      end
+
+      def sankey_add_final_agg_and_return_parts(query_parts, anc_obj_vars)
+        # re-group pages per combination of ancestor terms
+        query_parts << "UNWIND pages AS page"
+        query_parts << "WITH #{anc_obj_vars.join(", ")}, collect(DISTINCT page.page_id) AS page_ids"
+
+        # row id, named columns for return
+        query_parts << "WITH #{anc_obj_vars.map { |v| "#{v}.eol_id" }.join(" + '|' + ")} AS key, #{anc_obj_vars.map { |v| "#{v}.name AS #{v}_name, #{v}.eol_id AS #{v}_id" }.join(", ")}, page_ids"
+        query_parts << "RETURN key, #{anc_obj_vars.map { |v| "#{v}_id, #{v}_name" }.join(", ")}, page_ids"
+        query_parts << "ORDER BY size(page_ids) DESC"
+      end
+
+
+      def raise_if_query_invalid_for_counts(query)
         result = check_query_valid_for_counts(query)
 
         if !result.valid
