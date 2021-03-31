@@ -107,9 +107,9 @@ module Traits
       end
       pages_by_id = Page.where(id: page_ids).map { |p| [p.id, p] }.to_h
 
-      @data = result.map { |row| taxon_summary_count_result_from_row(row, pages_by_id) }
+      @data = result.map { |row| taxon_summary_count_result_from_row(row, result.length, pages_by_id) }
 
-      render_common(template: 'traits/data_viz/bar')
+      render_with_status(@data.any?, template: 'traits/data_viz/bar')
     end
 
     def hist
@@ -169,7 +169,7 @@ module Traits
       )
     end
 
-    def taxon_summary_count_result_from_row(row, pages_by_id)
+    def taxon_summary_count_result_from_row(row, total_rows, pages_by_id)
       query = @query.deep_dup
       page = pages_by_id[row[:family].page_id]
       query.clade = page
@@ -182,7 +182,7 @@ module Traits
         prompt,
         query,
         row[:count],
-        false
+        total_rows == 1 ? true : false
       )
     end
 

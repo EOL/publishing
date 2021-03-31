@@ -1,6 +1,6 @@
 // copied from/based on https://observablehq.com/@d3/parallel-sets"
 window.Sankey = (function(exports) {
-  exports.build = function() {
+  exports.build = function($contain) {
     const width = 850
         , fullHeight = 520
         , shortHeight = fullHeight / 2
@@ -9,7 +9,7 @@ window.Sankey = (function(exports) {
 
     var highlightLinks = [];
 
-    $data = $('.js-sankey')
+    $data = $contain.find('.js-sankey')
     const graph = {
         nodes: $data.data('nodes'),
         links: $data.data('links')

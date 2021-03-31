@@ -3,8 +3,9 @@
 window.TraitDataViz = (function(exports) {
   var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 
-  function buildBarChart(elmt) {
-    var width = 570
+  function buildBarChart($contain) {
+    var $elmt = $contain.find('.js-taxon-bar-chart')
+      , width = 570
       , hPad = 5
       , innerWidth = width - (hPad * 2)
       , barHeight = 20
@@ -20,7 +21,7 @@ window.TraitDataViz = (function(exports) {
           { label: 'other', count: 472 }
         ].sort((a, b) => b.count - a.count)
         */
-      , data = $('.js-taxon-bar-chart').data('results')
+      , data = $elmt.data('results')
       , maxCount = data.reduce((curMax, d) => {
           return Math.max(d.count, curMax) 
         }, 0)
@@ -37,7 +38,7 @@ window.TraitDataViz = (function(exports) {
       d.width = (d.count / maxCount) * innerWidth;
     });
 
-    var svg = d3.select(elmt)
+    var svg = d3.select($elmt[0])
           .append('svg')
             .attr('width', width)
             .attr('height', height)
@@ -134,8 +135,8 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
-  function buildHistogram() {
-    var $elmt = $('.js-value-hist')
+  function buildHistogram($contain) {
+    var $elmt = $contain.find('.js-value-hist')
       , data = $elmt.data('json')
       , width = 850 
       , height = 530
@@ -295,7 +296,6 @@ window.TraitDataViz = (function(exports) {
 
   function loadBarChart() {
     loadBarChartHelper($('.js-bar-contain'));
-
   }
 
   function loadHistogram() {
@@ -318,7 +318,7 @@ window.TraitDataViz = (function(exports) {
     var $contain = $('.js-assoc-contain');
 
     if ($contain.length) {
-      loadViz($contain, () => AssocViz.build($contain));
+      loadViz($contain, AssocViz.build);
     }
   }
 
@@ -328,11 +328,7 @@ window.TraitDataViz = (function(exports) {
 
   function loadBarChartHelper($contain) {
     if ($contain.length) {
-      loadViz($contain, () => {
-        $contain.find('.js-taxon-bar-chart').each(function() {
-          buildBarChart(this);
-        });
-      });
+      loadViz($contain, buildBarChart);
     }
   }
 
@@ -343,7 +339,7 @@ window.TraitDataViz = (function(exports) {
       if (result) {
         $contain.append(result);
         $contain.find('.js-viz-text').removeClass('uk-hidden');
-        ready();
+        ready($contain);
       }
     })
     .fail(() => {
