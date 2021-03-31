@@ -1116,7 +1116,7 @@ en:
       pie_prompt: "mouse over a segment or key to highlight"
       n_family_records: 
         one: "click to see records for one taxon in family %{family}"
-        other: "click to see records for %{count} taxa in family %{family}"
+        other: "click to see %{count} records for taxa in family %{family}"
       n_family_taxa:
         one: "click to see taxon in family %{family"
         other: "click to see %{count} taxa in family %{family}"

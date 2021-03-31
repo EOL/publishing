@@ -223,11 +223,36 @@ module TraitBank
       def taxon_summary_data(tq, limit)
         #raise_if_search_invalid_for_taxon_summary(search)
         params = { limit: limit }
+        query = tq.record? ? taxon_summary_data_records(tq, params) : taxon_summary_data_pages(tq, params)
 
         # TODO: what if there's a clade filter?
+        full_query = <<~CYPHER
+          #{query}
+          ORDER BY count DESC
+          LIMIT $limit
+        CYPHER
 
+        ActiveGraph::Base.query(full_query, params).to_a
+      end
+
+      def taxon_summary_data_records(tq, params)
+        begin_part = TraitBank::Search.term_record_search_matches(tq, params)
+        <<~CYPHER
+          #{begin_part}
+          UNWIND trait_rows AS trait_row
+          WITH DISTINCT page, trait_row.trait AS trait
+          MATCH (phylum:Page{ rank: "phylum" })<-[:parent*0..]-(family:Page{ rank: "family" })<-[:parent*0..]-(page)
+          WITH phylum, family, count(distinct trait) AS count
+          ORDER BY phylum, count DESC
+          WITH phylum, collect({ family: family, count: count })[0] AS family_row
+          WITH phylum, family_row.family AS family, family_row.count AS count
+          RETURN family, count
+        CYPHER
+      end
+      
+      def taxon_summary_data_pages(tq, params)
         begin_part = TraitBank::Search.term_page_search_matches(tq, params)
-        query = <<~CYPHER
+        <<~CYPHER
           #{begin_part}
           WITH DISTINCT page
           MATCH (phylum:Page{ rank: "phylum" })<-[:parent*0..]-(family:Page{ rank: "family" })<-[:parent*0..]-(page)
@@ -236,11 +261,7 @@ module TraitBank
           WITH phylum, collect({ family: family, count: count })[0] AS family_row
           WITH phylum, family_row.family AS family, family_row.count AS count
           RETURN family, count
-          ORDER BY count DESC
-          LIMIT $limit
         CYPHER
-
-        ActiveGraph::Base.query(query, params).to_a
       end
 
       def check_query_valid_for_histogram(query, count)
