@@ -251,6 +251,16 @@
   width: 100%;
 }
 
+.viz-toggle {
+  display: block;
+  margin-top: 0;
+  text-align: center;
+}
+
+.alt-viz {
+  display: none;
+}
+
 /* adjust if visualization width changes or becomes dynamic */
 @media(min-width: 820px) { 
   .viz-contain-bar { 

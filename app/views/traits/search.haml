@@ -49,8 +49,14 @@
               %i{:'uk-icon' => "icon: grid"}
               = link_to t(".switch_to_gallery"), term_search_results_path(tq: @query.to_short_params, view: "gallery")
     - if @data_viz_type.present? 
-      = render "shared/data_viz_contain", type: @data_viz_type, query: @query
-      
+      .cur-viz
+        = render "shared/data_viz_contain", type: @data_viz_type, query: @query
+      - if @data_viz_type != :taxon_summary && @valid_for_taxon_summary
+        - toggle_text = t("traits.data_viz.show_link.#{@data_viz_type == :sankey ? 'associations' : 'attribute'}_summary")
+        .alt-viz.js-alt-viz
+          = render "shared/data_viz_contain", type: :taxon_summary, query: @query
+        .a.viz-toggle.js-viz-toggle{ data: { 'toggle-text': toggle_text } }= t("traits.data_viz.show_link.taxon_summary")
+
     - if @query.record?
       = render 'data_table', { data: @search.grouped_data, pages: @pages, data_viz: @data_viz }
     - elsif @search.grouped_data.any?

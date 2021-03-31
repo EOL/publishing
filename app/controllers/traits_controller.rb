@@ -134,6 +134,9 @@ class TraitsController < ApplicationController
   end
 
   def data_viz_type(query, search)
+    # We show a link to the taxon summary on all eligible searches even if it's not the primary visualization shown
+    @valid_for_taxon_summary = TraitBank::Stats.check_search_valid_for_taxon_summary(search).valid
+
     if TraitBank::Stats.check_query_valid_for_assoc(query).valid
       @data_viz_type = :assoc
     elsif TraitBank::Stats.check_query_valid_for_counts(query).valid
@@ -142,7 +145,7 @@ class TraitsController < ApplicationController
       @data_viz_type = :hist
     elsif TraitBank::Stats.check_query_valid_for_sankey(query).valid
       @data_viz_type = :sankey
-    elsif TraitBank::Stats.check_search_valid_for_taxon_summary(search).valid
+    elsif @valid_for_taxon_summary
       @data_viz_type = :taxon_summary
     end
   end
@@ -157,6 +160,7 @@ class TraitsController < ApplicationController
   end
 
   private
+
   def build_query_for_display(tb_res)
     query = tb_res[:raw_query].gsub(/^\ +/, '') # get rid of leading whitespace
 

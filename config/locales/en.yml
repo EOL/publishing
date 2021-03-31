@@ -1139,6 +1139,10 @@ en:
       show_n_taxa_between:
         one: "click to see %{count} taxon with measurement values in [%{min}, %{limit}] %{units}"
         other: "click to see %{count} taxa with measurement values in [%{min}, %{limit}] %{units}"
+      show_link:
+        associations_summary: 'show associations summary'
+        attribute_summary: 'show attribute summary'
+        taxon_summary: 'show taxon summary'
     properties:
       citation: "Bibliographic citation"
       method: "Measurement method"
