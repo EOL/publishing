@@ -174,7 +174,12 @@ module Traits
       page = pages_by_id[row[:family].page_id]
       query.clade = page
       # TODO: these are probably not right -- talk to Jen
-      prompt_key = @query.record? ? "n_family_records" : "n_family_taxa"
+      if total_rows > 1
+        prompt_key = @query.record? ? "show_n_family_records" : "show_n_family_taxa"
+      else
+        prompt_key = @query.record? ? "n_family_records": "n_family_taxa"
+      end
+
       prompt = I18n.t("traits.data_viz.#{prompt_key}", family: page.name, count: row[:count])
 
       CountVizResult.new(

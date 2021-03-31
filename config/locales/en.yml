@@ -1103,6 +1103,12 @@ en:
       about_this_chart_tooltip_sankey_3+: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Many categories overlap and a species may be included in more than one category in the same axis. In a highlighted subset display, these multi-value species will be counted multiple times in other axes."
       other_term_name: "other %{term_name}"
       hist_value_label: "value (%{units})"
+      n_family_records: 
+        one: "one record for taxa in family %{family}"
+        other: "%{count} records for taxa in family %{family}"
+      n_family_taxa:
+        one: "one taxon in family %{family}"
+        other: "%{count} taxa in family %{family}"
       n_other_records:
         one: "one other record"
         other: "%{count} other records"
@@ -1114,11 +1120,11 @@ en:
       page_habitat_header: "%{name} Habitats"
       page_habitat_explanation: "The environments in which many %{name} species are known to live. Select an environment to see its %{name} species checklist."
       pie_prompt: "mouse over a segment or key to highlight"
-      n_family_records: 
-        one: "click to see records for one taxon in family %{family}"
+      show_n_family_records: 
+        one: "click to see one record for taxa in family %{family}"
         other: "click to see %{count} records for taxa in family %{family}"
-      n_family_taxa:
-        one: "click to see taxon in family %{family}"
+      show_n_family_taxa:
+        one: "click to see one taxon in family %{family}"
         other: "click to see %{count} taxa in family %{family}"
       n_obj_records:
         one: "one record with \"%{obj_name}\""
