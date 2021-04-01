@@ -16,6 +16,7 @@ gem 'eol_terms', '~> 0.7.08', git: 'https://github.com/EOL/eol_terms.git', branc
 gem 'webpacker', '~> 5.x'
 
 # SASS
+# Sass is end-of-life. Update to sassc gem: https://github.com/sass/sassc-ruby#readme
 gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.10.2' # NOTE: as of Jan 2021, there is a 2.11, we should try swtiching next month.
