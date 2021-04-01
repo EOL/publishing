@@ -1920,7 +1920,7 @@ fr:
         http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: date d’événement
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: feuillage persistant
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: forêt sempervirente
-        https://eol(dot)org/schema/terms/everse: everse
+        https://eol(dot)org/schema/terms/everse: éverse
         http://eol(dot)org/schema/terms/excavating: excavateur
         http://eol(dot)org/schema/terms/explanate: exoplan
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposé
@@ -3054,7 +3054,10 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: récif d’éponges
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: source (d’eau aquifère)
         https://eol(dot)org/schema/terms/springing: jaillissement
+        http://eol(dot)org/schema/terms/squamulose: squamulose
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009029: étamine
         http://eol(dot)org/schema/terms/StandardLength: longueur standard
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: amidon
         https://eol(dot)org/schema/terms/starfish_feeder: se nourrit d’étoiles de
           mer
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: période
@@ -3075,6 +3078,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002127: sédiment de ruisseau
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000129: vallée de ruisseau
         http://eol(dot)org/schema/terms/stressTolerant: tolérant au stress
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000186: tourbière en corde
         https://eol(dot)org/schema/terms/subcarangiform: sous-carangiforme
         http://eol(dot)org/schema/terms/subadult: subadulte
         http://eol(dot)org/schema/terms/subalpineFreshwaterLake: lac subalpin
@@ -3123,6 +3127,7 @@ fr:
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/271649006: pression
           sanguine systolique
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longueur de la queue
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000455: tarn
         http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: longueur
           du tarsométatarse + tertius
         http://eol(dot)org/schema/terms/TarsusLength: longueur du tarse
@@ -3160,6 +3165,7 @@ fr:
         http://eol(dot)org/schema/terms/terrestrialPlant: plante terrestre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000070: sédiment terrigène
         http://eol(dot)org/schema/terms/TestesMass: poids des testicules
+        http://eol(dot)org/schema/terms/testicond: testicond
         http://eol(dot)org/schema/terms/TestisLocation: position du testicule
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: acide tétracosanoïque
           (lignocérique)
@@ -3441,8 +3447,11 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000244: plaine abyssale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000273: pente continental
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000274: montée continentale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000315: bajada
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000318: zone de marée haute
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000404: stratovolcan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002131: épilimnion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002132: métalimnion
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002249: phæozème
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002260: sol dunaire
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002926: infiltration chaude
@@ -3461,6 +3470,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: île de mangrove
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000338: couche de litière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000335: sous-bois
         http://eol(dot)org/schema/terms/HasDispersalVector: a un vecteur de dispersion
         http://eol(dot)org/schema/terms/mol_cell-1: mol/cellule
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tardif
@@ -3516,6 +3526,7 @@ fr:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Plastoneotype: plastonéotype
         http://eol(dot)org/schema/terms/isoparatype: isoparatype
         http://eol(dot)org/schema/terms/prototype: prototype
+        http://eol(dot)org/schema/terms/adolescaria: adolescaire
         http://eol(dot)org/schema/terms/adultAndJuvenile: adultes et juvéniles
         http://eol(dot)org/schema/terms/adultAndLarva: adultes et larves
         http://eol(dot)org/schema/terms/adultAndNymph: adultes et nymphes
@@ -3536,12 +3547,17 @@ fr:
           et hermaphrodites
         http://eol(dot)org/schema/terms/maleFlowers: fleurs mâles
         http://eol(dot)org/schema/terms/manca: manca
+        http://eol(dot)org/schema/terms/marita: marita
         http://eol(dot)org/schema/terms/metamorph: métamorphe
         http://eol(dot)org/schema/terms/miracidium: miracidium
         http://eol(dot)org/schema/terms/morphotype: morphotype
         http://eol(dot)org/schema/terms/nonBreeding: hors élevage
+        http://eol(dot)org/schema/terms/parthenita: parthénita
         http://eol(dot)org/schema/terms/plerocercoid: plérocercoïde
+        http://eol(dot)org/schema/terms/plerocercus: plérocercus
         http://eol(dot)org/schema/terms/postmetamorph: postmétamorphe
+        http://eol(dot)org/schema/terms/praniza: praniza
+        http://eol(dot)org/schema/terms/redia: rédia
         http://eol(dot)org/schema/terms/tetrathyridium: tétrathyridium
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000757: plasmodium
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: nymphe
@@ -3550,6 +3566,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: tachyzoïte
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001773: oocyste
         http://purl(dot)obolibrary(dot)org/obo/BTO_0003670: stade microfilaire
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: cercaire
         http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: stade de sporocyste
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: fertile
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: hermaphrodite

@@ -847,7 +847,7 @@ pt-BR:
         lifestage: |2-
 
           Fase de vida %{value}
-        obj_only: 'valor: %{obj}'
+        obj_only: 'com valor: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         resource: 'recurso: %{value}'

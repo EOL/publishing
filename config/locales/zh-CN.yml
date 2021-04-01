@@ -16,6 +16,7 @@
 # Author: Shirayuki
 # Author: Shizhao
 # Author: Shoufen
+# Author: Si109
 # Author: SomeyaMako
 # Author: Tiger
 # Author: VulpesVulpes825
@@ -1080,7 +1081,7 @@ zh-CN:
       edit_filters: 编辑过滤器
       filter_display:
         lifestage: '生命阶段: %{value}'
-        obj_only: 数值%{obj}
+        obj_only: 价值：%{obj}
         resource: 资料：%{value}
         sex: 性别：%{value}
         statistical_method: 统计法：%{value}

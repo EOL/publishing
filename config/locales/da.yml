@@ -287,7 +287,7 @@ da:
       source: Kilde
     search:
       filter_display:
-        obj_only: 'værdi: %{obj}'
+        obj_only: 'med værdien: %{obj}'
       new_search: ny søgning
       select:
         top_level:

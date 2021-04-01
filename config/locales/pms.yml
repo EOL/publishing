@@ -1409,7 +1409,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: giass animal
         http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: densità ëd popolassion
           animal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: drugia animal
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: età anisian-a
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: eva anòssica
+        http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: àcid ante-isootadecanòich
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit

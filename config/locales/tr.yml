@@ -1070,6 +1070,7 @@ tr:
     users: kullanıcılar
     references: kaynaklar
   term_query:
+    invalid_obsolete: GEÇERSİZ/ESKİ
     validations:
       empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren
         bir filtre sağlamalısınız

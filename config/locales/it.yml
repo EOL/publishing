@@ -12,6 +12,7 @@ it:
   language_name: Inglese
   about:
     trait_bank:
+      title: TraitBank
       body_html: <p>Il team di gestione tecnica e dei dati di EOL si riferisce alle
         risorse strutturate di dati in EOL - i tratti distintivi e altri dati attributivi,
         le interazioni ecologiche e la nostra classificazione originaria, la Gerarchia
@@ -82,6 +83,7 @@ it:
       nodes_count: nodi
       vernaculars_count: vernacolari
       scientific_names_count: nomi scientifici
+      referents_count: referenti
       species_count: specie
       updated_at: ultimo aggiornamento
   collect_already_in_collection: (è già qui)
@@ -125,7 +127,7 @@ it:
       placeholder: Nome intero o username
     actions:
       associate: associato
-      download_taxa_csv: Scarica CSV dei taxa
+      download_taxa_csv: scarica CSV dei taxa
       delete: cancella
       edit: modifica
       sort: ordina
@@ -148,13 +150,16 @@ it:
         add: '%{user} ha aggiunto la pagina %{page}'
         remove: '%{user} ha rimosso la pagina %{page}'
     search:
+      placeholder: Cerca nella collezione…
       submit: ricerca
     sort:
       hierarchy: gerarchia
       sci_name: nome scientifico, A-Z
       sci_name_rev: nome scientifico, Z-A
       sort_field: annotazione, A-Z
+      sort_field_rev: annotazione, Z-A
     updated: Collezione aggiornata.
+  collection_unauthorized_edit: Solo l'utente proprietario può modificare questa raccolta.
   complete_registration: Per favore prosegui con la registrazione
   content_appears_on: 'Incluso nelle seguenti pagine:'
   content_attributions_header: Informazioni sulla fonte
@@ -178,6 +183,7 @@ it:
     project: progetto
     provider: fornitore
     resource_label: sito associato
+    resource_pk: '(id: %{key})'
     rights_statement: dichiarazione dei diritti
     source: fonte
     view_source_label: originale
@@ -218,6 +224,7 @@ it:
       what_is_eol: Cos'è EOL?
       whats_new: Cosa c'è di nuovo?
     discover:
+      algae: Alghe
       amphibians: Anfibi
       animals: Animali
       archaea: Archeobatteri
@@ -249,7 +256,10 @@ it:
   languages:
     ab: Abkhazo
     Q27683: Acehnese
+    Q27776: Adighè
+    aa: Afar
     af: Afrikaans
+    ak: Akan
     alb: Albanese
     sq: Albanese
     Q131339: Alemanno
@@ -258,7 +268,15 @@ it:
     an: Aragonese
     hy: Armeno
     as: Assamese
+    Q29507: Asturiano
+    Q56590: Atikamekw
+    av: Avaro
+    ae: Avestico
+    ay: Aimara
+    Q9292: Azerbaigiano
+    az: Azerbaigiano
     be: Bielorusso
+    bs: Bosniaco
     Q750553: Portoghese brasiliano
     bg: Bulgaro
     my: Burmese
@@ -442,6 +460,9 @@ it:
   scientific_names_header: Nomi scientifici
   search:
     full_name: '%{vernacular} (%{scientific})'
+    flash:
+      more_than_two_terms: 'Impossibile combinare i risultati per più di due termini:
+        %{terms}'
   search_results:
     medium_article: Voce
     medium_image: Immagine
@@ -449,12 +470,17 @@ it:
     medium_sound: Suono
     medium_video: Video
     empty: Nessun risultato.
+  search_suggestion:
+    new:
+      header: Crea un suggerimento per la ricerca
   sections:
     associations: Associazioni
     behavior: Comportamento
     benefits: Benefici
     comprehensive_description: Descrizione completa
     conservation: Conservazione
+    diagnostic_description: Descrizione diagnostica
+    diseases_and_parasites: Malattie e parassiti
     distribution: Distribuzione
     ecology: Ecologia
     growth: Crescita
@@ -477,6 +503,7 @@ it:
     wikipedia: Wikipedia
   settings: impostazioni
   sign_in: Entra
+  sign_up: Registrati
   simple_form:
     "yes": Sì
     "no": "No"
@@ -492,17 +519,22 @@ it:
         username: Nome utente
         bio: Biografia
   stats:
+    collections: collezioni
+    media: media
     pages: pagine
     nodes: nodi
     scientific_names: nomi
     users: utenti
+    references: riferimenti
   term_query:
     invalid_obsolete: INVALIDO/OBSOLETO
   term_query_filter:
     validations:
+      blank_error: devi specificare un attributo o un valore
       invalid_uri: URI non corretto
   terms:
     scientific_name: nome scientifico
+    show_all_records: mostra tutti i record
     source: fonte
   traits:
     data_viz:
@@ -533,14 +565,26 @@ it:
       links: Collegamenti
     username: nome utente
     update: Aggiorna
+    update_email: Aggiorna email
+  users:
+    sign_in: Accedi
   vernacular_names_header: Nomi comuni
   term:
     actions:
       sort: ordina per
+    edit:
+      submit: Salva
     fields:
+      name: 'nome:'
+      definition: 'definizione:'
       attribution: 'attribuzione:'
+      comment: 'commento:'
     pagination:
+      next: pagina successiva
       previous: pagina precedente
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: è mangiato da
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/mese'
