@@ -19,6 +19,7 @@ module TraitBank
     OBJ_COUNT_LIMIT_PAD = 5
     MAX_ASSOC_TAXA = 200
     MAX_TAXA_FOR_TAXON_SUMMARY = 500_000
+    TAXON_SUMMARY_LIMIT = 50
 
     class << self
       include TraitBank::Constants
@@ -220,12 +221,12 @@ module TraitBank
         )
       end
 
-      def taxon_summary_data(tq, limit)
-        #raise_if_search_invalid_for_taxon_summary(search)
-        params = { limit: limit }
+      def taxon_summary_data(tq)
+        params = { limit: TAXON_SUMMARY_LIMIT }
         query = tq.record? ? taxon_summary_data_records(tq, params) : taxon_summary_data_pages(tq, params)
 
-        # TODO: what if there's a clade filter?
+        # TODO: clade filter case
+        #
         full_query = <<~CYPHER
           #{query}
           ORDER BY count DESC
@@ -243,10 +244,7 @@ module TraitBank
           WITH DISTINCT page, trait_row.trait AS trait
           MATCH (phylum:Page{ rank: "phylum" })<-[:parent*0..]-(family:Page{ rank: "family" })<-[:parent*0..]-(page)
           WITH phylum, family, count(distinct trait) AS count
-          ORDER BY phylum, count DESC
-          WITH phylum, collect({ family: family, count: count })[0] AS family_row
-          WITH phylum, family_row.family AS family, family_row.count AS count
-          RETURN family, count
+          RETURN phylum, family, count
         CYPHER
       end
       
@@ -257,10 +255,7 @@ module TraitBank
           WITH DISTINCT page
           MATCH (phylum:Page{ rank: "phylum" })<-[:parent*0..]-(family:Page{ rank: "family" })<-[:parent*0..]-(page)
           WITH phylum, family, count(distinct page) AS count
-          ORDER BY phylum, count DESC
-          WITH phylum, collect({ family: family, count: count })[0] AS family_row
-          WITH phylum, family_row.family AS family, family_row.count AS count
-          RETURN family, count
+          RETURN phylum, family, count
         CYPHER
       end
 
