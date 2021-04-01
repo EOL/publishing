@@ -6,6 +6,9 @@ gem 'rails', '5.2.4.4'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 
+# Fixes a licensing issue with Rails:
+gem 'mimemagic', '0.3.10'
+
 # "Internal" EOL gems:
 gem 'eol_terms', '~> 0.7.08', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
