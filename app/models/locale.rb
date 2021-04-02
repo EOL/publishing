@@ -38,7 +38,6 @@ class Locale < ApplicationRecord
       @all_by_code ||= Locale.all.map { |l| [l.code, l] }.to_h
     end
 
-
     def get_or_create!(code)
       code = code.downcase
 
@@ -60,8 +59,8 @@ class Locale < ApplicationRecord
         rows.each do |row|
           puts "handling row #{row}"
 
-          language = Language.create_with(group: row['locale']).find_or_create_by!(code: row['language'])
-          locale = Locale.find_or_create_by!(code: row['locale'])
+          language = Language.create_with(group: row['locale'].downcase).find_or_create_by!(code: row['language'].downcase)
+          locale = Locale.find_or_create_by!(code: row['locale'].downcase)
           language.locale = locale
           language.save! 
         end
