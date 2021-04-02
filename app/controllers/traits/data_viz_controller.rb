@@ -100,16 +100,8 @@ module Traits
     end
 
     def taxon_summary 
-      result = TraitBank::Stats.taxon_summary_data(@query, BAR_CHART_LIMIT)
-
-      page_ids = result.map do |row| 
-        row[:family].page_id
-      end
-      pages_by_id = Page.where(id: page_ids).map { |p| [p.id, p] }.to_h
-
-      @data = result.map { |row| taxon_summary_count_result_from_row(row, result.length, pages_by_id) }
-
-      render_with_status(@data.any?, template: 'traits/data_viz/bar')
+      @data = Traits::DataViz::TaxonSummary.new(@query)
+      render_with_status(@data.any?)
     end
 
     def hist

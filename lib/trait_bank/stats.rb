@@ -242,9 +242,9 @@ module TraitBank
           #{begin_part}
           UNWIND trait_rows AS trait_row
           WITH DISTINCT page, trait_row.trait AS trait
-          MATCH (phylum:Page{ rank: "phylum" })<-[:parent*0..]-(family:Page{ rank: "family" })<-[:parent*0..]-(page)
-          WITH phylum, family, count(distinct trait) AS count
-          RETURN phylum, family, count
+          MATCH (group_taxon:Page{ rank: "phylum" })<-[:parent*0..]-(taxon:Page{ rank: "family" })<-[:parent*0..]-(page)
+          WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct trait) AS count
+          RETURN group_taxon_id, taxon_id, count
         CYPHER
       end
       
@@ -253,9 +253,9 @@ module TraitBank
         <<~CYPHER
           #{begin_part}
           WITH DISTINCT page
-          MATCH (phylum:Page{ rank: "phylum" })<-[:parent*0..]-(family:Page{ rank: "family" })<-[:parent*0..]-(page)
-          WITH phylum, family, count(distinct page) AS count
-          RETURN phylum, family, count
+          MATCH (group_taxon:Page{ rank: "phylum" })<-[:parent*0..]-(taxon:Page{ rank: "family" })<-[:parent*0..]-(page)
+          WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct page) AS count
+          RETURN group_taxon_id, taxon_id, count
         CYPHER
       end
 
