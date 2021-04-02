@@ -1,7 +1,9 @@
 class TermsController < ApplicationController
   before_action :require_admin, only: [:update]
 
-  SCHEMA_URI_FORMAT = "https://eol.org/schema/terms/%s"
+  HTTPS_SCHEMA_URI_FORMAT = "https://eol.org/schema/terms/%s"
+  HTTP_SCHEMA_URI_FORMAT = "http://eol.org/schema/terms/%s"
+
   META_OBJECT_URIS = {
     sex: [
       "http://purl.obolibrary.org/obo/PATO_0000383",
@@ -33,7 +35,7 @@ class TermsController < ApplicationController
 #  end
 
   def schema_redirect
-    redirect_to_glossary_entry(SCHEMA_URI_FORMAT % params[:uri_part])
+    redirect_to_glossary_entry(params[:uri_part])
   end
 
   def edit
@@ -161,8 +163,12 @@ private
     end
   end
 
-  def redirect_to_glossary_entry(uri)
-    term = TraitBank::Term.term_as_hash(uri)
+  def redirect_to_glossary_entry(uri_part)
+    # Some eol.org/schema/terms terms are prefixed with http (more common), others with https, so we have to check for both.
+    https_uri = HTTPS_SCHEMA_URI_FORMAT % uri_part
+    http_uri = HTTP_SCHEMA_URI_FORMAT % uri_part
+
+    term = TermNode.find_by(uri: http_uri) || TermNode.find_by(uri: https_uri)
 
     raise_not_found if !term
 

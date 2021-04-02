@@ -15,7 +15,7 @@ module TraitBank
       object_term: ['value']
     }.freeze
     DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
-    UNIQUE_URI_PART_CAPTURE_REGEX = /https:\/\/eol\.org\/schema\/terms\/(.*)/
+    UNIQUE_URI_PART_CAPTURE_REGEX = /https?:\/\/eol\.org\/schema\/terms\/(.*)/
 
     class << self
       # TODO: I don't think these three different "get" methods are really needed. Sort them out. :|
@@ -399,7 +399,7 @@ module TraitBank
                  UNIQUE_URI_PART_CAPTURE_REGEX.match(term[:uri])&.[](1)
                end
 
-        name&.downcase[0]
+        name&.downcase&.[](0)
       end
 
       def sub_glossary(type, page = 1, per = nil, options = {})
