@@ -125,8 +125,10 @@ module TermsHelper
       else
         "with known #{filter.predicate.name}"
       end
-    else 
+    elsif filter.object_term
       "with value #{filter.object_term.name}"
+    else
+      ""
     end
   end
 

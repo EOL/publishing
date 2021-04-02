@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_220041) do
+ActiveRecord::Schema.define(version: 2021_04_02_181950) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -928,6 +928,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_220041) do
     t.integer "status", default: 0
     t.datetime "processing_since"
     t.integer "duplication"
+    t.integer "version"
     t.index ["term_query_id"], name: "index_user_downloads_on_term_query_id"
   end
 
