@@ -118,10 +118,10 @@ module TermsHelper
                        "#{op} #{filter.num_val}"
                      end
         "with #{filter.predicate.name} #{value_part}"
-      elsif filter.obj_clade 
+      elsif filter.obj_clade
         "that #{filter.predicate.name} #{filter.obj_clade.name}"
       elsif filter.association_pred?
-        "known to #{filter.predicate.name} some species"
+        "that #{filter.predicate.name} some species"
       else
         "with known #{filter.predicate.name}"
       end
