@@ -5,6 +5,7 @@
 # Author: Blackteahamburger
 # Author: Carrot Li
 # Author: Colathewikian
+# Author: Hmgrmb
 # Author: Hydra
 # Author: Jhammock
 # Author: Jinghong
@@ -277,80 +278,83 @@ zh-CN:
   language: 语言
   languages:
     ab: 阿布哈西亚语
-    Q27683: 亚齐语
-    Q27776: 阿迪格语
+    q27683: 亚齐语
+    q27776: 阿迪格语
     aa: 阿法尔语
     af: 南非语
     ak: 阿肯语
     alb: 阿尔巴尼亚语
     sq: 阿尔巴尼亚语
-    Q131339: 阿勒曼尼语
+    q131339: 阿勒曼尼语
     am: 阿姆哈拉语
     ar: 阿拉伯语
     an: 阿拉贡语
     hy: 亚美尼亚语
     as: 阿萨姆语
-    Q29507: 阿斯图里亚斯语
-    Q56590: 阿提卡梅克语
+    q29507: 阿斯图里亚斯语
+    q56590: 阿提卡梅克语
+    av: 阿瓦尔语
     ae: 阿维斯陀文
     ay: 艾马拉语
-    Q9292: 阿塞拜疆语
+    q9292: 阿塞拜疆语
     az: 阿塞拜疆语
-    Q33070: 巴厘语
+    q33070: 巴厘语
     bm: 班巴拉语
-    Q33151: 邦加
+    q33151: 邦加
     ba: 巴什基尔语
     eu: 巴斯克语
-    Q29540: 巴伐利亚语
+    q29540: 巴伐利亚语
     be: 白俄罗斯语
-    Q8836490: 本德语
+    q8836490: 本德语
     bn: 孟加拉语
     bh: 比哈文
     bi: 比斯拉马语
     nb: ' 博克马尔语；书面挪威语'
-    Q4941378: 邦代伊语
+    q4941378: 邦代伊语
     bs: 波斯尼亚语
-    Q33202: 布拉灰语
-    Q750553: 巴西的葡萄牙语
+    q33202: 布拉灰语
+    q750553: 巴西的葡萄牙语
     br: 布列塔尼语
     bg: 保加利亚语
     my: 缅甸语
-    Q33120: 布里亚特语
-    Q880301: 卡真法语
-    Q35156: 车
-    Q2591230: 古法文；古吉拉特文
+    q33120: 布里亚特语
+    q880301: 卡真法语
+    q35156: 车
+    q2591230: 古法文；古吉拉特文
     ca: 加泰罗尼亚语；巴伦西亚语
-    Q33239: 宿务语
+    q33239: 宿务语
     khm: 中部高棉语
     km: 中部高棉语
     ch: 查莫罗语
-    Q33281: 查瓦坎语
+    q33281: 查瓦坎语
     ce: 车臣语
-    Q33388: 切诺基语
-    Q33265: 夏延语
+    q33388: 切诺基语
+    q33265: 夏延语
     ny: 齐佩瓦语
     zh: 汉语
     chi: 汉语
-    Q32979: 乔克托语
+    q32979: 乔克托语
     cu: 古教会斯拉夫语
     cv: 楚瓦什语
-    Q37041: 文言
+    q37041: 文言
     kw: 康沃尔语
     co: 科西嘉语
-    Q33357: 克里木鞑靼语
+    cr: 克里族
+    q33357: 克里木鞑靼语
     hr: 克罗地亚语
     hrv: 克罗地亚语
     cs: 捷克语
     da: 丹麦语
-    Q56466: 丁卡语
+    q56466: 丁卡语
     dv: 马尔代夫语
+    q18415595: 都特利语
     dut: 荷兰语；弗莱芒语
     nl: 荷兰语；弗莱芒语
     dz: 宗卡语
     dzo: 宗卡语
-    Q4126517: 东加拿大的因纽特语
+    q4126517: 东加拿大的因纽特语
     en: 英语
-    Q29952: 叶尔贾语
+    q29952: 叶尔贾语
     eo: 世界语
     et: 爱沙尼亚语
     est: 爱沙尼亚语
@@ -361,26 +365,29 @@ zh-CN:
     fin: 芬兰语
     fr: 法语
     fra: 法语
+    ff: 富啦语
     gd: 苏格兰盖立语
     gl: 加利西亚语
-    Q33475: 赣语
+    q33475: 赣语
     lg: 干达语
     ka: 格鲁吉亚语
     de: 德语
     deu: 德语
-    Q5575236: 果阿的孔卡尼语
-    Q2501174: 哥伦打洛语
+    q5575236: 果阿的孔卡尼语
+    q2501174: 哥伦打洛语
     el: 现代希腊语
     gre: 希腊语
     gn: 瓜拉尼语
     gu: 古吉拉特语
-    Q33303: 海达语
+    q33303: 海达语
     ht: 海地语
     ha: 豪萨语
+    q35756: 哈亚
     he: 希伯来语
     heb: 希伯来语
+    q3129390: 赫赫
     hz: 赫雷罗语
-    Q35978: 希利盖农语
+    q35978: 希利盖农语
     hi: 印地语
     ho: 希利摩陀语
     hu: 匈牙利语
@@ -388,64 +395,68 @@ zh-CN:
     ice: 冰岛语
     io: 伊多语
     ig: 伊博语
-    Q35936: 伊洛卡诺语
+    q35936: 伊洛卡诺语
     id: 印尼语
-    Q33509: 印古什语
+    q33509: 印古什语
     ia: 国际辅助语言协会
     ie: 国际语
     iu: 因纽特语
     ik: 因纽特语
-    Q33595: 易洛魁语
+    q33595: 易洛魁语
     ga: 爱尔兰语
     it: 意大利语
     ita: 意大利语
-    Q35939: 牙买加克里奥尔人英语
+    q35939: 牙买加克里奥尔人英语
     ja: 日语
     jp: 日语
     jv: 爪哇语
-    Q33522: 卡巴尔德语；切尔克斯语
-    Q35475: 卡比尔语
-    Q35853: 卡比尔语
+    q33522: 卡巴尔德语；切尔克斯语
+    q35475: 卡比尔语
+    q35853: 卡比尔语
     kl: 格陵兰语
-    Q33634: 卡尔梅克语
+    q33634: 卡尔梅克语
     kn: 埃纳德语
     kr: 卡努里语
-    Q36121: 卡片片甘语
-    Q33541: 卡尔梅克语
+    q36121: 卡片片甘语
+    q33541: 卡尔梅克语
     ks: 克什米尔语
-    Q33690: 卡舒布语
+    q33690: 卡舒布语
     kk: 哈萨克语
     ki: 吉库尤语
-    Q11005332: 金加语
+    q11005332: 金加语
     rw: 卢旺达
     ky: 吉尔吉斯语
     kv: 科米语
     kg: 刚果
     ko: 韩语
     kor: 韩语
+    kj: 宽亚玛语
     ku: 库尔德语
-    Q36206: 腊克语
+    q36206: 腊克语
     lo: 老挝语
     lao: 老挝语
     la: 拉丁语
     lv: 拉脱维亚语
-    Q1160372: 拉兹语
-    Q36106: 利古里亚语
+    q1160372: 拉兹语
+    q31746: 列兹金语
+    q36106: 利古里亚语
     li: 林堡语
     ln: 林加拉语
-    Q146803: 新共同语言
+    q146803: 新共同语言
     lt: 立陶宛语
     lit: 立陶宛语
-    Q33754: 伦巴第语
-    Q168446: 下萨克森
-    Q13286: 下索宾语
+    q33698: 利沃尼亚语
+    q36584: 利维语
+    q33754: 伦巴第语
+    q168446: 下萨克森
+    q13286: 下索宾语
     lu: 卢巴-卡丹加语
-    Q3437661: 陆格鲁语； 班图语之一
+    q3437661: 陆格鲁语； 班图语之一
     lb: 卢森堡语
-    Q35787: 马萨伊语
+    q35787: 马萨伊语
     mk: 马其顿语
-    Q497345: 布里多尼文
-    Q36109: 迈蒂利语
+    q497345: 布里多尼文
+    q36109: 迈蒂利语
     mg: 马达加斯加语
     ms: 马来语
     ml: 马拉雅拉姆语
@@ -455,37 +466,37 @@ zh-CN:
     mi: 毛利语
     mr: 马拉塔语
     mh: 马绍尔语
-    Q3906614: 平地马里语
-    Q13313: 须弥
-    Q36455: 闽东语
-    Q13324: 米南卡堡语
-    Q13359: 明格里利亚语
-    Q13330: 米兰德斯语
-    Q13343: 莫克沙语
+    q3906614: 平地马里语
+    q13313: 须弥
+    q36455: 闽东语
+    q13324: 米南卡堡语
+    q13359: 明格里利亚语
+    q13330: 米兰德斯语
+    q13343: 莫克沙语
     mn: 蒙古语
-    Q56426: 摩洛哥的阿拉伯语
-    Q6944725: 位于坦桑尼亚、乌干达的姆韦拉
-    Q13300: 纳瓦特尔语
+    q56426: 摩洛哥的阿拉伯语
+    q6944725: 位于坦桑尼亚、乌干达的姆韦拉
+    q13300: 纳瓦特尔语
     na: 瑙鲁语
     nv: 納瓦霍语
     nd: 北恩德贝勒语
     nr: 南恩德贝勒语
     ng: 恩东加语
-    Q33845: 那不勒斯语
+    q33845: 那不勒斯语
     ne: 尼泊尔语
-    Q28224: 北弗里斯兰语
-    Q19933293: 北卢里语
+    q28224: 北弗里斯兰语
+    q19933293: 北卢里语
     se: 北萨米语
     "no": 挪威语
     nno: 挪威语
     nob: 挪威语
     nor: 挪威语
     nn: 新挪威语
-    Q36738: 诺维亚语
-    Q4121131: 尼扬韦齐语
-    Q16115145: 尼卡语
+    q36738: 诺维亚语
+    q4121131: 尼扬韦齐语
+    q16115145: 尼卡语
     oc: 奥克西唐语（后 1500）
-    Q28602: 官方亚拉姆语
+    q28602: 官方亚拉姆语
     oj: 奥吉布瓦语
     or: 奥里亚语
     om: 奥罗莫语
@@ -493,41 +504,41 @@ zh-CN:
     pi: 马里
     pa: 旁遮普语
     fa: 波斯语
-    Q23014: 法耳次语
-    Q34024: 庇卡底语
-    Q15085: 皮埃蒙特语
-    Q2429648: 婴秀语
+    q23014: 法耳次语
+    q34024: 庇卡底语
+    q15085: 皮埃蒙特语
+    q2429648: 婴秀语
     pl: 波兰语
     pol: 波兰语
-    Q36748: 庞蒂克语
+    q36748: 庞蒂克语
     pt: 葡萄牙语
     ps: 普什图语
     qu: 克丘亚语
-    Q584983: 兰奇语
+    q584983: 兰奇语
     ro: 罗马尼亚语
     rm: 罗曼什语
     rn: 隆迪语
     ru: 俄语
     rus: 俄语
-    Q26245: 斯洛伐克的卢森尼亚语
-    Q34299: 萨哈语
-    Q718269: 撒奇莱雅语
+    q26245: 斯洛伐克的卢森尼亚语
+    q34299: 萨哈语
+    q718269: 撒奇莱雅语
     sm: 萨摩亚语
-    Q213434: 古吉拉特文
-    Q34016: 桑达韦语
+    q213434: 古吉拉特文
+    q34016: 桑达韦语
     sg: 桑戈语
     sa: 梵语
-    Q33965: 桑塔尔语
+    q33965: 桑塔尔语
     sc: 撒丁语
-    Q845441: 意大利语之一
-    Q14549: 苏格兰英语
+    q845441: 意大利语之一
+    q14549: 苏格兰英语
     sr: 塞尔维亚语
-    Q3788739: 藏语的乌托邦世界；净土
-    Q56482: 掸语
+    q3788739: 藏语的乌托邦世界；净土
+    q56482: 掸语
     sn: 绍纳语
-    Q34004: 绍纳语
+    q34004: 绍纳语
     ii: 彝语北部方言
-    Q33973: 西西里语
+    q33973: 西西里语
     sd: 信德语
     si: 僧伽罗语
     sk: 斯洛伐克语
@@ -538,7 +549,7 @@ zh-CN:
     st: 南索托语
     es: 西班牙语；卡斯蒂利亚语
     slv: 西班牙语
-    Q2638144: 苏库马语
+    q2638144: 苏库马语
     su: 巽他语
     sw: 斯瓦西里语
     ss: 斯瓦蒂语
@@ -547,7 +558,7 @@ zh-CN:
     tl: 塔加洛语
     ty: 大溪地语
     tg: 塔吉克语
-    Q34318: 塔里什语
+    q34318: 塔里什语
     ta: 泰米尔语
     tt: 鞑靼语
     te: 泰卢固语
@@ -555,45 +566,45 @@ zh-CN:
     tha: 泰语
     bo: 藏语
     ti: 提格里尼亚语
-    Q34159: 巴布亚皮钦语
+    q34159: 巴布亚皮钦语
     to: 汤加语
-    Q180937: 阿尔巴尼亚托斯克语
+    q180937: 阿尔巴尼亚托斯克语
     ts: 聪加语
     tn: 茨瓦纳语
-    Q34251: 图鲁语
-    Q34138: 姆布卡语
-    Q56240: 突尼斯的阿拉伯语
+    q34251: 图鲁语
+    q34138: 姆布卡语
+    q56240: 突尼斯的阿拉伯语
     tr: 土耳其语
     tur: 土耳其语
-    Q36730: 奥斯曼土耳其语
+    q36730: 奥斯曼土耳其语
     tk: 土库曼语
     tw: 特威语
-    Q13238: 乌德穆尔特语
+    q13238: 乌德穆尔特语
     ug: 维吾尔语
     uk: 乌克兰语
     ukr: 乌克兰语
     none: 未指定
-    Q13248: 上索布语
+    q13248: 上索布语
     ur: 乌尔都语
     uz: 乌兹别克语
     ve: 文达语
-    Q32747: 俄国的芬兰人说的语言
+    q32747: 俄国的芬兰人说的语言
     vi: 越南语
     vo: 沃拉普克语
-    Q32858: 沃提克语
+    q32858: 沃提克语
     wa: 华隆语
-    Q34279: 瓦雷语
+    q34279: 瓦雷语
     cy: 威尔士语
     wel: 威尔士语
-    Q100103: 西佛兰芒语
+    q100103: 西佛兰芒语
     fy: 西弗里西亚语
     wo: 沃洛夫语
-    Q34290: 吴语
+    q34290: 吴语
     xh: 科萨语
     yi: 意第绪语
     yo: 约鲁巴语
-    Q10199: 扎扎其语
-    Q237409: 古新西兰语
+    q10199: 扎扎其语
+    q237409: 古新西兰语
     za: 壮语
     zu: 祖鲁语
   layout_sign_in: 登录
@@ -1191,20 +1202,65 @@ zh-CN:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 被（谁）吃
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: 有外寄生物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: 有内部寄生体
+        http://eol(dot)org/schema/terms/HasDispersalVector: 的分散向量
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: (谁）的主体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: 有超寄生体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 有向量
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: 被（谁）杀
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 被偷寄生
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: 在上面被（谁）生蛋了
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 被寄生
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: 拟寄生物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 有病原体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: 被捕食于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: 被参观
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: 花被（谁）做客
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/月'
+        http://eol(dot)org/schema/terms/percm2: /平方厘米
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: 阿林期
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: 异常栖息地的选择
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: 异常运动行为
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: 丰盛
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: 深海带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: 深海带
+        http://eol(dot)org/schema/terms/acicular: 针状晶体
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: 酸性温泉
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: 酸性矿山排水
+        http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: 酸性淡水矿采湖
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 酸性的土壤
+        http://eol(dot)org/schema/terms/activeForaging: 积极觅食者
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: 活跃生长期
+        http://eol(dot)org/schema/terms/adaptiveStrategy: 适应的策略
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: 胶粘剂
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: 土坯
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: 成人
+        https://eol(dot)org/schema/terms/adventive: 外来
+        http://eol(dot)org/schema/terms/aerial: 空中
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: 空中
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: 空中栖息地
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: 埃隆期
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: 气溶胶
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: 丰收后再生率
+        http://eol(dot)org/schema/terms/age At Dispersal: 分散年龄
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: 开眼睛的年龄
         http://eol(dot)org/schema/terms/AgeAtMaturity: 成熟的年龄
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: 农业
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: 农业材料
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: 农业用的泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: 梯田
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: 农业废物
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: 农业废物
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: 阿尔布期
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: 碱性环境
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: 旱湖
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: 碱性栖息地
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: 碱性温泉
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: 异性
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: 冲积扇
         http://eol(dot)org/schema/terms/amphibious: 两栖的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: 两性的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: 溯河繁殖的

@@ -291,85 +291,85 @@ nl:
   language: Taal
   languages:
     ab: Abkhazian
-    Q27683: Acehnese
-    Q27776: Adyghe
+    q27683: Acehnese
+    q27776: Adyghe
     aa: Afar
     af: Afrikaans
     ak: Akan
     alb: Albanees
     sq: Albanees
-    Q131339: Alemannisch
+    q131339: Alemannisch
     am: Amharic
     ar: Arabisch
     an: Aragonees
     hy: Armeens
     as: Assamees
-    Q29507: Asturian
-    Q56590: Atikamekw
+    q29507: Asturian
+    q56590: Atikamekw
     av: Avaric
     ae: Avestan
     ay: Aymara
-    Q9292: Azerbeidzjaans
+    q9292: Azerbeidzjaans
     az: Azerbeidzjaans
-    Q33070: Balinees
+    q33070: Balinees
     bm: Bambara
-    Q33151: Banjar
+    q33151: Banjar
     ba: Bashkir
     eu: Baskisch
-    Q29540: Beiers
+    q29540: Beiers
     be: Witrussisch
-    Q8836490: Bende
+    q8836490: Bende
     bn: Bengali
     bh: Bihari talen
     bi: Bislama
     nb: Bokmål, Noors; Noors Bokmål
-    Q4941378: Bondei
+    q4941378: Bondei
     bs: Bosnisch
-    Q33202: Brahui
-    Q750553: Braziliaans Portuguees
+    q33202: Brahui
+    q750553: Braziliaans Portuguees
     br: Bretons
     bg: Bulgaars
     my: Burmees
-    Q33120: Buryat
-    Q35037: Businenge Tongo
-    Q880301: Cajun Frans
-    Q35156: Car
-    Q2591230: Cashinahua
+    q33120: Buryat
+    q35037: Businenge Tongo
+    q880301: Cajun Frans
+    q35156: Car
+    q2591230: Cashinahua
     ca: Catalaans; Valenciaans
-    Q33239: Cebuano
+    q33239: Cebuano
     khm: Centraal Khmer
     km: Centraal Khmer
     ch: Chamorro
-    Q33281: Chavacano
+    q33281: Chavacano
     ce: Chechen
-    Q33388: Cherokee
-    Q33265: Cheyenne
+    q33388: Cherokee
+    q33265: Cheyenne
     ny: Chichewa; Chewa; Nyanja
     zh: Chinees
     chi: Chinees
-    Q32979: Choctaw
+    q32979: Choctaw
     cu: Oud kerks Slavonic
     cv: Chuvash
-    Q37041: Classical Chinees
+    q37041: Classical Chinees
     kw: Cornis
     co: Corsicaans
     cr: Cree
-    Q33357: Krim Tataars
+    q33357: Krim Tataars
     hr: Kroatisch
     hrv: Kroatisch
     cs: Tsjechisch
     da: Deens
-    Q3362072: Digo
-    Q56466: Dinka
+    q3362072: Digo
+    q56466: Dinka
     dv: Divehi; Dhivehi; Maldivian
-    Q18415595: Dotyali
+    q18415595: Dotyali
     dut: Nederlands;Vlaams
     nl: Nederlands;Vlaams
     dz: Dzongkha
     dzo: Dzongkha
-    Q4126517: Eastern Canadian Inuktitut
+    q4126517: Eastern Canadian Inuktitut
     en: Engels
-    Q29952: Erzya
+    q29952: Erzya
     eo: Esperanto
     et: Ests
     est: Ests
@@ -378,33 +378,33 @@ nl:
     fj: Fijian
     fi: Fins
     fin: Fins
-    Q667747: Fipa
+    q667747: Fipa
     fr: Frans
     fra: Frans
     ff: Fulah
     gd: Schots Gaelic
     gl: Galicisch
-    Q33475: Gan Chinees
+    q33475: Gan Chinees
     lg: Ganda
     ka: Georgisch
     de: Duits
     deu: Duits
-    Q5575236: Goan Konkani
-    Q3272630: Gogo
-    Q2501174: Gorontalo
+    q5575236: Goan Konkani
+    q3272630: Gogo
+    q2501174: Gorontalo
     el: Grieks, Modern (1453-)
     gre: Grieks
     gn: Guarani
     gu: Gujarati
-    Q33303: Haida
+    q33303: Haida
     ht: Haitian; Haitian Creools
     ha: Hausa
-    Q35756: Haya
+    q35756: Haya
     he: Hebreeuws
     heb: Hebreeuws
-    Q3129390: Hehe
+    q3129390: Hehe
     hz: Herero
-    Q35978: Hiligaynon
+    q35978: Hiligaynon
     hi: Hindi
     ho: Hiri Motu
     hu: Hongaars
@@ -412,36 +412,36 @@ nl:
     ice: IJslands
     io: Ido
     ig: Igbo
-    Q35936: Ilocano
+    q35936: Ilocano
     id: Indonesisch
-    Q33509: Ingush
+    q33509: Ingush
     ia: Interlingua (International Auxiliary Language Association)
     ie: Interlingue; Westers
     iu: Inuktitut
     ik: Inupiaq
-    Q33595: Iraqw
+    q33595: Iraqw
     ga: Iers
     it: Italiaans
     ita: Italiaans
-    Q35939: Jamaicaans Creools Engels
+    q35939: Jamaicaans Creools Engels
     ja: Japans
     jp: Japans
     jv: Javaans
-    Q33522: Kabardian Circassian
-    Q35475: Kabiyè
-    Q35853: Kabyle
+    q33522: Kabardian Circassian
+    q35475: Kabiyè
+    q35853: Kabyle
     kl: Kalaallisut; Groenlands
-    Q33634: Kalmyk
+    q33634: Kalmyk
     kn: Kannada
     kr: Kanuri
-    Q36121: Kapampangan
-    Q33541: Kara-Kalpak
+    q36121: Kapampangan
+    q33541: Kara-Kalpak
     ks: Kashmiri
-    Q33690: Kashubian
+    q33690: Kashubian
     kk: Kazakh
     ki: Kikuyu; Gikuyu
-    Q11005332: Kinga
-    Q11732519: Kingindo
+    q11005332: Kinga
+    q11732519: Kingindo
     rw: Kinyarwanda
     ky: Kirgizisch; Kirgizisch
     kv: Komi
@@ -450,31 +450,31 @@ nl:
     kor: Koreaans
     kj: Kuanyama; Kwanyama
     ku: Kurdish
-    Q36206: Lak
+    q36206: Lak
     lo: Lao
     lao: Lao
     la: Latijn
     lv: Lets
-    Q1160372: Laz
-    Q31746: Lezgian
-    Q36106: Ligurian
+    q1160372: Laz
+    q31746: Lezgian
+    q36106: Ligurian
     li: Limburger; Limburger; Limburgs
     ln: Lingala
-    Q146803: Lingua Franca Nova
+    q146803: Lingua Franca Nova
     lt: Lets
     lit: Litouws
-    Q33698: Liv
-    Q36584: Livvi
-    Q33754: Lombard
-    Q168446: Nedersaksisch
-    Q13286: Neder-Sorbisch
+    q33698: Liv
+    q36584: Livvi
+    q33754: Lombard
+    q168446: Nedersaksisch
+    q13286: Neder-Sorbisch
     lu: Luba-Katanga
-    Q3437661: Luguru
+    q3437661: Luguru
     lb: Luxembourgish; Letzeburgesch
-    Q35787: Masai
+    q35787: Masai
     mk: Macedonian
-    Q497345: Mainfränkisch
-    Q36109: Maithili
+    q497345: Mainfränkisch
+    q36109: Maithili
     mg: Malagasy
     ms: Malay
     ml: Malayalam
@@ -484,87 +484,87 @@ nl:
     mi: Maori
     mr: Marathi
     mh: Marshallees
-    Q6786446: Matengo
-    Q3906614: Meadow Mari
-    Q13358: Megleno Romeens
-    Q13313: Meru
-    Q36455: Min Dong
-    Q13324: Minangkabau
-    Q13359: Mingrelian
-    Q13330: Mirandese
-    Q13343: Moksha
+    q6786446: Matengo
+    q3906614: Meadow Mari
+    q13358: Megleno Romeens
+    q13313: Meru
+    q36455: Min Dong
+    q13324: Minangkabau
+    q13359: Mingrelian
+    q13330: Mirandese
+    q13343: Moksha
     mn: Mongools
-    Q56426: Marrokaans Arabisch
-    Q6944725: Mwera
-    Q13300: Nahuatl
-    Q3508074: Nai
+    q56426: Marrokaans Arabisch
+    q6944725: Mwera
+    q13300: Nahuatl
+    q3508074: Nai
     na: Nauru
     nv: Navajo; Navaho
     nd: Ndebele, North; North Ndebele
     nr: Ndebele, South; South Ndebele
     ng: Ndonga
-    Q33845: Napolitaans
+    q33845: Napolitaans
     ne: Nepali
-    Q7022366: Ngindo
-    Q28224: Noordfries
-    Q19933293: Noords Luri
+    q7022366: Ngindo
+    q28224: Noordfries
+    q19933293: Noords Luri
     se: Northern Sami
     "no": Noors
     nno: Noors
     nob: Noors
     nor: Noors
     nn: Noors Nynorsk; Nynorsk; Noors
-    Q36738: Novial
-    Q3272620: Nyakusa
-    Q4121131: Nyamwezi
-    Q7193418: Nyaturu
-    Q11128374: Nyiha
-    Q16115145: Nyika
+    q36738: Novial
+    q3272620: Nyakusa
+    q4121131: Nyamwezi
+    q7193418: Nyaturu
+    q11128374: Nyiha
+    q16115145: Nyika
     oc: Occitaans (na 1500)
-    Q28602: Officieel Aramees
+    q28602: Officieel Aramees
     oj: Ojibwa
     or: Oriya
     om: Oromo
     os: Ossetisch; Ossetisch
     pi: Pali
     pa: Punjabi
-    Q36403: Pare
+    q36403: Pare
     fa: Perzisch
-    Q23014: Pfaelzisch
-    Q34024: Picard
-    Q15085: Piedmontese
-    Q2429648: Pogoro
+    q23014: Pfaelzisch
+    q34024: Picard
+    q15085: Piedmontese
+    q2429648: Pogoro
     pl: Pools
     pol: Pools
-    Q36748: Pontisch
+    q36748: Pontisch
     pt: Portugees
     ps: Pushto; Pashto
     qu: Quechua
-    Q584983: Rangi
+    q584983: Rangi
     ro: Romeens; Moldavian; Moldovan
     rm: Romansh
     rn: Rundi
     ru: Russisch
     rus: Russisch
-    Q26245: Rusyn
-    Q34299: Sakha
-    Q718269: Sakizaya
+    q26245: Rusyn
+    q34299: Sakha
+    q718269: Sakizaya
     sm: Samoan
-    Q213434: Samogitian
-    Q34016: Sandawe
+    q213434: Samogitian
+    q34016: Sandawe
     sg: Sango
     sa: Sanskriet
-    Q33965: Santali
+    q33965: Santali
     sc: sardijns
-    Q845441: Sassarese Sardijns
-    Q14549: Schots
+    q845441: Sassarese Sardijns
+    q14549: Schots
     sr: Servisch
-    Q3788739: Shambala
-    Q56482: Shan
+    q3788739: Shambala
+    q56482: Shan
     sn: Shona
-    Q34004: Shona
+    q34004: Shona
     ii: Sichuan Yi; Nuosu
-    Q33973: Siciliaans
+    q33973: Siciliaans
     sd: Sindhi
     si: Sinhalees
     sk: Slovaaks
@@ -575,7 +575,7 @@ nl:
     st: Sotho, Zuid
     es: Spaans; Castiliaans
     slv: Spaans
-    Q2638144: Sukuma
+    q2638144: Sukuma
     su: Sundanees
     sw: Swahili
     ss: Swati
@@ -584,7 +584,7 @@ nl:
     tl: Tagalog
     ty: Tahitiaans
     tg: Tajik
-    Q34318: Talysh
+    q34318: Talysh
     ta: Tamil
     tt: Tataars
     te: Telugu
@@ -592,45 +592,45 @@ nl:
     tha: Thai
     bo: Tibetaans
     ti: Tigrinya
-    Q34159: Tok Pisin
+    q34159: Tok Pisin
     to: Tongan
-    Q180937: Tosk Albaneens
+    q180937: Tosk Albaneens
     ts: Tsonga
     tn: Tswana
-    Q34251: Tulu
-    Q34138: Tumbuka
-    Q56240: Tunesisch Arabisch
+    q34251: Tulu
+    q34138: Tumbuka
+    q56240: Tunesisch Arabisch
     tr: Turks
     tur: Turks
-    Q36730: Turks, Ottomans
+    q36730: Turks, Ottomans
     tk: Turkmeens
     tw: Twi
-    Q13238: Udmurt
+    q13238: Udmurt
     ug: Uighur; Uyghur
     uk: Oekraïens
     ukr: Oekraïens
     none: Niet opgegeven
-    Q13248: Opper-Sorbisch
+    q13248: Opper-Sorbisch
     ur: Urdu
     uz: Uzbeeks
     ve: Venda
-    Q32747: Vepsian
+    q32747: Vepsian
     vi: Vietnamees
     vo: Volapük
-    Q32858: Votic
+    q32858: Votic
     wa: Waals
-    Q34279: Waray
+    q34279: Waray
     cy: Wels
     wel: Welsh
-    Q100103: West Vlaams
+    q100103: West Vlaams
     fy: West-Fries
     wo: Wolof
-    Q34290: Wu
+    q34290: Wu
     xh: Xhosa
     yi: Jiddish
     yo: Yoruba
-    Q10199: Zazaki
-    Q237409: Zeeuws
+    q10199: Zazaki
+    q237409: Zeeuws
     za: Zhuang; Chuang
     zu: Zulu
   layout_sign_in: Aanmelden
