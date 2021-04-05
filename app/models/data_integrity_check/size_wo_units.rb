@@ -14,7 +14,7 @@ class DataIntegrityCheck::SizeWoUnits
     size_uri = EolTerms.alias_uri('size')
 
     <<~CYPHER
-      MATCH (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|synonym_of*0..]->(:Term{ uri: '#{size_uri}' })
+      MATCH (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|synonym_of*1..]->(:Term{ uri: '#{size_uri}' })
       WHERE NOT (trait)-[:units_term]->(:Term)
     CYPHER
   end
