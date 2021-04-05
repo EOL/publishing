@@ -256,20 +256,20 @@ cs:
     an: Aragonština
     hy: Arménština
     as: Assámština
-    Q29507: Asturianština
-    Q56590: Atikamekwština
+    q29507: Asturianština
+    q56590: Atikamekwština
     av: Avarština
-    Q9292: Ázerbájdžánština
+    q9292: Ázerbájdžánština
     az: Ázerbájdžánština
-    Q33070: Balinésština
+    q33070: Balinésština
     eu: Baskičtina
-    Q29540: Bavorština
+    q29540: Bavorština
     be: Běloruština
     bn: Bengálština
     bh: Bihárské jazyky
     nb: Norština
     bs: Bosenština
-    Q750553: Brazilská portugalština
+    q750553: Brazilská portugalština
     br: Bretonština
     bg: Bulharština
     my: Barmština
@@ -282,7 +282,7 @@ cs:
     cu: Staroslověnština
     cv: Čuvačština
     co: Korsičtina
-    Q33357: Krymská tatarština
+    q33357: Krymská tatarština
     hr: Chorvatština
     cs: Čeština
     da: Dánština
@@ -308,11 +308,11 @@ cs:
     ia: Interlingua (Mezinárodní asociace pomocných jazyků)
     ga: Irština
     it: Italština
-    Q35939: Kreolská jamajština
+    q35939: Kreolská jamajština
     ja: Japonština
     jp: Japonština
     jv: Javánština
-    Q33634: Kalmyčtina
+    q33634: Kalmyčtina
     kk: Kazašština
     rw: Kinyarwanda
     kg: Kongžština
@@ -328,7 +328,7 @@ cs:
     mt: Maltézština
     mi: Maorština
     mn: Mongolština
-    Q56426: Marocká arabština
+    q56426: Marocká arabština
     nv: Navajština
     ne: Nepálština
     nn: Nynorsk Norština
@@ -365,7 +365,7 @@ cs:
     bo: Tibetština
     to: Tongština
     tr: Turečtina
-    Q36730: Turečtina, Ottomanština
+    q36730: Turečtina, Ottomanština
     tk: Turkmenština
     ug: Ujgurština
     uk: Ukrajinština

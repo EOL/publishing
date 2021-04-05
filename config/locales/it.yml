@@ -69,6 +69,8 @@ it:
       see_more: vedi altro
     hierarchies:
       header: Gerarchie curate per %{sci_name}
+      see_resource_file: Visualizza il <a href='%{href}'>file sorgente</a> per una
+        lista completa.
       this_page: (questa pagina)
     richness:
       header: Ricchezza della pagina
@@ -194,6 +196,7 @@ it:
   content_not_in_any_collection_video: Questo video non figura in nessuna collezione.
   data:
     modifier:
+      sex_term: Sesso dell'organismo misurato
       lifestage_term: Stadio di sviluppo dell'organismo misurato
       statistical_method_term: Metodo statistico utilizzato per la misurazione
   dear_username_with_comma: Caro %{username},
@@ -255,41 +258,48 @@ it:
   language: Lingua
   languages:
     ab: Abkhazo
-    Q27683: Acehnese
-    Q27776: Adighè
+    q27683: Acehnese
+    q27776: Adighè
     aa: Afar
     af: Afrikaans
     ak: Akan
     alb: Albanese
     sq: Albanese
-    Q131339: Alemanno
+    q131339: Alemanno
     am: Amarico
     ar: Arabo
     an: Aragonese
     hy: Armeno
     as: Assamese
-    Q29507: Asturiano
-    Q56590: Atikamekw
+    q29507: Asturiano
+    q56590: Atikamekw
     av: Avaro
     ae: Avestico
     ay: Aimara
-    Q9292: Azerbaigiano
+    q9292: Azerbaigiano
     az: Azerbaigiano
     be: Bielorusso
     bs: Bosniaco
-    Q750553: Portoghese brasiliano
+    q750553: Portoghese brasiliano
     bg: Bulgaro
     my: Burmese
+    q35156: Car
     ca: Catalano; Valenciano
     ce: Ceceno
     zh: Cinese
     chi: Cinese
-    Q37041: Cinese classico
+    q37041: Cinese classico
+    kw: Cornico
     co: Còrso
     hr: Croato
     hrv: Croato
     cs: Ceco
     da: Danese
+    dut: Olandese; Fiammingo
+    nl: Olandese; Fiammingo
+    dz: Dzongkha
+    dzo: Dzongkha
+    q4126517: Inuktitut canadese orientale
     en: Inglese
     eo: Esperanto
     et: Estone
@@ -299,6 +309,7 @@ it:
     fr: Francese
     fra: Francese
     gd: Gaelico scozzese
+    q33475: Gan Chinese
     ka: Georgiano
     de: Tedesco
     deu: Tedesco
@@ -309,8 +320,11 @@ it:
     heb: Ebraico
     hi: Hindi
     hu: Ungherese
+    is: Islandese
+    ice: Islandese
     id: Indonesiano
     ia: Interlingua (International Auxiliary Language Association)
+    iu: Inuktitut
     ga: Irlandese
     it: Italiano
     ita: Italiano
@@ -318,23 +332,23 @@ it:
     jp: Giapponese
     ko: Coreano
     kor: Coreano
-    Q36106: Ligure
+    q36106: Ligure
     li: Limburghese
     lt: Lituano
     lit: Lituano
-    Q33754: Lombardo
+    q33754: Lombardo
     mk: Macedone
     ms: Malese
     mt: Maltese
     mlt: Maltese
     mn: Mongolo
-    Q33845: Napoletano
+    q33845: Napoletano
     "no": Norvegese
     nno: Norvegese
     nob: Norvegese
     nor: Norvegese
     oc: Occitano (post 1500)
-    Q28602: Aramaico ufficiale
+    q28602: Aramaico ufficiale
     pa: Punjabi
     pl: Polacco
     pol: Polacco
@@ -343,10 +357,10 @@ it:
     rus: Russo
     sa: Sanscrito
     sc: Sardo
-    Q845441: Sardo sassarese
-    Q14549: Scozzese
+    q845441: Sardo sassarese
+    q14549: Scozzese
     sr: Serbo
-    Q33973: Siciliano
+    q33973: Siciliano
     si: Singalese
     sk: Slovacco
     slk: Slovacco
@@ -354,6 +368,7 @@ it:
     so: Somalo
     som: Somalo
     st: Sotho del sud
+    es: Spagnolo; Castigliano
     slv: Spagnolo
     sv: Svedese
     swe: Svedese
@@ -362,15 +377,15 @@ it:
     tha: Thailandese
     bo: Tibetano
     to: Tongano
-    Q56240: Arabo tunisino
+    q56240: Arabo tunisino
     tr: Turco
     tur: Turco
-    Q36730: Turco, ottomano
+    q36730: Turco, ottomano
     uk: Ucraino
     ukr: Ucraino
     none: Non specificato
     vi: Vietnamita
-    Q100103: Fiammingo occidentale
+    q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
   layout_sign_in: Accedi
   layout_sign_up: Registrati
@@ -410,10 +425,13 @@ it:
         per visualizzare i risultati senza revisione
       placeholder: Cerca in EOL...
   page_title: Enciclopedia della Vita
+  page_title_search: 'Cerca: %{query}'
+  page_vernaculars_empty: Non ci sono nomi comuni associati a questo taxon.
   pages:
     actions:
       reindex: reindicizzare
     batch_lookup:
+      canonical_name: nome canonico
       new_search: nuova ricerca
       page_id: ID pagina
       page_url: URL pagina
@@ -425,10 +443,15 @@ it:
     page_data:
       show_all: mostra tutto
     resource_names:
+      name_recognized_by: Riconosciuto da %{by}
+      name_recognized_by_w_rank: '%{rank} riconosciuto da %{by}'
       rank:
         r_domain: Dominio
         r_subdomain: Sottodominio
+        r_infradomain: Infradominio
+        r_superkingdom: Superregno
         r_kingdom: Regno
+        r_subkingdom: Sottoregno
         r_infrakingdom: Infraregno
         r_superphylum: Superphylum
         r_phylum: Phylum
@@ -436,14 +459,22 @@ it:
         r_superclass: Superclasse
         r_class: Classe
         r_subclass: Sottoclasse
+        r_infraclass: Infraclasse
         r_superorder: Superordine
         r_order: Ordine
         r_suborder: Sottordine
+        r_infraorder: Infraordine
+        r_superfamily: Superfamiglia
         r_family: Famiglia
         r_subfamily: Sottofamiglia
+        r_tribe: Tribù
+        r_supergenus: Supergenere
+        r_genus: Genere
         r_subgenus: Sottogenere
         r_species: Specie
         r_infraspecies: Infraspecie
+    trophic_web:
+      reset: reimposta
     tabs:
       articles: voci
       classifications: classificazioni
@@ -453,6 +484,10 @@ it:
       maps: mappe
       media: media
       names: nomi
+    iucn_status:
+      ex: estinto (EX)
+      ew: estinto in natura (EW)
+      vu: vulnerabile (VU)
   recaptcha: Recaptcha
   resources:
     headers:

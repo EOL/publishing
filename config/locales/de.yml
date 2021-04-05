@@ -10,6 +10,7 @@
 # Author: Katja
 # Author: Kghbln
 # Author: Killarnee
+# Author: Lorisobi
 # Author: Schmackes
 # Author: Symposiarch
 # Author: Tiin
@@ -139,6 +140,7 @@ de:
       submit: suche
     sort:
       hierarchy: Hierarchie
+      position: Datum hinzugefügt
       sci_name: Wissenschaftliche Bezeichnung, A-Z
       sci_name_rev: Wissenschaftliche Bezeichnung, A-Z
   content_collected_in: 'In den folgenden Sammlungen vorgestellt:'
@@ -147,6 +149,7 @@ de:
     altitude: Höhe
     author: Autor
     bibliographic_citation: bibliographisches Zitat
+    contributor: Beteiligte
     compiler: Kompiler
     creator: Ersteller
     editor: Editor
@@ -161,6 +164,7 @@ de:
     publisher: Herausgeber
     project: Projekt
     provider: Anbieter
+    resource_label: Partnerseite
     source: Quelle
     spatial_location: räumlich
     view_source_label: original
@@ -229,55 +233,62 @@ de:
   language: Sprache
   languages:
     ab: Abchasisch
-    Q27683: Achinesisch
-    Q27776: Adygeisch
+    q27683: Achinesisch
+    q27776: Adygeisch
     aa: Afar
     af: Afrikaans
     ak: Akan
     alb: Albanisch
     sq: Albanisch
-    Q131339: Alemannisch
+    q131339: Alemannisch
     am: Amharisch
     ar: Arabisch
     an: Aragonisch
     hy: Armenisch
     as: Assamesisch
-    Q29507: Asturisch
-    Q56590: Atikamekw
+    q29507: Asturisch
+    q56590: Atikamekw
     av: Awarisch
     ae: Avestisch
     ay: Aymara
-    Q9292: Aserbaidschanisch
+    q9292: Aserbaidschanisch
     az: Aserbaidschanisch
-    Q33070: Balinesisch
+    q33070: Balinesisch
     bm: Bambara
-    Q33151: Banjaresisch
+    q33151: Banjaresisch
     ba: Baschkirisch
     eu: Baskisch
-    Q29540: Bayrisch
+    q29540: Bayrisch
     be: Belarussisch
-    Q8836490: Bende
+    q8836490: Bende
     bn: Bengalisch
     bh: Bihari-Sprachen
     bi: Bislama
     nb: Bokmål, Norwegisch; Norwegisches Bokmål
-    Q4941378: Bondei
+    q4941378: Bondei
     bs: Bosnisch
-    Q33202: Brahui
-    Q750553: Brasilianisches Portugiesisch
+    q33202: Brahui
+    q750553: Brasilianisches Portugiesisch
     br: Bretonisch
     bg: Bulgarisch
     my: Birmanisch
-    Q33120: Burjatisch
+    q33120: Burjatisch
+    q35156: Car
     ca: Katalanisch; Valencianisch
-    Q33388: Cherokee
+    q33388: Cherokee
+    zh: Chinesisch
+    chi: Chinesisch
     co: Korsisch
     hr: Kroatisch
+    hrv: Kroatisch
     cs: Tschechisch
     da: Dänisch
+    dut: Niederländisch; Flämisch
+    nl: Niederländisch; Flämisch
     en: Englisch
     eo: Esperanto
     et: Estnisch
+    est: Estnisch
     fi: Finnisch
     fin: Finnisch
     fr: Französisch
@@ -293,27 +304,58 @@ de:
     heb: Hebräisch
     hi: Hindi
     hu: Ungarisch
+    is: Isländisch
+    ice: Isländisch
+    id: Indonesisch
     ga: Irisch
+    jp: Japanisch
+    jv: Japanisch
+    kk: Kasachisch
     ko: Koreanisch
     kor: Koreanisch
+    ku: Kurdisch
     lao: Laotisch
     la: Lateinisch
-    Q146803: Lingua Franca Nova
-    Q497345: Mainfränkisch
+    q146803: Lingua Franca Nova
+    lt: Litauisch
+    lit: Litauisch
+    q168446: Niedersächsisch
+    q13286: Niedersorbisch
+    mk: Mazedonisch
+    q497345: Mainfränkisch
+    mlt: Maltesisch
+    mn: Mongolisch
+    q56426: Marokkanisches Arabisch
+    q28224: Nordfriesisch
     "no": Norwegisch
-    Q36738: Novial
+    nno: Norwgisch
+    nob: Norwegisch
+    nor: Norwegisch
+    q36738: Novial
     fa: Persisch
-    Q23014: Pfälzisch
+    q23014: Pfälzisch
     pl: Polnisch
     pol: Polnisch
     pt: Portugiesisch
+    sa: Sanskrit
+    sc: Sardinisch
+    sr: Serbisch
+    sk: Slowakisch
+    slk: Slowakisch
+    sl: Slowenisch
     es: Spanisch; Kastilisch
     slv: Spanisch
     sw: Swahili
+    sv: Schwedisch
+    swe: Schwedisch
     bo: Tibetisch
+    none: Nicht angegeben
+    q13248: Obersorbisch
     ur: Urdu
+    uz: Usbekisch
+    vi: Vietnamesisch
     cy: Walisisch
-    Q100103: West-Flämisch
+    q100103: West-Flämisch
   layout_sign_in: Anmelden
   layout_sign_up: Registrieren
   layout_sign_out: Abmelden
@@ -352,16 +394,19 @@ de:
     search:
       placeholder: Durchsuche EOL...
     trait_bank: TraitBank
+  name_preferred_label: bevorzugt
   page_title: Enzyklopädie des Lebens
   page_title_search: 'Durchsuche: %{query}'
   page_vernaculars_empty: Mit diesem Taxon sind keine verbreiteten Namen verbunden.
   pages:
     actions:
       collect: sammeln
+      reindex: neuindizieren
     batch_lookup:
       download_tsv: TSV herunterladen
       new_search: neue Suche
       page_url: Seiten-URL
+      query: Abfrage
       search: Suche
     filter_menu:
       show_all: Alle anzeigen
@@ -371,16 +416,21 @@ de:
       name_recognized_by: Erkannt von %{by}
       name_recognized_by_w_rank: '%{rank} erkannt von %{by}'
       rank:
+        r_kingdom: Königreich
+        r_class: Klasse
         r_family: Familie
         r_tribe: Stamm
         r_species: Spezies
         r_form: Form
+    trophic_web:
+      reset: Zurücksetzen
     tabs:
       articles: Artikel
       classifications: Klassifikationen
       data: Daten
       literature_and_references: Literatur und Verweise
       overview: Übersicht
+      maps: Karte
       media: Medien
       names: Namen
     iucn_status:

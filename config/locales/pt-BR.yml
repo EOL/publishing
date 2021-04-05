@@ -284,7 +284,7 @@ pt-BR:
   language: Idioma
   languages:
     ab: Abcázia
-    Q27776: Adigue
+    q27776: Adigue
     aa: Afar
     af: Africâner
     ak: Acã
@@ -298,9 +298,9 @@ pt-BR:
     av: Avar
     ae: Avéstico
     ay: Aimará
-    Q9292: Azerbaijano
+    q9292: Azerbaijano
     az: Azerbaijano
-    Q33070: Balinês
+    q33070: Balinês
     bm: Bambara
     ba: Basquir
     eu: Basco
@@ -310,30 +310,30 @@ pt-BR:
     bi: Bislamá
     nb: Bokmål norueguês
     bs: Bósnia
-    Q750553: Português do Brasil
+    q750553: Português do Brasil
     br: Bretã
     bg: Búlgaro
-    Q35156: Carro
+    q35156: Carro
     ca: Catalão; Valenciano
     ch: Chamorro
-    Q33281: Chavacano
+    q33281: Chavacano
     ce: Chechena
     ny: Nianja; Cinianja; Chewa
     zh: Chinês
     chi: Chinês
     cu: Antigo eslavo eclesiástico
     cv: Tchuvache
-    Q37041: Chinês clássico
+    q37041: Chinês clássico
     co: Corsa
     cr: Cree
-    Q33357: Tártaro da Crimeia
+    q33357: Tártaro da Crimeia
     hr: Croato
     hrv: Croata
     cs: Checo
     da: Dinamarquês
-    Q3362072: Digo
+    q3362072: Digo
     dv: Divehi; Dhivehi; Maldivense
-    Q18415595: Doteli
+    q18415595: Doteli
     dz: Butanês
     dzo: Butanês
     en: Inglês
@@ -353,7 +353,7 @@ pt-BR:
     ka: Georgiano
     de: Alemão
     deu: Alemão
-    Q3272630: Gogo
+    q3272630: Gogo
     el: Grego, Moderno (1453-)
     gre: Grego
     gn: Guarani
@@ -362,7 +362,7 @@ pt-BR:
     ha: Hauçá
     he: Hebraico
     hz: Herero
-    Q35978: Panayano
+    q35978: Panayano
     hi: Hindi
     ho: Hiri Motu
     hu: Húngaro
@@ -378,11 +378,11 @@ pt-BR:
     ga: Irlandês
     it: Italiano
     ita: Italiano
-    Q35939: Crioulo de Jamaica
+    q35939: Crioulo de Jamaica
     ja: Japonês
     jp: Japonês
     jv: Japonês
-    Q33541: Caracalpaque
+    q33541: Caracalpaque
     kk: Cazaque
     ki: Quicuio; Gikuyu
     kg: Congo
@@ -390,17 +390,17 @@ pt-BR:
     kor: Coreano
     ku: Curdo
     la: Latin
-    Q1160372: Laz
-    Q146803: Língua franca nova
+    q1160372: Laz
+    q146803: Língua franca nova
     lt: Lituano
-    Q33754: lombardo
+    q33754: lombardo
     mk: Macedônio
     gv: Manês
     mi: Maori
-    Q13358: Megleno-romeno
+    q13358: Megleno-romeno
     mn: Mongol
-    Q56426: Árabe marroquino
-    Q6944725: Mwera
+    q56426: Árabe marroquino
+    q6944725: Mwera
     nv: Navajo
     nd: Ndebele do norte; Ndebele do Zimbabwe
     ng: Xindongo
@@ -410,14 +410,14 @@ pt-BR:
     nob: Norueguês
     nor: Norueguês
     nn: Novo norueguês
-    Q4121131: Nyamwezi
-    Q28602: Aramaico oficial
+    q4121131: Nyamwezi
+    q28602: Aramaico oficial
     oj: Ojíbua
     fa: Persa
     pl: Polonês
     pol: Polonês
     pt: Português
-    Q584983: Langi
+    q584983: Langi
     rm: Romanche
     ru: Russo
     rus: Russo
@@ -426,7 +426,7 @@ pt-BR:
     sc: Sardo
     sr: sérvio
     ii: Sichuan Yi; Nuosu
-    Q33973: Siciliano
+    q33973: Siciliano
     sk: Eslovaco
     sl: Esloveno
     som: Somali
@@ -439,9 +439,9 @@ pt-BR:
     th: Tailandês
     tha: Tailandês
     bo: Tibetano
-    Q56240: Árabe tunisino
+    q56240: Árabe tunisino
     tr: Turco
-    Q36730: Turco, Otomano
+    q36730: Turco, Otomano
     tk: Turcomano
     uk: Ucraniano
     none: Não especificado

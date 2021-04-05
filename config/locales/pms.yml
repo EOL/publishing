@@ -283,85 +283,85 @@ pms:
   language: Lenga
   languages:
     ab: Abcasian
-    Q27683: Acenèis
-    Q27776: Adigan
+    q27683: Acenèis
+    q27776: Adigan
     aa: Afar
     af: Afrikaans
     ak: Akan
     alb: Albanèis
     sq: albanèis
-    Q131339: Alemànich
+    q131339: Alemànich
     am: Amàrich
     ar: Àrabo
     an: Aragonèis
     hy: Armen
     as: Assamèis
-    Q29507: Asturian
-    Q56590: Atikamekw
+    q29507: Asturian
+    q56590: Atikamekw
     av: Avàrich
     ae: Avestan
     ay: Aymara
-    Q9292: Aser
+    q9292: Aser
     az: Aser
-    Q33070: Balinèis
+    q33070: Balinèis
     bm: Bambara
-    Q33151: Banjar
+    q33151: Banjar
     ba: Bashkir
     eu: Basch
-    Q29540: Bavarèis
+    q29540: Bavarèis
     be: Bieloruss
-    Q8836490: Bende
+    q8836490: Bende
     bn: Bengalèis
     bh: Lenghe bihari
     bi: Bislamèis
     nb: bokmål, norvegèis; norvegèis bokmål
-    Q4941378: Bondei
+    q4941378: Bondei
     bs: Bosnìach
-    Q33202: Brahui
-    Q750553: Portughèis brasilian
+    q33202: Brahui
+    q750553: Portughèis brasilian
     br: Breton
     bg: Bùlgar
     my: birman
-    Q33120: Buryat
-    Q35037: Businenge Tongo
-    Q880301: Fransèis cajun
-    Q35156: Car
-    Q2591230: Cashinahua
+    q33120: Buryat
+    q35037: Businenge Tongo
+    q880301: Fransèis cajun
+    q35156: Car
+    q2591230: Cashinahua
     ca: Catalan; Valensian
-    Q33239: Sebuan
+    q33239: Sebuan
     khm: Khmer sentral
     km: Khmer sentral
     ch: Chamorro
-    Q33281: Chavacano
+    q33281: Chavacano
     ce: Cecen
-    Q33388: Ciròchi
-    Q33265: Cheyenne
+    q33388: Ciròchi
+    q33265: Cheyenne
     ny: chewa; chichewa; nyanja
     zh: cinèis
     chi: Cinèis
-    Q32979: Choctaw
+    q32979: Choctaw
     cu: Vej slavònich ëd la cesa
     cv: Chuvash
-    Q37041: Cinèis clàssich
+    q37041: Cinèis clàssich
     kw: Córnich
     co: Còrs
     cr: Cree
-    Q33357: Tatar ëd Crimea
+    q33357: Tatar ëd Crimea
     hr: Croat
     hrv: Croat
     cs: Cech
     da: Danèis
-    Q3362072: Digo
-    Q56466: Dinka
+    q3362072: Digo
+    q56466: Dinka
     dv: Divehi; Dhivehi; Maldivian
-    Q18415595: Dotyali
+    q18415595: Dotyali
     dut: Olandèis; Flamand
     nl: olandèis; flamand
     dz: Dzongkha
     dzo: Dzongkha
-    Q4126517: Inuktitut canadèis oriental
+    q4126517: Inuktitut canadèis oriental
     en: Anglèis
-    Q29952: Erzya
+    q29952: Erzya
     eo: Esperant
     et: Éston
     est: Éston
@@ -370,33 +370,33 @@ pms:
     fj: Figian
     fi: Finlandèis
     fin: Finlandèis
-    Q667747: Fipa
+    q667747: Fipa
     fr: Fransèis
     fra: Fransèis
     ff: Fulah
     gd: Gaélich ëscossèis
     gl: Galissian
-    Q33475: Cinèis gan
+    q33475: Cinèis gan
     lg: Ganda
     ka: Georgian
     de: Alman
     deu: Alman
-    Q5575236: Konkani goanèis
-    Q3272630: Gogo
-    Q2501174: Gorontalo
+    q5575236: Konkani goanèis
+    q3272630: Gogo
+    q2501174: Gorontalo
     el: Grech modern (1453-)
     gre: Grech
     gn: Guarani
     gu: Gujarati
-    Q33303: Haïda
+    q33303: Haïda
     ht: Haitian; Créol haitian
     ha: Hausa
-    Q35756: Haya
+    q35756: Haya
     he: Ebreo
     heb: Ebreo
-    Q3129390: Hehe
+    q3129390: Hehe
     hz: Herero
-    Q35978: Hiligaynon
+    q35978: Hiligaynon
     hi: Hindi
     ho: Hiri motu
     hu: Ungherèis
@@ -404,36 +404,36 @@ pms:
     ice: Islandèis
     io: Ido
     ig: Igbo
-    Q35936: Ilocan
+    q35936: Ilocan
     id: Indonesian
-    Q33509: Ingush
+    q33509: Ingush
     ia: Antërlenga (Assossiassion Antërnassional për na Lenga Ausiliaria)
     ie: Antërlenga; Ossidental
     iu: Inuktitut
     ik: Inupiaq
-    Q33595: Iraqw
+    q33595: Iraqw
     ga: Irlandèis
     it: Italian
     ita: Italian
-    Q35939: Anglèis créol giamaican
+    q35939: Anglèis créol giamaican
     ja: Giaponèis
     jp: Giaponèis
     jv: Giavanèis
-    Q33522: Kabardian Sircassian
-    Q35475: Kabiyè
-    Q35853: Kabyl
+    q33522: Kabardian Sircassian
+    q35475: Kabiyè
+    q35853: Kabyl
     kl: Kalaallisut; Groenlandèis
-    Q33634: Calmoch
+    q33634: Calmoch
     kn: Kannada
     kr: Kanuri
-    Q36121: Kapampangan
-    Q33541: Kara-Kalpak
+    q36121: Kapampangan
+    q33541: Kara-Kalpak
     ks: Kashmir
-    Q33690: Kashubian
+    q33690: Kashubian
     kk: Kasach
     ki: Kikuyu; Gikuyu
-    Q11005332: Kinga
-    Q11732519: Kingindo
+    q11005332: Kinga
+    q11732519: Kingindo
     rw: kinyarwanda
     ky: Kirghiz; Kyrgyz
     kv: Komi
@@ -442,31 +442,31 @@ pms:
     kor: Corean
     kj: Kuanyama; Kwanyama
     ku: Curd
-    Q36206: Lak
+    q36206: Lak
     lo: lao
     lao: Lao
     la: Latin
     lv: léton
-    Q1160372: Laz
-    Q31746: Lesgian
-    Q36106: Lìgur
+    q1160372: Laz
+    q31746: Lesgian
+    q36106: Lìgur
     li: Limborghèis
     ln: lingala
-    Q146803: Lenga franca neuva
+    q146803: Lenga franca neuva
     lt: lituan
     lit: Lituan
-    Q33698: Liv
-    Q36584: Livvi
-    Q33754: Lombard
-    Q168446: Bass sasson
-    Q13286: Sorbian anferior
+    q33698: Liv
+    q36584: Livvi
+    q33754: Lombard
+    q168446: Bass sasson
+    q13286: Sorbian anferior
     lu: luba-katanga
-    Q3437661: Luguru
+    q3437661: Luguru
     lb: Lussemborghèis; Letzeburgesch
-    Q35787: Masai
+    q35787: Masai
     mk: macédon
-    Q497345: Fransisch prinsipal
-    Q36109: Maithili
+    q497345: Fransisch prinsipal
+    q36109: Maithili
     mg: malgass
     ms: malèis
     ml: malayalam
@@ -476,87 +476,87 @@ pms:
     mi: maòri
     mr: marathi
     mh: marshalèis
-    Q6786446: Matengo
-    Q3906614: Meadow Mari
-    Q13358: Rumen Megleno
-    Q13313: Meru
-    Q36455: Min Dong
-    Q13324: Minangkabau
-    Q13359: Mingrelian
-    Q13330: Mirandèis
-    Q13343: Moksha
+    q6786446: Matengo
+    q3906614: Meadow Mari
+    q13358: Rumen Megleno
+    q13313: Meru
+    q36455: Min Dong
+    q13324: Minangkabau
+    q13359: Mingrelian
+    q13330: Mirandèis
+    q13343: Moksha
     mn: mòngol
-    Q56426: Àrabo marochin
-    Q6944725: Mwera
-    Q13300: Nahuatl
-    Q3508074: Nai
+    q56426: Àrabo marochin
+    q6944725: Mwera
+    q13300: Nahuatl
+    q3508074: Nai
     na: nauru
     nv: navajo; navaho
     nd: ndebele dël nòrd
     nr: ndebele dël sud
     ng: ndonga
-    Q33845: Nàpoli
+    q33845: Nàpoli
     ne: nepalèis
-    Q7022366: Ngindo
-    Q28224: Frisian setentrional
-    Q19933293: Luri dël nòrd
+    q7022366: Ngindo
+    q28224: Frisian setentrional
+    q19933293: Luri dël nòrd
     se: sami dël Nòrd
     "no": norvegèis
     nno: Norvegèis
     nob: Norvegèis
     nor: Norvegèis
     nn: norvegèis nynorsk; nynorsk, norvegèis
-    Q36738: Novial
-    Q3272620: Nyakusa
-    Q4121131: Nyamwezi
-    Q7193418: Nyaturu
-    Q11128374: Nyiha
-    Q16115145: Nyika
+    q36738: Novial
+    q3272620: Nyakusa
+    q4121131: Nyamwezi
+    q7193418: Nyaturu
+    q11128374: Nyiha
+    q16115145: Nyika
     oc: Ossitan (apress 1500)
-    Q28602: Arameo ofissial
+    q28602: Arameo ofissial
     oj: ojibwa
     or: oriya
     om: oromo
     os: osset
     pi: pali
     pa: Punjabi
-    Q36403: Pare
+    q36403: Pare
     fa: Persian
-    Q23014: Palatin
-    Q34024: Picard
-    Q15085: Piemontèis
-    Q2429648: Pogoro
+    q23014: Palatin
+    q34024: Picard
+    q15085: Piemontèis
+    q2429648: Pogoro
     pl: polonèis
     pol: Polonèis
-    Q36748: Pòntich
+    q36748: Pòntich
     pt: portughèis
     ps: pushto; pashton
     qu: quechua
-    Q584983: Rangi
+    q584983: Rangi
     ro: romen; moldav
     rm: romancc
     rn: rundi
     ru: russ; russi
     rus: Russ
-    Q26245: Rusyn
-    Q34299: Sakha
-    Q718269: Sakizaya
+    q26245: Rusyn
+    q34299: Sakha
+    q718269: Sakizaya
     sm: samoan
-    Q213434: Samogitian
-    Q34016: Sandawe
+    q213434: Samogitian
+    q34016: Sandawe
     sg: sango
     sa: sànscrit
-    Q33965: Santali
+    q33965: Santali
     sc: sard
-    Q845441: Sard sassarèis
-    Q14549: Scossèis
+    q845441: Sard sassarèis
+    q14549: Scossèis
     sr: serb
-    Q3788739: Shambala
-    Q56482: Shan
+    q3788739: Shambala
+    q56482: Shan
     sn: shona
-    Q34004: Shona
+    q34004: Shona
     ii: Yi dël Sichuan; Nuosu
-    Q33973: Sicilian
+    q33973: Sicilian
     sd: sindhi
     si: Singalèis
     sk: slovach
@@ -567,7 +567,7 @@ pms:
     st: sotho dël sud
     es: Spagneul; Castilian
     slv: Spagneul
-    Q2638144: Sukuma
+    q2638144: Sukuma
     su: sondanèis
     sw: swahili
     ss: swati
@@ -576,7 +576,7 @@ pms:
     tl: tagalog
     ty: taitian
     tg: tagich
-    Q34318: Talysh
+    q34318: Talysh
     ta: tamil
     tt: Tatar
     te: telugu
@@ -584,45 +584,45 @@ pms:
     tha: Tailandèis
     bo: Tibetan
     ti: tigrinya
-    Q34159: Tok pisin
+    q34159: Tok pisin
     to: Tongan
-    Q180937: Albanèis Tosk
+    q180937: Albanèis Tosk
     ts: tsonga
     tn: tswana
-    Q34251: Tulu
-    Q34138: Tumbuka
-    Q56240: Àrabo tunisin
+    q34251: Tulu
+    q34138: Tumbuka
+    q56240: Àrabo tunisin
     tr: turch
     tur: Turch
-    Q36730: Turch, otman
+    q36730: Turch, otman
     tk: turcmen
     tw: twi
-    Q13238: Udmurt
+    q13238: Udmurt
     ug: uighur; uyghur
     uk: ucrain
     ukr: Ucrain
     none: Nen ëspessìficà
-    Q13248: Sorbian superior
+    q13248: Sorbian superior
     ur: urdu
     uz: usbech
     ve: venda
-    Q32747: Vepsian
+    q32747: Vepsian
     vi: vietnamèis
     vo: volapük
-    Q32858: Vòtich
+    q32858: Vòtich
     wa: valon
-    Q34279: Waray
+    q34279: Waray
     cy: Galèis
     wel: Galèis
-    Q100103: Flamand ossidental
+    q100103: Flamand ossidental
     fy: Frisian ossidental
     wo: wolof
-    Q34290: Wu
+    q34290: Wu
     xh: xhosa
     yi: yiddish
     yo: yoruba
-    Q10199: Zazaki
-    Q237409: Zelandèis
+    q10199: Zazaki
+    q237409: Zelandèis
     za: zhuang; chuang
     zu: zulù
   layout_sign_in: Rintré ant ël sistema
@@ -1414,7 +1414,17 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: eva anòssica
         http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: àcid ante-isootadecanòich
+        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: àcid ante-isotetradecanòich
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: anterior
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009066: antera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogénich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002204: caraterìstica ëd contaminassion
+          antropogénica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010001: material ambiental antropogénich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: antropogénich terestr
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
+        http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: euj an aposission
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: età apsian-a
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomossion an sj'erbo

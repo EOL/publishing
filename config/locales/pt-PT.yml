@@ -193,11 +193,12 @@ pt-PT:
     hy: Arménio
     eu: Basco
     bs: Bósnio
-    Q33281: Chavacano
+    q35156: Car
+    q33281: Chavacano
     zh: Chinês
     hr: Croata
     da: Dinamarquês
-    Q3362072: Digo
+    q3362072: Digo
     en: Português (Portugal)
     eo: Esperanto
     et: Estoniano
@@ -206,7 +207,7 @@ pt-PT:
     gl: Galego
     ka: Georgiano
     de: Alemão
-    Q3272630: Gogo
+    q3272630: Gogo
     el: Grego, Moderno (1453-)
     he: Hebreu
     hi: Hindi
@@ -219,11 +220,11 @@ pt-PT:
     kk: Cazaquistanês
     ko: Coreano
     la: Latim
-    Q1160372: Laz
-    Q146803: Língua Franca Nova
-    Q13358: Megleno-romeno
-    Q6944725: Mwera
-    Q4121131: Nyamwezi
+    q1160372: Laz
+    q146803: Língua Franca Nova
+    q13358: Megleno-romeno
+    q6944725: Mwera
+    q4121131: Nyamwezi
     fa: Persa
     pt: Português (Portugal)
     ru: Russo

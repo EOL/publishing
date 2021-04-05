@@ -297,68 +297,68 @@ es:
   language: Idioma
   languages:
     ab: Abjasio
-    Q27683: Achenés
-    Q27776: Adigué
+    q27683: Achenés
+    q27776: Adigué
     aa: Afar
     af: Afrikáans
     ak: Akan
     alb: Albanés
     sq: Albanés
-    Q131339: Alemánico
+    q131339: Alemánico
     am: Amhárico
     ar: Árabe
     an: Aragonés
     hy: Armenio
     as: Asamés
-    Q29507: Asturiano
-    Q56590: Atikamekw
+    q29507: Asturiano
+    q56590: Atikamekw
     av: Avárico
     ae: Avéstico
     ay: Aimara
-    Q9292: Azerí
+    q9292: Azerí
     az: Azerí
-    Q33070: Balinés
+    q33070: Balinés
     bm: Bambara
-    Q33151: Banjar
+    q33151: Banjar
     ba: Baskir
     eu: Vasco
-    Q29540: Bávaro
+    q29540: Bávaro
     be: Bielorruso
-    Q8836490: Bende
+    q8836490: Bende
     bn: Bengalí
     bh: Lenguas bihari
     bi: Bislama
     nb: Bokmål (noruego estándar)
-    Q4941378: Bondei
+    q4941378: Bondei
     bs: Bosnio
-    Q33202: Brahui
-    Q750553: Portugués brasileño
+    q33202: Brahui
+    q750553: Portugués brasileño
     br: Bretón
     bg: Búlgaro
     my: Birmano
-    Q33120: Buryat
-    Q35037: Businenge Tongo
-    Q880301: Francés Cajun
-    Q35156: carro
-    Q2591230: Cashinahua
+    q33120: Buryat
+    q35037: Businenge Tongo
+    q880301: Francés Cajun
+    q35156: carro
+    q2591230: Cashinahua
     ca: Catalán; Valenciano
-    Q33239: Cebuano
+    q33239: Cebuano
     ch: Chamorro
-    Q33281: Chavacano
+    q33281: Chavacano
     ce: Checheno
-    Q33388: Cheroqui
-    Q33265: Cheyenne
+    q33388: Cheroqui
+    q33265: Cheyenne
     ny: Chichewa; Chewa; Nyanja
     zh: Chino
     chi: Chino
-    Q37041: Idioma chino clásico
+    q37041: Idioma chino clásico
     kw: Córnico
-    Q33357: Tártaro de Crimea
+    q33357: Tártaro de Crimea
     hr: Croata
     hrv: Croata
     cs: Checo
     da: Danés
-    Q3362072: Digo
+    q3362072: Digo
     dut: neerlandés; flamenco
     nl: Holandés; flamenco
     en: Inglés
@@ -389,7 +389,7 @@ es:
     ga: Irlandés
     it: Italiano
     ita: Italiano
-    Q35939: Criollo de Jamaica
+    q35939: Criollo de Jamaica
     ja: Japonés
     jp: Japonés
     jv: Javanés
@@ -406,7 +406,7 @@ es:
     mg: Malgache
     mt: Maltés
     mn: Mongol
-    Q56426: Árabe marroquí
+    q56426: Árabe marroquí
     nv: Navajo
     ne: Nepalí
     "no": Noruego
@@ -437,7 +437,7 @@ es:
     th: Tai
     bo: Tibetano
     ti: Tigriña
-    Q34159: Tok pisin
+    q34159: Tok pisin
     to: Tongano
     tr: Turco
     uk: Ucraniano
@@ -446,7 +446,7 @@ es:
     uz: Uzbeko
     vi: Vietnamita
     cy: Galés
-    Q100103: Flamenco occidental
+    q100103: Flamenco occidental
     wo: Wólof
     yi: Yidis
     zu: Zulú
