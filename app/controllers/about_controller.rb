@@ -31,9 +31,16 @@ class AboutController < ApplicationController
     terms_by_uri = TermNode.where(uri: term_uris).map { |t| [t.uri, t] }.to_h
 
     data.collect do |datum|
+      term = terms_by_uri[datum["uri"]]
+
+      unless term
+        logger.error("Invalid URI in TB wordcloud data: #{datum['uri']}")
+        next nil
+      end
+
       term_query = TermQuery.new(
         filters: [
-          TermQueryFilter.new(predicate_id: terms_by_uri[datum["uri"]].id)
+          TermQueryFilter.new(predicate_id: term.id)
         ],
         result_type: :record
       )
@@ -43,7 +50,7 @@ class AboutController < ApplicationController
         weight: Math.log(datum["count"], 2),
         link: Rails.application.routes.url_helpers.term_search_results_path(term_query: term_query.to_params)
       }
-    end
+    end.compact
   end
 end
 
