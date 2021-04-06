@@ -32,6 +32,10 @@ class Publishing::PubLog
     log(what.to_s, cat: :infos)
   end
 
+  def error(what)
+    log(what.to_s, cat: :errors)
+  end
+
   def log(what, type = nil)
     cat = type && type.key?(:cat) ? type[:cat] : :starts
     add_text_logs("(#{cat}) #{what}")

@@ -1,5 +1,6 @@
 class TraitBank::Slurp
   MAX_CSV_SIZE = 500_000
+  CHECK_LIMIT = 50
 
   delegate :query, to: TraitBank
 
@@ -251,9 +252,12 @@ class TraitBank::Slurp
 
     break_up_large_files(filename) do |sub_filename|
       # check trait validity
-      @logger.info("Running validity checks")
-      checks.each do |where_clause, check|
-        run_check(sub_filename, where_clause, check) 
+      if checks
+        @logger.info("Running validity checks")
+
+        checks.each do |where_clause, check|
+          run_check(sub_filename, where_clause, check) 
+        end
       end
       
       # build nodes required by all rows
@@ -377,10 +381,19 @@ class TraitBank::Slurp
     merges.each { |triple| merge_triple(triple: triple, head: head, nodes: global_nodes + where_nodes, matches: matches) }
   end
 
+  def csv_query_file_location(filename)
+    filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
+  end
+
   def csv_query_head(filename, where_clause = nil)
     where_clause ||= '1=1'
-    file = filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
+    file = csv_query_file_location(filename)
     "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause} "
+  end
+
+  def csv_check_head(filename, where_clause)
+    file = csv_query_file_location(filename)
+    "LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause}"
   end
 
   # TODO: extract the file-writing to a method that takes a block.
@@ -509,12 +522,13 @@ class TraitBank::Slurp
   end
 
   def run_check(filename, row_where_clause, check)
-    head = csv_query_head(filename, row_where_clause)
+    head = csv_check_head(filename, row_where_clause)
     query = <<~CYPHER
       #{head}
       MATCH #{check[:matches].join(", ")}
       WHERE #{check[:fail_condition]}
-      RETURN DISTINCT #{check[:return_properties].join(", ")}
+      RETURN DISTINCT #{check[:returns].join(", ")}
+      LIMIT #{CHECK_LIMIT}
     CYPHER
 
     result = ActiveGraph::Base.query(query).to_a
@@ -522,10 +536,12 @@ class TraitBank::Slurp
     if result.any?
       message = <<~END
         #{check[:message]}
-        #{result.map { |r| r.to_a.join(', ') }.join("\n")}
       END
 
-      raise TypeError, message
+      @logger.error(message)
+      result.each { |r| @logger.error(r.values.join(', ')) }
+
+      raise TypeError, "data checks failed"
     end
   end
 end
