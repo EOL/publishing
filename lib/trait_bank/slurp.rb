@@ -109,6 +109,28 @@ class TraitBank::Slurp
   def load_csv_config
     { "traits_#{@resource.id}.csv" =>
       {
+        checks: {
+          "1=1" => {
+            matches: [
+              '(predicate:Term { uri: row.predicate })',
+              '(page:Page { page_id: row.page_id })',
+              '(predicate)-[:exclusive_to_clade]->(clade:Page)'
+            ],
+            fail_condition: 'NOT (clade)<-[:parent*0..]-(page)',
+            returns: ['page.page_id', 'predicate.uri', 'clade.page_id'],
+            message: 'exclusive_to_clade check failed for the following [page_id, predicate_uri, clade_id]s:'
+          },
+          is_not_blank("row.value_uri") => {
+            matches: [
+              '(object_term:Term { uri: row.value_uri })',
+              '(page:Page { page_id: row.page_id })',
+              '(object_term)-[:incompatible_with_clade]->(clade:Page)'
+            ],
+            fail_condition: '(clade)<-[:parent*..]-(page)', 
+            returns: ['page.page_id', 'object_term.uri', 'clade.page_id'],
+            message: 'incompatible_with_clade check failed for the following [page_id, object_term_uri, clade_id]s:'
+          }
+        },
         nodes: [
           NodeConfig.new(label: 'Page', attributes: [:page_id]),
           NodeConfig.new(label: 'Trait', attributes: %i[
@@ -223,10 +245,17 @@ class TraitBank::Slurp
   end
 
   def load_csv(filename, config, params = {})
+    checks = config[:checks]
     wheres = config[:wheres]
     nodes = config[:nodes]
 
     break_up_large_files(filename) do |sub_filename|
+      # check trait validity
+      @logger.info("Running validity checks")
+      checks.each do |where_clause, check|
+        run_check(sub_filename, where_clause, check) 
+      end
+      
       # build nodes required by all rows
       nodes.each do |node|
         try_again = true
@@ -431,7 +460,6 @@ class TraitBank::Slurp
     obj  = triple[2].to_s
     q = head
 
-    # MATCH any required nodes:
     nodes.each do |node|
       next unless subj == node.name || obj == node.name
       q += "\nMATCH (#{node.name}:#{node.label} { #{node.pk_attr.key}: #{autocast_val(node.pk_attr)} })"
@@ -477,6 +505,27 @@ class TraitBank::Slurp
 
     ActiveGraph::Base.session do |session|
       session.run(q)
+    end
+  end
+
+  def run_check(filename, row_where_clause, check)
+    head = csv_query_head(filename, row_where_clause)
+    query = <<~CYPHER
+      #{head}
+      MATCH #{check[:matches].join(", ")}
+      WHERE #{check[:fail_condition]}
+      RETURN DISTINCT #{check[:return_properties].join(", ")}
+    CYPHER
+
+    result = ActiveGraph::Base.query(query).to_a
+
+    if result.any?
+      message = <<~END
+        #{check[:message]}
+        #{result.map { |r| r.to_a.join(', ') }.join("\n")}
+      END
+
+      raise TypeError, message
     end
   end
 end
