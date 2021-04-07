@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
-  revision: 03441e8721f7b4e924920aa823e63d750ecf27cc
+  revision: 86099b3eb2b4ddfaefc60f03872c93bd56672959
   branch: main
   specs:
-    eol_terms (0.8.04)
+    eol_terms (0.8.05)
       yaml
 
 GIT

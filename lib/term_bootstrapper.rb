@@ -21,6 +21,26 @@
 #
 # http://purl.obolibrary.org/obo/GO_0040011 is the synonym of http://www.owl-ontologies.com/unnamed.owl#Locomotion
 class TermBootstrapper
+  # NOTE: This must be updated if you intend to pick up new fields from EolTerms
+  RECOGNIZED_FIELDS = %w[
+    alias
+    attribution
+    definition
+    eol_id
+    is_hidden_from_select
+    is_hidden_from_overview
+    is_hidden_from_glossary
+    is_text_only
+    parent_uris
+    units_term_uri
+    name
+    synonym_of_uri
+    type
+    uri
+    is_symmetrical_association
+    inverse_of_uri
+  ]
+
   def initialize
   end
 
@@ -152,17 +172,17 @@ class TermBootstrapper
   def term_from_gem_by_uri
     return @term_from_gem_by_uri unless @term_from_gem_by_uri.nil?
     @term_from_gem_by_uri = {}
-    EolTerms.list.each do |term|
-      EolTerms.valid_fields.each do |field|
+    EolTerms.list.each do |gem_term|
+      term = {}
+
+      RECOGNIZED_FIELDS.each do |field|
+        term[field] = gem_term[field] || ''
+
         if field =~ /^is_/
-          term[field] ||= false
-          term[field] = false if term[field].blank? # Strange case.
-        else
-          term[field] = '' unless term.key?(field)
+          term[field] = false if term[field].blank?
         end
       end
-      # Fix alias difference from neo4j:
-      term['alias'] = '' if term['alias'].nil?
+
       # Sort the parents, to match results from neo4j:
       term['parent_uris'] = Array(term['parent_uris']).sort
       @term_from_gem_by_uri[term['uri']] = term
