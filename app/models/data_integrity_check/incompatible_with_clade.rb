@@ -2,10 +2,6 @@ class DataIntegrityCheck::IncompatibleWithClade
   include DataIntegrityCheck::ZeroCountCheck
   include DataIntegrityCheck::HasDetailedReport
 
-  def self.show_detailed_report_on_pass?
-    true
-  end
-
   private
   def query
     <<~CYPHER
