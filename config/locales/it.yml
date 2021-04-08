@@ -45,8 +45,8 @@ it:
       untitled: Senza titolo
     name:
       missing: Senza titolo
-  article_from_partner: Fornito da %{partner}
-  article_duplicate: Questo articolo è mostrato anche in %{section}
+  article_from_partner: fornito da %{partner}
+  article_duplicate: questo articolo è mostrato anche in "%{section}"
   autocomplete:
     see_all:
       other: uno=vedi altri risultati
@@ -75,7 +75,7 @@ it:
     richness:
       header: Ricchezza della pagina
       score: Punteggio di ricchezza
-      page_contents_count: Contenuto associato
+      page_contents_count: contenuto associato
       missing: La ricchezza non è stata ancora calcolata per questa pagina.
       media_count: media
       articles_count: articoli
@@ -278,13 +278,32 @@ it:
     ay: Aimara
     q9292: Azerbaigiano
     az: Azerbaigiano
+    q33070: Balinese
+    bm: Bambara
+    q33151: Banjar
+    ba: Bashkir
+    eu: Basco
+    q29540: Bavarese
     be: Bielorusso
+    q8836490: Bende
+    bn: Bengalese
+    bh: Lingue bihari
+    bi: Bislama
+    nb: Bokmål, Norvegese; Norvegese Bokmål
+    q4941378: Bondi
     bs: Bosniaco
+    q33202: Brahui
     q750553: Portoghese brasiliano
+    br: Bretone
     bg: Bulgaro
     my: Burmese
+    q33120: Buriato
+    q35037: Businenge Tongo
+    q880301: Francese cajun
     q35156: Car
     ca: Catalano; Valenciano
+    khm: Khmer centrale
+    km: Khmer centrale
     ce: Ceceno
     zh: Cinese
     chi: Cinese
@@ -304,6 +323,7 @@ it:
     eo: Esperanto
     et: Estone
     est: Estone
+    fj: Figiano
     fi: Finlandese
     fin: Finlandese
     fr: Francese
@@ -325,6 +345,7 @@ it:
     id: Indonesiano
     ia: Interlingua (International Auxiliary Language Association)
     iu: Inuktitut
+    q33595: Iraqw
     ga: Irlandese
     it: Italiano
     ita: Italiano
@@ -332,6 +353,9 @@ it:
     jp: Giapponese
     ko: Coreano
     kor: Coreano
+    lo: Lao
+    lao: Lao
+    la: Latino
     q36106: Ligure
     li: Limburghese
     lt: Lituano
@@ -350,9 +374,12 @@ it:
     oc: Occitano (post 1500)
     q28602: Aramaico ufficiale
     pa: Punjabi
+    fa: Persiano
+    q15085: Piemontese
     pl: Polacco
     pol: Polacco
     pt: Portoghese
+    rm: Romancio
     ru: Russo
     rus: Russo
     sa: Sanscrito
@@ -404,6 +431,8 @@ it:
       sound_of: Suono di %{page_name}
       map: Mappa senza titolo
       map_of: Mappa di %{page_name}
+      js_map: Mappa interattiva senza titolo
+      js_map_of: Mappa interattiva di %{page_name}
     subclasses:
       image: immagine
       video: video
@@ -455,6 +484,7 @@ it:
         r_infrakingdom: Infraregno
         r_superphylum: Superphylum
         r_phylum: Phylum
+        r_subphylum: Sottotipo
         r_infraphylum: Infraphylum
         r_superclass: Superclasse
         r_class: Classe
@@ -467,14 +497,30 @@ it:
         r_superfamily: Superfamiglia
         r_family: Famiglia
         r_subfamily: Sottofamiglia
+        r_infrafamily: Sottofamiglia
         r_tribe: Tribù
         r_supergenus: Supergenere
         r_genus: Genere
         r_subgenus: Sottogenere
+        r_infragenus: Infragenus
+        r_superspecies: Superspecie
         r_species: Specie
+        r_subspecies: Sottospecie
         r_infraspecies: Infraspecie
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
+      username_missing: utente %{user_id}
     trophic_web:
+      predator: Predatore
       reset: reimposta
+      trophic_web_about: I diagrammi della rete alimentare EOL si concentrano sui
+        rapporti di alimentazione di una specie; mostrano le specie focali insieme
+        alle specie di cui si nutre (preda), alle specie che si nutrono di essa (predatori)
+        e ad altre specie che si nutrono della stessa preda (potenziali concorrenti).
+        Clicca per saperne di più.
+      trophic_web_title_html: Rete alimentare <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     tabs:
       articles: voci
       classifications: classificazioni
@@ -492,10 +538,18 @@ it:
   resources:
     headers:
       index: Risorse
+  resource_missing: risorsa non trovata
+  scientific_name:
+    status_title:
+      alternative: Nomi Alternativi
+      synonym: Sinonimi
   scientific_names_header: Nomi scientifici
+  send_me_reset_password_instructions: Inviami le istruzioni per reimpostare la password
   search:
     full_name: '%{vernacular} (%{scientific})'
     flash:
+      cannot_combine_paths: Impossibile combinare i risultati con %{path}
+      more_than_one_species: Impossibile combinare i risultati per %{species}
       more_than_two_terms: 'Impossibile combinare i risultati per più di due termini:
         %{terms}'
   search_results:
@@ -505,7 +559,15 @@ it:
     medium_sound: Suono
     medium_video: Video
     empty: Nessun risultato.
+    field_matches:
+      description: 'corrisponde alla descrizione:'
+      resource_pk: 'corrisponde all''ID esterno:'
+      bio: 'corrisponde alla biografia:'
+    collection_title_html: 'Collezione: <span class=''sub''>%{name}</span>'
   search_suggestion:
+    actions:
+      create: creare un nuovo suggerimento di ricerca
+    created: Suggerimento di ricerca creato per "%{match}"
     new:
       header: Crea un suggerimento per la ricerca
   sections:
@@ -539,6 +601,7 @@ it:
   settings: impostazioni
   sign_in: Entra
   sign_up: Registrati
+  did_not_receive_confirmation_instructions: Non ho ricevuto le istruzioni di conferma
   simple_form:
     "yes": Sì
     "no": "No"
@@ -574,30 +637,49 @@ it:
   traits:
     data_viz:
       hist_value_label: valore (%{units})
+      num_records_label: '# di record'
       other: altro
+      pie_prompt: passa il mouse su un segmento o un tasto per evidenziarlo
     properties:
       citation: Citazione bibliografica
       method: Metodo di misurazione
       scientific_name: Nome scientifico
       source: Fonte
     search:
+      edit_filters: modifica filtri
       filter_display:
         lte: '%{pred} <= %{num_val} %{units}'
         obj_only: 'con valore: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
+      new_search: nuova ricerca
       select:
         top_level:
           object_term: o seleziona un valore
           predicate: o seleziona un attributo
+    search_form:
+      attribute: attributo
+      search: Cerca
+      sex: sesso
+      show_additional_fields: mostra campi aggiuntivi
+      statistical_method: metodo statistico
+      value: valore
   trust:
     trusted: attendibile
   user:
     download_queue: Coda di download dei dati
+    edit_account_details: Modifica i dettagli dell'account
     email: Email
+    form_labels:
+      age_confirm: Ho almeno 13 anni
     headers:
       collections: Collezioni
+      downloads: Downloads
       links: Collegamenti
+    validations:
+      age_confirm: devi confermare di avere almeno 13 anni
+    new_password: Nuova password
+    confirm_new_password: Conferma la nuova password
     username: nome utente
     update: Aggiorna
     update_email: Aggiorna email
@@ -614,16 +696,21 @@ it:
       definition: 'definizione:'
       attribution: 'attribuzione:'
       comment: 'commento:'
+      sections: 'sezioni:'
+      is_hidden_from_glossary: 'nascondi dal glossario:'
     pagination:
       next: pagina successiva
       previous: pagina precedente
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: è mangiato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: viene ucciso da
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/mese'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abbondanza
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adulto
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuale
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta acquatica
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area
@@ -631,9 +718,17 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: corteccia
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: biennale
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: nero
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: sangue
+        http://eol(dot)org/schema/terms/BloomPeriod: periodo di fioritura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blu
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: vasto
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrone
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcio (ca)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: grotta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: ingresso della grotta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: composto
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: giorni
