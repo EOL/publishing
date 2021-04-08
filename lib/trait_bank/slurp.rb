@@ -1,6 +1,8 @@
+require 'set'
+
 class TraitBank::Slurp
   MAX_CSV_SIZE = 500_000
-  CHECK_LIMIT = 50
+  MAX_SKIP_PKS = 1_000
 
   delegate :query, to: TraitBank
 
@@ -110,16 +112,17 @@ class TraitBank::Slurp
   def load_csv_config
     { "traits_#{@resource.id}.csv" =>
       {
-        checks: {
+        checks: { # NOTE: Only supported for traits file!
           "1=1" => {
             matches: [
-              '(predicate:Term { uri: row.predicate })',
-              '(page:Page { page_id: row.page_id })',
-              '(predicate)-[:exclusive_to_clade]->(clade:Page)'
+              '(predicate:Term { uri: row.predicate })-[:exclusive_to_clade]->(clade:Page)'
             ],
-            fail_condition: 'NOT (clade)<-[:parent*0..]-(page)',
-            returns: ['page.page_id', 'predicate.uri', 'clade.page_id'],
-            message: 'exclusive_to_clade check failed for the following [page_id, predicate_uri, clade_id]s:'
+            optional_matches: [
+              '(page:Page { page_id: row.page_id })',
+            ],
+            fail_condition: 'page IS NULL OR NOT (clade)<-[:parent*0..]-(page)',
+            returns: ['row.page_id AS page_id', 'row.eol_pk AS eol_pk', 'row.predicate AS term_uri'],
+            message: 'exclusive_to_clade check failed!'
           },
           is_not_blank("row.value_uri") => {
             matches: [
@@ -127,8 +130,8 @@ class TraitBank::Slurp
               '(page:Page { page_id: row.page_id })',
               '(object_term)-[:incompatible_with_clade]->(clade:Page)'
             ],
-            fail_condition: '(clade)<-[:parent*..]-(page)', 
-            returns: ['page.page_id', 'object_term.uri', 'clade.page_id'],
+            fail_condition: '(clade)<-[:parent*0..]-(page)', 
+            returns: ['page.page_id AS page_id', 'row.eol_pk AS eol_pk', 'row.value_uri AS term_uri'],
             message: 'incompatible_with_clade check failed for the following [page_id, object_term_uri, clade_id]s:'
           }
         },
@@ -252,22 +255,36 @@ class TraitBank::Slurp
 
     break_up_large_files(filename) do |sub_filename|
       # check trait validity
+      skip_pks = Set.new
+
       if checks
-        @logger.info("Running validity checks")
+        @logger.info("Running validity checks for #{sub_filename}")
 
         checks.each do |where_clause, check|
-          run_check(sub_filename, where_clause, check) 
+          skip_pks.merge(run_check(sub_filename, where_clause, check))
+        end
+
+        if skip_pks.length > MAX_SKIP_PKS
+          @logger.warn("WARNING: Too many invalid rows (#{skip_pks.length})! Not skipping any. This may result in bad data!")
+          skip_pks = Set.new
         end
       end
       
+      @logger.info("Importing data from #{sub_filename}")
+
       # build nodes required by all rows
       nodes.each do |node|
         try_again = true
         begin
-          build_nodes(node, csv_query_head(sub_filename, nil))
+          where = skip_pks.any? ? 
+            "NOT row.eol_pk IN [#{skip_pks.map { |pk| "'#{pk}'" }.join(', ')}]" :
+            nil
+
+          build_nodes(node, csv_query_head(sub_filename, where))
         rescue => e
           if try_again
             try_again = false
+            @logger.warn(e.message)
             @logger.warn("FAILED on build_nodes query (#{node.label}), will "\
                          "re-try once...")
             retry
@@ -526,22 +543,29 @@ class TraitBank::Slurp
     query = <<~CYPHER
       #{head}
       MATCH #{check[:matches].join(", ")}
+      #{check[:optional_matches]&.any? ? "OPTIONAL MATCH #{check[:optional_matches].join(", ")}" : ''}
       WHERE #{check[:fail_condition]}
       RETURN DISTINCT #{check[:returns].join(", ")}
-      LIMIT #{CHECK_LIMIT}
     CYPHER
 
     result = ActiveGraph::Base.query(query).to_a
 
+    skip_pks = []
+
     if result.any?
-      message = <<~END
-        #{check[:message]}
-      END
+      @logger.error(check[:message])
 
-      @logger.error(message)
-      result.each { |r| @logger.error(r.values.join(', ')) }
+      values_to_log = []
+      result.each do |row| 
+        skip_pks << row[:eol_pk]
+        values_to_log << [row[:page_id], row[:term_uri]]
+      end
 
-      raise TypeError, "data checks failed"
+      @logger.error('[page_id, term_uri] pairs logged above')
+      @logger.error("Too many rows to log! This is just a sample.") if values_to_log.length > MAX_SKIP_PKS
+      @logger.error(values_to_log[0..MAX_SKIP_PKS].map { |v| "[#{v.join(', ')}]" }.join(', '))
     end
+
+    skip_pks
   end
 end
