@@ -13,8 +13,27 @@ class ResourcesController < ApplicationController
     end
   end
 
+  def by_abbr
+    @resource = Resource.find_by_abbr(params[:abbr])
+    redirect_to resource_path(@resource, format: params[:format])
+  end
+
   def show
     @resource = Resource.find(params[:id])
+
+    respond_to do |fmt|
+      fmt.html do
+        render
+      end
+
+      fmt.json do
+        render json: {
+          id: @resource.id,
+          repositoryId: @resource.repository_id,
+          abbr: @resource.abbr
+        }
+      end
+    end
   end
 
   def clear_publishing
