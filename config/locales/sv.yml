@@ -897,6 +897,8 @@ sv:
     scientific_names: namn
     users: användare
     references: referenser
+  term_query:
+    invalid_obsolete: OGILTIG/FÖRÅLDRAD
   term_query_filter:
     validations:
       blank_error: måste ange ett attribut eller värde

@@ -49,8 +49,8 @@ fi:
   classifications:
     children:
       header_html:
-        one: '%{name} sisältää <a href="%{names_path}">%{count} lapsen</a>:'
-        other: '%{name} sisältää <a href="%{names_path}">%{count} lasta</a>:'
+        one: '%{name} sisältää <a href="%{names_path}">%{count} alemman taksonin</a>:'
+        other: '%{name} sisältää <a href="%{names_path}">%{count} alempaa taksonia</a>:'
       see_more: lisätietoja
     hierarchies:
       header: Kuratoidut hierarkiat kohteelle %{sci_name}
@@ -848,7 +848,11 @@ fi:
       select_page_above: Aloita valitsemalla yllä oleva sivu.
   traits:
     data_viz:
+      about_this_chart: tietoa tästä kaaviosta
       other: muu
+      page_habitat_explanation: Luettelo elinympäristöistä, joissa tiedetään elävän
+        useita taksoniin %{name} kuuluvia lajeja. Kun valitset jonkin listan elinympäristöistä,
+        saat luettelon siinä elävistä taksoniin %{name} kuuluvista lajeista.
     properties:
       scientific_name: Tieteellinen nimi
       source: Lähde
@@ -965,7 +969,7 @@ fi:
         http://eol(dot)org/schema/terms/LittersPerYear: poikueita vuodessa
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
         http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
-        http://eol(dot)org/schema/terms/paleo_megaannum: miljoona vuotta sitten
+        http://eol(dot)org/schema/terms/paleo_megaannum: miljoona(a) vuotta sitten
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3kk
         http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4kk
         http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6kk
@@ -979,15 +983,18 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranssi
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: happi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: pelaginen vyöhyke
+        http://eol(dot)org/schema/terms/population_trend: populaation kehitys
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: saalistaja
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistaa kohdetta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purppura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: punainen
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: lisääntyminen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: hidas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: pieni
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnia
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: puu
+        http://eol(dot)org/schema/terms/tropicalOrSubtropical: trooppinen tai subtrooppinen
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: veden syvyys
         http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Wattia
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: valkoinen

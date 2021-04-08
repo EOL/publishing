@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: 3bbo
 # Author: Amira.88
+# Author: Asma
 # Author: HitomiAkane
 # Author: Meno25
 # Author: NEHAOUA
@@ -190,6 +191,7 @@ ar:
     altitude: الارتفاع
     author: مؤلف
     bibliographic_citation: الاقتباس الببليوغرافي
+    contributor: مساهم
     compiler: المحول البرمجي
     creator: المنشئ
     editor: محرر
@@ -243,6 +245,7 @@ ar:
       data_services: خدمات البيانات
       donate: تبرّع
       education: التعليم
+      food_webs: الشبكات الغذائية
       glossary: المعجم
       help: مساعدة
       language_support: Taal Support
@@ -289,6 +292,7 @@ ar:
     ak: الأكانية
     alb: الألبانية
     sq: الألبانية
+    q131339: أليمانيك
     am: الأمهرية
     ar: العربية
     an: الأراغونية
@@ -328,6 +332,7 @@ ar:
     ce: الشيشانية
     ny: الشيشيوا
     zh: الصينية
+    chi: صينى
     q32979: شوكتو
     cu: الكنيسة القديمة السلافية
     cv: تشوفاش
@@ -355,6 +360,7 @@ ar:
     fi: الفنلندية
     q667747: فيبا
     fr: الفرنسية
+    fra: الفرنسية
     ff: الفولانية
     gd: الغيلية، الغيلية الاسكتلندية
     gl: الجاليكية
@@ -367,6 +373,7 @@ ar:
     q3272630: جوجو
     q2501174: غورونتالو
     el: اليونانية الحديثة (1453-)
+    gre: اليونانية
     gn: الغوارانية
     gu: الغوجاراتية
     q33303: هايدا
@@ -509,13 +516,16 @@ ar:
     sk: السلوفاكية
     sl: السلوفينية
     so: الصومالية
+    som: صومالي
     st: السوتية، الجنوبية
     es: الإسبانية، القشتالية
+    slv: الأسبانية
     q2638144: سوكوما
     su: السوندية
     sw: السواحلية
     ss: السوازية
     sv: السويدية
+    swe: السويدية
     tl: التاغالوغية
     ty: التاهيتية
     tg: الطاجيكية
@@ -534,6 +544,7 @@ ar:
     q34138: تومبوكا
     q56240: لهجة تونسية
     tr: التركية
+    tur: التركية
     q36730: التركية والعثمانية
     tk: التركمانية
     tw: توي
@@ -999,9 +1010,13 @@ ar:
   traits:
     data_viz:
       about_this_chart: حول هذا المخطط
+      about_this_chart_tooltip_1d: هذا ملخص بناء على البيانات المتوفرة في EOL. قد
+        يكون غير مكتمل! يمكنك تحديد فئة من المخطط البياني لتضييق نتائج البحث. تتداخل
+        العديد من الفئات ويمكن ان تتضمين الانواع في أكثر من فئة واحدة.
       page_habitat_header: '%{name}مساكن'
     properties:
       method: طريقة القياس
+      sample_size: حجم العينة
       scientific_name: الاسم العلمي
       source: المصدر
     search:
@@ -1108,10 +1123,13 @@ ar:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يُؤكل بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: قتل من قبل
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: الانتشار
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: بالغ
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: مساحة
+        https://eol(dot)org/schema/terms/arm: ذراع
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: تكاثر غير جنسي
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: كتلة الجسم
