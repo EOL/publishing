@@ -115,12 +115,10 @@ class TraitBank::Slurp
         checks: { # NOTE: Only supported for traits file!
           "1=1" => {
             matches: [
+              '(page:Page { page_id: row.page_id })',
               '(predicate:Term { uri: row.predicate })-[:exclusive_to_clade]->(clade:Page)'
             ],
-            optional_matches: [
-              '(page:Page { page_id: row.page_id })',
-            ],
-            fail_condition: 'page IS NULL OR NOT (clade)<-[:parent*0..]-(page)',
+            fail_condition: 'NOT (clade)<-[:parent*0..]-(page)',
             returns: ['row.page_id AS page_id', 'row.eol_pk AS eol_pk', 'row.predicate AS term_uri'],
             message: 'exclusive_to_clade check failed!'
           },
