@@ -118,7 +118,7 @@ class TraitBank::Slurp
               '(page:Page { page_id: row.page_id })',
               '(predicate:Term { uri: row.predicate })-[:exclusive_to_clade]->(clade:Page)'
             ],
-            fail_condition: 'NOT (clade)<-[:parent*0..]-(page)',
+            fail_condition: '(page)-[:parent]->(:Page) AND NOT (clade)<-[:parent*0..]-(page)',
             returns: ['row.page_id AS page_id', 'row.eol_pk AS eol_pk', 'row.predicate AS term_uri'],
             message: 'exclusive_to_clade check failed!'
           },
