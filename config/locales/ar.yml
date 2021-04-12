@@ -7,6 +7,7 @@
 # Author: HitomiAkane
 # Author: Meno25
 # Author: NEHAOUA
+# Author: Nora
 # Author: Optilete
 # Author: Passant
 # Author: Tala Ali
@@ -308,6 +309,7 @@ ar:
     bm: البمبرية
     ba: الباشكيرية
     eu: الباسكية
+    q29540: باڤارية
     be: البيلاروسية
     q8836490: بيندي
     bn: البنغالية
@@ -341,6 +343,7 @@ ar:
     cr: لغة كري
     q33357: لغة تتار القرم
     hr: الكرواتية
+    hrv: كرواتية
     cs: التشيكية
     da: الدانماركية
     q3362072: ديجو
@@ -446,6 +449,7 @@ ar:
     ms: الملايو
     ml: المالايالامية
     mt: المالطية
+    mlt: مالطية
     gv: المنكية
     mi: الماورية
     mr: المهاراتية
@@ -470,6 +474,8 @@ ar:
     se: سامي الشمالية
     "no": النرويجية
     nno: النرويجية
+    nob: نرويجية
+    nor: نرويجية
     nn: ني نوشك
     q36738: نوفيال
     q3272620: نياكوسا
@@ -490,6 +496,7 @@ ar:
     q23014: فيتسش
     q2429648: بوجورو
     pl: البولندية
+    pol: بولندية
     q36748: بونتيك
     pt: البرتغالية
     ps: البشتوية
@@ -499,6 +506,7 @@ ar:
     rm: الرومانشية
     rn: الكيروندية
     ru: الروسية
+    rus: روسية
     sm: الساموية
     q34016: ساندو
     sg: السانغوية
@@ -1039,7 +1047,9 @@ ar:
       show_additional_fields: عرض الحقول الإضافية
       statistical_method: طريقة إحصائية
       this_may_take_a_minute: هذا ربما يستغرق دقيقة
+      trait_filter: تنقيح الصفة
       value: القيمة
+      value_eg: قيمة، مثلًا؛ عاشب
   trophic_web:
     group_descriptions:
       competitor: منافس %{source_name}
@@ -1123,11 +1133,33 @@ ar:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يُؤكل بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: لديه طفيل خارجي
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: لديه طفيل داخلي
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: عائل ل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: لديه ناقل
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: قتل من قبل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: لديه عامل مُمرض
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: يُفترس بواسطة
     name:
       by_uri:
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: اختيار غير طبيعي
+          للموطن
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: سلوك حركي خارج عن المألوف
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: الانتشار
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: المنطقة السحيقة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: المنطقة السحيقة المفتوحة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: ينبوع ساخن حمضي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: تصريف منجم حمضي
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: تربة حمضية
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: فترة النمو النشط
+        http://eol(dot)org/schema/terms/adaptiveStrategy: استراتيجية التكيّف
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: لاصق
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: بالغ
+        https://eol(dot)org/schema/terms/adventive: عرَضي
+        http://eol(dot)org/schema/terms/aerial: هوائي
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: حركة هوائية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: موطن هوائي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: أيروسول
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: مساحة
         https://eol(dot)org/schema/terms/arm: ذراع
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: تكاثر غير جنسي

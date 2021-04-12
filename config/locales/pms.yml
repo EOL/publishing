@@ -1426,10 +1426,22 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: euj an aposission
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: età apsian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: aquedot
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: aquàtich
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: aquàtica (locomossio)
+        http://eol(dot)org/schema/terms/aquatic: adatà a la vita aquàtica
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: aquìfer
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: età
+          aquitan-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: seul laoràbil
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomossion an sj'erbo
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: arborìcola (locomossion)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: ambient arborìcol
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: época
+          archean-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: àrea
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: lisca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: sech
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: longheur brass pi disch
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: arprodussion assessuà
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: solfà ëd bario

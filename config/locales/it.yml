@@ -301,15 +301,25 @@ it:
     q35037: Businenge Tongo
     q880301: Francese cajun
     q35156: Car
+    q2591230: Cashinahua
     ca: Catalano; Valenciano
+    q33239: Cebuano
     khm: Khmer centrale
     km: Khmer centrale
+    ch: Chamorro
+    q33281: Chavacano
     ce: Ceceno
+    q33388: Cherokee
+    q33265: Cheyenne
     zh: Cinese
     chi: Cinese
+    q32979: Choctaw
+    cu: Slavo ecclesiastico antico
+    cv: Ciuvascio
     q37041: Cinese classico
     kw: Cornico
     co: Còrso
+    cr: Cree
     hr: Croato
     hrv: Croato
     cs: Ceco
@@ -367,6 +377,7 @@ it:
     mlt: Maltese
     mn: Mongolo
     q33845: Napoletano
+    ne: Nepalese
     "no": Norvegese
     nno: Norvegese
     nob: Norvegese
@@ -414,6 +425,7 @@ it:
     vi: Vietnamita
     q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
+    q237409: Zelandese
   layout_sign_in: Accedi
   layout_sign_up: Registrati
   layout_sign_out: Esci
@@ -507,6 +519,7 @@ it:
         r_species: Specie
         r_subspecies: Sottospecie
         r_infraspecies: Infraspecie
+        r_form: Modulo
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
@@ -574,12 +587,15 @@ it:
     associations: Associazioni
     behavior: Comportamento
     benefits: Benefici
+    brief_summary: Breve riassunto
     comprehensive_description: Descrizione completa
     conservation: Conservazione
+    conservation_status: Stato di conservazione
     diagnostic_description: Descrizione diagnostica
     diseases_and_parasites: Malattie e parassiti
     distribution: Distribuzione
     ecology: Ecologia
+    genetics: Genetica
     growth: Crescita
     habitat: Habitat
     migration: Migrazione
