@@ -40,3 +40,13 @@ task resources: :environment do
     print "\n"
   end
 end
+
+namespace :resources do
+  task sync: :environment do
+    usage = '$ rake resources:sync ABBR=<abbr>'
+    abbr = ENV['ABBR']
+
+    raise usage if abbr.nil?
+    Resource::RemoteImporter.new(abbr).import
+  end
+end
