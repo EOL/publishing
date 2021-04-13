@@ -14,6 +14,9 @@ class Resource::RemoteImporter
   def import
     uri = URI(JSON_URL_FMT % @abbr)
     res = Net::HTTP.get(uri)
+
+    raise "Got an error response! Check abbr." unless res.is_a?(Net::HTTPSuccess)
+
     remote_data = JSON.parse(res)
     resource = Resource.find_by_abbr(@abbr)
 
