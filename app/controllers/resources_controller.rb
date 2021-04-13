@@ -1,5 +1,5 @@
 class ResourcesController < ApplicationController
-  before_action :require_admin, except: [:index, :show, :autocomplete]
+  before_action :require_admin, except: [:index, :show, :by_abbr, :autocomplete]
 
   def index
     @resources = Resource.order('updated_at DESC')
@@ -9,6 +9,30 @@ class ResourcesController < ApplicationController
       end
       fmt.json do
         @resources.includes(:partner, :dataset_licesnse)
+      end
+    end
+  end
+
+  def by_abbr
+    @resource = Resource.find_by_abbr(params[:abbr])
+
+    respond_to do |fmt|
+      fmt.json do
+        render json: {
+          id: @resource.id,
+          repository_id: @resource.repository_id,
+          abbr: @resource.abbr,
+          name: @resource.name,
+          description: @resource.description,
+          notes: @resource.notes,
+          is_browsable: @resource.is_browsable,
+          has_duplicate_nodes: @resource.has_duplicate_nodes,
+          node_source_url_template: @resource.node_source_url_template,
+          dataset_license_id: @resource.dataset_license_id,
+          dataset_rights_holder: @resource.dataset_rights_holder,
+          dataset_rights_statement: @resource.dataset_rights_statement,
+          classification: @resource.classification
+        }
       end
     end
   end

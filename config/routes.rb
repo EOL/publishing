@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     end
     resources :open_authentications, only: [:new, :create]
     resources :page_icons, only: [:create]
+    get 'resources/by_abbr/:abbr' => "resources#by_abbr"
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
       get 'republish'
