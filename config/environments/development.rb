@@ -63,6 +63,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.x.resource_authority = "http://localhost:3000"
+
   Rails.configuration.repository_url = Rails.application.secrets.repository[:url]
   Rails.configuration.eol_web_url = Rails.application.secrets.host[:url]
   Rails.configuration.x.image_path = Rails.application.secrets.image_path

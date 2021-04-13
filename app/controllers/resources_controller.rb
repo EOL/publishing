@@ -1,5 +1,5 @@
 class ResourcesController < ApplicationController
-  before_action :require_admin, except: [:index, :show, :autocomplete]
+  before_action :require_admin, except: [:index, :show, :by_abbr, :autocomplete]
 
   def index
     @resources = Resource.order('updated_at DESC')
@@ -15,17 +15,8 @@ class ResourcesController < ApplicationController
 
   def by_abbr
     @resource = Resource.find_by_abbr(params[:abbr])
-    redirect_to resource_path(@resource, format: params[:format])
-  end
-
-  def show
-    @resource = Resource.find(params[:id])
 
     respond_to do |fmt|
-      fmt.html do
-        render
-      end
-
       fmt.json do
         render json: {
           id: @resource.id,
@@ -44,6 +35,10 @@ class ResourcesController < ApplicationController
         }
       end
     end
+  end
+
+  def show
+    @resource = Resource.find(params[:id])
   end
 
   def clear_publishing
