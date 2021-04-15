@@ -1442,8 +1442,15 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: àrea
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: lisca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: sech
+        https://eol(dot)org/schema/terms/arm: mèmber
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: longheur brass pi disch
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: età
+          artinskian-a
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: arprodussion assessuà
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: età
+          asselian-a
+        http://eol(dot)org/schema/terms/atLeastShortPersistentSeedBank: almanch a
+          curta persistensa
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: solfà ëd bario
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: scòrsa
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritm sircadian comportamental
