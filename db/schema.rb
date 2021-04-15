@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_181950) do
+ActiveRecord::Schema.define(version: 2021_04_15_190402) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -992,8 +992,8 @@ ActiveRecord::Schema.define(version: 2021_04_02_181950) do
     t.index ["vernacular_id"], name: "index_vernacular_preferences_on_vernacular_id"
   end
 
-  create_table "vernaculars", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "string", null: false
+  create_table "vernaculars", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "string"
     t.integer "language_id", null: false
     t.integer "node_id", null: false
     t.integer "page_id", null: false
