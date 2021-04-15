@@ -323,7 +323,10 @@ window.TraitDataViz = (function(exports) {
   }
 
   function loadTaxonSummary() {
-    loadBarChartHelper($('.js-taxon-summary-contain'));
+    loadViz($('.js-taxon-summary-contain'), ($contain) => {
+      const $viz = $contain.find('.js-taxon-summary');
+      console.log($viz.data('json'));
+    })
   }
 
   function loadBarChartHelper($contain) {
