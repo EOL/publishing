@@ -47,6 +47,7 @@ class Publishing
       @log = log # Okay if it's nil.
       @repo = create_server_connection
       @files = []
+      @can_clean_up = true
     end
 
     def create_server_connection
@@ -148,7 +149,6 @@ class Publishing
         end
         @log.warn('All existing content has been destroyed for the resource.')
       end
-      can_clean_up = true
       begin
         unless @repo.exists?('nodes.tsv')
           raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
@@ -164,18 +164,18 @@ class Publishing
           @log.start('MediaContentCreator')
           MediaContentCreator.by_resource(@resource, log: @log)
         end
-        publish_traits_with_cleanup(can_clean_up)
+        publish_traits_with_cleanup
         @log.start('Resource#fix_native_nodes')
         @resource.fix_native_nodes
         propagate_reference_ids
-        clean_up if can_clean_up
+        clean_up
         if page_contents_required?
           @log.start('#fix_missing_icons (just to be safe)')
           Page.fix_missing_icons
         end
         Publishing::DynamicWorkingHierarchy.update(@resource, @log) if @resource.dwh?
       rescue => e
-        clean_up if can_clean_up
+        clean_up
         @log.fail_on_error(e)
       ensure
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
@@ -188,11 +188,11 @@ class Publishing
       abort_if_already_running
       @log = @resource.import_logs.last
       @repo = create_server_connection
-      can_clean_up = true
+      @can_clean_up = true
       begin
-        publish_traits_with_cleanup(can_clean_up)
+        publish_traits_with_cleanup
       rescue => e
-        clean_up if can_clean_up
+        clean_up
         @log.fail_on_error(e)
       ensure
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
@@ -201,7 +201,7 @@ class Publishing
       end
     end
 
-    def publish_traits_with_cleanup(can_clean_up)
+    def publish_traits_with_cleanup
       @log.start('Remove traits')
       TraitBank::Admin.remove_for_resource(@resource)
       @log.start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
@@ -210,9 +210,9 @@ class Publishing
       rescue => e
         backtrace = [e.backtrace[0]] + e.backtrace.grep(/\bapp\b/)[1..5]
         @log.warn("Trait Publishing failed: #{e.message} FROM #{backtrace.join(' << ')}")
-        can_clean_up = false
+        @can_clean_up = false
       end
-      clean_up if can_clean_up
+      clean_up
     end
 
     def abort_if_already_running
@@ -239,10 +239,16 @@ class Publishing
     end
 
     def clean_up
+      return(nil) unless @can_clean_up
       @files.each do |file|
-        @log.info("Removing #{file}")
-        File.unlink(file)
+        if File.exist?(file)
+          @log.info("Removing #{file}")
+          File.unlink(file)
+        else
+          @log.info("Skipping removal of #{file} ... file does not exist")
+        end
       end
+      @can_clean_up = false
     end
 
     def grab_file(name)
