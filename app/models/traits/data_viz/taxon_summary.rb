@@ -76,8 +76,8 @@ class Traits::DataViz::TaxonSummary
   InnerNode = Struct.new(:page, :count) do 
     def to_h
       {
-        page_id: @page.id,
-        name: @page.name
+        page_id: page.id,
+        name: page.name
       }
     end
   end
