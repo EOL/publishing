@@ -13,11 +13,17 @@ class Resource::RemoteImporter
 
   def import
     uri = URI(JSON_URL_FMT % @abbr)
-    res = Net::HTTP.get(uri)
+
+    res = nil
+
+    Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+      req = Net::HTTP::Get.new uri
+      res = http.request req
+    end
 
     raise "Got an error response! Check abbr." unless res.is_a?(Net::HTTPSuccess)
 
-    remote_data = JSON.parse(res)
+    remote_data = JSON.parse(res.body)
     resource = Resource.find_by_abbr(@abbr)
 
     if resource
@@ -31,10 +37,10 @@ class Resource::RemoteImporter
       Resource.find_by(id: remote_data['id']) : nil
 
     if existing_for_id
-      new_id = next_available_id(existing_for_id.id)
+      new_id = next_available_id(existing_for_id)
       puts "A resource with id #{remote_data['id']} already exists! Ok to reassign it to #{new_id}? (y/n)"
 
-      ok = gets.strip
+      ok = STDIN.gets.strip
       return unless ok == 'y'
 
       existing_for_id.update!(id: new_id)
@@ -79,7 +85,7 @@ class Resource::RemoteImporter
     end
 
     puts "Update existing resource? (y/n)"
-    response = gets.strip
+    response = STDIN.gets.strip
 
     return true if response == "y"
 
