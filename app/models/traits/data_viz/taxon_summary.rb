@@ -19,7 +19,6 @@ class Traits::DataViz::TaxonSummary
       count = row[:count]
 
       group_node = group_nodes_by_id[group_taxon.id]
-
       if group_node.nil?
         group_node = GroupNode.new(group_taxon)
         group_nodes_by_id[group_taxon.id] = group_node
@@ -32,7 +31,11 @@ class Traits::DataViz::TaxonSummary
   end
 
   def to_json
-    @group_nodes.map { |n| n.to_h }.to_json 
+    # d3 requires a root node even though we're going to ignore it
+    {
+      name: 'root',
+      children: @group_nodes.map { |n| n.to_h }
+    }.to_json
   end
 
   def length
@@ -77,7 +80,8 @@ class Traits::DataViz::TaxonSummary
     def to_h
       {
         page_id: page.id,
-        name: page.name
+        name: page.name,
+        count: count
       }
     end
   end

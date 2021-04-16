@@ -137,7 +137,8 @@ module Traits
       
     def obj_count_result_from_row(query, row)
       name = TraitBank::Record.i18n_name(row[:obj])
-      prompt_prefix = datum.noclick? ? "" : "see_"
+      noclick = query.filters.first.object_term&.id == row[:obj][:eol_id]
+      prompt_prefix = noclick ? "" : "see_"
 
       prompt = if query.record?
                  I18n.t("traits.data_viz.#{prompt_prefix}n_obj_records", count: row[:count], obj_name: name)
@@ -157,7 +158,7 @@ module Traits
           }]
         }),
         row[:count],
-        query.filters.first.object_term&.id == row[:obj][:eol_id]
+        noclick
       )
     end
 
@@ -204,3 +205,4 @@ module Traits
     end
   end
 end
+

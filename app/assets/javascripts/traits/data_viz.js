@@ -1,5 +1,6 @@
 //= require traits/data_viz/sankey
 //= require traits/data_viz/assoc
+//= require traits/data_viz/taxon_summary
 window.TraitDataViz = (function(exports) {
   var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 
@@ -323,10 +324,7 @@ window.TraitDataViz = (function(exports) {
   }
 
   function loadTaxonSummary() {
-    loadViz($('.js-taxon-summary-contain'), ($contain) => {
-      const $viz = $contain.find('.js-taxon-summary');
-      console.log($viz.data('json'));
-    })
+    loadViz($('.js-taxon-summary-contain'), TaxonSummaryViz.build);
   }
 
   function loadBarChartHelper($contain) {
