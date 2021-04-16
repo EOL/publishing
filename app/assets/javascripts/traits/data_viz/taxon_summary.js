@@ -33,7 +33,19 @@ window.TaxonSummaryViz = (function(exports) {
         .attr('cy', d => d.y)
         .attr('r', d => d.r)
         ;
-     
+
+    const label = svg.append('g')
+      .style('font',  '10px sans-serif')
+      .attr('text-anchor', 'middle')
+      .selectAll('text')
+      .data(root.descendants().slice(1))
+      .join('text')
+        .style('fill-opacity', d => d.children ? 1 : 0)
+        .style('display', d => d.children ? 'inline' : 'none')
+        .text(d => d.data.name)
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)
+      ;
 
     console.log(root);
   }
