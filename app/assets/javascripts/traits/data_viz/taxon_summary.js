@@ -1,7 +1,10 @@
 window.TaxonSummaryViz = (function(exports) {
-  const width = 600
+  const width = 800
       , height = 500
       , pad = 3
+      , bgColor = 'rgb(163, 245, 207)'
+      , outerCircColor = 'rgb(81, 183, 196)'
+      , innerCircColor = '#fff'
       ;
 
   function build($contain) {
@@ -17,16 +20,19 @@ window.TaxonSummaryViz = (function(exports) {
       .attr('height', height)
       .style('height', height)
       .style('margin', '0 auto')
-      .style('display', 'block');
+      .style('display', 'block')
+      .style('background', bgColor)
+      ;
 
     const node = svg.append('g')
       .selectAll('circle')
       .data(root.descendants().slice(1))
       .join('circle')
-        .attr('fill', d => d.children ? 'blue' : 'gray')
+        .attr('fill', d => d.children ? outerCircColor : innerCircColor)
         .attr('cx', d => d.x)
         .attr('cy', d => d.y)
-        .attr('r', d => d.r);
+        .attr('r', d => d.r)
+        ;
      
 
     console.log(root);
