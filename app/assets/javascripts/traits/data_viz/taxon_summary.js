@@ -21,6 +21,13 @@ window.TaxonSummaryViz = (function(exports) {
     root = pack(data);
     focus = root;
 
+    d3.select($viz[0])
+      .style('width', `${width}px`)
+      .style('height', `${height}px`)
+      .style('position', 'relative')
+      .style('margin', '0 auto')
+      ;
+
     const svg = d3.select($viz[0])
       .append('svg')
       .attr('viewBox', `-${width / 2} -${height / 2} ${width} ${height}`)
@@ -54,6 +61,17 @@ window.TaxonSummaryViz = (function(exports) {
         .text(d => `${d.data.name} (${d.value})`)
       ;
 
+    outerFilterPrompt = d3.select($viz[0])
+      .append('button')
+      .style('position', 'absolute')
+      .style('top', '5px')
+      .style('right', '5px')
+      .style('text-anchor', 'end')
+      .style('padding', '2px 4px')
+      .style('font', 'bold 14px sans-serif')
+      .style('display', 'none')
+      //.html("click to filter by 'chordata'")
+
     zoomTo([root.x, root.y, root.r * 2]);
   }
   exports.build = build;
@@ -69,6 +87,14 @@ window.TaxonSummaryViz = (function(exports) {
 
   function zoom(d) {
     focus = d;
+
+    if (focus !== root && focus.children) {
+      outerFilterPrompt.html(`click to filter by '${d.data.name}'`);
+      outerFilterPrompt.style('display', 'block');
+    } else {
+      outerFilterPrompt.style('display', 'none');
+    }
+
     zoomTo([d.x, d.y, d.r * 2]);
     label
       .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
