@@ -19,7 +19,7 @@ module TraitBank
     OBJ_COUNT_LIMIT_PAD = 5
     MAX_ASSOC_TAXA = 200
     MAX_TAXA_FOR_TAXON_SUMMARY = 500_000
-    TAXON_SUMMARY_LIMIT = 50
+    TAXON_SUMMARY_LIMIT = 100 
 
     class << self
       include TraitBank::Constants
