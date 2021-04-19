@@ -255,18 +255,20 @@ class TraitBank::Slurp
       # check trait validity
       skip_pks = Set.new
 
-      if checks
-        @logger.info("Running validity checks for #{sub_filename}")
+      # XXX: Disabled due to small resources timing out. This may be worth revisiting in the future.
+      # - mvitale
+      #if checks
+      #  @logger.info("Running validity checks for #{sub_filename}")
 
-        checks.each do |where_clause, check|
-          skip_pks.merge(run_check(sub_filename, where_clause, check))
-        end
+      #  checks.each do |where_clause, check|
+      #    skip_pks.merge(run_check(sub_filename, where_clause, check))
+      #  end
 
-        if skip_pks.length > MAX_SKIP_PKS
-          @logger.warn("WARNING: Too many invalid rows (#{skip_pks.length})! Not skipping any. This may result in bad data!")
-          skip_pks = Set.new
-        end
-      end
+      #  if skip_pks.length > MAX_SKIP_PKS
+      #    @logger.warn("WARNING: Too many invalid rows (#{skip_pks.length})! Not skipping any. This may result in bad data!")
+      #    skip_pks = Set.new
+      #  end
+      #end
       
       @logger.info("Importing data from #{sub_filename}")
 
@@ -536,34 +538,34 @@ class TraitBank::Slurp
     end
   end
 
-  def run_check(filename, row_where_clause, check)
-    head = csv_check_head(filename, row_where_clause)
-    query = <<~CYPHER
-      #{head}
-      MATCH #{check[:matches].join(", ")}
-      #{check[:optional_matches]&.any? ? "OPTIONAL MATCH #{check[:optional_matches].join(", ")}" : ''}
-      WHERE #{check[:fail_condition]}
-      RETURN DISTINCT #{check[:returns].join(", ")}
-    CYPHER
+  #def run_check(filename, row_where_clause, check)
+  #  head = csv_check_head(filename, row_where_clause)
+  #  query = <<~CYPHER
+  #    #{head}
+  #    MATCH #{check[:matches].join(", ")}
+  #    #{check[:optional_matches]&.any? ? "OPTIONAL MATCH #{check[:optional_matches].join(", ")}" : ''}
+  #    WHERE #{check[:fail_condition]}
+  #    RETURN DISTINCT #{check[:returns].join(", ")}
+  #  CYPHER
 
-    result = ActiveGraph::Base.query(query).to_a
+  #  result = ActiveGraph::Base.query(query).to_a
 
-    skip_pks = []
+  #  skip_pks = []
 
-    if result.any?
-      @logger.error(check[:message])
+  #  if result.any?
+  #    @logger.error(check[:message])
 
-      values_to_log = []
-      result.each do |row| 
-        skip_pks << row[:eol_pk]
-        values_to_log << [row[:page_id], row[:term_uri]]
-      end
+  #    values_to_log = []
+  #    result.each do |row| 
+  #      skip_pks << row[:eol_pk]
+  #      values_to_log << [row[:page_id], row[:term_uri]]
+  #    end
 
-      @logger.error('[page_id, term_uri] pairs logged above')
-      @logger.error("Too many rows to log! This is just a sample.") if values_to_log.length > MAX_SKIP_PKS
-      @logger.error(values_to_log[0..MAX_SKIP_PKS].map { |v| "[#{v.join(', ')}]" }.join(', '))
-    end
+  #    @logger.error('[page_id, term_uri] pairs logged above')
+  #    @logger.error("Too many rows to log! This is just a sample.") if values_to_log.length > MAX_SKIP_PKS
+  #    @logger.error(values_to_log[0..MAX_SKIP_PKS].map { |v| "[#{v.join(', ')}]" }.join(', '))
+  #  end
 
-    skip_pks
-  end
+  #  skip_pks
+  #end
 end
