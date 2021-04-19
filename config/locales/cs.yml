@@ -661,7 +661,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: oblast
         https://eol(dot)org/schema/terms/arm: ruka
-        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: nepohlavní rozmnořování
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: nepohlavní rozmnožování
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atol
         http://eol(dot)org/schema/terms/average: průměr
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: klidné vody

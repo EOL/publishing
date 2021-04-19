@@ -30,8 +30,8 @@ it:
         se li usi per il tuo lavoro.</p><p>Questi dati sono modellati come <a href='%{property_graph_url}'>grafici
         di proprietà</a> in <a href='%{neo4j_url}'>neo4j</a>. <a href='%{data_services_path}'>I
         servizi di dati</a> sono disponibili.</p>
-  account_already_linked: Il tuo account è già connesso a EOL
-  account_not_linked: Il tuo account non è collegato a EOL
+  account_already_linked: il tuo account è già collegato a EOL
+  account_not_linked: il tuo account non è collegato a EOL
   advanced: avanzato
   are_you_sure_delete_account: Sei sicuro di voler eliminare il tuo account EOL?
   article:
@@ -40,7 +40,7 @@ it:
     header:
       blank: (Non c'è testo in questo articolo)
       body: Corpo
-      language: 'Lingua: %{language}'
+      language: 'lingua: %{language}'
       title: Titolo
       untitled: Senza titolo
     name:
@@ -311,6 +311,7 @@ it:
     ce: Ceceno
     q33388: Cherokee
     q33265: Cheyenne
+    ny: Chichewa; Chewa; Nyanja
     zh: Cinese
     chi: Cinese
     q32979: Choctaw
@@ -320,10 +321,14 @@ it:
     kw: Cornico
     co: Còrso
     cr: Cree
+    q33357: Tartaro di Crimea
     hr: Croato
     hrv: Croato
     cs: Ceco
     da: Danese
+    q3362072: Digo
+    q56466: Dinka
+    dv: Divehi; Dhivehi; Maldiviano
     dut: Olandese; Fiammingo
     nl: Olandese; Fiammingo
     dz: Dzongkha
@@ -378,6 +383,7 @@ it:
     mn: Mongolo
     q33845: Napoletano
     ne: Nepalese
+    q28224: Frisone settentrionale
     "no": Norvegese
     nno: Norvegese
     nob: Norvegese
@@ -534,6 +540,11 @@ it:
         Clicca per saperne di più.
       trophic_web_title_html: Rete alimentare <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
+    flash:
+      reindexed: Le cache per questa pagina sono state cancellate. Ricarica per vedere
+        i nuovi valori. NOTA che, al momento, questo *non* reindicizza le immagini
+        sulla pagina. Questa funzionalità verrà implementata in una data futura.
+    native_node_missing_warning: nessuna informazione sulla gerarchia disponibile
     tabs:
       articles: voci
       classifications: classificazioni
@@ -544,11 +555,19 @@ it:
       media: media
       names: nomi
     iucn_status:
+      label: 'Stato IUCN:'
       ex: estinto (EX)
       ew: estinto in natura (EW)
       vu: vulnerabile (VU)
+  page_titles:
+    pages:
+      articles: '%{page_name} articoli'
   recaptcha: Recaptcha
   resources:
+    actions:
+      republish: ripubblica
+      reindex: reindicizza
+      index: torna a tutte le risorse
     headers:
       index: Risorse
   resource_missing: risorsa non trovata
@@ -566,6 +585,8 @@ it:
       more_than_two_terms: 'Impossibile combinare i risultati per più di due termini:
         %{terms}'
   search_results:
+    collected_media:
+      title: 'media raccolti da questa pagina:'
     medium_article: Voce
     medium_image: Immagine
     medium_map: Mappa
@@ -595,6 +616,7 @@ it:
     diseases_and_parasites: Malattie e parassiti
     distribution: Distribuzione
     ecology: Ecologia
+    general_ecology: Ecologia generale
     genetics: Genetica
     growth: Crescita
     habitat: Habitat
@@ -615,6 +637,7 @@ it:
     type_information: Tipo di informazione
     wikipedia: Wikipedia
   settings: impostazioni
+  show_date: Mostra la data di pubblicazione
   sign_in: Entra
   sign_up: Registrati
   did_not_receive_confirmation_instructions: Non ho ricevuto le istruzioni di conferma
@@ -642,6 +665,9 @@ it:
     references: riferimenti
   term_query:
     invalid_obsolete: INVALIDO/OBSOLETO
+    validations:
+      empty_filters_error_record: devi fornire un filtro con un attributo o un valore
+        per le ricerche di record
   term_query_filter:
     validations:
       blank_error: devi specificare un attributo o un valore
@@ -740,6 +766,12 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: vasto
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrone
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcio (ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato di calcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfato di calcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: solfato di calcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: solfato di calcio diidrato
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: solfato di calcio emiidrato
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: caldera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: grotta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: ingresso della grotta
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
@@ -755,6 +787,10 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esposto
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: veloce
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: piedi
+        http://eol(dot)org/schema/terms/FireResistance: resistenza al fuoco
+        http://eol(dot)org/schema/terms/FireTolerance: tolleranza al fuoco
+        http://eol(dot)org/schema/terms/FossilFirst: prima apparizione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: golena
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frutto
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/giorno
         http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/anno
