@@ -92,6 +92,7 @@ window.TaxonSummaryViz = (function(exports) {
     if (focus !== root && focus.children) {
       outerFilterPrompt.html(`click to filter by '${d.data.name}'`);
       outerFilterPrompt.style('display', 'block');
+      outerFilterPrompt.on('click', () => window.location = d.data.searchPath);
     } else {
       outerFilterPrompt.style('display', 'none');
     }
@@ -123,7 +124,7 @@ window.TaxonSummaryViz = (function(exports) {
       if (d.children) {
         zoom(d); 
       } else {
-        alert('filter click!')
+        window.location = d.data.searchPath;
       }
 
       e.stopPropagation();

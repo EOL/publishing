@@ -69,6 +69,27 @@ module TraitDataVizHelper
     end
   end
 
+  def taxon_summary_json(data)
+    {
+      name: 'root',
+      children: data.parent_nodes.map do |node|
+        {
+          pageId: node.page.id,
+          name: node.page.name,
+          searchPath: term_search_results_path(tq: node.query.to_short_params),
+          children: node.children.map do |child|
+            {
+              pageId: child.page.id,
+              name: child.page.name,
+              searchPath: term_search_results_path(tq: child.query.to_short_params),
+              count: child.count
+            }
+          end
+        }
+      end
+    }.to_json
+  end
+
   private
   def result_label(datum)
     truncate(datum.label, length: 25)
