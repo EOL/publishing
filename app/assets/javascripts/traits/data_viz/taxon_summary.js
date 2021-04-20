@@ -12,6 +12,7 @@ window.TaxonSummaryViz = (function(exports) {
   let focus;
   let node;
   let label;
+  let svg;
 
   function build($contain) {
     const $viz = $contain.find('.js-taxon-summary')
@@ -28,7 +29,7 @@ window.TaxonSummaryViz = (function(exports) {
       .style('margin', '0 auto')
       ;
 
-    const svg = d3.select($viz[0])
+    svg = d3.select($viz[0])
       .append('svg')
       .attr('viewBox', `-${width / 2} -${height / 2} ${width} ${height}`)
       .attr('width', width)
@@ -97,7 +98,13 @@ window.TaxonSummaryViz = (function(exports) {
       outerFilterPrompt.style('display', 'none');
     }
 
-    zoomTo([d.x, d.y, d.r * 2]);
+    const transition = svg.transition()
+        .duration(750)
+        .tween("zoom", d => {
+          const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
+          return t => zoomTo(i(t));
+        });
+
     label
       .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
       .style('fill-opacity', d => d.parent === focus ? 1 : 0)
