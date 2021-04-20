@@ -69,7 +69,7 @@ class Traits::DataViz::TaxonSummary
 
     def to_h
       {
-        page_id: @page.id,
+        pageId: @page.id,
         name: @page.name,
         children: @children.map { |c| c.to_h }
       }
@@ -79,7 +79,7 @@ class Traits::DataViz::TaxonSummary
   InnerNode = Struct.new(:page, :count) do 
     def to_h
       {
-        page_id: page.id,
+        pageId: page.id,
         name: page.name,
         count: count
       }

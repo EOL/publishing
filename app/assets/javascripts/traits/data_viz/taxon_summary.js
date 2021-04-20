@@ -38,6 +38,7 @@ window.TaxonSummaryViz = (function(exports) {
       .style('margin', '0 auto')
       .style('display', 'block')
       .style('background', bgColor)
+      .style('cursor', 'pointer')
       .on('click', (e, d) => zoom(root))
       ;
 
@@ -46,8 +47,7 @@ window.TaxonSummaryViz = (function(exports) {
       .data(root.descendants().slice(1))
       .join('circle')
         .attr('fill', d => d.children ? outerCircColor : innerCircColor)
-        .attr('pointer-events', d => !d.children ? 'none' : null)
-        .on('click', (e, d) => { focus !== d && (zoom(d), e.stopPropagation()) })
+        .on('click', handleNodeClick)
         ;
 
     label = svg.append('g')
@@ -56,9 +56,10 @@ window.TaxonSummaryViz = (function(exports) {
       .selectAll('text')
       .data(root.descendants().slice(1))
       .join('text')
+        .attr('id', labelId)
         .style('fill-opacity', d => d.children ? 1 : 0)
-        .style('display', d => d.children ? 'inline' : 'none')
-        .text(d => `${d.data.name} (${d.value})`)
+        .style('display', labelDisplay)
+        .text(defaultLabelText)
       ;
 
     outerFilterPrompt = d3.select($viz[0])
@@ -70,7 +71,6 @@ window.TaxonSummaryViz = (function(exports) {
       .style('padding', '2px 4px')
       .style('font', 'bold 14px sans-serif')
       .style('display', 'none')
-      //.html("click to filter by 'chordata'")
 
     zoomTo([root.x, root.y, root.r * 2]);
   }
@@ -110,6 +110,58 @@ window.TaxonSummaryViz = (function(exports) {
     label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
     node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
     node.attr("r", d => d.r * k);
+    node
+      .attr('pointer-events', d => d.parent && d.parent === focus ? null : 'none')
+      .on('mouseover', handleNodeMouseover)
+      .on('mouseout', handleNodeMouseout)
+      ;
+  }
+
+  function handleNodeClick(e, d) {
+    if (d !== focus) {
+      if (d.children) {
+        zoom(d); 
+      } else {
+        alert('filter click!')
+      }
+
+      e.stopPropagation();
+    }
+  }
+
+  function handleNodeMouseover(e, d) {
+    d3.select(this).attr('stroke', '#000');
+
+    if (!d.children) {
+      label.style('display', 'none');
+
+      d3.select(`#${labelId(d)}`)
+        .text(d => `click to filter by '${d.data.name}'`)
+        .style('display', 'inline');
+    }
+  }
+
+  function handleNodeMouseout(e, d) {
+    d3.select(this).attr('stroke', null)
+
+    if (!d.children) {
+      label.style('display', labelDisplay);
+
+      d3.select(`#${labelId(d)}`)
+        .text(defaultLabelText);
+    }
+  }
+
+  function labelId(d) {
+    return `label-${d.data.pageId}`;
+  }
+
+  function defaultLabelText(d) {
+    return `${d.data.name} (${d.value})`;
+  }
+
+  function labelDisplay(d) {
+    return d.parent === focus ? 'inline' : 'none';
   }
 
   return exports;
