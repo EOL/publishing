@@ -53,6 +53,7 @@ window.TaxonSummaryViz = (function(exports) {
     label = svg.append('g')
       .style('font',  '12px sans-serif')
       .attr('text-anchor', 'middle')
+      .attr('pointer-events', 'none')
       .selectAll('text')
       .data(root.descendants().slice(1))
       .join('text')
