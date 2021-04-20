@@ -136,8 +136,11 @@ window.TaxonSummaryViz = (function(exports) {
       label.style('display', 'none');
 
       d3.select(`#${labelId(d)}`)
-        .text(d => `click to filter by '${d.data.name}'`)
-        .style('display', 'inline');
+        .style('display', 'inline')
+        .append('tspan')
+        .attr('x', 0)
+        .attr('dy', 13)
+        .text('click to filter');
     }
   }
 
