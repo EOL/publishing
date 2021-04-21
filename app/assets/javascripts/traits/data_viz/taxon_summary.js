@@ -61,8 +61,13 @@ window.TaxonSummaryViz = (function(exports) {
         .attr('id', labelId)
         .style('fill-opacity', d => d.children ? 1 : 0)
         .style('display', labelDisplay)
-        .text(defaultLabelText)
-      ;
+
+    label.append('tspan')
+      .attr('font-style', d => d.data.name.includes('<i>') ? 'italic' : null)
+      .text(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name);
+
+    label.append('tspan')
+      .text(d => d.children ? null : ` (${d.value})`);
 
     outerFilterPrompt = d3.select($viz[0])
       .append('button')
@@ -142,14 +147,16 @@ window.TaxonSummaryViz = (function(exports) {
     d3.select(this).attr('stroke', '#000');
 
     if (!d.children) {
+
       label.style('display', 'none');
 
       d3.select(`#${labelId(d)}`)
         .style('display', 'inline')
         .append('tspan')
-        .attr('x', 0)
-        .attr('dy', 13)
-        .text('click to filter');
+          .attr('class', 'click-prompt')
+          .attr('x', 0)
+          .attr('dy', 13)
+          .text('click to filter');
     }
   }
 
@@ -160,23 +167,13 @@ window.TaxonSummaryViz = (function(exports) {
       label.style('display', labelDisplay);
 
       d3.select(`#${labelId(d)}`)
-        .text(defaultLabelText);
+        .select('.click-prompt')
+        .remove();
     }
   }
 
   function labelId(d) {
     return `label-${d.data.pageId}`;
-  }
-
-  function defaultLabelText(d) {
-    let text = d.data.name;
-    
-    // don't show value for parents -- it's potentially inaccurate since it's the sum of a *sample* of children
-    if (!d.children) {
-      text += ` (${d.value})`; 
-    }
-
-    return text;
   }
 
   function labelDisplay(d) {
