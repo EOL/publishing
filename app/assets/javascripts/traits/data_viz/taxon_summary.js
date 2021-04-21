@@ -13,12 +13,14 @@ window.TaxonSummaryViz = (function(exports) {
   let node;
   let label;
   let svg;
+  let filterText
 
   function build($contain) {
     const $viz = $contain.find('.js-taxon-summary')
         , data = $viz.data('json')
         ;
 
+    filterText = $viz.data('prompt');
     root = pack(data);
     focus = root;
 
@@ -78,6 +80,7 @@ window.TaxonSummaryViz = (function(exports) {
       .style('padding', '2px 4px')
       .style('font', 'bold 14px sans-serif')
       .style('display', 'none')
+      .style('cursor', 'pointer');
 
     zoomTo([root.x, root.y, root.r * 2]);
   }
@@ -96,7 +99,7 @@ window.TaxonSummaryViz = (function(exports) {
     focus = d;
 
     if (focus !== root && focus.children) {
-      outerFilterPrompt.html(`click to filter by '${d.data.name}'`);
+      outerFilterPrompt.html(focus.data.promptText);
       outerFilterPrompt.style('display', 'block');
       outerFilterPrompt.on('click', () => window.location = d.data.searchPath);
     } else {

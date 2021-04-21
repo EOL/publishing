@@ -72,25 +72,32 @@ module TraitDataVizHelper
   def taxon_summary_json(data)
     {
       name: 'root',
-      children: data.parent_nodes.map do |node|
-        {
-          pageId: node.page.id,
-          name: name_for_breadcrumb_type(node.page),
-          searchPath: term_search_results_path(tq: node.query.to_short_params),
-          children: node.children.map do |child|
-            {
-              pageId: child.page.id,
-              name: name_for_breadcrumb_type(child.page),
-              searchPath: term_search_results_path(tq: child.query.to_short_params),
-              count: child.count
-            }
-          end
-        }
-      end
+      children: data.parent_nodes.map { |n| taxon_summary_node_data(n) }
     }.to_json
   end
 
   private
+  def taxon_summary_node_data(node)
+    page_name = name_for_breadcrumb_type(node.page)
+
+    data = {
+      pageId: node.page.id,
+      name: page_name,
+      searchPath: term_search_results_path(tq: node.query.to_short_params),
+      promptText: t('traits.data_viz.taxon_summary.click_to_filter_by', name: page_name)
+    }
+
+    if node.children.any?
+      data[:children] = node.children.map { |c| taxon_summary_node_data(c) }
+    end
+
+    if node.count
+      data[:count] = node.count
+    end
+
+    data
+  end
+
   def name_for_breadcrumb_type(page)
     breadcrumb_type == BreadcrumbType.vernacular ? page.vernacular_or_canonical : page.canonical
   end

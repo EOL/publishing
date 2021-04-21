@@ -1149,6 +1149,9 @@ en:
         associations_summary: 'show associations summary'
         attribute_summary: 'show attribute summary'
         taxon_summary: 'show taxon summary'
+      taxon_summary:
+        click_to_filter: 'click to filter'
+        click_to_filter_by: "click to filter by '%{name}'"
     properties:
       citation: "Bibliographic citation"
       method: "Measurement method"
