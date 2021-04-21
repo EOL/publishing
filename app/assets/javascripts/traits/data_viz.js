@@ -334,18 +334,20 @@ window.TraitDataViz = (function(exports) {
   }
 
   function loadViz($contain, ready) {
-    $.get($contain.data('loadPath'), (result) => {
-      $contain.find('.js-viz-spinner').remove();
+    if ($contain.length) {
+      $.get($contain.data('loadPath'), (result) => {
+        $contain.find('.js-viz-spinner').remove();
 
-      if (result) {
-        $contain.append(result);
-        $contain.find('.js-viz-text').removeClass('uk-hidden');
-        ready($contain);
-      }
-    })
-    .fail(() => {
-      $contain.empty();
-    });
+        if (result) {
+          $contain.append(result);
+          $contain.find('.js-viz-text').removeClass('uk-hidden');
+          ready($contain);
+        }
+      })
+      .fail(() => {
+        $contain.empty();
+      });
+    }
   }
 
   function setupToggle() {

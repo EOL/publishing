@@ -238,11 +238,20 @@ module TraitBank
       end
 
       def taxon_summary_data_records(tq, params, ranks)
-        begin_part = TraitBank::Search.term_record_search_matches(tq, params)
+        begin_part = TraitBank::Search.term_record_search_matches(tq, params, trait_var: 'trait')
+
+        with_part = if tq.filters.length > 1
+                      <<~CYPHER
+                        UNWIND trait_rows AS trait_row
+                        WITH DISTINCT page, trait_row.trait AS trait
+                      CYPHER
+                    else
+                      'WITH DISTINCT page, trait'
+                    end
+
         <<~CYPHER
           #{begin_part}
-          UNWIND trait_rows AS trait_row
-          WITH DISTINCT page, trait_row.trait AS trait
+          #{with_part}
           MATCH (group_taxon:Page{ rank: "#{ranks.parent}" })<-[:parent*0..]-(taxon:Page{ rank: "#{ranks.child}" })<-[:parent*0..]-(page)
           WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct trait) AS count
           RETURN group_taxon_id, taxon_id, count
