@@ -2,9 +2,10 @@ window.TaxonSummaryViz = (function(exports) {
   const width = 800
       , height = 800
       , pad = 3
-      , bgColor = 'rgb(163, 245, 207)'
+      , bgColor = '#fff' //'rgb(163, 245, 207)'
       , outerCircColor = 'rgb(81, 183, 196)'
       , innerCircColor = '#fff'
+      , labelTspanOffset = 13
       ;
 
   let view;
@@ -69,7 +70,9 @@ window.TaxonSummaryViz = (function(exports) {
       .text(d => d.data.name.includes('<i>') ? d.data.name.replaceAll('<i>', '').replaceAll('</i>', '') : d.data.name);
 
     label.append('tspan')
-      .text(d => d.children ? null : ` (${d.value})`);
+      .attr('x', 0)
+      .attr('dy', -labelTspanOffset)
+      .text(d => d.children ? null : `(${d.value})`);
 
     outerFilterPrompt = d3.select($viz[0])
       .append('button')
@@ -150,15 +153,15 @@ window.TaxonSummaryViz = (function(exports) {
     d3.select(this).attr('stroke', '#000');
 
     if (!d.children) {
-
-      label.style('display', 'none');
+      label.style('fill-opacity', '.5');
 
       d3.select(`#${labelId(d)}`)
-        .style('display', 'inline')
+        .style('fill-opacity', 1)
+        .style('font-weight', 'bold')
         .append('tspan')
           .attr('class', 'click-prompt')
           .attr('x', 0)
-          .attr('dy', 13)
+          .attr('dy', 2 * labelTspanOffset)
           .text('click to filter');
     }
   }
@@ -167,7 +170,9 @@ window.TaxonSummaryViz = (function(exports) {
     d3.select(this).attr('stroke', null)
 
     if (!d.children) {
-      label.style('display', labelDisplay);
+      label
+        .style('fill-opacity', 1)
+        .style('font-weight', 'normal');
 
       d3.select(`#${labelId(d)}`)
         .select('.click-prompt')
