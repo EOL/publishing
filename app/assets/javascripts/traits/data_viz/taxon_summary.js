@@ -124,8 +124,8 @@ window.TaxonSummaryViz = (function(exports) {
 
     view = v;
 
-    label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-    node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+    label.attr("transform", (d) => nodeTransform(d, v, k));
+    node.attr("transform", (d) => nodeTransform(d, v, k));
     node.attr("r", d => d.r * k);
     node
       .attr('pointer-events', d => d.parent && d.parent === focus ? null : 'none')
@@ -181,6 +181,29 @@ window.TaxonSummaryViz = (function(exports) {
 
   function labelDisplay(d) {
     return d.parent === focus ? 'inline' : 'none';
+  }
+
+  function nodeTransform(d, v, k) {
+    // layout is better with child nodes rotated 90 deg. about center of parent circle
+    if (!d.children) {
+      parentX = transformCoord(d.parent.x, v[0], k);
+      parentY = transformCoord(d.parent.y, v[1], k);
+
+      xNew = transformCoord(d.x, v[0], k);
+      yNew = transformCoord(d.y, v[1], k);
+
+      x = yNew - parentY + parentX;
+      y = xNew - parentX + parentY;
+    } else {
+      x = transformCoord(d.x, v[0], k);
+      y = transformCoord(d.y, v[1], k);
+    }
+
+    return `translate(${x},${y})`;
+  } 
+
+  function transformCoord(nVal, vVal, k) {
+    return (nVal - vVal) * k; 
   }
 
   return exports;
