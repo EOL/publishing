@@ -21,6 +21,8 @@ module TraitBank
     MAX_TAXA_FOR_TAXON_SUMMARY = 500_000
     TAXON_SUMMARY_LIMIT = 100 
 
+    TaxonSummaryRanks = Struct.new(:parent, :child)
+
     class << self
       include TraitBank::Constants
 
@@ -223,10 +225,9 @@ module TraitBank
 
       def taxon_summary_data(tq)
         params = { limit: TAXON_SUMMARY_LIMIT }
-        query = tq.record? ? taxon_summary_data_records(tq, params) : taxon_summary_data_pages(tq, params)
+        ranks = taxon_summary_ranks_for_query(tq)
+        query = tq.record? ? taxon_summary_data_records(tq, params, ranks) : taxon_summary_data_pages(tq, params, ranks)
 
-        # TODO: clade filter case
-        #
         full_query = <<~CYPHER
           #{query}
           ORDER BY count DESC
@@ -236,24 +237,24 @@ module TraitBank
         ActiveGraph::Base.query(full_query, params).to_a
       end
 
-      def taxon_summary_data_records(tq, params)
+      def taxon_summary_data_records(tq, params, ranks)
         begin_part = TraitBank::Search.term_record_search_matches(tq, params)
         <<~CYPHER
           #{begin_part}
           UNWIND trait_rows AS trait_row
           WITH DISTINCT page, trait_row.trait AS trait
-          MATCH (group_taxon:Page{ rank: "phylum" })<-[:parent*0..]-(taxon:Page{ rank: "family" })<-[:parent*0..]-(page)
+          MATCH (group_taxon:Page{ rank: "#{ranks.parent}" })<-[:parent*0..]-(taxon:Page{ rank: "#{ranks.child}" })<-[:parent*0..]-(page)
           WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct trait) AS count
           RETURN group_taxon_id, taxon_id, count
         CYPHER
       end
       
-      def taxon_summary_data_pages(tq, params)
+      def taxon_summary_data_pages(tq, params, ranks)
         begin_part = TraitBank::Search.term_page_search_matches(tq, params)
         <<~CYPHER
           #{begin_part}
           WITH DISTINCT page
-          MATCH (group_taxon:Page{ rank: "phylum" })<-[:parent*0..]-(taxon:Page{ rank: "family" })<-[:parent*0..]-(page)
+          MATCH (group_taxon:Page{ rank: "#{ranks.parent}" })<-[:parent*0..]-(taxon:Page{ rank: "#{ranks.child}" })<-[:parent*0..]-(page)
           WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct page) AS count
           RETURN group_taxon_id, taxon_id, count
         CYPHER
@@ -371,7 +372,15 @@ module TraitBank
 
       def check_search_valid_for_taxon_summary(search)
         if search.page_count > MAX_TAXA_FOR_TAXON_SUMMARY
-          return CheckResult.invalid("too many taxa")
+          return CheckResult.invalid('too many taxa')
+        end
+
+        if search.query.clade
+          if search.query.clade.rank.nil?
+            return CheckResult.invalid('query has a clade w/o a rank')
+          elsif Rank.treat_as[search.query.clade.rank.treat_as] > Rank.treat_as[:r_family]
+            return CheckResult.invalid('query has a clade with rank > family')
+          end
         end
 
         CheckResult.valid
@@ -428,6 +437,22 @@ module TraitBank
       end
 
       private
+
+      def taxon_summary_ranks_for_query(tq)
+        # queries with a clade that doesn't have a rank aren't allowed this far
+        if (
+          !tq.clade || 
+          Rank.treat_as[tq.clade.rank.treat_as] < Rank.treat_as[:r_phylum]
+        )
+          TaxonSummaryRanks.new('phylum', 'family')
+        elsif Rank.treat_as[tq.clade.rank.treat_as] < Rank.treat_as[:r_family]
+          TaxonSummaryRanks.new('family', 'genus')
+        elsif tq.clade.rank.r_family?
+          TaxonSummaryRanks.new('genus', 'species')
+        else
+          raise TypeError, 'clade rank invalid for taxon summary!'
+        end
+      end
 
       def assoc_data_target_rank(query)
         counts = assoc_data_counts(query)
