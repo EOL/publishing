@@ -169,7 +169,14 @@ window.TaxonSummaryViz = (function(exports) {
   }
 
   function defaultLabelText(d) {
-    return `${d.data.name} (${d.value})`;
+    let text = d.data.name;
+    
+    // don't show value for parents -- it's potentially inaccurate since it's the sum of a *sample* of children
+    if (!d.children) {
+      text += ` (${d.value})`; 
+    }
+
+    return text;
   }
 
   function labelDisplay(d) {
