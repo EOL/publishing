@@ -1,16 +1,18 @@
 require 'set'
 
 class TraitBank::Slurp
-  MAX_CSV_SIZE = 500_000
+  MAX_CSV_SIZE = 250_000
   MAX_SKIP_PKS = 1_000
 
   delegate :query, to: TraitBank
 
   def initialize(resource, logger = nil)
     @resource = resource
+    logger ||= Publishing::PubLog.new(@resource, use_existing_log: true)
     @logger = logger
   end
 
+  # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
   def load_resource_from_repo
     repo = ContentServerConnection.new(@resource)
     repo.copy_file(@resource.traits_file, 'traits.tsv')
@@ -20,12 +22,13 @@ class TraitBank::Slurp
     @resource.remove_traits_files
   end
 
+  # TraitBank::Slurp.new(res).load_resource_metadata_from_repo # ...and wait.
   def load_resource_metadata_from_repo
     repo = ContentServerConnection.new(@resource)
     repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
     config = load_csv_config
-    basename = File.basename()
-    load_csv(basename, config[basename])
+    metadata = config.keys.last
+    load_csv(metadata, config[metadata])
     # "Touch" the resource so that it looks like it's been changed (it has):
     @resource.touch
     @resource.remove_traits_files
@@ -128,7 +131,7 @@ class TraitBank::Slurp
               '(page:Page { page_id: toInteger(row.page_id) })',
               '(object_term)-[:incompatible_with_clade]->(clade:Page)'
             ],
-            fail_condition: '(clade)<-[:parent*0..]-(page)', 
+            fail_condition: '(clade)<-[:parent*0..]-(page)',
             returns: ['page.page_id AS page_id', 'row.eol_pk AS eol_pk', 'row.value_uri AS term_uri'],
             message: 'incompatible_with_clade check failed for the following [page_id, object_term_uri, clade_id]s:'
           }
@@ -269,14 +272,14 @@ class TraitBank::Slurp
       #    skip_pks = Set.new
       #  end
       #end
-      
+
       @logger.info("Importing data from #{sub_filename}")
 
       # build nodes required by all rows
       nodes.each do |node|
         try_again = true
         begin
-          where = skip_pks.any? ? 
+          where = skip_pks.any? ?
             "NOT row.eol_pk IN [#{skip_pks.map { |pk| "'#{pk}'" }.join(', ')}]" :
             nil
 
@@ -556,7 +559,7 @@ class TraitBank::Slurp
   #    @logger.error(check[:message])
 
   #    values_to_log = []
-  #    result.each do |row| 
+  #    result.each do |row|
   #      skip_pks << row[:eol_pk]
   #      values_to_log << [row[:page_id], row[:term_uri]]
   #    end
