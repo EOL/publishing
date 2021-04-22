@@ -23,7 +23,7 @@ class Traits::DataViz::TaxonSummary
       parent_node = parent_nodes_by_id[group_taxon.id]
 
       if parent_node.nil?
-        parent_node = ParentNode.new(group_taxon, query)
+        parent_node = ParentNode.new(group_taxon, query, row[:group_count])
         parent_nodes_by_id[group_taxon.id] = parent_node
       end
 
@@ -60,8 +60,8 @@ class Traits::DataViz::TaxonSummary
     attr_reader :delegate
     delegate_missing_to :delegate
 
-    def initialize(page, query)
-      @delegate = Node.new(page, query, nil)
+    def initialize(page, query, count)
+      @delegate = Node.new(page, query, count)
     end
   end
 

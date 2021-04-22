@@ -230,6 +230,10 @@ module TraitBank
 
         full_query = <<~CYPHER
           #{query}
+          WITH group_taxon, collect({ taxon: taxon, count: count }) AS taxa_counts, sum(count) AS group_count
+          UNWIND taxa_counts AS taxon_count
+          WITH group_taxon.page_id AS group_taxon_id, group_count, taxon_count.taxon.page_id AS taxon_id, taxon_count.count AS count
+          RETURN group_taxon_id, group_count, taxon_id, count
           ORDER BY count DESC
           LIMIT $limit
         CYPHER
@@ -253,8 +257,7 @@ module TraitBank
           #{begin_part}
           #{with_part}
           MATCH (group_taxon:Page{ rank: "#{ranks.parent}" })<-[:parent*0..]-(taxon:Page{ rank: "#{ranks.child}" })<-[:parent*0..]-(page)
-          WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct trait) AS count
-          RETURN group_taxon_id, taxon_id, count
+          WITH group_taxon, taxon, count(DISTINCT trait) AS count
         CYPHER
       end
       
@@ -264,8 +267,7 @@ module TraitBank
           #{begin_part}
           WITH DISTINCT page
           MATCH (group_taxon:Page{ rank: "#{ranks.parent}" })<-[:parent*0..]-(taxon:Page{ rank: "#{ranks.child}" })<-[:parent*0..]-(page)
-          WITH group_taxon.page_id AS group_taxon_id, taxon.page_id AS taxon_id, count(distinct page) AS count
-          RETURN group_taxon_id, taxon_id, count
+          WITH group_taxon, taxon, count(distinct page) AS count
         CYPHER
       end
 

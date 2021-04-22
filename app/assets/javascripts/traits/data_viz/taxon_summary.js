@@ -3,7 +3,7 @@ window.TaxonSummaryViz = (function(exports) {
       , height = 800
       , pad = 3
       , bgColor = '#fff' //'rgb(163, 245, 207)'
-      , outerCircColor = 'rgb(81, 183, 196)'
+      , outerCircColor = 'rgb(185, 233, 240)'
       , innerCircColor = '#fff'
       , labelTspanOffset = 13
       ;
@@ -56,6 +56,7 @@ window.TaxonSummaryViz = (function(exports) {
 
     label = svg.append('g')
       .style('font',  '12px sans-serif')
+      .attr('fill', '#222')
       .attr('text-anchor', 'middle')
       .attr('pointer-events', 'none')
       .selectAll('text')
@@ -63,6 +64,7 @@ window.TaxonSummaryViz = (function(exports) {
       .join('text')
         .attr('id', labelId)
         .style('fill-opacity', d => d.children ? 1 : 0)
+        .style('mix-blend-mode', 'multiply')
         .style('display', labelDisplay)
 
     label.append('tspan')
@@ -72,7 +74,7 @@ window.TaxonSummaryViz = (function(exports) {
     label.append('tspan')
       .attr('x', 0)
       .attr('dy', -labelTspanOffset)
-      .text(d => d.children ? null : `(${d.value})`);
+      .text(d => `(${d.data.count})`);
 
     outerFilterPrompt = d3.select($viz[0])
       .append('button')
