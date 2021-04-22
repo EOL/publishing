@@ -1101,6 +1101,7 @@ en:
       about_this_chart_tooltip_assoc: "This is a summary based upon data available in EOL. It may be incomplete! You can hover over a taxon name to highlight its relationships. A green link signifies that the hovered taxon is the subject of the association; a purple one signifies that it is the object. Larger searches are summarized by genus or family. You can narrow these down by clicking a taxon name."
       about_this_chart_tooltip_sankey_2d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Many categories overlap and a species may be included in more than one category in the same axis."
       about_this_chart_tooltip_sankey_3+: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Many categories overlap and a species may be included in more than one category in the same axis. In a highlighted subset display, these multi-value species will be counted multiple times in other axes."
+      about_this_chart_tooltip_taxon_summary: "This is a summary of taxonomic groups for which EOL has data matching your search. It may be truncated to fit the display size. You can select a group from the chart to view subgroups or to narrow your search results."
       other_term_name: "other %{term_name}"
       hist_value_label: "value (%{units})"
       n_family_records: 

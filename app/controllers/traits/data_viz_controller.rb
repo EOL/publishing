@@ -101,6 +101,7 @@ module Traits
 
     def taxon_summary 
       @data = Traits::DataViz::TaxonSummary.new(@query)
+      @about_text_key = 'about_this_chart_tooltip_taxon_summary'
       render_with_status(@data.any?)
     end
 
@@ -159,28 +160,6 @@ module Traits
         }),
         row[:count],
         noclick
-      )
-    end
-
-    def taxon_summary_count_result_from_row(row, total_rows, pages_by_id)
-      query = @query.deep_dup
-      page = pages_by_id[row[:family].page_id]
-      query.clade = page
-      # TODO: these are probably not right -- talk to Jen
-      if total_rows > 1
-        prompt_key = @query.record? ? "show_n_family_records" : "show_n_family_taxa"
-      else
-        prompt_key = @query.record? ? "n_family_records": "n_family_taxa"
-      end
-
-      prompt = I18n.t("traits.data_viz.#{prompt_key}", family: page.name, count: row[:count])
-
-      CountVizResult.new(
-        page.name,
-        prompt,
-        query,
-        row[:count],
-        total_rows == 1 ? true : false
       )
     end
 
