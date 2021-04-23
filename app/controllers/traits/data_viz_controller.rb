@@ -102,7 +102,7 @@ module Traits
     def taxon_summary 
       @data = Traits::DataViz::TaxonSummary.new(@query)
       @about_text_key = 'about_this_chart_tooltip_taxon_summary'
-      render_with_status(@data.any?)
+      render_with_status(@data.child_node_count > 1)
     end
 
     def hist

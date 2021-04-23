@@ -1,7 +1,7 @@
 require 'set'
 
 class Traits::DataViz::TaxonSummary
-  attr_reader :parent_nodes
+  attr_reader :parent_nodes, :child_node_count
 
   def initialize(query)
     results = TraitBank::Stats.taxon_summary_data(query)
@@ -10,6 +10,8 @@ class Traits::DataViz::TaxonSummary
       page_ids.add(row[:group_taxon_id])
       page_ids.add(row[:taxon_id])
     end
+
+    @child_node_count = results.length
 
     pages_by_id = Page.where(id: page_ids).map { |p| [p.id, p] }.to_h
 
