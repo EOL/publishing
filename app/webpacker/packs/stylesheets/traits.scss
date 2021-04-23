@@ -220,7 +220,7 @@
 }
 
 
-.viz-contain-hist, .viz-contain-bar, .viz-contain-sankey, .viz-contain-assoc {
+.viz-contain-hist, .viz-contain-bar, .viz-contain-sankey, .viz-contain-assoc, .viz-contain-taxon-summary {
   display: none;
 }
 
@@ -251,15 +251,6 @@
   width: 100%;
 }
 
-.viz-toggle {
-  display: block;
-  margin-top: 0;
-  text-align: center;
-}
-
-.alt-viz {
-  display: none;
-}
 
 /* adjust if visualization width changes or becomes dynamic */
 @media(min-width: 820px) { 
@@ -274,4 +265,8 @@
   }
 }
 
-
+@media(min-width: 860px) {
+  .viz-contain-taxon-summary {
+    display: block;
+  }
+}
