@@ -334,20 +334,42 @@ window.TraitDataViz = (function(exports) {
   }
 
   function loadViz($contain, ready) {
-    if ($contain.length) {
-      $.get($contain.data('loadPath'), (result) => {
-        $contain.find('.js-viz-spinner').remove();
+    if ($contain.length && !$contain.hasClass('js-fallback-viz')) {
+      $.ajax($contain.data('loadPath'), {
+        success: (result) => {
+          $contain.find('.js-viz-spinner').remove();
 
-        if (result) {
-          $contain.append(result);
-          $contain.find('.js-viz-text').removeClass('uk-hidden');
-          ready($contain);
+          if (result) {
+            $contain.append(result);
+            $contain.find('.js-viz-text').removeClass('uk-hidden');
+            ready($contain);
+          }
+        },
+        error: (jqXHR, textStatus, errorThrown) => {
+          $contain.empty();
+        },
+        complete: (jqXHR, textStatus) => {
+          if (textStatus == 'nocontent') {
+            const $fallbackContain = $('.js-fallback-viz');
+
+            if ($fallbackContain.length) {
+              $contain.replaceWith($fallbackContain); 
+              $fallbackContain.removeClass('js-fallback-viz');
+              $fallbackContain.removeClass('is-hidden');
+              loadAll();
+            }
+          }
         }
-      })
-      .fail(() => {
-        $contain.empty();
       });
     }
+  }
+
+  function loadAll() {
+    loadBarChart();
+    loadHistogram();
+    loadSankey();
+    loadAssoc();
+    loadTaxonSummary();
   }
 
   exports.loadBarChart = loadBarChart;
@@ -355,16 +377,10 @@ window.TraitDataViz = (function(exports) {
   exports.loadSankey = loadSankey;
   exports.loadAssoc = loadAssoc;
   exports.loadTaxonSummary = loadTaxonSummary;
+  exports.loadAll = loadAll;
 
   return exports;
 })({});
 
-$(function() {
-  TraitDataViz.loadBarChart();
-  TraitDataViz.loadHistogram();
-  TraitDataViz.loadSankey();
-  TraitDataViz.loadAssoc();
-  TraitDataViz.loadTaxonSummary();
-});
-
+$(TraitDataViz.loadAll);
 

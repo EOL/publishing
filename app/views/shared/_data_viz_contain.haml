@@ -17,6 +17,9 @@
   - classes = "viz-contain-taxon-summary js-taxon-summary-contain"
   - load_path = traits_data_viz_taxon_summary_path(tq: query.to_short_params)
 
+- if local_assigns.include?(:fallback) && fallback
+  - classes.concat(' js-fallback-viz is-hidden') 
+
 .viz-contain{ class: classes, data: { :'load-path' => load_path }}
   - if local_assigns.include?(:header) || local_assigns.include?(:description)
     .viz-text

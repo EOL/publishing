@@ -52,6 +52,9 @@
     - if @data_viz_type.present? 
       = render "shared/data_viz_contain", type: @data_viz_type, query: @query
 
+      - if @fallback_data_viz_type.present?
+        = render "shared/data_viz_contain", type: @fallback_data_viz_type, query: @query, fallback: true
+
     - if @query.record?
       = render 'data_table', { data: @search.grouped_data, pages: @pages, data_viz: @data_viz }
     - elsif @search.grouped_data.any?

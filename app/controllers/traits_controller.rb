@@ -134,6 +134,8 @@ class TraitsController < ApplicationController
   end
 
   def data_viz_type(query, search)
+    valid_for_taxon_summary = TraitBank::Stats.check_search_valid_for_taxon_summary(search).valid
+
     if TraitBank::Stats.check_query_valid_for_assoc(query).valid
       @data_viz_type = :assoc
     elsif TraitBank::Stats.check_query_valid_for_counts(query).valid
@@ -142,9 +144,13 @@ class TraitsController < ApplicationController
       @data_viz_type = :hist
     elsif TraitBank::Stats.check_query_valid_for_sankey(query).valid
       @data_viz_type = :sankey
-    elsif TraitBank::Stats.check_search_valid_for_taxon_summary(search).valid
+    elsif valid_for_taxon_summary
       @data_viz_type = :taxon_summary
     end
+
+    @fallback_data_viz_type = @data_viz_type != :taxon_summary && valid_for_taxon_summary ?
+      :taxon_summary :
+      nil
   end
 
   def set_view_type
