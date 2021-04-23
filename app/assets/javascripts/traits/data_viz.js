@@ -350,28 +350,11 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
-  function setupToggle() {
-    $('.js-viz-toggle').click(function() {
-      const cur = $('.cur-viz')
-          , alt = $('.alt-viz')
-          , curPrompt = $(this).html()
-          ;
-
-      cur.removeClass('cur-viz');
-      cur.addClass('alt-viz');
-      alt.removeClass('alt-viz');
-      alt.addClass('cur-viz');
-      $(this).html($(this).data('toggleText'));
-      $(this).data('toggleText', curPrompt);
-    });
-  }
-
   exports.loadBarChart = loadBarChart;
   exports.loadHistogram = loadHistogram;
   exports.loadSankey = loadSankey;
   exports.loadAssoc = loadAssoc;
   exports.loadTaxonSummary = loadTaxonSummary;
-  exports.setupToggle = setupToggle;
 
   return exports;
 })({});
@@ -382,7 +365,6 @@ $(function() {
   TraitDataViz.loadSankey();
   TraitDataViz.loadAssoc();
   TraitDataViz.loadTaxonSummary();
-  TraitDataViz.setupToggle();
 });
 
 
