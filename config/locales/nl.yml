@@ -1105,9 +1105,9 @@ nl:
     data_viz:
       about_this_chart: over deze grafiek
       about_this_chart_tooltip_1d: Dit is een samenvatting op basis van gegevens die
-        beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt een staaf uit de
-        grafiek selecteren om uw zoekresultaten te verfijnen. Merk op dat een bepaalde
-        soort in meer dan één balk kan voorkomen.
+        beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt een balk uit de grafiek
+        selecteren om uw zoekresultaten te verfijnen. Veel balken kunnen overlappen
+        en een bepaalde soort kan in meer dan één balk voorkomen.
       about_this_chart_tooltip_assoc: Dit is een samenvatting op basis van gegevens
         die beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt de muiscursor
         op de naam van een taxon plaatsen om de relaties ervan te laten tonen. Een
@@ -1190,6 +1190,7 @@ nl:
       result_header_records: Toon %{range_begin} - %{range_end} of %{total} records
         voor %{page_count} taxa met
       result_header_taxa: Toon %{range_begin} - %{range_end} van %{total} taxa met
+      result_header_taxa_notaxa: Toon %{range_begin} - %{range_end} van %{total}
       new_search: nieuwe zoekopdracht
       select:
         child_term: selecteer een kinderterm (optioneel)
@@ -1329,6 +1330,7 @@ nl:
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adult
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alpiene gletjser
+        http://eol(dot)org/schema/terms/ambush: hinderlaagpredator
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadroom
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: eenjarig
@@ -1336,6 +1338,10 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: gebied
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: bast
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: basalt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: beverdam
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: bevermeer
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: bijenwas
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: tweejarig
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: zwart
         http://eol(dot)org/schema/terms/BloomPeriod: bloeiperiode
@@ -1344,6 +1350,7 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: broeden
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: bruin
         http://eol(dot)org/schema/terms/browsing: browser
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: knop
         http://eol(dot)org/schema/terms/burl: warrelknoest
         http://eol(dot)org/schema/terms/CalcareousSoilTolerance: kalkrijke bodem tolerantie
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
