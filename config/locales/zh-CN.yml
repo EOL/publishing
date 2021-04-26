@@ -1724,21 +1724,43 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: 跳跃
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: 侏罗纪
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: 亚成体
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000175: 喀斯特地形
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012411: 喀斯特洞穴
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: 卡西莫夫期
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: 凯迪期
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000058: 海藻林
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: 开尔文
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: 千克
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: 千克每平方米
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: 公斤/平方米/年
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: 杀
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: 启莫里期
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 寄生虫
+        http://eol(dot)org/schema/terms/squarekilometer: 平方千米
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: 已知的海洋种类
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: 空谷期
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: 拉丁期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 湖
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: 湖床
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000476: 湖峡湾
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000382: 湖岸
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: 湖面
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: 薄片状的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: 内陆海
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: 泥石流
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: 兰盖期
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: 大
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: 大湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: 大河
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: 大河三角洲
         http://eol(dot)org/schema/terms/lateSpring: 春天的晚期
         http://eol(dot)org/schema/terms/lateSummer: 夏天的晚期
         http://eol(dot)org/schema/terms/lateWinter: 冬天的晚期
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: 板条似的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: 火山洞穴
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: 熔岩平原
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: 熔岩管
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: 在（名词）上下蛋
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: 叶面积
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 叶子颜色
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: 叶复杂性
@@ -1748,16 +1770,41 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: 叶脱落性
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 叶大小等级
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: 像叶子般的
+        http://semanticscience(dot)org/resource/SIO_000041: 长度
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: 生命周期习惯
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: 寿命
+        http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: 生命周期
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: 河口
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: 石灰岩
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: 石灰岩路面
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 线性
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: 脂类
         http://eol(dot)org/schema/terms/LittersPerYear: 每年母动物怀孕怀几次
+        http://eol(dot)org/schema/terms/littoralZone: 沿海带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: 壤土
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: 地区
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: 洛赫考夫期
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移动
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: 低
+        http://eol(dot)org/schema/terms/lowArctic: 亚北极区
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: 短寿命
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: 低潮区
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: 低容忍度
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: 早白垩纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: 早泥盆纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerJurassic: 早侏罗纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerOrdovician: 早奥陶纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: 早三叠纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: 卢德福德期
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: 罗德洛世
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: 卢台特期
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: 米
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: 平方米
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: 低平火山口
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: 马斯特里赫特期
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: 大型藻类
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 镁
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: 雄性
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: 男跟女的体重比例
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 海洋的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
