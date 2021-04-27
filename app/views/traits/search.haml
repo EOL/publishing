@@ -50,10 +50,7 @@
               = link_to t(".switch_to_gallery"), term_search_results_path(tq: @query.to_short_params, view: "gallery")
 
     - if @data_viz_type.present? 
-      = render "shared/data_viz_contain", type: @data_viz_type, query: @query
-
-      - if @fallback_data_viz_type.present?
-        = render "shared/data_viz_contain", type: @fallback_data_viz_type, query: @query, fallback: true
+      = render "shared/data_viz_contain_w_fallback", type: @data_viz_type, query: @query, fallback_type: @fallback_data_viz_type
 
     - if @query.record?
       = render 'data_table', { data: @search.grouped_data, pages: @pages, data_viz: @data_viz }

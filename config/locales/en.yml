@@ -1153,6 +1153,9 @@ en:
       taxon_summary:
         click_to_filter: 'click to filter'
         click_to_filter_by: "click to filter by '%{name}'"
+      toggle_text:
+        taxon_summary: 'show taxon summary'
+        trait_summary: 'show attribute summary'
     properties:
       citation: "Bibliographic citation"
       method: "Measurement method"

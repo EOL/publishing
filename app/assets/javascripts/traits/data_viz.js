@@ -2,7 +2,15 @@
 //= require traits/data_viz/assoc
 //= require traits/data_viz/taxon_summary
 window.TraitDataViz = (function(exports) {
-  var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
+  const BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
+
+  const typesToFns = {
+    bar: buildBarChart,
+    hist: buildHistogram,
+    sankey: Sankey.build,
+    assoc: AssocViz.build,
+    taxon_summary: TaxonSummaryViz.build
+  }
 
   function buildBarChart($contain) {
     var $elmt = $contain.find('.js-taxon-bar-chart')
@@ -295,88 +303,108 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
-  function loadBarChart() {
-    loadBarChartHelper($('.js-bar-contain'));
+  function loadViz($contain) {
+    function error(jqXHR, textStatus, errorThrown) {
+      $contain.empty();
+    }
+
+    function complete(jqXHR, textStatus) {
+      if (textStatus == 'nocontent') {
+        const $fallbackContain = $('.js-fallback-viz-contain');
+
+        if ($fallbackContain.length) {
+          $contain.replaceWith($fallbackContain); 
+          $fallbackContain.removeClass('uk-hidden');
+          loadFallbackViz($fallbackContain);
+        }
+      }
+    }
+
+    loadVizHelper($contain, loadFallbackViz, error, complete);
   }
 
-  function loadHistogram() {
-    var $contain = $('.js-hist-contain');
+  function loadFallbackViz($contain) {
+    const $parent = $contain.closest('.js-viz-with-fallback')
+        ;
 
-    if ($contain.length) {
-      loadViz($contain, buildHistogram);
+    if ($parent.length) {
+      const $fallbackContain = $parent.find('.js-fallback-viz-contain')
+          , $toggle = $parent.find('.js-viz-toggle')
+          , $toggleSpinner = $toggle.find('.js-viz-toggle-spin')
+          ;
+
+      function success() {
+        $toggleSpinner.remove();
+        $toggleLink = $toggle.find('.js-viz-toggle-link');
+        $toggleLink.html($fallbackContain.data('toggleText')); 
+        $toggleLink.click(toggleViz);
+      }
+
+      function error() {
+        $toggle.remove();
+        $fallbackContain.remove();
+      }
+
+      if ($fallbackContain.length) {
+        $toggleSpinner.show();
+        $contain.addClass('js-viz-cur');
+        $fallbackContain.addClass('js-viz-alt');
+        loadVizHelper($fallbackContain, success, error, null);
+      }
     }
   }
 
-  function loadSankey() {
-    var $contain = $('.js-sankey-contain')
+  function toggleViz() {
+    const $this = $(this)
+        , $parent = $this.closest('.js-viz-with-fallback')
+        , $cur = $parent.find('.js-viz-cur')
+        , $alt = $parent.find('.js-viz-alt')
+        ;
 
-    if ($contain.length) {
-      loadViz($contain, Sankey.build);
-    }
+    $this.html($cur.data('toggleText'));
+    $cur.addClass('uk-hidden');
+    $cur.removeClass('js-viz-cur');
+    $cur.addClass('js-viz-alt');
+    $alt.removeClass('uk-hidden');
+    $alt.removeClass('js-viz-alt');
+    $alt.addClass('js-viz-cur');
   }
 
-  function loadAssoc() {
-    var $contain = $('.js-assoc-contain');
 
-    if ($contain.length) {
-      loadViz($contain, AssocViz.build);
-    }
-  }
+  function loadVizHelper($contain, success, error, complete) {
+    const ready = typesToFns[$contain.data('type')];
 
-  function loadTaxonSummary() {
-    loadViz($('.js-taxon-summary-contain'), TaxonSummaryViz.build);
-  }
+    $.ajax($contain.data('loadPath'), {
+      success: (result) => {
+        $contain.find('.js-viz-spinner').remove();
 
-  function loadBarChartHelper($contain) {
-    if ($contain.length) {
-      loadViz($contain, buildBarChart);
-    }
-  }
-
-  function loadViz($contain, ready) {
-    if ($contain.length && !$contain.hasClass('js-fallback-viz')) {
-      $.ajax($contain.data('loadPath'), {
-        success: (result) => {
-          $contain.find('.js-viz-spinner').remove();
-
-          if (result) {
-            $contain.append(result);
-            $contain.find('.js-viz-text').removeClass('uk-hidden');
-            ready($contain);
-          }
-        },
-        error: (jqXHR, textStatus, errorThrown) => {
-          $contain.empty();
-        },
-        complete: (jqXHR, textStatus) => {
-          if (textStatus == 'nocontent') {
-            const $fallbackContain = $('.js-fallback-viz');
-
-            if ($fallbackContain.length) {
-              $contain.replaceWith($fallbackContain); 
-              $fallbackContain.removeClass('js-fallback-viz');
-              $fallbackContain.removeClass('is-hidden');
-              loadAll();
-            }
+        if (result) {
+          $contain.append(result);
+          $contain.find('.js-viz-text').removeClass('uk-hidden');
+          ready($contain);
+          
+          if (success) {
+            success($contain);
           }
         }
-      });
-    }
+      },
+      error: error,
+      complete: complete
+    });
   }
 
   function loadAll() {
-    loadBarChart();
-    loadHistogram();
-    loadSankey();
-    loadAssoc();
-    loadTaxonSummary();
+    const $contain = $('.js-viz-contain');
+
+    $contain.each(function() {
+      const $this = $(this);
+
+      if (!$this.hasClass('js-fallback-viz-contain')) {
+        loadViz($this);
+      }
+    });
   }
 
-  exports.loadBarChart = loadBarChart;
-  exports.loadHistogram = loadHistogram;
-  exports.loadSankey = loadSankey;
-  exports.loadAssoc = loadAssoc;
-  exports.loadTaxonSummary = loadTaxonSummary;
   exports.loadAll = loadAll;
 
   return exports;
