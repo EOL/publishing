@@ -303,24 +303,28 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
-  function loadViz($contain) {
-    function error(jqXHR, textStatus, errorThrown) {
-      $contain.empty();
-    }
-
-    function complete(jqXHR, textStatus) {
+  function loadViz($contain, loadFallbackIfPresent) {
+    function replaceWithFallback(jqXHR, textStatus) {
       if (textStatus == 'nocontent') {
         const $fallbackContain = $('.js-fallback-viz-contain');
 
         if ($fallbackContain.length) {
           $contain.replaceWith($fallbackContain); 
           $fallbackContain.removeClass('uk-hidden');
-          loadFallbackViz($fallbackContain);
+          loadViz($fallbackContain, false);
         }
       }
     }
 
-    loadVizHelper($contain, loadFallbackViz, error, complete);
+    const success = loadFallbackIfPresent ? loadFallbackViz : null
+        , complete = loadFallbackIfPresent ? replaceWithFallback : null
+        ;
+
+    function error(jqXHR, textStatus, errorThrown) {
+      $contain.empty();
+    }
+
+    loadVizHelper($contain, success, error, complete);
   }
 
   function loadFallbackViz($contain) {
@@ -400,7 +404,7 @@ window.TraitDataViz = (function(exports) {
       const $this = $(this);
 
       if (!$this.hasClass('js-fallback-viz-contain')) {
-        loadViz($this);
+        loadViz($this, true);
       }
     });
   }
