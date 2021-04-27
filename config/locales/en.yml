@@ -1185,7 +1185,7 @@ en:
       result_header_records: "Showing %{range_begin} - %{range_end} of %{total} records for %{page_count} taxa"
       result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa"
       result_header_taxa_notaxa: "Showing %{range_begin} - %{range_end} of %{total}"
-      result_header_records_notaxa: "Showing %{range_begin} - %{range_end} records for %{total}"
+      result_header_records_notaxa: "Showing %{range_begin} - %{range_end} of %{total} records for %{page_count}"
       new_search: "new search"
       select:
         child_term: "select a child term (optional)"
