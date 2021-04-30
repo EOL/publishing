@@ -7,9 +7,9 @@ class TraitBank::Denormalizer
       denormalizer.update_attributes
     end
 
-    def update_attributes_by_page_id(ids, options = {})
+    def update_attributes_by_page_id(resource, ids, options = {})
       denormalizer = new(options)
-      denormalizer.update_attributes_by_page_id(ids)
+      denormalizer.update_attributes_by_page_id(resource, ids)
     end
   end
 
@@ -17,6 +17,7 @@ class TraitBank::Denormalizer
     @limit = options[:limit] || 1280
     @skip = options[:skip] || 0
     @fixed = 0
+    @vernacular_count = 0
   end
 
   def update_attributes
@@ -31,12 +32,15 @@ class TraitBank::Denormalizer
     @fixed
   end
 
-  def update_attributes_by_page_id(ids)
+  def update_attributes_by_page_id(resource, ids)
     ActiveRecord::Base.connection.reconnect!
     ids.in_groups_of(@limit, false) do |group_of_ids|
       update_data = build_update_data(group_of_ids)
       do_batch_update(update_data)
+      update_vernaculars(resource, group_of_ids)
     end
+    log("Fixed #{@fixed} pages")
+    log("Created #{@vernacular_count} vernaculars")
   end
 
   def fix_page_ids(page_ids)
@@ -76,6 +80,40 @@ class TraitBank::Denormalizer
     @skip += @limit
     page_q.pluck(:id)
   end
+
+  def update_vernaculars(resource, page_ids)
+    resource.vernaculars.includes(language: :code).where(page_id: page_ids).find_in_batches do |batch|
+      data = batch.map do |v|
+        {
+          page_id: v.page_id,
+          is_preferred_name: v.is_preferred_by_resource,
+          language_code: v.language.code,
+          string: v.string
+        }
+      end
+
+      do_vernacular_update(resource, data)
+    end
+  end
+
+  def do_vernacular_update(resource, data)
+    query = <<~CYPHER
+      MATCH (resource:Resource)
+      WHERE resource.resource_id = $resource_id
+      WITH resource, $data AS data
+      UNWIND data AS datum
+      MATCH (page:Page)
+      WHERE page.page_id = datum.page_id
+      CREATE (v:Vernnacular)
+      SET v.string = datum.string, v.is_preferred_name = datum.is_preferred_name, v.language_code = datum.language_code
+      CREATE (v)-[:supplier]->(resource), (page)-[:vernacular]->(v)
+      RETURN count(*) AS count
+    CYPHER
+
+    count = ActiveGraph::Base.query(query, resource_id: resource.id, data: data).first.count
+    @vernacular_count += count
+  end
+
 
   # TODO: handle this better.
   def log(what)

@@ -77,7 +77,7 @@ class TraitBank::Slurp
   end
 
   def fix_new_page_attributes(page_ids)
-    TraitBank::Denormalizer.update_attributes_by_page_id(page_ids)
+    TraitBank::Denormalizer.update_attributes_by_page_id(@resource, page_ids)
   end
 
   class NodeConfig
