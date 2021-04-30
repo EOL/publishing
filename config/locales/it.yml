@@ -479,6 +479,7 @@ it:
       reindex: reindicizzare
     batch_lookup:
       canonical_name: nome canonico
+      download_tsv: scarica TSV
       new_search: nuova ricerca
       page_id: ID pagina
       page_url: URL pagina
@@ -676,12 +677,19 @@ it:
     scientific_name: nome scientifico
     show_all_records: mostra tutti i record
     source: fonte
+    uri_field_html: <strong>URI:</strong> %{uri}
+  data_definition: definizione di "%{data}"
   traits:
     data_viz:
+      about_this_chart_tooltip_1d: Questo è un riepilogo basato sui dati disponibili
+        in EOL. Potrebbe essere incompleto! Puoi selezionare una categoria dal grafico
+        per restringere i risultati della ricerca. Molte categorie si sovrappongono
+        e una specie può essere inclusa in più di una categoria.
       hist_value_label: valore (%{units})
       num_records_label: '# di record'
       other: altro
       pie_prompt: passa il mouse su un segmento o un tasto per evidenziarlo
+      sankey_node_hover: fai clic per restringere la ricerca a %{term_name}
     properties:
       citation: Citazione bibliografica
       method: Metodo di misurazione
@@ -694,11 +702,13 @@ it:
         obj_only: 'con valore: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
+        sex: 'sesso: %{value}'
       new_search: nuova ricerca
       select:
         top_level:
           object_term: o seleziona un valore
           predicate: o seleziona un attributo
+      switch_to_list: passa alla vista elenco
     search_form:
       attribute: attributo
       search: Cerca

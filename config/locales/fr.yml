@@ -10,6 +10,7 @@
 # Author: LittleNemo
 # Author: PhilW
 # Author: Pols12
+# Author: Raphoraph
 # Author: Scratcheur-2020Send
 # Author: Tektasc
 # Author: Thibaut120094
@@ -486,6 +487,7 @@ fr:
     q3906614: mari des prairies
     q13358: mégléno-roumain
     q13313: mérou
+    q113321: Mi’kmaq
     q36455: mindong
     q13324: minangkabau
     q13359: mingrélien
@@ -1134,8 +1136,19 @@ fr:
         plus d’une catégorie du même axe. Dans un affichage de sous-ensemble mis en
         évidence, ces espèces à valeurs multiples seront comptées plusieurs fois sur
         les autres axes.
+      about_this_chart_tooltip_taxon_summary: Ceci est un résumé des groupes taxonomiques
+        pour lesquels EdlV a des données qui correspondent à votre recherche. Il peut
+        être tronqué pour être adapté à la largeur de l’affichage. Vous pouvez sélectionner
+        un groupe depuis le graphique pour afficher les sous-groupes ou pour réduire
+        vos résultats de recherche.
       other_term_name: autre %{term_name}
       hist_value_label: valeur (%{units})
+      n_family_records:
+        one: un enregistrement pour les taxons dans la famille %{family}
+        other: '%{count} enregistrements pour les taxons dans la famille %{family}'
+      n_family_taxa:
+        one: un taxon dans la famille %{family}
+        other: '%{count} taxons dans la famille %{family}'
       n_other_records:
         one: un autre enregistrement
         other: '%{count} autres enregistrements'
@@ -1149,6 +1162,13 @@ fr:
         de %{name} sont connues pour y vivre. Sélectionner un environnement pour voir
         sa liste de contrôle d’espèces de %{name}.
       pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
+      show_n_family_records:
+        one: cliquer pour voir un enregistrement pour les taxons de la famille %{family}
+        other: cliquer pour voir %{count} enregistrements pour les taxons de la famille
+          %{family}
+      show_n_family_taxa:
+        one: cliquer pour voir un taxon de la famille %{family}
+        other: cliquer pour voir %{count} taxons de la famille %{family}
       n_obj_records:
         one: un enregistrement avec « %{obj_name} »
         other: '%{count} enregistrements avec « %{obj_name} »'
@@ -1172,6 +1192,16 @@ fr:
           %{limit}] %{units}
         other: cliquer pour voir %{count} taxons avec des valeurs de mesure dans [%{min},
           %{limit}] %{units}
+      show_link:
+        associations_summary: afficher le résumé des associations
+        attribute_summary: afficher le résumé de l’attribut
+        taxon_summary: afficher le résumé du taxon
+      taxon_summary:
+        click_to_filter: cliquez pour filtrer
+        click_to_filter_by: cliquez pour filtrez par « %{name} »
+      toggle_text:
+        taxon_summary: afficher le résumé du taxon
+        trait_summary: afficher le résumé de l’attribut
     properties:
       citation: Citation bibliographique
       method: Méthode de mesure
@@ -1204,7 +1234,7 @@ fr:
         taxons
       result_header_taxa_notaxa: Affichage de %{range_begin} à %{range_end} sur %{total}
       result_header_records_notaxa: Affichage des enregistrements de %{range_begin}
-        à %{range_end} sur %{total}
+        à %{range_end} sur %{total} pour %{page_count}
       new_search: nouvelle recherche
       select:
         child_term: sélectionner une condition fille (facultatif)
