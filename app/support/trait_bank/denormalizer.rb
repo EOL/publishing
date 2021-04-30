@@ -11,6 +11,11 @@ class TraitBank::Denormalizer
       denormalizer = new(options)
       denormalizer.update_attributes_by_page_id(ids)
     end
+
+    def update_resource_vernaculars(resource, options = {})
+      denormalizer = new(options)
+      denormalizer.update_resource_vernaculars(resource)
+    end
   end
 
   def initialize(options = {})
@@ -37,10 +42,10 @@ class TraitBank::Denormalizer
     ids.in_groups_of(@limit, false) do |group_of_ids|
       update_data = build_update_data(group_of_ids)
       do_batch_update(update_data)
-      update_vernaculars(group_of_ids)
+      update_page_vernaculars(group_of_ids)
     end
     log("Fixed #{@fixed} pages")
-    log("Created #{@vernacular_count} vernaculars")
+    log("Added #{@vernacular_count} vernaculars")
   end
 
   def fix_page_ids(page_ids)
@@ -81,27 +86,33 @@ class TraitBank::Denormalizer
     page_q.pluck(:id)
   end
 
-  def update_vernaculars(page_ids)
+  def update_page_vernaculars(page_ids)
     Page
       .where(page_id: page_ids)
       .vernaculars
-      .includes(language: :code)
+      .includes(:language)
       .find_in_batches do |batch|
-        data = batch.map do |v|
-          {
-            page_id: v.page_id,
-            is_preferred_name: v.is_preferred_by_resource,
-            language_code: v.language.code,
-            string: v.string,
-            resource_id: v.resource_id
-          }
+        update_batch_vernaculars(batch)
       end
+  end
 
-      do_vernacular_update(data)
+  def update_resource_vernaculars(resource)
+    resource.vernaculars.includes(:language).find_in_batches do |batch|
+      update_batch_vernaculars(batch)
     end
   end
 
-  def do_vernacular_update(data)
+  def update_batch_vernaculars(batch)
+    data = batch.map do |v|
+      {
+        page_id: v.page_id,
+        is_preferred_name: v.is_preferred_by_resource,
+        language_code: v.language.code,
+        string: v.string,
+        resource_id: v.resource_id
+      }
+    end
+
     query = <<~CYPHER
       WITH resource, $data AS data
       UNWIND data AS datum
@@ -113,8 +124,7 @@ class TraitBank::Denormalizer
       RETURN count(*) AS count
     CYPHER
 
-    count = ActiveGraph::Base.query(query, resource_id: resource.id, data: data).first.count
-    @vernacular_count += count
+    @vernacular_count += ActiveGraph::Base.query(query, resource_id: resource.id, data: data).first.count
   end
 
 
