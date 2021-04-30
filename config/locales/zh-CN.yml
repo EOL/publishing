@@ -1,4 +1,4 @@
-# Messages for Simplified Chinese (中文（简体）‎)
+# Messages for Simplified Chinese (中文（简体）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: A Chinese Wikipedian
@@ -6,6 +6,7 @@
 # Author: Carrot Li
 # Author: Colathewikian
 # Author: Gerongfenh
+# Author: Grace03
 # Author: Hmgrmb
 # Author: Hydra
 # Author: Jhammock
@@ -1052,6 +1053,8 @@ zh-CN:
   traits:
     data_viz:
       about_this_chart: 关于此图表
+      about_this_chart_tooltip_1d: 这是一个简介关于EOL所拥有的数据。这可能不完整！你可以从图表上选择一个种类来缩小你的搜索结果。很多种类是重叠的，一个品种可能会被归类于超过一个种类。
+      other_term_name: 其他%{term_name}
       hist_value_label: 数值%{units}
       n_other_records:
         one: 一个其他的记录
@@ -1080,6 +1083,9 @@ zh-CN:
         %{limit}] %{units}有度量值的记录'
       show_n_taxa_between: '{{PLURAL|one=点击查看%{count}一个在[%{min}, %{limit}] %{units}有度量值的分类群|点击查看%{count}个在[%{min},
         %{limit}] %{units}有度量值的分类群'
+      taxon_summary:
+        click_to_filter: 点击过滤
+        click_to_filter_by: 点击过滤根据%{name}
     properties:
       citation: 书目引用
       method: 测量方法
@@ -1103,6 +1109,7 @@ zh-CN:
       result_header_taxa: 显示%{total}分类群的%{range_begin} - %{range_end}部分，分类群含有
       new_search: 新搜索
       select:
+        child_term: 选择一个孩子条款（选择性）
         top_level:
           object_term: 或者选择一个值
           predicate: 或选择一个特定性质
@@ -1178,6 +1185,11 @@ zh-CN:
   vernacular_names_header: 俗名
   vernacular_preferred_by_resource: '%{resource}(首选名称)'
   wordcloud_credit_html: 产生于<a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{n}的%{m}'
   term:
     actions:
       reindex: 重新索引
@@ -1265,6 +1277,10 @@ zh-CN:
         http://eol(dot)org/schema/terms/amphibious: 两栖的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: 两性的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: 溯河繁殖的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: 动物庇护所
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: 动物垃圾
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: 动物群体的分量
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: 动物垃圾
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 一年生植物
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: 前部
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: 磷灰石
@@ -1273,6 +1289,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: 沿海的
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: 树上行动
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 面积
+        https://eol(dot)org/schema/terms/arm: 手臂
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: 无性生殖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: 死水
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: 恶地
@@ -1296,6 +1313,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000529: 滩脊
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: 海滩的沙
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: 海狸水坝
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: 河狸池
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: 蜂蜡
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: 行为昼夜节律
         http://eol(dot)org/schema/terms/benthic: 海底生物界
@@ -1337,7 +1355,12 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 褐色
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: 楼
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: 建筑材料
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: 球茎
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: 烧过的泥
+        https://eol(dot)org/schema/terms/burrow_builder: 地洞建筑者
+        https://eol(dot)org/schema/terms/burrowDepth: 洞穴深处
+        https://eol(dot)org/schema/terms/burrowDiameter: 洞穴直径
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: 咖啡因
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: 卡拉布里亚期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000567: 卡兰克地形
@@ -1778,7 +1801,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: 石灰岩
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: 石灰岩路面
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 线性
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: 脂类
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: 脂类/脂肪
         http://eol(dot)org/schema/terms/LittersPerYear: 每年母动物怀孕怀几次
         http://eol(dot)org/schema/terms/littoralZone: 沿海带
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: 壤土
@@ -1804,7 +1827,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: 马斯特里赫特期
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: 大型藻类
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 镁
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: 雄性
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: 男
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: 男跟女的体重比例
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 海洋的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的

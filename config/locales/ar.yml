@@ -307,6 +307,7 @@ ar:
     q9292: الأذربيجانية
     az: الأذربيجانية
     bm: البمبرية
+    q33151: شعب بنجار
     ba: الباشكيرية
     eu: الباسكية
     q29540: باڤارية
@@ -323,21 +324,27 @@ ar:
     br: البريتانية
     bg: البلغارية
     my: البورمية
+    q33120: بوريات
     q35037: بوزينيج تونجو
     q880301: يجون الفرنسية
     q35156: كار
     q2591230: كاشيناهيوا
     ca: الكتالونية
+    q33239: اللغة السيبوانية
+    khm: اللغة الخميرية
     km: الخميرية الوسطى
     ch: التشاموروية
     q33281: تشاباكانو
     ce: الشيشانية
+    q33388: شعب الشيروكي
+    q33265: شايان
     ny: الشيشيوا
     zh: الصينية
     chi: صينى
     q32979: شوكتو
     cu: الكنيسة القديمة السلافية
     cv: تشوفاش
+    q37041: اللغة الصينية الكلاسيكية
     kw: الكورنية
     co: الكورسيكية
     cr: لغة كري
@@ -350,13 +357,16 @@ ar:
     q56466: دينكاوية
     dv: الديفيهية
     q18415595: دوتيالي
+    dut: اللغة الهولندية؛ الفلمنكية
     nl: البلجيكية الهولندية
     dz: الزونخاية
     dzo: الزونخاية
     q4126517: الإنكتيتوتية الشرق كندية
     en: الإنجليزية
+    q29952: لغة ارزيا
     eo: إسبرانتو
     et: الإستونية
+    est: الإستونية
     ee: إوي
     fo: الفاروية
     fj: الفيجية
@@ -366,7 +376,7 @@ ar:
     fr: الفرنسية
     fra: الفرنسية
     ff: الفولانية
-    gd: الغيلية، الغيلية الاسكتلندية
+    gd: الغيلية الاسكتلندية
     gl: الجاليكية
     q33475: غان الصينية
     lg: غاندا
@@ -411,13 +421,16 @@ ar:
     ja: اليابانية
     jp: اليابانية
     jv: الجاوية
+    q33522: القبرديان الشركسية
     q35475: كابيي
     kl: الغرينلاندية
     q33634: كالميك
     kn: الكانادا
     kr: الكانورية
+    q36121: كابامبانغان
     q33541: القرقلباغية
     ks: الكشميرية
+    q33690: كاشوبيان
     kk: الكازاخية
     ki: الكيكويو
     q11005332: كينجا
@@ -430,16 +443,22 @@ ar:
     kor: الكورية
     kj: الكوانياما
     ku: الكردية
+    q36206: لغة لاك
     lo: اللاوية
+    lao: لاوية
     la: لاتينية
     lv: اللاتفية
     q1160372: لازية
+    q31746: الليزغينية
+    q36106: ليغوريا
     li: الليمبرجيشية
     ln: لينغالا
     q146803: لينجو فرنسا نوفا
     lt: اللتوانية
+    lit: ليتوانيا
     q33698: الليفونية
     q36584: ليففي
+    q13286: اللغة الصوربية السفلى
     lu: تشيلوبا
     q3437661: لوجورو
     lb: اللوكسمبورغية
@@ -459,19 +478,25 @@ ar:
     q6786446: ماتينجو
     q13358: رومانية ميجلينو
     q13313: ميرو
+    q113321: ميكماق
     q13324: مينانغكاباو
+    q13359: لغة مينغريلان
     q13330: الميراندية
+    q13343: موكشا
     mn: المنغولية
     q56426: لهجة مغربية
     q6944725: مويرا
+    q13300: ناهواتل
     q3508074: ناي
     na: الناورونية
     nv: نافاهو
     nd: نديبيل الشمالية
     nr: نديبلي الجنوبية
     ng: إندونجا
+    q33845: اللغة النابولية
     ne: النيبالية
     q7022366: نجيندو
+    q28224: اللغة الفريزية الشمالية
     q19933293: لوري الشمالية
     se: سامي الشمالية
     "no": النرويجية
@@ -496,6 +521,7 @@ ar:
     q36403: بير
     fa: الفارسية
     q23014: فيتسش
+    q15085: البيدمونتية
     q2429648: بوجورو
     pl: البولندية
     pol: بولندية
@@ -509,6 +535,7 @@ ar:
     rn: الكيروندية
     ru: الروسية
     rus: روسية
+    q718269: ساكيزايا
     sm: الساموية
     q34016: ساندو
     sg: السانغوية
@@ -516,14 +543,18 @@ ar:
     q33965: سنتالية
     sc: السردينية
     q845441: سردينية ساساريسية
+    q14549: الإسكتلنديون
     sr: الصربية
     q3788739: شامبالا
     q56482: شان
     sn: الشونا
+    q34004: شعب شونا
     ii: نوسو
+    q33973: صقلية
     sd: السندية
-    si: السنهالية
+    si: السنهاليون
     sk: السلوفاكية
+    slk: السلوفاكية
     sl: السلوفينية
     so: الصومالية
     som: صومالي
@@ -544,10 +575,11 @@ ar:
     tt: التترية
     te: التيلوجية
     th: التايلندية
+    tha: التايلندية
     bo: التبتية
     ti: التيغرينية
     q34159: توك بيسين
-    to: لغة تونغا
+    to: لغة التونجية
     q180937: ألبانية توسكية
     ts: تسونجا
     tn: التسوانية
@@ -558,24 +590,31 @@ ar:
     q36730: التركية والعثمانية
     tk: التركمانية
     tw: توي
+    q13238: الأدمرت
     ug: الأويغورية
     uk: الأوكرانية
     ukr: الأوكرانية
     none: غير محدد
+    q13248: اللغة الصربية العليا
     ur: الأردية
     uz: الأوزبكية
     ve: الفيندية
+    q32747: فيبسيان
     vi: الفيتنامية
     vo: فولابوك
     q32858: الفوتية
     wa: والون
+    q34279: لغة واراي واراي
     cy: الويلزية
     wel: الويلزية
+    q100103: لغة غرب الفلمنكية
     fy: الفريزية الغربية
     wo: الولوفية
     xh: الكوسية
     yi: اليديشية
     yo: يوربا
+    q10199: اللغة الزازاكية
+    q237409: الزيلندية
     za: تشوانغ
     zu: الزولوية
   layout_sign_in: تسجيل الدخول
@@ -803,6 +842,8 @@ ar:
   scientific_names_header: الأسماء العلمية
   send_me_reset_password_instructions: أرسل لي تعليمات تغيير كلمة المرور
   search:
+    full_name: '%{vernacular}%{scientific}'
+    matched_text: متطابقة %{text}
     flash:
       cannot_combine_paths: غير قادر على دمج النتائج باستخدام %{path}
       more_than_one_species: غير قادر على الجمع بين النتائج لـ%{species}
@@ -1023,18 +1064,52 @@ ar:
       about_this_chart_tooltip_1d: هذا ملخص بناء على البيانات المتوفرة في EOL. قد
         يكون غير مكتمل! يمكنك تحديد فئة من المخطط البياني لتضييق نتائج البحث. تتداخل
         العديد من الفئات ويمكن ان تتضمين الانواع في أكثر من فئة واحدة.
+      about_this_chart_tooltip_sankey_2d: هذا ملخص بناء على البيانات المتوفرة في EOL.
+        قد يكون غير مكتمل! يمكنك تحديد فئة من المخطط البياني لتضييق نتائج البحث. تتداخل
+        العديد من الفئات ويمكن ان تتضمين الانواع في أكثر من فئة واحدة.
+      other_term_name: آخر %{term_name}
+      hist_value_label: القيمة %{units}
+      num_records_label: '#السجلات'
+      other: أخرى
       page_habitat_header: '%{name}مساكن'
+      pie_prompt: مرر فأرة الحاسوب فوق جزء أو مفتاح لتمييزه
+      sankey_node_hover: انقر لتضييق البحث إلى %{term_name}
+      taxon_summary:
+        click_to_filter: انقر للتصفية
+        click_to_filter_by: انقر للتصفية بواسطة '%{name}'
     properties:
+      citation: الاقتباس الببليوغرافي
       method: طريقة القياس
+      remarks: ملاحظات
       sample_size: حجم العينة
       scientific_name: الاسم العلمي
       source: المصدر
     search:
       download_tsv: تنزيل tsv
       edit_filters: مرشحات التعديل
+      filter_display:
+        eq: '%{pred}=%{num_val}%{units}'
+        gte: '%{pred}>=%{num_val}%{units}'
+        lte: '%{pred}<=%{num_val}%{units}'
+        obj_only: 'ذات قيمة: %{obj}'
+        pred_obj: '%{pred}%{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} في [٪ {num_val1} ،٪ {num_val2}]٪ %{units}'
+        resource: المورد:%{value}
+        sex: الجنس:%{value}
+        statistical_method: الطريقة الإحصائية:%{value}
       gbif_search: بحث GBIF
-      result_header_records: عرض %{range_begin} - %{range_end} of %{total} سجلات ب
+      result_header_records: عرض %{range_begin} - %{range_end} من %{total} السجلات
+        من اجل %{page_count} الأصناف
+      result_header_taxa: عرض %{range_begin}- %{range_end} من %{total}الأصناف
+      result_header_taxa_notaxa: عرض %{range_begin} - %{range_end} من %{total}
+      result_header_records_notaxa: عرض %{range_begin} - %{range_end} من %{total}
+        سجلات من اجل %{page_count}
       new_search: بحث جديد
+      select:
+        child_term: اختار مصطلح الطفل (اختياري)
+        top_level:
+          object_term: أو حدد قيمة
       show_query: عرض الاستعلام
       switch_to_list: بدل إلى عرض القائمة
     search_form:
@@ -1109,6 +1184,11 @@ ar:
   vernacular_names_header: أسماء شائعة
   vernacular_preferred_by_resource: '%{resource} (يفضل هذا الاسم)'
   wordcloud_credit_html: وُلِّد بـ<a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} من %{n}'
   term:
     actions:
       reindex: إعادة الفهرسة
@@ -1138,12 +1218,19 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: لديه طفيل خارجي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: لديه طفيل داخلي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: عائل ل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: لديه فرط طفيلي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: لديه ناقل
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: قتل من قبل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: بيض عليها بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: لديه طفيلي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: لديه عامل مُمرض
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: يُفترس بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: زار من قِبل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: الزهور زار من قِبل
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/شهر'
+        http://eol(dot)org/schema/terms/percm2: / سم ^ 2
         https://eol(dot)org/schema/terms/abnormal_habitat_choice: اختيار غير طبيعي
           للموطن
         http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: سلوك حركي خارج عن المألوف
@@ -1162,12 +1249,66 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: حركة هوائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: موطن هوائي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: أيروسول
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: بعد الحصاد معدل
+          إعادة النمو
+        http://eol(dot)org/schema/terms/age At Dispersal: العمر عند التشتت
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: العمر عند فتح العين
+        http://eol(dot)org/schema/terms/AgeAtMaturity: العمر عند النضج
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: زراعي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: المواد الزراعي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: التربة الزراعية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: المخلفات الزراعية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: المخلفات الزراعية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: البيئة القلوية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: استيطان الحيوانات
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: صغار الحيوانات
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: كثافة عدد سكان
+          الحيوانات
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: فضلات الحيوانات
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: سنوي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: ماء ناقص الأكسجين
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: الأمامي
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009066: مئبر
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: الأباتيت
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: قناة مائية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: مائي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: التربة الصالحة للزراعة
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: أراجونيت
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: موطن شجري
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: مساحة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: نتوء صخري في جبل
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: قاحلة
         https://eol(dot)org/schema/terms/arm: ذراع
+        http://eol(dot)org/schema/terms/ArmPlusDiscLength: ذراع زائد طول القرص
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: تكاثر غير جنسي
+        http://eol(dot)org/schema/terms/average: متوسط
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: شاطئ بحر
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: أسود
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000511: مستنقع البطانية
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: الدم
+        http://eol(dot)org/schema/terms/BloomPeriod: فترة الازدهار
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000313: انفجار
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: أزرق
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: سوائل جسدية
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: تجاويف الجسم
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: كتلة الجسم
+        http://eol(dot)org/schema/terms/BodyShape: شكل الجسم
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: درجة حرارة الجسم
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: بحيرة قليلة الملوحة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: بركة قليلة الملوحة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: المياه المالحة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: غابة عريضة الأوراق
+        http://eol(dot)org/schema/terms/bromelicolous: بروميليادس
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: بنى
+        http://eol(dot)org/schema/terms/browsing: المتصفح
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: برعم
+        http://eol(dot)org/schema/terms/BudSource: مصدر برعم
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: مبنى
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: مواد بناء
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: مصباح
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: التربة المحروقة
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: قطر الخلية
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: كتلة الخلية
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: حجم الخلية
