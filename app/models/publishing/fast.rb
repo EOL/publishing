@@ -169,7 +169,6 @@ class Publishing
         @resource.fix_native_nodes
         @log.start('TraitBank::Denormalizer.update_resource_vernaculars')
         TraitBank::Denormalizer.update_resource_vernaculars(@resource)
-        propagate_resource_vernaculars_to_graph
         propagate_reference_ids
         clean_up
         if page_contents_required?

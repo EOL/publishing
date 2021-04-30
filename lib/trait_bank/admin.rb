@@ -86,6 +86,10 @@ module TraitBank
           name: :trait,
           q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
+        remove_with_query(
+          name: :vernacular,
+          q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 

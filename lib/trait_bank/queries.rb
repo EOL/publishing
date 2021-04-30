@@ -15,11 +15,20 @@ module TraitBank
 
       def count_by_resource(id)
         Rails.cache.fetch("trait_bank/count_by_resource/#{id}") do
-          count_relationships_and_nodes_by_resource_no_cache(id)
+          count_traits_by_resource_nocache(id)
         end
       end
 
-      def count_relationships_and_nodes_by_resource_no_cache(id)
+      def count_supplier_nodes_by_resource_nocache(id)
+        q = <<~CYPHER
+          MATCH (:Resource{ resource_id: $id })<-[:supplier]-(any)
+          RETURN count(DISTINCT any) AS count
+        CYPHER
+
+        ActiveGraph::Base.query(q, id: id).first[:count]
+      end
+
+      def count_traits_by_resource_nocache(id)
         res = TraitBank.query(
           "MATCH (res:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[#{TRAIT_RELS}]-(page:Page) "\
           "USING INDEX res:Resource(resource_id) "\

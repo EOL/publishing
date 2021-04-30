@@ -179,11 +179,11 @@ class Resource < ApplicationRecord
 
   def remove_content
     # Traits:
-    count = TraitBank::Queries.count_relationships_and_nodes_by_resource_no_cache(id)
+    count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
     if count.zero?
-      log("No traits, skipping.")
+      log("No graph nodes, skipping.")
     else
-      log("Removing #{count} traits")
+      log("Removing #{count} graph nodes")
       TraitBank::Admin.remove_for_resource(self)
     end
     # Node ancestors
