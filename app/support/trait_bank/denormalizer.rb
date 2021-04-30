@@ -87,9 +87,8 @@ class TraitBank::Denormalizer
   end
 
   def update_page_vernaculars(page_ids)
-    Page
+    Vernacular
       .where(page_id: page_ids)
-      .vernaculars
       .includes(:language)
       .find_in_batches do |batch|
         update_batch_vernaculars(batch)
