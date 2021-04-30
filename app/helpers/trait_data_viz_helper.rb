@@ -1,10 +1,9 @@
 module TraitDataVizHelper
   def count_viz_data(query, data)
     result = data.collect do |datum|
-      name = result_label(datum)
-
       {
-        label: name,
+        label_short: result_label_short(datum),
+        label_long: result_label_long(datum),
         prompt_text: datum.prompt,
         search_path: datum.noclick? ? nil : term_search_results_path(tq: datum.query.to_short_params),
         count: datum.count
@@ -102,8 +101,12 @@ module TraitDataVizHelper
     breadcrumb_type == BreadcrumbType.vernacular ? page.vernacular_or_canonical : page.canonical
   end
 
-  def result_label(datum)
+  def result_label_short(datum)
     truncate(datum.label, length: 25)
+  end
+
+  def result_label_long(datum)
+    truncate(datum.label, length: 50)
   end
 
   def obj_prompt_text(query, datum, name)

@@ -44,7 +44,11 @@ window.TraitDataViz = (function(exports) {
     }
 
     data.forEach((d) => {
-      d.width = (d.count / maxCount) * innerWidth;
+      pctWidth = (d.count / maxCount);
+      d.width =  pctWidth * innerWidth;
+      d.label = pctWidth <= .25 || pctWidth >= .75 ?
+        d.label_long :
+        d.label_short;
     });
 
     var svg = d3.select($elmt[0])
