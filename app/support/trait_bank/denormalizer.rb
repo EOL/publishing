@@ -105,8 +105,8 @@ class TraitBank::Denormalizer
     query = <<~CYPHER
       WITH resource, $data AS data
       UNWIND data AS datum
-      MATCH (page:Page), (resource:Resource)
-      WHERE page.page_id = datum.page_id AND resource.resource_id = datum.resource_id
+      MATCH (page:Page{ page_id: datum.page_id })
+      MERGE (resource:Resource{ resource_id: datum.resource_id })
       CREATE (v:Vernnacular)
       SET v.string = datum.string, v.is_preferred_name = datum.is_preferred_name, v.language_code = datum.language_code
       CREATE (v)-[:supplier]->(resource), (page)-[:vernacular]->(v)
