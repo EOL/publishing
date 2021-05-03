@@ -42,9 +42,9 @@ Thanks.
 
 === For Deploys After 2020-11-06
 
-10/9/2020 (mvitale): 
+10/9/2020 (mvitale):
 `$ rails r "TermQueryFilterConverter.run" to populate new id fields on existing TermQueryFilters.
-`$ bundle install` to install updated neo4jrb gems (now activegraph and neo4j-ruby-driver). Install seabolt per https://github.com/neo4jrb/neo4j-ruby-driver. 
+`$ bundle install` to install updated neo4jrb gems (now activegraph and neo4j-ruby-driver). Install seabolt per https://github.com/neo4jrb/neo4j-ruby-driver.
 Add neo4j_driver_url, neo4j_user, neo4j_password to secrets.yml (see sample)
 `$ bundle update eol\_terms && rails r "TermBootstrapper.new.load"` to convert string eol\_ids to integers.
 
@@ -57,7 +57,6 @@ Add neo4j_driver_url, neo4j_user, neo4j_password to secrets.yml (see sample)
 2020-12-15 (mvitale):
 `rails r "TermNode.reindex"`
 
-=== For Deploys after 2020-12-22
+=== For Deploys after 2021-4-26
 
-(to be continued...)
-
+run Locale.rebuild_language_mappings after the deploy
