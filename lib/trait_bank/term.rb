@@ -3,15 +3,15 @@ module TraitBank
   # Handles all of the methods specific to a :Term node.
   module Term
     TERM_RELATIONSHIP_PROPERTIES = {
-      'parent_uris' => 'parent_term', 
-      'synonym_of_uri' => 'synonym_of', 
+      'parent_uris' => 'parent_term',
+      'synonym_of_uri' => 'synonym_of',
       'units_term_uri' => 'units_term',
       'object_for_predicate_uri' => 'object_for_predicate',
       'inverse_of_uri' => 'inverse_of'
     }.freeze
     PAGE_RELATIONSHIP_PROPERTIES = {
       'exclusive_to_clade_id' => 'exclusive_to_clade',
-      'incompatible_with_clade_id' => 'incompatible_with_clade'  
+      'incompatible_with_clade_id' => 'incompatible_with_clade'
     }.freeze
     ALL_RELATIONSHIP_PROPERTIES = TERM_RELATIONSHIP_PROPERTIES.merge(PAGE_RELATIONSHIP_PROPERTIES).freeze
 
@@ -24,6 +24,8 @@ module TraitBank
     UNIQUE_URI_PART_CAPTURE_REGEX = /https?:\/\/eol\.org\/schema\/terms\/(.*)/
 
     class << self
+      delegate :reindex, to: TermNode
+      
       # TODO: I don't think these three different "get" methods are really needed. Sort them out. :|
       def term_as_hash(uri)
         return nil if uri.nil? # Important for param-management!
@@ -113,7 +115,7 @@ module TraitBank
 
       def remove_relationships(uri, name)
         TraitBank.query(%{
-          MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->() 
+          MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->()
           DETACH DELETE rel
         })
       end
@@ -587,4 +589,3 @@ module TraitBank
     end
   end
 end
-
