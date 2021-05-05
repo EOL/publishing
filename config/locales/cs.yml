@@ -355,6 +355,7 @@ cs:
     sd: Sindhi
     si: Sinhálština
     sk: Slovenština
+    slk: Slovenština
     sl: Slovinština
     so: Somálština
     es: Španělština; Kastilština
@@ -424,6 +425,9 @@ cs:
     actions:
       collect: sbírat
     batch_lookup:
+      download_tsv: Stáhnout TSV
+      new_search: Nové hledání
+      page_id: ID stránky
       page_url: URL stránky
       query: dotaz
       query_cant_be_blank: žádost nemůže být prázdná
@@ -452,6 +456,7 @@ cs:
         r_order: Pořadí
         r_family: Rodina
         r_tribe: Kmen
+        r_genus: Rod
         r_species: Druhy
         r_subspecies: Poddruhy
         r_form: Tvar
@@ -516,14 +521,25 @@ cs:
     medium_map: Mapa
     medium_sound: Zvuk
     medium_video: Video
+    medium_title_article_html: 'Článek: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Obrázek: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Mapa: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Zvuk: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
     empty: Žádné výsledky.
     field_matches:
       description: shoduje se s popisem
+      resource_pk: 'shoduje se vnějším ID:'
   sections:
     behavior: Chování
+    brief_summary: Rychlé shrnutí
+    conservation_status: Stav ochrany
+    ecology: Ekoloogie
+    general_ecology: Obecná ekologie
     genetics: Genetika
     growth: Růst
     habitat: Prostředí
+    management: správa
     migration: Migrace
     molecular_biology: Molekulární biologie
     molecular_biology_and_genetics: Molekulární biologie a genetika
@@ -581,30 +597,41 @@ cs:
   traits:
     data_viz:
       about_this_chart: o této tabulce
+      num_records_label: '# záznamů'
       other: ostatní
     properties:
       scientific_name: Vědecký název
     search:
       filter_display:
         sex: 'pohlaví: %{value}'
+      new_search: nové hledání
     search_form:
       sex: pohlaví
+  trophic_web:
+    group_descriptions:
+      predator: živí se na %{source_name}
+      prey: snězen %{source_name}
   trust:
+    unreviewed: nezkontrolované
     trusted: důvěryhodný
     untrusted: nedůvěryhodný
   user:
     created_at: vytvořeno
+    edit_account_details: Upravit podrobnosti účtu
     email: E-mail
+    to_commit_enter_current: Pro uložení změn vložte prosím své současné heslo
     form_labels:
       age_confirm: Je mi alespoň 13 let
     headers:
       collections: Sbírky
       downloads: Stažené
       links: Odkazy
+    is_power_user: Tento uživatel je označen jako superuživatel
     validations:
       age_confirm: musíte potvrdit, že jste starší 13 let
       tou_confirm: musíte potvrdit, že jste si přečetli Podmínky užívání a Ochranu
         soukromí
+    list_of_power_users: Seznam superuživatelů
     new_password: Nové heslo
     confirm_new_password: Potvrďte nové heslo
     username: Uživatelské jméno
@@ -628,6 +655,7 @@ cs:
       previous: Předchozí stránka
     inverse_name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: je snězen
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: má endoparazita
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: je zabit
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: má patogen
@@ -651,15 +679,25 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: zásaditý horký pramen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alpský ledovec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alpská půda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: anaerobní bahno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: anaerobní usazenina
+        http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: tolerance anaerobní
+          zeminy
+        https://eol(dot)org/schema/terms/anal_fin: plavání za pomocí řitní ploutve
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: jednoleté
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010001: antropogenní přírodní
           materiál
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatit
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: akvadukt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: vodní
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: vodní (pohyb)
+        http://eol(dot)org/schema/terms/aquatic: přizpůsobený vodě
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: vodní rostlina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: zvodnatět
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: orná půda
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: oblast
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: suchý
         https://eol(dot)org/schema/terms/arm: ruka
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: nepohlavní rozmnožování
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atol
@@ -671,7 +709,9 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: čedič
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: záliv
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: pláž
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: plážový písek
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: hráz bobra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: rybník bobrů
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: včelí vosk
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: opál
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: biologický odpad
@@ -679,6 +719,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: krev
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: modrá
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: délka těla
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: hmotnost těla
         http://eol(dot)org/schema/terms/BodyShape: tvar těla
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: teplota těla
         http://eol(dot)org/schema/terms/BodyVolume: objem těla
@@ -701,4 +742,91 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: jeskynní podlaha
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: jeskynní systém
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: jeskynní stěna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: křída
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: křídová půda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: černozem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: šot
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: jíl
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: jílová usazenina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: jílová půda
+        http://eol(dot)org/schema/terms/clearWater: čirá voda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: útes
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm³
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: pobřežní
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: pobřežní duna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: pobřežní zátoka
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: pobřežní země
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: pobřežní voda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: kokosová plantáž
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: plantáž kávovníku
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: barva
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: komunikace
+        http://eol(dot)org/schema/terms/competitive: soutěživý
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: kompost
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: složené oči
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: kontaminovaná usazenina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: kontaminovaní půda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: pevninský ostrov
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: korálový útes
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: zadní korálový útes
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000147: přední korálový útes
+        https://eol(dot)org/schema/terms/coral_sand: korálový ostrov
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: kód země
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: stáj
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: kráterové jezero
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: plazení
+        http://eol(dot)org/schema/terms/criticallyEndangered: kriticky ohrožený
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dny
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: mrtvý
+        http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: odpad
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: hlubokomořská usazenina
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: stupně
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: stupně celsia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: delta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: poušť
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: pouštní oáza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: pouštní písek
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: průměr
+        http://eol(dot)org/schema/terms/dry_forest: suchý les
+        http://eol(dot)org/schema/terms/dryFruit: suché ovoce
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: vyschlé jezero
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: dno vyschlého jezera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: vyschlá řeka
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: údolí vyschlé řeky
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: suchá země
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: vyschlé údolí
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: duna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: prach
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: barvivo
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: brzy
+        http://eol(dot)org/schema/terms/earlySpring: rané jaro
+        http://eol(dot)org/schema/terms/earlySummer: rané léto
+        http://eol(dot)org/schema/terms/eggDensity: hustota vejce
+        http://eol(dot)org/schema/terms/EggDiameter: průměr vejce
+        http://eol(dot)org/schema/terms/EggMass: hmotnost vejce
+        http://eol(dot)org/schema/terms/endangered: ohrožený
+        http://eol(dot)org/schema/terms/extinct: vyhynulý
+        http://eol(dot)org/schema/terms/extinctInTheWild: vyhynulý v přírodě
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: oči
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: farma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: farmářská půda
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: péro
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: samice
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009566: hnojení
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: hnojená půda
+        http://eol(dot)org/schema/terms/FireResistance: odolnost proti ohni
+        http://eol(dot)org/schema/terms/FireTolerance: tolerance ohně
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: fjord
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: let
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: potravinářské barvivo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: les
+        http://eol(dot)org/schema/terms/forestEdge: kraj lesa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: lesní půda
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: ovoce
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm³
+        http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m²
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/měsíc
 ...
