@@ -1,12 +1,14 @@
 module TraitDataVizHelper
   def count_viz_data(query, data)
-    result = data.collect do |datum|
+    result = data.map.with_index do |datum, i|
       {
-        label_short: result_label_short(datum),
-        label_long: result_label_long(datum),
-        prompt_text: datum.prompt,
+        label_short: bar_label(datum, 50),
+        label_long: bar_label(datum, 75),
+        prompt_long: bar_prompt(query, datum, 50),
+        prompt_short: bar_prompt(query, datum, 25),
         search_path: datum.noclick? ? nil : term_search_results_path(tq: datum.query.to_short_params),
-        count: datum.count
+        count: datum.count,
+        index: i
       }
     end
 
@@ -101,12 +103,19 @@ module TraitDataVizHelper
     breadcrumb_type == BreadcrumbType.vernacular ? page.vernacular_or_canonical : page.canonical
   end
 
-  def result_label_short(datum)
-    truncate(datum.label, length: 25)
+  def bar_label(datum, limit)
+    truncate(datum.label, length: limit)
   end
 
-  def result_label_long(datum)
-    truncate(datum.label, length: 50)
+  def bar_prompt(query, datum, label_limit)
+    term_label = bar_label(datum, label_limit)
+    prompt_prefix = datum.noclick? ? "" : "see_"
+
+    if query.record?
+      I18n.t("traits.data_viz.#{prompt_prefix}n_obj_records", count: datum.count, obj_name: term_label)
+    else
+      I18n.t("traits.data_viz.#{prompt_prefix}n_taxa_with", count: datum.count, obj_name: term_label)
+    end
   end
 
   def obj_prompt_text(query, datum, name)

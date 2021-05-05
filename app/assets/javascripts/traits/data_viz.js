@@ -14,7 +14,7 @@ window.TraitDataViz = (function(exports) {
 
   function buildBarChart($contain) {
     var $elmt = $contain.find('.js-taxon-bar-chart')
-      , width = 570
+      , width = 750
       , hPad = 5
       , innerWidth = width - (hPad * 2)
       , barHeight = 20
@@ -22,14 +22,6 @@ window.TraitDataViz = (function(exports) {
       , labelY = 15 
       , labelX = 10
       , keyHeight = 40
-      /*
-      , data = [
-          { label: 'foo', count: 400 },
-          { label: 'bar', count: 250 },
-          { label: 'bax', count: 175 },
-          { label: 'other', count: 472 }
-        ].sort((a, b) => b.count - a.count)
-        */
       , data = $elmt.data('results')
       , maxCount = data.reduce((curMax, d) => {
           return Math.max(d.count, curMax) 
@@ -49,6 +41,9 @@ window.TraitDataViz = (function(exports) {
       d.label = pctWidth <= .25 || pctWidth >= .75 ?
         d.label_long :
         d.label_short;
+      d.prompt_text = pctWidth <= .25 || pctWidth >= .75 ?
+        d.prompt_long :
+        d.prompt_short;
     });
 
     var svg = d3.select($elmt[0])
@@ -78,7 +73,7 @@ window.TraitDataViz = (function(exports) {
       .attr('transform', (d, i) => `translate(0, ${i * (barHeight + barSpace)})`)
       .style('cursor', (d) => d.search_path ? 'pointer' : 'default')
       .on('mouseenter', (e, d) => {
-        d3.select(e.target).select('text').text(d.prompt_text);
+        d3.select(e.target).select('text').text(d.prompt_text); 
       })
       .on('mouseleave', (e, d) => {
         d3.select(e.target).select('text').text(d.label);
