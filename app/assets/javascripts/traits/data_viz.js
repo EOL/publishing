@@ -373,7 +373,6 @@ window.TraitDataViz = (function(exports) {
     $alt.addClass('js-viz-cur');
   }
 
-
   function loadVizHelper($contain, success, error, complete) {
     const ready = typesToFns[$contain.data('type')];
 
@@ -396,7 +395,26 @@ window.TraitDataViz = (function(exports) {
     });
   }
 
+  function swapVizIfNeeded() {
+    const hashParams = EOL.parseHashParams();
+
+    if ('show_alt_viz' in hashParams && hashParams['show_alt_viz'] === 'true') {
+      const $parent = $('.js-viz-with-fallback')
+          , $primary = $('.js-primary-viz-contain')
+          , $fallback = $('.js-fallback-viz-contain')
+          ;
+
+      $primary.addClass('js-fallback-viz-contain');
+      $primary.addClass('uk-hidden');
+      $fallback.addClass('js-primary-viz-contain');
+      $fallback.removeClass('js-fallback-viz-contain');
+      $fallback.removeClass('uk-hidden');
+    }
+  }
+
   function loadAll() {
+    swapVizIfNeeded();
+
     const $contain = $('.js-viz-contain');
 
     $contain.each(function() {
