@@ -71,10 +71,10 @@ module TraitDataVizHelper
   end
 
   def taxon_summary_json(data)
-    {
+    JSON.dump({
       name: 'root',
       children: data.parent_nodes.map { |n| taxon_summary_node_data(n) }
-    }.to_json
+    })
   end
 
   private

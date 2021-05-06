@@ -1,1 +1,2 @@
-.js-taxon-bar-chart{ data: { results: count_viz_data(@query, @data).to_json, :'prompt-text' => t("traits.data_viz.bar_prompt") } }
+-# JSON.dump instead of to_json, which escapes things like ampersands
+.js-taxon-bar-chart{ data: { results: JSON.dump(count_viz_data(@query, @data)), :'prompt-text' => t("traits.data_viz.bar_prompt") } }
