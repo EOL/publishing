@@ -399,16 +399,20 @@ window.TraitDataViz = (function(exports) {
     const hashParams = EOL.parseHashParams();
 
     if ('show_alt_viz' in hashParams && hashParams['show_alt_viz'] === 'true') {
-      const $parent = $('.js-viz-with-fallback')
-          , $primary = $('.js-primary-viz-contain')
-          , $fallback = $('.js-fallback-viz-contain')
-          ;
+      const $parent = $('.js-viz-with-fallback');
+
+      if ($parent.length) {
+        const $primary = $parent.find('.js-primary-viz-contain')
+            , $fallback = $parent.find('.js-fallback-viz-contain')
+            ;
 
       $primary.addClass('js-fallback-viz-contain');
       $primary.addClass('uk-hidden');
       $fallback.addClass('js-primary-viz-contain');
       $fallback.removeClass('js-fallback-viz-contain');
       $fallback.removeClass('uk-hidden');
+
+      }
     }
   }
 
