@@ -1,5 +1,5 @@
 .js-viz-with-fallback
-  = render "shared/data_viz_contain", type: type, query: query, extra_class: 'js-primary-viz-contain'
+  = render "shared/data_viz_contain", type: type, query: query, extra_class: 'js-primary-viz-contain js-orig-primary-viz'
 
   - if local_assigns.include?(:fallback_type) && fallback_type.present?
     = render "shared/data_viz_contain", type: fallback_type, query: query, extra_class: 'js-fallback-viz-contain uk-hidden'

@@ -364,6 +364,12 @@ window.TraitDataViz = (function(exports) {
         , $alt = $parent.find('.js-viz-alt')
         ;
 
+    if ($alt.hasClass('js-orig-primary-viz')) {
+      history.replaceState(null, null, '#');
+    } else {
+      history.replaceState(null, null, '#show_alt_viz=true');
+    }
+    
     $this.html($cur.data('toggleText'));
     $cur.addClass('uk-hidden');
     $cur.removeClass('js-viz-cur');
@@ -406,12 +412,11 @@ window.TraitDataViz = (function(exports) {
             , $fallback = $parent.find('.js-fallback-viz-contain')
             ;
 
-      $primary.addClass('js-fallback-viz-contain');
-      $primary.addClass('uk-hidden');
-      $fallback.addClass('js-primary-viz-contain');
-      $fallback.removeClass('js-fallback-viz-contain');
-      $fallback.removeClass('uk-hidden');
-
+        $primary.addClass('js-fallback-viz-contain');
+        $primary.addClass('uk-hidden');
+        $fallback.addClass('js-primary-viz-contain');
+        $fallback.removeClass('js-fallback-viz-contain');
+        $fallback.removeClass('uk-hidden');
       }
     }
   }
