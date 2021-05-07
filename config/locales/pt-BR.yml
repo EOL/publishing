@@ -833,6 +833,9 @@ pt-BR:
         other: um=um registro com "%{obj_name}"
       n_taxa_with:
         other: uma=uma taxonomia com "%{obj_name}"
+      toggle_text:
+        taxon_summary: mostrar resumo do taxon
+        trait_summary: mostrar resumo de atributos
     properties:
       citation: Citação bibliográfica
       method: Modo da medição
