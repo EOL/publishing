@@ -196,6 +196,11 @@ class TraitBank::Slurp
               )
             ],
             merges: [ [:trait, :object_page, :object_page ] ]
+          },
+          is_not_blank('row.contributor_uri') =>
+          {
+            matches: { contributor: 'Term { uri: row.contributor_uri }' },
+            merges: [ [:trait, :contributor, :contributor] ]
           }
         }
       },
