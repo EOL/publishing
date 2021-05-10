@@ -25,6 +25,7 @@ class TraitNode
   has_many :in, :inferred_pages, type: :inferred_trait, model_class: :PageNode
   has_one :out, :resource, type: :supplier, model_class: :ResourceNode
   has_many :out, :metadata, type: :metadata, model_class: :MetadataNode
+  has_one :out, :contributor, type: :contributor, model_class: :TermNode
 
   alias :measurement_method :method # 'method' is a keyword, and thus can't be called with Trait#send(:method)
 
