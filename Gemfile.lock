@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
-  revision: 37d09c20e8a34466b11b94e78c6bb27667bad4a5
+  revision: 9e3244e96548a4d5bde474352957e6a2f5bc303b
   branch: main
   specs:
-    eol_terms (0.9.13)
+    eol_terms (0.9.14)
       yaml
 
 GIT
@@ -550,7 +550,7 @@ DEPENDENCIES
   discourse_api (~> 0.40)
   draper (~> 4.0)
   elasticsearch (~> 6)
-  eol_terms (>= 0.9.13)!
+  eol_terms (>= 0.9.14)!
   factory_girl (~> 4)
   faker (~> 2)
   font-awesome-sass (~> 4.7)

@@ -29,6 +29,15 @@ class TraitNode
 
   alias :measurement_method :method # 'method' is a keyword, and thus can't be called with Trait#send(:method)
 
+  PROP_METADATA_KEYS = %w(
+    citation
+    measurement_method
+    remarks
+    sample_size
+    scientific_name
+    source
+  )
+
   def grouped_metadata
     if !@grouped_metadata
       combined_metadata = {}
@@ -55,8 +64,46 @@ class TraitNode
     @grouped_metadata
   end
 
+  def all_metadata_sorted
+    (grouped_metadata + property_metadata + contributor_metadata).sort do |a, b|
+      a.predicate.i18n_name <=> b.predicate.i18n_name
+    end
+  end
+
+  def property_metadata
+    PROP_METADATA_KEYS.map do |key|
+      value = self.send(key)
+
+      if value.present?
+        GenericMetadatum.new(key, value, nil)
+      else
+        nil
+      end
+    end.compact
+  end
+
+  def contributor_metadata
+    contributor.present? ? [GenericMetadatum.new('contributor', nil, contributor)] : []
+  end
 
   private
+  class GenericMetadatum
+    attr_reader :predicate, :object_term, :object_page, :measurement, :literal, :units_term
+
+    def initialize(
+      pred_alias, 
+      measurement,
+      object_term
+    )
+      @predicate = TermNode.find_by_alias(pred_alias)
+
+      raise TypeError, "invalid Term alias" if @predicate.nil?
+
+      @measurement = measurement
+      @object_term = object_term
+    end
+  end
+
   class MetadataGroup
     attr_accessor :first
     delegate_missing_to :first
