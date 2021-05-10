@@ -491,6 +491,9 @@ it:
     filter_menu:
       show_all: mostra tutto
     page_data:
+      n_hidden_show_all_noname:
+        one: 1 record nascosto — mostra tutti
+        other: '%{count} record nascosti — mostra tutti'
       show_all: mostra tutto
     resource_names:
       name_recognized_by: Riconosciuto da %{by}
