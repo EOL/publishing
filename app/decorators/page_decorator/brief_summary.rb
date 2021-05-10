@@ -519,7 +519,7 @@ class PageDecorator
       end
 
       def flower_visitor_sentence
-        pages = @page.traits_for_predicate(TermNode.find_by_alias('visits_flowers_of')).map do |t|
+        pages = @page.object_traits_for_predicate(TermNode.find_by_alias('visits_flowers_of')).map do |t|
           t.page
         end.uniq.slice(0, FLOWER_VISITOR_LIMIT)
 
