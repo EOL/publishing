@@ -44,7 +44,7 @@ class PageDecorator
 
       landmark_children
       plant_description_sentence
-      flower_visitor_sentence
+      flower_visitor_sentences
       fixes_nitrogen_sentence
       forms_sentence
       ecosystem_engineering_sentence
@@ -522,17 +522,35 @@ class PageDecorator
         end
       end
 
-      def flower_visitor_sentence
-        pages = @page.object_traits_for_predicate(TermNode.find_by_alias('visits_flowers_of')).map do |t|
+      def flower_visitor_sentences
+        visits_flowers_sentence
+        flowers_visited_by_sentence
+      end
+
+      def visits_flowers_sentence
+        flower_visitor_sentence_helper(:traits_for_predicate) do |page_part|
+          add_sentence do |subj, __, ___|
+            "#{subj} visit flowers of #{page_part}."
+          end
+        end
+      end
+
+      def flowers_visited_by_sentence
+        flower_visitor_sentence_helper(:object_traits_for_predicate) do |page_part|
+          add_sentence do |_, __, ___|
+            "Flowers are visited by #{page_part}."
+          end
+        end
+      end
+
+      def flower_visitor_sentence_helper(trait_meth)
+        pages = @page.send(trait_meth, TermNode.find_by_alias('visits_flowers_of')).map do |t|
           t.page
         end.uniq.slice(0, FLOWER_VISITOR_LIMIT)
 
         if pages.any?
           parts = pages.collect { |page| association_sentence_part("%s", page) }
-
-          add_sentence do |_, __, ___|
-            "Flowers are visited by #{to_sentence(parts)}."
-          end
+          yield to_sentence(parts)
         end
       end
 
