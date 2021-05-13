@@ -170,6 +170,8 @@ as determined by the nature of the `predicate`.
   target is a `Term` node (usually
   for an ontology term) that gives the units in which `normal_measurement` is given.
 * `contributor` link: when present, the target is a Term node representing the Trait's contributor (e.g. a person or an institution)
+* `compiler` link: when present, the target is a Term node representing the Trait's compiler
+* `determined_by` link: when present, the target is a Term node representing the person, group, or organization who determined the value of the Trait
 * `normal_units` property: textual description of the units
 * `measurement` property: redundant with `normal_measurement`, but the value is given
   as it occurs in the resource rather than normalized to EOL-favored units
