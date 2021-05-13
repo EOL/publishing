@@ -201,6 +201,16 @@ class TraitBank::Slurp
           {
             matches: { contributor: 'Term { uri: row.contributor_uri }' },
             merges: [ [:trait, :contributor, :contributor] ]
+          },
+          is_not_blank('row.compiler_uri') =>
+          {
+            matches: { compiler: 'Term { uri: row.compiler_uri }' },
+            merges: [ [:trait, :compiler, :compiler] ]
+          },
+          is_not_blank('row.determined_by_uri') =>
+          {
+            matches: { determined_by: 'Term { uri: row.determined_by_uri }' },
+            merges: [ [:trait, :determined_by, :determined_by] ]
           }
         }
       },
