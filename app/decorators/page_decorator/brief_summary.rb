@@ -60,6 +60,10 @@ class PageDecorator
       Result.new(@sentences.join(' '), @terms)
     end
 
+    def other
+
+    end
+
     private
       LandmarkChildLimit = 3
       Result = Struct.new(:sentence, :terms)
@@ -251,7 +255,7 @@ class PageDecorator
           end
         else
           add_sentence do |subj, _, __|
-            "#{subj} is a family of #{a1}."
+            "#{subj} is a genus of #{a1}."
           end
         end
         # We may have a few genera that don't have a family in their ancestry. In those cases, shorten the taxonomy sentence:
