@@ -26,6 +26,8 @@ class TraitNode
   has_one :out, :resource, type: :supplier, model_class: :ResourceNode
   has_many :out, :metadata, type: :metadata, model_class: :MetadataNode
   has_one :out, :contributor, type: :contributor, model_class: :TermNode
+  has_one :out, :compiler, type: :compiler, model_class: :TermNode
+  has_one :out, :determined_by, type: :determined_by, model_class: :TermNode
 
   alias :measurement_method :method # 'method' is a keyword, and thus can't be called with Trait#send(:method)
 
@@ -36,6 +38,12 @@ class TraitNode
     sample_size
     scientific_name
     source
+  )
+
+  REL_METADATA_KEYS = %w(
+    contributor
+    compiler
+    determined_by
   )
 
   def grouped_metadata
@@ -65,7 +73,7 @@ class TraitNode
   end
 
   def all_metadata_sorted
-    (grouped_metadata + property_metadata + contributor_metadata).sort do |a, b|
+    (grouped_metadata + property_metadata + relationship_metadata).sort do |a, b|
       a.predicate.i18n_name <=> b.predicate.i18n_name
     end
   end
@@ -82,8 +90,16 @@ class TraitNode
     end.compact
   end
 
-  def contributor_metadata
-    contributor.present? ? [GenericMetadatum.new('contributor', nil, contributor)] : []
+  def relationship_metadata
+    REL_METADATA_KEYS.map do |key|
+      term = self.send(key)
+
+      if term.present?
+        GenericMetadatum.new(key, nil, term)
+      else
+        nil
+      end
+    end.compact
   end
 
   private
