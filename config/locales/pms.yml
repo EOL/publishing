@@ -822,6 +822,41 @@ pms:
       articles: artìcoj ëd %{page_name}
     traits:
       search: Arserca ëd caraterìstica
+  rank:
+    name:
+      r_domain: domini
+      r_subdomain: sot-domini
+      r_infradomain: infra-domini
+      r_superkingdom: sùper-regn
+      r_kingdom: regn
+      r_subkingdom: sot-regn
+      r_infrakingdom: infra-regn
+      r_superphylum: sùper-ramificassion
+      r_phylum: ramificassion
+      r_subphylum: so-ramificassion
+      r_infraphylum: infra-ramificassion
+      r_superclass: sùper-classa
+      r_class: classa
+      r_subclass: sot-classa
+      r_infraclass: infra-classa
+      r_superorder: sùper-órdin
+      r_order: órdin
+      r_suborder: sot-órdin
+      r_infraorder: infra-órdin
+      r_superfamily: sùper-famija
+      r_family: famija
+      r_subfamily: sot-famija
+      r_infrafamily: infra-famija
+      r_tribe: tribù
+      r_supergenus: sùper-géner
+      r_genus: géner
+      r_subgenus: sot-géner
+      r_infragenus: infra-géner
+      r_superspecies: sùper-ëspece
+      r_species: spece
+      r_subspecies: sotaspece
+      r_infraspecies: infra-spece
+      r_form: forma
   recaptcha: Ch'a scriva torna le doe paròle o nùmer ch'a s-ciàira sì-sota
   recaptcha_error: Ch'as disa ch'a l'é nen un robò.
   reference_compiled_from: Arferiment da %{links}
@@ -1508,6 +1543,10 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000026: zòna batial
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000211: zòna batipelàgica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: ansen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000234: maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: riva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000529: crësta ëd riva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: riva ëd sabia
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritm sircadian comportamental
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: bienal
         http://eol(dot)org/schema/terms/BillLength: longheur dël bech
