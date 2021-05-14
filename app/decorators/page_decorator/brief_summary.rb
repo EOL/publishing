@@ -532,7 +532,7 @@ class PageDecorator
       end
 
       def visits_flowers_sentence
-        flower_visitor_sentence_helper(:traits_for_predicate) do |page_part|
+        flower_visitor_sentence_helper(:traits_for_predicate, :object_page) do |page_part|
           add_sentence do |subj, __, ___|
             "#{subj} visit flowers of #{page_part}."
           end
@@ -540,16 +540,16 @@ class PageDecorator
       end
 
       def flowers_visited_by_sentence
-        flower_visitor_sentence_helper(:object_traits_for_predicate) do |page_part|
+        flower_visitor_sentence_helper(:object_traits_for_predicate, :page) do |page_part|
           add_sentence do |_, __, ___|
             "Flowers are visited by #{page_part}."
           end
         end
       end
 
-      def flower_visitor_sentence_helper(trait_meth)
-        pages = @page.send(trait_meth, TermNode.find_by_alias('visits_flowers_of')).map do |t|
-          t.page
+      def flower_visitor_sentence_helper(trait_fn, page_fn)
+        pages = @page.send(trait_fn, TermNode.find_by_alias('visits_flowers_of')).map do |t|
+          t.send(page_fn)
         end.uniq.slice(0, FLOWER_VISITOR_LIMIT)
 
         if pages.any?
@@ -870,7 +870,7 @@ class PageDecorator
                              Rails.logger.warn("Missing associated page for auto-generated text")
                              "(page not found)"
                            else
-                             view.link_to(object_page.name(Locale.english).html_safe, object_page)
+                             view.link_to(object_page.short_name(Locale.english).html_safe, object_page)
                            end
         sprintf(format_str, object_page_part)
       end
