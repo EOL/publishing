@@ -1922,39 +1922,98 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: 平方毫米
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: 平方毫米/毫克
         http://eol(dot)org/schema/terms/moderateRate: 中
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: 山地沙漠
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000435: 山地森林
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: 山地草原
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: 山地疏林草原
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: 山地灌木丛
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 月
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: 冰碛
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: 莫斯科期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: 山
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: 山道
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: 山脉
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: 黏液
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: 泥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: 泥火山
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000192: 泥滩
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: 多用途水坝
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: 市辖区
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: 肌肉
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: 肌肉骨骼系统
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: 互惠互利的
         http://eol(dot)org/schema/terms/NativeRange: 原生地包括
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: 自然海港
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: 自然保护区
+        http://eol(dot)org/schema/terms/nearThreatened: 近危
+        http://www(dot)marinespecies(dot)org/traits/Nekton: 自游生物
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: 新近纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: 新元古代
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000032: 浅海远洋带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000206: 浅海带
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: 神经系统
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: 神经系统疾病
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: 纳克/克/时
+        https://eol(dot)org/schema/terms/nanograpperkilgramperminute: 纳克/千克/分
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
         http://eol(dot)org/schema/terms/no: 否
         http://eol(dot)org/schema/terms/noHarem: 没有后宫
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: 没有父母的照顾
         http://eol(dot)org/schema/terms/noPaternalCare: 没有父亲的照顾
+        http://eol(dot)org/schema/terms/noSocialGroupLiving: 非群居
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: 十九烷酸
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: 无
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: 诺利期
         http://eol(dot)org/schema/terms/notMonogamous: 不是一夫一妻
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 细胞核长度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 细胞核宽度
         http://eol(dot)org/schema/terms/fossilOccPBDB: 化石出现次数
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000181: 冰原岛峰
         http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: 奶里的营养组成
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: 橡树林地
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: 半深海带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: 海岛
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: 大洋带
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: 十八烷酸
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: 油棕种植园
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: 奥伦尼克期
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oligocene: 渐新世
+        http://eol(dot)org/schema/terms/oligotrophicFreshwaterLake: 贫营养淡水湖
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002223: 贫营养水
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: 生育期开始
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: 橘色
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: 果园
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ordovician: 奥陶纪
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: 器官系统
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: 有机材料
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: 有机废物
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002202: 有机污染沉积物
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: 方位
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: 地貌起伏纹路
         http://eol(dot)org/schema/terms/otherBudSource: 其他
         http://eol(dot)org/schema/terms/OuterEarLength: 外耳朵的长度
+        http://eol(dot)org/schema/terms/outerReef: 外礁
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: 河迹湖
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: 牛津期
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 氧
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: 水禾田
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: 水禾田的泥
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: 古太古代
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleogene: 古近纪
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoproterozoic: 古元古代
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: 古生代
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: 掌状
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 寄生
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: 被寄生
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: 的拟寄生物
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: 副模
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: 父母的照顾
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 亲代抚育
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: 放牧场
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: 牧场土壤
+        http://eol(dot)org/schema/terms/patchReef: 礁石
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 病原体
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000044: 泥炭地
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: 十五烷酸
         http://eol(dot)org/schema/terms/perAcre: 每英亩
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: 百分之

@@ -533,6 +533,8 @@ de:
   traits:
     data_viz:
       other: andere
+      taxon_summary:
+        click_to_filter_by: Klicke zum Filtern nach ‚%{name}‘
     properties:
       method: Messverfahren
       scientific_name: Wissenschaftliche Bezeichnung

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aaribaud
+# Author: Ajeje Brazorf
 # Author: Alno
 # Author: Crochet.david
 # Author: Eduardo Addad de Oliveira
@@ -2165,7 +2166,7 @@ fr:
         http://eol(dot)org/schema/HeadWidth: largeur de la tête
         http://eol(dot)org/schema/terms/HeadBodyLength: longueur tête et corps
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000153: bassin versant
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: en forme de coeur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: en forme de cœur
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: lande
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: haie
         http://semanticscience(dot)org/resource/SIO_000040: hauteur
