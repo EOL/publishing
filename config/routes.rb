@@ -150,6 +150,11 @@ Rails.application.routes.draw do
         get '/:id' => 'api_hierarchy_entries#index'
         get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
       end
+
+      scope '/reconciliation' do
+        get '/' => 'api_reconciliation#index'
+      end
+
       # TODO: we decided we could go live without these. Which is good, they are lame:
       # scope '/hierarchies' do
       #   get '/1.0/:id' => 'api_hierarchies#index'
