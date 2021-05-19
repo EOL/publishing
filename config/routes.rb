@@ -152,7 +152,9 @@ Rails.application.routes.draw do
       end
 
       scope '/reconciliation' do
-        get '/' => 'api_reconciliation#index'
+        get '/' => 'api_reconciliation#index', as: 'api_reconciliation'
+        post '/' => 'api_reconciliation#index'
+        get '/test' => 'api_reconciliation#test'
       end
 
       # TODO: we decided we could go live without these. Which is good, they are lame:
