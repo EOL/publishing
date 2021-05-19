@@ -68,16 +68,37 @@ class ApiReconciliationController < ApplicationController
   end
 
   def query(q)
-    result = Page.search(q['query'])
-    result.hits.map.with_index do |hit, i|
+    match = :text_start
+    query_str = q['query']
+    result = Page.search(query_str, fields: %w[
+      preferred_vernacular_strings^10 vernacular_strings^10 
+      preferred_scientific_names^10 scientific_name synonyms
+    ], match: match, highlight: { tag: '' })
+
+    hash_results = result.hits.map.with_index do |hit, i|
+      # First result is a confident match if 
+      # 1) a search field matches the query exactly
+      # 2) the next result has a lower score (or doesn't exist)
+      page = result[i]
+      score = hit['_score']
+      highlight_strs = page.search_highlights.values.map { |v| v.downcase }
+
+      confident_match = (
+        i == 0 && 
+        (result.length == 1 || result.hits[1]['_score'] < score) &&
+        highlight_strs.include?(query_str.downcase)
+      )
+
       { 
-        id: "pages/#{hit["_id"]}", 
-        name: result[i].scientific_name, 
-        score: hit["_score"],
-        type: "page",
-        match: true
+        id: "pages/#{page.id}", 
+        name: page.scientific_name_string, 
+        score: hit['_score'],
+        type: ["page"],
+        match: confident_match,
       }
     end
+
+    { result: hash_results }
   end
 
   def bad_request(msg)
