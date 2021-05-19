@@ -1,5 +1,6 @@
 class ApiReconciliationController < ApplicationController
-  ManifestType = Struct.new(:name, :description)
+  ManifestType = Struct.new(:id, :name)
+  MAX_LIMIT = 50
 
   class ValidationResult
     def initialize(valid, msg)
@@ -26,9 +27,8 @@ class ApiReconciliationController < ApplicationController
     end
   end
 
-  MANIFEST_TYPES = [
-    ManifestType.new("page", "A representation of a taxon on EOL")
-  ]
+  TYPE_TAXON = ManifestType.new("taxon", "Taxon")
+  MANIFEST_TYPES = [TYPE_TAXON]
 
   def index
     if params[:queries]
@@ -50,7 +50,7 @@ class ApiReconciliationController < ApplicationController
   # GET "/" -- service manifest 
   def manifest
     @types = MANIFEST_TYPES
-    render :index
+    render :index, formats: :json
   end
 
   # GET "/?queries=...", POST "/" 
@@ -70,10 +70,12 @@ class ApiReconciliationController < ApplicationController
   def query(q)
     match = :text_start
     query_str = q['query']
+    limit = [(q['limit'] || MAX_LIMIT), MAX_LIMIT].min
+
     result = Page.search(query_str, fields: %w[
-      preferred_vernacular_strings^10 vernacular_strings^10 
-      preferred_scientific_names^10 scientific_name synonyms
-    ], match: match, highlight: { tag: '' })
+      preferred_vernacular_strings^10 preferred_scientific_names^10 
+      vernacular_strings scientific_name synonyms
+    ], match: match, highlight: { tag: '' }, limit: limit)
 
     hash_results = result.hits.map.with_index do |hit, i|
       # First result is a confident match if 
@@ -93,7 +95,7 @@ class ApiReconciliationController < ApplicationController
         id: "pages/#{page.id}", 
         name: page.scientific_name_string, 
         score: hit['_score'],
-        type: ["page"],
+        type: [{ id: TYPE_TAXON.id, name: TYPE_TAXON.name }],
         match: confident_match,
       }
     end
