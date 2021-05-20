@@ -8,4 +8,7 @@ json.defaultTypes @types do |type|
   json.name type.name
 end
 
-json.view "https://eol.org/{{id}}"
+json.view do
+  json.url "https://eol.org/{{id}}"
+end
+
