@@ -239,6 +239,10 @@ Rails.application.routes.draw do
       get "(/:directory_id)/:id" => "editor_pages#show", as: :editor_page
     end
 
+    scope "reconciliation" do
+      get "identifier_space" => "reconciliation#id_space", as: "reconciliation_id_space"
+    end
+
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"

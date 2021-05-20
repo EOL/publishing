@@ -96,7 +96,7 @@ class ApiReconciliationController < ApplicationController
         name: page.scientific_name_string, 
         score: hit['_score'],
         type: [{ id: TYPE_TAXON.id, name: TYPE_TAXON.name }],
-        match: confident_match,
+        match: confident_match
       }
     end
 
