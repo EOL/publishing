@@ -1,4 +1,6 @@
 class ApiReconciliationController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   ManifestType = Struct.new(:id, :name)
   MAX_LIMIT = 50
 

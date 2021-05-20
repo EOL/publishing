@@ -3,7 +3,7 @@ json.name "EOL Taxa"
 json.identifierSpace reconciliation_id_space_url
 json.schemaSpace "https://dwc.tdwg.org/list/"
 
-json.types @types do |type|
+json.defaultTypes @types do |type|
   json.id type.id
   json.name type.name
 end
