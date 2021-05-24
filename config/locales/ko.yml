@@ -322,6 +322,11 @@ ko:
       data: '%{page_name} 데이터'
       media: '%{page_name} 미디어'
       names: '%{page_name} 이름'
+  rank:
+    name:
+      r_subphylum: 아문
+      r_genus: 속
+      r_species: 종
   recaptcha: 리캡차
   recaptcha_error: 당신이 로봇이 아님을 저희에게 알려주십시오.
   resources:
