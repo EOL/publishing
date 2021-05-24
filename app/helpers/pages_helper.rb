@@ -71,10 +71,6 @@ module PagesHelper
     raise TypeError.new("ancestors can't be empty") if ancestors.empty?
     node = ancestors.shift
     page = node.page
-    classification_content(page, this_node, node, ancestors)
-  end
-
-  def classification_content(page, this_node, node, ancestors)
     # have to capture this state here, because it will always be empty where we need the check
     string = classification_node(page, this_node, node, ancestors)
     string << classification_siblings(this_node) if show_siblings?(this_node, ancestors)
