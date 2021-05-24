@@ -76,49 +76,60 @@ module PagesHelper
 
   def classification_content(page, this_node, node, ancestors)
     # have to capture this state here, because it will always be empty where we need the check
-    show_siblings = ancestors.empty?
+    string = classification_node(page, this_node, node, ancestors)
+    string << classification_siblings(this_node) if show_siblings?(this_node, ancestors)
+    return string.html_safe
+  end
 
-    haml_tag("div.item") do
-      summarize(page, name: node.scientific_name, current_page: node == this_node, node: node, no_icon: true)
-      if ancestors.empty?
-        if this_node.children.any?
-          haml_tag("div.item") do
-            haml_tag("div.ui.middle.aligned.list.descends") do
-              # sanitize so <i> tags aren't counted for sorting purposes
-              sort_nodes_by_name(this_node.children).each do |child|
-                haml_tag("div.item") do
-                  summarize(child.page, name: child.scientific_name, node: child, no_icon: true)
-                end
-              end
-            end
-          end
+  def classification_node(page, this_node, node, ancestors)
+    string = %Q{<div class="item">}
+    string << summarize(page, name: node.scientific_name, current_page: node == this_node, node: node, no_icon: true)
+    if ancestors.empty?
+      if this_node.children.any?
+        string << %Q{<div class="item"><div class="ui middle aligned list descends">}
+        # sanitize so <i> tags aren't counted for sorting purposes
+        sort_nodes_by_name(this_node.children).each do |child|
+          string << %Q{<div class="item">}
+          string << summarize(child.page, name: child.scientific_name, node: child, no_icon: true)
+          string << %Q{</div>}
         end
-      else
-        haml_tag("div.ui.middle.aligned.list.descends") do
-          classification_helper(this_node, ancestors)
-        end
+        string << %Q{</div></div>}
       end
+    else
+      string << %Q{<div class="ui middle aligned list descends">}
+      string << classification_helper(this_node, ancestors)
+      string << %Q{</div>}
     end
+    string << '</div>'
+    return string.html_safe
+  end
 
-    if show_siblings && this_node.siblings && this_node.siblings.size > 0
-      sort_nodes_by_name(this_node.siblings[0..99]).each do |sibling|
-        haml_tag("div.item") do
-          summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling, no_icon: true)
-        end
-      end
-      if this_node.siblings.size > 100
-        haml_tag("div.item") do
-          haml_concat t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
-        end
-        haml_tag("div.item") do
-          link = "#{Rails.application.secrets.repository[:url]}/resources/#{this_node.resource.repository_id}"
-          haml_concat t('classifications.hierarchies.see_resource_file', href: link).html_safe
-        end
-      end
+  def show_siblings?(this_node, ancestors)
+    ancestors.empty? && this_node.siblings && this_node.siblings.size > 0
+  end
+
+  def classification_siblings(this_node)
+    string = ''
+    sort_nodes_by_name(this_node.siblings[0..99]).each do |sibling|
+      string << %Q{<div class="item">}
+      string << summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling,
+        no_icon: true)
+      string << %Q{</div>}
     end
+    if this_node.siblings.size > 100
+      string << %Q{<div class="item">}
+      string << t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
+      string << %Q{</div>}
+      string << %Q{<div class="item">}
+      link = "#{Rails.application.secrets.repository[:url]}/resources/#{this_node.resource.repository_id}"
+      string << t('classifications.hierarchies.see_resource_file', href: link)
+      string << %Q{</div>}
+    end
+    return string.html_safe
   end
 
   def summarize(page, options = {})
+    string = ''
     page_id = if page
                 page.id
               elsif options[:node]
@@ -128,22 +139,19 @@ module PagesHelper
               end
     return('[unknown page]') if page_id.nil?
     name = options[:name]
+    href = page_id ? page_path(page_id) : '#'
+    name_link = %Q{<a href="#{href}">#{name.html_safe}</a>}
     if options[:current_page]
-      haml_tag('b') do
-        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
-      end
-      haml_concat t('classifications.hierarchies.this_page')
+      string << %Q{<b>#{name_link}</b> #{t('classifications.hierarchies.this_page')}}
     elsif (page && !options[:no_icon] && image = page.medium)
-      haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
+      string << %Q{<img src="#{image.small_icon_url}"/ class="ui mini image">} if page.should_show_icon?
+      string << name_link
     else
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
+      string << name_link
     end
-    if page.nil?
-      haml_tag('div.uk-padding-remove-horizontal.uk-text-muted') do
-        haml_concat 'PAGE MISSING (bad import)' # TODO: something more elegant.
-      end
-    end
+    string << %{<div class="uk-padding-remove-horizontal uk-text-muted">PAGE MISSING (bad import)</div>} if
+      page.nil?
+    return string.html_safe
   end
 
   def tab(name_key, path)
@@ -201,7 +209,7 @@ module PagesHelper
 
   def sorted_grouped_vernaculars(page)
     grouped_vernaculars = page.vernaculars.group_by do |n|
-      n.language.locale&.code 
+      n.language.locale&.code
     end
 
     cur_locale = Locale.current.code
@@ -217,7 +225,7 @@ module PagesHelper
 
         # sort unmapped languages to the end
         if a_exists && !b_exists
-          -1 
+          -1
         elsif !a_exists && b_exists
           1
         else
@@ -350,9 +358,9 @@ private
   end
 
   def gbif_species_page_url(page)
-    page.gbif_node ? 
+    page.gbif_node ?
       "https://gbif.org/species/#{page.gbif_node.resource_pk}" :
-      nil 
+      nil
   end
 
   def occurrence_map_caption(page)
