@@ -10,7 +10,7 @@
       .ui.segment
         %h4.ui.header= node.resource.name
         .ui.middle.aligned.list
-          - classification(node)
+          = classification(node)
   -# NOTE: we should remove this conditional when most pages have had their richness calculated.
   - if @page.page_richness
     %h2= t("classifications.richness.header")
