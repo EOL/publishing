@@ -67,24 +67,24 @@ module PagesHelper
     classification_helper(node, ancestors)
   end
 
-  def classification_helper(this_node, ancestors)
+  def classification_helper(page_node, ancestors)
     raise TypeError.new("ancestors can't be empty") if ancestors.empty?
     node = ancestors.shift
     page = node.page
     # have to capture this state here, because it will always be empty where we need the check
-    string = classification_node(page, this_node, node, ancestors)
-    string << classification_siblings(this_node) if show_siblings?(this_node, ancestors)
+    string = classification_node(page, page_node, node, ancestors)
+    string << classification_siblings(page_node) if show_siblings?(node, page_node)
     return string.html_safe
   end
 
-  def classification_node(page, this_node, node, ancestors)
+  def classification_node(page, page_node, node, ancestors)
     string = %Q{<div class="item">}
-    string << summarize(page, name: node.scientific_name, current_page: node == this_node, node: node, no_icon: true)
+    string << summarize(page, name: node.scientific_name, current_page: node == page_node, node: node, no_icon: true)
     if ancestors.empty?
-      if this_node.children.any?
+      if page_node.children.any?
         string << %Q{<div class="item"><div class="ui middle aligned list descends">}
         # sanitize so <i> tags aren't counted for sorting purposes
-        sort_nodes_by_name(this_node.children).each do |child|
+        sort_nodes_by_name(page_node.children).each do |child|
           string << %Q{<div class="item">}
           string << summarize(child.page, name: child.scientific_name, node: child, no_icon: true)
           string << %Q{</div>}
@@ -93,31 +93,31 @@ module PagesHelper
       end
     else
       string << %Q{<div class="ui middle aligned list descends">}
-      string << classification_helper(this_node, ancestors)
+      string << classification_helper(page_node, ancestors)
       string << %Q{</div>}
     end
     string << '</div>'
     return string.html_safe
   end
 
-  def show_siblings?(this_node, ancestors)
-    ancestors.empty? && this_node.siblings && this_node.siblings.size > 0
+  def show_siblings?(node, page_node)
+    node == page_node && page_node.siblings && page_node.siblings.size > 0
   end
 
-  def classification_siblings(this_node)
+  def classification_siblings(page_node)
     string = ''
-    sort_nodes_by_name(this_node.siblings[0..99]).each do |sibling|
+    sort_nodes_by_name(page_node.siblings[0..99]).each do |sibling|
       string << %Q{<div class="item">}
       string << summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling,
         no_icon: true)
       string << %Q{</div>}
     end
-    if this_node.siblings.size > 100
+    if page_node.siblings.size > 100
       string << %Q{<div class="item">}
-      string << t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
+      string << t('classifications.hierarchies.truncated_siblings', count: page_node.siblings.size - 100)
       string << %Q{</div>}
       string << %Q{<div class="item">}
-      link = "#{Rails.application.secrets.repository[:url]}/resources/#{this_node.resource.repository_id}"
+      link = "#{Rails.application.secrets.repository[:url]}/resources/#{page_node.resource.repository_id}"
       string << t('classifications.hierarchies.see_resource_file', href: link)
       string << %Q{</div>}
     end
