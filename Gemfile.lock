@@ -309,6 +309,8 @@ GEM
     rack (2.2.3)
     rack-contrib (2.3.0)
       rack (~> 2.0)
+    rack-mini-profiler (2.3.2)
+      rack (>= 1.2.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -403,7 +405,6 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.90.0, < 2.0)
-    ruby-prof (1.4.3)
     ruby-progressbar (1.11.0)
     ruby_parser (3.15.1)
       sexp_processor (~> 4.9)
@@ -575,6 +576,7 @@ DEPENDENCIES
   oj (~> 3.11)
   pry-rails
   pundit (~> 2.1)
+  rack-mini-profiler
   rack_session_access (~> 0)
   rails (= 5.2.4.4)
   recaptcha (~> 5.6)
@@ -582,7 +584,6 @@ DEPENDENCIES
   rubocop (= 0.93.1)
   rubocop-performance (= 1.9.2)
   rubocop-rails (= 2.9.1)
-  ruby-prof
   rubyzip (~> 2.2)
   sass-rails
   sdoc (~> 2.0)

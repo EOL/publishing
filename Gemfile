@@ -133,6 +133,8 @@ gem 'friendly_id', '~> 5.4'
 # translations in JS
 gem 'i18n-js', '~> 3.8'
 
+gem 'rack-mini-profiler', require: false
+
 group :development, :test do
   gem 'active_record_query_trace', '~> 1'
   # Security analysis:

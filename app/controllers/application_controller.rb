@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     before_action :authenticate
   end
 
+  before_action do
+    Rack::MiniProfiler.authorize_request
+  end
+
   def default_url_options(options = {})
     locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
     { locale: locale }.merge options
@@ -166,7 +170,7 @@ private
   end
 
   def set_last_regular_path
-    if !request.xhr? && params[:controller] != "user/sessions" && !params[:controller].start_with?("api") 
+    if !request.xhr? && params[:controller] != "user/sessions" && !params[:controller].start_with?("api")
       cookies[:last_regular_path] = request.fullpath
     end
   end
@@ -175,4 +179,3 @@ private
     cookies[:last_regular_path] || root_path
   end
 end
-
