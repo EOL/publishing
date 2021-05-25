@@ -12,7 +12,16 @@ class ApiReconciliationController < ApplicationController
   def test
     @sample_query = {
       q1: {
-        query: 'northern raccoon'
+        query: 'northern raccoon',
+        properties: [
+          {
+            pid: 'ancestor',
+            v: [
+              { id: "pages/1642", name: "Mammalia" },  
+              "carnivores"
+            ]
+          }
+        ]
       }
     }
   end

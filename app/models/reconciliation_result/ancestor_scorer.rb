@@ -1,7 +1,5 @@
 class ReconciliationResult
   class AncestorScorer
-    private_class_method :new
-
     QUERY_LIMIT = 10
 
     def initialize(query_string, entity_hash)
@@ -10,12 +8,14 @@ class ReconciliationResult
     end
 
     class << self
+      private :new
+
       def for_query_string(s)
-        self.new(s, nil)
+        new(s, nil)
       end
 
       def for_entity_hash(h)
-        self.new(nil, h)
+        new(nil, h)
       end
     end
 
@@ -41,7 +41,7 @@ class ReconciliationResult
 
     private
     def resolve_entity(entity_hash)
-      TaxonEntityResolver.new(entity_hash).page
+      entity_hash.nil? ? nil : TaxonEntityResolver.new(entity_hash).page
     end
 
     def candidates

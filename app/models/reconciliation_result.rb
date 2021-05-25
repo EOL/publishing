@@ -89,10 +89,11 @@ class ReconciliationResult
         total_score = sp.score * MAIN_QUERY_WEIGHT
         confident_match = sp.confident_match
 
-        @property_scorers.each do |key, scorer|
+        @property_scorers.each do |key, scorers|
           weight = PROPERTY_WEIGHTS[key]
           total_weights += weight
-          score = scorer.score(sp.page)
+          # average of all scores for given property
+          score = scorers.map { |s| s.score(sp.page) }.sum(0.0) / scorers.length
           total_score += score * weight
           confident_match = confident_match && score > 0
         end
@@ -106,7 +107,7 @@ class ReconciliationResult
           type: [{ id: TYPE_TAXON.id, name: TYPE_TAXON.name }],
           match: sp.confident_match
         }
-      end
+      end.sort { |a, b| b[:score] <=> a[:score] }
 
       @result_hash = { result: hash_results }
     end
@@ -123,7 +124,7 @@ class ReconciliationResult
     def build_property_scorers(raw_query)
       # only 'ancestor' supported currently
       @property_queries = []
-      @property_scorers = (raw_query['properties'] || []).each do |property|
+      @property_scorers = (raw_query['properties'] || []).map do |property|
         id = property['pid'] 
         handler = PROPERTY_HANDLERS[id]
 
