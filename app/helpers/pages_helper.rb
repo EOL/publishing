@@ -62,7 +62,11 @@ module PagesHelper
   end
 
   def classification(node)
-    ancestors = Array(node.ancestors.compact)
+    ancestors = Array(
+      node.node_ancestors.
+        includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
+        collect(&:ancestor).compact
+    )
     ancestors.push(node)
     classification_helper(node, ancestors)
   end
