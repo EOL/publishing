@@ -3,8 +3,9 @@ class ReconciliationResult
   TYPE_TAXON = ManifestType.new("taxon", "Taxon")
   MANIFEST_TYPES = [ReconciliationResult::TYPE_TAXON]
   MAX_SCORE = 100
-  INEXACT_TOP_SCORE = 75
-  MIN_NAME_SCORE = 50
+  PROPERTY_HANDLERS = {
+    'ancestor' => :handle_ancestor_property
+  }
 
   def initialize(validated_queries)
     raise TypeError, "queries must be valid" unless validated_queries.valid?
@@ -49,42 +50,23 @@ class ReconciliationResult
 
   private
   class Query
-    PROPERTY_IDS = ['ancestor']
-
-    class PageQuery
-      attr_reader :query_string, :searchkick_query
-
-      def initialize(query_string, limit)
-        @query_string = query_string
-        @searchkick_query = build_searchkick_query
-        @limit = [limit || MAX_LIMIT, MAX_LIMIT].min
-      end
-
-      def build_searchkick_query
-        match = :text_start
-
-        Page.search(
-          @query_string, 
-          fields: %w[
-            preferred_vernacular_strings^2 preferred_scientific_names^2 
-            vernacular_strings scientific_name synonyms
-          ], 
-          match: match, 
-          includes: [{ native_node: { node_ancestors: :ancestor } }],
-          highlight: { tag: '' }, 
-          limit: @limit,
-          execute: false
-        )
-      end
-    end
-
     attr_reader :key, :query_string, :searchkick_query
 
-    MAX_LIMIT = 50
+
+    PROPERTY_HANDLERS = {
+      'ancestor' => :handle_ancestor_property
+    }
+
+    MAIN_QUERY_WEIGHT = 2
+
+    PROPERTY_WEIGHTS = {
+      'ancestor' => 1
+    }
+
     def initialize(key, raw_query)
       @key = key
       @main_query = PageQuery.new(raw_query['query'], raw_query['limit'])
-      build_property_queries(raw_query) # sets @property_queries and @property_entities
+      build_property_scorers(raw_query) # sets @property_scorers and @property_queries
     end
 
     def query_string
@@ -96,42 +78,33 @@ class ReconciliationResult
     end
 
     def all_searchkick_queries
-      [searchkick_query] # TODO: Placeholder
+      [searchkick_query] + @property_queries # TODO: Placeholder
     end
 
     def result_hash
       return @result_hash if @result_hash
-      return {} if searchkick_query.empty?
-      
-      best_match = searchkick_query.first
-      highlight_strs = best_match.search_highlights.values.map { |v| v.downcase }
-      best_score_abs = highlight_strs.include?(query_string.downcase) ? MAX_SCORE : INEXACT_TOP_SCORE
-      best_score_rel = searchkick_query.hits.first['_score']
-      worst_score_rel = searchkick_query.hits.last['_score']
-      rel_range = best_score_rel - worst_score_rel
-      abs_range = best_score_abs - MIN_NAME_SCORE
-      abs_rel_ratio = rel_range > 0 ? abs_range * 1.0 / rel_range : 0 # 0 is a sentinel value, won't be used in calculations
 
-      hash_results = searchkick_query.hits.map.with_index do |hit, i|
-        # First result is a confident match if 
-        # 1) a search field matches the query exactly (best_score_abs == MAX_SCORE)
-        # 2) the next result has a lower score (or doesn't exist)
-        page = searchkick_query[i]
-        score_rel = hit['_score']
-        score_abs = abs_rel_ratio > 0 ? (score_rel - worst_score_rel) * abs_rel_ratio + MIN_NAME_SCORE : best_score_abs
+      hash_results = ScoredPage.from_searchkick_results(query_string, searchkick_query).map do |sp|
+        total_weights = MAIN_QUERY_WEIGHT
+        total_score = sp.score * MAIN_QUERY_WEIGHT
+        confident_match = sp.confident_match
 
-        confident_match = (
-          i == 0 && 
-          (searchkick_query.length == 1 || searchkick_query.hits[1]['_score'] < score_rel) &&
-          best_score_abs == MAX_SCORE
-        )
+        @property_scorers.each do |key, scorer|
+          weight = PROPERTY_WEIGHTS[key]
+          total_weights += weight
+          score = scorer.score(sp.page)
+          total_score += score * weight
+          confident_match = confident_match && score > 0
+        end
+
+        final_score = total_score * 1.0 / total_weights
 
         { 
-          id: "pages/#{page.id}", 
-          name: page.scientific_name_string, 
-          score: score_abs,
+          id: "pages/#{sp.page.id}", 
+          name: sp.page.scientific_name_string, 
+          score: final_score,
           type: [{ id: TYPE_TAXON.id, name: TYPE_TAXON.name }],
-          match: confident_match
+          match: sp.confident_match
         }
       end
 
@@ -139,29 +112,34 @@ class ReconciliationResult
     end
 
     private
-    def build_property_queries(raw_query)
-      @property_queries = {}
-      @property_entities = {}
-
-      # only 'ancestor' supported currently
-      (raw_query['properties'] || []).each do |property|
-        id = property['pid'] 
-
-        next unless PROPERTY_IDS.include?(id) # TODO: how to handle? Is skipping ok?
-
-        @property_queries[id] ||= []
-        @property_entities[id] ||= []
-
-        values = property['v']
-
-        values.each do |v|
-          if v.is_a? Hash
-            @property_entities[id] << v
-          else # it's a string, or should be
-            @property_queries[id] << PageQuery.new(v, nil) # TODO: each property type needs its own handler
-          end
-        end
+    def handle_ancestor_property(value)
+      if value.is_a?(Hash)
+        AncestorScorer.for_entity_hash(value)
+      else
+        AncestorScorer.for_query_string(value)
       end
+    end
+
+    def build_property_scorers(raw_query)
+      # only 'ancestor' supported currently
+      @property_queries = []
+      @property_scorers = (raw_query['properties'] || []).each do |property|
+        id = property['pid'] 
+        handler = PROPERTY_HANDLERS[id]
+
+        next nil unless handler
+
+        value = property['v']
+        values = value.is_a?(Array) ? value : [value]
+        scorers = values.map { |v| self.send(handler, v) }
+
+        scorers.each do |s|
+          scorer_query = s.searchkick_query
+          @property_queries << scorer_query if scorer_query
+        end
+
+        [id, scorers]
+      end.compact.to_h
     end
   end
 
@@ -171,6 +149,7 @@ class ReconciliationResult
   end
 
   def execute_queries
+    all_queries = @queries.map { |q| q.all_searchkick_queries }.flatten
     Searchkick.multi_search(@queries.map { |q| q.searchkick_query })
   end
 end
