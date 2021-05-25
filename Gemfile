@@ -1,12 +1,5 @@
 source 'https://rubygems.org'
 
-###
-### EXPERIMENTAL
-###
-
-gem 'ruby-prof'
-
-
 # The REALLY basic stuff stays at the top:
 
 gem 'rails', '5.2.4.4'
