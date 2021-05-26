@@ -1,4 +1,4 @@
-- cache(page_classifications_path(@page), expires_in: 1.minute) do
+- cache(page_classifications_path(@page), expires_in: 1.week) do
   %h3.ui.header= t("classifications.hierarchies.header", sci_name: @page.scientific_name).html_safe
   - page_node = @page.safe_native_node
   .ui.segments

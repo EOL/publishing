@@ -135,7 +135,6 @@ module PagesHelper
   end
 
   def summarize(page, options = {})
-    string = ''
     page_id = if page
                 page.id
               elsif options[:node]
@@ -143,21 +142,28 @@ module PagesHelper
               else
                 nil
               end
-    return('[unknown page]') if page_id.nil?
+    return '[unknown page]' if page_id.nil?
     name = options[:name]
-    href = page_id ? page_path(page_id) : '#'
-    name_link = %Q{<a href="#{href}">#{name.html_safe}</a>}
-    if options[:current_page]
-      string << %Q{<b>#{name_link}</b> #{t('classifications.hierarchies.this_page')}}
-    elsif (page && !options[:no_icon] && image = page.medium)
-      string << %Q{<img src="#{image.small_icon_url}"/ class="ui mini image">} if page.should_show_icon?
-      string << name_link
-    else
-      string << name_link
+    key = "pages.#{page_id}"
+    key += ".name=#{name}" if name
+    key += ".current_page=#{options[:current_page]}" if options[:current_page]
+    key += ".no_icon" if options[:no_icon]
+    Rails.cache.fetch(key) do
+      string = ''
+      href = page_id ? page_path(page_id) : '#'
+      name_link = %Q{<a href="#{href}">#{name.html_safe}</a>}
+      if options[:current_page]
+        string << %Q{<b>#{name_link}</b> #{t('classifications.hierarchies.this_page')}}
+      elsif (page && !options[:no_icon] && image = page.medium)
+        string << %Q{<img src="#{image.small_icon_url}"/ class="ui mini image">} if page.should_show_icon?
+        string << name_link
+      else
+        string << name_link
+      end
+      string << %{<div class="uk-padding-remove-horizontal uk-text-muted">PAGE MISSING (bad import)</div>} if
+        page.nil?
+      string.html_safe
     end
-    string << %{<div class="uk-padding-remove-horizontal uk-text-muted">PAGE MISSING (bad import)</div>} if
-      page.nil?
-    return string.html_safe
   end
 
   def tab(name_key, path)
