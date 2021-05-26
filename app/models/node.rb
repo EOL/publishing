@@ -25,7 +25,7 @@ class Node < ApplicationRecord
       page: [
         :vernaculars, :preferred_vernaculars,
         { native_node: [:vernaculars, :preferred_vernaculars, :scientific_names] }
-      ]
+      ])
   end
 
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
