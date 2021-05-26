@@ -374,9 +374,12 @@ private
   private
     def sort_nodes_by_name(nodes)
       nodes.sort do |a, b|
-        a_name = sanitize(a.name, tags: [])
-        b_name = sanitize(b.name, tags: [])
-
+        a_name = Rails.cache.fetch("node.#{a.id}.name.sanitized") do
+          sanitize(a.name, tags: [])
+        end
+        b_name = Rails.cache.fetch("node.#{b.id}.name.sanitized") do
+          sanitize(b.name, tags: [])
+        end
         a_name <=> b_name
       end
     end
