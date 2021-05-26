@@ -64,8 +64,12 @@ module PagesHelper
   def classification(node)
     ancestors = Array(
       node.node_ancestors.
-        includes(ancestor: { page: [:vernaculars, :preferred_vernaculars, { native_node: :scientific_names }] }).
-        collect(&:ancestor).compact
+        includes(ancestor: {
+          page: [
+            :vernaculars, :preferred_vernaculars,
+            { native_node: [:vernaculars, :preferred_vernaculars, :scientific_names] }
+          ]
+        }).collect(&:ancestor).compact
     )
     ancestors.push(node)
     classification_helper(node, ancestors)
@@ -110,7 +114,7 @@ module PagesHelper
 
   def classification_siblings(page_node)
     string = ''
-    sort_nodes_by_name(page_node.siblings.includes(:vernacular, :preferred_vernaculars)[0..99]).each do |sibling|
+    sort_nodes_by_name(page_node.siblings.includes(:vernaculars, :preferred_vernaculars, :scientific_names)[0..99]).each do |sibling|
       string << %Q{<div class="item">}
       string << summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling,
         no_icon: true)
