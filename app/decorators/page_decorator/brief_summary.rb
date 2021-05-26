@@ -28,36 +28,38 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      if is_above_family?
-        above_family
-      else
-        if !a1.nil?
-          if is_family?
-            family
-          elsif is_genus?
-            genus
-          elsif is_species?
-            species
+      Rack::MiniProfiler.step('BriefSummary#english') do
+        if is_above_family?
+          Rack::MiniProfiler.step('BriefSummary#above_family') { above_family }
+        else
+          if !a1.nil?
+            if is_family?
+              Rack::MiniProfiler.step('BriefSummary#family') { family }
+            elsif is_genus?
+              Rack::MiniProfiler.step('BriefSummary#genus') { genus }
+            elsif is_species?
+              Rack::MiniProfiler.step('BriefSummary#species') { species }
+            end
           end
         end
+
+        Rack::MiniProfiler.step('BriefSummary#landmark_children') { landmark_children }
+        Rack::MiniProfiler.step('BriefSummary#plant_description_sentence') { plant_description_sentence }
+        Rack::MiniProfiler.step('BriefSummary#flower_visitor_sentences') { flower_visitor_sentences }
+        Rack::MiniProfiler.step('BriefSummary#fixes_nitrogen_sentence') { fixes_nitrogen_sentence }
+        Rack::MiniProfiler.step('BriefSummary#forms_sentence') { forms_sentence }
+        Rack::MiniProfiler.step('BriefSummary#ecosystem_engineering_sentence') { ecosystem_engineering_sentence }
+        Rack::MiniProfiler.step('BriefSummary#behavioral_sentence') { behavioral_sentence }
+
+        if is_species?
+          Rack::MiniProfiler.step('BriefSummary#lifespan_size_sentence') { lifespan_size_sentence }
+        end
+
+        Rack::MiniProfiler.step('BriefSummary#reproduction_sentences') { reproduction_sentences }
+        Rack::MiniProfiler.step('BriefSummary#motility_sentence') { motility_sentence }
+
+        Result.new(@sentences.join(' '), @terms)
       end
-
-      landmark_children
-      plant_description_sentence
-      flower_visitor_sentences
-      fixes_nitrogen_sentence
-      forms_sentence
-      ecosystem_engineering_sentence
-      behavioral_sentence
-
-      if is_species?
-        lifespan_size_sentence
-      end
-
-      reproduction_sentences
-      motility_sentence
-
-      Result.new(@sentences.join(' '), @terms)
     end
 
     def other
@@ -80,7 +82,7 @@ class PageDecorator
       def add_sentence(options = {})
         use_name = !@full_name_used
         subj = use_name ? name_clause : pronoun_for_rank.capitalize
-        are = extinct? ? 'were' : 'are' 
+        are = extinct? ? 'were' : 'are'
         have = extinct? ? 'had' : 'have'
         sentence = nil
 
@@ -113,7 +115,7 @@ class PageDecorator
 
       def above_family
         rank_name = @page.rank&.treat_as.present? ?
-          @page.rank.i18n_name : 
+          @page.rank.i18n_name :
           'group'
 
         if a1.present?
@@ -210,8 +212,8 @@ class PageDecorator
         if is_it_marine?
           add_sentence do |subj, are, _|
             term_sentence_part(
-              "#{subj} #{are} found in %s.", "marine habitat", 
-              TermNode.find_by_alias('habitat'), 
+              "#{subj} #{are} found in %s.", "marine habitat",
+              TermNode.find_by_alias('habitat'),
               TermNode.find_by_alias('marine')
             )
           end
@@ -292,7 +294,7 @@ class PageDecorator
         solitary = @page.first_trait_for_object_terms([TermNode.find_by_alias('solitary')])
         begin_traits = [solitary, circadian].compact
         trophic = @page.first_trait_for_predicate(
-          TermNode.find_by_alias('trophic_level'), 
+          TermNode.find_by_alias('trophic_level'),
           exclude_values: [TermNode.find_by_alias('variable')]
         )
 
@@ -351,7 +353,7 @@ class PageDecorator
             end
 
             if largest_value_trait
-              can = extinct? ? 'could' : 'can' 
+              can = extinct? ? 'could' : 'can'
               size_part = "#{can} grow to #{largest_value_trait.measurement} #{largest_value_trait.units_term.name}"
             end
           end
@@ -575,7 +577,7 @@ class PageDecorator
         end
       end
 
-      def forms_sentence 
+      def forms_sentence
         # intentionally skip descendants of this term
         forms_traits = @page.traits_for_predicate(
           TermNode.find_by_alias('forms'), 
@@ -749,7 +751,7 @@ class PageDecorator
             trait.literal
           end
         end
-        
+
         values.any? ? to_sentence(values.uniq) : nil
       end
 
@@ -800,7 +802,7 @@ class PageDecorator
         result << conservation_sentence_part("as %s by COSEWIC", status_recs[:cosewic]) if status_recs.include?(:cosewic)
         result << conservation_sentence_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
-        
+
         if result.any?
           add_sentence do |subj, are, _|
             "#{subj} #{are} listed #{to_sentence(result)}."
@@ -883,7 +885,7 @@ class PageDecorator
       def to_sentence(a)
         a.to_sentence(locale: :en)
       end
-      
+
       def a_or_an_helper(word)
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
       end
