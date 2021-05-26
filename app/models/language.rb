@@ -62,7 +62,7 @@ class Language < ApplicationRecord
 
     # This will cause LOTS of queries if you don't use this cache!
     def code_by_language_id(language_id)
-      if @@code_by_language_id.nil?
+      unless defined?(@@code_by_language_id)
         @@code_by_language_id = {}
         where('locale_id is not null').includes(:locale).each do |l|
           @@code_by_language_id[l.id] = l.locale.code
