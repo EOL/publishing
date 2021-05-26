@@ -7,7 +7,7 @@
     - if article.language&.locale && article.language.locale != Locale.current
       %span.uk-text-small
         (
-        = t("languages.#{article.language.locale.code}")
+        = t("languages.#{Language.code_by_language_id(article.language_id)}")
         )
   .provided_by.uk-text-muted
     - if article.resource

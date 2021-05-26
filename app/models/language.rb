@@ -66,7 +66,7 @@ class Language < ApplicationRecord
       where('locale_id is not null').includes(:locale).each do |l|
         @@code_by_language_id[l.id] = l.locale.code
       end
-      n.language.locale&.code
+      Language.code_by_language_id(n.language_id)
     end
   end
 end
