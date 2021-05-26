@@ -1,4 +1,4 @@
-- summary = Rack::MiniProfiler.step('calculating summary') { @page.cached_summary }
+- summary = @page.cached_summary
 
 - if @page.medium
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
