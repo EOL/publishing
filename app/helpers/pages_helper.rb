@@ -114,14 +114,7 @@ module PagesHelper
 
   def classification_siblings(page_node)
     string = ''
-    siblings = Node.where(id: page_node.siblings.map(&:id)).
-      includes(
-        :vernaculars, :preferred_vernaculars, :scientific_names,
-        page: [
-          :vernaculars, :preferred_vernaculars,
-          { native_node: [:vernaculars, :preferred_vernaculars, :scientific_names] }
-        ]
-      ).limit(100)
+    siblings = Node.where(id: page_node.siblings.map(&:id)).includes_names.limit(100)
     sort_nodes_by_name(siblings).each do |sibling|
       string << %Q{<div class="item">}
       string << summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling,

@@ -19,6 +19,15 @@ class Node < ApplicationRecord
   has_many :referents, through: :references
   scope :dh, -> { where(resource_id: Resource.native.id) }
 
+  scope :includes_names, -> do
+    includes(
+      :vernaculars, :preferred_vernaculars, :scientific_names,
+      page: [
+        :vernaculars, :preferred_vernaculars,
+        { native_node: [:vernaculars, :preferred_vernaculars, :scientific_names] }
+      ]
+  end
+
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
   # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.
   enum landmark: %i[no_landmark minimal abbreviated extended full]
