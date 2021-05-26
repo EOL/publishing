@@ -1,4 +1,4 @@
-# Represents a provider-supplied language 
+# Represents a provider-supplied language
 class Language < ApplicationRecord
   has_many :articles, inverse_of: :license
   has_many :links, inverse_of: :license
@@ -58,6 +58,15 @@ class Language < ApplicationRecord
 
     def all_matching_records(languages, records)
       records.select { |r| languages.find { |l| r.language_id == l.id }.present? }
+    end
+
+    # This will cause LOTS of queries if you don't use this cache!
+    def code_by_language_id(language_id)
+      @@code_by_language_id ||= {}
+      where('locale_id is not null').includes(:locale).each do |l|
+        @@code_by_language_id[l.id] = l.locale.code
+      end
+      n.language.locale&.code
     end
   end
 end

@@ -209,7 +209,7 @@ module PagesHelper
 
   def sorted_grouped_vernaculars(page)
     grouped_vernaculars = page.vernaculars.group_by do |n|
-      n.language.locale&.code
+      Language.code_by_language_id(n.language_id)
     end
 
     cur_locale = Locale.current.code

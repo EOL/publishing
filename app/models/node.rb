@@ -42,7 +42,7 @@ class Node < ApplicationRecord
 
   # NOTE: this is slow and clunky and should ONLY be used when you have ONE instance. If you have multiple nodes and
   # want to call this on all of them, you should use #node_ancestors directly and pay attention to your includes and
-  # ordering.
+  # ordering (e.g.: PagesHelper#hierarchy_helper)
   def ancestors
     node_ancestors.map(&:ancestor)
   end
