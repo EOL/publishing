@@ -114,7 +114,7 @@ module TraitBank
 
       def remove_metadata_relationships(id, count)
         # puts "#{id} has #{count} relationships."
-        remove_with_query(name: r, q: %Q{MATCH (meta:MetaData {eol_pk: '#{id}'})-[r:metadata]-()})
+        remove_with_query(name: :r, q: %Q{MATCH (meta:MetaData {eol_pk: '#{id}'})-[r:metadata]-()})
         # Now that metadata no longer has a relationship to the resource, making it very hard to delete.
         # We remove it here to avoid having to try.
         TraitBank.query(%Q{MATCH (meta:MetaData {eol_pk: '#{id}'}) DETACH DELETE meta;})
