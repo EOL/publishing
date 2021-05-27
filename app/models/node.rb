@@ -18,6 +18,8 @@ class Node < ApplicationRecord
   has_many :references, as: :parent
   has_many :referents, through: :references
   scope :dh, -> { where(resource_id: Resource.native.id) }
+  scope :with_name, -> { includes(:preferred_vernaculars) }
+  scope :with_named_ancestors, -> { includes(node_ancestors: { ancestor: :preferred_vernaculars }) }
 
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
   # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.

@@ -687,7 +687,11 @@ class Page < ApplicationRecord
 
   # Nodes methods
   def classification_nodes
-    nodes.includes(:resource).where({ resources: { classification: true } })
+    nodes
+      .with_name
+      .with_named_ancestors
+      .includes(:resource)
+      .where({ resources: { classification: true } })
   end
 
   def fix_non_image_hero

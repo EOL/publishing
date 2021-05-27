@@ -4,22 +4,23 @@ require 'csv'
 
 class Locale < ApplicationRecord
   has_many :languages
-  has_many :ordered_fallback_locales
+  has_many :ordered_fallback_locales, -> { includes(:fallback_locale).order(position: 'asc') }
   validates :code, presence: true, uniqueness: true
 
   before_validation { code.downcase! }
 
-  default_scope { includes(:languages) }
+  default_scope { includes(:languages, ordered_fallback_locales: :fallback_locale) }
 
   CSV_PATH = Rails.application.root.join('db', 'seed_data', 'languages_locales.csv')
 
   def fallbacks
-    self.ordered_fallback_locales.includes(:fallback_locale).order(position: 'asc').map { |r| r.fallback_locale }
+    self.ordered_fallback_locales.map { |r| r.fallback_locale }
   end
 
   class << self
     def current
-      Locale.find_by_code(I18n.locale.downcase) || Locale.find_by_code(I18n.default_locale.downcase)
+      return @current if @current
+      @current = Locale.find_by_code(I18n.locale.downcase) || Locale.find_by_code(I18n.default_locale.downcase)
     end
 
     def english
