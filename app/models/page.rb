@@ -932,6 +932,6 @@ class Page < ApplicationRecord
     (
       preferred_vernacular_strings_for_locale(locale) +
       resource_preferred_vernacular_strings(locale)
-    ).uniq
+    ).map(&:titlecase).uniq
   end
 end
