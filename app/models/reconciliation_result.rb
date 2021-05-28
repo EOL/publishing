@@ -7,41 +7,9 @@ class ReconciliationResult
     'ancestor' => :handle_ancestor_property
   }
 
-  def initialize(validated_queries)
-    raise TypeError, "queries must be valid" unless validated_queries.valid?
-    @raw_queries = validated_queries.queries
+  def initialize(query_hash)
+    @raw_queries = query_hash
     build_results
-  end
-
-  # TODO: use JSON schema for validation?
-  class ValidatedQueries
-    attr_accessor :queries
-
-    def initialize(queries)
-      @queries = queries
-      @validation = validate(queries)
-    end
-
-    def valid?
-      @validation.valid
-    end
-
-    def message
-      @validation.message
-    end
-
-    private
-    ValidationResult = Struct.new(:valid, :message)
-
-    def validate(queries)
-      return ValidationResult.new(false, "queries must be a hash") unless queries.is_a? Hash
-
-      queries.each do |k, v|
-        return ValidationResult.new(false, "'query' property missing for key #{k}") unless v['query'].present?
-      end
-
-      ValidationResult.new(true, nil)
-    end
   end
 
   def to_h
@@ -78,7 +46,7 @@ class ReconciliationResult
     end
 
     def all_searchkick_queries
-      [searchkick_query] + @property_queries # TODO: Placeholder
+      result = [searchkick_query] + @property_queries # TODO: Placeholder
     end
 
     def result_hash
@@ -150,7 +118,16 @@ class ReconciliationResult
   end
 
   def execute_queries
-    all_queries = @queries.map { |q| q.all_searchkick_queries }.flatten
-    Searchkick.multi_search(@queries.map { |q| q.searchkick_query })
+    all_queries = []
+
+    # flatten *doesn't* work here -- it will execute each query since they respond to flatten!
+    @queries.each do |q| 
+      q.all_searchkick_queries.each do |sq|
+        all_queries << sq
+      end
+    end
+
+    Searchkick.multi_search(all_queries)
   end
 end
+

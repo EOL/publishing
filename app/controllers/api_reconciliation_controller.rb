@@ -1,6 +1,10 @@
 class ApiReconciliationController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  DATA_DIR = Rails.application.root.join('data', 'api_reconciliation')
+  QUERY_SCHEMA_PATH = DATA_DIR.join('query_schema.json')
+  QUERY_SCHEMA = JSONSchemer.schema(QUERY_SCHEMA_PATH)
+
   def index
     if params[:queries]
       reconcile(JSON.parse(params[:queries]))
@@ -35,11 +39,12 @@ class ApiReconciliationController < ApplicationController
 
   # GET "/?queries=...", POST "/" 
   def reconcile(qs)
-    validated_queries = ReconciliationResult::ValidatedQueries.new(qs)
+    unless QUERY_SCHEMA.valid?(qs)
+      first_error = QUERY_SCHEMA.validate(qs).next
+      return bad_request("Invalid attribute or value: #{first_error["pointer"]}")
+    end
 
-    return bad_request(validation_result.message) unless validated_queries.valid?
-
-    render json: ReconciliationResult.new(validated_queries).to_h
+    render json: ReconciliationResult.new(qs).to_h
   end
 
   def bad_request(msg)
