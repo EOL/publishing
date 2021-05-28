@@ -3,9 +3,6 @@ class ReconciliationResult
   TYPE_TAXON = ManifestType.new("taxon", "Taxon")
   MANIFEST_TYPES = [ReconciliationResult::TYPE_TAXON]
   MAX_SCORE = 100
-  PROPERTY_HANDLERS = {
-    'ancestor' => :handle_ancestor_property
-  }
 
   def initialize(query_hash)
     @raw_queries = query_hash
@@ -22,14 +19,17 @@ class ReconciliationResult
 
 
     PROPERTY_HANDLERS = {
-      'ancestor' => :handle_ancestor_property
+      'ancestor' => :handle_ancestor_property,
+      'rank' => :handle_rank_property
+    }
+
+    PROPERTY_WEIGHTS = {
+      'ancestor' => 1,
+      'rank' => 1
     }
 
     MAIN_QUERY_WEIGHT = 2
 
-    PROPERTY_WEIGHTS = {
-      'ancestor' => 1
-    }
 
     def initialize(key, raw_query)
       @key = key
@@ -46,7 +46,7 @@ class ReconciliationResult
     end
 
     def all_searchkick_queries
-      result = [searchkick_query] + @property_queries # TODO: Placeholder
+      [searchkick_query] + @property_queries # TODO: Placeholder
     end
 
     def result_hash
@@ -58,10 +58,14 @@ class ReconciliationResult
         confident_match = sp.confident_match
 
         @property_scorers.each do |key, scorers|
+          valid_scorers = scorers.select(&:should_score?)
+
+          next unless valid_scorers.any?
+          
           weight = PROPERTY_WEIGHTS[key]
           total_weights += weight
           # average of all scores for given property
-          score = scorers.map { |s| s.score(sp.page) }.sum(0.0) / scorers.length
+          score = valid_scorers.map { |s| s.score(sp.page) }.sum(0.0) / valid_scorers.length
           total_score += score * weight
           confident_match = confident_match && score > 0
         end
@@ -89,8 +93,11 @@ class ReconciliationResult
       end
     end
 
+    def handle_rank_property(value)
+      RankScorer.new(value)
+    end
+
     def build_property_scorers(raw_query)
-      # only 'ancestor' supported currently
       @property_queries = []
       @property_scorers = (raw_query['properties'] || []).map do |property|
         id = property['pid'] 
@@ -103,7 +110,9 @@ class ReconciliationResult
         scorers = values.map { |v| self.send(handler, v) }
 
         scorers.each do |s|
-          scorer_query = s.searchkick_query
+          scorer_query = s.respond_to?(:searchkick_query) ?
+            s.searchkick_query :
+            nil
           @property_queries << scorer_query if scorer_query
         end
 

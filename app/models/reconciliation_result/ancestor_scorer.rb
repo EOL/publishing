@@ -31,6 +31,10 @@ class ReconciliationResult
       end
     end
 
+    def should_score?
+      true
+    end
+
     def score(page)
       candidates.each do |c|
         return c.score if page.ancestry_ids.include?(c.page.id)

@@ -24,6 +24,10 @@ class ApiReconciliationController < ApplicationController
               { id: "pages/1642", name: "Mammalia" },  
               "carnivores"
             ]
+          },
+          {
+            pid: 'rank',
+            v: 'species'
           }
         ]
       }
