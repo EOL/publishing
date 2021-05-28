@@ -200,7 +200,7 @@ module PagesHelper
   end
 
   def sorted_grouped_vernaculars(page)
-    grouped_vernaculars = page.vernaculars.group_by do |n|
+    grouped_vernaculars = page.vernaculars.includes(language: :locale).group_by do |n|
       n.language.locale&.code 
     end
 

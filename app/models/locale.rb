@@ -9,8 +9,6 @@ class Locale < ApplicationRecord
 
   before_validation { code.downcase! }
 
-  default_scope { includes(:languages, ordered_fallback_locales: :fallback_locale) }
-
   CSV_PATH = Rails.application.root.join('db', 'seed_data', 'languages_locales.csv')
 
   def fallbacks
