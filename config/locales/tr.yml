@@ -1218,8 +1218,8 @@ tr:
       result_header_records: '%{range_begin} gösteriliyor - %{page_count} takson için
         %{total} kayıttan %{range_end}'
       result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson'
-      result_header_records_notaxa: '%{total} için %{range_begin} - %{range_end} kayıtları
-        gösteriyor'
+      result_header_records_notaxa: Kayıtlar için %{page_count} %{range_begin} - %{range_end}
+        %{total} gösteriyor
       new_search: yeni arama
       select:
         child_term: bir alt terimi seçin (isteğe bağlı)

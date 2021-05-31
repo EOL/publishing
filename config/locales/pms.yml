@@ -1548,11 +1548,25 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000529: crësta ëd riva
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: riva ëd sabia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: ciusa ëd castòr
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: armeuj ëd castòr
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: sira d'avìa
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritm sircadian comportamental
+        http://eol(dot)org/schema/terms/benthic: ëd fond ëd l'eva
+        https://eol(dot)org/schema/terms/benthic_diatom_feeder: a mangia dij diàtom
+          ëd fond ëd l'eva
+        http://purl(dot)jp/bio/4/id/201306015586596728: diàtom ëd fond ëd l'eva
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: età
+          beriassian-a
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: bienal
         http://eol(dot)org/schema/terms/BillLength: longheur dël bech
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: biodifusor
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biofilm
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: opal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: sediment biògen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: rumenta biològica
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminos
+        https://eol(dot)org/schema/terms/bipedal_running: corsa bìped
+        https://eol(dot)org/schema/terms/bivalve_feeder: a mangia dle bivàlvole
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: nèir
         http://eol(dot)org/schema/terms/BloomPeriod: perìod dë spantiament
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: bleu
