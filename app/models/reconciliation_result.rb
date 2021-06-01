@@ -17,6 +17,14 @@ class ReconciliationResult
   class Query
     attr_reader :key, :query_string, :searchkick_query
 
+    Feature = Struct.new(:id, :value) do
+      def to_h
+        {
+          id: id,
+          value: value
+        }
+      end
+    end
 
     PROPERTY_HANDLERS = {
       'ancestor' => :handle_ancestor_property,
@@ -57,6 +65,8 @@ class ReconciliationResult
         total_score = sp.score * MAIN_QUERY_WEIGHT
         confident_match = sp.confident_match
 
+        features = [Feature.new('name', sp.score)]
+
         @property_scorers.each do |key, scorers|
           valid_scorers = scorers.select(&:should_score?)
 
@@ -68,6 +78,7 @@ class ReconciliationResult
           score = valid_scorers.map { |s| s.score(sp.page) }.sum(0.0) / valid_scorers.length
           total_score += score * weight
           confident_match = confident_match && score > 0
+          features << Feature.new(key, score)
         end
 
         final_score = total_score * 1.0 / total_weights
@@ -77,7 +88,8 @@ class ReconciliationResult
           name: sp.page.scientific_name_string, 
           score: final_score,
           type: [{ id: TYPE_TAXON.id, name: TYPE_TAXON.name }],
-          match: sp.confident_match
+          match: sp.confident_match,
+          features: features.map { |f| f.to_h }
         }
       end.sort { |a, b| b[:score] <=> a[:score] }
 
