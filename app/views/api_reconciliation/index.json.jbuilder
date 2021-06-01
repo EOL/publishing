@@ -12,3 +12,10 @@ json.view do
   json.url "https://eol.org/{{id}}"
 end
 
+json.suggest do
+  json.property do
+    json.service_path "/properties/suggest"
+    json.service_url api_reconciliation_url
+  end
+end
+
