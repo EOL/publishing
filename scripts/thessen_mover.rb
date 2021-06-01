@@ -3,8 +3,10 @@ COMMON_Q = <<~CYPHER
   WHERE m.literal = "Compiler: Anne E Thessen"
 CYPHER
 
-TRAIT_COUNT_Q = <<~CYPHER
-  #{COMMON_Q}
+COMP_TERM = "(c:Term { uri: 'https://orcid.org/0000-0002-2908-3327' })"
+
+COUNT_Q = <<~CYPHER
+  MATCH (t:Trait)-[:compiler]->#{COMP_TERM}
   RETURN count(DISTINCT t) AS count
 CYPHER
 
@@ -16,14 +18,14 @@ MIGRATE_Q = <<~CYPHER
   UNWIND ms AS m
   DETACH DELETE m
   WITH collect(DISTINCT t) AS ts
-  MATCH (c:Term { uri: 'https://orcid.org/0000-0002-2908-3327' })
+  MATCH #{COMP_TERM}
   UNWIND ts AS t
   CREATE (t)-[:compiler]->(c)
   RETURN count(t) AS count
 CYPHER
 
-initial_count = ActiveGraph::Base.query(TRAIT_COUNT_Q).first[:count]
-puts "There are #{initial_count} traits with generic metadata to migrate"
+before_count = ActiveGraph::Base.query(COUNT_Q).first[:count]
+puts "Before migration, there are #{before_count} traits with -[:compiler]->#{COMP_TERM}"
 
 batch_count = LIMIT
 migrated_count = 0
@@ -35,11 +37,16 @@ end
 
 puts "Migrated #{migrated_count} traits"
 
-if initial_count == migrated_count
-  puts "Success"
+after_count = ActiveGraph::Base.query(COUNT_Q).first[:count]
+
+puts "There are now #{after_count} traits with -[:compiler]->#{COMP_TERM}"
+
+diff = after_count - before_count
+puts "#{after_count} - #{before_count} = #{diff}"
+
+if diff == migrated_count
+  puts "Success!"
 else
-  puts "That's not what I expected from the initial count!"
+  puts "There should be #{migrated_count} new compiler traits, but there are #{diff}. Did something go wrong?"
 end
-
-
 
