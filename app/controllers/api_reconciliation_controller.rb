@@ -14,7 +14,15 @@ class ApiReconciliationController < ApplicationController
   end
 
   def suggest_properties
-    render json: { message: 'not yet implemented' }
+    prefix = (params[:prefix] || '').downcase
+    cursor = params[:cursor] || 0
+
+    matches = ReconciliationResult::PropertyType::ALL.select do |prop|
+      prop.id.starts_with?(prefix) || prop.name.starts_with?(prefix)
+    end
+
+    @result = matches[cursor..] || []
+    render formats: :json
   end
 
   def test
