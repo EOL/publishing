@@ -1,6 +1,7 @@
 # Messages for Italian (italiano)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Beta16
 # Author: G313
 # Author: JackLantern
@@ -9,7 +10,7 @@
 # Author: Ubibi
 ---
 it:
-  language_name: Inglese
+  language_name: Italiano
   about:
     trait_bank:
       title: TraitBank
