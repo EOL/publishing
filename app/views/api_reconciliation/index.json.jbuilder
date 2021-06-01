@@ -1,5 +1,5 @@
 json.versions ["0.2"]
-json.name "EOL Taxa"
+json.name t("page_title")
 json.identifierSpace reconciliation_id_space_url
 json.schemaSpace reconciliation_schema_space_url
 
