@@ -13,6 +13,10 @@ class ApiReconciliationController < ApplicationController
     end
   end
 
+  def suggest_properties
+    render json: { message: 'not yet implemented' }
+  end
+
   def test
     @sample_query = {
       q1: {
