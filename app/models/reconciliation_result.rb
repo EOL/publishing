@@ -38,7 +38,6 @@ class ReconciliationResult
 
     MAIN_QUERY_WEIGHT = 2
 
-
     def initialize(key, raw_query)
       @key = key
       @main_query = PageQuery.new(raw_query['query'], raw_query['limit'])

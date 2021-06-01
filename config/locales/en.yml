@@ -861,6 +861,19 @@ en:
       type_names:
         taxon: 'Taxon'
       numeric_id: 'numeric ID'
+    property:
+      description:
+        ancestor: 'A taxon which is an ancestor of another taxon.'
+        rank: "A string describing the rank of a taxon, e.g., 'species'. Unrecognized ranks are not scored."
+      name:
+        ancestor: 'Ancestor'
+        rank: 'Rank'
+    schema_space:
+      intro: "The collection of properties used by the Reconciliation API service is described below."
+      headers:
+        id: 'ID'
+        name: 'Name'
+        description: 'Description'
   reference_compiled_from: "Referenced by %{links}"
   reference_compiled_from_article: "%{source} article titled \"%{name}\""
   register_new_account: "Register for new account"

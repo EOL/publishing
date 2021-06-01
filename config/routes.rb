@@ -242,8 +242,8 @@ Rails.application.routes.draw do
 
     scope "reconciliation" do
       get "identifier_space" => "reconciliation#id_space", as: "reconciliation_id_space"
+      get "schema_space" => "reconciliation#schema_space", as: "reconciliation_schema_space"
     end
-
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"
