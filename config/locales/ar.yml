@@ -1283,12 +1283,14 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: زراعي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: المواد الزراعي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: التربة الزراعية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: المصطبة الزراعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: المخلفات الزراعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: المخلفات الزراعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: البيئة القلوية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: مروحة طميية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: سهل رسوبي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: تربة طميية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: جبال الألب الجليدية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: تربة جبال الألب
         http://eol(dot)org/schema/terms/alternatingReproduction: تعاقب الأجيال
         http://eol(dot)org/schema/terms/ambush: كمين مفترس
@@ -1345,6 +1347,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: كتلة الجسم
         http://eol(dot)org/schema/terms/BodyShape: شكل الجسم
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: درجة حرارة الجسم
+        http://eol(dot)org/schema/terms/BodyVolume: حجم الجسم
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: بحيرة قليلة الملوحة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: بركة قليلة الملوحة
@@ -1361,14 +1364,23 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: التربة المحروقة
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: كافيين
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: كالسيت
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: الكالسيوم (ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: كربونات الكالسيوم
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: فوسفات الكالسيوم
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: كبريتات الكالسيوم
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: ثنائي هيدرات كبريتات الكالسيوم
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: هيدرات كبريتات الكالسيوم
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: فوهة بركانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: قناة
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: قصب
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: واد ضيق
         http://eol(dot)org/schema/terms/CarapaceLength: طول الدرع
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: غضروف
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: هجرة الأسماك
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: كهف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: مدخل كهف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: أرضية الكهف
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: نظام الكهف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: جدار الكهف
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: قطر الخلية
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: كتلة الخلية
@@ -1382,6 +1394,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: الجهاز العصبي المركزي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: الطباشير
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: تربة الطباشير
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: القناة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: التشيرنوزم
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: مخروط رماد
         http://purl(dot)org/dc/terms/bibliographicCitation: الاقتباس
@@ -1437,6 +1450,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: ألبان
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: أيام
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: الميت
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: حمض الديكانويك
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: تساقط الأوراق
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: الغابات المتساقطة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: انخفاض الجودة
@@ -1456,6 +1470,8 @@ ar:
           الدائرة
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: الجهاز الهضمي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: ثنائي ميثيل كبريتيد
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: حمض دوكوسانويك
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: حمض دوديكانويك
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: ظهري
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: تحمل الجفاف
         http://eol(dot)org/schema/terms/dry_forest: الغابات الجافة
@@ -1470,6 +1486,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: وادي جاف
         http://eol(dot)org/schema/terms/DurationOfIllness: مدة المرض
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: غبار
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: صبغ
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: مبكرا
         http://eol(dot)org/schema/terms/earlySpring: بداية الربيع
         http://eol(dot)org/schema/terms/earlySummer: أوائل الصيف
@@ -1477,7 +1494,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يأكل
         http://eol(dot)org/schema/terms/eggDensity: كثافة البيض
         http://eol(dot)org/schema/terms/EggMass: كتلة البيض
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: ارتفاع
         http://eol(dot)org/schema/terms/endangered: المهددة بالخطر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003082: التربة الخصبة
         http://rs(dot)tdwg(dot)org/dwc/terms/establishmentMeans: التأسيس يعني
         http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: تاريخ الحدث
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: غابة دائمة الخضرة
@@ -1498,6 +1517,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: تربة مخصبة
         http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: ملاحظات ميدانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005755: تربة الحقل
+        http://eol(dot)org/schema/terms/FireResistance: مقاوم النار
+        http://eol(dot)org/schema/terms/FireTolerance: تحمل النار
         http://eol(dot)org/schema/terms/FossilFirst: أول ظهور
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: كهف الشق
         https://eol(dot)org/schema/terms/fixes: الإصلاحات
@@ -1520,8 +1541,12 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: تربة الغابات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: مياه عذبة
         https://eol(dot)org/schema/terms/freshwater_animals: حيوانات المياه العذبة
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: أمامي
+        http://eol(dot)org/schema/terms/fructose: فركتوز
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: فاكهة
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: لون الفاكهة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: طول الفاكهة
+        http://eol(dot)org/schema/terms/FruitSeedColor: لون الفاكهة أو البذور
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: شكل الفاكهة
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: نوع الفاكهة
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: عرض الفاكهة
@@ -1529,6 +1554,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000216: داخنة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000587: أثاث المنزل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: حديقة التربة
+        http://eol(dot)org/schema/terms/GenerationTime: زمن جيلي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: بحيرة جليدية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: الوادي الجليدي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: الجليدية
