@@ -610,6 +610,15 @@ it:
       r_infraspecies: infraspecie
   recaptcha: Recaptcha
   recaptcha_error: Per favore dimostraci di non essere un robot.
+  reconciliation:
+    property:
+      name:
+        rank: Posizione
+    schema_space:
+      headers:
+        id: ID
+        name: Nome
+        description: Descrizione
   reference_compiled_from: Referenziato da %{links}
   reference_compiled_from_article: '%{source} voce intitolata "%{name}"'
   register_new_account: Registra una nuova utenza

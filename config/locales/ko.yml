@@ -329,6 +329,12 @@ ko:
       r_species: 종
   recaptcha: 리캡차
   recaptcha_error: 당신이 로봇이 아님을 저희에게 알려주십시오.
+  reconciliation:
+    schema_space:
+      headers:
+        id: ID
+        name: 이름
+        description: 설명
   resources:
     actions:
       republish: 다시 게시
