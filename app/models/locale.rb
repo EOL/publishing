@@ -17,8 +17,7 @@ class Locale < ApplicationRecord
 
   class << self
     def current
-      return @current if @current
-      @current = Locale.find_by_code(I18n.locale.downcase) || Locale.find_by_code(I18n.default_locale.downcase)
+      Locale.find_by_code(I18n.locale.downcase) || Locale.find_by_code(I18n.default_locale.downcase)
     end
 
     def english
