@@ -1568,11 +1568,20 @@ pms:
         https://eol(dot)org/schema/terms/bipedal_running: corsa bìped
         https://eol(dot)org/schema/terms/bivalve_feeder: a mangia dle bivàlvole
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: nèir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000511: tòrba ëd covertura
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: ventilator a duvertura
+          bòrgna
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: sangh
         http://eol(dot)org/schema/terms/BloomPeriod: perìod dë spantiament
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000313: depression sabiosa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: bleu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: flùid corpòri
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: cavità corporal
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longheur dël còrp
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: massa corporal
-        http://eol(dot)org/schema/terms/BodyShape: forma dël còrp
+        http://eol(dot)org/schema/terms/BodyShape: morfologìa
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperadura dël
+          còrp
         http://eol(dot)org/schema/terms/BodyVolume: volum dël còrp
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: larghëssa dël còrp
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: largh
