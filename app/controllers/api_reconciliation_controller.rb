@@ -1,7 +1,7 @@
 class ApiReconciliationController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  DATA_DIR = Rails.application.root.join('data', 'api_reconciliation')
+  DATA_DIR = Rails.application.root.join('config', 'api_reconciliation')
   QUERY_SCHEMA_PATH = DATA_DIR.join('query_schema.json')
   QUERY_SCHEMA = JSONSchemer.schema(QUERY_SCHEMA_PATH)
 
