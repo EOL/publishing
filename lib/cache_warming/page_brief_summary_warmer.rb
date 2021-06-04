@@ -25,7 +25,7 @@ module CacheWarming
       end
 
       def log(msg)
-        puts "(#{Time.now}) #{msg}"
+        Rails.logger.info("(#{Time.now}) #{msg}")
       end
     end
   end
