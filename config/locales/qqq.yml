@@ -59,6 +59,11 @@ qqq:
   rank:
     name:
       r_class: '{{identical|Class}}'
+  reconciliation:
+    schema_space:
+      headers:
+        name: '{{identical|Name}}'
+        description: '{{identical|Description}}'
   search:
     full_name: '{{Optional}}'
   sections:
