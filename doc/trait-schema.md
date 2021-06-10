@@ -134,6 +134,7 @@ Relationships:
 
 * `supplier` link: links to the Resource node for the resource from which 
   this statement is drawn.
+*  agent links: `contributor`, `determined_by` or `compiler` links to a Term node for a person or institution who contributed the evidence, took the measurement or compiled the record into the resource.  
 * `metadata` link: information (statements!) about this statement; see below.
   The node may be `metadata`-linked to any number of `MetaData` nodes.
   A `MetaData` node may be linked from any number of `Trait` nodes.
