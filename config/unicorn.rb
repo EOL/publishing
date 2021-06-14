@@ -31,7 +31,7 @@ after_fork do |server, worker|
     config = Rails.application.config.neo4j.driver
     ActiveGraph::Base.driver = Neo4j::Driver::GraphDatabase.driver(
       config.url, 
-      Neo4j::Driver.AuthTokens.basic(config.username, config.password), 
+      Neo4j::Driver::AuthTokens.basic(config.username, config.password), 
       encryption: config.encryption
     )
   end
