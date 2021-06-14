@@ -218,6 +218,11 @@ da:
       dd: data mangler (DD)
       ne: ikke evalueret (NE)
   recaptcha_error: Fortæl os, at du ikke er en robot.
+  reconciliation:
+    schema_space:
+      headers:
+        name: Navn
+        description: Beskrivelse
   resources:
     headers:
       index: Ressourcer
