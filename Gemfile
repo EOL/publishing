@@ -139,6 +139,8 @@ gem 'rack-cors'
 # JSON schema-based validation
 gem 'json_schemer'
 
+gem 'rack-mini-profiler', require: false
+
 group :development, :test do
   gem 'active_record_query_trace', '~> 1'
   # Security analysis:
@@ -156,8 +158,6 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov', '~> 0'
   gem 'solargraph', '~> 0'
-  gem 'rack-mini-profiler'
-  gem 'stackprof'
 end
 
 group :development do
