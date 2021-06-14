@@ -222,6 +222,7 @@ da:
     schema_space:
       headers:
         name: Navn
+        description: Beskrivelse
   resources:
     headers:
       index: Ressourcer
