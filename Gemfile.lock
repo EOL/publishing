@@ -319,6 +319,8 @@ GEM
       rack (~> 2.0)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-mini-profiler (2.3.2)
+      rack (>= 1.2.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -483,6 +485,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stackprof (0.2.17)
     sync (0.5.0)
     temple (0.8.2)
     term-ansicolor (1.7.1)
@@ -587,6 +590,7 @@ DEPENDENCIES
   pry-rails
   pundit (~> 2.1)
   rack-cors
+  rack-mini-profiler
   rack_session_access (~> 0)
   rails (= 5.2.4.4)
   recaptcha (~> 5.6)
@@ -605,6 +609,7 @@ DEPENDENCIES
   sitemap_generator (~> 6.1)
   solargraph (~> 0)
   spring (~> 2)
+  stackprof
   therubyracer (~> 0.12)
   typhoeus (~> 1.4)
   uglifier (~> 4.2)

@@ -156,6 +156,8 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov', '~> 0'
   gem 'solargraph', '~> 0'
+  gem 'rack-mini-profiler'
+  gem 'stackprof'
 end
 
 group :development do
