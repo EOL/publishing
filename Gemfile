@@ -139,6 +139,7 @@ gem 'rack-cors'
 # JSON schema-based validation
 gem 'json_schemer'
 
+gem 'stackprof'
 gem 'rack-mini-profiler', require: false
 
 group :development, :test do

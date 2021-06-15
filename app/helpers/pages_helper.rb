@@ -119,29 +119,31 @@ module PagesHelper
   end
 
   def summarize(page, options = {})
-    page_id = if page
-                page.id
-              elsif options[:node]
-                options[:node].page_id
-              else
-                nil
-              end
-    return('[unknown page]') if page_id.nil?
-    name = options[:name]
-    if options[:current_page]
-      haml_tag('b') do
+    Rack::MiniProfiler.step('PagesHelper#summarize') do
+      page_id = if page
+                  page.id
+                elsif options[:node]
+                  options[:node].page_id
+                else
+                  nil
+                end
+      return('[unknown page]') if page_id.nil?
+      name = options[:name]
+      if options[:current_page]
+        haml_tag('b') do
+          haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
+        end
+        haml_concat t('classifications.hierarchies.this_page')
+      elsif (page && !options[:no_icon] && image = page.medium)
+        haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
+        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
+      else
         haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
       end
-      haml_concat t('classifications.hierarchies.this_page')
-    elsif (page && !options[:no_icon] && image = page.medium)
-      haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
-    else
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
-    end
-    if page.nil?
-      haml_tag('div.uk-padding-remove-horizontal.uk-text-muted') do
-        haml_concat 'PAGE MISSING (bad import)' # TODO: something more elegant.
+      if page.nil?
+        haml_tag('div.uk-padding-remove-horizontal.uk-text-muted') do
+          haml_concat 'PAGE MISSING (bad import)' # TODO: something more elegant.
+        end
       end
     end
   end
@@ -365,11 +367,13 @@ private
 
   private
     def sort_nodes_by_name(nodes)
-      nodes.sort do |a, b|
-        a_name = sanitize(a.name, tags: [])
-        b_name = sanitize(b.name, tags: [])
+      Rack::MiniProfiler.step('PagesHelper#sort_nodes_by_name') do
+        nodes.sort do |a, b|
+          a_name = sanitize(a.name, tags: [])
+          b_name = sanitize(b.name, tags: [])
 
-        a_name <=> b_name
+          a_name <=> b_name
+        end
       end
     end
 end

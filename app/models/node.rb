@@ -89,7 +89,9 @@ class Node < ApplicationRecord
   end
 
   def siblings
-    parent&.children&.reject { |n| n == self } || []
+    Rack::MiniProfiler.step('Node#siblings') do
+      parent&.children&.reject { |n| n == self } || []
+    end
   end
 
   def rank_treat_as
