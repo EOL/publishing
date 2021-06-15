@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     before_action :authenticate
   end
 
+  before_action do
+    Rack::MiniProfiler.authorize_request
+  end
+
   def default_url_options(options = {})
     locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
     { locale: locale }.merge options
