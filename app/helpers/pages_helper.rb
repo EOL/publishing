@@ -84,7 +84,6 @@ module PagesHelper
         if this_node.children.any?
           haml_tag("div.item") do
             haml_tag("div.ui.middle.aligned.list.descends") do
-              # sanitize so <i> tags aren't counted for sorting purposes
               sort_nodes_by_name(this_node.children).each do |child|
                 haml_tag("div.item") do
                   summarize(child.page, name: child.scientific_name, node: child, no_icon: true)
