@@ -82,9 +82,11 @@ module PagesHelper
       summarize(page, name: node.scientific_name, current_page: node == this_node, node: node, no_icon: true)
       if ancestors.empty?
         if this_node.children.any?
+          children = this_node.children.includes(:page)
+
           haml_tag("div.item") do
             haml_tag("div.ui.middle.aligned.list.descends") do
-              sort_nodes_by_name(this_node.children).each do |child|
+              sort_nodes_by_name(children).each do |child|
                 haml_tag("div.item") do
                   summarize(child.page, name: child.scientific_name, node: child, no_icon: true)
                 end
@@ -99,7 +101,7 @@ module PagesHelper
       end
     end
 
-    if show_siblings && this_node.siblings && this_node.siblings.size > 0
+    if show_siblings && this_node.siblings && this_node.siblings.any?
       sort_nodes_by_name(this_node.siblings[0..99]).each do |sibling|
         haml_tag("div.item") do
           summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling, no_icon: true)
