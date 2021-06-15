@@ -34,6 +34,10 @@ class Node < ApplicationRecord
     vernacular(locale: locale, fallbacks: true).try(:string) || scientific_name
   end
 
+  def comparison_scientific_name
+    @comparison_scientific_name ||= ActionView::Base.full_sanitizer.sanitize(scientific_name).downcase
+  end
+
   def use_breadcrumb?
     has_breadcrumb? && (minimal? || abbreviated?)
   end
