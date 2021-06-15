@@ -369,8 +369,8 @@ private
     def sort_nodes_by_name(nodes)
       Rack::MiniProfiler.step('PagesHelper#sort_nodes_by_name') do
         nodes.sort do |a, b|
-          a_name = sanitize(a.name, tags: [])
-          b_name = sanitize(b.name, tags: [])
+          a_name = sanitize(a.scientific_name, tags: [])
+          b_name = sanitize(b.scientific_name, tags: [])
 
           a_name <=> b_name
         end
