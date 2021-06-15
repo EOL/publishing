@@ -123,7 +123,7 @@ module TraitBank
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
         name = options[:name]
-        q = options[:q]
+        q = options[:q].gsub("'", "\\\\'") # Gawd I hate that syntax.
         delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
         size = options[:size] || 64
         count_before = count_by_query(name, q)
