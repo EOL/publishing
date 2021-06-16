@@ -691,9 +691,7 @@ class Page < ApplicationRecord
   # Nodes methods
   def classification_nodes
     nodes
-      .with_name
-      .with_named_ancestors
-      .includes(:resource)
+      .includes(:resource, { node_ancestors: { ancestor: :page }})
       .where({ resources: { classification: true } })
   end
 

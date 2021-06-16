@@ -18,8 +18,6 @@ class Node < ApplicationRecord
   has_many :references, as: :parent
   has_many :referents, through: :references
   scope :dh, -> { where(resource_id: Resource.native.id) }
-  scope :with_name, -> { includes(:preferred_vernaculars) }
-  scope :with_named_ancestors, -> { includes(node_ancestors: { ancestor: :preferred_vernaculars }) }
 
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
   # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.
@@ -32,6 +30,10 @@ class Node < ApplicationRecord
   def name(locale = nil)
     locale ||= Locale.current
     vernacular(locale: locale, fallbacks: true).try(:string) || scientific_name
+  end
+
+  def comparison_scientific_name
+    @comparison_scientific_name ||= ActionView::Base.full_sanitizer.sanitize(scientific_name).downcase
   end
 
   def use_breadcrumb?
@@ -89,7 +91,7 @@ class Node < ApplicationRecord
   end
 
   def siblings
-    parent&.children&.reject { |n| n == self } || []
+    @siblings ||= parent&.children&.where.not(id: self.id).includes(:page) || []
   end
 
   def rank_treat_as
