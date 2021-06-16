@@ -91,9 +91,7 @@ class Node < ApplicationRecord
   end
 
   def siblings
-    Rack::MiniProfiler.step('Node#siblings') do
-      @siblings ||= parent&.children&.where.not(id: self.id).includes(:page) || []
-    end
+    @siblings ||= parent&.children&.where.not(id: self.id).includes(:page) || []
   end
 
   def rank_treat_as
