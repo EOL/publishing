@@ -123,7 +123,7 @@ module TraitBank
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
         name = options[:name]
-        q = options[:q]
+        q = invert_quotes(options[:q])
         delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
         size = options[:size] || 64
         count_before = count_by_query(name, q)
@@ -149,6 +149,13 @@ module TraitBank
           size /= 2 if time_delta > 30
           sleep(delay)
         end
+      end
+
+      def invert_quotes(str)
+        str.
+          gsub('"', 'QUOTED_SINGLE_QUOTE').
+          gsub("'", '"').
+          gsub('QUOTED_SINGLE_QUOTE', "\\\\'") # Boy I hate that \\\\ syntax.
       end
 
       def count_by_query(name, q)
