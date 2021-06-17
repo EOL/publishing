@@ -11,7 +11,7 @@ class ReconciliationResult
     end
 
     def build_searchkick_query
-      match = :text_start
+      match = @query_string.split.length > 1 ? :text_start : :phrase
 
       Page.search(
         @query_string, 
