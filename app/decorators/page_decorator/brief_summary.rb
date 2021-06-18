@@ -8,10 +8,13 @@ class PageDecorator
     def initialize(page, view)
       @page = page
       @view = view
+      @adapter = I18n.locale == I18n.default_locale ? 
+        English.new(@page, @view) :
+        OtherLanguages.new(@page, @view)
     end
 
-    def english
-      English.new(@page, @view).result
+    def result
+      @adapter.result
     end
   end
 end

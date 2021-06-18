@@ -1,8 +1,10 @@
 # Contains language/locale-agnostic methods used for constructing summaries
+# TODO: Rename! e.g. LanguagesShared or something
 class PageDecorator
   class BriefSummary
     module Shared
       ResultTerm = Struct.new(:predicate, :term, :source, :toggle_selector)
+      Result = Struct.new(:sentence, :terms)
 
       # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
       # lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
@@ -14,7 +16,7 @@ class PageDecorator
         return @a1_link if @a1_link
         @a1 ||= @page.ancestors.reverse.find { |a| a && a.minimal? }
         return nil if @a1.nil?
-        a1_name = @a1.page&.vernacular(locale: Locale.english)&.string || @a1.vernacular(locale: Locale.english)
+        a1_name = @a1.page&.vernacular&.string || @a1.vernacular
         # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
         a1_name = nil if a1_name&.match(' and ')
         a1_name ||= @a1.canonical
@@ -50,23 +52,15 @@ class PageDecorator
       end
 
       def add_sentence(options = {})
-        use_name = !@full_name_used
-        subj = use_name ? name_clause : pronoun_for_rank.capitalize
-        are = extinct? ? 'were' : 'are' 
-        have = extinct? ? 'had' : 'have'
         sentence = nil
 
         begin
-          sentence = yield(subj, are, have)
+          sentence = yield
         rescue BadTraitError => e
           Rails.logger.warn(e.message)
         end
 
         if sentence.present?
-          if sentence.start_with?("#{subj} ")
-            @full_name_used ||= use_name
-          end
-
           @sentences << sentence
         end
       end
@@ -118,6 +112,14 @@ class PageDecorator
 
       def is_genus?
         is_rank?('r_genus')
+      end
+
+      def below_family?
+        @page.rank&.treat_as.present? && Rank.treat_as[@page.rank.treat_as] > Rank.treat_as[:r_family]
+      end
+
+      def genus_or_below?
+        @page.rank&.treat_as.present? && Rank.treat_as[@page.rank.treat_as] >= Rank.treat_as[:r_genus]
       end
 
       # NOTE: the secondary clause here is quite... expensive. I recommend we remove it, or if we keep it, preload ranks.
@@ -184,6 +186,39 @@ class PageDecorator
                              view.link_to(object_page.short_name(Locale.english).html_safe, object_page)
                            end
         sprintf(format_str, object_page_part)
+      end
+
+      def full_name_clause
+        if @page.vernacular.present?
+          "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
+        else
+          name_clause
+        end
+      end
+
+      def name_clause
+        @name_clause ||= @page.vernacular_or_canonical
+      end
+
+      def add_above_family_group_sentence
+        treat_as = @page.rank&.treat_as || 'group'
+
+        if a1.present?
+          add_sentence do
+            I18n.t("brief_sumamry.above_family_group.#{treat_as}", name1: full_name_clause, name2: a1)
+          end
+        end
+      end
+
+      def add_family_sentence
+        add_sentence do
+          "#{full_name_clause} is a family of #{a1}."
+        end
+      end
+
+      def result
+        add_sentences
+        Result.new(@sentences.join(' '), @terms)
       end
     end
   end

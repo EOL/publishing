@@ -94,6 +94,10 @@ class Rank < ApplicationRecord
     end
   end
 
+  def human_treat_as
+    treat_as&.[](2..)
+  end
+
   def species_or_below?
     Rank.species_or_below.include?(self.id)
   end

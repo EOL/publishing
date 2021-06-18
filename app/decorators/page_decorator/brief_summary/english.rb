@@ -25,17 +25,17 @@ class PageDecorator
 
       # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
       # putting species last because it is the most likely to trigger a false-positive. :|
-      def result
+      def add_sentences
         if is_above_family?
           above_family
-        else
-          if !a1.nil?
-            if is_family?
-              family
-            elsif is_genus?
-              genus
-            elsif is_species?
-              species
+        elsif a1.present?
+          if is_family?
+            family
+          elsif below_family?
+            below_family_taxonomy_sentence
+
+            if genus_or_below?
+              genus_and_below
             end
           end
         end
@@ -54,13 +54,10 @@ class PageDecorator
 
         reproduction_sentences
         motility_sentence
-
-        Result.new(@sentences.join(' '), @terms)
       end
 
       private
       LandmarkChildLimit = 3
-      Result = Struct.new(:sentence, :terms)
 
       IUCN_URIS = Set[
         TermNode.find_by_alias('iucn_en'),
@@ -75,19 +72,15 @@ class PageDecorator
       end
 
       def above_family
+        add_above_family_group_sentence
+
         rank_name = @page.rank&.treat_as.present? ?
           @page.rank.i18n_name : 
           'group'
 
-        if a1.present?
-          add_sentence do |subj, _, __|
-            "#{subj} is #{a_or_an_helper(rank_name)} #{rank_name} of #{a1}." # in this case, the is variable would be 'are', which is not what we want
-          end
-        end
-
         desc_info = @page.desc_info
         if desc_info.present?
-          add_sentence do |_, __, ___|
+          add_sentence_helper do |_, __, ___|
             "There #{is_or_are(desc_info.species_count)} #{desc_info.species_count} species of #{@page.name}, in #{view.pluralize(desc_info.genus_count, "genus", "genera")} and #{view.pluralize(desc_info.family_count, "family")}."
           end
         end
@@ -95,55 +88,57 @@ class PageDecorator
         first_appearance_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('fossil_first'), with_object_term: true)
 
         if first_appearance_trait
-          add_sentence do |_, __, ___|
+          add_sentence_helper do |_, __, ___|
             trait_sentence_part("This #{rank_name} has been around since the %s.", first_appearance_trait)
           end
         end
       end
 
-      # [name clause] is a[n] [A1] in the family [A2].
-      def species
+      def below_family_taxonomy_sentence
         # taxonomy sentence:
-        # TODO: this assumes perfect coverage of A1 and A2 for all species, which is a bad idea. Have contingencies.
+        rank = @page.rank.human_treat_as
         what = a1
-        species_parts = []
+        parts = []
 
-        add_sentence do |subj, _, __|
+        add_sentence do
           if match = growth_habit_matches.first_of_type(:species_of_x)
-            species_parts << trait_sentence_part(
-              "#{subj} is a species of %s",
+            parts << trait_sentence_part(
+              "#{full_name_clause} is a #{rank} of %s",
               match.trait
             )
           elsif match = growth_habit_matches.first_of_type(:species_of_lifecycle_x)
             lifecycle_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('lifecycle_habit'))
             if lifecycle_trait
               lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
-              species_parts << trait_sentence_part(
-                "#{subj} is a species of #{lifecycle_part} %s",
+              parts << trait_sentence_part(
+                "#{full_name_clause} is a #{rank} of #{lifecycle_part} %s",
                 match.trait
               )
             else # TODO: DRY
-              species_parts << trait_sentence_part(
-                "#{subj} is a species of %s",
+              parts << trait_sentence_part(
+                "#{full_name_clause} is a #{rank} of %s",
                 match.trait
               )
             end
           elsif match = growth_habit_matches.first_of_type(:species_of_x_a1)
-            species_parts << trait_sentence_part(
-              "#{subj} is a species of %s #{what}",
+            parts << trait_sentence_part(
+              "#{full_name_clause} is a #{rank} of %s #{what}",
               match.trait
             )
           else
-            species_parts << "#{subj} is a species of #{what}"
+            parts << "#{full_name_clause} is a #{rank} of #{what}"
           end
 
-          species_parts << " in the family #{a2}" if a2
-          species_parts << "."
-          species_parts.join("")
+          parts << " in the family #{a2}" if a2
+          parts << "."
+          parts.join("")
         end
+      end
 
+      # [name clause] is a[n] [A1] in the family [A2].
+      def genus_and_below
         if match = growth_habit_matches.first_of_type(:is_an_x)
-          add_sentence do |subj, are, __|
+          add_sentence_helper do |subj, are, __|
             trait_sentence_part(
               "#{subj} #{are} %ss.",
               match.trait
@@ -152,7 +147,7 @@ class PageDecorator
         end
 
         if match = growth_habit_matches.first_of_type(:has_an_x_growth_form)
-          add_sentence do |subj, are, have|
+          add_sentence_helper do |subj, are, have|
             trait_sentence_part(
               "#{subj} #{have} #{a_or_an(match.trait)} %s growth form.",
               match.trait
@@ -171,7 +166,7 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             term_sentence_part(
               "#{subj} #{are} found in %s.", "marine habitat", 
               TermNode.find_by_alias('habitat'), 
@@ -179,7 +174,7 @@ class PageDecorator
             )
           end
         elsif freshwater_trait.present?
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             term_sentence_part("#{subj} #{are} associated with %s.", "freshwater habitat", freshwater_trait.predicate, freshwater_trait.object_term)
           end
         end
@@ -187,11 +182,11 @@ class PageDecorator
 
         native_range_part = values_to_sentence([TermNode.find_by_alias('native_range')])
         if native_range_part.present?
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             "#{subj} #{are} native to #{native_range_part}."
           end
         elsif g1
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             "#{subj} #{are} found in #{g1}."
           end
         end
@@ -202,16 +197,16 @@ class PageDecorator
       def genus
         family = a2
         if family
-          add_sentence do |subj, _, __|
-            "#{subj} is a genus of #{a1} in the family #{family}."
+          add_sentence do
+            "#{full_name_clause} is a genus of #{a1} in the family #{family}."
           end
         else
-          add_sentence do |subj, _, __|
-            "#{subj} is a genus of #{a1}."
+          # We may have a few genera that don't have a family in their ancestry. In those cases, shorten the taxonomy sentence:
+          # [name clause] is a genus in the [A1]
+          add_sentence do
+            "#{full_name_clause} is a genus of #{a1}."
           end
         end
-        # We may have a few genera that don't have a family in their ancestry. In those cases, shorten the taxonomy sentence:
-        # [name clause] is a genus in the [A1]
       end
 
       # [name clause] is a family of [A1].
@@ -219,9 +214,7 @@ class PageDecorator
       # This will look a little funny for those families with "family" vernaculars, but I think it's still acceptable, e.g.,
       # Rosaceae (rose family) is a family of plants.
       def family
-        add_sentence do |subj, _, __|
-          "#{subj} is a family of #{a1}."
-        end
+        add_family_sentence
       end
 
       def landmark_children
@@ -229,7 +222,7 @@ class PageDecorator
 
         if children.any?
           taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical(Locale.english), c.page) }
-          add_sentence do |subj, _, __|
+          add_sentence_helper do |subj, _, __|
             "#{subj} includes groups like #{to_sentence(taxa_links)}."
           end
         end
@@ -248,7 +241,7 @@ class PageDecorator
           exclude_values: [TermNode.find_by_alias('variable')]
         )
 
-        add_sentence do |subj, are, _|
+        add_sentence_helper do |subj, are, _|
           sentence = nil
           trophic_part = trait_sentence_part("%s", trophic, pluralize: true) if trophic
 
@@ -274,7 +267,7 @@ class PageDecorator
         lifespan_part = nil
         size_part = nil
 
-        add_sentence do |subj, are, _|
+        add_sentence_helper do |subj, are, _|
           lifespan_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('lifespan'), includes: [:units_term])
           if lifespan_trait
             value = lifespan_trait.measurement
@@ -319,7 +312,7 @@ class PageDecorator
       def reproduction_sentences
         matches = reproduction_matches
 
-        add_sentence do |subj, are, have|
+        add_sentence_helper do |subj, are, have|
           vpart = if matches.has_type?(:v)
                     v_vals = to_sentence(matches.by_type(:v).collect do |match|
                       trait_sentence_part("%s", match.trait)
@@ -355,7 +348,7 @@ class PageDecorator
         end
 
         if matches.has_type?(:y)
-          add_sentence do |subj, are, have|
+          add_sentence_helper do |subj, are, have|
             y_parts = to_sentence(matches.by_type(:y).collect do |match|
               trait_sentence_part("%s #{match.trait[:predicate][:name]}", match.trait)
             end)
@@ -365,7 +358,7 @@ class PageDecorator
         end
 
         if matches.has_type?(:x)
-          add_sentence do |_, __, ___|
+          add_sentence_helper do |_, __, ___|
             x_parts = to_sentence(matches.by_type(:x).collect do |match|
               trait_sentence_part("%s", match.trait)
             end)
@@ -377,7 +370,7 @@ class PageDecorator
         end
 
         if matches.has_type?(:z)
-          add_sentence do |subj, are, have|
+          add_sentence_helper do |subj, are, have|
             z_parts = to_sentence(matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
             end)
@@ -394,7 +387,7 @@ class PageDecorator
         ]))
 
         if matches.has_type?(:c)
-          add_sentence do |subj, _, __|
+          add_sentence_helper do |subj, _, __|
             match = matches.first_of_type(:c)
             trait_sentence_part(
               "#{subj} rely on %s to move around.",
@@ -402,7 +395,7 @@ class PageDecorator
             )
           end
         elsif matches.has_type?(:a) && matches.has_type?(:b)
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             a_match = matches.first_of_type(:a)
             b_match = matches.first_of_type(:b)
 
@@ -418,7 +411,7 @@ class PageDecorator
             )
           end
         elsif matches.has_type?(:a)
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             match = matches.first_of_type(:a)
 
             if @page.animal?
@@ -435,7 +428,7 @@ class PageDecorator
             )
           end
         elsif matches.has_type?(:b)
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             match = matches.first_of_type(:b)
             trait_sentence_part(
               "#{subj} #{are} %s.",
@@ -454,7 +447,7 @@ class PageDecorator
         flower_part = nil
         fruit_part = nil
 
-        add_sentence do |subj, are, have|
+        add_sentence_helper do |subj, are, have|
           if leaf_traits.any?
             leaf_parts = leaf_traits.collect { |trait| trait_sentence_part("%s", trait) }
             leaf_part = "#{leaf_parts.join(", ")} leaves"
@@ -485,7 +478,7 @@ class PageDecorator
 
       def visits_flowers_sentence
         flower_visitor_sentence_helper(:traits_for_predicate, :object_page) do |page_part|
-          add_sentence do |subj, __, ___|
+          add_sentence_helper do |subj, __, ___|
             "#{subj} visit flowers of #{page_part}."
           end
         end
@@ -493,7 +486,7 @@ class PageDecorator
 
       def flowers_visited_by_sentence
         flower_visitor_sentence_helper(:object_traits_for_predicate, :page) do |page_part|
-          add_sentence do |_, __, ___|
+          add_sentence_helper do |_, __, ___|
             "Flowers are visited by #{page_part}."
           end
         end
@@ -516,7 +509,7 @@ class PageDecorator
         if trait
           fixes_part = term_sentence_part("%s", 'fix', nil, trait.predicate)
 
-          add_sentence do |subj, _, __|
+          add_sentence_helper do |subj, _, __|
             term_sentence_part(
               "#{subj} #{fixes_part} %s.",
               "nitrogen",
@@ -561,7 +554,7 @@ class PageDecorator
         begin_part = [lifestage, name_clause].compact.join(" ")
         form_part = term_sentence_part("%s", "form", nil, trait.predicate)
 
-        add_sentence do |_, __, ___|
+        add_sentence_helper do |_, __, ___|
           trait_sentence_part(
             "#{begin_part} #{form_part} %ss.", #extra s for plural, not a typo
             trait
@@ -573,7 +566,7 @@ class PageDecorator
         trait = @page.first_trait_for_predicate(TermNode.find_by_alias('ecosystem_engineering'))
 
         if trait
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             obj_name = trait.object_term&.name
 
             if obj_name
@@ -585,18 +578,9 @@ class PageDecorator
         end
       end
 
-      def name_clause
-        if !@full_name_used && @page.vernacular(locale: Locale.english)
-          "#{@page.canonical} (#{@page.vernacular(locale: Locale.english).string.titlecase})"
-        else
-          @name_clause ||= @page.vernacular_or_canonical(Locale.english)
-        end
-      end
-
-
       def add_extinction_sentence
         if extinct?
-          add_sentence do |_, __, ___|
+          add_sentence_helper do |_, __, ___|
             term_sentence_part("This species is %s.", "extinct", TermNode.find_by_alias('extinction_status'), extinct_trait.object_term)
           end
 
@@ -669,7 +653,7 @@ class PageDecorator
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         
         if result.any?
-          add_sentence do |subj, are, _|
+          add_sentence_helper do |subj, are, _|
             "#{subj} #{are} listed #{to_sentence(result)}."
           end
         end
@@ -699,6 +683,15 @@ class PageDecorator
       
       def a_or_an_helper(word)
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
+      end
+
+      def add_sentence_helper
+        are = extinct? ? 'were' : 'are' 
+        have = extinct? ? 'had' : 'have'
+
+        add_sentence do 
+          yield('They', are, have)
+        end
       end
     end
   end
