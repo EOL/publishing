@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy' do
-  context '#to_s' do 
+  describe '#to_s' do 
     def test_locale_and_rank(locale, treat_as)
       full_name = 'Pagename (pagename)'
       a1 = "<a>Ancestor</a>"

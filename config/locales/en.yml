@@ -80,7 +80,7 @@ en:
           r_subspecies: "%{name1} is a subspecies of %{name2} in the family %{name3}."
           r_infraspecies: "%{name1} is an infraspecies of %{name2} in the family %{name3}."
           r_form: "%{name1} is a form of %{name2} in the family %{name3}."
-        no_family:
+        without_family:
           r_subfamily: "%{name1} is a subfamily of %{name2}."
           r_infrafamily: "%{name1} is an infrafamily of %{name2}."
           r_tribe: "%{name1} is a tribe of %{name2}."
