@@ -185,5 +185,9 @@ class BriefSummary
       add_sentences
       Result.new(@sentences.join(' '), @terms)
     end
+
+    def sentences
+      @sentences
+    end
   end
 end

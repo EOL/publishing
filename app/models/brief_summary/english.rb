@@ -71,9 +71,7 @@ class BriefSummary
     def above_family
       add_above_family_group_sentence
 
-      rank_name = @page.rank&.treat_as.present? ?
-        @page.rank.i18n_name : 
-        'group'
+      rank_name = @page.rank.i18n_name
 
       desc_info = @page.desc_info
       if desc_info.present?

@@ -2,7 +2,7 @@ class BriefSummary
   class OtherLanguages
     include BriefSummary::Shared
 
-    attr_reader :view
+    attr_reader :view, :sentences
 
     def initialize(page, view)
       @page = page
@@ -12,11 +12,12 @@ class BriefSummary
       @sentences = []
       @terms = []
       @full_name_used = false
+      build_sentences
     end
 
-    def add_sentences
-      if is_above_family?
-        above_family
+    def build_sentences
+      if @page.family_or_above?
+        @sentences << BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(@page)
       elsif a1.present?
         if is_family?
           add_family_sentence
@@ -25,9 +26,9 @@ class BriefSummary
         end
       end
 
-      if genus_or_below?
-        genus_and_below
-      end
+      #if genus_or_below?
+      #  genus_and_below
+      #end
     end
 
     def below_family_taxonomy_sentence
