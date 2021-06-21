@@ -96,7 +96,7 @@ de:
       data_count: Daten
       nodes_count: Knoten
       scientific_names_count: wissenschaftliche Bezeichnungen
-      species_count: Spezies
+      species_count: Arten
       updated_at: Zuletzt aktualisiert
   collect_already_in_collection: (ist bereits vorhanden)
   collect_already_in_collection_will_add_icon: (füge Medien zu "%{page}" hinzu)
@@ -739,6 +739,10 @@ de:
       cr: vom Aussterben bedroht (CR)
       en: stark gefährdet (EN)
       vu: gefährdet (VU)
+      nt: potenziell gefährdet (NT)
+      lc: nicht gefährdet (LC)
+      dd: ungenügende Datengrundlage (DD)
+      ne: nicht beurteilt (NE)
       unknown: unbekannt (keine Daten)
   page_titles:
     pages:
@@ -756,6 +760,9 @@ de:
       r_phylum: Stamm
       r_class: Klasse
       r_family: Familie
+      r_genus: Gattung
+      r_subgenus: Untergattung
+      r_species: Art
   recaptcha: Recaptcha
   recaptcha_error: Ich bin kein Roboter.
   reconciliation:
@@ -1219,6 +1226,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: Canyon
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Capitanium
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: Karnium
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: katadrom
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: Höhle
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: Höhleneingang
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: Höhlenboden
@@ -1230,13 +1238,19 @@ de:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: Känozoikum
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: Zentrales Nervensystem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: Kalk
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: Chaparral
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: Chattium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: Schwarzerde
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: Schott
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: Cisuralium
         http://purl(dot)org/dc/terms/bibliographicCitation: Zitat
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: Stadt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: Ton
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: Tonsediment
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: Tonerde
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: Klippe
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: Kletterpflanze
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: Kline
         http://eol(dot)org/schema/terms/cloud_forest: Wolken- und Nebelwald
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
@@ -1250,9 +1264,13 @@ de:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: Coniacium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: Nadelwald
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Korallenriff
+        https://eol(dot)org/schema/terms/coral_sand: Korallensand
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: Korallit
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: Baumwollplantage
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: Ländercode.
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: dämmerungsaktiv
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: Cryogenium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: Cryosol
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: Zylinder
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: Zypressensumpf
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: Danium
@@ -1266,8 +1284,10 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: Grad Celsius
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: Delta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: Wüste
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: Dornstrauchsavanne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: Wüstenoase
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: Wüstensand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: Buschland
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: Devon
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: Behensäure
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: Laurinsäure
@@ -1282,13 +1302,22 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: Arachinsäure
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: Eifelium
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: verlängert
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: Embryonalstadium
+        http://eol(dot)org/schema/terms/endangered: gefährdet
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: Endoparasit von
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: Endoskelett
+        http://eol(dot)org/schema/terms/endozoochory: Endozoochorie
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: Eozän
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: Epidermis
+        http://www(dot)marinespecies(dot)org/traits/Epifaunal: epifaunal
+        http://eol(dot)org/schema/terms/epizoochory: Epizoochorie
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: immergrün
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: Immergrüner Wald
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: sichtbar
+        https://eol(dot)org/schema/terms/extirpated: ausgerottet
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: Augen
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: Famennium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: Bauernhof
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: schnell
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: Feder
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: Fuß

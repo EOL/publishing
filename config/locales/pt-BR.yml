@@ -672,6 +672,14 @@ pt-BR:
       r_form: forma
   recaptcha: Recaptcha
   recaptcha_error: Por favor, diga-nos que você não é um robô.
+  reconciliation:
+    property:
+      name:
+        ancestor: Antepassado
+    schema_space:
+      headers:
+        id: ID
+        description: Descrição
   reference_compiled_from: Referenciado por %{links}
   reference_compiled_from_article: Artigo de %{source} com o titulo de «%{name}»
   register_new_account: Registre-se para uma nova conta
