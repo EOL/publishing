@@ -3,6 +3,8 @@ class BriefSummary
     module I18n
       class FamilyAndAboveTaxonomy
         def initialize(page)
+          raise TypeError, "page not family_or_above?" unless page.family_or_above?
+
           treat_as = page.rank.treat_as
           @string = ::I18n.t(
             "brief_summary.taxonomy.family_above.#{treat_as}", 

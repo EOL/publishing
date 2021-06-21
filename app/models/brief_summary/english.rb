@@ -12,7 +12,7 @@ class BriefSummary
     ]
 
     def initialize(page, view)
-      @page = page
+      @page = BriefSummary::PageDecorator.new(page)
       @view = view
       @sentences = []
       @terms = []

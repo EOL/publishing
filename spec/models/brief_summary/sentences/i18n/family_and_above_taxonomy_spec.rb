@@ -13,10 +13,12 @@ RSpec.describe 'BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy' do
       allow(page).to receive(:full_name_clause) { full_name }
       allow(page).to receive(:a1) { a1 }
       allow(page).to receive(:rank) { rank }
+      allow(page).to receive(:family_or_above?) { true }
 
       sentence = BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(page)
       expected = I18n.t(
         "brief_summary.taxonomy.family_above.#{treat_as}", 
+        locale: locale,
         name1: full_name,
         name2: a1
       )
@@ -25,35 +27,22 @@ RSpec.describe 'BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy' do
     end
 
     it "returns the appropriate string for each enabled locale/valid rank" do
-      treat_as = %w[ 
-        r_superfamily
-        r_domain
-        r_subdomain
-        r_infradomain
-        r_superkingdom
-        r_kingdom
-        r_subkingdom
-        r_infrakingdom
-        r_superphylum
-        r_phylum
-        r_subphylum
-        r_infraphylum
-        r_superclass
-        r_class
-        r_subclass
-        r_infraclass
-        r_superorder
-        r_order
-        r_suborder
-        r_infraorder
-        r_family
-      ]
+      treat_as = Rank.treat_as
+        .map { |v| v.first }
+        .filter { |t| Rank.treat_as[t] <= Rank.treat_as[:r_family] }
 
       I18n.available_locales.each do |l|
         treat_as.each do |t|
           test_locale_and_rank(l, t)
         end
       end
+    end
+
+    it "raises an error when page is not family_or_above?" do
+      page = instance_double('BriefSummary::PageDecorator')
+      allow(page).to receive(:family_or_above?) { false }
+
+      expect { BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(page) }.to raise_error(TypeError)
     end
   end
 end
