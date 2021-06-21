@@ -134,6 +134,16 @@ class PageDecorator
       end
 
       def term_tag(label, predicate, term, trait_source = nil)
+        toggle_id = register_term(predicate, term, trait_source)
+        view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
+      end
+
+      def i18n_w_term(key, predicate, term, trait_source = nil)
+        toggle_id = register_term(predicate, term, trait_source)
+        I18n.t("brief_summary.#{key}", class_str: 'a term-info-a', id: toggle_id)
+      end
+      
+      def register_term(predicate, term, trait_source)
         toggle_id = term_toggle_id
 
         @terms << ResultTerm.new(
@@ -142,7 +152,8 @@ class PageDecorator
           trait_source,
           "##{toggle_id}"
         )
-        view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
+
+        toggle_id
       end
 
       # Term can be a predicate or an object term. If predicate is nil, term is treated in the view
@@ -213,6 +224,19 @@ class PageDecorator
       def add_family_sentence
         add_sentence do
           "#{full_name_clause} is a family of #{a1}."
+        end
+      end
+
+      def add_extinction_sentence
+        if extinct?
+          add_sentence do
+            key = "extinction.#{@page.rank.treat_as}"
+            i18n_w_term(key, TermNode.find_by_alias('extinction_status'), extinct_trait.object_term)
+          end
+
+          true
+        else
+          false
         end
       end
 

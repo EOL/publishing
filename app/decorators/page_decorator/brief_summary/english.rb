@@ -578,18 +578,6 @@ class PageDecorator
         end
       end
 
-      def add_extinction_sentence
-        if extinct?
-          add_sentence_helper do |_, __, ___|
-            term_sentence_part("This species is %s.", "extinct", TermNode.find_by_alias('extinction_status'), extinct_trait.object_term)
-          end
-
-          true
-        else
-          false
-        end
-      end
-
       def extinct?
         extinct_trait.present? && !extant_trait.present?
       end

@@ -25,6 +25,10 @@ class PageDecorator
             below_family_taxonomy_sentence
           end
         end
+
+        if genus_or_below?
+          genus_and_below
+        end
       end
 
       def below_family_taxonomy_sentence
@@ -48,6 +52,10 @@ class PageDecorator
 
       def above_family
         add_above_family_group_sentence
+      end
+
+      def genus_and_below
+        add_extinction_sentence
       end
     end
   end
