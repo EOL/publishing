@@ -24,8 +24,7 @@ RSpec.describe 'BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy' do
       expect(sentence.to_s).to eq(expected)
     end
 
-    RankConfig = Struct.new(:rank_string, :article)
-    it "returns the appropriate string for each enabled locale for each valid rank" do
+    it "returns the appropriate string for each enabled locale/valid rank" do
       treat_as = %w[ 
         r_superfamily
         r_domain
