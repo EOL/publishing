@@ -174,11 +174,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3'
-  gem 'better_errors', '~> 2'
-  gem 'capybara', '3'
-  gem 'factory_girl', '~> 4'
-  gem 'faker', '~> 2'
-  gem 'rack_session_access', '~> 0'
-  gem 'shoulda-matchers', '~> 4'
+  gem 'rspec', '~> 3.10'
 end
+
+
