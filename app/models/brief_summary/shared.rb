@@ -11,47 +11,6 @@ class BriefSummary
     # lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
     # believes this is usually a Class, but for different types of life, different ranks may make more sense.
 
-    # A1: Use the landmark with value 1 that is the closest ancestor of the species. Use the English vernacular name, if
-    # available, else use the canonical.
-    def a1
-      return @a1_link if @a1_link
-      @a1 ||= @page.ancestors.reverse.find { |a| a && a.minimal? }
-      return nil if @a1.nil?
-      a1_name = @a1.page&.vernacular&.string || @a1.vernacular
-      # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
-      a1_name = nil if a1_name&.match(' and ')
-      a1_name ||= @a1.canonical
-      @a1_link = @a1.page ? view.link_to(a1_name, @a1.page) : a1_name
-      # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
-      # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
-      # dynamic hierarchy. If the name starts with a vowel, it should be preceded by an, if not it should be preceded by
-      # a.
-    end
-
-    # A2: Use the name of the family (i.e., not a landmark taxon) of the species. Use the English vernacular name, if
-    # available, else use the canonical. -- Complication: some family vernaculars have the word "family" in then, e.g.,
-    # Rosaceae is the rose family. In that case, the vernacular would make for a very awkward sentence. It would be great
-    # if we could implement a rule, use the English vernacular, if available, unless it has the string "family" in it.
-    def a2
-      return @a2_link if @a2_link
-      return nil if a2_node.nil?
-      a2_name = a2_node.page&.vernacular(locale: Locale.english)&.string || a2_node.vernacular(locale: Locale.english)
-      a2_name = nil if a2_name && a2_name =~ /family/i
-      a2_name = nil if a2_name && a2_name =~ / and /i
-      a2_name ||= a2_node.canonical_form
-      @a2_link = a2_node.page ? view.link_to(a2_name, a2_node.page) : a2_name
-    end
-
-    def a2_node
-      @a2_node ||= @page.ancestors.reverse.compact.find { |a| Rank.family_ids.include?(a.rank_id) }
-    end
-
-    # If the species has a value for measurement type http://purl.obolibrary.org/obo/GAZ_00000071, insert a Distribution
-    # Sentence:  "It is found in [G1]."
-    def g1
-      @g1 ||= values_to_sentence([TermNode.find_by(uri: 'http://purl.obolibrary.org/obo/GAZ_00000071')])
-    end
-
     def add_sentence(options = {})
       sentence = nil
 
@@ -64,14 +23,6 @@ class BriefSummary
       if sentence.present?
         @sentences << sentence
       end
-    end
-
-    def is_above_family?
-      @page.native_node.present? &&
-      @page.native_node.any_landmark? &&
-      @page.rank.present? &&
-      @page.rank.treat_as &&
-      Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
     end
 
     # Iterate over all growth habit objects and get the first for which
@@ -116,7 +67,6 @@ class BriefSummary
     end
 
     def below_family?
-      @page.rank&.treat_as.present? && Rank.treat_as[@page.rank.treat_as] > Rank.treat_as[:r_family]
     end
 
     def genus_or_below?
@@ -210,16 +160,6 @@ class BriefSummary
 
     def name_clause
       @name_clause ||= @page.vernacular_or_canonical
-    end
-
-    def add_above_family_group_sentence
-      treat_as = @page.rank&.treat_as || 'group'
-
-      if a1.present?
-        add_sentence do
-          I18n.t("brief_sumamry.above_family_group.#{treat_as}", name1: full_name_clause, name2: a1)
-        end
-      end
     end
 
     def add_family_sentence

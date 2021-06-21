@@ -156,6 +156,8 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov', '~> 0'
   gem 'solargraph', '~> 0'
+
+  gem 'rspec-rails', '~> 4.1.0'
 end
 
 group :development do
@@ -171,10 +173,6 @@ group :development do
 
   # For benchmarking queries:
   gem 'meta_request', '~> 0'
-end
-
-group :test do
-  gem 'rspec', '~> 3.10'
 end
 
 

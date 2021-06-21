@@ -1,0 +1,21 @@
+class BriefSummary
+  module Sentences
+    module I18n
+      class FamilyAndAboveTaxonomy
+        def initialize(page)
+          treat_as = page.rank.treat_as
+          @string = ::I18n.t(
+            "brief_summary.taxonomy.family_above.#{treat_as}", 
+            name1: page.full_name_clause, 
+            name2: page.a1
+          )
+        end
+
+        def to_s
+          @string
+        end
+      end
+    end
+  end
+end
+
