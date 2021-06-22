@@ -15,7 +15,7 @@ RSpec.describe 'BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy' do
       allow(page).to receive(:rank) { rank }
       allow(page).to receive(:family_or_above?) { true }
 
-      sentence = BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(page)
+      sentence = BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(page, locale)
       expected = I18n.t(
         "brief_summary.taxonomy.family_above.#{treat_as}", 
         locale: locale,
@@ -42,7 +42,7 @@ RSpec.describe 'BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy' do
       page = instance_double('BriefSummary::PageDecorator')
       allow(page).to receive(:family_or_above?) { false }
 
-      expect { BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(page) }.to raise_error(TypeError)
+      expect { BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(page, :en) }.to raise_error(TypeError)
     end
   end
 end

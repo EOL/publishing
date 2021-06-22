@@ -4,9 +4,10 @@ class BriefSummary
 
     attr_reader :view, :sentences
 
-    def initialize(page, view)
+    def initialize(page, view, locale)
       @page = page
       @view = view
+      @locale = locale
 
       # TODO: extract/remove these!
       @sentences = []
@@ -17,7 +18,7 @@ class BriefSummary
 
     def build_sentences
       if @page.family_or_above?
-        @sentences << BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(@page)
+        @sentences << BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(@page, @locale)
       elsif a1.present?
         if is_family?
           add_family_sentence

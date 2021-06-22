@@ -8,10 +8,10 @@ RSpec.describe 'BriefSummary::OtherLanguages' do
 
         page = instance_double('BriefSummary::PageDecorator')
         allow(page).to receive(:family_or_above?) { true }
-
         allow(BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy).to receive(:new) { taxonomy_sentence }
 
-        summary = BriefSummary::OtherLanguages.new(page, nil)
+        summary = BriefSummary::OtherLanguages.new(page, nil, :en)
+
         expect(summary.sentences).to eql([taxonomy_sentence])
       end
     end

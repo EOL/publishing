@@ -38,12 +38,13 @@ RSpec.describe 'BriefSummary::Sentences::I18n::BelowFamilyTaxonomy' do
 
             page = build_page(treat_as, a2)
 
-            sentence = BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(page)
+            sentence = BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(page, locale)
             expected = I18n.t(
               "brief_summary.taxonomy.below_family.with_family.#{treat_as}",
               name1: full_name,
               name2: a1,
-              name3: a2
+              name3: a2,
+              locale: locale
             )
 
             expect(sentence.to_s).to eq(expected)
@@ -56,11 +57,12 @@ RSpec.describe 'BriefSummary::Sentences::I18n::BelowFamilyTaxonomy' do
           test_all_locales_and_ranks do |locale, treat_as|
             page = build_page(treat_as, nil)
 
-            sentence = BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(page)
+            sentence = BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(page, locale)
             expected = I18n.t(
               "brief_summary.taxonomy.below_family.without_family.#{treat_as}",
               name1: full_name,
-              name2: a1
+              name2: a1,
+              locale: locale
             )
 
             expect(sentence.to_s).to eq(expected)
@@ -74,7 +76,7 @@ RSpec.describe 'BriefSummary::Sentences::I18n::BelowFamilyTaxonomy' do
         page = instance_double('BriefSummary::PageDecorator')
         allow(page).to receive(:below_family?) { false }
 
-        expect { BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(page) }.to raise_error(TypeError)
+        expect { BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(page, :en) }.to raise_error(TypeError)
       end
     end
   end
