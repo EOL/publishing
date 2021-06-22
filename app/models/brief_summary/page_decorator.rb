@@ -6,6 +6,13 @@ class BriefSummary
       @page = page
     end
 
+    # we *could* use delegate_missing_to to send all unimplemented methods to page, but 
+    # rspec's instance_double can't magically know that that's how this class behaves, so it's
+    # better to explicitly define delegating methods. 
+    def rank
+      @page.rank
+    end
+
     def family_or_above?
       @page.rank&.treat_as.present? &&
       Rank.treat_as[@page.rank.treat_as] <= Rank.treat_as[:r_family]
@@ -55,6 +62,18 @@ class BriefSummary
     # Sentence:  "It is found in [G1]."
     def g1
       @g1 ||= values_to_sentence([TermNode.find_by(uri: 'http://purl.obolibrary.org/obo/GAZ_00000071')])
+    end
+
+    def full_name_clause
+      if @page.vernacular.present?
+        "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
+      else
+        name_clause
+      end
+    end
+
+    def name_clause
+      @name_clause ||= @page.vernacular_or_canonical
     end
   end
 end

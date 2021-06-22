@@ -14,6 +14,11 @@ RSpec.describe 'BriefSummary::OtherLanguages' do
 
         expect(summary.sentences).to include(taxonomy_sentence)
       end
+
+      # It's not worth testing for the absence of, say, BelowFamilyTaxonomy here. 
+      # The unit tests for the sentences ensure that they raise errors on 
+      # invalid input, so it would take a very convoluted implementation to include
+      # invalid sentences.
     end
 
     context 'when page is below_family?' do
