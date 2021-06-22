@@ -19,12 +19,8 @@ class BriefSummary
     def build_sentences
       if @page.family_or_above?
         @sentences << BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(@page, @locale)
-      elsif a1.present?
-        if is_family?
-          add_family_sentence
-        elsif below_family?
-          below_family_taxonomy_sentence
-        end
+      elsif @page.below_family?
+        @sentences << BriefSummary::Sentences::I18n::BelowFamilyTaxonomy.new(@page, @locale) 
       end
 
       #if genus_or_below?
