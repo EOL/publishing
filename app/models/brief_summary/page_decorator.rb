@@ -75,5 +75,12 @@ class BriefSummary
     def name_clause
       @name_clause ||= @page.vernacular_or_canonical
     end
+
+    # Iterate over all growth habit objects and get the first for which
+    # GrowthHabitGroup.match returns a result, or nil if none do. The result
+    # of this operation is cached.
+    def growth_habit_matches
+      @growth_habit_matches ||= GrowthHabitGroup.match_all(@page.traits_for_predicate(TermNode.find_by_alias('growth_habit')))
+    end
   end
 end

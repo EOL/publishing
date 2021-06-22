@@ -4,7 +4,6 @@ class BriefSummary
   module Shared
     class BadTraitError < TypeError; end
 
-    ResultTerm = Struct.new(:predicate, :term, :source, :toggle_selector)
     Result = Struct.new(:sentence, :terms)
 
     # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
@@ -23,13 +22,6 @@ class BriefSummary
       if sentence.present?
         @sentences << sentence
       end
-    end
-
-    # Iterate over all growth habit objects and get the first for which
-    # GrowthHabitGroup.match returns a result, or nil if none do. The result
-    # of this operation is cached.
-    def growth_habit_matches
-      @growth_habit_matches ||= GrowthHabitGroup.match_all(@page.traits_for_predicate(TermNode.find_by_alias('growth_habit')))
     end
 
     def reproduction_matches
@@ -150,17 +142,6 @@ class BriefSummary
       sprintf(format_str, object_page_part)
     end
 
-    def full_name_clause
-      if @page.vernacular.present?
-        "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
-      else
-        name_clause
-      end
-    end
-
-    def name_clause
-      @name_clause ||= @page.vernacular_or_canonical
-    end
 
     def add_family_sentence
       add_sentence do

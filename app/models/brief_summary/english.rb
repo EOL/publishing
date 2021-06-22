@@ -2,67 +2,78 @@ class BriefSummary
   class English
     include BriefSummary::Shared
 
-    attr_accessor :view
+    attr_accessor :view, :sentences
 
     FLOWER_VISITOR_LIMIT = 4
     SUBJ_RESET = 3
-    LEAF_PREDICATES = [
-      TermNode.find_by_alias('leaf_complexity'),
-      TermNode.find_by_alias('leaf_morphology')
-    ]
+    #LEAF_PREDICATES = [
+    #  TermNode.find_by_alias('leaf_complexity'),
+    #  TermNode.find_by_alias('leaf_morphology')
+    #]
+
+    LOCALE = :en
 
     def initialize(page, view)
-      @page = BriefSummary::PageDecorator.new(page)
+      @page = page
       @view = view
       @sentences = []
       @terms = []
 
       @full_name_used = false
+
+      add_sentences
     end
 
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def add_sentences
-      if is_above_family?
-        above_family
-      elsif a1.present?
-        if is_family?
-          family
-        elsif below_family?
-          below_family_taxonomy_sentence
+      #if is_above_family?
+      #  above_family
+      #elsif a1.present?
+      #  if is_family?
+      #    family
+      #  elsif below_family?
+      #    below_family_taxonomy_sentence
 
-          if genus_or_below?
-            genus_and_below
-          end
-        end
-      end
+      #    if genus_or_below?
+      #      genus_and_below
+      #    end
+      #  end
+      #end
 
-      landmark_children
-      plant_description_sentence
-      flower_visitor_sentences
-      fixes_nitrogen_sentence
-      forms_sentence
-      ecosystem_engineering_sentence
-      behavioral_sentence
+      #landmark_children
+      #plant_description_sentence
+      #flower_visitor_sentences
+      #fixes_nitrogen_sentence
+      #forms_sentence
+      #ecosystem_engineering_sentence
+      #behavioral_sentence
 
-      if is_species?
-        lifespan_size_sentence
-      end
+      #if is_species?
+      #  lifespan_size_sentence
+      #end
 
-      reproduction_sentences
-      motility_sentence
+      #reproduction_sentences
+      #motility_sentence
+      taxonomy
     end
 
     private
     LandmarkChildLimit = 3
 
-    IUCN_URIS = Set[
-      TermNode.find_by_alias('iucn_en'),
-      TermNode.find_by_alias('iucn_cr'),
-      TermNode.find_by_alias('iucn_ew'),
-      TermNode.find_by_alias('iucn_nt'),
-      TermNode.find_by_alias('iucn_vu')
-    ]
+    #IUCN_URIS = Set[
+    #  TermNode.find_by_alias('iucn_en'),
+    #  TermNode.find_by_alias('iucn_cr'),
+    #  TermNode.find_by_alias('iucn_ew'),
+    #  TermNode.find_by_alias('iucn_nt'),
+    #  TermNode.find_by_alias('iucn_vu')
+    #]
+
+    def taxonomy
+      if @page.family_or_above?
+        @sentences << BriefSummary::Sentences::I18n::FamilyAndAboveTaxonomy.new(@page, LOCALE)
+      end
+    end
 
     def pronoun_for_rank
       "they"
@@ -103,6 +114,7 @@ class BriefSummary
           )
         elsif match = growth_habit_matches.first_of_type(:species_of_lifecycle_x)
           lifecycle_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('lifecycle_habit'))
+
           if lifecycle_trait
             lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
             parts << trait_sentence_part(
