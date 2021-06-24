@@ -1637,6 +1637,11 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: età
           burdigalian-a
         http://eol(dot)org/schema/terms/burl: ronza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: teren brusà
+        https://eol(dot)org/schema/terms/burrow_builder: costrutor ëd tan-a
+        https://eol(dot)org/schema/terms/burrowDepth: profondeur ëd la tan-a
+        https://eol(dot)org/schema/terms/burrowDiameter: diàmeter ëd la tan-a
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: tanin
         http://eol(dot)org/schema/terms/CalcareousSoilTolerance: toleransa al teren
           calcari
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: caussit
