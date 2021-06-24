@@ -1,10 +1,16 @@
 require 'rails_helper'
+require 'brief_summary/page_decorator'
+require 'brief_summary/sentences/helper'
+require 'trait'
 
 RSpec.describe('BriefSummary::Sentences::English') do
   let(:page) { instance_double('BriefSummary::PageDecorator') }
   let(:helper) { instance_double('BriefSummary::Sentences::Helper') }
   let(:page_name) { 'Page (page)' }
   let(:page_rank) { 'page_rank' }
+  let(:matches) { instance_double('BriefSummary::ObjUriMatcher::Matches') }
+  let(:match) { instance_double('BriefSummary::ObjUriMatcher::Match') }
+  let(:match_trait) { instance_double('Trait') }
   subject(:sentences) { BriefSummary::Sentences::English.new(page, helper) }
 
   before do 
@@ -13,10 +19,7 @@ RSpec.describe('BriefSummary::Sentences::English') do
     allow(page).to receive(:a2) { nil }
   end
 
-  describe 'below_family_taxonomy' do
-    let(:matches) { instance_double('BriefSummary::ObjUriMatcher::Matches') }
-    let(:match) { instance_double('BriefSummary::ObjUriMatcher::Match') }
-    let(:match_trait) { instance_double('Trait') }
+  describe '#below_family_taxonomy' do
 
     before do
       allow(page).to receive(:growth_habit_matches) { matches }
@@ -125,6 +128,170 @@ RSpec.describe('BriefSummary::Sentences::English') do
 
         it_behaves_like 'valid input'
       end
+    end
+  end
+
+  describe '#descendants' do
+    let(:desc_info) { instance_double('Page::DescInfo') }
+
+    context "when page isn't above_family?" do
+      before do 
+        allow(page).to receive(:above_family?) { false }
+        allow(page).to receive(:desc_info) { desc_info }
+      end
+
+      it { expect(sentences.descendants).to_not be_valid }
+    end
+
+    context 'when page is above_family?' do
+      before { allow(page).to receive(:above_family?) { true } }
+
+      context 'when page.desc_info is nil' do
+        before { allow(page).to receive(:desc_info) { nil } }
+
+        it { expect(sentences.descendants).to_not be_valid }
+      end
+
+      context 'when page.desc_info is present' do
+        let(:species) { 10 }
+        let(:genera) { 5 }
+        let(:families) { 1 }
+        let(:genus_part) { '<genus/genera>' }
+        let(:family_part) { '<family/families>' }
+
+        before do
+          allow(desc_info).to receive(:genus_count) { genera }
+          allow(desc_info).to receive(:family_count) { families }
+          allow(page).to receive(:desc_info) { desc_info }
+          allow(page).to receive(:name) { '<page>' }
+          allow(helper).to receive(:pluralize).with(genera, 'genus', 'genera') { "#{genera} #{genus_part}" }
+          allow(helper).to receive(:pluralize).with(families, 'family', 'families') { "#{families} #{family_part}" }
+        end
+
+        shared_examples 'valid input' do
+          before do
+            allow(desc_info).to receive(:species_count) { species }
+          end
+
+          it { expect(sentences.descendants.value).to eq(expected) }
+        end
+
+        context 'when species_count == 0' do
+          let(:species) { 0 }
+          let(:expected) { "There are 0 species of <page>, in 5 #{genus_part} and 1 #{family_part}." }
+
+          it_behaves_like 'valid input'
+        end
+
+        context 'when species_count == 1' do
+          let(:species) { 1 }
+          let(:expected) { "There is 1 species of <page>, in 5 #{genus_part} and 1 #{family_part}." }
+
+          it_behaves_like 'valid input'
+        end
+
+        context 'when species_count > 1' do
+          let(:species) { 10 }
+          let(:expected) { "There are 10 species of <page>, in 5 #{genus_part} and 1 #{family_part}." }
+
+          it_behaves_like 'valid input'
+        end
+      end
+    end
+  end
+
+  describe '#first_appearance' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:fossil_pred) { instance_double('TermNode') }
+    let(:trait) { instance_double('Trait') }
+    let(:expected) { 'This page_rank has been around since the <era>.' }
+
+    before do 
+      allow(page).to receive(:above_family?) { true }
+      allow(term_node).to receive(:find_by_alias).with('fossil_first') { fossil_pred }
+      allow(page).to receive(:first_trait_for_predicate).with(
+        fossil_pred, 
+        with_object_term: true
+      ) { trait }
+      allow(helper).to receive(:add_trait_val_to_fmt).with(
+        'This page_rank has been around since the %s.',
+        trait
+      ) { expected }
+    end
+
+    context 'with valid input' do
+      it { expect(sentences.first_appearance.value).to eq(expected) }
+    end
+
+    context "when page doesn't have a fossil_first_trait" do
+      before { allow(page).to receive(:first_trait_for_predicate).with(fossil_pred, with_object_term: true) { nil } }
+
+      it { expect(sentences.first_appearance).to_not be_valid }
+    end
+
+    context "when page isn't above_family?" do
+      before { allow(page).to receive(:above_family?) { false } }
+
+      it { expect(sentences.first_appearance).to_not be_valid }
+    end
+  end
+
+  shared_examples 'genus_and_below growth form' do
+    before do
+      allow(page).to receive(:genus_or_below?) { true }
+      allow(page).to receive(:growth_habit_matches) { matches }
+      allow(matches).to receive(:first_of_type).with(type) { match }
+      allow(match).to receive(:trait) { match_trait }
+      allow(helper).to receive(:add_trait_val_to_fmt).with(fstr, match_trait) { expected }
+    end
+
+    context 'with valid input' do
+      it { expect(sentences.send(method).value).to eq(expected) }
+    end
+
+    context "when page isn't genus_or_below?" do
+      before { allow(page).to receive(:genus_or_below?) { false } }
+      it { expect(sentences.send(method)).to_not be_valid }
+    end
+
+    context "when page doesn't have a <type> growth_habit_match" do
+      before { allow(matches).to receive(:first_of_type).with(type) { nil } }
+      it { expect(sentences.send(method)).to_not be_valid }
+    end
+  end
+
+  describe '#is_an_x_growth_form' do
+    let(:expected) { 'They are <trait_val>s.' }
+    let(:fstr) { 'They are %ss.' }
+    let(:method) { :is_an_x_growth_form }
+    let(:type) { :is_an_x }
+
+    it_behaves_like 'genus_and_below growth form'
+  end
+
+  describe '#has_an_x_growth_form' do
+    let(:method) { :has_an_x_growth_form }
+    let(:type) { :has_an_x_growth_form }
+    let(:match_trait_obj) { instance_double('TermNode') }
+
+    before { allow(match_trait).to receive(:object_term) { match_trait_obj } }
+
+    context 'when the object_term name begins with a consonant' do
+      let(:expected) { 'They have a blue growth form.' }
+      let(:fstr) { 'They have a %s growth form.' }
+
+      before { allow(match_trait_obj).to receive(:name) { 'blue' } }
+
+      it_behaves_like 'genus_and_below growth form'
+    end
+
+    context 'when the object_term name begins with a vowel' do
+      let(:expected) { 'They have an orange growth form.' }
+      let(:fstr) { 'They have an %s growth form.' }
+
+      before { allow(match_trait_obj).to receive(:name) { 'orange' } }
+
+      it_behaves_like 'genus_and_below growth form'
     end
   end
 end
