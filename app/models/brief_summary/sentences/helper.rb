@@ -6,6 +6,10 @@ class BriefSummary
         @view = view
       end
 
+      def pluralize(count, singular, plural = nil)
+        @view.pluralize(count, singular, plural)
+      end
+
       def add_term_to_fmt(fstr, label, predicate, term, source = nil)
         check_fstr(fstr)
 
@@ -49,6 +53,26 @@ class BriefSummary
         end
       end
 
+      def trait_vals_to_sentence(traits, predicate)
+        raise TypeError, "predicate can't be nil" if predicate.nil? 
+
+        traits.map do |trait|
+          if trait.object_term
+            @tagger.tag(trait.object_term.name, predicate, trait.object_term, nil)
+          else
+            trait.literal
+          end
+        end.to_sentence
+      end
+
+      def toggle_id(predicate, term, source)
+        @tagger.toggle_id(predicate, term, source)
+      end
+
+      def page_link(page)
+        @view.link_to(page.vernacular_or_canonical, page)
+      end
+      
       private
       def check_fstr(fstr)
         raise TypeError, "fstr can't be blank" if fstr.blank?

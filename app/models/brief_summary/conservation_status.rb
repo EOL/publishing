@@ -1,5 +1,13 @@
 class BriefSummary
   class ConservationStatus
+    IUCN_OBJS = Set[
+      TermNode.find_by_alias('iucn_en'),
+      TermNode.find_by_alias('iucn_cr'),
+      TermNode.find_by_alias('iucn_ew'),
+      TermNode.find_by_alias('iucn_nt'),
+      TermNode.find_by_alias('iucn_vu')
+    ]
+
     def initialize(page)
       @page = page
     end
@@ -38,7 +46,9 @@ class BriefSummary
             Rails.logger.warn("Found multiple conservation status traits for page #{@page.id}/provider #{provider}")
             multiples_warned.add(provider)
           else
-            @by_provider[provider] = trait
+            if provider != :iucn || IUCN_OBJS.include?(trait.object_term)
+              @by_provider[provider] = trait
+            end
           end
         end
       end

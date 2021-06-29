@@ -196,5 +196,71 @@ RSpec.describe('BriefSummary::Sentences::Helper') do
       end
     end
   end
+
+  describe '#toggle_id' do
+    let(:predicate) { instance_double('TermNode') }
+    let(:term) { instance_double('TermNode') }
+    let(:source) { 'source' }
+    let(:result) { 'delegated-toggle-id' }
+    
+    before { expect(tagger).to receive(:toggle_id).with(predicate, term, source) { result } }
+
+    it { expect(helper.toggle_id(predicate, term, source)).to eq(result) }
+  end
+
+  describe '#trait_vals_to_sentence' do
+    let(:predicate) { instance_double('Trait') }
+
+    context 'when traits.any?' do
+      let(:trait1) { instance_double('Trait') }
+      let(:object_term1) { instance_double('TermNode') }
+      let(:object_name1) { 'object1' }
+      let(:trait2) { instance_double('Trait') }
+      let(:object_term2) { instance_double('TermNode') }
+      let(:object_name2) { 'object2' }
+      let(:trait3) { instance_double('Trait') }
+      let(:literal) { 'object3' }
+      let(:traits) { [trait1, trait2, trait3] } 
+
+      before do
+        allow(object_term1).to receive(:name) { object_name1 }
+        allow(object_term2).to receive(:name) { object_name2 }
+        allow(trait1).to receive(:object_term) { object_term1 }
+        allow(trait2).to receive(:object_term) { object_term2 }
+        allow(trait3).to receive(:object_term) { nil }
+        allow(trait3).to receive(:literal) { literal }
+        allow(tagger).to receive(:tag).with(object_name1, predicate, object_term1, nil) { '<tag>object1</tag>' }
+        allow(tagger).to receive(:tag).with(object_name2, predicate, object_term2, nil) { '<tag>object2</tag>' }
+      end
+
+      it { expect(helper.trait_vals_to_sentence(traits, predicate)).to eq('<tag>object1</tag>, <tag>object2</tag>, and object3') }
+
+      # TODO: you were here, finish spec.
+    end
+
+    context 'when not traits.any?' do
+      let(:traits) { [] } 
+
+      it { expect(helper.trait_vals_to_sentence([], predicate)).to eq('') }
+
+    end
+
+    context 'when predicate is nil' do
+      it { expect { helper.trait_vals_to_sentence([], nil) }.to raise_error(TypeError) }
+    end
+  end
+
+  describe '#page_link' do
+    let(:page) { instance_double('Page') }
+    let(:name) { 'page_name' }
+    let(:link) { '<a>page_name</a>' }
+    
+    before do 
+      allow(page).to receive(:vernacular_or_canonical) { name }
+      allow(view).to receive(:link_to).with(name, page) { link }
+    end
+
+    it { expect(helper.page_link(page)).to eq(link) }
+  end
 end
 

@@ -1,25 +1,24 @@
 class BriefSummary
   class English
-    include BriefSummary::Shared
-
     attr_accessor :view, :sentences
 
     FLOWER_VISITOR_LIMIT = 4
     SUBJ_RESET = 3
-    #LEAF_PREDICATES = [
-    #  TermNode.find_by_alias('leaf_complexity'),
-    #  TermNode.find_by_alias('leaf_morphology')
-    #]
+    LEAF_PREDICATES = [
+      TermNode.find_by_alias('leaf_complexity'),
+      TermNode.find_by_alias('leaf_morphology')
+    ]
 
     LOCALE = :en
 
-    def initialize(page, view)
-      @page = page
-      @view = view
-      @sentences = []
-      @terms = []
+    SENTENCE_CLASSES = [
+      'I18n::FamilyAndAboveTaxonomy'
+    ].map { |name| ('BriefSummary::Sentences::' + name).constantize }
 
-      @full_name_used = false
+    def initialize(page, helper)
+      @page = page
+      @helper = view
+      @sentences = []
 
       add_sentences
     end
@@ -55,19 +54,21 @@ class BriefSummary
 
       #reproduction_sentences
       #motility_sentence
-      taxonomy
+      SENTENCE_CLASSES.each do |klass|
+        @sentences << klass.new(@page, @helper, LOCALE) if klass.valid_for_page?(@page)
+      end
     end
 
     private
     LandmarkChildLimit = 3
 
-    #IUCN_URIS = Set[
-    #  TermNode.find_by_alias('iucn_en'),
-    #  TermNode.find_by_alias('iucn_cr'),
-    #  TermNode.find_by_alias('iucn_ew'),
-    #  TermNode.find_by_alias('iucn_nt'),
-    #  TermNode.find_by_alias('iucn_vu')
-    #]
+    IUCN_URIS = Set[
+      TermNode.find_by_alias('iucn_en'),
+      TermNode.find_by_alias('iucn_cr'),
+      TermNode.find_by_alias('iucn_ew'),
+      TermNode.find_by_alias('iucn_nt'),
+      TermNode.find_by_alias('iucn_vu')
+    ]
 
     def taxonomy
       if @page.family_or_above?
@@ -185,7 +186,6 @@ class BriefSummary
           term_sentence_part("#{subj} #{are} associated with %s.", "freshwater habitat", freshwater_trait.predicate, freshwater_trait.object_term)
         end
       end
-
 
       native_range_part = values_to_sentence([TermNode.find_by_alias('native_range')])
       if native_range_part.present?

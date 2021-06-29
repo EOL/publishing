@@ -102,6 +102,8 @@ en:
       r_subspecies_html: "This subspecies is <span class='%{class_str}' id='%{id}'>extinct</span>."
       r_infraspecies_html: "This infraspecies is <span class='%{class_str}' id='%{id}'>extinct</span>."
       r_form_html: "This form is <span class='%{class_str}' id='%{id}'>extinct</span>."
+    freshwater_html: "They are associated with <span class='%{class_str}' id='%{id}'>freshwater habitat</span>."
+    marine_html: "They are found in <span class='%{class_str}' id='%{id}'>marine habitat</span>."
     species: "%{name1} is a species of %{name2}."
     species_in_family: "%{name1} is a species of %{name2} in the family %{name_family}."
   button_create: "create"

@@ -2,6 +2,8 @@
 class BriefSummary
   module Sentences
     class English
+      FLOWER_VISITOR_LIMIT = 4
+
       def initialize(page, helper)
         @page = page
         @helper = helper
@@ -93,6 +95,161 @@ class BriefSummary
         end
       end
 
+      def conservation
+        return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below?
+
+        status_recs = ConservationStatus.new(@page).by_provider
+        result = []
+
+        result << conservation_part("as %s by IUCN", status_recs[:iucn]) if status_recs.include?(:iucn)
+        result << conservation_part("as %s by COSEWIC", status_recs[:cosewic]) if status_recs.include?(:cosewic)
+        result << conservation_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
+        result << conservation_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
+        
+        if result.any?
+          BriefSummary::Sentences::Result.valid("They are listed #{result.to_sentence}.")
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def native_range
+        return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below? && @page.has_native_range?  
+        predicate = TermNode.find_by_alias('native_range')
+        traits = @page.native_range_traits
+
+        BriefSummary::Sentences::Result.valid("They are native to #{@helper.trait_vals_to_sentence(traits, predicate)}.")
+      end
+
+      def found_in
+        if (
+          !@page.genus_or_below? ||
+          @page.has_native_range? ||
+          @page.g1.blank?
+        )
+          return BriefSummary::Sentences::Result.invalid 
+        end
+
+        BriefSummary::Sentences::Result.valid("They are found in #{@page.g1}.")
+      end
+
+      def landmark_children
+        if @page.landmark_children.any?
+          links = @page.landmark_children.map { |c| @helper.page_link(c) }
+          BriefSummary::Sentences::Result.valid("It includes groups like #{links.to_sentence}.")
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def behavior
+        circadian = @page.first_trait_for_object_terms([
+          TermNode.find_by_alias('nocturnal'),
+          TermNode.find_by_alias('diurnal'),
+          TermNode.find_by_alias('crepuscular')
+        ])
+        solitary = @page.first_trait_for_object_term(TermNode.find_by_alias('solitary'))
+        begin_traits = [solitary, circadian].compact
+        trophic = @page.first_trait_for_predicate(
+          TermNode.find_by_alias('trophic_level'), 
+          exclude_values: [TermNode.find_by_alias('variable')]
+        )
+        sentence = nil
+        trophic_part = @helper.add_trait_val_to_fmt("%s", trophic, pluralize: true) if trophic
+
+        if begin_traits.any?
+
+          begin_parts = begin_traits.collect do |t|
+            @helper.add_trait_val_to_fmt("%s", t)
+          end
+
+          if trophic_part
+            sentence = "They are #{begin_parts.join(", ")} #{trophic_part}."
+          else
+            sentence = "They are #{begin_parts.join(" and ")}."
+          end
+        elsif trophic_part
+          sentence = "They are #{trophic_part}."
+        end
+
+        if sentence
+          BriefSummary::Sentences::Result.valid(sentence)
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def lifespan_size
+        lifespan_part = nil
+        size_part = nil
+
+        lifespan_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('lifespan'), includes: [:units_term])
+
+        if lifespan_trait
+          value = lifespan_trait.measurement
+          units_name = lifespan_trait.units_term&.name
+
+          if value && units_name
+            are = @page.extinct? ? 'were' : 'are'
+            lifespan_part = "#{are} known to live for #{value} #{units_name}"
+          end
+        end
+
+        if (size_trait = @page.greatest_value_size_trait).present?
+          can = @page.extinct? ? 'could' : 'can'
+          size_part = "#{can} grow to #{size_trait.measurement} #{size_trait.units_term.name}"
+        end
+
+        if lifespan_part || size_part
+          BriefSummary::Sentences::Result.valid("Individuals #{[lifespan_part, size_part].compact.to_sentence}.")
+        else
+          BriefSummary::Sentences::Result.invalid
+
+        end
+      end
+
+      def plant_description
+        leaf_traits = @page.leaf_traits 
+        flower_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('flower_color'))
+        fruit_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('fruit_type'))
+        leaf_part = nil
+        flower_part = nil
+        fruit_part = nil
+
+        if leaf_traits.any?
+          leaf_parts = leaf_traits.collect { |trait| @helper.add_trait_val_to_fmt("%s", trait) }
+          leaf_part = "#{leaf_parts.join(", ")} leaves"
+        end
+
+        if flower_trait
+          flower_part = @helper.add_trait_val_to_fmt("%s flowers", flower_trait)
+        end
+
+        if fruit_trait
+          fruit_part = @helper.add_trait_val_to_fmt("%s", fruit_trait)
+        end
+
+        parts = [leaf_part, flower_part, fruit_part].compact
+
+        if parts.any?
+          BriefSummary::Sentences::Result.valid("They have #{parts.to_sentence}.")
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def visits_flowers
+        flower_visitor_sentence_helper(:traits_for_predicate, :object_page) do |page_part|
+          "They visit flowers of #{page_part}."
+        end
+      end
+
+      def flowers_visited_by
+        flower_visitor_sentence_helper(:object_traits_for_predicate, :page) do |page_part|
+          "Flowers are visited by #{page_part}."
+        end
+      end
+
       private
       def a_or_an(trait)
         return '' unless trait.object_term&.name.present?
@@ -112,6 +269,29 @@ class BriefSummary
           "#{@page.full_name} is a #{@page.rank_name} of %s",
           match.trait
         )
+      end
+
+      def conservation_part(fstr, trait)
+        @helper.add_term_to_fmt(
+          fstr,
+          trait.object_term.name,
+          TermNode.find_by_alias('conservation_status'),
+          trait.object_term,
+          trait.source
+        )
+      end
+
+      def flower_visitor_sentence_helper(trait_fn, page_fn)
+        pages = @page.send(trait_fn, TermNode.find_by_alias('visits_flowers_of')).map do |t|
+          t.send(page_fn)
+        end.uniq.slice(0, FLOWER_VISITOR_LIMIT)
+
+        if pages.any?
+          parts = pages.collect { |page| @helper.add_obj_page_to_fmt("%s", page) }
+          BriefSummary::Sentences::Result.valid(yield parts.to_sentence)
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
       end
     end
   end

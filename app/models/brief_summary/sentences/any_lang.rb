@@ -20,6 +20,65 @@ class BriefSummary
 
         BriefSummary::Sentences::Result.valid(value)
       end
+
+      def extinction
+        unless @page.genus_or_below? && @page.extinct?
+          return BriefSummary::Sentences::Result.invalid
+        end
+        
+        key = "extinction.#{@page.rank.treat_as}_html"
+        val = i18n_w_term(
+          key, 
+          TermNode.find_by_alias('extinction_status'), 
+          @page.extinct_trait.object_term
+        )
+        BriefSummary::Sentences::Result.valid(val)
+      end
+
+      def marine
+        if @page.genus_or_below? && @page.marine?
+          BriefSummary::Sentences::Result.valid(I18n.t(
+            'brief_summary.marine_html',
+            class_str: BriefSummary::TermTagger.tag_class_str,
+            id: @helper.toggle_id(
+              TermNode.find_by_alias('habitat'),
+              TermNode.find_by_alias('marine'),
+              nil
+            )
+          ))
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def freshwater
+        if @page.genus_or_below? && @page.freshwater?
+          BriefSummary::Sentences::Result.valid(I18n.t(
+            'brief_summary.freshwater_html',
+            class_str: BriefSummary::TermTagger.tag_class_str,
+            id: @helper.toggle_id(
+              @page.freshwater_trait.predicate,
+              @page.freshwater_trait.object_term,
+              nil
+            )
+          ))
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      private
+      def i18n_w_term(key, predicate, term)
+        toggle_id = @helper.toggle_id(predicate, term, nil)
+        full_key = "brief_summary.#{key}"
+
+        I18n.t(
+          full_key,
+          class_str: BriefSummary::TermTagger.tag_class_str,
+          id: toggle_id,
+          locale: @locale
+        )
+      end
     end
   end
 end

@@ -153,9 +153,9 @@ RSpec.describe('BriefSummary::Sentences::English') do
       end
 
       context 'when page.desc_info is present' do
-        let(:species) { 10 }
+        let(:species) { 20 }
         let(:genera) { 5 }
-        let(:families) { 1 }
+        let(:families) { 2 }
         let(:genus_part) { '<genus/genera>' }
         let(:family_part) { '<family/families>' }
 
@@ -178,21 +178,21 @@ RSpec.describe('BriefSummary::Sentences::English') do
 
         context 'when species_count == 0' do
           let(:species) { 0 }
-          let(:expected) { "There are 0 species of <page>, in 5 #{genus_part} and 1 #{family_part}." }
+          let(:expected) { "There are 0 species of <page>, in 5 #{genus_part} and 2 #{family_part}." }
 
           it_behaves_like 'valid input'
         end
 
         context 'when species_count == 1' do
           let(:species) { 1 }
-          let(:expected) { "There is 1 species of <page>, in 5 #{genus_part} and 1 #{family_part}." }
+          let(:expected) { "There is 1 species of <page>, in 5 #{genus_part} and 2 #{family_part}." }
 
           it_behaves_like 'valid input'
         end
 
         context 'when species_count > 1' do
-          let(:species) { 10 }
-          let(:expected) { "There are 10 species of <page>, in 5 #{genus_part} and 1 #{family_part}." }
+          let(:species) { 20 }
+          let(:expected) { "There are 20 species of <page>, in 5 #{genus_part} and 2 #{family_part}." }
 
           it_behaves_like 'valid input'
         end
@@ -294,4 +294,521 @@ RSpec.describe('BriefSummary::Sentences::English') do
       it_behaves_like 'genus_and_below growth form'
     end
   end
+
+  describe '#conservation' do
+    let(:conservation_class) { class_double('BriefSummary::ConservationStatus').as_stubbed_const }
+    let(:conservation_instance) { instance_double('BriefSummary::ConservationStatus') }
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:predicate) { instance_double('TermNode') }
+    let(:by_provider) { {} }
+
+    before do 
+      allow(term_node).to receive(:find_by_alias).with('conservation_status') { predicate }
+      allow(page).to receive(:genus_or_below?) { true }
+    end
+
+    def add_provider(provider, fstr, fmt_result)
+      trait = instance_double('Trait')
+      source = "#{provider}_source"
+      object_term = instance_double('TermNode')
+      object_name = "#{provider}_obj_term_name"
+
+      allow(object_term).to receive(:name) { object_name }
+      allow(trait).to receive(:object_term) { object_term }
+      allow(trait).to receive(:source) { source }
+
+      allow(helper).to receive(:add_term_to_fmt).with(
+        fstr, 
+        object_name,
+        predicate,
+        object_term,
+        source
+      ) { fmt_result }
+
+      by_provider[provider] = trait
+    end
+
+    def add_iucn
+      add_provider(:iucn, 'as %s by IUCN', 'as <iucn_val> by IUCN')
+    end
+
+    def add_cosewic
+      add_provider(:cosewic, 'as %s by COSEWIC', 'as <cosewic_val> by COSEWIC')
+    end
+
+    def add_usfw
+      add_provider(:usfw, 'as %s by the US Fish and Wildlife Service', 'as <usfw_val> by the US Fish and Wildlife Service')
+    end
+
+    def add_cites
+      add_provider(:cites, 'in %s', 'in <cites_val>')
+    end
+
+    before do
+      allow(conservation_class).to receive(:new).with(page) { conservation_instance }
+      allow(conservation_instance).to receive(:by_provider) { by_provider }
+    end
+
+    context 'when there are no providers' do 
+      it { expect(sentences.conservation).to_not be_valid }
+    end
+
+    shared_examples 'provider present' do
+      it { expect(sentences.conservation.value).to eq(expected) }
+
+      context 'when page is not genus_or_below?' do
+        before { allow(page).to receive(:genus_or_below?) { false } }
+        it { expect(sentences.conservation).to_not be_valid }
+      end
+    end
+
+    context 'when :iucn is present' do
+      before { add_iucn }
+      let(:expected) { 'They are listed as <iucn_val> by IUCN.' }
+      
+      it_behaves_like 'provider present'
+    end
+
+    context 'when :cosewic is present' do
+      before { add_cosewic }
+      let(:expected) { 'They are listed as <cosewic_val> by COSEWIC.' }
+
+      it_behaves_like 'provider present'
+    end
+
+    context 'when :usfw is present' do
+      before { add_usfw }
+      let(:expected) { 'They are listed as <usfw_val> by the US Fish and Wildlife Service.' }
+    end
+
+    context 'when :cites is present' do
+      before { add_cites }
+      let(:expected) { 'They are listed in <cites_val>.' }
+
+      it_behaves_like 'provider present'
+    end
+
+    context 'when all providers are present' do
+      before do
+        add_iucn
+        add_cosewic
+        add_usfw
+        add_cites
+      end
+
+      let(:expected) { 'They are listed as <iucn_val> by IUCN, as <cosewic_val> by COSEWIC, as <usfw_val> by the US Fish and Wildlife Service, and in <cites_val>.' }
+
+      it_behaves_like 'provider present'
+    end
+
+    context 'when a subset of providers is present' do
+      before do
+        add_cosewic
+        add_cites
+      end
+
+      let(:expected) { 'They are listed as <cosewic_val> by COSEWIC and in <cites_val>.' }
+
+      it_behaves_like 'provider present'
+    end
+  end
+
+  describe '#native_range' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:predicate) { instance_double('TermNode') }
+    let(:traits) { instance_double('Array') }
+
+    before do
+      allow(page).to receive(:genus_or_below?) { true }
+      allow(page).to receive(:has_native_range?) { true }
+      allow(page).to receive(:native_range_traits) { traits }
+      allow(term_node).to receive(:find_by_alias).with('native_range') { predicate }
+      allow(helper).to receive(:trait_vals_to_sentence).with(traits, predicate) { 'North America and Europe' }
+    end
+
+    it { expect(sentences.native_range.value).to eq('They are native to North America and Europe.') }
+
+    context 'when not page.has_native_range?' do
+      before { allow(page).to receive(:has_native_range?) { false } }
+
+      it { expect(sentences.native_range).to_not be_valid }
+    end
+        
+    context 'when page is not genus_or_below?' do
+      before { allow(page).to receive(:genus_or_below?) { false } }
+
+      it { expect(sentences.native_range).to_not be_valid }
+    end
+  end
+
+  describe '#found_in' do
+    before do
+      allow(page).to receive(:g1) { '<g1>' }
+      allow(page).to receive(:has_native_range?) { false }
+      allow(page).to receive(:genus_or_below?) { true }
+    end
+
+    it { expect(sentences.found_in.value).to eq('They are found in <g1>.') }
+
+    context 'when page.has_native_range?' do
+      before { allow(page).to receive(:has_native_range?) { true }
+
+      it { expect(sentences.found_in).not_to be_valid } }
+    end
+
+    context 'when page is not genus_or_below?' do
+      before { allow(page).to receive(:genus_or_below?) { false } }
+      it { expect(sentences.found_in).not_to be_valid }
+    end
+
+    context 'when page.g1 is nil' do
+      before { allow(page).to receive(:g1) { nil } }
+
+      it { expect(sentences.found_in).not_to be_valid }
+    end
+  end
+
+  describe '#landmark_children' do
+    let(:child2) { instance_double('Page') }
+    let(:child2) { instance_double('Page') }
+    let(:child3) { instance_double('Page') }
+    let(:link2) { 'link2' }
+    let(:link2) { 'link2' }
+    let(:link3) { 'link3' }
+    let(:children) { [child2, child2, child3] }
+    
+    before do
+      allow(page).to receive(:landmark_children) { children }
+      allow(helper).to receive(:page_link).with(child2) { link2 }
+      allow(helper).to receive(:page_link).with(child2) { link2 }
+      allow(helper).to receive(:page_link).with(child3) { link3 }
+    end
+
+    it { expect(sentences.landmark_children.value).to eq('It includes groups like link2, link2, and link3.') }
+
+    context 'when page.landmark_children.empty?' do
+      before { allow(page).to receive(:landmark_children) { [] } }
+
+      it { expect(sentences.landmark_children).to_not be_valid }
+    end
+  end
+
+  describe '#behavior' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:nocturnal) { instance_double('TermNode') }
+    let(:diurnal) { instance_double('TermNode') }
+    let(:crepuscular) { instance_double('TermNode') }
+    let(:trophic_level) { instance_double('TermNode') }
+    let(:variable) { instance_double('TermNode') }
+    let(:solitary) { instance_double('TermNode') }
+    let(:circadian_trait) { instance_double('Trait') }
+    let(:solitary_trait) { instance_double('Trait') }
+    let(:trophic_trait) { instance_double('Trait') }
+
+    before do
+      allow(term_node).to receive(:find_by_alias).with('nocturnal') { nocturnal }
+      allow(term_node).to receive(:find_by_alias).with('diurnal') { diurnal }
+      allow(term_node).to receive(:find_by_alias).with('crepuscular') { crepuscular }
+      allow(term_node).to receive(:find_by_alias).with('trophic_level') { trophic_level }
+      allow(term_node).to receive(:find_by_alias).with('variable') { variable }
+      allow(term_node).to receive(:find_by_alias).with('solitary') { solitary }
+    end
+
+    context 'when all trait types are present' do
+      before do 
+        allow(page).to receive(:first_trait_for_object_terms).with([nocturnal, diurnal, crepuscular]) { circadian_trait }
+        allow(page).to receive(:first_trait_for_object_term).with(solitary) { solitary_trait }
+        allow(page).to receive(:first_trait_for_predicate).with(trophic_level, exclude_values: [variable]) { trophic_trait }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trophic_trait, pluralize: true) { '<trophic value>s' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', circadian_trait) { '<circadian value>' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', solitary_trait) { '<solitary value>' }
+      end
+
+      it { expect(sentences.behavior.value).to eq('They are <solitary value>, <circadian value> <trophic value>s.') }
+    end
+
+    context 'when circadian and trophic traits are present' do
+      before do 
+        allow(page).to receive(:first_trait_for_object_terms).with([nocturnal, diurnal, crepuscular]) { circadian_trait }
+        allow(page).to receive(:first_trait_for_object_term).with(solitary) { nil }
+        allow(page).to receive(:first_trait_for_predicate).with(trophic_level, exclude_values: [variable]) { trophic_trait }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trophic_trait, pluralize: true) { '<trophic value>s' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', circadian_trait) { '<circadian value>' }
+      end
+
+      it { expect(sentences.behavior.value).to eq('They are <circadian value> <trophic value>s.') }
+    end
+
+    context 'when circadian and trophic traits are present' do
+      before do 
+        allow(page).to receive(:first_trait_for_object_terms).with([nocturnal, diurnal, crepuscular]) { circadian_trait }
+        allow(page).to receive(:first_trait_for_object_term).with(solitary) { nil }
+        allow(page).to receive(:first_trait_for_predicate).with(trophic_level, exclude_values: [variable]) { trophic_trait }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trophic_trait, pluralize: true) { '<trophic value>s' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', circadian_trait) { '<circadian value>' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', solitary_trait) { '<solitary value>' }
+      end
+
+      it { expect(sentences.behavior.value).to eq('They are <circadian value> <trophic value>s.') }
+    end
+
+    context 'when solitary and trophic traits are present' do
+      before do 
+        allow(page).to receive(:first_trait_for_object_terms).with([nocturnal, diurnal, crepuscular]) { nil }
+        allow(page).to receive(:first_trait_for_object_term).with(solitary) { solitary_trait }
+        allow(page).to receive(:first_trait_for_predicate).with(trophic_level, exclude_values: [variable]) { trophic_trait }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trophic_trait, pluralize: true) { '<trophic value>s' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', solitary_trait) { '<solitary value>' }
+      end
+
+      it { expect(sentences.behavior.value).to eq('They are <solitary value> <trophic value>s.') }
+    end
+
+    context 'when trophic trait is present' do
+      before do 
+        allow(page).to receive(:first_trait_for_object_terms).with([nocturnal, diurnal, crepuscular]) { nil }
+        allow(page).to receive(:first_trait_for_object_term).with(solitary) { nil }
+        allow(page).to receive(:first_trait_for_predicate).with(trophic_level, exclude_values: [variable]) { trophic_trait }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trophic_trait, pluralize: true) { '<trophic value>s' }
+      end
+
+      it { expect(sentences.behavior.value).to eq('They are <trophic value>s.') }
+    end
+
+    context 'when no traits are present' do
+      before do 
+        allow(page).to receive(:first_trait_for_object_terms).with([nocturnal, diurnal, crepuscular]) { nil }
+        allow(page).to receive(:first_trait_for_object_term).with(solitary) { nil }
+        allow(page).to receive(:first_trait_for_predicate).with(trophic_level, exclude_values: [variable]) { nil }
+      end
+
+      it { expect(sentences.behavior).to_not be_valid }
+    end
+  end
+
+  describe '#size_lifespan' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:lifespan) { instance_double('TermNode') }
+    let(:lifespan_measurement) { '<lifespan measurement>' }
+    let(:lifespan_units) { instance_double('TermNode') }
+    let(:lifespan_units_name) { '<lifespan units>' }
+    let(:lifespan_trait) { instance_double('Trait') }
+    let(:size_trait) { instance_double('Trait') }
+    let(:size_measurement) { '<size measurement>' }
+    let(:size_units) { instance_double('TermNode') }
+    let(:size_units_name) { '<size units>' }
+
+    before do
+      allow(term_node).to receive(:find_by_alias).with('lifespan') { lifespan }
+      allow(page).to receive(:greatest_value_size_trait) { nil }
+      allow(page).to receive(:first_trait_for_predicate).with(lifespan, includes: [:units_term]) { nil }
+      allow(page).to receive(:extinct?) { false }
+    end
+
+    def setup_size_trait
+      allow(size_trait).to receive(:measurement) { size_measurement }
+      allow(size_trait).to receive(:units_term) { size_units }
+      allow(size_units).to receive(:name) { size_units_name }
+      allow(page).to receive(:greatest_value_size_trait) { size_trait }
+    end
+
+    def setup_lifespan_trait
+      allow(lifespan_trait).to receive(:measurement) { lifespan_measurement }
+      allow(lifespan_trait).to receive(:units_term) { lifespan_units }
+      allow(lifespan_units).to receive(:name) { lifespan_units_name }
+      allow(page).to receive(:first_trait_for_predicate).with(lifespan, includes: [:units_term]) { lifespan_trait }
+    end
+
+    shared_examples 'traits present' do
+      context 'when page is not extinct?' do
+        before { allow(page).to receive(:extinct?) { false } }
+
+        it { expect(sentences.lifespan_size.value).to eq(expected_normal) }
+      end
+
+      context 'when page is extinct?' do
+        before { allow(page).to receive(:extinct?) { true } }
+
+        it { expect(sentences.lifespan_size.value).to eq(expected_extinct) }
+      end
+    end
+
+
+
+    context 'when size and lifespan traits are present' do
+      let(:expected_normal) { 'Individuals are known to live for <lifespan measurement> <lifespan units> and can grow to <size measurement> <size units>.' }
+      let(:expected_extinct) { 'Individuals were known to live for <lifespan measurement> <lifespan units> and could grow to <size measurement> <size units>.' }
+
+      before do
+        setup_lifespan_trait
+        setup_size_trait
+      end
+
+      it_behaves_like 'traits present'
+    end
+
+    context 'when size trait is present' do
+      let(:expected_normal) { 'Individuals can grow to <size measurement> <size units>.' }
+      let(:expected_extinct) { 'Individuals could grow to <size measurement> <size units>.' }
+
+      before { setup_size_trait }
+
+      it_behaves_like 'traits present'
+    end
+
+    context 'when lifespan trait is present' do
+      let(:expected_normal) { 'Individuals are known to live for <lifespan measurement> <lifespan units>.' }
+      let(:expected_extinct) { 'Individuals were known to live for <lifespan measurement> <lifespan units>.' }
+
+      before { setup_lifespan_trait }
+
+      it_behaves_like 'traits present'
+    end
+
+    context 'when no traits are present' do
+      before { allow(page).to receive(:extinct?) { false } }
+
+      it { expect(sentences.lifespan_size).to_not be_valid }
+    end
+  end
+
+  describe '#plant_description' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:flower_color) { instance_double('TermNode') }
+    let(:flower_color_trait) { instance_double('Trait') }
+    let(:fruit_type) { instance_double('TermNode') }
+    let(:fruit_type_trait) { instance_double('Trait') }
+    let(:leaf_trait1) { instance_double('Trait') }
+    let(:leaf_trait2) { instance_double('Trait') }
+
+    before do
+      allow(term_node).to receive(:find_by_alias).with('flower_color') { flower_color }
+      allow(term_node).to receive(:find_by_alias).with('fruit_type') { fruit_type }
+      allow(page).to receive(:first_trait_for_predicate).with(flower_color) { nil }
+      allow(page).to receive(:first_trait_for_predicate).with(fruit_type) { nil }
+      allow(page).to receive(:leaf_traits) { [] }
+      allow(helper).to receive(:add_trait_val_to_fmt).with('%s', leaf_trait1) { '<leaf1>' }
+      allow(helper).to receive(:add_trait_val_to_fmt).with('%s', leaf_trait2) { '<leaf2>' }
+      allow(helper).to receive(:add_trait_val_to_fmt).with('%s flowers', flower_color_trait) { '<flower color> flowers' }
+      allow(helper).to receive(:add_trait_val_to_fmt).with('%s', fruit_type_trait) { '<fruit type>' }
+    end
+
+    def setup_leaf_traits(traits)
+      allow(page).to receive(:leaf_traits) { traits }
+    end
+
+    def setup_flower_trait
+      allow(page).to receive(:first_trait_for_predicate).with(flower_color) { flower_color_trait }
+    end
+
+    def setup_fruit_trait
+      allow(page).to receive(:first_trait_for_predicate).with(fruit_type) { fruit_type_trait }
+    end
+
+    context 'when page has two leaf_traits' do
+      before { setup_leaf_traits([leaf_trait1, leaf_trait2 ]) }
+
+      it { expect(sentences.plant_description.value).to eq('They have <leaf1>, <leaf2> leaves.') }
+    end
+
+    context 'when page has one leaf_trait' do
+      before { setup_leaf_traits([leaf_trait1]) }
+      
+      it { expect(sentences.plant_description.value).to eq('They have <leaf1> leaves.') }
+    end
+
+    context 'when page has a flower_color trait' do
+      before { setup_flower_trait }
+
+      it { expect(sentences.plant_description.value).to eq('They have <flower color> flowers.') }
+    end
+
+    context 'when page has a fruit_type trait' do
+      before { setup_fruit_trait }
+
+      it { expect(sentences.plant_description.value).to eq('They have <fruit type>.') }
+    end
+
+    context 'when page has all traits' do
+      before do
+        setup_leaf_traits([leaf_trait1, leaf_trait2])
+        setup_flower_trait
+        setup_fruit_trait
+      end
+
+      it { expect(sentences.plant_description.value).to eq('They have <leaf1>, <leaf2> leaves, <flower color> flowers, and <fruit type>.') }
+    end
+
+    context 'when page has no traits' do
+      it { expect(sentences.plant_description).to_not be_valid }
+    end
+  end
+
+  shared_examples 'flower visitors' do |test_method, page_method, type, trait_method, prefix|
+    def setup_trait(i, page_method)
+      trait = instance_double('Trait')
+      page = instance_double('Page')
+      name = "<page#{i}>"
+
+      allow(trait).to receive(page_method) { page }
+      allow(helper).to receive(:add_obj_page_to_fmt).with('%s', page) { name }
+
+      trait
+    end
+
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:predicate) { instance_double('TermNode') }
+    let(:trait1) { setup_trait(1, page_method) }
+    let(:trait2) { setup_trait(2, page_method) }
+    let(:trait3) { setup_trait(3, page_method) }
+    let(:trait4) { setup_trait(4, page_method) }
+    let(:trait5) { setup_trait(5, page_method) }
+
+    before do
+      allow(term_node).to receive(:find_by_alias).with('visits_flowers_of') { predicate }
+    end
+
+    context "when page is the #{type} of visits_flowers_of traits" do
+      context 'when there are > 4 unique object_pages' do
+        before do
+          allow(page).to receive(trait_method).with(predicate) { [trait1, trait2, trait3, trait4, trait5] }
+        end
+
+        it { expect(sentences.send(test_method).value).to eq("#{prefix} <page1>, <page2>, <page3>, and <page4>.") }
+      end
+
+      context 'when there are < 4 unique object_pages' do
+        before do
+          allow(page).to receive(trait_method).with(predicate) { [trait1, trait2, trait3] }
+        end
+
+        it { expect(sentences.send(test_method).value).to eq("#{prefix} <page1>, <page2>, and <page3>.") }
+      end
+
+      context 'when there are duplicate object_pages' do
+        before do
+          allow(page).to receive(trait_method).with(predicate) { [trait1, trait1, trait2, trait2] }
+        end
+
+        it { expect(sentences.send(test_method).value).to eq("#{prefix} <page1> and <page2>.") }
+      end
+    end
+
+    context "when page is not the #{type} of any visits_flowers_of_traits" do
+      before do
+        allow(page).to receive(trait_method).with(predicate) { [] }
+      end
+
+      it { expect(sentences.send(test_method)).to_not be_valid }
+    end
+  end
+
+  describe '#visits_flowers' do
+    it_behaves_like 'flower visitors', :visits_flowers, :object_page, :subject, :traits_for_predicate, 'They visit flowers of'
+  end
+
+  describe '#flowers_visited_by' do
+    it_behaves_like 'flower visitors', :flowers_visited_by, :page, :object, :object_traits_for_predicate, 'Flowers are visited by'
+  end
 end
+

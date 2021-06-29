@@ -1,9 +1,15 @@
 class BriefSummary
   class PageDecorator
     delegate_missing_to :@page
-    
+
+    LandmarkChildLimit = 3
+
     def initialize(page)
       @page = page
+    end
+
+    def rank_name
+      rank&.human_name
     end
 
     # we *could* use delegate_missing_to to send all unimplemented methods to page, but 
@@ -21,6 +27,31 @@ class BriefSummary
     def below_family?
       @page.rank&.treat_as.present? && 
       Rank.treat_as[@page.rank.treat_as] > Rank.treat_as[:r_family]
+    end
+
+    def above_family?
+      family_or_above && !@page.r_family?
+    end
+
+    def genus_or_below?
+      @page.rank&.treat_as.present? && 
+      Rank.treat_as[@page.rank.treat_as] > Rank.treat_as[:r_genus]
+    end
+
+    def has_native_range?
+      native_range_traits.any?
+    end
+
+    def native_range_traits
+      @native_range_traits ||= @page.traits_for_predicate(TermNode.find('native_range'))
+    end
+
+    def traits_for_predicate(predicate)
+      @page.traits_for_predicate(predicate)
+    end
+
+    def object_traits_for_predicate(predicate)
+      @page.object_traits_for_predicate(predicate)
     end
 
     # A1: Use the landmark with value 1 that is the closest ancestor of the species. Use the English vernacular name, if
@@ -64,7 +95,7 @@ class BriefSummary
       @g1 ||= values_to_sentence([TermNode.find_by(uri: 'http://purl.obolibrary.org/obo/GAZ_00000071')])
     end
 
-    def full_name_clause
+    def full_name
       if @page.vernacular.present?
         "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
       else
@@ -72,8 +103,12 @@ class BriefSummary
       end
     end
 
-    def name_clause
-      @name_clause ||= @page.vernacular_or_canonical
+    def name
+      @name ||= @page.vernacular_or_canonical
+    end
+
+    def desc_info
+      @page.desc_info
     end
 
     # Iterate over all growth habit objects and get the first for which
@@ -82,5 +117,98 @@ class BriefSummary
     def growth_habit_matches
       @growth_habit_matches ||= GrowthHabitGroup.match_all(@page.traits_for_predicate(TermNode.find_by_alias('growth_habit')))
     end
+
+    def extinct?
+      extinct_trait.present? && !extant_trait.present?
+    end
+
+    def extinct_trait
+      unless @extinct_checked
+        @extinct_trait = @page.first_trait_for_object_terms([TermNode.find_by_alias('iucn_ex')])
+        @extinct_checked = true
+      end
+
+      @extinct_trait
+    end
+
+    def extant_trait
+      unless @extant_checked
+        @extant_trait = @page.first_trait_for_object_terms([TermNode.find_by_alias('extant')], match_object_descendants: true)
+        @extant_checked = true
+      end
+
+      @extant_trait
+    end
+
+    def marine?
+      habitat_term = TermNode.find_by_alias('habitat')
+      @page.has_data_for_predicate(
+        habitat_term,
+        with_object_term: TermNode.find_by_alias('marine')
+      ) &&
+      !@page.has_data_for_predicate(
+        habitat_term,
+        with_object_term: TermNode.find_by_alias('terrestrial')
+      )
+    end
+
+    def freshwater?
+      !marine? && freshwater_trait.present?
+    end
+
+    def freshwater_trait
+      @freshwater_trait ||= @page.first_trait_for_object_terms([TermNode.find_by_alias('freshwater')])
+    end
+
+    def first_trait_for_predicate(predicate, options = {})
+      @page.first_trait_for_predicate(predicate, options)
+    end
+
+    def landmark_children
+      @landmark_children ||= (@page.native_node&.landmark_children(LandmarkChildLimit) || [])
+    end
+
+    def first_trait_for_object_terms(object_terms, options = {})
+      @page.first_trait_for_object_terms(object_terms, options)
+    end
+
+
+    def first_trait_for_object_term(object_term, options = {})
+      @page.first_trait_for_object_terms(object_term, options)
+    end
+
+    def greatest_value_size_trait
+        size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_mass'), includes: [:units_term])
+        size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
+
+      greatest_value_trait = nil
+
+      if size_traits.any?
+
+        size_traits.each do |trait|
+          if trait.normal_measurement &&
+             trait.measurement &&
+             trait.units_term && (
+             !greatest_value_trait ||
+             greatest_value_trait.normal_measurement.to_f < trait.normal_measurement.to_f
+          )
+            greatest_value_trait = trait
+          end
+        end
+      end
+
+      greatest_value_trait
+    end
+
+    def leaf_traits
+      [
+        TermNode.find_by_alias('leaf_complexity'),
+        TermNode.find_by_alias('leaf_morphology')
+      ].collect { |term| @page.first_trait_for_predicate(term) }.compact
+    end
   end
+
+	def g1
+		@g1 ||= values_to_sentence([TermNode.find_by(uri: 'http://purl.obolibrary.org/obo/GAZ_00000071')])
+	end	
 end
