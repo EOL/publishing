@@ -67,6 +67,24 @@ class BriefSummary
         end
       end
 
+      def fix_nitrogen
+        predicate = TermNode.find_by_alias('fixes')
+        object = TermNode.find_by_alias('nitrogen')
+
+        trait = @page.first_trait_for_predicate(predicate, for_object_term: object)
+
+        if trait
+          BriefSummary::Sentences::Result.valid(I18n.t(
+            'brief_summary.fix_nitrogen_html',
+            predicate_id: @helper.toggle_id(nil, predicate, nil),
+            object_id: @helper.toggle_id(predicate, object, nil),
+            class_str: BriefSummary::TermTagger.tag_class_str,
+            locale: @locale
+          ))
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
       private
       def i18n_w_term(key, predicate, term)
         toggle_id = @helper.toggle_id(predicate, term, nil)

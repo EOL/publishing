@@ -250,6 +250,144 @@ class BriefSummary
         end
       end
 
+      def form1
+        form_sentence_helper(@page.form_trait1)
+      end
+
+      def form2
+        form_sentence_helper(@page.form_trait2)
+      end
+
+      def ecosystem_engineering
+        trait = @page.first_trait_for_predicate(TermNode.find_by_alias('ecosystem_engineering'))
+        obj_name = trait&.object_term&.name
+
+        if obj_name
+          BriefSummary::Sentences::Result.valid(@helper.add_term_to_fmt(
+            "They are %s.", 
+            obj_name.pluralize, 
+            trait.predicate, 
+            trait.object_term
+          ))
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def reproduction_vw
+        matches = @page.reproduction_matches
+        
+        vpart = if matches.has_type?(:v)
+                  v_vals = matches.by_type(:v).collect do |match|
+                    @helper.add_trait_val_to_fmt("%s", match.trait)
+                  end.to_sentence
+
+                  "they have #{v_vals}"
+                else
+                  nil
+                end
+
+        wpart = if matches.has_type?(:w)
+                  w_vals = matches.by_type(:w).collect do |match|
+                    @helper.add_trait_val_to_fmt(
+                      "%s",
+                      match.trait,
+                      pluralize: true
+                    )
+                  end.to_sentence
+
+                  "they are #{w_vals}"
+                else
+                  nil
+                end
+
+        sentence = (vpart || wpart) ? 
+          [vpart, wpart].compact.join('; ') :
+          nil
+
+        if sentence
+          BriefSummary::Sentences::Result.valid(sentence.upcase_first + '.')
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def reproduction_y
+        matches = @page.reproduction_matches
+
+        if matches.has_type?(:y)
+          parts = matches.by_type(:y).collect do |match|
+            @helper.add_trait_val_to_fmt("%s #{match.trait.predicate.name}", match.trait)
+          end
+
+          BriefSummary::Sentences::Result.valid("They have #{parts.to_sentence}.")
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def reproduction_x
+        matches = @page.reproduction_matches
+
+        if matches.has_type?(:x)
+          parts = matches.by_type(:x).collect do |match|
+            @helper.add_trait_val_to_fmt('%s', match.trait)
+          end
+
+          is = @page.extinct? ? 'was' : 'is' 
+
+          BriefSummary::Sentences::Result.valid("Reproduction #{is} #{parts.to_sentence}.")
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def reproduction_z
+        matches = @page.reproduction_matches
+
+        if matches.has_type?(:z)
+          parts = matches.by_type(:z).collect do |match|
+            @helper.add_trait_val_to_fmt('%s', match.trait)
+          end
+
+          BriefSummary::Sentences::Result.valid("They have parental care (#{parts.to_sentence}).")
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def motility
+        matches = @page.motility_matches
+        sentence = nil
+
+        if matches.has_type?(:c)
+          match = matches.first_of_type(:c)
+          sentence = @helper.add_trait_val_to_fmt('They rely on %s to move around.', match.trait)
+        elsif matches.has_type?(:a) && matches.has_type?(:b)
+          a_match = matches.first_of_type(:a)
+          b_match = matches.first_of_type(:b)
+          a_part = @helper.add_trait_val_to_fmt('They are %s', a_match.trait)
+          sentence = @helper.add_trait_val_to_fmt("#{a_part} %s.", b_match.trait, pluralize: true)
+        elsif matches.has_type?(:a)
+          match = matches.first_of_type(:a)
+          animals = @page.animal? ? 'animals' : 'organisms'
+          sentence = @helper.add_trait_val_to_fmt("They are %s #{animals}.", match.trait)
+        elsif matches.has_type?(:b)
+          match = matches.first_of_type(:b)
+          sentence = @helper.add_trait_val_to_fmt(
+            "They are %s.",
+            match.trait,
+            pluralize: true
+          )
+        end
+
+        if sentence
+          BriefSummary::Sentences::Result.valid(sentence)
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
       private
       def a_or_an(trait)
         return '' unless trait.object_term&.name.present?
@@ -289,6 +427,21 @@ class BriefSummary
         if pages.any?
           parts = pages.collect { |page| @helper.add_obj_page_to_fmt("%s", page) }
           BriefSummary::Sentences::Result.valid(yield parts.to_sentence)
+        else
+          BriefSummary::Sentences::Result.invalid
+        end
+      end
+
+      def form_sentence_helper(trait)
+        if trait
+          lifestage = trait.lifestage_term&.name&.capitalize
+          begin_part = [lifestage, @page.name].compact.join(" ")
+          form_part = @helper.add_term_to_fmt("%s", "form", nil, trait.predicate)
+
+          BriefSummary::Sentences::Result.valid(@helper.add_trait_val_to_fmt(
+            "#{begin_part} #{form_part} %ss.", #extra s for plural, not a typo
+            trait
+          ))
         else
           BriefSummary::Sentences::Result.invalid
         end

@@ -70,6 +70,10 @@ class Trait
     trait_node.units_term
   end
 
+  def lifestage_term
+    trait_node.lifestage_term
+  end
+
   class << self
     def find(eol_pk, options = {})
       wrap_node(TraitNode.find(eol_pk))

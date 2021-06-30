@@ -202,5 +202,54 @@ RSpec.describe('BriefSummary::Sentences::AnyLang') do
       it { expect(sentences.freshwater).to_not be_valid }
     end
   end
+
+  describe '#fix_nitrogen' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:predicate) { instance_double('TermNode') }
+    let(:object) { instance_double('TermNode') }
+
+    before do
+      allow(term_node).to receive(:find_by_alias).with('fixes') { predicate }
+      allow(term_node).to receive(:find_by_alias).with('nitrogen') { object }
+    end
+
+    context 'when page has a fixes/nitrogen trait' do
+      let(:trait) { instance_double('Trait') }
+      let(:predicate_id) { 'predicate-id' }
+      let(:object_id) { 'object-id' }
+    
+      before do
+        allow(page).to receive(:first_trait_for_predicate).with(predicate, for_object_term: object) { trait }
+        allow(helper).to receive(:toggle_id).with(nil, predicate, nil) { predicate_id }
+        allow(helper).to receive(:toggle_id).with(predicate, object, nil) { object_id }
+      end
+
+      I18n.available_locales.each do |locale|
+        context "when locale is #{locale}" do
+          let(:locale) { locale }
+
+          it do 
+            expect(sentences.fix_nitrogen.value).to eq(I18n.t(
+              'brief_summary.fix_nitrogen_html',
+              predicate_id: predicate_id,
+              object_id: object_id,
+              class_str: BriefSummary::TermTagger.tag_class_str,
+              locale: locale
+            )) 
+          end
+        end
+      end
+    end
+
+    context "when page doesn't have a fixes/nitrogen trait" do
+      let(:locale) { :en }
+
+      before do
+        allow(page).to receive(:first_trait_for_predicate).with(predicate, for_object_term: object) { nil }
+      end
+
+      it { expect(sentences.fix_nitrogen).to_not be_valid }
+    end
+  end
 end
 

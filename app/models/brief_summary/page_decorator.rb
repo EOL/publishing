@@ -206,9 +206,63 @@ class BriefSummary
         TermNode.find_by_alias('leaf_morphology')
       ].collect { |term| @page.first_trait_for_predicate(term) }.compact
     end
-  end
 
-	def g1
-		@g1 ||= values_to_sentence([TermNode.find_by(uri: 'http://purl.obolibrary.org/obo/GAZ_00000071')])
-	end	
+    def form_trait1
+      form_traits.any? ? form_traits.first : nil
+    end
+
+    def form_trait2
+      form_traits.length == 2 ? form_traits.second : nil
+    end
+
+    def reproduction_matches
+      @reproduction_matches ||= BriefSummary::ReproductionGroupMatcher.match_all(@page.traits_for_predicate(TermNode.find_by_alias('reproduction')))
+    end
+
+    def motility_matches
+      @motility_matches ||= BriefSummary::MotilityGroupMatcher.match_all(@page.traits_for_predicates([
+        TermNode.find_by_alias('motility'),
+        TermNode.find_by_alias('locomotion')
+      ]))
+    end
+
+    def animal?
+      @page.animal?
+    end
+
+    private
+    def form_traits
+      unless @form_traits
+        # intentionally skip descendants of this term
+        traits = @page.traits_for_predicate(
+          TermNode.find_by_alias('forms'), 
+          exact_predicate: true, 
+          includes: [:predicate, :object_term, :lifestage_term]
+        ).uniq { |t| t.object_term&.uri }
+
+        lifestage = []        
+        other = []
+
+        traits.each do |t|
+          if t.lifestage_term&.name.present?
+            lifestage << t
+          else
+            other << t
+          end
+        end
+
+        if lifestage.any? && other.any?
+          @form_traits = [lifestage.first, other.first]
+        elsif lifestage.any?
+          @form_traits = lifestage[0..1]
+        elsif other.any?
+          @form_traits = other[0..1]
+        else
+          @form_traits = []
+        end
+      end
+
+      @form_traits
+    end
+  end
 end

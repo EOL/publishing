@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'brief_summary/page_decorator'
 require 'brief_summary/sentences/helper'
+require 'brief_summary/obj_uri_group_matcher'
 require 'trait'
 
 RSpec.describe('BriefSummary::Sentences::English') do
@@ -8,8 +9,8 @@ RSpec.describe('BriefSummary::Sentences::English') do
   let(:helper) { instance_double('BriefSummary::Sentences::Helper') }
   let(:page_name) { 'Page (page)' }
   let(:page_rank) { 'page_rank' }
-  let(:matches) { instance_double('BriefSummary::ObjUriMatcher::Matches') }
-  let(:match) { instance_double('BriefSummary::ObjUriMatcher::Match') }
+  let(:matches) { instance_double('BriefSummary::ObjUriGroupMatcher::Matches') }
+  let(:match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
   let(:match_trait) { instance_double('Trait') }
   subject(:sentences) { BriefSummary::Sentences::English.new(page, helper) }
 
@@ -809,6 +810,384 @@ RSpec.describe('BriefSummary::Sentences::English') do
 
   describe '#flowers_visited_by' do
     it_behaves_like 'flower visitors', :flowers_visited_by, :page, :object, :object_traits_for_predicate, 'Flowers are visited by'
+  end
+
+  shared_examples 'form' do |test_method, trait_method|
+    context 'when trait is present' do
+      let(:trait) { instance_double('Trait') }
+      let(:predicate) { instance_double('Term') }
+
+      before do
+        allow(page).to receive(trait_method) { trait }
+        allow(page).to receive(:name) { '<taxa>' }
+        allow(trait).to receive(:predicate) { predicate }
+        allow(helper).to receive(:add_term_to_fmt).with('%s', 'form', nil, predicate) { '<form>' }
+      end
+
+      context('when trait has a lifestage') do
+        let(:lifestage) { instance_double('TermNode') }
+        let(:lifestage_name) { 'lifestage_name' }
+        let(:expected) { '<lifestage> <taxa> <form> <object>s.' }
+
+        before do
+          allow(trait).to receive(:lifestage_term) { lifestage }
+          allow(lifestage).to receive(:name) { lifestage_name }
+          allow(helper).to receive(:add_trait_val_to_fmt).with('Lifestage_name <taxa> <form> %ss.', trait) { expected }
+        end
+
+        it { expect(sentences.send(test_method).value).to eq(expected) }
+      end
+
+      context("when trait doesn't have a lifestage") do
+        let(:expected) { '<taxa> form <object>s.' }
+
+        before do
+          allow(trait).to receive(:lifestage_term) { nil }
+          allow(helper).to receive(:add_trait_val_to_fmt).with('<taxa> <form> %ss.', trait) { expected }
+        end
+
+        it { expect(sentences.send(test_method).value).to eq(expected) }
+      end
+    end
+
+    context('when trait is nil') do
+      before { allow(page).to receive(trait_method) { nil } }
+
+      it { expect(sentences.send(test_method)).to_not be_valid }
+    end
+  end
+
+  describe '#form1' do
+    it_behaves_like 'form', :form1, :form_trait1
+  end
+
+  describe '#form2' do
+    it_behaves_like 'form', :form2, :form_trait2
+  end
+
+  describe '#ecosystem_engineering' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:predicate) { instance_double('TermNode') }
+
+    before do
+      allow(term_node).to receive(:find_by_alias).with('ecosystem_engineering') { predicate }
+    end
+
+    context 'when page has an ecosystem engineering trait' do
+      let(:object) { instance_double('TermNode') }
+      let(:trait) { instance_double('Trait') }
+      let(:expected) { 'They are ecosystem engineers.' }
+
+      before do
+        allow(page).to receive(:first_trait_for_predicate).with(predicate) { trait }
+        allow(trait).to receive(:predicate) { predicate }
+        allow(trait).to receive(:object_term) { object }
+        allow(object).to receive(:name) { 'ecosystem engineer' }
+        allow(helper).to receive(:add_term_to_fmt).with(
+          'They are %s.', 
+          'ecosystem engineers', 
+          predicate, 
+          object
+        ) { expected }
+      end
+        
+      it { expect(sentences.ecosystem_engineering.value).to eq(expected) }
+    end
+
+    context "when page doesn't have an ecosystem engineering trait" do
+      before { allow(page).to receive(:first_trait_for_predicate).with(predicate) { nil } }
+      it { expect(sentences.ecosystem_engineering).to_not be_valid }
+    end
+  end
+
+  describe '#reproduction_vw' do
+    let(:matches) { instance_double('BriefSummary::ObjUriGroupMatcher::Matches') }
+    before do
+      allow(page).to receive(:reproduction_matches) { matches } 
+    end
+
+    def build_match(name)
+      match = instance_double('BriefSummary::ObjUriGroupMatcher::Match')
+      trait = instance_double('Trait')
+      allow(match).to receive(:trait) { trait }
+      allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trait) { name }
+      allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trait, pluralize: true) { name + 's' }
+
+      match
+    end
+
+    context 'when v and w type matches are present' do
+      let(:v_matches) do
+        [
+          build_match('v1'),
+          build_match('v2'),
+          build_match('v3')
+        ]
+      end
+
+      let(:w_matches) do
+        [
+          build_match('w1'),
+          build_match('w2')
+        ]
+      end
+
+      before do
+        allow(matches).to receive(:has_type?).with(:v) { true }
+        allow(matches).to receive(:has_type?).with(:w) { true }
+        allow(matches).to receive(:by_type).with(:v) { v_matches }
+        allow(matches).to receive(:by_type).with(:w) { w_matches }
+      end
+
+      it { expect(sentences.reproduction_vw.value).to eq('They have v1, v2, and v3; they are w1s and w2s.') }
+    end
+
+    context 'when v-type matches are present' do
+      let(:v_matches) { [build_match('v1'), build_match('v2')] }
+
+      before do
+        allow(matches).to receive(:has_type?).with(:v) { true }
+        allow(matches).to receive(:has_type?).with(:w) { false }
+        allow(matches).to receive(:by_type).with(:v) { v_matches }
+      end
+                        
+      it { expect(sentences.reproduction_vw.value).to eq('They have v1 and v2.') }
+    end
+
+    context 'when w-type matches are present' do
+      let(:w_matches) { [build_match('w1')] }
+
+      before do
+        allow(matches).to receive(:has_type?).with(:v) { false }
+        allow(matches).to receive(:has_type?).with(:w) { true }
+        allow(matches).to receive(:by_type).with(:w) { w_matches }
+      end
+                        
+      it { expect(sentences.reproduction_vw.value).to eq('They are w1s.') }
+    end
+
+    context 'when no matches are present' do
+      before do
+        allow(matches).to receive(:has_type?).with(:v) { false }
+        allow(matches).to receive(:has_type?).with(:w) { false }
+      end
+
+      it { expect(sentences.reproduction_vw).to_not be_valid }
+    end
+  end
+
+  describe '#reproduction_y' do
+    let(:matches) { instance_double('BriefSummary::ObjUriGroupMatcher::Matches') }
+    before { allow(page).to receive(:reproduction_matches) { matches } }
+
+    context 'when there are matches' do
+
+      before do
+        allow(page).to receive(:reproduction_matches) { matches }
+        allow(matches).to receive(:by_type).with(:y) { y_matches }
+        allow(matches).to receive(:has_type?).with(:y) { true }
+      end
+
+
+      def build_match(i) 
+        match = instance_double('BriefSummary::ObjUriGroupMatcher::Match')
+        predicate = instance_double('TermNode')
+        trait = instance_double('Trait')
+        predicate_name = "predicate#{i}"
+        value = "value#{i}"
+
+        allow(match).to receive(:trait) { trait }
+        allow(trait).to receive(:predicate) { predicate }
+        allow(predicate).to receive(:name) { predicate_name }
+        allow(helper).to receive(:add_trait_val_to_fmt).with("%s #{predicate_name}", trait) { "#{value} #{predicate_name}" }
+
+        match
+      end
+
+      let(:y_matches) do 
+        [
+          build_match(1),
+          build_match(2),
+          build_match(3)
+        ]
+      end
+
+      it { expect(sentences.reproduction_y.value).to eq('They have value1 predicate1, value2 predicate2, and value3 predicate3.') }
+    end
+
+    context 'when there are no matches' do
+      before do
+        allow(matches).to receive(:has_type?).with(:y) { false }
+      end
+
+      it { expect(sentences.reproduction_y).to_not be_valid }
+    end
+  end
+
+  def build_x_z_match(i)
+    match = instance_double('BriefSummary::ObjUriGroupMatcher::Match')
+    trait = instance_double('Trait')
+
+    allow(match).to receive(:trait) { trait }
+    allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trait) { "trait#{i}" }
+
+    match
+  end
+
+  describe '#reproduction_x' do
+    let(:matches) { instance_double('BriefSummary::ObjUriGroupMatcher::Matches') }
+    before { allow(page).to receive(:reproduction_matches) { matches } }
+
+    context 'when there are matches' do
+      let(:x_matches) { [1, 2, 3].map { |i| build_x_z_match(i) } }
+
+      before do 
+        allow(matches).to receive(:has_type?).with(:x) { true }
+        allow(matches).to receive(:by_type).with(:x) { x_matches }
+      end
+        
+      context 'when page.extinct?' do
+        before { allow(page).to receive(:extinct?) { true } }
+
+        it { expect(sentences.reproduction_x.value).to eq('Reproduction was trait1, trait2, and trait3.') }
+      end
+
+      context 'when not page.extinct?' do
+        before { allow(page).to receive(:extinct?) { false } }
+
+        it { expect(sentences.reproduction_x.value).to eq('Reproduction is trait1, trait2, and trait3.') }
+      end
+    end
+
+    context 'when there are no matches' do
+      before { allow(matches).to receive(:has_type?).with(:x) { false } }
+
+      it { expect(sentences.reproduction_x).to_not be_valid }
+    end
+  end
+
+  describe '#reproduction_z' do
+    let(:matches) { instance_double('BriefSummary::ObjUriGroupMatcher::Matches') }
+    before { allow(page).to receive(:reproduction_matches) { matches } }
+
+    context 'when there are matches' do
+      let(:z_matches) { [1, 2, 3].map { |i| build_x_z_match(i) } }
+
+      before do 
+        allow(matches).to receive(:has_type?).with(:z) { true }
+        allow(matches).to receive(:by_type).with(:z) { z_matches }
+      end
+
+      it { expect(sentences.reproduction_z.value).to eq('They have parental care (trait1, trait2, and trait3).') }
+    end
+
+    context 'when there are no matches' do
+      before { allow(matches).to receive(:has_type?).with(:z) { false } }
+
+      it { expect(sentences.reproduction_z).to_not be_valid }
+    end
+  end
+
+  describe '#motility' do
+    let(:matches) { instance_double('BriefSummary::ObjUriGroupMatcher::Matches') }
+
+    before do 
+      allow(page).to receive(:motility_matches) { matches }
+      allow(matches).to receive(:has_type?) { false }
+    end
+
+    def build_match
+      
+      match
+    end
+
+    context 'when there are c-type matches' do
+      let(:match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:trait) { instance_double('Trait') }
+      let(:expected) { 'They rely on <motility> to move around.' }
+
+      before do
+        allow(match).to receive(:trait) { trait }
+        allow(matches).to receive(:has_type?).with(:c) { true }
+        allow(matches).to receive(:first_of_type).with(:c) { match }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('They rely on %s to move around.', trait) { expected }
+      end
+
+      it { expect(sentences.motility.value).to eq(expected) }
+    end
+
+    context 'when there are a and b-type matches' do
+      let(:a_match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:a_trait) { instance_double('Trait') }
+      let(:b_match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:b_trait) { instance_double('Trait') }
+      let(:expected) { 'They are <a_trait> <b_trait>s.' }
+
+      before do
+        allow(a_match).to receive(:trait) { a_trait }
+        allow(b_match).to receive(:trait) { b_trait }
+        allow(matches).to receive(:has_type?).with(:a) { true }
+        allow(matches).to receive(:has_type?).with(:b) { true }
+        allow(matches).to receive(:first_of_type).with(:a) { a_match }
+        allow(matches).to receive(:first_of_type).with(:b) { b_match }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('They are %s', a_trait) { 'They are <a_trait>' }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('They are <a_trait> %s.', b_trait, pluralize: true) { expected }
+      end
+
+      it { expect(sentences.motility.value).to eq(expected) }
+    end
+
+    context 'when there are a-type matches' do
+      let(:match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:trait) { instance_double('Trait') }
+
+      before do
+        allow(matches).to receive(:has_type?).with(:a) { true }
+        allow(matches).to receive(:first_of_type).with(:a) { match }
+        allow(match).to receive(:trait) { trait }
+      end
+
+      context 'when page.animal?' do
+        let(:expected) { 'They are <trait> animals.' }
+
+        before do
+          allow(page).to receive(:animal?) { true }
+          allow(helper).to receive(:add_trait_val_to_fmt).with('They are %s animals.', trait) { expected }
+        end
+
+        it { expect(sentences.motility.value).to eq(expected) }
+      end
+
+      context 'when not page.animal?' do
+        let(:expected) { 'They are <trait> organisms.' }
+
+        before do
+          allow(page).to receive(:animal?) { false }
+          allow(helper).to receive(:add_trait_val_to_fmt).with('They are %s organisms.', trait) { expected }
+        end
+
+        it { expect(sentences.motility.value).to eq(expected) }
+      end
+    end
+
+    context 'when there are b-type matches' do
+      let(:match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:trait) { instance_double('Trait') }
+      let(:expected) { 'They are <trait>s.' }
+
+      before do
+        allow(matches).to receive(:has_type?).with(:b) { true }
+        allow(matches).to receive(:first_of_type).with(:b) { match }
+        allow(match).to receive(:trait) { trait }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('They are %s.', trait, pluralize: true) { expected }
+      end
+
+      it { expect(sentences.motility.value).to eq(expected) }
+    end
+
+    context 'when there are no matches' do
+      it { expect(sentences.motility).to_not be_valid }
+    end
   end
 end
 
