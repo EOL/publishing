@@ -13,14 +13,14 @@ class PageDecorator < Draper::Decorator
     # locale is included in the key because while all text should be English, any
     # links should be for the *current* locale to maintain locale stickiness.
     Rails.cache.fetch("pages/#{id}/brief_summary/#{I18n.locale}") do
-      BriefSummary.new(self, h).result
+      BriefSummary.english(self, h)
     end
   end
 
   def cached_summary_text
     Rails.cache.fetch("pages/#{id}/cached_summary_text") do
       sanitizer = Rails::Html::FullSanitizer.new
-      sanitizer.sanitize(cached_summary.sentence)
+      sanitizer.sanitize(cached_summary.to_s)
     end
   end
 

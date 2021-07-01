@@ -4,10 +4,10 @@
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
-    - if !summary.sentence.blank? || @page.has_data?
+    - if summary.to_s.present? || @page.has_data?
       .desc
-        - if !summary.sentence.blank?
-          %p= summary.sentence.html_safe
+        - if summary.to_s.present?
+          %p= summary.to_s.html_safe
           - summary.terms.each do |term|
             - if term.term
               = render "terms/desc_meta", term: term.term, predicate: term.predicate, toggle: term.toggle_selector, source: term.source, search_link: true
