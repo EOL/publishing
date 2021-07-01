@@ -27,52 +27,12 @@ class BriefSummary
     [:english, :reproduction_x],
     [:english, :reproduction_z],
     [:english, :motility]
-  ]
-
-  def initialize(page, view, locale, sentences)
-    @page = page
-    @view = view
-    @tracker = TermTracker.new
-    @tagger = TermTagger.new(@tracker, view)
-    @helper = Sentences::Helper.new(@tagger, view)
-    @locale = locale
-    @string = build_string(sentences)
-  end
+  ].map { |pair| BriefSummary::Result::SentenceSpec.new(pair.first, pair.second) }
 
   class << self
-    private :new
-
     def english(page, view)
-      new(page, view, :en, ENGLISH_SENTENCES)
+      BriefSummary::Result.new(page, view, ENGLISH_SENTENCES, :en) 
     end
-  end
-
-  def to_s
-    @string
-  end
-
-  def terms
-    @tracker.result_terms
-  end
-
-  private 
-  def english
-    @english ||= Sentences::English.new(@page, @helper)
-  end
-
-  def any_lang
-    @any_lang ||= Sentences::AnyLang.new(@page, @helper, @locale)
-  end
-
-  def build_string(sentences)
-    values = []
-
-    sentences.each do |pair|
-      result = self.send(pair.first).send(pair.second)
-      values << result.value if result.valid?
-    end
-
-    values.join(' ')
   end
 end
 
