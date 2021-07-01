@@ -1,6 +1,7 @@
 require 'rails_helper'
+
 require 'brief_summary'
-require 'brief_summary/result'
+require 'brief_summary/builder'
 
 RSpec.describe('BriefSummary') do
   let(:page) { instance_double('BriefSummary::PageDecorator') }
@@ -8,11 +9,13 @@ RSpec.describe('BriefSummary') do
   let(:locale) { :en }
 
   describe '.english' do
-    let(:result_klass) { class_double('BriefSummary::Result').as_stubbed_const }
-    let(:result) { instance_double('BriefSummary::Result') }
+    let(:builder_klass) { class_double('BriefSummary::Builder').as_stubbed_const }
+    let(:builder) { instance_double('BriefSummary::Builder') }
+    let(:result) { instance_double('BriefSummary') }
 
     before do
-      allow(result_klass).to receive(:new).with(page, view, BriefSummary::ENGLISH_SENTENCES, :en) { result }
+      allow(builder_klass).to receive(:new).with(page, view, BriefSummary::ENGLISH_SENTENCES, :en) { builder }
+      allow(builder).to receive(:build) { result }
     end
 
     it { expect(BriefSummary.english(page, view)).to eq(result) }

@@ -1,10 +1,11 @@
 require 'rails_helper'
 
+require 'brief_summary'
+require 'brief_summary/builder'
 require 'brief_summary/page_decorator'
-require 'brief_summary/result'
 require 'brief_summary/sentences/result'
 
-RSpec.describe('BriefSummary::Result') do
+RSpec.describe('BriefSummary::Builder') do
   let(:page) { instance_double('Page') }
   let(:page_decorator_klass) { class_double('BriefSummary::PageDecorator').as_stubbed_const }
   let(:page_decorator) { instance_double('BriefSummary::PageDecorator') }
@@ -20,12 +21,14 @@ RSpec.describe('BriefSummary::Result') do
   let(:tracker) { instance_double('BriefSummary::TermTracker') }
   let(:tagger) { instance_double('BriefSummary::Tagger') }
   let(:locale) { :en }
+  let(:terms) { instance_double('Array') }
+
   let(:sentence_specs) do
     [
-      BriefSummary::Result::SentenceSpec.new(:english, :english_sentence1),
-      BriefSummary::Result::SentenceSpec.new(:any_lang, :any_lang_sentence1),
-      BriefSummary::Result::SentenceSpec.new(:any_lang, :any_lang_sentence2),
-      BriefSummary::Result::SentenceSpec.new(:english, :english_sentence2)
+      BriefSummary::Builder::SentenceSpec.new(:english, :english_sentence1),
+      BriefSummary::Builder::SentenceSpec.new(:any_lang, :any_lang_sentence1),
+      BriefSummary::Builder::SentenceSpec.new(:any_lang, :any_lang_sentence2),
+      BriefSummary::Builder::SentenceSpec.new(:english, :english_sentence2)
     ]
   end
 
@@ -33,14 +36,21 @@ RSpec.describe('BriefSummary::Result') do
     allow(tracker_klass).to receive(:new) { tracker }
     allow(tagger_klass).to receive(:new).with(tracker, view) { tagger }
     allow(helper_klass).to receive(:new).with(tagger, view) { helper }
-    allow(english_klass).to receive(:new).with(page, helper) { english }
-    allow(any_lang_klass).to receive(:new).with(page, helper, locale) { any_lang }
+    allow(english_klass).to receive(:new).with(page_decorator, helper) { english }
+    allow(any_lang_klass).to receive(:new).with(page_decorator, helper, locale) { any_lang }
     allow(page_decorator_klass).to receive(:new).with(page, view) { page_decorator }
+    allow(tracker).to receive(:result_terms) { terms }
   end
 
-  subject(:result) { BriefSummary::Result.new(page, view, sentence_specs, locale) }
 
-  describe '#to_s' do
+  describe '#build' do
+    subject(:result) { BriefSummary::Builder.new(page, view, sentence_specs, locale).build }
+
+    shared_examples 'build' do |expected_value|
+      it { expect(result.value).to eq(expected_value) }
+      it { expect(result.terms).to eq(terms) }
+    end
+
     context('when all sentences are valid?') do
       before do
         allow(english).to receive(:english_sentence1) { BriefSummary::Sentences::Result.valid('English1.') }
@@ -49,7 +59,7 @@ RSpec.describe('BriefSummary::Result') do
         allow(any_lang).to receive(:any_lang_sentence2) { BriefSummary::Sentences::Result.valid('AnyLang2.') }
       end
 
-      it { expect(result.to_s).to eq("English1. AnyLang1. AnyLang2. English2.") }
+      it_behaves_like 'build', 'English1. AnyLang1. AnyLang2. English2.'
     end
 
     context 'when some sentences are not valid?' do
@@ -60,7 +70,7 @@ RSpec.describe('BriefSummary::Result') do
         allow(any_lang).to receive(:any_lang_sentence2) { BriefSummary::Sentences::Result.valid('AnyLang2.') }
       end
 
-      it { expect(result.to_s).to eq("English1. AnyLang2.") }
+      it_behaves_like 'build', 'English1. AnyLang2.'
     end
 
     context 'when sentences raise BadTraitError' do
@@ -71,7 +81,7 @@ RSpec.describe('BriefSummary::Result') do
         allow(any_lang).to receive(:any_lang_sentence2).and_raise(BriefSummary::BadTraitError)
       end
 
-      it { expect(result.to_s).to eq('English1. AnyLang1.') }
+      it_behaves_like 'build', 'English1. AnyLang1.'
     end
 
     context 'when no sentences are valid' do
@@ -82,21 +92,8 @@ RSpec.describe('BriefSummary::Result') do
         allow(any_lang).to receive(:any_lang_sentence2) { BriefSummary::Sentences::Result.invalid }
       end
 
-      it { expect(result.to_s).to eq('') }
+      it_behaves_like 'build', ''
     end
-  end
-
-  describe '#terms' do
-    let(:result_terms) { instance_double('Array') }
-    let(:sentences) { [BriefSummary::Result::SentenceSpec.new(:english, :sentence)] }
-
-    before do 
-      allow(english).to receive(:sentence) { BriefSummary::Sentences::Result.valid('Sentence.') }
-      allow(tracker).to receive(:result_terms) { result_terms }
-    end
-
-    subject(:result) { BriefSummary::Result.new(page, view, sentences, locale) }
-
-    it { expect(result.terms).to eq(result_terms) }
   end
 end
+

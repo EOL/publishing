@@ -1,4 +1,4 @@
-- summary = @page.summary
+- summary = @page.cached_summary
 
 - if @page.medium
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
@@ -6,17 +6,16 @@
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
     - if summary.to_s.present? || @page.has_data?
       .desc
-        = cache "pages/#{@page.id}/brief_summary_view" do
-          - if summary.to_s.present?
-            %p= summary.value.html_safe
-            - summary.terms.each do |term|
-              - if term.term
-                = render "terms/desc_meta", term: term.term, predicate: term.predicate, toggle: term.toggle_selector, source: term.source, search_link: true
-          - if @page.has_data?
-            - if @page.key_data.any?
-              - attributes_key = "eol_has_data_for_n_attributes_including_html"
-            - else
-              - attributes_key = "eol_has_data_for_n_attributes_html"
+        - if summary.value.present?
+          %p= summary.value.html_safe
+          - summary.terms.each do |term|
+            - if term.term
+              = render "terms/desc_meta", term: term.term, predicate: term.predicate, toggle: term.toggle_selector, source: term.source, search_link: true
+        - if @page.has_data?
+          - if @page.key_data.any?
+            - attributes_key = "eol_has_data_for_n_attributes_including_html"
+          - else
+            - attributes_key = "eol_has_data_for_n_attributes_html"
 
           %p= t(".#{attributes_key}", :count => @page.predicate_count, data_path: page_data_path(@page))
     -if @key_data.any?

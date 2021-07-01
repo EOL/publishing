@@ -1,5 +1,5 @@
 class BriefSummary
-  class Result
+  class Builder
     class SentenceSpec
       VALID_TYPES = [:any_lang, :english]
 
@@ -23,8 +23,8 @@ class BriefSummary
       @helper = Sentences::Helper.new(@tagger, view)
     end
 
-    def value
-      @value ||= build_value
+    def build
+      BriefSummary.new(build_value, @tracker.result_terms)
     end
 
     def terms

@@ -46,7 +46,7 @@ RSpec.describe('BriefSummary::TermTracker') do
         expect(result_term.predicate).to eq(input.predicate)
         expect(result_term.term).to eq(input.term)
         expect(result_term.source).to eq(input.source)
-        expect(result_term.toggle_selector).to eq(toggle_id)
+        expect(result_term.toggle_selector).to eq('#' + toggle_id)
       end
     end
   end

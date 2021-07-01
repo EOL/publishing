@@ -27,11 +27,18 @@ class BriefSummary
     [:english, :reproduction_x],
     [:english, :reproduction_z],
     [:english, :motility]
-  ].map { |pair| BriefSummary::Result::SentenceSpec.new(pair.first, pair.second) }
+  ].map { |pair| BriefSummary::Builder::SentenceSpec.new(pair.first, pair.second) }
+
+  attr_reader :value, :terms
+
+  def initialize(value, terms)
+    @value = value
+    @terms = terms
+  end
 
   class << self
     def english(page, view)
-      BriefSummary::Result.new(page, view, ENGLISH_SENTENCES, :en) 
+      BriefSummary::Builder.new(page, view, ENGLISH_SENTENCES, :en).build
     end
   end
 end
