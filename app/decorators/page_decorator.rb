@@ -9,7 +9,7 @@ class PageDecorator < Draper::Decorator
     h.full_hierarchy(object, true)
   end
 
-  def cached_summary
+  def summary
     # locale is included in the key because while all text should be English, any
     # links should be for the *current* locale to maintain locale stickiness.
     @summary ||= BriefSummary.english(self, h)
@@ -18,7 +18,7 @@ class PageDecorator < Draper::Decorator
   def cached_summary_text
     Rails.cache.fetch("pages/#{id}/cached_summary_text") do
       sanitizer = Rails::Html::FullSanitizer.new
-      sanitizer.sanitize(cached_summary.value)
+      sanitizer.sanitize(summary.value)
     end
   end
 
