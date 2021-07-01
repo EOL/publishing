@@ -39,7 +39,7 @@ class BriefSummary
         begin
           result = self.send(sentence.type).send(sentence.method)
           values << result.value if result.valid?
-        rescue BadTraitError => e
+        rescue BriefSummary::BadTraitError => e
           Rails.logger.warn(e)
         end
       end
