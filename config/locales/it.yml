@@ -1077,6 +1077,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianco
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: anni
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giallo
+        http://eol(dot)org/schema/terms/yes: sì
         http://eol(dot)org/schema/terms/microatmosphere: µatm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
         http://eol(dot)org/schema/terms/µg_cm-2: µg/cm^2
