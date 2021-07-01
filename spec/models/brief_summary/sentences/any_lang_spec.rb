@@ -62,6 +62,69 @@ RSpec.describe('BriefSummary::Sentences::AnyLang') do
     end
   end
 
+  describe '#below_family_taxonomy' do
+    let(:full_name) { '<pagename>' }
+    let(:a1) { '<a1>' }
+    let(:a2) { '<a1>' }
+    let(:locale) { :en }
+
+    before do
+      allow(page).to receive(:a1) { a1 }
+      allow(page).to receive(:full_name) { full_name }
+    end
+
+    context 'when not page.below_family?' do
+      before { allow(page).to receive(:below_family?) { false } }
+
+      it { expect(sentences.below_family_taxonomy).to_not be_valid }
+    end
+
+
+    context 'when page.below_family?' do
+      before { allow(page).to receive(:below_family?) { true } }
+
+      I18n.available_locales.each do |locale|
+        context "when locale is #{locale}" do
+          let(:locale) { locale }
+
+
+          Rank.treat_as.map { |v| v.first }.filter { |t| Rank.treat_as[t] > Rank.treat_as[:r_family] }.each do |treat_as|
+            context "when rank.treat_as is #{treat_as}" do
+              before { allow(rank).to receive(:treat_as) { treat_as } }
+
+              context 'when a2 is present' do
+                before { allow(page).to receive(:a2) { a2 } }
+
+                it do
+                  expect(sentences.below_family_taxonomy.value).to eq(I18n.t(
+                    "brief_summary.taxonomy.below_family.with_family.#{treat_as}",
+                    name1: full_name,
+                    name2: a1,
+                    name3: a2,
+                    locale: locale
+                  ))
+                end
+              end
+
+              context 'when a2 is not present' do
+                before { allow(page).to receive(:a2) { nil } }
+
+                it do
+                  expect(sentences.below_family_taxonomy.value).to eq(I18n.t(
+                    "brief_summary.taxonomy.below_family.without_family.#{treat_as}",
+                    name1: full_name,
+                    name2: a1,
+                    locale: locale
+                  ))
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
   describe '#extinction' do
     let(:term_node) { class_double('TermNode').as_stubbed_const }
     let(:predicate) { instance_double('TermNode') }

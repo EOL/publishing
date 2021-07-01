@@ -13,7 +13,7 @@ class PageDecorator < Draper::Decorator
     # locale is included in the key because while all text should be English, any
     # links should be for the *current* locale to maintain locale stickiness.
     Rails.cache.fetch("pages/#{id}/brief_summary/v2/#{I18n.locale}") do
-      BriefSummary.english(self, h)
+      I18n.locale == :en ? BriefSummary.english(self, h) : BriefSummary.other_langs(self, h, I18n.locale)
     end
   end
 

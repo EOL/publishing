@@ -35,6 +35,25 @@ class BriefSummary
         BriefSummary::Sentences::Result.valid(val)
       end
 
+      def below_family_taxonomy
+        return BriefSummary::Sentences::Result.invalid unless @page.below_family?
+
+        value = @page.a2.present? ?
+          I18n.t(
+            "brief_summary.taxonomy.below_family.with_family.#{@page.rank.treat_as}",
+            name1: @page.full_name,
+            name2: @page.a1,
+            name3: @page.a2
+          ) :
+          I18n.t(
+            "brief_summary.taxonomy.below_family.without_family.#{@page.rank.treat_as}",
+            name1: @page.full_name,
+            name2: @page.a1
+          )
+
+        BriefSummary::Sentences::Result.valid(value)
+      end
+
       def marine
         if @page.genus_or_below? && @page.marine?
           BriefSummary::Sentences::Result.valid(I18n.t(
