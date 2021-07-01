@@ -4,12 +4,13 @@ class BriefSummary
 
     LandmarkChildLimit = 3
 
-    def initialize(page)
+    def initialize(page, view)
       @page = page
+      @view = view
     end
 
     def rank_name
-      rank&.human_name
+      rank&.human_treat_as
     end
 
     # we *could* use delegate_missing_to to send all unimplemented methods to page, but 
@@ -30,7 +31,7 @@ class BriefSummary
     end
 
     def above_family?
-      family_or_above && !@page.r_family?
+      family_or_above? && !@page.r_family?
     end
 
     def genus_or_below?
@@ -43,7 +44,7 @@ class BriefSummary
     end
 
     def native_range_traits
-      @native_range_traits ||= @page.traits_for_predicate(TermNode.find('native_range'))
+      @native_range_traits ||= @page.traits_for_predicate(TermNode.find_by_alias('native_range'))
     end
 
     def traits_for_predicate(predicate)
@@ -64,7 +65,7 @@ class BriefSummary
       # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
       a1_name = nil if a1_name&.match(' and ')
       a1_name ||= @a1.canonical
-      @a1_link = @a1.page ? view.link_to(a1_name, @a1.page) : a1_name
+      @a1_link = @a1.page ? @view.link_to(a1_name, @a1.page) : a1_name
       # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
       # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
       # dynamic hierarchy. If the name starts with a vowel, it should be preceded by an, if not it should be preceded by
@@ -82,7 +83,7 @@ class BriefSummary
       a2_name = nil if a2_name && a2_name =~ /family/i
       a2_name = nil if a2_name && a2_name =~ / and /i
       a2_name ||= a2_node.canonical_form
-      @a2_link = a2_node.page ? view.link_to(a2_name, a2_node.page) : a2_name
+      @a2_link = a2_node.page ? @view.link_to(a2_name, a2_node.page) : a2_name
     end
 
     def a2_node
@@ -99,7 +100,7 @@ class BriefSummary
       if @page.vernacular.present?
         "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
       else
-        name_clause
+        name
       end
     end
 

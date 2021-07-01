@@ -14,8 +14,8 @@ class BriefSummary
     end
 
     def initialize(page, view, sentences, locale)
-      @page = page
       @view = view
+      @page = BriefSummary::PageDecorator.new(page, view)
       @tracker = TermTracker.new
       @tagger = TermTagger.new(@tracker, view)
       @helper = Sentences::Helper.new(@tagger, view)
@@ -23,7 +23,7 @@ class BriefSummary
       @string = build_string(sentences)
     end
 
-    def to_s
+    def value
       @string
     end
 

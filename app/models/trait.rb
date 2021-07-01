@@ -25,7 +25,7 @@ class Trait
   private_class_method :new # use for_eol_pks
 
   def id
-    trait.id
+    trait_node.id
   end
 
   # TODO: can/should these be generalized?

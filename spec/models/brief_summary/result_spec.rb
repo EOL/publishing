@@ -1,10 +1,13 @@
 require 'rails_helper'
 
+require 'brief_summary/page_decorator'
 require 'brief_summary/result'
 require 'brief_summary/sentences/result'
 
 RSpec.describe('BriefSummary::Result') do
-  let(:page) { instance_double('BriefSummary::PageDecorator') }
+  let(:page) { instance_double('Page') }
+  let(:page_decorator_klass) { class_double('BriefSummary::PageDecorator').as_stubbed_const }
+  let(:page_decorator) { instance_double('BriefSummary::PageDecorator') }
   let(:view) { double('view_helper') }
   let(:english_klass) { class_double('BriefSummary::Sentences::English').as_stubbed_const }
   let(:any_lang_klass) { class_double('BriefSummary::Sentences::AnyLang').as_stubbed_const }
@@ -30,9 +33,9 @@ RSpec.describe('BriefSummary::Result') do
     allow(tracker_klass).to receive(:new) { tracker }
     allow(tagger_klass).to receive(:new).with(tracker, view) { tagger }
     allow(helper_klass).to receive(:new).with(tagger, view) { helper }
-
     allow(english_klass).to receive(:new).with(page, helper) { english }
     allow(any_lang_klass).to receive(:new).with(page, helper, locale) { any_lang }
+    allow(page_decorator_klass).to receive(:new).with(page, view) { page_decorator }
   end
 
   subject(:result) { BriefSummary::Result.new(page, view, sentence_specs, locale) }
