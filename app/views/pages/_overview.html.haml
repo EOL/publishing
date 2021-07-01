@@ -7,7 +7,7 @@
     - if summary.to_s.present? || @page.has_data?
       .desc
         - if summary.to_s.present?
-          %p= summary.to_s.html_safe
+          %p= summary.value.html_safe
           - summary.terms.each do |term|
             - if term.term
               = render "terms/desc_meta", term: term.term, predicate: term.predicate, toggle: term.toggle_selector, source: term.source, search_link: true

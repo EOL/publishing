@@ -12,10 +12,11 @@ class BriefSummary
     def toggle_id(predicate, term, trait_source)
       raise TypeError, "term can't be nil" if term.nil?
 
-      selector = next_toggle_id
+      id = next_toggle_id
+      selector = "##{id}"
       @result_terms << ResultTerm.new(predicate, term, trait_source, selector)
 
-      selector
+      id
     end
 
     private

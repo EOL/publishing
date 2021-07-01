@@ -14,17 +14,17 @@ class BriefSummary
     end
 
     def initialize(page, view, sentences, locale)
-      @view = view
       @page = BriefSummary::PageDecorator.new(page, view)
+      @view = view
+      @sentences = sentences
+      @locale = locale
       @tracker = TermTracker.new
       @tagger = TermTagger.new(@tracker, view)
       @helper = Sentences::Helper.new(@tagger, view)
-      @locale = locale
-      @string = build_string(sentences)
     end
 
     def value
-      @string
+      @value ||= build_value
     end
 
     def terms
@@ -32,10 +32,10 @@ class BriefSummary
     end
 
     private
-    def build_string(sentences)
+    def build_value
       values = []
 
-      sentences.each do |sentence|
+      @sentences.each do |sentence|
         begin
           result = self.send(sentence.type).send(sentence.method)
           values << result.value if result.valid?
