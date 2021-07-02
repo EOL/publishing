@@ -369,7 +369,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def min_distinct_page_count
-    counts = [predicate&.distinct_page_count, object_term&.distinct_page_count]
+    counts = [predicate&.distinct_page_count, object_term&.distinct_page_count, resource&.nodes&.count]
 
     if for_inverse_predicate?
       counts << obj_clade_node&.subj_trait_distinct_obj_count
