@@ -7,7 +7,7 @@ gem 'rails', '5.2.6'
 gem 'mysql2', '0.5.3'
 
 # Fixes a licensing issue with Rails:
-gem 'mimemagic', '0.3.10'
+gem 'mimemagic', '0.4.3'
 
 # "Internal" EOL gems:
 gem 'eol_terms', '>= 0.9.16', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'

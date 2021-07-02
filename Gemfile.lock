@@ -283,7 +283,7 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.1104)
-    mimemagic (0.3.10)
+    mimemagic (0.4.3)
       nokogiri (~> 1)
       rake
     mini_mime (1.1.0)
@@ -578,7 +578,7 @@ DEPENDENCIES
   listen (~> 3)
   lograge (~> 0.11)
   meta_request (~> 0)
-  mimemagic (= 0.3.10)
+  mimemagic (= 0.4.3)
   mysql2 (= 0.5.3)
   neo4j-ruby-driver!
   newrelic_rpm
@@ -587,7 +587,7 @@ DEPENDENCIES
   pundit (~> 2.1)
   rack-cors
   rack_session_access (~> 0)
-  rails (~> 5.2.6)
+  rails (= 5.2.6)
   recaptcha (~> 5.6)
   rspec-rails (~> 3)
   rubocop (= 0.93.1)
