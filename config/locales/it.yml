@@ -5,6 +5,7 @@
 # Author: Beta16
 # Author: G313
 # Author: JackLantern
+# Author: Lorem Ipsum
 # Author: R.caredda1
 # Author: Toa
 # Author: Ubibi
@@ -644,6 +645,9 @@ it:
   recaptcha: Recaptcha
   recaptcha_error: Per favore dimostraci di non essere un robot.
   reconciliation:
+    id_space:
+      type_names:
+        taxon: Taxon
     property:
       name:
         rank: Posizione
@@ -915,6 +919,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuale
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta acquatica
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: arido
         https://eol(dot)org/schema/terms/arm: braccio
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: riproduzione asessuata
         https://eol(dot)org/schema/terms/bamboo_forest: foresta di bamboo
