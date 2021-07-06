@@ -25,19 +25,14 @@ gem 'jbuilder', '~> 2.11.2'
 gem 'jquery-rails', '~> 4.4'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 2.2', group: :doc
-# javascript code from rails TODO: I don't think we want this, but could be wrong.
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', '~> 0.12'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
 
-# NOTE: required to avoid weird error caused by the existence of .coffee files in node_modules
-#gem 'coffee-rails'
-
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
-gem 'unicorn', '~> 5.8'
-gem 'unicorn-worker-killer', '~> 0.4' # NOTE: there's now a unicorn-worker-killer-2 which we should switch to.
+gem 'unicorn', '~> 6.0'
+# NOTE: there's a unicorn-worker-killer-2, but that is UNMAINTAINED. Ignore it.
+gem 'unicorn-worker-killer', '~> 0.4'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
