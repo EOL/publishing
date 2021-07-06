@@ -105,6 +105,7 @@ gem 'sidekiq'
 # Simplify Forms:
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
+# TODO: I am not sure these are working / used anymore. Check and remove, if not.
 gem 'simple_form', '~> 5.1'
 gem 'client_side_validations', '~> 18.1'
 gem 'client_side_validations-simple_form', '~> 13'
@@ -112,7 +113,7 @@ gem 'client_side_validations-simple_form', '~> 13'
 gem 'typhoeus', '~> 1.4'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'activegraph', '~> 10.0' # For example, see https://rubygems.org/gems/activegraph/versions for the latest versions
+gem 'activegraph', '~> 10.0' # NOTE: there's at least a version 11, but I am scared of it.
 gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 
 #Sitemap
@@ -122,7 +123,7 @@ gem 'sitemap_generator', '~> 6.1'
 gem 'friendly_id', '~> 5.4'
 
 # translations in JS
-gem 'i18n-js', '~> 3.8'
+gem 'i18n-js', '~> 3.8' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
 
 # CORS middleware
 gem 'rack-cors'
