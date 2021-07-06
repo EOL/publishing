@@ -45,29 +45,25 @@ gem 'kaminari', '~> 1.2.1'
 # ...and with a comment above each gem (or block of related gems) explaining what it's for. Let's keep this
 # maintainable!
 
-# To aid in reindexing ElasticSearch. See also connection_pool; also requires redis.
-# gem 'activejob-traffic_control', '>= 0.1.3'
 # For bulk inserts:
-gem 'activerecord-import', '~> 1.0'
+gem 'activerecord-import', '~> 1.1'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 1.0'
 # Faster startup:
 gem 'bootsnap', '~> 1.7', require: false
-# To aid in reindexing ElasticSearch. See also activejob-traffic_control; also requires redis.
-# gem 'connection_pool', '~> 2.2'
-# Counter Culture handled cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 2.7'
+# Counter Culture handles cached counts of things (which we use ALL OVER):
+gem 'counter_culture', '~> 2.8'
 # Cron jobs:
 gem 'crono', '~> 1.1'
 # Run background jobs:
-gem 'daemons', '~> 1.3'
+gem 'daemons', '~> 1.4'
 # Memcached (not for development):
 gem 'dalli', '~> 2.7'
 # Background jobs (to be run by daemons, q.v.):
 gem 'delayed_job', '~> 4.1'
 gem 'delayed_job_active_record', '~> 4.1'
 # Devise handles authentication and some authorization:
-gem 'devise', '~> 4.7'
+gem 'devise', '~> 4.8'
 gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
 # Discourse handles comments and chat:
@@ -75,13 +71,11 @@ gem 'discourse_api', '~> 0.40'
 # Model decoration
 gem 'draper', '~> 4.0'
 # Icons
-# TODO: update font-awesome (or remove if unused) since refinery is gone
-# font-awesome-sass 4.7 is seriously behind; 5.12 is the latest, but our version of refinerycms-wymeditor requires < 5
-gem 'font-awesome-sass', '~> 4.7'
-# This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
+gem 'font-awesome-sass', '~> 5.15'
+# This is used to locally have a copy of Open Sans. IF YOU STOP USING OPEN SANS (note the space), YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2'
 # url helpers in JS
-gem 'js-routes', '1.4.9'
+gem 'js-routes', '2.0'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
 gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
