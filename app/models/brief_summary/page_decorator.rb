@@ -2,7 +2,7 @@ class BriefSummary
   class PageDecorator
     delegate_missing_to :@page
 
-    LandmarkChildLimit = 3
+    LANDMARK_CHILD_LIMIT = 3
 
     def initialize(page, view)
       @page = page
@@ -31,12 +31,17 @@ class BriefSummary
     end
 
     def above_family?
-      family_or_above? && !@page.r_family?
+      @page.rank&.treat_as.present? && 
+      Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
     end
 
     def genus_or_below?
       @page.rank&.treat_as.present? && 
-      Rank.treat_as[@page.rank.treat_as] > Rank.treat_as[:r_genus]
+      Rank.treat_as[@page.rank.treat_as] >= Rank.treat_as[:r_genus]
+    end
+
+    def traits_for_predicate(predicate)
+      @page.traits_for_predicate(predicate)
     end
 
     def has_native_range?
@@ -44,12 +49,9 @@ class BriefSummary
     end
 
     def native_range_traits
-      @native_range_traits ||= @page.traits_for_predicate(TermNode.find_by_alias('native_range'))
+      @native_range_traits ||= traits_for_predicate(TermNode.find_by_alias('native_range'))
     end
 
-    def traits_for_predicate(predicate)
-      @page.traits_for_predicate(predicate)
-    end
 
     def object_traits_for_predicate(predicate)
       @page.object_traits_for_predicate(predicate)
@@ -82,25 +84,15 @@ class BriefSummary
       a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
       a2_name = nil if a2_name && a2_name =~ /family/i
       a2_name = nil if a2_name && a2_name =~ / and /i
-      a2_name ||= a2_node.canonical_form
+      a2_name ||= a2_node.canonical
       @a2_link = a2_node.page ? @view.link_to(a2_name, a2_node.page) : a2_name
-    end
-
-    def a2_node
-      @a2_node ||= @page.ancestors.reverse.compact.find { |a| Rank.family_ids.include?(a.rank_id) }
-    end
-
-    # If the species has a value for measurement type http://purl.obolibrary.org/obo/GAZ_00000071, insert a Distribution
-    # Sentence:  "It is found in [G1]."
-    def g1
-      @g1 ||= values_to_sentence([TermNode.find_by(uri: 'http://purl.obolibrary.org/obo/GAZ_00000071')])
     end
 
     def full_name
       if @page.vernacular.present?
         "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
       else
-        name
+        @page.canonical
       end
     end
 
@@ -154,7 +146,7 @@ class BriefSummary
     end
 
     def freshwater?
-      !marine? && freshwater_trait.present?
+      freshwater_trait.present? && !marine?
     end
 
     def freshwater_trait
@@ -165,30 +157,27 @@ class BriefSummary
       @page.first_trait_for_predicate(predicate, options)
     end
 
-    def landmark_children
-      @landmark_children ||= (@page.native_node&.landmark_children(LandmarkChildLimit) || [])
-    end
-
     def first_trait_for_object_terms(object_terms, options = {})
       @page.first_trait_for_object_terms(object_terms, options)
     end
-
 
     def first_trait_for_object_term(object_term, options = {})
       @page.first_trait_for_object_terms(object_term, options)
     end
 
+    def landmark_children
+      @landmark_children ||= (@page.native_node&.landmark_children(LANDMARK_CHILD_LIMIT) || [])
+    end
+
     def greatest_value_size_trait
-        size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_mass'), includes: [:units_term])
-        size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
+      size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_mass'), includes: [:units_term])
+      size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
 
       greatest_value_trait = nil
 
       if size_traits.any?
-
         size_traits.each do |trait|
           if trait.normal_measurement &&
-             trait.measurement &&
              trait.units_term && (
              !greatest_value_trait ||
              greatest_value_trait.normal_measurement.to_f < trait.normal_measurement.to_f
@@ -264,6 +253,10 @@ class BriefSummary
       end
 
       @form_traits
+    end
+
+    def a2_node
+      @a2_node ||= @page.ancestors.reverse.compact.find { |a| Rank.family_ids.include?(a.rank_id) }
     end
   end
 end

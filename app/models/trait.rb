@@ -74,6 +74,10 @@ class Trait
     trait_node.lifestage_term
   end
 
+  def normal_measurement
+    trait_node.normal_measurement
+  end
+
   class << self
     def find(eol_pk, options = {})
       wrap_node(TraitNode.find(eol_pk))

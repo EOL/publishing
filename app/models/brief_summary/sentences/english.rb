@@ -122,15 +122,18 @@ class BriefSummary
       end
 
       def found_in
+        predicate = TermNode.find_by_alias('biogeographic_realm')
+        traits = @page.traits_for_predicate(predicate)
+
         if (
           !@page.genus_or_below? ||
           @page.has_native_range? ||
-          @page.g1.blank?
+          traits.empty?
         )
           return BriefSummary::Sentences::Result.invalid 
         end
 
-        BriefSummary::Sentences::Result.valid("They are found in #{@page.g1}.")
+        BriefSummary::Sentences::Result.valid("They are found in #{@helper.trait_vals_to_sentence(traits, predicate)}.")
       end
 
       def landmark_children

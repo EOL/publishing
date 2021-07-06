@@ -443,13 +443,19 @@ RSpec.describe('BriefSummary::Sentences::English') do
   end
 
   describe '#found_in' do
+    let(:term_node) { class_double('TermNode').as_stubbed_const }
+    let(:predicate) { instance_double('TermNode') }
+    let(:traits) { [instance_double('Trait'), instance_double('Trait')] }
+
     before do
-      allow(page).to receive(:g1) { '<g1>' }
+      allow(term_node).to receive(:find_by_alias).with('biogeographic_realm') { predicate }
+      allow(page).to receive(:traits_for_predicate).with(predicate) { traits }
       allow(page).to receive(:has_native_range?) { false }
       allow(page).to receive(:genus_or_below?) { true }
+      allow(helper).to receive(:trait_vals_to_sentence).with(traits, predicate) { '<found in>' }
     end
 
-    it { expect(sentences.found_in.value).to eq('They are found in <g1>.') }
+    it { expect(sentences.found_in.value).to eq('They are found in <found in>.') }
 
     context 'when page.has_native_range?' do
       before { allow(page).to receive(:has_native_range?) { true }
@@ -462,8 +468,8 @@ RSpec.describe('BriefSummary::Sentences::English') do
       it { expect(sentences.found_in).not_to be_valid }
     end
 
-    context 'when page.g1 is nil' do
-      before { allow(page).to receive(:g1) { nil } }
+    context 'when there are no traits' do
+      before { allow(page).to receive(:traits_for_predicate).with(predicate) { [] } }
 
       it { expect(sentences.found_in).not_to be_valid }
     end
