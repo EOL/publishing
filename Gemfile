@@ -87,26 +87,27 @@ gem 'lograge', '~> 0.11'
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
-gem 'oj', '~> 3.11'
+gem 'oj', '~> 3.12'
 # Debugging:
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
 gem 'pundit', '~> 2.1'
 # Turing test:
-gem 'recaptcha', '~> 5.6', require: 'recaptcha/rails'
-# Zip file support
-gem 'rubyzip', '~> 2.2'
+gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
+# Zip file support ; NOTE: this is almost up to version 3.0, and then it will have some interface changes that we need
+# to switch to. Read https://github.com/rubyzip/rubyzip when the time comes!
+gem 'rubyzip', '~> 2.3'
 # ElasticSearch via SearchKick:
-gem 'searchkick', '~> 4.4' # Needs to stay in sync (ish) with the elasticsearch gem.
+gem 'searchkick', '~> 4.5' # Needs to stay in sync (ish) with the elasticsearch gem.
+gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
 gem 'sidekiq'
-gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Simplify Forms:
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
-gem 'simple_form', '~> 5.0'
-gem 'client_side_validations', '~> 16.2'
-gem 'client_side_validations-simple_form', '~> 9.2'
+gem 'simple_form', '~> 5.1'
+gem 'client_side_validations', '~> 18.1'
+gem 'client_side_validations-simple_form', '~> 13'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus', '~> 1.4'
 
