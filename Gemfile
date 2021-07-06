@@ -20,14 +20,14 @@ gem 'webpacker', '~> 5.x'
 # Sass is end-of-life. Update to sassc gem: https://github.com/sass/sassc-ruby#readme
 gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.10.2' # NOTE: as of Jan 2021, there is a 2.11, we should try swtiching next month.
+gem 'jbuilder', '~> 2.11.2'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails', '~> 4.4'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 2.0', group: :doc
+gem 'sdoc', '~> 2.2', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'therubyracer', '~> 0.12'
+# gem 'therubyracer', '~> 0.12'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
 
