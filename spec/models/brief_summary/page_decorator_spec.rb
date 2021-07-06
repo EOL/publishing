@@ -544,15 +544,33 @@ RSpec.describe('BriefSummary::PageDecorator') do
 
   describe '#landmark_children' do
     context 'when page.native_node is present' do
+      def build_child(has_page)
+        child_node = instance_double('Node')
+        page = has_page ? instance_double('Page') : nil
+
+        allow(child_node).to receive(:page) { page }
+
+        child_node
+      end
+
       let(:node) { instance_double('Node') }
-      let(:children) { instance_double('Array') }
+      let(:child1) { build_child(true) }
+      let(:child2) { build_child(true) }
+
+      let(:children) do
+        [
+          child1,
+          child2,
+          build_child(false)
+        ]
+      end
 
       before do 
         allow(page).to receive(:native_node) { node }
         allow(node).to receive(:landmark_children) { children }
       end
 
-      it { expect(decorator.landmark_children).to eq(children) }
+      it { expect(decorator.landmark_children).to eq([child1.page, child2.page]) }
     end
 
     context 'when page.native_node is not present' do

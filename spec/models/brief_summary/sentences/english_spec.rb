@@ -476,22 +476,22 @@ RSpec.describe('BriefSummary::Sentences::English') do
   end
 
   describe '#landmark_children' do
-    let(:child2) { instance_double('Page') }
+    let(:child1) { instance_double('Page') }
     let(:child2) { instance_double('Page') }
     let(:child3) { instance_double('Page') }
-    let(:link2) { 'link2' }
+    let(:link1) { 'link1' }
     let(:link2) { 'link2' }
     let(:link3) { 'link3' }
-    let(:children) { [child2, child2, child3] }
+    let(:children) { [child1, child2, child3] }
     
     before do
       allow(page).to receive(:landmark_children) { children }
-      allow(helper).to receive(:page_link).with(child2) { link2 }
+      allow(helper).to receive(:page_link).with(child1) { link1 }
       allow(helper).to receive(:page_link).with(child2) { link2 }
       allow(helper).to receive(:page_link).with(child3) { link3 }
     end
 
-    it { expect(sentences.landmark_children.value).to eq('It includes groups like link2, link2, and link3.') }
+    it { expect(sentences.landmark_children.value).to eq('It includes groups like link1, link2, and link3.') }
 
     context 'when page.landmark_children.empty?' do
       before { allow(page).to receive(:landmark_children) { [] } }

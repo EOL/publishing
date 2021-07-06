@@ -166,7 +166,9 @@ class BriefSummary
     end
 
     def landmark_children
-      @landmark_children ||= (@page.native_node&.landmark_children(LANDMARK_CHILD_LIMIT) || [])
+      @landmark_children ||= (@page.native_node&.landmark_children(LANDMARK_CHILD_LIMIT) || []).map do |node|
+        node.page
+      end.compact
     end
 
     def greatest_value_size_trait
