@@ -287,7 +287,7 @@ RSpec.describe('BriefSummary::PageDecorator') do
             end
 
             context "when it contains 'family'" do
-              let(:string) { 'fluffy and cute' }
+              let(:string) { 'rodent family' }
 
               it_behaves_like 'restricted word'
             end
