@@ -101,13 +101,13 @@ RSpec.describe('BriefSummary::Sentences::Helper') do
         let(:obj_term_name) { 'carnivore' }
 
         before do
-          allow(obj_term).to receive(:name) { obj_term_name }
+          allow(obj_term).to receive(:i18n_name) { obj_term_name }
           allow(trait).to receive(:predicate) { predicate }
           allow(trait).to receive(:object_term) { obj_term }
         end
 
         context 'when options[:pluralize] is true' do
-          it 'pluralizes object_term.name and returns the expected result' do
+          it 'pluralizes object_term.i18n_name and returns the expected result' do
             allow(tagger).to receive(:tag).with('carnivores', predicate, obj_term, nil) { '<tag>carnivores</tag>' }
 
             expect(helper.add_trait_val_to_fmt('They are %s', trait, pluralize: true)).to eq('They are <tag>carnivores</tag>')
@@ -223,8 +223,8 @@ RSpec.describe('BriefSummary::Sentences::Helper') do
       let(:traits) { [trait1, trait2, trait3] } 
 
       before do
-        allow(object_term1).to receive(:name) { object_name1 }
-        allow(object_term2).to receive(:name) { object_name2 }
+        allow(object_term1).to receive(:i18n_name) { object_name1 }
+        allow(object_term2).to receive(:i18n_name) { object_name2 }
         allow(trait1).to receive(:object_term) { object_term1 }
         allow(trait2).to receive(:object_term) { object_term2 }
         allow(trait3).to receive(:object_term) { nil }

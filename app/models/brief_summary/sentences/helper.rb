@@ -36,7 +36,7 @@ class BriefSummary
         if trait.object_page.present?
           add_obj_page_to_fmt(fstr, trait.object_page)
         elsif trait.predicate.present? && trait.object_term.present?
-          name = trait.object_term.name
+          name = trait.object_term.i18n_name
           name = name.pluralize if options[:pluralize]
 
           add_term_to_fmt(
@@ -58,7 +58,7 @@ class BriefSummary
 
         traits.map do |trait|
           if trait.object_term
-            @tagger.tag(trait.object_term.name, predicate, trait.object_term, nil)
+            @tagger.tag(trait.object_term.i18n_name, predicate, trait.object_term, nil)
           else
             trait.literal
           end
