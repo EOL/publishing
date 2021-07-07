@@ -4,7 +4,7 @@
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
-    - if summary.to_s.present? || @page.has_data?
+    - if summary.value.present? || @page.has_data?
       .desc
         - if summary.value.present?
           %p= summary.value.html_safe
