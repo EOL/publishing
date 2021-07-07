@@ -161,7 +161,6 @@ class BriefSummary
         trophic_part = @helper.add_trait_val_to_fmt("%s", trophic, pluralize: true) if trophic
 
         if begin_traits.any?
-
           begin_parts = begin_traits.collect do |t|
             @helper.add_trait_val_to_fmt("%s", t)
           end

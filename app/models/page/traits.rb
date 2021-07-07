@@ -28,7 +28,7 @@ class Page
       ) 
     end
 
-    def first_trait_for_object_terms(object_term, options = {})
+    def first_trait_for_object_term(object_term, options = {})
       first_trait_for_object_terms([object_term], options)
     end
 

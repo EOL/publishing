@@ -162,7 +162,7 @@ class BriefSummary
     end
 
     def first_trait_for_object_term(object_term, options = {})
-      @page.first_trait_for_object_terms(object_term, options)
+      @page.first_trait_for_object_term(object_term, options)
     end
 
     def landmark_children
