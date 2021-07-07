@@ -24,6 +24,10 @@ class Trait
 
   private_class_method :new # use for_eol_pks
 
+  def id
+    trait_node.id
+  end
+
   # TODO: can/should these be generalized?
   def resource
     @resource ||= @record_assocs.resource(@trait_node.resource&.resource_id)
@@ -40,6 +44,38 @@ class Trait
   # Not eager-loaded
   def inferred_pages
     @inferred_pages = Page.where(id: @trait_node.inferred_pages.map { |p| p.id })
+  end
+
+  def predicate
+    trait_node.predicate
+  end
+
+  def object_term
+    trait_node.object_term
+  end
+
+  def literal
+    trait_node.literal
+  end
+
+  def source
+    trait_node.source
+  end
+
+  def measurement
+    trait_node.measurement
+  end
+
+  def units_term
+    trait_node.units_term
+  end
+
+  def lifestage_term
+    trait_node.lifestage_term
+  end
+
+  def normal_measurement
+    trait_node.normal_measurement
   end
 
   class << self

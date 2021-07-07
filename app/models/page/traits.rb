@@ -28,6 +28,10 @@ class Page
       ) 
     end
 
+    def first_trait_for_object_term(object_term, options = {})
+      first_trait_for_object_terms([object_term], options)
+    end
+
     def first_trait_for_object_terms(object_terms, options = {})
       trait_match = options[:match_object_descendants] ? 
         "(trait)-[:object_term]->(:Term)-[#{PARENT_TERMS}]->(object_term:Term)" :

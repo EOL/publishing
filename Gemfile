@@ -10,8 +10,7 @@ gem 'mysql2', '0.5.3'
 gem 'mimemagic', '0.4.3'
 
 # "Internal" EOL gems:
-# gem 'eol_terms', '>= 0.9.16', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
-gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
+gem 'eol_terms', '>= 0.9.25', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
 # Asset-related gems next:
 gem 'webpacker', '~> 5.x'
@@ -148,6 +147,8 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov', '~> 0'
   gem 'solargraph', '~> 0'
+
+  gem 'rspec-rails', '~> 4.1.0'
 end
 
 group :development do
@@ -165,12 +166,3 @@ group :development do
   gem 'meta_request', '~> 0'
 end
 
-group :test do
-  gem 'rspec-rails', '~> 3'
-  gem 'better_errors', '~> 2'
-  gem 'capybara', '3'
-  gem 'factory_girl', '~> 4'
-  gem 'faker', '~> 2'
-  gem 'rack_session_access', '~> 0'
-  gem 'shoulda-matchers', '~> 4'
-end
