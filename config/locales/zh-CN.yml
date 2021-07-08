@@ -24,6 +24,7 @@
 # Author: Tiger
 # Author: VulpesVulpes825
 # Author: Xiaomingyan
+# Author: Xyb
 # Author: 列维劳德
 # Author: 沈澄心
 ---
@@ -66,6 +67,12 @@ zh-CN:
     types:
       scientific: 学名
       vernacular: 俗名
+  brief_summary:
+    extinction:
+      r_genus_html: 该属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_subgenus_html: 该亚属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_infragenus_html: 该次属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_superspecies_html: 该超级种群已<span class='%{class_str}' id='%{id}'>灭绝</span>。
   button_create: 创建
   button_add: 添加
   cancel: 取消
