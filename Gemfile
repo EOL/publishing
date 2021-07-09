@@ -13,7 +13,7 @@ gem 'mimemagic', '0.4.3'
 gem 'eol_terms', '>= 0.9.25', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
 # Asset-related gems next:
-gem 'webpacker', '~> 5.x'
+gem 'webpacker', '~> 6.x'
 
 # SASS
 # Sass is end-of-life. Update to sassc gem: https://github.com/sass/sassc-ruby#readme

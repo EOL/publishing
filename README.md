@@ -6,9 +6,11 @@ This repository contains rails code for the new version of EOL (TRAMEA).
 Status](https://coveralls.io/repos/github/EOL/eol_website/badge.svg?branch=master)](https://coveralls.io/github/EOL/eol_website?branch=master)
 [![Code Climate](https://codeclimate.com/github/EOL/eol_website/badges/gpa.svg)](https://codeclimate.com/github/EOL/eol_website)
 
-## Up and Running
+## Up and Running on OS X:
 
-You should install the following before proceeding:
+These instructions are very much out of date and are likely incomplete. If you
+happen to need to go through this process again, please help us update it!
+
 * MySQL or MariaDB
 * Neo4j
     * `brew install neo4j`
@@ -19,19 +21,17 @@ You should install the following before proceeding:
     * `rails runner "TraitBank::Admin.setup"`
 * ElasticSearch (`brew install elasticsearch`)
 
-Before getting far, you should install ElasticSearch:
+Install ElasticSearch:
 ```bash
 brew install elasticsearch   # Mac OS X
 sudo dpkg -i elasticsearch-[version].deb  # Ubuntu
 ```
 
-### OS X Details
-
-As of Jan 28th, in my own environment (Mojave), this was enough to get the code
-running:
-
 brew update && brew upgrade ruby-build
 brew install openssl
+brew install michael-simons/homebrew-seabolt/seabolt
+brew install node yarn
+
 Add the following to your ~/.bash_profile as needed:
 
   export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
