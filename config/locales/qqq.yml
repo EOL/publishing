@@ -9,6 +9,7 @@
 # Author: Shirayuki
 # Author: Umlaut
 # Author: Verdy p
+# Author: Xyb
 ---
 qqq:
   language_name: |-
@@ -20,6 +21,10 @@ qqq:
   breadcrumbs:
     notices:
       vernacular: https://www.webton.nl/blog/wat-zijn-breadcrumbs/
+  brief_summary:
+    taxonomy:
+      family_above:
+        r_superkingdom: "Domain is also named superkingdom. See also: \nhttps://en.wikipedia.org/wiki/Domain_(biology)"
   cancel: '{{Identical|Cancel}}'
   classifications:
     richness:
@@ -50,6 +55,9 @@ qqq:
     q2591230: Eigentlich Huni Kuin, siehe https://de.wikipedia.org/wiki/Huni_Kuin
   medium_header_description: '{{Identical|Description}}'
   pages:
+    resource_names:
+      rank:
+        r_superkingdom: "Domain is also named Superkingdom. See also: \nhttps://en.wikipedia.org/wiki/Domain_(biology)"
     iucn_status:
       cr: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
       en: https://nl.wikipedia.org/wiki/Rode_Lijst_van_de_IUCN
@@ -262,12 +270,12 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: Behavior related to the
           locomotion of animals in trees.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: A habitat in or on trees.
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: A thin, almost knife-like,
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: 'A thin, almost knife-like,
           ridge of rock which is typically formed when two glaciers erode parallel
           U-shaped valleys. The arte is a thin ridge of rock that is left separating
           the two valleys. Artes can also form when two glacial cirques erode towards
           one another, although frequently this results in a saddle-shaped  pass,
-          called a col.
+          called a col. See also: https://en.wikipedia.org/wiki/Ar%C3%AAte'
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: An arid condition is
           an environmental condition in which annual precipitation is less than half
           of annual potential evapotranspiration.

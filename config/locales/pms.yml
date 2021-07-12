@@ -80,6 +80,28 @@ pms:
         r_subdomain: '%{name1} a l''é un sot-domini ëd %{name2}.'
         r_infradomain: '%{name1} a l''é n''infra-domini ëd %{name2}.'
         r_superkingdom: '%{name1} a l''é un sùper-regn ëd %{name2}.'
+        r_kingdom: '%{name1} a l''é un regn ëd %{name2}.'
+        r_subkingdom: '%{name1} a l''é un sot-regn ëd %{name2}.'
+        r_infrakingdom: '%{name1} a l''é n''infra-regn ëd %{name2}.'
+        r_superphylum: '%{name1} a l''é un sùper-branch ëd %{name2}.'
+        r_phylum: '%{name1} a l''é un branch ëd %{name2}.'
+        r_subphylum: '%{name1} a l''é un sot-branch ëd %{name2}.'
+        r_infraphylum: '%{name1} a l''é n''infra-branch ëd %{name2}.'
+        r_superclass: '%{name1} a l''é na sùper-classa ëd %{name2}.'
+        r_class: '%{name1} a l''é na classa ëd %{name2}.'
+        r_subclass: '%{name1} a l''é na sot-classa ëd %{name2}.'
+        r_infraclass: '%{name1} a l''é n''infra-classa ëd %{name2}.'
+        r_superorder: '%{name1} a l''é un sùper-órdin ëd %{name2}.'
+        r_order: '%{name1} a l''é n''órdin ëd %{name2}.'
+        r_suborder: '%{name1} a l''é un sot-órdin ëd %{name2}.'
+        r_infraorder: '%{name1} a l''é n''infra-órdin ëd %{name2}.'
+        r_family: '%{name1} a l''é na famija ëd %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} a l''é na sot-famija ëd %{name2} ant la famija %{name3}.'
+          r_infrafamily: '%{name1} a l''é n''infra-famija ëd %{name2} ant la famija
+            %{name3}.'
+          r_tribe: '%{name1} a l''é na tribù ëd %{name2} ant la famija %{name3}.'
   button_create: creé
   button_add: gionté
   cancel: anulé
