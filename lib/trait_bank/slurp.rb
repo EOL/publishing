@@ -17,7 +17,12 @@ class TraitBank::Slurp
     repo = ContentServerConnection.new(@resource)
     repo.copy_file(@resource.traits_file, 'traits.tsv')
     repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
-    ResourceNode.find_or_create_by!(resource_id: @resource.id)
+    ResourceNode.create_if_missing(
+      @resource.id, 
+      @resource.name, 
+      @resource.description, 
+      @resource.repository_id
+    )
     load_csvs
     @resource.remove_traits_files
   end

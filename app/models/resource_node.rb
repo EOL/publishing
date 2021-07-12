@@ -4,10 +4,28 @@ class ResourceNode
   self.mapped_label_name = 'Resource'
 
   id_property :resource_id
+  property :name
+  property :description
+  property :repository_id, type: Integer
+
   validates :resource_id, numericality: { only_integer: true, greater_than: 0 }
   before_save :ensure_int_resource_id
 
   has_one :in, :trait, type: :supplier, model_class: :Trait
+
+  class << self
+    def create_if_missing(id, name, description, repository_id)
+      existing = ResourceNode.find_by(resource_id: id)
+      return existing unless existing.nil?
+
+      ResourceNode.create!(
+        resource_id: id,
+        name: name,
+        description: description,
+        repository_id: repository_id
+      )
+    end
+  end
 
   def resource
     Resource.find(id)
