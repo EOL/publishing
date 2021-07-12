@@ -24,6 +24,7 @@
 # Author: Tiger
 # Author: VulpesVulpes825
 # Author: Xiaomingyan
+# Author: Xyb
 # Author: 列维劳德
 # Author: 沈澄心
 ---
@@ -31,8 +32,8 @@ zh-CN:
   language_name: 简体中文
   about:
     trait_bank:
-      title: TraitBank
-      body_html: <p>EOL的技术和数据管理团队将EOL的结构化数据资源（性状及其他属性数据、生态相互作用、我们的本地分类、动态工作层级）统称为TraitBank。其内容的管理方式与我们的“经典”内容（图像、视频，音频及描述性文本）有所不同，其用途亦不相同。</p><p>TraitBank比EOL的其他部分更加年轻。构想源于Species
+      title: 特性库
+      body_html: <p>EOL的技术和数据管理团队将EOL的结构化数据资源（性状及其他属性数据、生态相互作用、我们的本地分类、动态工作层级）统称为特性库（TraitBank）。其内容的管理方式与我们的“经典”内容（图像、视频，音频及描述性文本）有所不同，其用途亦不相同。</p><p>特性库比EOL的其他部分更加年轻。构想源于Species
         Pages Group总监Cynthia Parr，并于2014年1月在EOL v2中上线。从那时起，结构化数据一直是内容开发的首要任务。</p><p>现在，您可以透过结构化数据<a
         href='%{example_search_path}'>搜索</a>或浏览EOL，或下载, 亦或您在我们新的概览页阅读<a href='%{autogen_page_path}'>自动生成的文本</a>的方式邂逅它。如同其他EOL内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是用<a
         href='%{neo4j_url}'>neo4j</a>中的<a href='%{property_graph_url}'>属性图</a>建模的。
@@ -53,7 +54,7 @@ zh-CN:
     name:
       missing: 无标题
   article_from_partner: 由%{partner}提供
-  article_duplicate: 此文章同时显示在“%{section}”
+  article_duplicate: 本文同时显示在“%{section}”
   autocomplete:
     see_all:
       one: 见其他结果
@@ -66,6 +67,72 @@ zh-CN:
     types:
       scientific: 学名
       vernacular: 俗名
+  brief_summary:
+    extinction:
+      r_genus_html: 该属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_subgenus_html: 该亚属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_infragenus_html: 该下属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_superspecies_html: 该超级物种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_species_html: 该物种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_subspecies_html: 该亚种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_infraspecies_html: 该下种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_form_html: 该型已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+    fix_nitrogen_html: 它们<span class='%{class_str}' id='%{predicate_id}'>固</span><span
+      class='%{class_str}' id='%{object_id}'>氮</span>。
+    freshwater_html: 它们与<span class='%{class_str}' id='%{id}'>淡水栖息地有关</span>。
+    marine_html: 它们发现于<span class='%{class_str}' id='%{id}'>海洋栖息地</span>。
+    species: '%{name1}是%{name2}的一个物种。'
+    species_in_family: '%{name1}是科%{name_family}中%{name2}的一个物种。'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1}是%{name2}的一个超科。'
+        r_domain: '%{name1}是%{name2}的一个域。'
+        r_subdomain: '%{name1}是%{name2}的一个亚域。'
+        r_infradomain: '%{name1}是%{name2}的一个下域。'
+        r_superkingdom: '%{name1}是%{name2}的一个域。'
+        r_kingdom: '%{name1}是%{name2}的一个界。'
+        r_subkingdom: '%{name1}是%{name2}的一个亚界。'
+        r_infrakingdom: '%{name1}是%{name2}的一个下界。'
+        r_superphylum: '%{name1}是%{name2}的一个超门。'
+        r_phylum: '%{name1}是%{name2}的一个门。'
+        r_subphylum: '%{name1}是%{name2}的一个亚门。'
+        r_infraphylum: '%{name1}是%{name2}的一个下门。'
+        r_superclass: '%{name1}是%{name2}的一个超纲。'
+        r_class: '%{name1}是%{name2}的一个纲。'
+        r_subclass: '%{name1}是%{name2}的一个亚纲。'
+        r_infraclass: '%{name1}是%{name2}的一个下纲。'
+        r_superorder: '%{name1}是%{name2}的一个超目。'
+        r_order: '%{name1}是%{name2}的一个目。'
+        r_suborder: '%{name1}是%{name2}的一个亚目。'
+        r_infraorder: '%{name1}是%{name2}的一个下目。'
+        r_family: '%{name1}是%{name2}的一个科。'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1}是科%{name3}中%{name2}的一个亚科。'
+          r_infrafamily: '%{name1}是科%{name3}中%{name2}的一个下科。'
+          r_tribe: '%{name1}是科%{name3}中%{name2}的一个族。'
+          r_supergenus: '%{name1}是科%{name3}中%{name2}的一个超属。'
+          r_genus: '%{name1}是科%{name3}中%{name2}的一个属。'
+          r_subgenus: '%{name1}是科%{name3}中%{name2}的一个亚属。'
+          r_infragenus: '%{name1}是科%{name3}中%{name2}的一个下属。'
+          r_superspecies: '%{name1}是科%{name3}中%{name2}的一个超种。'
+          r_species: '%{name1}是科%{name3}中%{name2}的一个物种。'
+          r_subspecies: '%{name1}是科%{name3}中%{name2}的一个亚种。'
+          r_infraspecies: '%{name1}是科%{name3}中%{name2}的一个下物种。'
+          r_form: '%{name1}是科%{name3}中%{name2}的一个型。'
+        without_family:
+          r_subfamily: '%{name1}是%{name2}的一个亚科。'
+          r_infrafamily: '%{name1}是%{name2}的一个下科。'
+          r_tribe: '%{name1}是%{name2}的一个族。'
+          r_supergenus: '%{name1}是%{name2}的一个超属。'
+          r_genus: '%{name1}是%{name2}的一个属。'
+          r_subgenus: '%{name1}是%{name2}的一个亚属。'
+          r_infragenus: '%{name1}是%{name2}的一个下属。'
+          r_superspecies: '%{name1}是%{name2}的一个超种。'
+          r_species: '%{name1}是%{name2}的一个物种。'
+          r_subspecies: '%{name1}是%{name2}的一个亚种。'
+          r_infraspecies: '%{name1}是%{name2}的一个下物种。'
+          r_form: '%{name1}是%{name2}的一个型。'
   button_create: 创建
   button_add: 添加
   cancel: 取消
@@ -88,7 +155,7 @@ zh-CN:
       header: 页面丰富度
       score: 丰富度得分
       page_contents_count: 相关内容
-      missing: 本页物种的丰富与否尚待计算。
+      missing: 本页丰富度尚待计算。
       media_count: 媒体
       articles_count: 文章
       links_count: 链接
@@ -102,36 +169,36 @@ zh-CN:
       updated_at: 最后更新
   collect_already_in_collection: （这已在此）
   collect_already_in_collection_will_add_icon: （向“%{page}”添加媒体）
-  collect_icon_title: 添加此%{page}页上的%{item}在...
+  collect_icon_title: 从“%{page}”页面添加“%{item}”到...
   collect_new_collection: 新收集名称
-  collect_new_collection_title: 一个新的收集
+  collect_new_collection_title: '...一个新的收集'
   collect_no_existing_collections: 您还没有任何内容！用左边的表格创建您的内容。
-  collect_select_collection: 您的收集之一
+  collect_select_collection: '...您的收集之一'
   collect_title: 添加%{item}到...
   collected_page_added_to_collection: 添加%{page}到收集<a href='%{link}'>%{name}</a>。
   collected_page_already_in_collection: 这已在您的收集中。
   collected_pages_title: 页面
   collected_pages_medium:
-    destroyed_flash: 图像已从收集页中删除
+    destroyed_flash: 图像已从收集页中删除。
   collection_associations:
-    destroyed_flash: '%{name}不再与此收集相关'
+    destroyed_flash: '%{name}不再与此收集关联。'
   collected_pages:
     delete_button: 删除
     edit_button: 编辑
     delete_confirm: 您确定吗？
-    destroyed_flash: '%{name}从此收集中删除。'
-  collection_association_added_to_collection: 添加“%{associated}”到收集<a href='%{link}'>"%{name}"</a>。
+    destroyed_flash: '%{name}已从收集中删除。'
+  collection_association_added_to_collection: “%{associated}”已添加到收集<a href='%{link}'>"%{name}"</a>。
   collection_associations_empty: 没有其他收集与此相关联。您可以点击其他收集上的“关联”按钮以将它们显示在此处。
   collection_associations_title: 相关收集
-  collection_collected_pages_media_remove: 从收集中删除图像（更改内容立刻生效）：
-  collection_created: 创建新的收集"%{name}"。
+  collection_collected_pages_media_remove: 从收集中删除图像（更改立即生效）：
+  collection_created: 已创建新的收集"%{name}"。
   collection_created_for_association: 已将 "%{associated}" 加入新收集 <a href='%{link}'>"%{name}"</a>。
   collection_user_is_admin: 此用户是管理员。
-  collection_pages_empty: 此收集尚未有页面。可点击物种页的“收集”按钮添加一些项目。
+  collection_pages_empty: 此收集尚未包含页面。可点击物种页的“收集”按钮添加一些项目。
   collection:
     admins:
-      header: 可编辑此收集的用户（更改内容立刻生效）
-      label: 添加可编辑此收集的用户
+      header: 可编辑此收集的用户（更改立即生效）
+      label: 添加可编辑此收集的用户：
       placeholder: 全名或用户名
     actions:
       associate: 关联
@@ -142,7 +209,7 @@ zh-CN:
     collection_type:
       normal: 标准
       gallery: 图库
-    delete_confirm: 这将删除所有收集并无法取消。你确定吗？
+    delete_confirm: 这将删除整个收集，且无法撤消。您确定吗？
     destroyed: '"%{name}"已被永久删除。'
     pages_count:
       one: 1页
@@ -152,7 +219,7 @@ zh-CN:
         add: '%{user}已添加一个关联到收集%{associated}'
         remove: '%{user}已删除到收集%{associated}的关联'
       collection:
-        add: '%{user}创建此收集'
+        add: '%{user}创建了收集'
         change: '%{user}将%{field}从"%{from}"改为"%{to}"'
       content:
         add: '%{user}已在页面%{page}上添加媒体%{medium}'
@@ -166,19 +233,19 @@ zh-CN:
         add: '%{user}添加了管理员%{manager}'
         remove: '%{user}删除了管理员%{manager}'
     search:
-      placeholder: 在收集中搜索
+      placeholder: 在收集中搜索...
       submit: 搜索
     sort:
       hierarchy: 等级
-      position: 已添加注释
+      position: 已添加日期
       sci_name: 学名, A-Z
       sci_name_rev: 学名，Z-A
       sort_field: 评注，A-Z
       sort_field_rev: 评注，Z-A
     updated: 收集已更新。
-  collection_unauthorized_edit: 有读写权限的用户可以编辑此收集。
-  complete_registration: 请继续完成你的注册
-  content_appears_on: 包含在下列页面：
+  collection_unauthorized_edit: 只有所有者可以编辑此收集。
+  complete_registration: 请继续完成您的注册
+  content_appears_on: 包含在以下页面中：
   content_collected_in: 特别刊登在下列收集中：
   content_attributions_header: 来源信息
   content_attributions_labels:
@@ -210,7 +277,7 @@ zh-CN:
     spatial_location: 立体
     view_source_label: 原文
     view_source_link: 查看原始图片
-    view_source_page_link: 查看来源
+    view_source_page_link: 访问来源
   content_not_in_any_collection_image: 此图像不在任何收集中。
   content_not_in_any_collection_sound: 此声音不在任何收集中。
   content_not_in_any_collection_video: 此视频不在任何收集中。
@@ -219,7 +286,7 @@ zh-CN:
       sex_term: 测量了生物体的性别
       lifestage_term: 测量了生物体的生命周期
       statistical_method_term: 用于测量的统计方法
-  data_missing: '（数据不全，keys: %{keys}）'
+  data_missing: '（缺少数据，keys: %{keys}）'
   dear_username_with_comma: 尊敬的%{username}：
   delete_account_button: 删除您的账户
   filter_by_license: 许可协议
@@ -246,41 +313,41 @@ zh-CN:
       terms_of_use: 使用条款
       the_eol_forum: EOL论坛
       what_is_eol: EOL是什么？
-      whats_new: 最新消息？
+      whats_new: 最新消息
     discover:
       algae: 藻类
-      amphibians: 两栖类
+      amphibians: 两栖动物
       animals: 动物
       archaea: 古生菌
       bacteria: 细菌
       birds: 鸟类
-      crustaceans: 甲壳类
-      fishes: 鱼类
+      crustaceans: 甲壳动物
+      fishes: 鱼
       flowering_plants: 开花植物
       fungi: 真菌
       insects: 昆虫
       invertebrates: 无脊椎动物
-      mammals: 哺乳类
+      mammals: 哺乳动物
       molds: 霉菌
       mushrooms: 蘑菇
       mollusks: 软体动物
       plants: 植物
       protists: 原生生物
-      reptiles: 爬行类
+      reptiles: 爬行动物
       spiders: 蜘蛛
-      trees: 乔木
+      trees: 树
       viruses: 病毒
-      worms: 蠕虫类
+      worms: 蠕虫
     eol_is_hosted_by: EOL的主办方是：
-  forgot_your_password: 忘记您的密码？
+  forgot_your_password: 忘记密码了？
   gbif_download:
-    created: 已创建GBIF下载作业。检查您的<a href="%{url}">用户个人资料页面</a>以查看其状态
+    created: 已创建GBIF下载任务。检查您的<a href="%{url}">用户个人资料页面</a>以查看其状态
   landing_page:
-    header: 为全世界提供地球生命的知识
+    header: 为全世界提供有关地球生命的知识
     stats_cleared: 统计数据已重新计算。
   language: 语言
   languages:
-    ab: 阿布哈西亚语
+    ab: 阿布哈兹语
     q27683: 亚齐语
     q27776: 阿迪格语
     aa: 阿法尔语
@@ -310,9 +377,9 @@ zh-CN:
     be: 白俄罗斯语
     q8836490: 本德语
     bn: 孟加拉语
-    bh: 比哈文
+    bh: 比哈里语言
     bi: 比斯拉马语
-    nb: ' 博克马尔语；书面挪威语'
+    nb: 博克马尔，挪威语；书面挪威语
     q4941378: 邦代伊语
     bs: 波斯尼亚语
     q33202: 布拉灰语
@@ -321,19 +388,20 @@ zh-CN:
     bg: 保加利亚语
     my: 缅甸语
     q33120: 布里亚特语
-    q880301: 卡真法语
+    q35037: 布西嫩格通戈语
+    q880301: 卡津法语
     q35156: 卡尔尼科巴语
-    q2591230: Cashinahua
+    q2591230: 卡西纳瓦
     ca: 加泰罗尼亚语；瓦伦西亚语
-    q33239: 宿务语
+    q33239: 宿雾语
     khm: 中部高棉语
     km: 中部高棉语
     ch: 查莫罗语
-    q33281: 查瓦坎语
+    q33281: 查瓦卡诺语
     ce: 车臣语
     q33388: 切诺基语
     q33265: 夏延语
-    ny: 齐佩瓦语
+    ny: 奇切瓦语；切瓦语；尼安加语
     zh: 汉语
     chi: 汉语
     q32979: 乔克托语
@@ -342,20 +410,21 @@ zh-CN:
     q37041: 文言
     kw: 康沃尔语
     co: 科西嘉语
-    cr: 克里族
-    q33357: 克里木鞑靼语
+    cr: 克里语
+    q33357: 克里米亚鞑靼语
     hr: 克罗地亚语
     hrv: 克罗地亚语
     cs: 捷克语
     da: 丹麦语
+    q3362072: 迪戈语
     q56466: 丁卡语
     dv: 马尔代夫语
-    q18415595: 都特利语
+    q18415595: 多蒂亚利语
     dut: 荷兰语；弗莱芒语
     nl: 荷兰语；弗莱芒语
     dz: 宗卡语
     dzo: 宗卡语
-    q4126517: 东加拿大的因纽特语
+    q4126517: 东加拿大因纽特语
     en: 英语
     q29952: 叶尔贾语
     eo: 世界语
@@ -366,19 +435,21 @@ zh-CN:
     fj: 斐济语
     fi: 芬兰语
     fin: 芬兰语
+    q667747: 菲帕语
     fr: 法语
     fra: 法语
-    ff: 富啦语
-    gd: 苏格兰盖立语
+    ff: 富拉语
+    gd: 苏格兰盖尔语
     gl: 加利西亚语
     q33475: 赣语
-    lg: 干达语
+    lg: 甘达语
     ka: 格鲁吉亚语
     de: 德语
     deu: 德语
-    q5575236: 果阿的孔卡尼语
-    q2501174: 哥伦打洛语
-    el: 现代希腊语
+    q5575236: 果安康卡尼语
+    q3272630: 勾勾语
+    q2501174: 戈龙塔洛语
+    el: 希腊语，现代（1453-）
     gre: 希腊语
     gn: 瓜拉尼语
     gu: 古吉拉特语
@@ -427,6 +498,7 @@ zh-CN:
     kk: 哈萨克语
     ki: 吉库尤语
     q11005332: 金加语
+    q11732519: 金恩多语
     rw: 卢旺达
     ky: 吉尔吉斯语
     kv: 科米语
@@ -469,8 +541,11 @@ zh-CN:
     mi: 毛利语
     mr: 马拉塔语
     mh: 马绍尔语
+    q6786446: 马腾戈语
     q3906614: 平地马里语
+    q13358: 梅格莱诺罗马尼亚语
     q13313: 须弥
+    q13321: 密克马克语
     q36455: 闽东语
     q13324: 米南卡堡语
     q13359: 明格里利亚语
@@ -480,6 +555,7 @@ zh-CN:
     q56426: 摩洛哥的阿拉伯语
     q6944725: 位于坦桑尼亚、乌干达的姆韦拉
     q13300: 纳瓦特尔语
+    q3508074: 奈语
     na: 瑙鲁语
     nv: 納瓦霍语
     nd: 北恩德贝勒语
@@ -487,6 +563,7 @@ zh-CN:
     ng: 恩东加语
     q33845: 那不勒斯语
     ne: 尼泊尔语
+    q7022366: 宁多语
     q28224: 北弗里斯兰语
     q19933293: 北卢里语
     se: 北萨米语
@@ -496,7 +573,9 @@ zh-CN:
     nor: 挪威语
     nn: 新挪威语
     q36738: 诺维亚语
+    q3272620: 尼亚库萨语
     q4121131: 尼扬韦齐语
+    q7193418: 尼亚图鲁语
     q11128374: 尼卡语
     q16115145: 尼卡语
     oc: 奥克西唐语（后 1500）
@@ -507,6 +586,7 @@ zh-CN:
     os: 奥塞迪语
     pi: 马里
     pa: 旁遮普语
+    q36403: 帕尔语
     fa: 波斯语
     q23014: 法耳次语
     q34024: 庇卡底语
@@ -659,7 +739,7 @@ zh-CN:
     search:
       no_results_html: <strong>没有确认的结果</strong><br />按回车键查看未策划的结果。
       placeholder: 搜索EOL ...
-    trait_bank: TraitBank
+    trait_bank: 特性库
   name_preferred_label: 首选
   page_icon_counts:
     header:
@@ -679,7 +759,7 @@ zh-CN:
       reindex: 重新索引
     batch_lookup:
       header: 批量页面查找
-      canonical_name: 正名
+      canonical_name: 规范名称
       download_tsv: 下载TSV
       match: 匹配
       new_search: 新搜索
@@ -693,19 +773,19 @@ zh-CN:
         one: 'EOL有<a href="%{data_path}">一个属性</a>数据:'
         other: EOL有<a href="%{data_path}">%{count}个属性</a>数据，包括：
       eol_has_data_for_n_attributes_html:
-        one: 'EOL有<a href="%{data_path}">一个属性</a>数据:'
-        other: EOL有<a href="%{data_path}">%{count}个属性</a>数据，包括：
+        one: EOL有<a href="%{data_path}">一个属性</a>的数据。
+        other: EOL有<a href="%{data_path}">%{count}个属性</a>的数据。
     filter_menu:
-      show_all: 全部显示
+      show_all: 显示全部
     page_data:
-      habitat_wordcloud_tooltip: 我们的栖息地记录大部分是文本挖掘的，所以许多术语会找到多次；常见的栖息地术语-在词云中显示得更大-有可能更重要。所有的记录列示如下。
+      habitat_wordcloud_tooltip: 我们的栖息地记录主要是通过文本挖掘的，因此许多术语被多次发现；更常见的栖息地术语-在词云中显示得更大-更可能是重要的。所有记录列示如下。
       n_hidden_show_all:
-        one: 1个“%{pred_name}”的记录隐藏—显示所有
-        other: '%{count}个“%{pred_name}的记录隐藏—显示所有'
+        one: 1个“%{pred_name}”的记录隐藏—显示全部
+        other: '%{count}个“%{pred_name}的记录隐藏—显示全部'
       n_hidden_show_all_noname:
-        one: 一个隐藏的记录-显示所有
-        other: '%{count}个隐藏的记录-显示所有'
-      show_all: 全部显示
+        one: 一个隐藏的记录-显示全部
+        other: '%{count}个隐藏的记录-显示全部'
+      show_all: 显示全部
     resource_names:
       name_recognized_by: 由%{by}验证
       name_recognized_by_w_rank: '%{rank}由%{by}验证'
@@ -714,7 +794,7 @@ zh-CN:
         r_domain: 域
         r_subdomain: 亚域
         r_infradomain: 下域
-        r_superkingdom: 超界
+        r_superkingdom: 域
         r_kingdom: 界
         r_subkingdom: 亚界
         r_infrakingdom: 下界
@@ -743,7 +823,7 @@ zh-CN:
         r_species: 种
         r_subspecies: 亚种
         r_infraspecies: 种下
-        r_form: 变型
+        r_form: 型
       reference_taxon_attrib: 来自%{dataset_name}的参考分类群
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
@@ -755,7 +835,7 @@ zh-CN:
       predator: 捕食者
       prey: 被捕食者
       reset: 重置
-      trophic_web_about: EOL食物网图侧重于一个物种的摄食关系；它们显示焦点物种及其被其捕食的物种（猎物），以其为食的物种（捕食者）和以相同的猎物为食的其他物种（潜在竞争者）。点击以了解更多信息。
+      trophic_web_about: EOL食物网图侧重于一个物种的摄食关系；它们显示焦点物种及被其捕食的物种（猎物），以其为食的物种（捕食者）和以相同的猎物为食的其他物种（潜在竞争者）。点击以了解更多信息。
       trophic_web_title_html: 取食网 <a href='%{about_path}'><sup><span class='a' uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: 此页面的缓存已被清除。重新加载以查看新值。请注意，目前，这*不会*重新索引页面上的图像。该功能将在未来实施。
@@ -791,7 +871,7 @@ zh-CN:
       names: '%{page_name}的名称'
       articles: '%{page_name}的文章'
     traits:
-      search: 性状搜索
+      search: 特性搜索
   rank:
     name:
       r_domain: 域
@@ -826,12 +906,12 @@ zh-CN:
       r_species: 种
       r_subspecies: 亚种
       r_infraspecies: 种下
-      r_form: 变型
+      r_form: 型
   recaptcha: 验证码
   recaptcha_error: 请告诉我们你不是机器人。
   reconciliation:
     id_space:
-      intro: Reconciliation API返回的每个实体标识符都是该实体在EOL上一般表示的URL路径一部分，因此可以将给定的id替换为https://eol.org/<id>，以为其生成有效的url实体。下面概述了每种类型标识符的格式。
+      intro: 核对API返回的每个实体标识符是该实体在EOL上的一般表示的URL路径部分，这样，一个给定的id可以被替换为https://eol.org/<id>，以产生其实体的有效url。每种类型的标识符的格式概述如下。
       headers:
         type_id: 类型ID
         type_name: 类型名称
@@ -847,39 +927,39 @@ zh-CN:
         ancestor: 祖先
         rank: 等级
     schema_space:
-      intro: Reconciliation API服务使用的属性集合如下所述。
+      intro: 核对API服务所使用的属性集合描述如下。
       headers:
         id: ID
         name: 名称
         description: 描述
-  reference_compiled_from: 被%{links}参考
+  reference_compiled_from: 被%{links}引用
   reference_compiled_from_article: 名为%{name}的%{source}文章
   register_new_account: 注册新账户
   resources:
     actions:
-      import_traits: 导入性状（来自存储库）
+      import_traits: 导入特性（来自存储库）
       republish: 再版
       reindex: 重新索引
       fix_no_names: 修复NO NAMEs
       index: 回到所有资源
       show_all:
-        other: 显示所有(%{count})
+        other: 显示所有（%{count}）
       show_warns:
-        one: 显示警告(%{count})
-        other: 显示警告(%{count})
+        one: 显示警告（%{count}）
+        other: 显示警告（%{count}）
       clear_publishing: 解除锁定
-      clear_publishing_confirm: 这将“完成”所有发布，如果在主动发布时使用，可能会导致问题。你确定吗？
+      clear_publishing_confirm: 这将“完成”所有发布，如果在发布很活跃时使用，可能会导致问题。你确定吗？
     headers:
       index: 资源
       import_log: '%{resource}的导入日志'
     index:
       locked_jobs:
-        zero: 没有正在运行的作
-        one: 1 个正在运行的作业
-        other: '%{count}个正在运行的作业'
+        zero: 没有正在运行的任务
+        one: 1个正在运行的任务
+        other: '%{count}个正在运行的任务'
       jobs:
-        zero: 没有待处理的作业
-        one: 一个待处理的作业
+        zero: 没有待处理的任务
+        one: 1个待处理的任务
         other: '%{count}个待处理的作业'
       harvest_jobs:
         zero: 没有可发布的
@@ -963,8 +1043,8 @@ zh-CN:
         one: 匹配同物异名：
         other: 匹配同物异名：
       vernaculars:
-        one: '匹配俗名:'
-        other: 匹配俗名
+        one: 匹配俗名：
+        other: 匹配俗名：
     section_titles:
       collections:
         one: '%{count}个收集'
@@ -976,11 +1056,11 @@ zh-CN:
         one: '%{count}个EOL网页（物种）'
         other: '%{count}个EOL网页（物种)'
       object_terms:
-        one: '%{count}个数据记录值 (TraitBank)'
-        other: '%{count}个数据记录值(TraitBank)'
+        one: '%{count}个数据记录值（特性库）'
+        other: '%{count}个数据记录值（特性库）'
       predicates:
-        one: '%{count}个数据记录类别(TraitBank)'
-        other: '%{count}个数据记录类别(TraitBank)'
+        one: '%{count}个数据记录类别（特性库）'
+        other: '%{count}个数据记录类别（特性库）'
       users:
         one: '%{count}个用户'
         other: '%{count}个用户'
@@ -1000,7 +1080,7 @@ zh-CN:
     actions:
       create: 创建一个新的搜索建议
     created: 为%{match}创建一个搜索建议
-    destroyed: 去除“%{match}”的搜索建议
+    destroyed: 已去除“%{match}”的搜索建议
     new:
       header: 创建一个搜索建议
     update:
@@ -1076,9 +1156,9 @@ zh-CN:
         bio: 个人简介
       search_suggestion:
         match: 要匹配的搜索字符串
-        page_id: 要重定向到（或过滤方式）的EOL页面ID
+        page_id: 要重定向到（或过滤）的EOL页面ID
         synonym_of_id: 要改用的搜索建议ID (!)
-        object_term: 要重定向到（或过滤方式）的URI
+        object_term: 要重定向到（或过滤）的URI
         path: 要重定向到的路径（完整或相对）
         wkt_string: 传递给Effechecka的WKT字符串
   stats:
@@ -1116,7 +1196,7 @@ zh-CN:
     source: 来源
     uri_field_html: <strong>URI：</strong>%{uri}
     index:
-      select_page_above: 选择上面的页面开始。
+      select_page_above: 选择上面的一个页面来开始。
   data_definition: “%{data}”的定义
   traits:
     data_viz:
@@ -1144,7 +1224,7 @@ zh-CN:
       num_records_label: 记录数
       other: 其他
       page_habitat_header: '%{name}的栖息地'
-      page_habitat_explanation: 已知许多%{name}物种的生活环境。选择一种环境查看%{name}的物种清单。
+      page_habitat_explanation: 许多%{name}物种已知的生活环境。选择一种环境，查看%{name}的物种清单。
       pie_prompt: 将鼠标悬停在字段或键上以突出显示
       show_n_family_records:
         one: 点击查看%{family}科中分类群的1条记录
@@ -1231,10 +1311,10 @@ zh-CN:
       sex: 性别
       show_additional_fields: 显示附加字段
       statistical_method: 统计方法
-      target_group: 目标类群（比如，鲑鱼)
+      target_group: 目标类群（比如，鲑鱼）
       taxa_matching_all: 匹配所有过滤器的分类群
       this_may_take_a_minute: 这可能需要一分钟
-      trait_filter: 性状过滤器
+      trait_filter: 特性过滤器
       value: 值
       value_eg: 值（比如：草食动物）
   trophic_web:
@@ -1274,10 +1354,10 @@ zh-CN:
     showing_n_power_users:
       one: 列出一名高级用户
       other: 列出%{count}名高级用户
-    trait_bank_cypher_form: 特征库密码表
+    trait_bank_cypher_form: 特性库密码表
     username: 用户名
     update: 更新
-    update_email: 更新邮件信息
+    update_email: 更新邮箱信息
   user_download:
     created: 您的文件将在后台处理。检查您的<a href="%{url}">用户页面</a>以查看它是否已完成。
     have_pending: 您已经有该查询的待处理下载。检查您的<a href="%{url}">用户页面</a>以查看它是否已完成。
@@ -1286,7 +1366,7 @@ zh-CN:
     account_migration_notice: 您的帐户信息，包括用户名、关联的电子邮件、个人资料描述和拥有的收集，已导入到新的EOL中。您的用户名仍然是您在网站上的显示名称，但您现在必须使用您的电子邮件地址登录。出于安全原因，我们无法迁移您的密码；抱歉打扰了。您将能够使用忘记密码过程重置它。如果您仅使用第三方提供商（Google、Twitter或Facebook）登录，请耐心等待；我们正在解决共享登录过程的一些问题。
     sign_in: 登录
   vernacular_names_header: 俗名
-  vernacular_preferred_by_resource: '%{resource}(首选名称)'
+  vernacular_preferred_by_resource: '%{resource}（首选名称）'
   wordcloud_credit_html: 使用<a href='%{url}'>jQCloud</a>生成
   i18n_js:
     traits:
@@ -1306,7 +1386,7 @@ zh-CN:
       attribution: 署名：
       comment: 注解：
       sections: 章节：
-      is_hidden_from_glossary: '从术语表中隐藏:'
+      is_hidden_from_glossary: 从术语表中隐藏：
       is_hidden_from_overview: 从概览页隐藏：
     glossary:
       full_title: EOL数据的所有术语词汇表
@@ -1340,8 +1420,8 @@ zh-CN:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/月'
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: 阿林期
-        https://eol(dot)org/schema/terms/abnormal_habitat_choice: 生境选择异常
-        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: 异常运动行为
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: 栖息地选择异常
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: 运动行为异常
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: 丰度
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: 深海区
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: 远洋深海带
@@ -1376,7 +1456,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: 阿尔布期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: 碱性环境
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: 碱性洼地
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: 碱性生境
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: 碱性栖息地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: 碱性温泉
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: 同种异型
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: 同种异型
@@ -1430,7 +1510,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: 可耕土壤
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: 霰石
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: 树栖（运动形式）
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: 林木栖所
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: 树栖栖息地
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: 太古宙
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 面积
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: 刃脊
@@ -1498,7 +1578,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 体重
         http://eol(dot)org/schema/terms/BodyShape: 体型
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: 体温
-        http://eol(dot)org/schema/terms/BodyVolume: 个体大小
+        http://eol(dot)org/schema/terms/BodyVolume: 体容积
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 体宽
         https://eol(dot)org/schema/terms/body_caudal_fin: 体干/尾鳍推进
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003097: 钻孔水
@@ -1535,7 +1615,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: 钙质软泥
         http://eol(dot)org/schema/terms/CalcareousSoilTolerance: 钙质土壤耐受性
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: 方解石
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: 钙(ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: 钙（ca）
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: 碳酸钙
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: 磷酸钙
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: 硫酸钙
@@ -1633,9 +1713,9 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: 沿海灌木丛
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: 近岸海域
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000230: 滨海湿地
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: 卵石
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: 鹅卵石
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: 鹅卵石沉积物
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: 椰子园
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: 椰子种植园
         http://purl(dot)obolibrary(dot)org/obo/STATO_0000236: 变异系数
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: 咖啡种植园
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: 卷绕
@@ -1656,9 +1736,9 @@ zh-CN:
         http://eol(dot)org/schema/terms/conservationDependent: 依赖保护
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: 保护管理流程
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: 保护现状
-        http://eol(dot)org/schema/terms/contaminatedHabitat: 受污染生境
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: 沾污沉积物
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: 污染土壤
+        http://eol(dot)org/schema/terms/contaminatedHabitat: 受污染栖息地
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: 受污染沉积物
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: 受污染土壤
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: 陆边岛
         http://eol(dot)org/schema/terms/copepodid3: 第3桡足幼体期
         http://eol(dot)org/schema/terms/copepodid4: 第4桡足幼体期

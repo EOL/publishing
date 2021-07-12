@@ -63,6 +63,79 @@ fr:
     types:
       scientific: scientifique
       vernacular: vernaculaire
+  brief_summary:
+    extinction:
+      r_genus_html: Ce genre est <span class='%{class_str}' id='%{id}'>éteint</span>.
+      r_subgenus_html: Ce sous-genre est <span class='%{class_str}' id='%{id}'>éteint</span>.
+      r_infragenus_html: Cet infra-genre est <span class='%{class_str}' id='%{id}'>éteint</span>.
+      r_superspecies_html: Cette super-espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
+      r_species_html: Cette espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
+      r_subspecies_html: Cette sous-espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
+      r_infraspecies_html: Cette infra-espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
+      r_form_html: Cette forme est <span class='%{class_str}' id='%{id}'>éteinte</span>.
+    fix_nitrogen_html: Ils <span class='%{class_str}' id='%{predicate_id}'>fixent</span>
+      <span class='%{class_str}' id='%{object_id}'>l’azote</span>.
+    freshwater_html: Ils sont associés avec <span class='%{class_str}' id='%{id}'>un
+      habitat en eau douce</span>.
+    marine_html: Ils sont trouvés dans <span class='%{class_str}' id='%{id}'>un habitat
+      marin</span>.
+    species: '%{name1} est une espèce de %{name2}.'
+    species_in_family: '%{name1} est une espèce de %{name2} dans la famille %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} est une super-famille de %{name2}.'
+        r_domain: '%{name1} est un domaine de %{name2}.'
+        r_subdomain: '%{name1} est un sous-domaine de %{name2}.'
+        r_infradomain: '%{name1} est un infra-domaine de %{name2}.'
+        r_superkingdom: '%{name1} est un super-royaume de %{name2}.'
+        r_kingdom: '%{name1} est un royaume de %{name2}.'
+        r_subkingdom: '%{name1} est un sous-royaume de %{name2}.'
+        r_infrakingdom: '%{name1} est un infra-royaume de %{name2}.'
+        r_superphylum: '%{name1} est un super-embranchement de %{name2}.'
+        r_phylum: '%{name1} est un embranchement de %{name2}.'
+        r_subphylum: '%{name1} est un sous-embranchement de %{name2}.'
+        r_infraphylum: '%{name1} est un infra-embranchement de %{name2}.'
+        r_superclass: '%{name1} est une super-classe de %{name2}.'
+        r_class: '%{name1} est une classe de %{name2}.'
+        r_subclass: '%{name1} est une sous-classe de %{name2}.'
+        r_infraclass: '%{name1} est une infra-classe de %{name2}.'
+        r_superorder: '%{name1} est un super-ordre de %{name2}.'
+        r_order: '%{name1} est un ordre de %{name2}.'
+        r_suborder: '%{name1} est un sous-ordre de %{name2}.'
+        r_infraorder: '%{name1} est un infra-ordre de %{name2}.'
+        r_family: '%{name1} est une famille de %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} est une sous-famille de %{name2} dans la famille
+            %{name3}.'
+          r_infrafamily: '%{name1} est une infra-famille de %{name2} dans la famille
+            %{name3}.'
+          r_tribe: '%{name1} est une tribu de %{name2} dans la famille %{name3}.'
+          r_supergenus: '%{name1} est un super-genre de %{name2} dans la famille %{name3}.'
+          r_genus: '%{name1} est un genre de %{name2} dans la famille %{name3}.'
+          r_subgenus: '%{name1} est un sous-genre de %{name2} dans la famille %{name3}.'
+          r_infragenus: '%{name1} est un infra-genre de %{name2} dans la famille %{name3}.'
+          r_superspecies: '%{name1} est une super-espèce de %{name2} dans la famille
+            %{name3}.'
+          r_species: '%{name1} est une espèce de %{name2} dans la famille %{name3}.'
+          r_subspecies: '%{name1} est une sous-espèce de %{name2} dans la famille
+            %{name3}.'
+          r_infraspecies: '%{name1} est une infra-espèce de %{name2} dans la famille
+            %{name3}.'
+          r_form: '%{name1} est une forme de %{name2} dans la famille %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} est une sous-famille de %{name2}.'
+          r_infrafamily: '%{name1} est une infra-famille de %{name2}.'
+          r_tribe: '%{name1} est une tribu de %{name2}.'
+          r_supergenus: '%{name1} est un super-genre de %{name2}.'
+          r_genus: '%{name1} est un genre de %{name2}.'
+          r_subgenus: '%{name1} est un sous-genre de %{name2}.'
+          r_infragenus: '%{name1} est un infra-genre de %{name2}.'
+          r_superspecies: '%{name1} est une super-espèce de %{name2}.'
+          r_species: '%{name1} est une espèce de %{name2}.'
+          r_subspecies: '%{name1} est une sous-espèce de %{name2}.'
+          r_infraspecies: '%{name1} est une infra-espèce de %{name2}.'
+          r_form: '%{name1} est une forme de %{name2}.'
   button_create: créer
   button_add: ajouter
   cancel: annuler
