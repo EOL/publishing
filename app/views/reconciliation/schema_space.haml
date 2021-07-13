@@ -9,7 +9,7 @@
       %th= t('.headers.name')
       %th= t('.headers.description')
   %tbody
-    - ReconciliationResult::PropertyType::ALL.each do |prop|
+    - Reconciliation::PropertyType::ALL.each do |prop|
       %tr
         %td= prop.id
         %td= prop.name
