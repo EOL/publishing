@@ -1,10 +1,15 @@
 {
   "dependencies": {
     "@rails/webpacker": "^6.0.0-beta.7",
+    "css-loader": "^5.2.7",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^2.1.0",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
     "rtlcss": "^2.5.0",
+    "sass": "^1.35.2",
+    "sass-loader": "^12.1.0",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.2.0"
   },

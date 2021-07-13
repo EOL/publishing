@@ -3,7 +3,7 @@
 @import "./colors";
 
 .l-terms {
-  padding: 10px percentage(15 / 375);
+  padding: 10px percentage(math.div(15, 375));
 }
 
 .filter {
@@ -34,7 +34,7 @@
 }
 
 .filter-row-flex {
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
 }
 
 .is-filter-row-with-errors {
@@ -94,7 +94,7 @@
 }
 
 .l-filter-first {
-  position: absolute; 
+  position: absolute;
   vertical-align: bottom;
   left: 0;
   top: 6px;
@@ -184,7 +184,7 @@
 .raw-query {
   position: relative;
   margin: 10px auto 0 auto;
-  width: 500px;  
+  width: 500px;
 }
 
 .show-raw-query {
@@ -235,7 +235,7 @@
     width: 100%;
   }
 
-  & > span { 
+  & > span {
     margin: 10px 0 0 10px;
   }
 }
@@ -253,14 +253,14 @@
 
 
 /* adjust if visualization width changes or becomes dynamic */
-@media(min-width: 830px) { 
-  .viz-contain-bar { 
+@media(min-width: 830px) {
+  .viz-contain-bar {
     display: block;
   }
 }
 
-@media(min-width: 850px) { 
-  .viz-contain-hist, .viz-contain-sankey, .viz-contain-assoc { 
+@media(min-width: 850px) {
+  .viz-contain-hist, .viz-contain-sankey, .viz-contain-assoc {
     display: block;
   }
 }
