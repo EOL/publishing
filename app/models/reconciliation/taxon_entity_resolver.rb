@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   class TaxonEntityResolver
     ID_REGEX = /^pages\/(\d+)$/
 

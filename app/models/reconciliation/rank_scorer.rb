@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   class RankScorer
     NO_PAGE_RANK_SCORE = 50
     MISMATCH_SCORE = 0
@@ -18,7 +18,7 @@ class ReconciliationResult
       if page.rank.nil?
         NO_PAGE_RANK_SCORE
       elsif page.rank.treat_as == @treat_as
-        ReconciliationResult::MAX_SCORE
+        Reconciliation::Result::MAX_SCORE
       else
         MISMATCH_SCORE         
       end

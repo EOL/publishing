@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   PropertyType = Struct.new(:id) do
     self::ANCESTOR = self.new('ancestor')
     self::RANK = self.new('rank')

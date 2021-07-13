@@ -8,6 +8,8 @@ class ApiReconciliationController < ApplicationController
   def index
     if params[:queries]
       reconcile(JSON.parse(params[:queries]))
+    elsif params[:extend]
+      get_properties(JSON.parse(params[:extend]))
     else
       manifest
     end
@@ -17,7 +19,7 @@ class ApiReconciliationController < ApplicationController
     prefix = (params[:prefix] || '').downcase
     cursor = params[:cursor] || 0
 
-    matches = ReconciliationResult::PropertyType::ALL.select do |prop|
+    matches = Reconciliation::PropertyType::ALL.select do |prop|
       prop.id.starts_with?(prefix) || prop.name.starts_with?(prefix)
     end
 
@@ -49,7 +51,7 @@ class ApiReconciliationController < ApplicationController
   private
   # GET "/" -- service manifest 
   def manifest
-    @types = ReconciliationResult::MANIFEST_TYPES
+    @types = Reconciliation::Result::MANIFEST_TYPES
     render :index, formats: :json
   end
 
@@ -60,11 +62,21 @@ class ApiReconciliationController < ApplicationController
       return bad_request("Invalid attribute or value: #{first_error["pointer"]}")
     end
 
-    render json: ReconciliationResult.new(qs).to_h
+    render json: Reconciliation::Result.new(qs).to_h
   end
 
   def bad_request(msg)
     render json: { error: msg }, status: :bad_request
+  end
+
+  def get_properties(json)
+    query = nil
+
+    begin
+      query = DataExtensionQuery.new(json)
+    rescue 
+      # TODO
+    end
   end
 end
 

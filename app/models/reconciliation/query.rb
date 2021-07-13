@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   class Query
     attr_reader :key, :query_string, :searchkick_query
 
@@ -71,7 +71,7 @@ class ReconciliationResult
           id: "pages/#{sp.page.id}", 
           name: sp.page.scientific_name_string, 
           score: final_score,
-          type: [{ id: TYPE_TAXON.id, name: TYPE_TAXON.name }],
+          type: [{ id: Reconciliation::Result::TYPE_TAXON.id, name: Reconciliation::Result::TYPE_TAXON.name }],
           match: sp.confident_match,
           features: features.map { |f| f.to_h }
         }

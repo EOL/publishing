@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   class AncestorScorer
     QUERY_LIMIT = 10
 
@@ -52,7 +52,7 @@ class ReconciliationResult
       if @query_string
         ScoredPage.from_searchkick_results(@query_string, @query.searchkick_query)
       elsif @page_from_entity
-        [ScoredPage.new(@page_from_entity, ReconciliationResult::MAX_SCORE, true)]
+        [ScoredPage.new(@page_from_entity, Reconciliation::Result::MAX_SCORE, true)]
       else
         []
       end

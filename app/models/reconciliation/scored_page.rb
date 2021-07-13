@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   class ScoredPage
     INEXACT_TOP_SCORE = 75
     MIN_NAME_SCORE = 50
@@ -19,7 +19,7 @@ class ReconciliationResult
         best_match_result = results.first
         best_match = best_match_result.page
         highlight_strs = best_match.search_highlights.values.map { |v| v.downcase }
-        best_score_abs = highlight_strs.include?(query_string.downcase) ? ReconciliationResult::MAX_SCORE : INEXACT_TOP_SCORE
+        best_score_abs = highlight_strs.include?(query_string.downcase) ? Reconciliation::Result::MAX_SCORE : INEXACT_TOP_SCORE
         best_score_rel = best_match_result.score
         worst_score_rel = results.last.score
         rel_range = best_score_rel - worst_score_rel
@@ -36,7 +36,7 @@ class ReconciliationResult
           confident_match = (
             i == 0 && 
             (results.length == 1 || results.second.score < score_rel) &&
-            best_score_abs == MAX_SCORE
+            best_score_abs == Reconciliation::Result::MAX_SCORE
           )
 
           self.new(result.page, score_abs, confident_match)

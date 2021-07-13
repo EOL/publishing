@@ -1,4 +1,4 @@
-class ReconciliationResult
+module Reconciliation
   class PageQuery
     attr_reader :query_string, :searchkick_query
 
