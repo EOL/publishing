@@ -1,7 +1,7 @@
+@use 'sass:math';
 @import "./shared/traits";
 @import "./shared/summary_card";
 @import "./colors";
-@use 'sass:math';
 
 .l-terms {
   padding: 10px percentage(math.div(15, 375));
