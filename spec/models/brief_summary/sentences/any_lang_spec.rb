@@ -8,7 +8,6 @@ RSpec.describe('BriefSummary::Sentences::AnyLang') do
   let(:page) { instance_double('BriefSummary::PageDecorator') }
   let(:helper) { instance_double('BriefSummary::Sentences::Helper') }
   let(:rank) { instance_double('Rank') }
-  let(:locale) { :en }
   subject(:sentences) { BriefSummary::Sentences::AnyLang.new(page, helper, locale) }
 
   before do
@@ -173,11 +172,15 @@ RSpec.describe('BriefSummary::Sentences::AnyLang') do
     end
 
     context 'when page is not extinct?' do
+      let(:locale) { :en }
+
       before { allow(page).to receive(:extinct?) { false } }
       it { expect(sentences.extinction).to_not be_valid }
     end
 
     context 'when page is not genus_or_below?' do
+      let(:locale) { :en }
+
       before { allow(page).to receive(:genus_or_below?) { false } } 
       it { expect(sentences.extinction).to_not be_valid }
     end
@@ -219,6 +222,8 @@ RSpec.describe('BriefSummary::Sentences::AnyLang') do
     end
 
     context "when page isn't marine" do
+      let(:locale) { :en }
+
       before { allow(page).to receive(:marine?) { false } }
 
       it { expect(sentences.marine).to_not be_valid }
@@ -241,25 +246,29 @@ RSpec.describe('BriefSummary::Sentences::AnyLang') do
     end
 
     I18n.available_locales.each do |locale|
-      let(:locale) { locale }
+      context "when locale is #{locale}" do
+        let(:locale) { locale }
 
-      it do
-        expect(sentences.freshwater.value).to eq(I18n.t(
-          'brief_summary.freshwater_html',
-          class_str: BriefSummary::TermTagger.tag_class_str,
-          id: toggle_id,
-          locale: locale
-        ))
-      end
+        it do
+          expect(sentences.freshwater.value).to eq(I18n.t(
+            'brief_summary.freshwater_html',
+            class_str: BriefSummary::TermTagger.tag_class_str,
+            id: toggle_id,
+            locale: locale
+          ))
+        end
 
-      context "when page isn't genus_or_below?" do
-        before { allow(page).to receive(:genus_or_below?) { false } }
+        context "when page isn't genus_or_below?" do
+          before { allow(page).to receive(:genus_or_below?) { false } }
 
-        it { expect(sentences.freshwater).to_not be_valid }
+          it { expect(sentences.freshwater).to_not be_valid }
+        end
       end
     end
 
     context "when page isn't freshwater?" do
+      let(:locale) { :en }
+
       before { allow(page).to receive(:freshwater?) { false } }
       
       it { expect(sentences.freshwater).to_not be_valid }

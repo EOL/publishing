@@ -43,12 +43,14 @@ class BriefSummary
             "brief_summary.taxonomy.below_family.with_family.#{@page.rank.treat_as}",
             name1: @page.full_name,
             name2: @page.a1,
-            name3: @page.a2
+            name3: @page.a2,
+            locale: @locale
           ) :
           I18n.t(
             "brief_summary.taxonomy.below_family.without_family.#{@page.rank.treat_as}",
             name1: @page.full_name,
-            name2: @page.a1
+            name2: @page.a1,
+            locale: @locale
           )
 
         BriefSummary::Sentences::Result.valid(value)
@@ -63,7 +65,8 @@ class BriefSummary
               TermNode.find_by_alias('habitat'),
               TermNode.find_by_alias('marine'),
               nil
-            )
+            ),
+            locale: @locale
           ))
         else
           BriefSummary::Sentences::Result.invalid
@@ -79,7 +82,8 @@ class BriefSummary
               @page.freshwater_trait.predicate,
               @page.freshwater_trait.object_term,
               nil
-            )
+            ),
+            locale: @locale
           ))
         else
           BriefSummary::Sentences::Result.invalid
