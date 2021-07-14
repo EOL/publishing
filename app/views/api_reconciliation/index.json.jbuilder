@@ -14,8 +14,15 @@ end
 
 json.suggest do
   json.property do
-    json.service_path "/properties/suggest"
     json.service_url api_reconciliation_url
+    json.service_path "/properties/suggest"
+  end
+end
+
+json.extend do
+  json.propose_properties do
+    json.service_url api_reconciliation_url
+    json.service_path "/properties/propose"
   end
 end
 

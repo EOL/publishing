@@ -155,6 +155,7 @@ Rails.application.routes.draw do
         get '/' => 'api_reconciliation#index', as: 'api_reconciliation'
         post '/' => 'api_reconciliation#index'
         get '/properties/suggest' => 'api_reconciliation#suggest_properties'
+        get '/properties/propose' => 'api_reconciliation#propose_properties'
         get '/test' => 'api_reconciliation#test'
         get '/test_extend' => 'api_reconciliation#test_extend'
       end

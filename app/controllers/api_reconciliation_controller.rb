@@ -15,6 +15,7 @@ class ApiReconciliationController < ApplicationController
     end
   end
 
+  # property typeahead, basically
   def suggest_properties
     prefix = (params[:prefix] || '').downcase
     cursor = params[:cursor] || 0
@@ -25,6 +26,31 @@ class ApiReconciliationController < ApplicationController
 
     @result = matches[cursor..] || []
     render formats: :json
+  end
+
+  # list properties for given entity type (we only have one, 'taxon')
+  def propose_properties
+    type = params.require(:type)
+    limit = params[:limit]&.to_i
+
+    return bad_request("invalid limit value: #{limit}") if limit && limit < 1
+
+    if type == Reconciliation::Result::TYPE_TAXON.id
+      properties = Reconciliation::PropertyType::ALL.map { |pt| pt.to_h }
+    else
+      properties = []
+    end
+
+    limited_properties = limit.nil? ? properties : properties.take(limit)
+
+    result = {
+      type: type,
+      properties: limited_properties
+    } 
+
+    result[:limit] = limit unless limit.nil?
+
+    render json: result
   end
 
   def test
