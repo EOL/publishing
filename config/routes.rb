@@ -156,6 +156,7 @@ Rails.application.routes.draw do
         post '/' => 'api_reconciliation#index'
         get '/properties/suggest' => 'api_reconciliation#suggest_properties'
         get '/test' => 'api_reconciliation#test'
+        get '/test_extend' => 'api_reconciliation#test_extend'
       end
 
       # TODO: we decided we could go live without these. Which is good, they are lame:

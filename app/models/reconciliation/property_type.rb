@@ -11,15 +11,15 @@ module Reconciliation
 
     class << self
       def valid_ids
-        ALL_BY_ID.keys
+        self::ALL_BY_ID.keys
       end
 
       def for_id(id)
-        ALL_BY_ID[id]
+        self::ALL_BY_ID[id]
       end
 
       def id_valid?(id)
-        ALL_BY_ID.include?(id)
+        self::ALL_BY_ID.include?(id)
       end
     end
 
@@ -29,6 +29,13 @@ module Reconciliation
 
     def description
       I18n.t("reconciliation.property.description.#{id}")
+    end
+
+    def to_h
+      {
+        'id' => id,
+        'name' => name
+      }
     end
   end
 end

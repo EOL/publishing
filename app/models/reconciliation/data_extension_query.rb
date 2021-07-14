@@ -30,7 +30,15 @@ module Reconciliation
     def resolve_ids(raw_ids)
       raise TypeError, "'ids' must be an Array" unless raw_ids.is_a?(Array)
 
-      Reconciliation::TaxonEntityResolver.resolve_ids(raw_ids)
+      Reconciliation::TaxonEntityResolver.resolve_ids(
+        raw_ids, 
+        includes: {
+          native_node: [
+            :rank,
+            node_ancestors: { ancestor: :page }
+          ]
+        }
+      )
     end
   end
 end

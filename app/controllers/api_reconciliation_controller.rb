@@ -48,6 +48,16 @@ class ApiReconciliationController < ApplicationController
     }
   end
 
+  def test_extend
+    @sample_query = {
+      ids: ['pages/328598'],
+      properties: [
+        { id: 'rank' },
+        { id: 'ancestor' }
+      ]
+    }
+  end
+
   private
   # GET "/" -- service manifest 
   def manifest
@@ -73,9 +83,16 @@ class ApiReconciliationController < ApplicationController
     query = nil
 
     begin
-      query = DataExtensionQuery.new(json)
-    rescue 
-      # TODO
+      query = Reconciliation::DataExtensionQuery.new(json)
+      meta = query.properties.map(&:to_h)
+      rows = Reconciliation::DataExtensionResult.new(query).to_h
+
+      render json: {
+        meta: meta,
+        rows: rows
+      }
+    rescue ArgumentError, TypeError => e
+      return bad_request(e.message)
     end
   end
 end

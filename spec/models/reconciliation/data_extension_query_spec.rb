@@ -15,12 +15,15 @@ RSpec.describe 'Reconciliation::DataExtensionQuery' do
   let(:prop_type) { class_double('Reconciliation::PropertyType').as_stubbed_const }
   let(:prop_rank) { instance_double('Reconciliation::PropertyType') }
   let(:resolver_result) { instance_double('Hash') }
+  let(:expected_includes) do 
+    { native_node: [:rank, node_ancestors: { ancestor: :page }] }
+  end
 
   before do
     allow(prop_type).to receive(:id_valid?) { false }
     allow(prop_type).to receive(:id_valid?).with('rank') { true }
     allow(prop_type).to receive(:for_id).with('rank') { prop_rank }
-    allow(taxon_entity_resolver).to receive(:resolve_ids).with(ids) { resolver_result }
+    allow(taxon_entity_resolver).to receive(:resolve_ids).with(ids, includes: expected_includes) { resolver_result }
   end
 
   describe '#new' do
@@ -30,7 +33,7 @@ RSpec.describe 'Reconciliation::DataExtensionQuery' do
 
       context 'when TaxonEntityResolver raises an ArgumentError' do
         before do
-          allow(taxon_entity_resolver).to receive(:resolve_ids).with(ids).and_raise(ArgumentError)
+          allow(taxon_entity_resolver).to receive(:resolve_ids).with(ids, includes: expected_includes).and_raise(ArgumentError)
         end
 
         it { expect { Reconciliation::DataExtensionQuery.new(valid_query) }.to raise_error(ArgumentError) }
