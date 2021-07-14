@@ -45,7 +45,7 @@ module Reconciliation
 
     private
     def resolve_entity(entity_hash)
-      entity_hash.nil? ? nil : TaxonEntityResolver.new(entity_hash).page
+      entity_hash.nil? ? nil : TaxonEntityResolver.resolve_hash(entity_hash)
     end
 
     def candidates
