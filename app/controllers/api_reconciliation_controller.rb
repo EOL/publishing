@@ -24,8 +24,16 @@ class ApiReconciliationController < ApplicationController
       prop.id.starts_with?(prefix) || prop.name.starts_with?(prefix)
     end
 
-    @result = matches[cursor..] || []
-    render formats: :json
+    result = matches[cursor..] || []
+    respond(
+      result: result.map do |prop| 
+        { 
+          id: prop.id, 
+          name: prop.name, 
+          description: prop.description 
+        }
+      end
+    )
   end
 
   # list properties for given entity type (we only have one, 'taxon')
@@ -50,7 +58,7 @@ class ApiReconciliationController < ApplicationController
 
     result[:limit] = limit unless limit.nil?
 
-    render json: result
+    respond(result)
   end
 
   def test
@@ -87,8 +95,38 @@ class ApiReconciliationController < ApplicationController
   private
   # GET "/" -- service manifest 
   def manifest
-    @types = Reconciliation::Result::MANIFEST_TYPES
-    render :index, formats: :json
+    # This is here instead of in a view file b/c I don't think it's possible to use the :callback option with views
+    res = Jbuilder.new do |json|
+      json.versions ["0.2"]
+      json.name t("page_title")
+      json.identifierSpace reconciliation_id_space_url
+      json.schemaSpace reconciliation_schema_space_url
+
+      json.defaultTypes Reconciliation::Result::MANIFEST_TYPES do |type|
+        json.id type.id
+        json.name type.name
+      end
+
+      json.view do
+        json.url "https://eol.org/{{id}}"
+      end
+
+      json.suggest do
+        json.property do
+          json.service_url api_reconciliation_url
+          json.service_path "/properties/suggest"
+        end
+      end
+
+      json.extend do
+        json.propose_properties do
+          json.service_url api_reconciliation_url
+          json.service_path "/properties/propose"
+        end
+      end
+    end.target!
+
+    respond res
   end
 
   # GET "/?queries=...", POST "/" 
@@ -98,7 +136,7 @@ class ApiReconciliationController < ApplicationController
       return bad_request("Invalid attribute or value: #{first_error["pointer"]}")
     end
 
-    render json: Reconciliation::Result.new(qs).to_h
+    respond Reconciliation::Result.new(qs).to_h
   end
 
   def bad_request(msg)
@@ -113,12 +151,20 @@ class ApiReconciliationController < ApplicationController
       meta = query.properties.map(&:to_h)
       rows = Reconciliation::DataExtensionResult.new(query).to_h
 
-      render json: {
+      respond({
         meta: meta,
         rows: rows
-      }
-    rescue ArgumentError, TypeError => e
+      })
+    rescue ArgumentError, TypeError => e # TODO: consider using a schema as above to return more helpful messages
       return bad_request(e.message)
+    end
+  end
+
+  def respond(json)
+    if params[:callback].present?
+      render json: json, callback: params[:callback] # JSONP, required by OpenRefing
+    else
+      render json: json
     end
   end
 end
