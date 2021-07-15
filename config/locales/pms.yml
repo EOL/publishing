@@ -102,6 +102,32 @@ pms:
           r_infrafamily: '%{name1} a l''é n''infra-famija ëd %{name2} ant la famija
             %{name3}.'
           r_tribe: '%{name1} a l''é na tribù ëd %{name2} ant la famija %{name3}.'
+          r_supergenus: '%{name1} a l''é un sùper-géner ëd %{name2} ant la famija
+            %{name3}.'
+          r_genus: '%{name1} a l''é un géner ëd %{name2} ant la famija %{name3}.'
+          r_subgenus: '%{name1} a l''é un sot-géner ëd %{name2} ant la famija %{name3}.'
+          r_infragenus: '%{name1} a l''é n''infra-géner ëd %{name2} ant la famija
+            %{name3}.'
+          r_superspecies: '%{name1} a l''é na sùper-ëspece ëd %{name2} ant la famija
+            %{name3}.'
+          r_species: '%{name1} a l''é na spece ëd %{name2} ant la famija %{name3}.'
+          r_subspecies: '%{name1} a l''é na sot-ëspece ëd %{name2} ant la famija %{name3}.'
+          r_infraspecies: '%{name1} a l''é n''infra-spece ëd %{name2} ant la famija
+            %{name3}.'
+          r_form: '%{name1} a l''é na forma ëd %{name2} ant la famija %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} a l''é na sot-famija ëd %{name2}.'
+          r_infrafamily: '%{name1} a l''é n''infra-famija ëd %{name2}.'
+          r_tribe: '%{name1} a l''é na tribù ëd %{name2}.'
+          r_supergenus: '%{name1} a l''é un sùper-géner ëd %{name2}.'
+          r_genus: '%{name1} a l''é un géner ëd %{name2}.'
+          r_subgenus: '%{name1} a l''é un sot-géner ëd %{name2}.'
+          r_infragenus: '%{name1} a l''é n''infra-géner ëd %{name2}.'
+          r_superspecies: '%{name1} a l''é na sùper-ëspece ëd %{name2}.'
+          r_species: '%{name1} a l''é na spece ëd %{name2}.'
+          r_subspecies: '%{name1} a l''é na sot-ëspece ëd %{name2}.'
+          r_infraspecies: '%{name1} a l''é n''infra-spece ëd %{name2}.'
+          r_form: '%{name1} a l''é na forma ëd %{name2}.'
   button_create: creé
   button_add: gionté
   cancel: anulé
@@ -1731,7 +1757,12 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: età
           capitanian-a
         http://eol(dot)org/schema/terms/CapitulumLength: longheur dla fiorìa
-        http://eol(dot)org/schema/terms/CarapaceLength: Longheur dël carapass
+        https://eol(dot)org/schema/terms/carangiform: carangiform
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: carapass
+        http://eol(dot)org/schema/terms/CarapaceLength: longheur dël carapass
+        http://purl(dot)dataone(dot)org/odo/ECSO_00001143: biomassa ëd carbòni
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: perìod
+          carbonìfer
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catàdrom
         http://eol(dot)org/schema/terms/CellDepth: profondeur dla célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diàmeter ëd la célula

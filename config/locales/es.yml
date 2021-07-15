@@ -8,6 +8,7 @@
 # Author: Gastonsaenz
 # Author: Geryescalier
 # Author: Ihojose
+# Author: Jack30
 # Author: Jakeukalane
 # Author: JamesB
 # Author: Jesusmc
@@ -72,6 +73,75 @@ es:
     types:
       scientific: Científico
       vernacular: Vernáculo
+  brief_summary:
+    extinction:
+      r_genus_html: Este género es <span class='%{class_str}' id='%{id}'>extinct</span>.
+      r_subgenus_html: Este subgénero es <span class='%{class_str}' id='%{id}'>extinct</span>.
+      r_infragenus_html: Este infragénero es <span class='%{class_str}' id='%{id}'>extinct</span>.
+      r_superspecies_html: Esta superespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_species_html: Esta especie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_subspecies_html: Esta subespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_infraspecies_html: Esta infraespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
+    fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>fijan</span>
+      <span class='%{class_str}' id='%{object_id}'>nitrógeno</span>.
+    freshwater_html: Están asociados con <span class='%{class_str}' id='%{id}'>el
+      hábitat de agua dulce</span>.
+    marine_html: Se encuentran en <span class='%{class_str}' id='%{id}'>el hábitat
+      marino</span>.
+    species: '%{nombre1}es una especie de %{nombre2}.'
+    species_in_family: '%{nombre1} es una especie de %{nombre2} en la familia %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} es una superfamilia de %{name2}.'
+        r_domain: '%{name1} es un dominio de %{name2}.'
+        r_subdomain: '%{name1} es un subdominio de %{name2}.'
+        r_infradomain: '%{name1} es un infradominio de %{name2}.'
+        r_superkingdom: '%{name1} es un superreino de %{name2}.'
+        r_kingdom: '%{name1} es un reino de %{name2}.'
+        r_subkingdom: '%{name1} es un subreino de %{name2}.'
+        r_infrakingdom: '%{name1} es un infrareino %{name2}.'
+        r_superphylum: '%{name1} e un superfilo de %{name2}.'
+        r_phylum: '%{name1} es un filo de %{name2}.'
+        r_subphylum: '%{name1} es un subfilo de %{name2}.'
+        r_infraphylum: '%{name1} es un infrafilo de  %{name2}.'
+        r_superclass: '%{name1} es una superclase de %{name2}.'
+        r_class: '%{name1} es una clase de %{name2}.'
+        r_subclass: '%{name1} es una subclase de %{name2}.'
+        r_infraclass: '%{name1} es una infraclase de %{name2}.'
+        r_superorder: '%{name1} es una superorden de %{name2}.'
+        r_order: '%{name1} es una orden de %{name2}.'
+        r_suborder: '%{name1} es una suborden de %{name2}.'
+        r_infraorder: '%{name1} es una infraorden de %{name2}.'
+        r_family: '%{name1} es una familia de %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} es una subfamilia %{name2} en la familia %{nombre3}.'
+          r_infrafamily: '%{name1} es una intrafamilia de %{name2} en la familia %{name3}.'
+          r_tribe: '%{name1} es una tribu de %{name2} en la familia %{name3}.'
+          r_supergenus: '%{name1} es un supergénero de %{name2} en la familia %{name3}.'
+          r_genus: '%{name1} es un género de %{name2} en la familia %{name3}.'
+          r_subgenus: '%{name1} es un subgénero de %{name2} en la familia %{name3}.'
+          r_infragenus: '%{name1} es un infragénero de %{name2} en la familia %{name3}.'
+          r_superspecies: '%{name1} es una superespecie de %{name2} en la familia
+            %{name3}.'
+          r_species: '%{name1} es una especie de %{name2} en la familia %{name3}.'
+          r_subspecies: '%{name1} es una subespecie de %{name2} en la familia %{name3}.'
+          r_infraspecies: '%{name1}es una infraespecie de %{name2} en la familia %{name3}.'
+          r_form: '%{name1} es una forma de  %{name2} en la familia %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} es una subfamilia de %{name2}.'
+          r_infrafamily: '%{name1} es una intrafamilia de %{name2}.'
+          r_tribe: '%{name1} es una tribu de %{name2}.'
+          r_supergenus: '%{name1} es un supergénero de %{name2}.'
+          r_genus: '%{name1} es un género de %{name2}.'
+          r_subgenus: '%{name1} es un subgénero de %{name2}.'
+          r_infragenus: '%{name1} es un infragénero de %{name2}.'
+          r_superspecies: '%{name1} es una superespecie de %{name2}.'
+          r_species: '%{name1} es una especie de %{name2}.'
+          r_subspecies: '%{name1} es una subespecie de %{name2}.'
+          r_infraspecies: '%{name1} es una infraespecie de %{name2}.'
+          r_form: '%{name1} es una forma de %{name2}.'
   button_create: crear
   button_add: añadir
   cancel: cancelar
@@ -351,6 +421,7 @@ es:
     ny: Chichewa; Chewa; Nyanja
     zh: Chino
     chi: Chino
+    cu: antigua iglesia eslava
     q37041: Idioma chino clásico
     kw: Córnico
     q33357: Tártaro de Crimea
@@ -364,9 +435,12 @@ es:
     en: Inglés
     eo: Esperanto
     et: Estonio
+    est: estonio
     ee: Oveja
+    fo: faroés
     fj: Fiyiano
     fi: Finlandés
+    fin: finlandés
     fr: Francés
     fra: Francés
     gd: Gaélico escocés
@@ -379,8 +453,10 @@ es:
     gn: Guaraní
     gu: Guyaratí
     ht: Criollo haitiano
+    ha: hausa
     he: Hebreo
     heb: Hebreo
+    hi: hindú
     hu: Húngaro
     is: Islandés
     ice: Islandés
@@ -404,13 +480,17 @@ es:
     lb: Luxemburgués
     mk: Macedonio
     mg: Malgache
+    ms: malayo
     mt: Maltés
+    mi: maorí
     mn: Mongol
     q56426: Árabe marroquí
     nv: Navajo
     ne: Nepalí
+    se: Sami norteño
     "no": Noruego
     nno: Noruego
+    nob: noruego
     oc: Occitano
     pa: Panyabí
     fa: Persa
@@ -427,7 +507,10 @@ es:
     sr: Serbio
     si: Cingalés
     sk: Eslovaco
+    slk: eslovaco
     sl: Esloveno
+    so: somalí
+    som: Somalí
     es: Español; Castellano
     slv: Español
     sv: Sueco
@@ -440,6 +523,7 @@ es:
     q34159: Tok pisin
     to: Tongano
     tr: Turco
+    tur: turco
     uk: Ucraniano
     ukr: Ucraniano
     none: No especificado
@@ -448,6 +532,7 @@ es:
     cy: Galés
     q100103: Flamenco occidental
     wo: Wólof
+    q34290: wu
     yi: Yidis
     zu: Zulú
   layout_sign_in: Iniciar sesión
@@ -491,6 +576,8 @@ es:
     prefer: Prefiere
     preferred_in_language_for_page: '%{name} es ahora el %{language} vernáculo preferido
       para %{page}'
+    show_more_langs:
+      other: uno=mostrar un lenguaje más
   nav:
     about: Acerca de
     discuss: Debatir
@@ -498,6 +585,10 @@ es:
     search:
       placeholder: Buscar en EOL…
   name_preferred_label: preferido
+  page_icon_counts:
+    header:
+      one: mejor imagen para la página
+      other: mejor imagen para las páginas
   page_icon_created: Se movió la imagen «%{name}» a la parte superior.
   page_title: Enciclopedia de la Vida
   page_title_search: 'Búsqueda: %{query}'
@@ -505,25 +596,50 @@ es:
   pages:
     actions:
       collect: compilar
+      comment:
+        zero: comentario
+        one: '%{count} comentario'
+        other: '%{count} comentarios'
       reindex: volver a indizar
     batch_lookup:
       header: búsqueda de página por lotes
       canonical_name: nombre canónico
       download_tsv: descargar TSV
+      match: coincidencia
       new_search: búsqueda nueva
       page_id: identificador de página
       page_url: URL de la página
       query: consulta
       query_cant_be_blank: la consulta no puede quedar vacía
       search: buscar
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL tiene datos para<a href="%{data_path}">un atributo</a>:'
+        other: 'EOL tiene datos para <a href="%{data_path}">%{count} atributos</a>,
+          incluyendo:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL posee datos para<a href="%{data_path}">un atributo</a>.
+        other: EOL posee datos para<a href="%{data_path}">%{count} atributos</a>.
     filter_menu:
       show_all: mostrar todo
     page_data:
+      habitat_wordcloud_tooltip: Nuestros registros sobre hábitats han sido extensamente
+        analizados con text mining, por tanto, muchos términos pueden ser hallados
+        en múltiples ocasiones; los términos de hábitat más comunes, que se muestran
+        en la nube de palabras, suelen ser los más importantes. Todos los registros
+        se enlistan a continuación.
+      n_hidden_show_all:
+        one: 1 “%{pred_name}” registro oculto— mostrar todos
+        other: '%{count} “%{pred_name}” registros ocultos— mostrar todos'
+      n_hidden_show_all_noname:
+        one: 1 registro escondido — mostrar todos
+        other: '%{count} registros escondidos — mostrar todos'
       show_all: mostrar todo
     resource_names:
       name_recognized_by: |2-
 
         Reconocido por %{by}
+      name_recognized_by_w_rank: '%{rank} reconocido por %{by}'
       name_recognized_by_w_status: '%{status} según %{by}'
       rank:
         r_domain: Dominio
@@ -572,6 +688,8 @@ es:
         con las especies de las que se alimenta (presa), las especies que se alimentan
         de ella (depredadores) y otras especies que se alimentan de la misma presa
         (competidores potenciales). Haz clic para aprender mas.
+      trophic_web_title_html: Red trófica <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: Se vaciaron las antememorias correspondientes a esta página. Para
         ver los valores nuevos, hay que volver a cargarla. Cabe destacar que, por
@@ -604,11 +722,71 @@ es:
   page_titles:
     pages:
       data: '%{page_name} datos'
+      media: '%{page_name} materiales'
+      maps: '%{page_name} mapas'
+      names: '%{page_name} nombres'
       articles: Artículos sobre %{page_name}
     traits:
       search: Búsqueda de rasgos
+  rank:
+    name:
+      r_domain: dominio
+      r_subdomain: subdominio
+      r_infradomain: infradominio
+      r_superkingdom: superreino
+      r_kingdom: reino
+      r_subkingdom: subreino
+      r_infrakingdom: infrareino
+      r_superphylum: superfilo
+      r_phylum: filo
+      r_subphylum: subfilo
+      r_infraphylum: infrafilo
+      r_infraclass: infraclase
+      r_superorder: superorden
+      r_order: orden
+      r_suborder: suborden
+      r_infraorder: infraorden
+      r_superfamily: superfamilia
+      r_family: familia
+      r_subfamily: subfamilia
+      r_supergenus: supergénero
+      r_genus: género
+      r_subgenus: subgénero
+      r_infragenus: infragénero
+      r_superspecies: superespecie
+      r_species: especie
+      r_subspecies: subespecie
+      r_infraspecies: infraespecie
+      r_form: forma
   recaptcha: Recaptcha
   recaptcha_error: Díganos que no es un robot por favor.
+  reconciliation:
+    id_space:
+      intro: Cada identificación de una entidad devuelta por el API de Reconciliación
+        es la parte de la ruta de la URL para la representación general de un entidad
+        en EOL, de forma que un id puede ser sustituída en https://eol.org/<id> para
+        dar una URL válida para su entidad. El formato para cada tipo de identificadores
+        es descrito abajo.
+      headers:
+        type_id: escribe la ID
+        type_name: escribe un nombre
+        id_format: formato de ID
+      type_names:
+        taxon: taxón
+      numeric_id: ID numérico
+    property:
+      description:
+        ancestor: un taxón que es un ancestro de otro taxón.
+      name:
+        ancestor: ancestro
+        rank: Posición
+    schema_space:
+      intro: La colección de propiedades empleadas por el sevicio de Reconciliación
+        API es descrito abajo.
+      headers:
+        id: identificación
+        name: nombre
+        description: descripción
   reference_compiled_from: Referenciado por %{links}
   reference_compiled_from_article: Artículo de %{source} titulado «%{name}»
   register_new_account: Registrar una cuenta nueva
@@ -621,12 +799,26 @@ es:
       index: Volver a todos los recursos
       show_all:
         other: mostrar todo (%{count})
+      show_warns:
+        one: mostrar advertencia(%{count})
+        other: mostrar advertencias(%{count})
       clear_publishing: para borrar la cerradura
       clear_publishing_confirm: Esto 'terminará' toda la publicación y puede causar
         problemas si se usa mientras se publica activamente. ¿Estás seguro?
     headers:
       index: Recursos
       import_log: Registro de importaciones de %{resource}
+    index:
+      locked_jobs:
+        zero: ningún trabajo ejecutándose
+        one: 1 trabajo ejecutándose
+        other: '%{count} trabajos ejecutándose'
+      jobs:
+        zero: ningún trabajo pendiente
+        one: 1 trabajo pendiente
+        other: '%{count} trabajos pendientes'
+      harvest_jobs: '{{PLURAL | zero = nada para publicar | uno = 1 publicación pendiente
+        |%{count} para publicar}}'
     no_events: ¡Ninguno!
   resource_missing: no se encontró el recurso
   scientific_name:
@@ -639,7 +831,45 @@ es:
   scientific_names_header: Nombres científicos
   send_me_reset_password_instructions: Enviarme instrucciones para restablecer la
     contraseña
+  search:
+    flash:
+      cannot_combine_paths: No se pueden combinar los resultados con%{path}
+      more_than_two_terms: Incapaz de combinar resultados para más de dos términos:%{terms}
+    n_articles:
+      one: '%{count} artículo'
+      other: '%{count} artículos'
+    n_collections:
+      one: '%{count} colección'
+      other: '%{count} colecciones'
+    n_images:
+      one: '%{count} imagen'
+      other: '%{count} imágenes'
+    n_results:
+      zero: sin resultados
+      one: '%{count} resultado'
+      other: '%{count} resultados'
+    n_sounds:
+      one: '%{count} sonido'
+      other: '%{count} sonidos'
+    n_taxon_pages:
+      one: '%{count} página de taxón '
+      other: '%{count} páginas de taxones'
+    n_users:
+      one: '%{count} usuario'
+      other: '%{count} usuarios'
+    n_videos:
+      one: '%{count} vídeo'
+      other: '%{count} vídeos'
+    n_terms:
+      one: '%{count} término'
+      other: '%{count} términos'
   search_results:
+    collection_page_count:
+      one: '%{count} página'
+      other: '%{count} páginas'
+    collection_page_count_and_users:
+      one: '%{count} página; mantenida por %{users_sentence}'
+      other: '%{count} páginas; mantenidas por %{users_sentence}'
     collected_media:
       title: 'medios recopilados de esta página:'
     medium_article: Artículo
@@ -647,13 +877,18 @@ es:
     medium_map: Mapa
     medium_sound: Sonido
     medium_video: Vídeo
+    medium_title_article_html: 'Artículo: <span class=''sub''>%{title}</span>'
     medium_title_image_html: 'Imagen: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Mapa: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Audio: <span class=''sub''>%{title}</span>'
     medium_title_video_html: 'Vídeo: <span class=''sub''>%{title}</span>'
     empty: No hay ningún resultado.
     field_matches:
       description: 'coincide con la descripción:'
       resource_pk: 'coincide con la ID externa:'
       bio: 'coincide con la biografía:'
+      tag_line: 'coincide con la línea de la etiqueta:'
+      resources: '{{PLURAL | one = coincide con el recurso: | coincide con los recursos:}}'
     section_titles:
       collections:
         one: '%{count} colección'
@@ -666,6 +901,7 @@ es:
       n_articles:
         one: 1 ARTÍCULO
         other: '%{count} ARTÍCULOS'
+    user_title_html: 'Usuario: <span class=''sub''>%{name}</span>'
   search_suggestion:
     actions:
       create: crear una sugerencia de búsqueda nueva
@@ -786,6 +1022,10 @@ es:
       num_records_label: N.º de registros
       other: otro
       page_habitat_header: Hábitats de %{name}
+      taxon_summary:
+        click_to_filter: presione para filtrar
+      toggle_text:
+        taxon_summary: mostrar resumen de taxón
     properties:
       citation: Cita bibliográfica
       method: Método de medición

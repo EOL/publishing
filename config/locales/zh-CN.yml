@@ -370,7 +370,7 @@ zh-CN:
     az: 阿塞拜疆语
     q33070: 巴厘语
     bm: 班巴拉语
-    q33151: 邦加
+    q33151: 班查语
     ba: 巴什基尔语
     eu: 巴斯克语
     q29540: 巴伐利亚语
@@ -1755,7 +1755,7 @@ zh-CN:
         http://eol(dot)org/schema/terms/corymbose: 伞状花序
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: 化妆品
         http://eol(dot)org/schema/terms/Cosmopolitan: 世界性
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: 植棉场
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: 棉花种植园
         http://purl(dot)obolibrary(dot)org/obo/PO_0020030: 子叶
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Cotype: 全模标本
         http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: 国家代码
@@ -1801,8 +1801,8 @@ zh-CN:
         http://eol(dot)org/schema/terms/depositFeeder: 食底泥动物
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: 洼地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: 沙漠
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: 沙漠和干燥灌木丛
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: 荒漠绿洲
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: 沙漠和干旱灌丛
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: 沙漠绿洲
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: 沙漠沙
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: 沙漠灌木丛
         http://eol(dot)org/schema/terms/determinateGrowth: 有限生长
@@ -1847,7 +1847,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: 干湖床
         http://eol(dot)org/schema/terms/dryMass: 干重
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: 干河
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: 干旱河谷
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: 干河谷
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: 干土
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: 旱溪
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: 涸谷
@@ -1860,13 +1860,13 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: 染料
         http://eol(dot)org/schema/terms/dystrophicMontaneFreshwaterLake: 营养不良的山地淡水湖
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: 早期
-        http://eol(dot)org/schema/terms/earlySpring: 初春
-        http://eol(dot)org/schema/terms/earlySummer: 夏初
+        http://eol(dot)org/schema/terms/earlySpring: 早春
+        http://eol(dot)org/schema/terms/earlySummer: 初夏
         http://eol(dot)org/schema/terms/Eastern_Arc_mountains: 东部弧形山脉
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 进食
         http://eol(dot)org/schema/terms/echinoderm_feeder: 以棘皮动物为食
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: 生态表型
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: 生态系统工程师
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: 生态系统工程
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: 外寄生于
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: 埃迪卡拉纪
         https://eol(dot)org/schema/terms/eel_feeder: 以鳗鱼为食
@@ -1885,7 +1885,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: 埃姆斯期
         http://eol(dot)org/schema/terms/endangered: 濒危
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: 内分泌系统
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: 内石器生境
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: 内石栖息地
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: 内寄生于
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000551: 内流盆地
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: 内骨骼
