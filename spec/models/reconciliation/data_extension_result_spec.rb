@@ -66,7 +66,7 @@ RSpec.describe('Reconciliation::DataExtensionResult') do
           ]
         },
         id2 => {
-          'rank' => ['rank2'],
+          'rank' => [{ 'str' => 'rank2' }],
           'ancestor' => [
             { 'id' => 'pages/3', 'name' => '<anc3 name>' }
           ]

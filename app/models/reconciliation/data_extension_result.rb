@@ -33,7 +33,11 @@ module Reconciliation
     end
 
     def rank_value_for_page(page)
-      [page.rank&.human_treat_as].compact
+      if treat_as = page.rank&.human_treat_as
+        [{ 'str' => treat_as }]
+      else
+        []
+      end
     end
 
     def ancestor_value_for_page(page)

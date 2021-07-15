@@ -148,21 +148,22 @@ class ApiReconciliationController < ApplicationController
 
     begin
       query = Reconciliation::DataExtensionQuery.new(json)
-      meta = query.properties.map(&:to_h)
-      rows = Reconciliation::DataExtensionResult.new(query).to_h
-
-      respond({
-        meta: meta,
-        rows: rows
-      })
     rescue ArgumentError, TypeError => e # TODO: consider using a schema as above to return more helpful messages
       return bad_request(e.message)
     end
+
+    rows = Reconciliation::DataExtensionResult.new(query).to_h
+    meta = query.properties.map(&:to_h)
+
+    respond({
+      meta: meta,
+      rows: rows
+    })
   end
 
   def respond(json)
     if params[:callback].present?
-      render json: json, callback: params[:callback] # JSONP, required by OpenRefing
+      render json: json, callback: params[:callback] # JSONP, required by OpenRefine
     else
       render json: json
     end
