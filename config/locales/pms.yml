@@ -1763,6 +1763,11 @@ pms:
         http://purl(dot)dataone(dot)org/odo/ECSO_00001143: biomassa ëd carbòni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: perìod
           carbonìfer
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: carcassa
+        https://eol(dot)org/schema/terms/carcharhiniform: carcariniform
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: età carnian-a
+        http://eol(dot)org/schema/terms/carnivorous_scavenger: carnassé ch'as nuriss
+          ëd carògne
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catàdrom
         http://eol(dot)org/schema/terms/CellDepth: profondeur dla célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diàmeter ëd la célula

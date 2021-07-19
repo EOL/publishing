@@ -1,0 +1,1707 @@
+# Messages for Ukrainian (українська)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: DDPAT
+# Author: Movses
+# Author: SteveR
+# Author: Vlnt
+---
+uk:
+  language_name: Англійська
+  about:
+    trait_bank:
+      title: TraitBank
+      body_html: <p>Техніча команда і команда управління даними у EOL посилаються
+        на структуровані ресурси даних в EOL-trait і інші дані атрибутів, екологічні
+        взаємодії і нашу природну класифікацію, Динамічну Робочу ієрархію — в сукупності
+        як на TraitBank. Цей контент керується трохи інакше, ніж наш «класичний» контент —
+        зображення, відео, аудіо і описовий текст — і це корисно для різних речей.</p><p>TraitBank
+        молодше, чим інша частина EOL; спочатку він був задуманий директором групи
+        Species Pages Синтією Парр і почав працювати в EOL v2 в січні 2014 року. Відтоді
+        структуровані дані стали нашим головним пріоритетом в розробці контенту.</p><p>Зараз
+        ви можете<a href='%{example_search_path}'>проводити пошук</a> або переміщувати
+        по EOL по структурованих даних, або завантажувати їх, або ви можете побачити
+        їх на нашій новій оглядовій вкладці у вигляді<a href='%{autogen_page_path}'>автоматично
+        згенерованого текста</a>. Як і інша частина контенту EOL, він доступний для
+        повторного використання і поставляється з докладними даними атрибутів, тому
+        ви можете послатися на нього, якщо будете використовувати його у своїй роботі.</p><p>Ці
+        дані модулюються у вигляді <a href='%{property_graph_url}'>графіка властивостей</a>
+        у <a href='%{neo4j_url}'>neo4j</a>. <a href='%{data_services_path}'>Послуги
+        з обробки даних</a> надаються.</p>
+  account_already_linked: ваш обліковий запис вже пов'язаний з EOL
+  account_not_linked: ваш акаунт не пов’язаний з EOL
+  advanced: просунутий
+  are_you_sure_delete_account: Ви впевнені, що хочете видалити свій обліковий запис
+    EOL?
+  article:
+    actions:
+      collect: збирати
+    header:
+      blank: (У цій статті немає жодного тексту.)
+      body: 'Текст:'
+      language: Мова:%{language}
+      title: Назва
+      untitled: Без назви
+    name:
+      missing: Без назви
+  article_from_partner: Надано %{partner}
+  article_duplicate: ця стаття також показана в "%{section}"
+  autocomplete:
+    see_all:
+      one: див. інші результати
+      other: див. усі %{count} результати
+  breadcrumbs:
+    notices:
+      canonical: Наукові назви тепер будуть показані на сторінках сухарів
+      vernacular: Тепер народні назви показуватимуться в панірувальних сухарях, де
+        це можливо
+    setting_header: імена в сухарях
+    types:
+      scientific: науковий
+      vernacular: народна мова
+  brief_summary:
+    extinction:
+      r_genus_html: Цей рід є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_subgenus_html: Цей підвид є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_infragenus_html: Цей інфраген є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_superspecies_html: Цей надвид є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_species_html: Цей вид є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_subspecies_html: Цей підвид є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_infraspecies_html: Цей підвид є <span class='%{class_str}' id='%{id}'>вимерлим</span>.
+      r_form_html: Ця форма є <span class='%{class_str}' id='%{id}'>вимерлою</span>.
+    fix_nitrogen_html: Вони <span class='%{class_str}' id='%{predicate_id}'>фіксують</span>
+      <span class='%{class_str}' id='%{object_id}'>азот</span>.
+    freshwater_html: Вони асоціюються з <span class='%{class_str}' id='%{id}'>прісноводним
+      середовищем існування</span>.
+    marine_html: Вони зустрічаються в <span class='%{class_str}' id='%{id}'>морському
+      середовищі існування</span>.
+    species: '%{name1} є видом %{name2}.'
+    species_in_family: '%{name1} є видом %{name2} з сімейства %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} є надсімейством %{name2}.'
+        r_domain: '%{name1} є доменом %{name2}.'
+        r_subdomain: '%{name1} є піддоменом %{name2}.'
+        r_infradomain: '%{name1} є інфдоменем %{name2}.'
+        r_superkingdom: '%{name1} є надцарством %{name2}.'
+        r_kingdom: '%{name1} є королівством %{name2}.'
+        r_subkingdom: '%{name1} є підцарством %{name2}.'
+        r_infrakingdom: '%{name1} є подцарством %{name2}.'
+        r_superphylum: '%{name1} є суперфілумом %{name2}.'
+        r_phylum: '%{name1} є типом %{name2}.'
+        r_subphylum: '%{name1} є підфілумом %{name2}.'
+        r_infraphylum: '%{name1} є інфрафілом %{name2}.'
+        r_superclass: '%{name1} є надкласом %{name2}.'
+        r_class: '%{name1} є класом %{name2}.'
+        r_subclass: '%{name1} є підкласом %{name2}.'
+        r_infraclass: '%{name1} є інфракласом %{name2}.'
+        r_superorder: '%{name1} є вищим замовником %{name2}.'
+        r_order: '%{name1} є наказом %{name2}.'
+        r_suborder: '%{name1} є підпорядком %{name2}.'
+        r_infraorder: '%{name1} є інфрачередом %{name2}.'
+        r_family: '%{name1} є сімейством %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} є підсімейством %{name2} в сімействі %{name3}.'
+          r_infrafamily: '%{name1} є внутрішньосімейством %{name2} в сімействі %{name3}.'
+          r_tribe: '%{name1} є племенем %{name2} в сімействі %{name3}.'
+          r_supergenus: '%{name1} - надрід роду %{name2} в сімействі %{name3}.'
+          r_genus: '%{name1} є родом %{name2} в сімействі %{name3}.'
+          r_subgenus: '%{name1} є підродом %{name2} в сімействі %{name3}.'
+          r_infragenus: '%{name1} є інфрародом %{name2} в сімействі %{name3}.'
+          r_superspecies: '%{name1} є надвидом %{name2} в сімействі %{name3}.'
+          r_species: '%{name1} є різновидом %{name2} в сімействі %{name3}.'
+          r_subspecies: '%{name1} є підвидом %{name2} в сімействі %{name3}.'
+          r_infraspecies: '%{name1} є різновидом %{name2} в сімействі %{name3}.'
+          r_form: '%{name1} є формою %{name2} в сімействі %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} є підсімейством %{name2}.'
+          r_infrafamily: '%{name1} є внутрішньосімейством %{name2}.'
+          r_tribe: '%{name1} є племенем %{name2}.'
+          r_supergenus: '%{name1} - надрід роду %{name2}.'
+          r_genus: '%{name1} є родом %{name2}.'
+          r_subgenus: '%{name1} є підродом %{name2}.'
+          r_infragenus: '%{name1} є інфрародом %{name2}.'
+          r_superspecies: '%{name1} є надвидом %{name2}.'
+          r_species: '%{name1} є різновидом %{name2}.'
+          r_subspecies: '%{name1} є підвидом %{name2}.'
+          r_infraspecies: '%{name1} є різновидом %{name2}.'
+          r_form: '%{name1} є формою %{name2}.'
+  button_create: Створити
+  button_add: Додати
+  cancel: скасувати
+  change_my_password: Змінити пароль
+  change_your_password: Змінити пароль
+  classifications:
+    children:
+      header_html:
+        one: '%{name} включає <a href="%{names_path}">%{count} дитину</a>:'
+        other: '%{name} включає <a href="%{names_path}">%{count} дитин</a>:'
+      see_more: див. більше
+    hierarchies:
+      header: Куратори ієрархій для %{sci_name}
+      see_resource_file: Див. <a href='%{href}'>файл ресурсу</a> для повного списку.
+      this_page: (ця сторінка)
+      truncated_siblings:
+        one: Один короткий брат скорочений для стислості.
+        other: '%{count} додаткові брати та сестри.'
+    richness:
+      header: Багатство сторінки
+      score: оцінка багатства
+      page_contents_count: пов'язаний вміст
+      missing: Багатство для цієї сторінки ще не розраховане.
+      media_count: медіа
+      articles_count: статей
+      links_count: посилання
+      maps_count: мапи
+      data_count: даних
+      nodes_count: вузлів
+      vernaculars_count: народні мови
+      scientific_names_count: наукові назви
+      referents_count: джерело
+      species_count: видів
+      updated_at: останнє оновлення
+  collect_already_in_collection: (це вже тут)
+  collect_already_in_collection_will_add_icon: (додати до медіа "%{page}")
+  collect_icon_title: Додати "%{item}" зі сторінки "%{page}" до…
+  collect_new_collection: Назва нової колекції
+  collect_new_collection_title: '...нова колекція'
+  collect_no_existing_collections: У вас ще немає! Створіть його, використовуючи форму
+    ліворуч.
+  collect_select_collection: '...Одна з ваших колекцій'
+  collect_title: Додати "%{item}" до...
+  collected_page_added_to_collection: Додано %{page} до колекції <a href='%{link}'>%{name}</a>.
+  collected_page_already_in_collection: Це вже було у вашій колекції.
+  collected_pages_title: Сторінки
+  collected_pages_medium:
+    destroyed_flash: Зображення видалено із зібраної сторінки.
+  collection_associations:
+    destroyed_flash: '%{name} більше не пов’язано з цією колекцією.'
+  collected_pages:
+    delete_button: вилучити
+    edit_button: редагувати
+    delete_confirm: ви впевнені?
+    destroyed_flash: '%{name} видалено з колекції'
+  collection_association_added_to_collection: Додано "%{associated}" до колекції <a
+    href='%{link}'>"%{name}"</a>.
+  collection_associations_empty: Жодна інша колекція не пов’язана з цією. Ви можете
+    натиснути клавішу "асоціювати" в інших колекціях, щоб вони з'явилися тут.
+  collection_associations_title: Асоційовані колекції
+  collection_collected_pages_media_remove: 'Вилучити зображення з колекції (зміни
+    набирають чинності негайно):'
+  collection_created: Створено нову колекцію "%{name}".
+  collection_created_for_association: Додано "%{associated}" до нової колекції <a
+    href='%{link}'>"%{name}"</a>.
+  collection_user_is_admin: Цей користувач є адміністратором.
+  collection_pages_empty: У цій колекції немає сторінок. Спробуйте натиснути клавішу
+    «зібрати» на сторінках видів, щоб додати деякі предмети!
+  collection:
+    admins:
+      header: Користувачі, які можуть редагувати цю колекцію (зміни набирають чинності
+        негайно)
+      label: 'Додайте користувача, який може редагувати цю колекцію:'
+      placeholder: повне ім’я або ім’я користувача
+    actions:
+      associate: асоційований
+      download_taxa_csv: завантажити CSV таксонів -
+      delete: вилучити
+      edit: редагувати
+      sort: сортувати
+    collection_type:
+      normal: нормальний
+      gallery: галерея
+    delete_confirm: Цією дією ви видалете всю колекцію і це НЕМОЖЛИВО буде відмінити.
+      Ви впевнені?
+    destroyed: '%{name} видалено назавжди.'
+    pages_count:
+      one: 1 сторінка
+      other: '%{count} сторінок'
+    log:
+      associated_collection:
+        add: '%{user} додав асоціацію до колекції %{associated}'
+        remove: '%{user} вилучив асоціацію до колекції %{associated}'
+      collection:
+        add: '%{user} створив колекцію'
+        change: '%{user} змінив %{field} з "%{from}" на "%{to}"'
+      content:
+        add: '%{user} додав на середньому %{medium} для сторінки %{page}'
+        change: '%{user} змінив %{field} на середньому %{medium} для сторінки %{page}
+          з "%{from}" на "%{to}"'
+        remove: '%{user} вилучив на середньому %{medium} для сторінки %{page}'
+      page:
+        add: '%{user} додав сторінку %{page}'
+        change: '%{user} змінив %{field} на сторінці %{page} з "%{from}" на "%{to}"'
+        remove: '%{user} вилучив сторінку %{page}'
+      user:
+        add: '%{user} додав менеджера %{manager}'
+        remove: '%{user} вилучив менеджера %{manager}'
+    search:
+      placeholder: Пошук в колекції...
+      submit: пошук
+    sort:
+      hierarchy: ієрархія
+      position: дату додано
+      sci_name: наукова назва, A-Z
+      sci_name_rev: наукова назва, Z-A
+      sort_field: анотація, A-Z
+      sort_field_rev: анотація, Z-A
+    updated: Колекція оновлена.
+  collection_unauthorized_edit: Користувач-власник може редагувати цю колекцію.
+  complete_registration: Продовжуйте реєстрацію
+  content_appears_on: 'Включено на таких сторінках:'
+  content_collected_in: 'У таких колекціях:'
+  content_attributions_header: Інформація про джерело
+  content_attributions_labels:
+    altitude: висота
+    author: автор
+    bibliographic_citation: бібліографічне цитування
+    contributor: вкладник
+    compiler: компілятор
+    creator: творець
+    editor: редактор
+    latitude: широта
+    license: ліцензія
+    location: розташування
+    location_verbatim: дослівно
+    longitude: довгота
+    original_media_file: оригінальний медіафайл
+    owner: авторські права
+    photographer: фотограф
+    publisher: видавець
+    project: проєкт
+    provider: провайдер
+    references_header:
+      one: Виноска
+      other: Виноски
+    resource_label: партнерський сайт
+    resource_pk: '(id: %{key})'
+    rights_statement: заява про права
+    source: джерело
+    spatial_location: просторові
+    view_source_label: оригінал
+    view_source_link: переглянути оригінальне зображення
+    view_source_page_link: відвідати джерело
+  content_not_in_any_collection_image: Це зображення не представлене в жодній колекції.
+  content_not_in_any_collection_sound: Цей звук відсутній в жодній колекції.
+  content_not_in_any_collection_video: Це відео не представлене в жодній колекції.
+  data:
+    modifier:
+      sex_term: Виміряно стать організму
+      lifestage_term: Вимірюваний термін життя організму
+      statistical_method_term: Статистичний метод, що використовується для вимірювання
+  data_missing: '(відсутні дані, ключі: %{keys})'
+  dear_username_with_comma: Шановний %{username}
+  delete_account_button: Вилучити Ваш обліковий запис
+  filter_by_license: ліцензія
+  filter_by_license_any_item: будь-яка ліцензія
+  filter_by_medium_subtype: тип
+  filter_by_medium_any_item: будь-якого типу
+  filter_by_resource: провайдер
+  filter_by_resource_any_item: будь-який провайдер
+  filters:
+    filter_by_attribute: фільтрувати за атрибутом
+    filter_by_language: відфільтрувати за мовою
+    filter_by_provider: відфільтрувати за провайдером
+  footer:
+    eol_info:
+      citing_eol: Посилаючись на EOL
+      contact_us: Зв'язатися з нами
+      data_services: Служби передачі даних
+      donate: Пожертвувати
+      education: Освіта
+      food_webs: Харчові мережі
+      glossary: Глосарій
+      help: Допомога
+      language_support: Мовна підтримка
+      terms_of_use: Умови використання
+      the_eol_forum: Форум EOL
+      what_is_eol: Що таке EOL?
+      whats_new: Що нового?
+    discover:
+      algae: Водорості
+      amphibians: Земноводні
+      animals: Тварини
+      archaea: Археї
+      bacteria: Бактерії
+      birds: Птахи
+      crustaceans: Ракоподібні
+      fishes: Риби
+      flowering_plants: Квітучі рослини
+      fungi: Гриби
+      insects: Комахи
+      invertebrates: Безхребетні
+      mammals: Ссавці
+      molds: Пліснява
+      mushrooms: Гриби
+      mollusks: Молюски
+      plants: Рослини
+      protists: Протисти
+      reptiles: Рептилії
+      spiders: Павуки
+      trees: Дерева
+      viruses: Віруси
+      worms: Глисти
+    eol_is_hosted_by: 'EOL проводить:'
+  forgot_your_password: Забули пароль?
+  gbif_download:
+    created: Створено завдання завантаження GBIF. Перевірте свій <a href="%{url}">сторінка
+      профілю користувача</a> щоб переглянути її статус
+  landing_page:
+    header: Глобальний доступ до знань про життя на Землі
+    stats_cleared: Статистика перелічена.
+  language: Мова
+  languages:
+    ab: Абхазька
+    q27683: Аценес
+    q27776: Адигейська
+    aa: Афар
+    af: Африкаанс
+    ak: Акан
+    alb: Албанська
+    sq: Албанська
+    q131339: Алеманська
+    am: Амхарська
+    ar: Арабська
+    an: Арагонський
+    hy: Вірменський
+    as: Асамська
+    q29507: Астурійський
+    q56590: Атікамекв
+    av: Аварійський
+    ae: Авестанський
+    ay: Аймара
+    q9292: Азербайджанська
+    az: Азербайджанська
+    q33070: Балійський
+    bm: Бамбара
+    q33151: Банджар
+    ba: Башкирський
+    eu: Баскська
+    q29540: Баварський
+    be: Білоруська
+    q8836490: Бенде
+    bn: Бенгальський
+    bh: Мови біхарі
+    bi: Біслама
+    nb: Букмаль, норвезька; Норвезький букмол
+    q4941378: Бондей
+    bs: Боснійська
+    q33202: Брахуї
+    q750553: Бразильська португальська
+    br: Бретонський
+    bg: Болгарська
+    my: Бірманська
+    q33120: Бурят
+    q35037: Businenge Tongo
+    q880301: Каджунський французький
+    q35156: Автомобіль
+    q2591230: Кашинахуа
+    ca: Каталонська; Валенсійська
+    q33239: Себуано
+    khm: Центральна кхмерська
+    km: Центральна кхмерська
+    ch: Чаморро
+    q33281: Чавакано
+    ce: Чеченська
+    q33388: Черокі
+    q33265: Шайєн
+    ny: Чичева; Чва; Ньянджа
+    zh: Китайська
+    chi: Китайська
+    q32979: Чокто
+    cu: Старослов'янська
+    cv: Чуваш
+    q37041: Класична китайська
+    kw: Корніш
+    co: Корсиканець
+    cr: Крі
+    q33357: Кримськотатарський
+    hr: Хорватська
+    hrv: Хорватська
+    cs: Чеська
+    da: Датська
+    q3362072: Діго
+    q56466: Дінка
+    dv: Дівехі; Дівехі; Мальдівська
+    q18415595: Дотялі
+    dut: Голландська; Фламандський
+    nl: Голландська; Фламандський
+    dz: Дзонгкха
+    dzo: Дзонгкха
+    q4126517: Східноканадський Інуктитут
+    en: Англійська
+    q29952: Ерзя
+    eo: Есперанто
+    et: Естонська
+    est: Естонська
+    ee: Вівцематка
+    fo: Фарерські
+    fj: Фіджійська
+    fi: Фінська
+    fin: Фінська
+    q667747: Фіпа
+    fr: Французька
+    fra: Французька
+    ff: Фула
+    gd: Шотландська гельська
+    gl: Галицький
+    q33475: Ган китайський
+    lg: Ганда
+    ka: Грузинський
+    de: Німецька
+    deu: Німецька
+    q5575236: Гоан Конкані
+    q3272630: Гого
+    q2501174: Горонтало
+    el: Грецька, сучасна (1453-)
+    gre: Грецька
+    gn: Гуарані
+    gu: Гуджараті
+    q33303: Хайда
+    ht: Гаїтянська; Гаїтянський креольський
+    ha: Хауса
+    q35756: Хая
+    he: Іврит
+    heb: Іврит
+    q3129390: Hehe
+    hz: Хереро
+    q35978: Хілігейнон
+    hi: Хінді
+    ho: Хірі Моту
+    hu: Угорська
+    is: Ісландський
+    ice: Ісландський
+    io: Ido
+    ig: Ігбо
+    q35936: Ілокано
+    id: Індонезійська
+    q33509: Інгуш
+    ia: Інтерлінгва (Міжнародна асоціація допоміжних мов)
+    ie: Інтерлінгва; Західний
+    iu: Інуктитут
+    ik: Інупіак
+    q33595: Іракв
+    ga: Ірландський
+    it: Італійська
+    ita: Італійська
+    q35939: Ямайська креольська англійська
+    ja: Японська
+    jp: Японська
+    jv: Яванська
+    q33522: Кабардинський черкес
+    q35475: Кабіє
+    q35853: Кабіле
+    kl: Калааллісут; Гренландська
+    q33634: Калмицький
+    kn: Каннада
+    kr: Канурі
+    q36121: Капампанган
+    q33541: Кара-Калпак
+    ks: Кашмірі
+    q33690: Кашубська
+    kk: Казахська
+    ki: Кікую; Гікую
+    q11005332: Кінга
+    q11732519: Кінгіндо
+    rw: Кіньяруанда
+    ky: Киргизька; Киргизька
+    kv: Комі
+    kg: Конго
+    ko: Корейська
+    kor: Корейська
+    kj: Куаняма; Кваняма
+    ku: Курдська
+    q36206: Лак
+    lo: Lao
+    lao: Lao
+    la: Латинська
+    lv: Латиська
+    q1160372: Лаз
+    q31746: Лезгіанський
+    q36106: Лігурійський
+    li: Лімбурген; Лімбургер; Лімбургський
+    ln: Лінгала
+    q146803: Нова французька мова
+    lt: Литовський
+    lit: Литовський
+    q33698: Liv
+    q36584: Лівві
+    q33754: Lombard
+    q168446: Низька Саксонія
+    q13286: Нижньолужицька
+    lu: Люба-Катанга
+    q3437661: Лугуру
+    lb: Люксембурзький; Летцебургеш
+    q35787: Масаї
+    mk: Македонський
+    q497345: Mainfränkisch
+    q36109: Маїтілі
+    mg: Мадагаскарський
+    ms: Малайська
+    ml: Малаялам
+    mt: Мальтійська
+    mlt: Мальтійська
+    gv: Манкс
+    mi: Маорі
+    mr: Маратхі
+    mh: Маршальський
+    q6786446: Матенго
+    q3906614: Луговий Марі
+    q13358: Меглено румунська
+    q13313: Меру
+    q13321: Miꞌkmaq
+    q36455: Мін Донг
+    q13324: Мінангкабау
+    q13359: Мінгрельський
+    q13330: Мірандес
+    q13343: Мокша
+    mn: Монгольська
+    q56426: Марокканська арабська
+    q6944725: Мвера
+    q13300: Науатль
+    q3508074: Най
+    na: Науру
+    nv: Навахо; Навахо
+    nd: Ндебеле, Північ; Північна Ндебеле
+    nr: Ндебеле, Південь; Південна Ндебеле
+    ng: Ндонга
+    q33845: Неаполітанський
+    ne: Непальська
+    q7022366: Нгіндо
+    q28224: Північно-фризька
+    q19933293: Північний Лурі
+    se: Північносаамська
+    "no": Норвезька
+    nno: Норвезька
+    nob: Норвезька
+    nor: Норвезька
+    nn: Норвезький Нінорськ; Нінорськ, норвезька
+    q36738: Новіал
+    q3272620: Някуса
+    q4121131: Нямвезі
+    q7193418: Нятуру
+    q11128374: Ньіха
+    q16115145: Нійка
+    oc: Окситанська (пост 1500)
+    q28602: Офіційна арамейська
+    oj: Ojibwa
+    or: Орія
+    om: Оромо
+    os: Осетинський; Осетинської
+    pi: Pali
+    pa: Панджабі
+    q36403: Pare
+    fa: Перська
+    q23014: Pfaelzisch
+    q34024: Пікарда
+    q15085: П’ємонтська
+    q2429648: Погоро
+    pl: Польська
+    pol: Польська
+    q36748: Понтійський
+    pt: Португальський
+    ps: Пушто; Пушту
+    qu: Кечуа
+    q584983: Рангі
+    ro: Румунська; Молдавський; Молдавський
+    rm: Ретороманська
+    rn: Рунді
+    ru: Російська
+    rus: Російська
+    q26245: Русин
+    q34299: Саха
+    q718269: Сакізая
+    sm: Самоа
+    q213434: Жамойтський
+    q34016: Сандаве
+    sg: Санго
+    sa: Санскрит
+    q33965: Санталі
+    sc: Сардинський
+    q845441: Сассареса Сардінський
+    q14549: Шотландці
+    sr: Сербська
+    q3788739: Шамбала
+    q56482: Шань
+    sn: Шона
+    q34004: Шона
+    ii: Сичуань І; Нуосу
+    q33973: Сицилійська
+    sd: Сіндхі
+    si: Сингальська
+    sk: Словацька
+    slk: Словацька
+    sl: Словенська
+    so: Сомалійська
+    som: Сомалійська
+    st: Сото, південний
+    es: Іспанська; Кастильський
+    slv: Іспанська
+    q2638144: Сукума
+    su: Сунданський
+    sw: Суахілі
+    ss: Свати
+    sv: Шведська
+    swe: Шведська
+    tl: Тагалог
+    ty: Таїтянський
+    tg: Таджицька
+    q34318: Талиш
+    ta: Тамільська
+    tt: Татарський
+    te: Телугу
+    th: Тайська
+    tha: Тайська
+    bo: Тибетський
+    ti: Тигріня
+    q34159: Ток Пісін
+    to: Тонганська
+    q180937: Тоск албанець
+    ts: Цонга
+    tn: Тсвана
+    q34251: Тулу
+    q34138: Тумбука
+    q56240: Туніська арабська
+    tr: Турецька
+    tur: Турецька
+    q36730: Турецька, османська
+    tk: Туркменські
+    tw: Тві
+    q13238: Удмуртський
+    ug: Уйгурська; Уйгурський
+    uk: Український
+    ukr: Український
+    none: Невизначено
+    q13248: Верхньолужицька
+    ur: Урду
+    uz: Узбецька
+    ve: Венда
+    q32747: Вепсіанський
+    vi: В’єтнамська
+    vo: Волапюк
+    q32858: Вотик
+    wa: Валлонія
+    q34279: Варай
+    cy: Валлійська
+    wel: Валлійська
+    q100103: Західно-фламандська
+    fy: Західно-фризька
+    wo: Волоф
+    q34290: Ву
+    xh: Хоса
+    yi: Їдиш
+    yo: Йоруба
+    q10199: Зазакі
+    q237409: Зеландський
+    za: Чжуан; Чуанг
+    zu: Зулуська
+  layout_sign_in: Увійти
+  layout_sign_up: Реєстрація
+  layout_sign_out: Вийти
+  literature_and_references_header: Література та виноски
+  maps:
+    empty: Для цієї сторінки немає доступних мап.
+    occurrence_caption: Відомі випадки, зібрані зразки та спостереження %{page_name}.
+      Переглянути цей вид на GBIF
+    occurrence_caption_w_link_html: Відомі випадки, зібрані зразки та спостереження
+      за %{page_name}. <a href='%{url}'>Переглянути цей вид на GBIF <i class='fa fa-external-link'></i></a>
+    other_maps_title: Неінтерактивні мапи
+  medium:
+    untitled:
+      image: Без назви зображення
+      image_of: Зображення %{page_name}
+      video: Відео без назви
+      video_of: Відео %{page_name}
+      sound: Звук без назви
+      sound_of: Звук %{page_name}
+      map: Мапа без назви
+      map_of: Мапа %{page_name}
+      js_map: Інтерактивна мапа без назви
+      js_map_of: Інтерактивна мапа %{page_name}
+    subclasses:
+      image: зображення
+      video: відео
+      sound: звук
+      map_image: мапа
+      js_map: інтерактивна мапа
+  medium_collect_button: збирати засоби масової інформації
+  medium_description_blank: Для цього об’єкта немає опису.
+  medium_header_title: 'Назва:'
+  medium_header_description: 'Опис:'
+  names:
+    hide_langs:
+      one: сховати одну мову
+      other: сховати %{count} мов
+    prefer: віддають перевагу
+    preferred_in_language_for_page: '%{name} зараз є кращим %{language} народна мова
+      для %{page}'
+    show_more_langs:
+      one: показати ще одну мову
+      other: показати ще %{count} мов
+  nav:
+    about: Опис
+    discuss: Обговорити
+    education: Освіта
+    search:
+      no_results_html: <strong>Немає підтверджених результатів</strong><br />Натисніть
+        клавішу Enter, щоб побачити некуратні результати
+      placeholder: Шукати EOL...
+    trait_bank: TraitBank
+  name_preferred_label: кращий
+  page_icon_counts:
+    header:
+      one: Найкраще зображення для сторінки
+      other: Найкраще зображення для сторінок
+  page_icon_created: Зображення "%{name}" переміщено вгору.
+  page_title: Енциклопедія життя
+  page_title_search: 'Пошук: %{query}'
+  page_vernaculars_empty: Немає загальних назв, пов’язаних з цим таксоном.
+  pages:
+    actions:
+      collect: збирати
+      comment:
+        zero: коментар
+        one: '%{count} коментар'
+        other: '%{count} коментарів'
+      reindex: переіндексування
+    batch_lookup:
+      header: пакетний пошук сторінки
+      canonical_name: канонічна назва
+      download_tsv: завантажити TSV
+      match: спостерігати
+      new_search: новий пошук
+      page_id: ID сторінки
+      page_url: URL-адреса сторінки
+      query: запит
+      query_cant_be_blank: запит не може бути порожнім
+      search: пошук
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL має дані для <a href="%{data_path}">одного атрибуту</a>:'
+        other: 'EOL має дані для <a href="%{data_path}">%{count} атрибутів</a>, including:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL має дані для <a href="%{data_path}">одного атрибуту</a>.
+        other: EOL має дані для <a href="%{data_path}">%{count} атрибутів</a>.
+    filter_menu:
+      show_all: показати усі
+    page_data:
+      habitat_wordcloud_tooltip: Записи нашого середовища існування значною мірою
+        створені з текстом, тому багато термінів зустрічаються неодноразово; частіше
+        зустрічаються терміни середовища існування - відображаються більшими в хмарі
+        слів - швидше за все, мають значення. Усі записи перелічені нижче.
+      n_hidden_show_all:
+        one: 1 “%{pred_name}” запис приховано — показати все
+        other: '%{count} “%{pred_name}” записи приховано — показати все'
+      n_hidden_show_all_noname:
+        one: 1 запис прихований — показати усе
+        other: '%{count} записів приховано — показати усе'
+      show_all: показати усе
+    resource_names:
+      name_recognized_by: Визнано %{by}
+      name_recognized_by_w_rank: '%{rank} визнаний %{by}'
+      name_recognized_by_w_status: '%{status} відповідно до %{by}'
+      rank:
+        r_domain: Домен
+        r_subdomain: Піддомен
+        r_infradomain: Інфрадомен
+        r_superkingdom: Суперцарство
+        r_kingdom: Королівство
+        r_subkingdom: Підцарство
+        r_infrakingdom: Інфрацарство
+        r_superphylum: Суперфілум
+        r_phylum: Філум
+        r_subphylum: Підфілум
+        r_infraphylum: Інфрафілум
+        r_superclass: Суперклас
+        r_class: Клас
+        r_subclass: Підклас
+        r_infraclass: Інфраклас
+        r_superorder: Нарядник
+        r_order: Порядок
+        r_suborder: Підзаказ
+        r_infraorder: Інфразаказ
+        r_superfamily: Суперсімейство
+        r_family: Сімейство
+        r_subfamily: Підсімейство
+        r_infrafamily: Інфрасімейство
+        r_tribe: Плем'я
+        r_supergenus: Суперген
+        r_genus: Рід
+        r_subgenus: Підрод
+        r_infragenus: Інфраген
+        r_superspecies: Надвиди
+        r_species: Види
+        r_subspecies: Підвид
+        r_infraspecies: Інфравиди
+        r_form: Форма
+      reference_taxon_attrib: Довідковий таксон з %{dataset_name}
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
+      username_missing: користувач %{user_id}
+    trophic_web:
+      competitor: Конкурент
+      globi_credit_html: дані від <a href='%{url}'>GloBI</a>
+      predator: Хижак
+      prey: Здобич
+      reset: скинути
+      trophic_web_about: Діаграми харчової мережі EOL зосереджені на взаємозв'язку
+        з харчуванням одного виду; вони показують фокальний вид разом із видами, якими
+        він харчується (здобич), видами, які ним харчуються (хижаки) та іншими видами,
+        які харчуються однією і тією ж здобиччю (потенційні конкуренти). Натисніть,
+        щоб дізнатись більше.
+      trophic_web_title_html: Трофічне павутиння <a href='%{about_path}'><sup><span
+        class='a' uk-tooltip='%{tooltip}'>?</span></sup></a>
+    flash:
+      reindexed: Кеші для цієї сторінки очищені. Перезавантажте, щоб побачити нові
+        значення. Зверніть увагу, що нині це не * переіндексує зображення на сторінці.
+        Ця функція буде впроваджена в майбутньому.
+    native_node_missing_warning: інформація про ієрархію відсутня
+    tabs:
+      articles: статей
+      classifications: класифікації
+      data: дані
+      literature_and_references: Література та виноски
+      overview: огляд
+      maps: мапи
+      media: медіа
+      names: імена
+    iucn_status:
+      label: 'Статус IUCN:'
+      ex: вимерлий (EX)
+      ew: вимер у дикій природі (РЕ)
+      cr: критично зникаючих (CR)
+      en: зникаючий (EN)
+      vu: вразливий (VU)
+      nt: поблизу загрози (NT)
+      lc: найменше занепокоєння (LC)
+      dd: дефіцит даних (DD)
+      ne: не оцінено (NE)
+      unknown: невідомо (немає запису)
+    unresolved_name: Невирішена назва
+    unresolved_name_prefix: 'Невирішена назва:'
+  page_titles:
+    pages:
+      data: '%{page_name} дані'
+      media: '%{page_name} медіа'
+      maps: '%{page_name} мап'
+      names: '%{page_name} імена'
+      articles: '%{page_name} статей'
+    traits:
+      search: Пошук ознак
+  rank:
+    name:
+      r_domain: домен
+      r_subdomain: субдомен
+      r_infradomain: інфрадомен
+      r_superkingdom: надцарство
+      r_kingdom: королівство
+      r_subkingdom: підцарство
+      r_infrakingdom: інфрацарство
+      r_superphylum: суперфілум
+      r_phylum: філум
+      r_subphylum: підфілум
+      r_infraphylum: інфрафілум
+      r_superclass: суперклас
+      r_class: клас
+      r_subclass: підклас
+      r_infraclass: інфраклас
+      r_superorder: надрядник
+      r_order: порядок
+      r_suborder: підряд
+      r_infraorder: інфразаказ
+      r_superfamily: суперсімейство
+      r_family: сімейство
+      r_subfamily: підсімейство
+      r_infrafamily: внутрішньосімейні
+      r_tribe: племені
+      r_supergenus: надрод
+      r_genus: рід
+      r_subgenus: підрод
+      r_infragenus: інфраген
+      r_superspecies: надвиди
+      r_species: видів
+      r_subspecies: підвиди
+      r_infraspecies: інфравиди
+      r_form: форма
+  recaptcha: Recaptcha
+  recaptcha_error: Скажіть нам, що ви не робот.
+  reconciliation:
+    id_space:
+      intro: Кожен ідентифікатор сутності, повернутий API вивірення, є частиною шляху
+        URL-адреси для загального представлення цієї сутності на EOL, таким чином,
+        що даний ідентифікатор можна замінити на https://eol.org/<id> щоб отримати
+        дійсну URL-адресу для своєї сутності. Формат ідентифікаторів кожного типу
+        викладено нижче.
+      headers:
+        type_id: Тип ідентифікатора
+        type_name: Введіть Ім'я
+        id_format: Формат ідентифікатора
+      type_names:
+        taxon: Таксон
+      numeric_id: числовий ідентифікатор
+    property:
+      description:
+        ancestor: Таксон, який є родоначальником іншого таксону.
+        rank: Рядок, що описує ранг таксона, наприклад, "вид". Невизнані звання не
+          набираються.
+      name:
+        ancestor: Предка
+        rank: Ранг
+    schema_space:
+      intro: Колекція властивостей, яка використовується службою API звірення, описана
+        нижче.
+      headers:
+        id: ID
+        name: Назва
+        description: Опис
+  reference_compiled_from: Посилання на %{links}
+  reference_compiled_from_article: '%{source} стаття під назвою "%{name}"'
+  register_new_account: Зареєструйтесь для нового облікового запису
+  resources:
+    actions:
+      import_traits: імпорт ознак (із сховища)
+      republish: переопублікувати
+      reindex: переіндексування
+      fix_no_names: виправити НІ ІМЕНІ
+      index: повернутися до всіх ресурсів
+      show_all:
+        other: показати усі (%{count})
+      show_warns:
+        one: показати попередження (%{count})
+        other: показати попередження (%{count})
+      clear_publishing: прозоре блокування
+      clear_publishing_confirm: Це завершить усі публікації та може спричинити проблеми,
+        якщо використовувати їх під час активної публікації. Ти впевнений?
+    headers:
+      index: Ресурси
+      import_log: Журнал імпорту для %{resource}
+    index:
+      locked_jobs:
+        zero: відсутність робочих місць
+        one: 1 робоче місце
+        other: '%{count} робочих місць'
+      jobs:
+        zero: відсутність роботи, що не очікується
+        one: 1 робота, що очікується
+        other: '%{count} робіт, що очікується'
+      harvest_jobs:
+        zero: ніяких публікацій
+        one: 1 очікувана публікація
+        other: '%{count} для публікації'
+    no_events: Жоден!
+  resource_missing: ресурс не знайдено
+  scientific_name:
+    status_title:
+      accepted: Прийняті імена
+      alternative: Альтернативні імена
+      preferred: Кращі імена
+      unusable: Непридатні імена
+      synonym: Синоніми
+  scientific_names_header: Наукові імена
+  send_me_reset_password_instructions: Надішліть мені інструкції щодо скидання пароля
+  search:
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: Збіг %{text}
+    flash:
+      cannot_combine_paths: Неможливо поєднати результати з %{path}
+      more_than_one_species: Неможливо об’єднати результати для %{species}
+      more_than_two_terms: 'Неможливо об’єднати результати більше двох термінів: %{terms}'
+    n_articles:
+      one: '%{count} сторінка'
+      other: '%{count} сторінок'
+    n_collections:
+      one: '%{count} колекція'
+      other: '%{count} колекцій'
+    n_images:
+      one: '%{count} зображення'
+      other: '%{count} зображень'
+    n_results:
+      zero: Немає результатів
+      one: '%{count} результат'
+      other: '%{count} результатів'
+    n_sounds:
+      one: '%{count} звук'
+      other: '%{count} звуків'
+    n_taxon_pages:
+      one: '%{count} сторінка таксону'
+      other: '%{count} сторінок таксону'
+    n_users:
+      one: '%{count} користувач'
+      other: '%{count} користувачів'
+    n_videos:
+      one: '%{count} відео'
+      other: '%{count} відео'
+    n_terms:
+      one: '%{count} термін'
+      other: '%{count} термінів'
+  search_results:
+    collection_page_count:
+      one: '%{count} сторінка'
+      other: '%{count} сторінок'
+    collection_page_count_and_users:
+      one: '%{count} сторінка; підтримується %{users_sentence}'
+      other: '%{count} сторінок; підтримується  %{users_sentence}'
+    collected_media:
+      title: 'зібрані медіа з цієї сторінки:'
+    medium_article: Стаття
+    medium_image: Зображення
+    medium_map: Мапа
+    medium_sound: Звук
+    medium_video: Відео
+    medium_title_article_html: 'Стаття: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Зображення: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Мапа: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Аудіо: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Відео: <span class=''sub''>%{title}</span>'
+    empty: Немає результатів
+    field_matches:
+      description: 'відповідає опису:'
+      resource_pk: 'відповідає зовнішньому ідентифікатору:'
+      bio: 'відповідає біографії:'
+      tag_line: 'відповідає рядку тегу:'
+      resources:
+        one: 'відповідає ресурсу:'
+        other: 'відповідає ресурсам:'
+      synonyms:
+        one: 'відповідає синоніму:'
+        other: 'відповідає синонімам:'
+      vernaculars:
+        one: 'відповідає загальній назві:'
+        other: 'відповідає загальним назвам:'
+    section_titles:
+      collections:
+        one: '%{count} колекція'
+        other: '%{count} колекцій'
+      media:
+        one: '%{count} середній'
+        other: '%{count} медіа'
+      pages:
+        one: '%{count} сторінка eol (вид)'
+        other: '%{count} сторінкам eol (види)'
+      object_terms:
+        one: '%{count} значення запису даних (TraitBank)'
+        other: '%{count} значення записів даних (TraitBank)'
+      predicates:
+        one: '%{count} тип запису даних (TraitBank)'
+        other: '%{count} тип записів даних (TraitBank)'
+      users:
+        one: '%{count} користувач'
+        other: '%{count} користувачів'
+    collection_title_html: 'Колекція: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 СТОРІНКА
+        other: '%{count} СТОРІНОК'
+      n_data:
+        one: 1 ДАТА
+        other: '%{count} ДАТ'
+      n_media:
+        one: 1 СЕРЕДНЯ
+        other: '%{count} МЕДІА'
+    user_title_html: 'Користувач: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: створити нову пропозицію пошуку
+    created: Створена пропозиція пошуку для "%{match}"
+    destroyed: Знищена пропозиція щодо пошуку для "%{match}"
+    new:
+      header: Створити пропозицію пошуку
+    update:
+      header: Оновити пропозицію пошуку
+    index:
+      header: Пропозиції пошуку
+  sections:
+    associations: Асоціації
+    behavior: Поведінка
+    benefits: Переваги
+    brief_summary: Стислий підсумок
+    comprehensive_description: Вичерпний опис
+    conservation: Збереження
+    conservation_status: Заповідний статус
+    cyclicity: Циклічність
+    diagnostic_description: Діагностичний опис
+    diseases_and_parasites: Хвороби і паразити
+    dispersal: Розгін
+    distribution: Поширення
+    ecology: Екологія
+    evolution_and_systematics: Еволюція та систематика
+    general_ecology: Загальна екологія
+    genetics: Генетика
+    growth: Зростання
+    habitat: Середовище існування
+    identification_resources: Ідентифікаційні ресурси
+    life_expectancy: Імовірна тривалість життя
+    life_history_and_behavior: Історія життя та поведінка
+    management: Управління
+    migration: Міграція
+    molecular_biology: Молекулярна біологія
+    molecular_biology_and_genetics: Молекулярна біологія і генетика
+    morphology: Морфологія
+    names_and_taxonomy: Імена та таксономія
+    notes: Нотатки
+    overview: Огляд
+    physiology_and_cell_biology: Фізіологія і клітинна біологія
+    physical_description: Фізичний опис
+    relevance_to_humans_and_ecosystems: Значення для людей та екосистем
+    reproduction: Розмноження
+    risks: Ризики
+    size: Розмір
+    taxonomy: Таксономія
+    threats: Загрози
+    trends: Тенденції
+    trophic_strategy: Трофічна стратегія
+    type_information: Інформація про тип
+    wikipedia: Вікіпедія
+  settings: налаштування
+  show_date: Показати дату публікації
+  sign_in: Увійти
+  sign_up: Реєстрація
+  signature_with_contact_us_link: |-
+    Якщо у вас виникнуть проблеми, зв’яжіться з нами за адресою %{url}.
+
+    Команда "Енциклопедія життя"
+  did_not_receive_confirmation_instructions: Не отримав інструкцій щодо підтвердження
+  simple_form:
+    "yes": Так
+    "no": Ні
+    required:
+      text: обов'язкове поле
+      mark: '*'
+    error_notification:
+      default_message: 'Будь ласка, перегляньте наведені нижче проблеми:'
+    labels:
+      defaults:
+        email: Електронна пошта
+        password: Пароль
+        password_confirmation: Підтвердження паролю
+        remember_me: Запам’ятати мене
+        username: Ім'я користувача
+        bio: Про себе
+      search_suggestion:
+        match: рядок пошуку для відповідності
+        page_id: Ідентифікатор сторінки EOL, на яку потрібно перенаправити (або відфільтрувати
+          за)
+        synonym_of_id: Ідентифікатор (!) пропозиції пошуку, яку варто використовувати
+          замість цього
+        object_term: URI для переспрямування (або фільтрування за)
+        path: шлях (повний або відносний) для переспрямування
+        wkt_string: Рядок WKT для передачі Effechecka
+  stats:
+    articles: статей
+    collections: колекції
+    data: записи даних
+    media: медіа
+    pages: сторінки
+    nodes: вузлів
+    scientific_names: імена
+    users: користувачів
+    references: налаштування
+  term_query:
+    invalid_obsolete: НЕПРІЧАСНИЙ/ЗАСТАЛЕНИЙ
+    validations:
+      empty_filters_error_record: Ви повинні надати фільтр із атрибутом або значенням
+        для пошуку записів
+      empty_filters_error_taxa: Ви повинні надати кладу або фільтр з атрибутом або
+        значенням для пошуку таксонів
+  term_query_filter:
+    validations:
+      blank_error: повинен вказати атрибут або значення
+      invalid_uri: недійсний URI
+      multi_obj_error: не може мати як об’єктний термін, так і цільову кладу
+      pred_uri_blank_obj_clade_error: не може бути порожнім із цільовою кладою
+      pred_uri_blank_numeric_error: не може бути порожнім із числовим значенням
+      range_invalid_error: має бути >= до першого значення
+      units_blank_error: одиниці не можуть бути порожніми для числового пошуку
+  terms:
+    attribution_field_html: <strong>Атрибуція:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Коментар:</strong> %{comment}
+    definition_field_html: <strong>Визначення:</strong> %{definition}
+    source_field_html: <strong>Джерело:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL-адреса запису
+    scientific_name: наукова назва
+    show_all_records: показати всі записи
+    source: джерело
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Виберіть сторінку вище, щоб розпочати.
+  data_definition: визначення "%{data}"
+  traits:
+    data_viz:
+      about_this_chart: про цю діаграму
+      about_this_chart_tooltip_1d: Це короткий вміст на основі даних, доступних у
+        EOL. Це може бути неповно! Ви можете вибрати категорію на діаграмі, щоб звузити
+        результати пошуку. Багато категорій перекриваються, і види можуть бути включені
+        в більше ніж одну категорію.
+      about_this_chart_tooltip_assoc: Це короткий вміст, заснований на даних, доступних
+        у EOL. Це може бути неповно! Ви можете навести курсор на назву таксону, щоб
+        виділити його зв’язки. Зелене посилання означає, що таксоном, що наводиться,
+        є предметом асоціації; фіолетовий означає, що це об'єкт. Більші пошукові запити
+        узагальнені за родом чи сім’єю. Ви можете звузити їх, натиснувши назву таксону.
+      about_this_chart_tooltip_sankey_2d: Це короткий вміст на основі даних, доступних
+        у EOL. Це може бути неповно! Ви можете вибрати категорію на будь-якій осі,
+        щоб звузити результати пошуку. Багато категорій перекриваються, і види можуть
+        бути включені в більше ніж одну категорію на одній осі.
+      about_this_chart_tooltip_sankey_3+: Це короткий вміст на основі даних, доступних
+        у EOL. Це може бути неповно! Ви можете вибрати категорію на будь-якій осі,
+        щоб звузити результати пошуку. Багато категорій перекриваються, і види можуть
+        бути включені в більше ніж одну категорію на одній осі. У виділеному підмножині
+        відображення ці різнозначні види будуть враховуватися кілька разів за іншими
+        осями.
+      about_this_chart_tooltip_taxon_summary: Це підсумок таксономічних груп, для
+        яких EOL має дані, що відповідають вашому пошуку. Він може бути усічений відповідно
+        до розміру дисплею. Ви можете вибрати групу з діаграми, щоб переглянути підгрупи
+        або звузити результати пошуку.
+      other_term_name: інший %{term_name}
+      hist_value_label: значення (%{units})
+      n_family_records:
+        one: один запис для таксонів у сімействі %{family}
+        other: '%{count} записів для таксонів у сімействі %{family}'
+      n_family_taxa:
+        one: один таксон у сімействі %{family}
+        other: '%{count} таксонів у сімействі %{family}'
+      n_other_records:
+        one: ще один запис
+        other: '%{count} інші записи'
+      n_other_taxa:
+        one: ще один таксон
+        other: '%{count} інші таксони'
+      num_records_label: '# записів'
+      other: інші
+      page_habitat_header: '%{name} Місця проживання'
+      page_habitat_explanation: Середовища, в яких відомо багато %{name} видів. Виберіть
+        середовище, щоб побачити його %{name} видовий контрольний список.
+      pie_prompt: наведіть курсор миші на сегмент або клавішу, щоб виділити
+      show_n_family_records:
+        one: натисніть, щоб побачити один запис для таксонів у сімействі %{family}
+        other: натисніть, щоб побачити %{count} записів для таксонів у сімействі %{family}
+      show_n_family_taxa:
+        one: натисніть, щоб побачити один таксон в сімействі %{family}
+        other: натисніть, щоб побачити %{count} таксонів у сімействі %{family}
+      n_obj_records:
+        one: один запис з "%{obj_name}"
+        other: '%{count} записів з "%{obj_name}"'
+      n_taxa_with:
+        one: один таксон з "%{obj_name}"
+        other: '%{count} таксонів з "%{obj_name}"'
+      sankey_node_hover: натисніть, щоб звузити пошук до %{term_name}
+      see_n_obj_records:
+        one: натисніть, щоб побачити один запис з "%{obj_name}"
+        other: натисніть, щоб побачити %{count} записів з "%{obj_name}"
+      see_n_taxa_with:
+        one: натисніть, щоб побачити один таксон з "%{obj_name}"
+        other: натисніть, щоб побачити %{count} таксонів з "%{obj_name}"
+      show_n_records_between:
+        one: натисніть, щоб побачити %{count} запис із значеннями вимірювань у [%{min},
+          %{limit}] %{units}
+        other: натисніть, щоб побачити %{count} записів із значеннями вимірювань у
+          [%{min}, %{limit}] %{units}
+      show_n_taxa_between:
+        one: натисніть, щоб побачити %{count} таксон зі значеннями вимірювання у [%{min},
+          %{limit}] %{units}
+        other: натисніть, щоб побачити %{count} таксонів зі значеннями вимірювання
+          у [%{min}, %{limit}] %{units}
+      show_link:
+        associations_summary: показати резюме асоціацій
+        attribute_summary: показати підсумок атрибутів
+        taxon_summary: показати резюме таксонів
+      taxon_summary:
+        click_to_filter: натисніть, щоб фільтрувати
+        click_to_filter_by: натисніть, щоб відфільтрувати за '%{name}'
+      toggle_text:
+        taxon_summary: показати опис таксонів
+        trait_summary: показати опис атрибутів
+    properties:
+      citation: Бібліографічне цитування
+      method: Метод вимірювання
+      remarks: Зауваження
+      sample_size: Обсяг вибірки
+      scientific_name: Наукова назва
+      source: Джерело
+    search:
+      clade: 'клада: %{clade}'
+      download_tsv: завантажити tsv
+      edit_filters: редагувати фільтри
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'тривалість життя: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'зі значенням: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} у [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'джерело: %{value}'
+        sex: 'стать: %{value}'
+        statistical_method: 'статистичний метод: %{value}'
+      gbif_search: Пошук у форматі GBIF
+      gbif_search_hover: знайдіть записи записів у GBIF для таксонів у результатах
+        пошуку (ліміт 50)
+      result_header_records: Показано %{range_begin} - %{range_end} з %{total} записів
+        для %{page_count} таксонів
+      result_header_taxa: Показано %{range_begin} - %{range_end} з %{total} таксонів
+      result_header_taxa_notaxa: Показано %{range_begin} - %{range_end} з %{total}
+      result_header_records_notaxa: Показано %{range_begin} - %{range_end} з %{total}
+        записів для %{page_count}
+      new_search: новий пошук
+      select:
+        child_term: вибрати дочірній термін (необов’язково)
+        top_level:
+          object_term: або виберіть значення
+          predicate: або виберіть атрибут
+      show_query: показати запит
+      switch_to_list: переключитися на перегляд списку
+      switch_to_gallery: переключитися на перегляд галереї
+    search_form:
+      attribute: атрибут
+      attribute_eg: 'атрибут (наприклад: трофічний рівень)'
+      clade_filter_placeholder: 'група (наприклад: ведмеді) (необов’язково)'
+      hide_additional_fields: приховати додаткові поля
+      lifestage: життя
+      records_matching_all: записи для таксонів, що відповідають УСІМ фільтрам
+      resource: ресурс
+      search: Пошук
+      sex: секс
+      show_additional_fields: показати додаткові поля
+      statistical_method: статистичний метод
+      target_group: цільова група (наприклад, лосось)
+      taxa_matching_all: таксони, що відповідають УСІМ фільтрам
+      this_may_take_a_minute: Це може зайняти хвилину
+      trait_filter: фільтр ознак
+      value: значення
+      value_eg: 'значення (наприклад: травоїдна тварина)'
+  trophic_web:
+    group_descriptions:
+      competitor: конкурент %{source_name}
+      predator: подає на %{source_name}
+      prey: з’їдений %{source_name}
+      source: вогнищеві види
+  trust:
+    unreviewed: непереглянута
+    trusted: довіряють
+    untrusted: не довіряють
+  user:
+    batch_page_lookup: Пакетний пошук сторінки
+    created_at: створено
+    download_queue: Черга завантаження даних
+    grant_power: Надання доступу для досвідчених користувачів
+    revoke_power: Скасувати доступ для досвідчених користувачів
+    edit_account_details: Редагувати дані облікового запису
+    email: Ел. пошта
+    to_commit_enter_current: Щоб внести зміни, введіть поточний пароль
+    form_labels:
+      age_confirm: Мені щонайменше 13 років
+      tou_confirm_html: Я прочитав <a href='%{tou_path}'>Умови використання</a> та
+        <a href='%{privacy_path}'>Політику конфіденційності</a>
+    headers:
+      bio: Коротка біографія
+      collections: Колекції
+      downloads: Завантаження
+      links: Посилання
+    is_power_user: Цей користувач позначений як досвідчений користувач.
+    validations:
+      age_confirm: ви повинні підтвердити, що вам щонайменше 13 років
+      tou_confirm: ви повинні підтвердити, що прочитали Умови використання та Політику
+        конфіденційності
+    list_of_power_users: Список досвідчених користувачів
+    new_password: Новий пароль
+    confirm_new_password: Підтвердити новий пароль
+    showing_n_power_users:
+      one: Перелічення одного досвідченого користувача
+      other: Перелічення %{count} досвідчених користувачів
+    trait_bank_cypher_form: Ознака банківської форми кіфари
+    username: ім'я користувача
+    update: Оновити
+    update_email: Оновити електронну пошту
+  user_download:
+    created: Ваш файл буде оброблений у фоновому режимі. Перевірте свою <a href="%{url}">сторінку
+      користувача</a> щоб перевірити, чи завершено.
+    have_pending: Ви вже завантажили цей запит. Перевірте свою <a href="%{url}">сторінку
+      користувача</a> щоб перевірити, чи завершено.
+  users:
+    account_migration_header: 'Якщо ви зареєструвались у EOL до 15 листопада 2018
+      року:'
+    account_migration_notice: Інформація про ваш акаунт, включаючи ім’я користувача,
+      пов’язану електронну адресу, опис профілю та колекції, що належать, імпортовано
+      до нового EOL. Ваше ім’я користувача все ще є вашим відображуваним іменем на
+      сайті, але тепер ви повинні увійти за допомогою своєї адреси електронної пошти.
+      Ми не могли перенести ваш пароль із міркувань безпеки; вибачте за клопотання.
+      Ви зможете скинути його за допомогою процесу забутого пароля. Якщо ви увійшли
+      до системи лише за допомогою сторонніх постачальників - Google, Twitter або
+      FaceBook - будь ласка, будьте з нами; ми розробляємо деякі проблеми зі спільними
+      процесами входу.
+    sign_in: Увійти
+  vernacular_names_header: Загальні імена
+  vernacular_preferred_by_resource: '%{resource} (віддає перевагу цій назві)'
+  wordcloud_credit_html: генерується за допомогою <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} з %{n}'
+  term:
+    actions:
+      reindex: переіндексування
+      sort: сортувати за
+    edit:
+      header: Редагування %{uri}
+      submit: Зберегти
+    fields:
+      name: 'ім''я:'
+      definition: 'визначення:'
+      attribution: 'атрибуція:'
+      comment: 'коментар:'
+      sections: 'розділи:'
+      is_hidden_from_glossary: 'приховати від глосарію:'
+      is_hidden_from_overview: 'сховати з огляду вкладки:'
+    glossary:
+      full_title: Глосарій ВСІХ Умов щодо даних про EOL
+      predicate_title: Глосарій термінів типу для даних про EOL
+      object_term_title: Словник термінів вартості даних про EOL
+      units_title: Словник термінів одиниць даних про EOL
+    pagination:
+      next: наступна сторінка
+      previous: попередня сторінка
+    inverse_name:
+      fallback: обернено '%{term_name}'
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: їдять
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: має ектопаразит
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: має ендопаразит
+        http://eol(dot)org/schema/terms/HasDispersalVector: вектор розсіювання для
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: господар
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: має гіперпаразит
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: має вектор
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: вбито
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: клептопаразитизує
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: має яйця, відкладені
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: паразитує
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: має паразитоїд
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: має збудник
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: полював на
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: відвідав
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: квіти в гостях у
+    name:
+      by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/місяць'
+        http://eol(dot)org/schema/terms/percm2: /см^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: еленський
+          вік
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: ненормальний вибір
+          місця проживання
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: аномальна локомоторна
+          поведінка
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: достаток
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: бездонна зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: абіссальпелагічна зона
+        http://eol(dot)org/schema/terms/acicular: голкоподібні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: кислотне гаряче джерело
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: кислотний шахтний дренаж
+        http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: кисле прісноводне
+          гірське озеро
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кислий грунт
+        http://eol(dot)org/schema/terms/activeForaging: активний фуражир
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: період активного зростання
+        http://eol(dot)org/schema/terms/adaptiveStrategy: адаптивна стратегія
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: клей
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: саманний грунт
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: дорослий
+        https://eol(dot)org/schema/terms/adventive: адвентивний в
+        http://eol(dot)org/schema/terms/aerial: повітряний
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: повітряний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: повітряне середовище
+          існування
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: аеронський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: аерозоль
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: після темпів відростання
+          врожаю
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: агатоксини
+        http://eol(dot)org/schema/terms/age At Dispersal: вік при розгоні
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: вік при відкритті очей
+        http://eol(dot)org/schema/terms/AgeAtMaturity: вік у зрілості
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: сільськогосподарські
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: сільськогосподарський
+          матеріал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: сільськогосподарський
+          грунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: сільськогосподарська
+          тераса
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: сільськогосподарські
+          відходи
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: сільськогосподарські
+          відходи
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: альбійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: лужне середовище
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: лужна плоска
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: лужне середовище існування
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: лужне гаряче джерело
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: алолектотип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: аллонеотип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: алотип
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: алювіальне віяло
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: намивна рівнина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: алювіальний грунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: альпійський льодовик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: альпійський грунт
+        http://eol(dot)org/schema/terms/alternatingReproduction: чергування поколінь
+        http://eol(dot)org/schema/terms/ambush: засідка хижака
+        https://eol(dot)org/schema/terms/ampharetid_feeder: амфаретидна годівниця
+        http://eol(dot)org/schema/terms/amphibious: земноводний
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: амфідромна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: анабранч
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: анадромний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: анаеробна грязь
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: анаеробний осад
+        http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: анаеробна толерантність
+          ґрунту
+        https://eol(dot)org/schema/terms/anal_dorsal_fins: плавання в анальному та
+          спинному плавниках
+        https://eol(dot)org/schema/terms/anal_fin: плавання анальним плавником
+        https://eol(dot)org/schema/terms/andromonoecious: андромодноезний
+        http://eol(dot)org/schema/terms/androviviparous: андровівіпарова
+        http://eol(dot)org/schema/terms/anemochory: анемохорія
+        https://eol(dot)org/schema/terms/anguilliform: кущоподібний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: житло тварин
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: підстилка для тварин
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: щільність популяції
+          тварин
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: тваринні відходи
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: анісіанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: річний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: безкислотна вода
+        http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: антеізооктадеканова
+          кислота
+        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: анте-ізотетрадеканова
+          кислота
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: передній
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009066: пильовик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: антропогенний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002204: антропогенне забруднення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010001: антропогенний екологічний
+          матеріал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: антропогенний наземний
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: апетит
+        http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: опозиційні очі
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: аптійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: аквадук
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: водний
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: водний (рух)
+        http://eol(dot)org/schema/terms/aquatic: водні пристосовані
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: водна рослина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: водоносний шар
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: вік
+          Аквітанії
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: орний ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: арагоніт
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: деревний (локомоція)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: деревне середовище існування
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: архейський
+          еон
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: площі
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: арете
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: посушливий
+        https://eol(dot)org/schema/terms/arm: рука
+        http://eol(dot)org/schema/terms/ArmPlusDiscLength: рука плюс довжина диска
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: артинський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: безстатеве розмноження
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: ассельський
+          вік
+        http://eol(dot)org/schema/terms/atLeastShortPersistentSeedBank: принаймні
+          короткостійкий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: атол
+        http://eol(dot)org/schema/terms/autochory: автохорія
+        http://eol(dot)org/schema/terms/average: середній
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: заводь
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: безплідні землі
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002872: жом
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: байоціанський
+          вік
+        http://eol(dot)org/schema/terms/ballistichory: балістіхорій
+        https://eol(dot)org/schema/terms/bamboo_forest: бамбуковий ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: бананова плантація
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000167: бар
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: сульфат барію
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: кора
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: баремієвий
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bartonian: бартонівський
+          вік
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: базальна
+          швидкість метаболізму
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: базальт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bashkirian: башкірський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: батонський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000026: зона батіалу
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000211: батипелагічна зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: затока
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000234: байо
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: пляж
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000529: пляжний хребет
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: пляжний пісок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: боброва дамба
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: бобровий ставок
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: бджолиний віск
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: поведінковий циркадний
+          ритм
+        http://eol(dot)org/schema/terms/benthic: донний
+        https://eol(dot)org/schema/terms/benthic_diatom_feeder: бентосна годівниця
+          діатомових водоростей
+        http://purl(dot)jp/bio/4/id/201306015586596728: бентосні діатомові водорості
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: беріазіанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: дворічний
+        http://eol(dot)org/schema/terms/BillLength: довжина векселя
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: біодифузор
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: біоплівка
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: біогенний діоксид кремнію
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: біогенний осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: біологічні відходи
+        http://eol(dot)org/schema/terms/Bioluminescent: біолюмінесцентний
+        https://eol(dot)org/schema/terms/bipedal_running: бігальний біг
+        https://eol(dot)org/schema/terms/bivalve_feeder: годівниця двостулкових молюсків
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: чорний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000511: болотяна ковдра
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: сліпий вентилятор
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: кров
+        http://eol(dot)org/schema/terms/BloomPeriod: період цвітіння
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000313: видування
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: синій
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: тілесна рідина
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: порожнина тіла
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: довжина тіла
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: маса тіла
+        http://eol(dot)org/schema/terms/BodyShape: форма тіла
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: температура тіла
+        http://eol(dot)org/schema/terms/BodyVolume: об'єм тіла
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: ширина тіла
+        https://eol(dot)org/schema/terms/body_caudal_fin: рух тіла/хвостового плавника
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003097: свердловина води
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: свердловина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: валунове поле
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: солонувате озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: солонуватий ставок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: солонувата вода
+        https://eol(dot)org/schema/terms/brittlestar_feeder: годівниця крихких зірок
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: широкий
+        http://eol(dot)org/schema/terms/broadcastSpawner: джерело мовлення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: широколистяний ліс
+        http://eol(dot)org/schema/terms/bromelicolous: бромелієві
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: роздум
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: коричневий
+        http://eol(dot)org/schema/terms/browsing: браузер
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: бутон
+        http://eol(dot)org/schema/terms/BudSource: бруньке джерело
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: будівлі
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: будівельний матеріал
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: цибулина
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: бурдігальський
+          вік
+        http://eol(dot)org/schema/terms/burl: бурхливий
+...
