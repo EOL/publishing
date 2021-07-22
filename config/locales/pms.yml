@@ -1768,14 +1768,36 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: età carnian-a
         http://eol(dot)org/schema/terms/carnivorous_scavenger: carnassé ch'as nuriss
           ëd carògne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000235: mojiss alberà
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: cartilàgin
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catàdrom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: balma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: intrada ëd balma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: paviment ëd balma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: sistema ëd balme
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: mur ëd balma
         http://eol(dot)org/schema/terms/CellDepth: profondeur dla célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diàmeter ëd la célula
         http://eol(dot)org/schema/terms/CellLength: longheur dla célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: massa dla célula
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000055: taja dla célula
         http://eol(dot)org/schema/terms/CellSurfaceArea: àrea ëd surfassa dla célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volum ëd la célula
         http://eol(dot)org/schema/terms/CellWidth: larghëssa dla célula
+        https://eol(dot)org/schema/terms/cell_sucker: ciuciador ëd célule
+        http://www(dot)marinespecies(dot)org/traits/NonSolidCement: ciman
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: età
+          cenomanian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: era
+          cenosòica
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: sistema nervos sentral
+        https://eol(dot)org/schema/terms/cephalopod_feeder: as nuriss ëd cefalòpod
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: giss
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: seul ëd giss
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: età
+          changsinghian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: canal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: macia
         http://eol(dot)org/schema/terms/ChelaWidth: Larghëssa dla chela
         http://eol(dot)org/schema/terms/CingulumWidth: larghëssa dla sentura
         http://eol(dot)org/schema/terms/CITES_I: Apendis I ëd CITES

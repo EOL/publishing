@@ -475,8 +475,10 @@ es:
     kor: Coreano
     ku: Kurdo
     la: Latín
+    lv: letón
     li: Limburgués
     lt: Lituano
+    lit: lituano
     lb: Luxemburgués
     mk: Macedonio
     mg: Malgache
@@ -491,6 +493,7 @@ es:
     "no": Noruego
     nno: Noruego
     nob: noruego
+    nor: noruego
     oc: Occitano
     pa: Panyabí
     fa: Persa
@@ -530,6 +533,7 @@ es:
     uz: Uzbeko
     vi: Vietnamita
     cy: Galés
+    wel: galés
     q100103: Flamenco occidental
     wo: Wólof
     q34290: wu
@@ -741,6 +745,9 @@ es:
       r_phylum: filo
       r_subphylum: subfilo
       r_infraphylum: infrafilo
+      r_superclass: superclase
+      r_class: clase
+      r_subclass: subclase
       r_infraclass: infraclase
       r_superorder: superorden
       r_order: orden
@@ -749,6 +756,8 @@ es:
       r_superfamily: superfamilia
       r_family: familia
       r_subfamily: subfamilia
+      r_infrafamily: infrafamilia
+      r_tribe: tribu
       r_supergenus: supergénero
       r_genus: género
       r_subgenus: subgénero
@@ -777,6 +786,8 @@ es:
     property:
       description:
         ancestor: un taxón que es un ancestro de otro taxón.
+        rank: un texto describiendo el rango de un taxón, ej."especie". Los rangos
+          no reconocidos no se puntúan.
       name:
         ancestor: ancestro
         rank: Posición
@@ -832,8 +843,10 @@ es:
   send_me_reset_password_instructions: Enviarme instrucciones para restablecer la
     contraseña
   search:
+    matched_text: coincidente%{text}
     flash:
       cannot_combine_paths: No se pueden combinar los resultados con%{path}
+      more_than_one_species: Es imposible combinar los resultados para%{species}
       more_than_two_terms: Incapaz de combinar resultados para más de dos términos:%{terms}
     n_articles:
       one: '%{count} artículo'
@@ -889,10 +902,24 @@ es:
       bio: 'coincide con la biografía:'
       tag_line: 'coincide con la línea de la etiqueta:'
       resources: '{{PLURAL | one = coincide con el recurso: | coincide con los recursos:}}'
+      synonyms: '{{PLURAL | one = coincide con el sinónimo: | coincide con los sinónimos:}}'
+      vernaculars: '{{PLURAL | one = coincide con el nombre común: | coincide con
+        los nombres comunes:}}'
     section_titles:
       collections:
         one: '%{count} colección'
         other: '%{count} colecciones'
+      media:
+        one: '%{count} medio'
+        other: '%{count} medios'
+      pages:
+        one: '%{count} página de eol(especie)'
+        other: '%{count} páginas de eol(especies)'
+      object_terms:
+        one: '%{count} valor del registro de datos (TraitBank)'
+        other: '%{count} valores del registro de datos (TraitBank)'
+      predicates: '{{PLURAL | one =%{count}tipo de registro de datos (TraitBank) |%{count}
+        tipos de registro de datos (TraitBank)}}'
       users:
         one: '%{count} usuario'
         other: '%{count} usuarios'
@@ -901,10 +928,18 @@ es:
       n_articles:
         one: 1 ARTÍCULO
         other: '%{count} ARTÍCULOS'
+      n_data:
+        one: 1 DATO
+        other: '%{count} DATOS'
+      n_media:
+        one: 1 MEDIO
+        other: '%{count} MEDIOS'
     user_title_html: 'Usuario: <span class=''sub''>%{name}</span>'
   search_suggestion:
     actions:
       create: crear una sugerencia de búsqueda nueva
+    created: Sugerencia de búsqueda creada para "%{match}"
+    destroyed: Destruccción de la búsqueda de sugerencia para "%{match}"
     new:
       header: Crear una sugerencia de búsqueda
     update:
@@ -979,13 +1014,17 @@ es:
         username: Nombre de usuario
         bio: Biografía
       search_suggestion:
+        match: buscar texto coincidente
         page_id: ID de la página EOL para redirigir a (o filtrar por)
         synonym_of_id: ID (!) de la sugerencia de búsqueda para usar en su lugar
+        object_term: URI para redirigir (o filtrar por)
         path: ruta (completa o relativa) a la cual redirigir
+        wkt_string: Texto WKT para pasar Effechecka
   stats:
     articles: artículos
     collections: colecciones
     data: registros de datos
+    media: medios
     pages: páginas
     nodes: nodos
     scientific_names: nombres
@@ -1001,12 +1040,18 @@ es:
   term_query_filter:
     validations:
       blank_error: debe especificar un atributo o valor
+      invalid_uri: URI inválido
       multi_obj_error: no puede ser un término objetivo y un clado de destino
       pred_uri_blank_obj_clade_error: no puede estar en blanco con un clado objetivo
+      pred_uri_blank_numeric_error: no puede estar en blanco con un valor numérico
+      range_invalid_error: debe ser >= al primer valor
       units_blank_error: las unidades no se pueden estar en blanco para una  búsqueda
         numérica
   terms:
+    attribution_field_html: <strong>Atribución:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Comentario:</strong> %{comment}
     definition_field_html: <strong>Definición:</strong> %{definition}
+    source_field_html: <strong>Fuente:</strong> <a href='%{source}'>%{source}</a>
     record_url: URL del registro
     scientific_name: nombre científico
     show_all_records: mostrar todos los registros
@@ -1018,7 +1063,26 @@ es:
   traits:
     data_viz:
       about_this_chart: acerca de este gráfico
+      about_this_chart_tooltip_1d: Este es un resumen basado en datos disponibles
+        en EOL. ¡Esto puede estar incompleto! Puedes seleccionar una categoría de
+        la tabla para limitar la búsqueda. Muchas categorías se superponen y una especie
+        puede incluirse en más de una categoría.
+      about_this_chart_tooltip_assoc: Este es un resumen basado en datos disponibles
+        en EOL.¡ Esto puede estar incompleto! Puede colocar el cursor sobre el nombre
+        de un taxón para resaltar sus relaciones. Un enlace verde significa que el
+        taxón sobre el que se pasa el cursor es el sujeto de la asociación; un enlace
+        púrpura significa que éste es el objeto. Las búsquedas más extensivas son
+        resumidas por el género o la familia. Puede limitarlas al clicar en el nombre
+        del taxón.
+      about_this_chart_tooltip_sankey_2d: Este es un resumen basado en los datos disponibles
+        en EOL. ¡Esto puede estar incompleta! Puede seleccionar una categoría en un
+        eje para limitar los resultados de la búsqueda. Muchas categorías se superponen
+        y una especie puede incluirse en más de una categoría  en el mismo eje.
+      other_term_name: otro%{term_name}
       hist_value_label: valor (%{units})
+      n_family_records:
+        one: un registro para taxones en la familia %{family}
+        other: '%{count} registro para taxones en la familia %{family}'
       num_records_label: N.º de registros
       other: otro
       page_habitat_header: Hábitats de %{name}
