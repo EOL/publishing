@@ -1704,4 +1704,2025 @@ uk:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: бурдігальський
           вік
         http://eol(dot)org/schema/terms/burl: бурхливий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: спалений грунт
+        https://eol(dot)org/schema/terms/burrow_builder: будівельник нори
+        https://eol(dot)org/schema/terms/burrowDepth: глибина нори
+        https://eol(dot)org/schema/terms/burrowDiameter: діаметр нори
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: норовщик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: butte
+        http://eol(dot)org/schema/terms/caespitose: цеспітоза
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: кофеїн
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: вік
+          калабрії
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000567: каланка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: вапняний мул
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: толерантність вапняного
+          грунту
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: кальцит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: кальцій (ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: кальцію карбонат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: фосфат кальцію
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: сульфат кальцію
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: сульфат кальцію дигідрат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: напівгідрат сульфату кальцію
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: кальдера
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: каловієвий
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002235: камбізол
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: кембрійський
+          період
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries2: кембрійська
+          серія 2 епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries3: кембрійська
+          серія 3 епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: кембрійська
+          стадія 10 вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: кембрійська
+          стадія 3 вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: кембрійська
+          стадія 4 вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: кембрійська
+          стадія 5 вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: вік
+          компанії
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: канал
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: тростини
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: навіс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: каньйон
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: капітанський
+          вік
+        http://eol(dot)org/schema/terms/CapitulumLength: довжина капітулу
+        https://eol(dot)org/schema/terms/carangiform: карангіформний
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: панцир
+        http://eol(dot)org/schema/terms/CarapaceLength: довжина панцира
+        http://purl(dot)dataone(dot)org/odo/ECSO_00001143: вуглецева біомаса
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: карбоновий
+          період
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: тушка
+        https://eol(dot)org/schema/terms/carcharhiniform: карчарініформ
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: карніальний
+          вік
+        http://eol(dot)org/schema/terms/carnivorous_scavenger: хижий хижак
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000235: carr
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: хрящ
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: катадромний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: печера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: вхід до печери
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: підлога печери
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: печерна система
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: стіна печери
+        http://eol(dot)org/schema/terms/CellDepth: глибина клітини
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: діаметр комірки
+        http://eol(dot)org/schema/terms/CellLength: довжина клітини
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: клітинна маса
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000055: розмір клітини
+        http://eol(dot)org/schema/terms/CellSurfaceArea: площа поверхні клітини
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: об’єм клітини
+        http://eol(dot)org/schema/terms/CellWidth: ширина комірки
+        https://eol(dot)org/schema/terms/cell_sucker: осередок
+        http://www(dot)marinespecies(dot)org/traits/NonSolidCement: цемент
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: ценоманський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: кайнозойська
+          ера
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: Центральна нервова
+          система
+        https://eol(dot)org/schema/terms/cephalopod_feeder: годівниця головоногих
+          молюсків
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: крейда
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: крейдяний грунт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: changhsingian
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: канал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: чапараль
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: чаттіанський
+          вік
+        http://eol(dot)org/schema/terms/ChelaWidth: ширина чела
+        http://eol(dot)org/schema/terms/chemosymbiotroph: хемосимбіотроф
+        https://eol(dot)org/schema/terms/marineChemosyntheticHabitat: середовище проживання
+          хемосинтезу
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: чорнозем
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: чот
+        http://eol(dot)org/schema/terms/ciliary_gliding: циліарне ковзання
+        http://eol(dot)org/schema/terms/ciliary_mucus_feeder: живильник для війкового
+          слизу
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: шлаковий конус
+        http://eol(dot)org/schema/terms/CingulumWidth: ширина цингулума
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: цирк
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: цисуральська
+          епоха
+        http://purl(dot)org/dc/terms/bibliographicCitation: цитування
+        http://eol(dot)org/schema/terms/CITES_I: cites appendix i
+        http://eol(dot)org/schema/terms/CITES_II: cites appendix ii
+        http://eol(dot)org/schema/terms/CITES_III: cites appendix iii
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: місто
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: глина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: глинистий осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: глинистий грунт
+        http://eol(dot)org/schema/terms/clearWater: чиста вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: очищення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: скеля
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: альпініст
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: кліна
+        http://eol(dot)org/schema/terms/cloud_forest: хмарний ліс
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: розмір кладки/розплоду/посліду
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: см
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: см^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: см^3
+        http://eol(dot)org/schema/terms/cnidaria_feeder: годівниця книдарії
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: прибережний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: прибережна дюна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: береговий вхід
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: прибережна земля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: прибережна рівнина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: прибережні чагарники
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: прибережна вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000230: прибережні водно-болотні
+          угіддя
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: бруківка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: бруківковий осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: кокосова плантація
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000236: коефіцієнт варіації
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: кавова плантація
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: намотування
+        http://eol(dot)org/schema/terms/colonyDensity: щільність колоній
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: колір
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: комменсал з
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: спілкування
+        http://eol(dot)org/schema/terms/competitive: конкурентоспроможні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: компост
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: з'єднання
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: складні очі
+        https://eol(dot)org/schema/terms/concave_mirror_eyes: увігнуті дзеркальні
+          очі
+        http://eol(dot)org/schema/terms/cone: конус
+        http://eol(dot)org/schema/terms/conePlusHalfSphere-40Percent: конуснаполовина
+          сфери мінус 40 відсотків
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: коніаковий
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: хвойний ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: хвойний ліс
+        http://eol(dot)org/schema/terms/conservationDependent: природоохоронна залежність
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: процес управління збереженням
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: природоохоронний
+          статус
+        http://eol(dot)org/schema/terms/contaminatedHabitat: забруднене середовище
+          існування
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: забруднений осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: забруднений ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: континентальний острів
+        http://eol(dot)org/schema/terms/copepodid3: копеподидна стадія 3
+        http://eol(dot)org/schema/terms/copepodid4: копеподидна стадія 4
+        http://eol(dot)org/schema/terms/copepodid5: копеподидна стадія 5
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: кораловий риф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: кораловий риф задній
+          риф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000146: гребінь коралових рифів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000144: рівнинна зона коралових
+          рифів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000147: кораловий риф передній
+          риф
+        https://eol(dot)org/schema/terms/coral_sand: кораловий пісок
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: кораліт
+        http://eol(dot)org/schema/terms/coralliteWidth: ширина кораліту
+        https://eol(dot)org/schema/terms/corneal_eyes: очей рогівки
+        http://eol(dot)org/schema/terms/corymbose: щитковидна
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: косметика
+        http://eol(dot)org/schema/terms/Cosmopolitan: космополітичний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: бавовняна плантація
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020030: сім’ядоля
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Cotype: cotype
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: код країни
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: коровай
+        https://eol(dot)org/schema/terms/crab_feeder: годівниця для крабів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: озеро кратер
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: повзання
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: крепускулярний
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: крейдовий
+          період
+        https://eol(dot)org/schema/terms/crinoid_feeder: годівниця криноїдів
+        http://eol(dot)org/schema/terms/criticallyEndangered: що знаходиться в критичному
+          зникненні
+        http://eol(dot)org/schema/terms/cruising: крейсерська годівниця
+        https://eol(dot)org/schema/terms/crustacean_feeder: годівниця ракоподібних
+        http://eol(dot)org/schema/terms/crustose: корочка
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: кріогенський
+          період
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: кріозоль
+        http://eol(dot)org/schema/terms/cuneiform: клинопис
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: циліндр
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: кипарисове болото
+        http://eol(dot)org/schema/terms/dahllite: далліт
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: молочні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003862: молочні (середовище
+          існування мікробів)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: дамбо
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: датський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: дапінговий
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Darriwilian: даррівілівський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: днів
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: мертвий
+        http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: сміття
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: деканової кислоти
+        https://eol(dot)org/schema/terms/decapod_feeder: годівниця декапод
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: листяні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: листяний ліс
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: зниження якості
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: десантний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: глибокий морський осад
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: градусів
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: градуси за Цельсієм
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: dell
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: дельта
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: щільний поселений біом
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: стоматологічна
+        http://eol(dot)org/schema/terms/depositFeeder: депозитний живильник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: депресія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: пустеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: пустельні та ксерикові
+          чагарники
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: пустельний оазис
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: пустельний пісок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: пустельні кущі
+        http://eol(dot)org/schema/terms/determinateGrowth: визначати ріст
+        http://eol(dot)org/schema/terms/DevelopmentalMode: режим розвитку
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: Девонський
+          період
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: діаметр
+        http://eol(dot)org/schema/terms/diandry: діандричний
+        http://eol(dot)org/schema/terms/DiapauseInitiation: діапауза
+        https://eol(dot)org/schema/terms/diatom_feeder: діатомовий живильник
+        http://eol(dot)org/schema/terms/dielVerticalMigration: діель вертикальної
+          міграції
+        http://eol(dot)org/schema/terms/DietBreadth: дієтична широта
+        http://eol(dot)org/schema/terms/Diet: дієта включає
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: травна система
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: оцифрувати
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: диметилсульфід
+        https://eol(dot)org/schema/terms/dioicous: дводійна
+        http://eol(dot)org/schema/terms/DiscDiameter: діаметр диска
+        http://eol(dot)org/schema/terms/DispersalAge: вік розгону
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000069: розподільний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: кювет
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: докозанова кислота
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: додеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: долайн
+        https://eol(dot)org/schema/terms/domesticated_in: одомашнено в
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: спинний
+        https://eol(dot)org/schema/terms/dorsal_fin: плавання спинного плавника
+        https://eol(dot)org/schema/terms/dorsoventral_undulatory: дорзо-вентральне
+          хвилеподібне плавання
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: дорсовентральний
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: низхідний конвеєр
+        https://eol(dot)org/schema/terms/dracaenoid: драценоїд
+        http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: тяглова тварина
+        https://eol(dot)org/schema/terms/drag_based_swimming: перетягнути приводне
+          плавання
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: дренажний канал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000140: дренажна канава
+        http://eol(dot)org/schema/terms/droughtSemiDeciduous: посуха напівлистяна
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: толерантність до посухи
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: друмський
+          вік
+        http://eol(dot)org/schema/terms/bodyMassDry: суха маса тіла
+        http://eol(dot)org/schema/terms/dry_forest: сухий ліс
+        http://eol(dot)org/schema/terms/dryFruit: сухий фрукт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: сухе озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: сухе озерне ложе
+        http://eol(dot)org/schema/terms/dryMass: суха маса
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: суха річка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: суха річкова долина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: сухий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: сухий потік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: суха долина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: дюна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000308: слабі дюни
+        https://eol(dot)org/schema/terms/duodichogamous: дванадцятипальні кишки
+        http://eol(dot)org/schema/terms/DurationOfIllness: тривалість хвороби
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: пил
+        http://eol(dot)org/schema/terms/dwarfMales: карликові самці
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: барвник
+        http://eol(dot)org/schema/terms/dystrophicMontaneFreshwaterLake: дистрофічне
+          гірське прісноводне озеро
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: рано
+        http://eol(dot)org/schema/terms/earlySpring: рання весна
+        http://eol(dot)org/schema/terms/earlySummer: початок літа
+        http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Гори Східної Дуги
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: їсть
+        http://eol(dot)org/schema/terms/echinoderm_feeder: годівниця голкошкірих
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: екоморфологічна гільдія
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: екосистемна інженерія
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ектопаразит
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: едіакаранський
+          період
+        https://eol(dot)org/schema/terms/eel_feeder: годівниця вугра
+        http://eol(dot)org/schema/terms/eggDensity: щільність яєць
+        http://eol(dot)org/schema/terms/EggDiameter: діаметр яйця
+        http://eol(dot)org/schema/terms/EggMass: яєчна маса
+        http://eol(dot)org/schema/terms/eggStage: яєчна стадія
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: яйця (товарні)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: ейкозанова кислота
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: ейфелівський
+          вік
+        https://eol(dot)org/schema/terms/elasmobranch_feeder: живильник еласмобран
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: підвищений
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: піднесення
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: витягнуті
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: стадія ембріона
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: емсіанський
+          вік
+        http://eol(dot)org/schema/terms/endangered: зникаючих
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: ендокринна система
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: ендолітичне середовище
+          існування
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: ендопаразит
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000551: ендорейний басейн
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: ендоскелет
+        https://eol(dot)org/schema/terms/endosymbiontOf: ендосимбіонт
+        http://eol(dot)org/schema/terms/endozoochory: ендозоохорія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003082: збагачений ґрунт
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: весь географічний
+          розподіл
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: еоценова
+          епоха
+        https://eol(dot)org/schema/terms/epibiontOf: епібіонт
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: довжина епікону
+        http://eol(dot)org/schema/terms/epicormicBuds: епікормальні бруньки
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: епідерміс
+        http://eol(dot)org/schema/terms/epifauna_feeder: годівниця епіфауни
+        http://www(dot)marinespecies(dot)org/traits/Epifaunal: епіфаунальний
+        http://eol(dot)org/schema/terms/epihydate: епігідат
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008501: епіфіт
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: епізодичний
+        http://eol(dot)org/schema/terms/epizoochory: епізоохорія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: відкос
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000282: ескер
+        http://rs(dot)tdwg(dot)org/dwc/terms/establishmentMeans: установа означає
+        http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: кошторис
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000020: лиман
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002160: лиманна грязь
+        http://eol(dot)org/schema/terms/eutrophicFreshwaterLake: евтрофне прісноводне
+          озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002224: евтрофна вода
+        http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: дата події
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: вічнозелені
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: вічнозелений ліс
+        https://eol(dot)org/schema/terms/everse: еверс
+        http://eol(dot)org/schema/terms/excavating: екскаватор
+        http://eol(dot)org/schema/terms/explanate: пояснювати
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: піддається
+        http://www(dot)marinespecies(dot)org/traits/ExternalTube: зовнішня трубка
+        http://eol(dot)org/schema/terms/extinct: вимерлий
+        http://eol(dot)org/schema/terms/extinctInTheWild: вимер у дикій природі
+        https://eol(dot)org/schema/terms/extirpated: винищений
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: екстремальне середовище
+          існування
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: очі
+        http://eol(dot)org/schema/terms/facultativeClimber: факультативний альпініст
+        http://eol(dot)org/schema/terms/facultativeEpiphyte: факультативний епіфіт
+        http://eol(dot)org/schema/terms/facultativeParasite: факультативний паразит
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: фаменський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: ферми
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: фермерський ґрунт
+        http://eol(dot)org/schema/terms/farming_symbiotroph: землеробство симбіотроф
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: швидко
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: перо
+        http://eol(dot)org/schema/terms/feedingCurrent: струм живлення
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: стопи
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: самка
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: довжина стегнової кістки
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: ширина стегнової кістки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: fen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002246: ферразол
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009566: запліднення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: удобрений ґрунт
+        http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: польові нотатки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005755: польовий ґрунт
+        http://eol(dot)org/schema/terms/FireResistance: вогнестійкість
+        http://eol(dot)org/schema/terms/FireTolerance: вогнестійкість
+        http://eol(dot)org/schema/terms/FossilFirst: перша поява
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: тріщинна печера
+        https://eol(dot)org/schema/terms/fixes: виправлення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: фіорд
+        http://eol(dot)org/schema/terms/fleshyFruit: м’ясистий плід
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: політ
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: флоянський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: паводковий луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: заплава
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000195: затоплені луки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: затоплена савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000256: заплава
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: квітковий колір
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002623: квіти в гостях у
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: грип
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: флюорит
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002273: флувізол
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: корм
+        http://eol(dot)org/schema/terms/foliose: фоліозний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010358: фоміт
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: харчова добавка
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: харчовий барвник
+        http://eol(dot)org/schema/terms/ForagingHabitat: кормове середовище проживання
+        https://eol(dot)org/schema/terms/foram_feeder: годівниця для форамів
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: forb
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: довжина передньої кінцівки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: ліс
+        http://eol(dot)org/schema/terms/forestEdge: узлісся
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: лісовий ґрунт
+        http://eol(dot)org/schema/terms/ForkLength: довжина вилки
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: фортунівський
+          вік
+        http://eol(dot)org/schema/terms/fossorialOrGround: фосоріальне та/або наземне
+          житло
+        http://eol(dot)org/schema/terms/groundDwelling: лише фосоріальне та/або наземне
+          житло
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Frasnian: фраснійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: прісноводна
+        https://eol(dot)org/schema/terms/freshwater_animals: прісноводні тварини
+        https://eol(dot)org/schema/terms/freshwater_benthic: прісноводний бентос
+        https://eol(dot)org/schema/terms/freshwater_carnivore: прісноводний хижак
+        https://eol(dot)org/schema/terms/freshwater_decapods: прісноводні декаподи
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000053: прісноводне болото
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000243: прісноводні водно-болотні
+          угіддя
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: фронтальний
+        http://eol(dot)org/schema/terms/fructose: фруктоза
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: фрукти
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: фруктовий колір
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: довжина плодів
+        http://eol(dot)org/schema/terms/FruitSeedColor: колір плодів або насіння
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: форма плодів
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: фруктовий тип
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: ширина плодів
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: паливо
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000216: фумарол
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000587: мебіль
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Furongian: фуронгійна
+          епоха
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: г/см^2/день
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: г/см^2/рік
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000084: г/см^3
+        http://eol(dot)org/schema/terms/gramsPerMeterSquared: г/м^2
+        http://eol(dot)org/schema/terms/gramsPerMonth: г/місяць
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79641: жовчний
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025340: гаметофіт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: садова земля
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: гелазіанський
+          вік
+        http://eol(dot)org/schema/terms/GenbankAccessionNumber: номер приєднання генбанку
+        http://eol(dot)org/schema/terms/GenerationTime: час генерації
+        http://eol(dot)org/schema/terms/genotype: генотип
+        http://eol(dot)org/schema/terms/Present: географічний розподіл включає
+        http://eol(dot)org/schema/terms/GeographicRangeArea: географічний ареал (розмір
+          території)
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: геофіт
+        http://eol(dot)org/schema/terms/geothermal: геотермальна
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: тривалість періоду вагітності
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Givetian: датський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: льодовикове озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: льодовикова долина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: льодовик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002244: глейзол
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: ковзання
+        'http://purl(dot)obolibrary(dot)org/obo/NBO_0000369 ': ковзання
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: клей
+        http://eol(dot)org/schema/terms/gonadRatioFemaleToMale: коефіцієнт гонад f/m
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: горстянський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000290: грабен
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000117: гранульований осад
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: трава
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005750: луговий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: гравій
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000548: гравійне поле
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000473: гравійна яма
+        http://eol(dot)org/schema/terms/grayGreen: сіро-зелений
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: зелений
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: земля
+        http://eol(dot)org/schema/terms/growthHabit: звичка зростання
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: темп зростання
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guadalupian: епоха
+          Гвадалупія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000265: гайот
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guzhangian: гужангіанський
+          вік
+        https://eol(dot)org/schema/terms/gynomonoecious: гіномоносечний
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: гжеліанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: середовище проживання
+        http://eol(dot)org/schema/terms/HabitatBreadth: ширина середовища проживання
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TF_HAB: будівельник середовища
+          існування
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: зона гадалу
+        https://eol(dot)org/schema/terms/hagfish_feeder: годівниця для монашки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: халіне середовище існування
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000516: гамак
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: висяча долина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: гавань
+        http://eol(dot)org/schema/terms/hardBenthicSubstrate: твердий бентосний субстрат
+        http://eol(dot)org/schema/terms/hardSubstrateBoring: тверда підкладка свердлильна
+        https://eol(dot)org/schema/terms/harvested_in: зібрано в
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002633: має ектопаразит
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: має яйця, відкладені
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002635: має ендопаразит
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008502: має епіфіт
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: має господаря
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002554: має гіперпаразит
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002209: має паразитоїд
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: має збудник
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002460: має вектор
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hauterivian: готерівський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: голова
+        http://eol(dot)org/schema/terms/HeadtoCoccyxLength: голова до довжини куприка
+        http://eol(dot)org/schema/HeadWidth: ширина голови
+        http://eol(dot)org/schema/terms/HeadBodyLength: довжина голови-тіла
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000153: верхів’я
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: у формі серця
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: серце
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: живоплот
+        http://semanticscience(dot)org/resource/SIO_000040: висота
+        http://eol(dot)org/schema/terms/HeightStanding: висота стоячи
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: гелофіт
+        http://eol(dot)org/schema/terms/hemiepiphyte: геміепіфіт
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: гептадеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: трава
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000099: травоїдне пасовище
+        http://eol(dot)org/schema/terms/herpetivore: герпетивор
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: гетьтанговий
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: гексакозанова кислота
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: гексадеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: сховати
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: високий
+        http://eol(dot)org/schema/terms/highCNRatio: високий (>59)
+        http://eol(dot)org/schema/terms/highArctic: високоарктичний
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: висока тривалість життя
+        http://eol(dot)org/schema/terms/highNitrogenFixation: висока фіксація
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002025: високотемпературне середовище
+          існування
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: висока толерантність
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: пагорб
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: гірський хребет
+        http://eol(dot)org/schema/terms/HindTarsusLength: довжина задньої плесни
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: гірнантійський
+          вік
+        http://eol(dot)org/schema/terms/hispidose: гістогенна кислота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002243: гістозол
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Holocene: голоценова
+          епоха
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: голотип
+        http://eol(dot)org/schema/terms/HomeRange: домашній асортимент
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: гомерівський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: мед
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: горизонтальний
+        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: годівниця підковоподібного
+          краба
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: лікарня
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: господар
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: гаряче джерело
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0007937: предмети побуту
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: перегній
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: просочування вуглеводнів
+        http://eol(dot)org/schema/terms/hydrochory: гідрохорій
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: гідроелектростанція
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: гідрофіт
+        http://www(dot)marinespecies(dot)org/traits/Hydrostatic: гідростатичний скелет
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000134: гідротермальна рідина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: гідротермальний отвір
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: гідроксилапатит
+        http://eol(dot)org/schema/terms/hyperhydate: гіпергідрат
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: гіперпаразит
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: гіперсалінова вода
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: довжина гіпоконуса
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002130: гіполімніон
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: лід
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: крижана шапка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: крижаний покрив
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000380: крижаний шельф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000392: крижаний язик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: айсберг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: магматична порода
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001501: незрілий
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: імунна система
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: ударний кратер
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: дюймів
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: дюймовий черв'як
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: підвищена якість
+        http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: індивідуальний підрахунок
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: індуанський
+          вік
+        http://eol(dot)org/schema/terms/infauna_feeder: годівниця інфауни
+        http://www(dot)marinespecies(dot)org/traits/Infaunal: інформаційний
+        https://eol(dot)org/schema/terms/infection_effect: ефект інфекції
+        http://eol(dot)org/schema/terms/inguinal: паховий
+        http://eol(dot)org/schema/terms/InitialMortalityRate: початковий рівень смертності
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000089: внутрішня скеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000475: вхідний отвір
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: інструмент
+        http://eol(dot)org/schema/terms/InterBirthInterval: інтервал між пологами
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000527: межиріччя
+        http://eol(dot)org/schema/terms/intermediateEpifaunal: епіфауна середнього
+          рівня
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: переривчасте озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000504: переривчастий ставок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: переривчасте солоне
+          озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000549: переривчаста водойма
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000389: переривчаста заболочена
+          ділянка
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: внутрішня оболонка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: припливний осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: припливна зона
+        http://eol(dot)org/schema/terms/InvasiveRange: інвазивний у
+        https://eol(dot)org/schema/terms/inverse: зворотний
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: перевернутий
+        http://eol(dot)org/schema/terms/invertivore: безворотний
+        http://ecoinformatics(dot)org/oboe/oboe(dot)1(dot)0/oboe-characteristics(dot)owl#Irradiance: опромінення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: зрошувальний канал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: зрошувальна дамба
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: зрошувальна канава
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: зрошувальне водосховище
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: є компонентом
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: їдять
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002627: вбито
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: є вектором для
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: острів
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: ізогексадеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: ізотетрадеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0026310: ювелірні вироби
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: вік
+          цзяньшань
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: стрибки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000241: ялівцевий ліс
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: юрський
+          період
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: неповнолітній
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000175: карстові
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012411: карстова печера
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: касимівський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: катянський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000058: ліс ламінарії
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: кельвін
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: кг
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: кг/м^2
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: кг/м^2/рік
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: вбиває
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: кімеріджійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000410: кіпука
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: клептопаразит
+        http://eol(dot)org/schema/terms/squarekilometer: км^2
+        http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: відомі морські види
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: кунгурійський
+          вік
+        https://eol(dot)org/schema/terms/labile_material_feeder: лабільний подавач
+          матеріалу
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: ладініанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: лагуна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: озерне ложе
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000476: озеро вхід
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: озерний осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000382: берег озера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: поверхня озера
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: ламінарний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: море, що не має виходу
+          до моря
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: зсув
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: лангський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: великий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: велике озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: велика річка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: велика дельта річки
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: личинковий спосіб розвитку
+        http://eol(dot)org/schema/terms/lateSpring: пізня весна
+        http://eol(dot)org/schema/terms/lateSummer: кінець літа
+        http://eol(dot)org/schema/terms/lateWinter: пізня зима
+        http://eol(dot)org/schema/terms/LatentPeriod: латентний період
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: бічні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000249: бічна морена
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: рейкоподібний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: лавова печера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: лавове поле
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: лавовий тунель
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: відкладає яйця
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: фунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002141: фільтрат
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: площа листя
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: колір листя
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: складність листя
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: довжина листа
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area: листової
+          маси на площу
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: морфологія листя
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: листового
+          азоту на суху масу
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: форма листя
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: линька листя
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: клас розміру листя
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: листоподібні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005783: листяний деревний ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000544: з тобою
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Lectotype: лектотип
+        http://semanticscience(dot)org/resource/SIO_000041: довжина
+        https://eol(dot)org/schema/terms/lens_eyes: кришталик очі
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: лептозол
+        http://eol(dot)org/schema/terms/lichenicole: ліхеніколь
+        http://eol(dot)org/schema/terms/lichenous: лишайниковий
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: звичка життєвого циклу
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: тривалість життя
+        http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: життєвий етап
+        https://eol(dot)org/schema/terms/lift_based_swimming: ліфтове плавання
+        http://eol(dot)org/schema/terms/lignotuber: лігнотубер
+        http://eol(dot)org/schema/terms/lignotuberOrBurl: лігнотубер або бур
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: лиман
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005766: вапнований ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: вапняк
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: вапняковий брук
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: лінійний
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: лінійний розмір
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: ліпіди
+        http://eol(dot)org/schema/terms/LittersPerYear: послідів на рік
+        http://eol(dot)org/schema/terms/littoralZone: прибережна зона
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: лландоверська
+          епоха
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: суглинок
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: місцевість
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: лочковський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: локомоція
+        http://eol(dot)org/schema/terms/log10gram: log10 грам
+        http://eol(dot)org/schema/terms/longPersistentSeedBank: довго наполегливий
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lopingian: епоха
+          лопінгів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000517: загублений потік
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: низький
+        http://eol(dot)org/schema/terms/lowCNRatio: низький (<23)
+        http://eol(dot)org/schema/terms/lowArctic: низькоарктичний
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: низький термін життя
+        http://eol(dot)org/schema/terms/lowNitrogenFixation: низька фіксація на n
+        http://eol(dot)org/schema/terms/TemperatureTolerance: низька толерантність
+          до температури
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: зона відливу
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: низька толерантність
+        http://eol(dot)org/schema/terms/lowEpifaunal: епіфауна низького рівня
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: нижня межа довіри
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: нижня
+          крейдова епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: нижньодевонська
+          епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerJurassic: нижча
+          ера юри
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerOrdovician: нижній
+          ордовик епохи
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: нижня
+          триасова епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: людфордіанський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: лудловська
+          епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: лютетіанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002248: лювізол
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000261: лізоклін
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: м
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: м^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: maar
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: маастрихтський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000417: крісло
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: макроводорості
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: мафічна лава
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: магній (мг)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: чоловічий
+        http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: співвідношення маси
+          тіла чоловічої статі
+        http://eol(dot)org/schema/terms/maleOrUnsexed: чоловік або несексуальний
+        http://eol(dot)org/schema/terms/MaleTenure: чоловіче володіння
+        http://eol(dot)org/schema/terms/mammalivore: ссавець
+        https://eol(dot)org/schema/terms/manca: манка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: мангрові болота
+        http://eol(dot)org/schema/terms/MantleLength: довжина мантії
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003074: виготовлений продукт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: морський
+        https://eol(dot)org/schema/terms/marine_animals: морські тварини
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: морський бентос
+        https://eol(dot)org/schema/terms/marine_carnivore: морський хижак
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000108: морська сфера холодної
+          води
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005795: морська грязь
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: морський парк
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000023: морський пелагічний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: морський риф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: морський осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: морський сніг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: морський апвелінг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000109: морська тепловодна сфера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: морська водна маса
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: болотний
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: маси
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: масивний
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: звичка масового зростання
+        http://eol(dot)org/schema/terms/MatingSystem: система спаровування
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: зрілі
+        http://semanticscience(dot)org/resource/SIO_001114: макс.
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005761: лучний ґрунт
+        http://semanticscience(dot)org/resource/SIO_001109: маю на увазі
+        http://eol(dot)org/schema/terms/meanAnnualTemperature: середньорічна температура
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementAccuracy: точність вимірювання
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementDeterminedBy: вимірювання
+          визначається
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementMethod: метод вимірювання
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementRemarks: зауваження щодо вимірювання
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: м'ясо
+        http://semanticscience(dot)org/resource/SIO_001110: медіана
+        https://eol(dot)org/schema/terms/median_paired_fin: серединний/парний рух
+          плавника
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: лікарський
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: середземноморський ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000878: середземноморський ліс,
+          лісовий масив та чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000224: середземноморські пасовища
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000047: біом Середземного моря
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: середземноморський чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: середземноморська лісиста
+          місцевість
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: середній
+        http://eol(dot)org/schema/terms/mediumNitrogenFixation: середня фіксація
+        http://eol(dot)org/schema/terms/mediumCNRatio: середній (23 – 59)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: середній (нормальний)
+        https://eol(dot)org/schema/terms/medusoid: медузоїдна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000199: мероміктне озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: меса
+        http://eol(dot)org/schema/terms/mesohaline: мезогалін
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: мезопелагічна зона
+        http://eol(dot)org/schema/terms/mesotrophicFreshwaterLake: мезотрофне прісноводне
+          озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002225: мезотрофна вода
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: мезозойська
+          ера
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: месіанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: метаболічний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: метаморфічна порода
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: мг
+        http://eol(dot)org/schema/terms/milligramsPercm2: мг/см^2
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: мг/см^2/день
+        http://eol(dot)org/schema/terms/milligramspergram: мг/г
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: мг/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: мг/м^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: г/м^2
+        https://eol(dot)org/schema/terms/microalgae: мікроводорості
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000008: мікробний килимок
+        https://eol(dot)org/schema/terms/microbivore: мікроорганізм
+        http://eol(dot)org/schema/terms/microcarnivore: мікрожад
+        http://eol(dot)org/schema/terms/microphytobenthos: мікрофітобентос
+        http://eol(dot)org/schema/terms/midSpring: середина весни
+        http://eol(dot)org/schema/terms/midSummer: середина літа
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000406: хребет середнього океану
+        http://eol(dot)org/schema/terms/midPersistentSeedBank: середньостійкий
+        http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: підзона середньоарктичного
+          карликового чагарника
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: середньодевонська
+          епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleJurassic: епоха
+          середньої юри
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleOrdovician: епоха
+          середнього ордовика
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: середній
+          плейстоценовий вік
+        http://eol(dot)org/schema/terms/MiddleToeLength: довжина середнього пальця
+          ноги
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleTriassic: середня
+          тріасова епоха
+        http://eol(dot)org/schema/terms/migratory: перелітний
+        http://eol(dot)org/schema/terms/millimeterspermonth: міліметри на місяць
+        http://eol(dot)org/schema/terms/paleo_megaannum: мільйони років тому
+        http://semanticscience(dot)org/resource/SIO_001113: хв.
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: мінеральне джерело
+        https://eol(dot)org/schema/terms/mineralizedSkeletonContains: мінералізований
+          скелет містить
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: мінералізована тканина
+          містить
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: мінерали
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: епоха
+          міоцену
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: Міссісіпський
+          підперіод
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: змішані
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: змішаний ліс
+        http://eol(dot)org/schema/terms/mixotrophy: міксотрофний
+        http://eol(dot)org/schema/terms/mlO2perhour: мл/год o2
+        http://eol(dot)org/schema/terms/millilitersPerMinute: мл/хв
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: мм
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000272: мм рт. ст
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: мм/3місяць
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: мм/4місяць
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: мм/6місяць
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: мм/7місяць
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: мм/8місяць
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: мм/день
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: мм/сек
+        http://eol(dot)org/schema/terms/millimetersPerYear: мм/рік
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: мм^2
+        http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: мм^2/мг
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: ммоль/л
+        https://eol(dot)org/schema/terms/mobile_prey_feeder: мобільний живильник видобутку
+        http://eol(dot)org/schema/terms/ModeOfAction: спосіб дії
+        http://eol(dot)org/schema/terms/moderateRate: помірний
+        http://eol(dot)org/schema/terms/moderateLifeSpan: помірний термін життя
+        http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: моль/м^2/день
+        https://eol(dot)org/schema/terms/mollusk_foot: стопа молюска
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000432: монадок
+        http://eol(dot)org/schema/terms/monandry: монандричний
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000412: монаксон
+        https://eol(dot)org/schema/terms/monoicous: одноманітний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: гірська пустеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000435: гірський ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: гірські луки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: гірська савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: гірський чагарник
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: місяці
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: причалити
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: морена
+        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: час подвоєння смертності
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: московський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: гірський
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: гірський перевал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: гірський хребет
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: слиз
+        https://eol(dot)org/schema/terms/mucus_gliding: ковзання, що опосередковується
+          слизом
+        http://eol(dot)org/schema/terms/mucus_net_feeder: живильник для слизу
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: бруд
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: грязьовий вулкан
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: мулистий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005793: каламутна вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000192: мудфлат
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: багатофункціональна
+          дамба
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: муніципалітет
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: м'язи
+        https://eol(dot)org/schema/terms/muscular_waves: м'язові хвилі
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: опорно-руховий апарат
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003033: грибний компост
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001386: мідійний риф
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: мутуалістичний з
+        http://eol(dot)org/schema/terms/myrmecochory: мірмекохорія
+        http://eol(dot)org/schema/terms/NativeRange: рідний асортимент включає
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: природна гавань
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: природний заповідник
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0015170: наупліус очей
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: стадія наупліуса
+        http://eol(dot)org/schema/terms/nearThreatened: поблизу загрожує
+        http://www(dot)marinespecies(dot)org/traits/Nekton: нектонічний
+        http://eol(dot)org/schema/terms/nektobenthic: нектобентосний
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: неогеновий
+          період
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: новонароджений
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: неопротерозойська
+          ера
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Neotype: неотип
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000032: нерито-пелагічна зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000206: неритична зона
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: нервова система
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: захворювання нервової
+          системи
+        http://eol(dot)org/schema/terms/net_carbon_fixation_rate: чистий рівень фіксації
+          вуглецю
+        https://eol(dot)org/schema/terms/neuston: нейстон
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: нг/г/год
+        https://eol(dot)org/schema/terms/nanograpperkilgramperminute: нг/кг/хв
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: азотфіксація
+        https://eol(dot)org/schema/terms/nanomolpergram: нмоль/р
+        https://eol(dot)org/schema/terms/nmolpergramperhour: нмоль/г/год
+        http://eol(dot)org/schema/terms/no: немає
+        http://eol(dot)org/schema/terms/noHarem: немає гарему
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: відсутність батьківського
+          піклування
+        http://eol(dot)org/schema/terms/noPaternalCare: відсутність батьківської опіки
+        http://eol(dot)org/schema/terms/noSocialGroupLiving: жодна соціальна група
+          не живе
+        http://eol(dot)org/schema/terms/activityCycleOther: нічний/крепускулярний,
+          катемеральний, крепускулярний або денний/крепускулярний
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: неселективний
+          подавач відкладень
+        http://eol(dot)org/schema/terms/non-woodyEpipyte: недерев'яний епіфіт
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: нонадеканова кислота
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: жоден
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: норіанський
+          вік
+        http://eol(dot)org/schema/terms/northernArcticDwarfShrubSubzone: північна
+          арктична карликова чагарникова підзона
+        http://eol(dot)org/schema/terms/notMonogamous: не моногамний
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: довжина ядра
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: ширина ядра
+        http://eol(dot)org/schema/terms/fossilOccPBDB: кількість випадків викопності
+        http://eol(dot)org/schema/terms/NumberOfHosts: кількість хостів
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: кількість публічних
+          записів жирним шрифтом
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000181: нунатак
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: поживний склад
+          молока
+        http://eol(dot)org/schema/terms/nutrient_symbiotroph: поживний симбіотроф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: дубовий ліс
+        http://eol(dot)org/schema/terms/obligateClimber: облігатний альпініст
+        http://eol(dot)org/schema/terms/obligateEpiphyte: облігатний епіфіт
+        http://rs(dot)tdwg(dot)org/dwc/terms/occurrenceRemarks: зауваження щодо виникнення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: океанічна батипелагічна
+          зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000040: океанічна бентопелагічна
+          зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000071: океанічний фронт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: океанічний острів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: океанічна зона
+        http://eol(dot)org/schema/terms/oceanodromous: океанодромний
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001758: оцелі
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: октадеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: плантація олійної пальми
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: вік
+          оленекія
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oligocene: епоха
+          олігоцену
+        http://eol(dot)org/schema/terms/oligotrophicFreshwaterLake: оліготрофне прісноводне
+          озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002223: оліготрофна вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000193: оливковий ґай
+        https://eol(dot)org/schema/terms/omnidirectional: всеспрямований
+        https://eol(dot)org/schema/terms/omnivoreCarnivore: всеїдний-хижий
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: настання родючості
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_OEV: вентилятор відкритого
+          типу
+        http://eol(dot)org/schema/terms/OptimalGrowthTemperature: оптимальна температура
+          зростання
+        https://eol(dot)org/schema/terms/optimal_rainfall: оптимальна кількість опадів
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: помаранчевий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: фруктовий сад
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ordovician: ордовикський
+          період
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: система органів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: органічний матеріал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000137: падіння органічних речовин
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: органічні відходи
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002202: органічно забруднений
+          осад
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: орієнтація
+        http://eol(dot)org/schema/terms/OriginOfToxin: походження токсину
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: орнаментація
+        https://eol(dot)org/schema/terms/ostraciiform: острациіформний
+        http://eol(dot)org/schema/terms/otherBudSource: інші
+        http://eol(dot)org/schema/terms/OuterEarLength: довжина зовнішнього вуха
+        http://eol(dot)org/schema/terms/outerReef: зовнішній риф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: вимити вентилятор
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: яйцеподібні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: оксбовське озеро
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: оксея
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: оксфордівський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: кисень
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: унція
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: рисове поле
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: ґрунт рисового поля
+        http://eol(dot)org/schema/terms/stingPain: біль при укусі
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: палеарханська
+          епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleocene: епоха
+          палеоцену
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleogene: палеогеновий
+          період
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoproterozoic: палеопротерозойська
+          ера
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: палеозойська
+          ера
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: пальмова
+        https://eol(dot)org/schema/terms/palmeiral: пальмеїральний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: пальса
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: паралектотип
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: паразит
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: паразитує
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: паразитоїд
+        http://eol(dot)org/schema/terms/paratopotype: паратопотип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: паратип
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: піклування батьків
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: піклування батьків
+        http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: твердий
+          скелет (нетвердий)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: пасовище
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: пасовищний ґрунт
+        http://eol(dot)org/schema/terms/patchReef: патч-риф
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: збудник
+        http://eol(dot)org/schema/terms/pathogen_vector_parasite: збудник переносника
+          паразитів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000157: торф нарізаний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005774: торф'яний ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000189: торф'яне болото
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000044: торфовище
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000116: гальковий осад
+        https://eol(dot)org/schema/terms/pectoral_oscillation: коливання грудного
+          плавника
+        https://eol(dot)org/schema/terms/pectoral_fins: плавання грудним плавником
+        https://eol(dot)org/schema/terms/pectoral_undulation: хвилі грудного плавника
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: пелагічна зона
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pennsylvanian: Пенсільванський
+          підперіод
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: пентадеканова кислота
+        http://eol(dot)org/schema/terms/perAcre: за акр
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: відсоток
+        https://eol(dot)org/schema/terms/pereiopod: перейопод
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: багаторічна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000205: постійна весна
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: пермська
+          епоха
+        http://eol(dot)org/schema/terms/persistentSeedBank: наполегливий
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: боротьба зі шкідниками
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000025: стор
+        http://eol(dot)org/schema/terms/phagocytosis: живильник фагоцитозу
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: фанерозойський
+          еон
+        http://eol(dot)org/schema/terms/phenologicalSeason: фенологічний сезон
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000209: фотична зона
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: фотоавтотроф
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: фотогетеротроф
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001060: фоторецепторна клітина
+        http://eol(dot)org/schema/terms/photosymbiotroph: фотосимбіотроф
+        http://eol(dot)org/schema/terms/photosyntheticPathway: фотосинтетичний шлях
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: швидкість фотосинтезу
+        http://eol(dot)org/schema/terms/photosyntheticStem: фотосинтетичне стебло
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000329: фреатична зона
+        http://eol(dot)org/schema/terms/phytoplanktivore: фітопланктиворе
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: піаценціанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: пристань
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: свинарник
+        http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Вологі ліси
+          Піндаре
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: пінго
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: окуляри в очах
+        http://eol(dot)org/schema/terms/pinnacleReef: риф вершини
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000244: ліс ялівцю піньйон
+        http://www(dot)marinespecies(dot)org/traits/Plankton: планктонічний
+        http://eol(dot)org/schema/terms/planktotrophic: планктотроф
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: форма росту рослин
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: висота рослини
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: форма життя рослин
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: плантація
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: посадив ліс
+        http://eol(dot)org/schema/terms/PlantingDensity: щільність посадки
+        http://eol(dot)org/schema/terms/plastotype: пластотип
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: плато
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: плейстоценова
+          епоха
+        https://eol(dot)org/schema/terms/pleopod: плеопод
+        http://eol(dot)org/schema/terms/pleustophyte: плевстофіт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: плієнсбахський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: епоха
+          плиоцену
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000483: занурений басейн
+        https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: пмоль/м^2/с
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002257: опідзолений
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: полярний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: полярний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: полярна пустеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000325: поле
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025281: пилок
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: запилюється
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: запилює
+        https://eol(dot)org/schema/terms/polychaete_feeder: годівниця поліхет
+        https://eol(dot)org/schema/terms/polygamodioecious: полігамодіотичні
+        http://eol(dot)org/schema/terms/polyhaline: полігалін
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: поліметалічний вузлик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000484: поління
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: ставок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000512: ліжко в ставку
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: ставочна вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000062: населене місце
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: населення
+        http://eol(dot)org/schema/terms/PopulationGroupSize: розмір групи населення
+        http://eol(dot)org/schema/terms/population_trend: чисельність населення
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: положення
+        http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: післяпожежна поява
+          сходів
+        http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: виживання розсади
+          після пожежі
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: вибоїна
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppb
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: прагійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: прерія
+        http://eol(dot)org/schema/terms/PrecipitationTolerance: толерантність до опадів
+        http://eol(dot)org/schema/terms/predatory_suspension_feeder: хижацька підвісна
+          годівниця
+        http://eol(dot)org/schema/terms/predatorScavenger: хижак – смітник
+        http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: тривалість внутрішньоутробного
+          розвитку
+        http://rs(dot)tdwg(dot)org/dwc/terms/preparations: препарати
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: полював на
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: полює на
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: пріабонійський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: епоха
+          придолі
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: лежачий
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: виробляє
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: проголошальне озеро
+        http://eol(dot)org/schema/terms/Propagule: пропагула
+        http://eol(dot)org/schema/terms/ProsomeHeight: висота просоми
+        http://eol(dot)org/schema/terms/ProsomeLength: довжина просоми
+        http://eol(dot)org/schema/terms/ProsomeWidth: ширина просоми
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: заповідна зона
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: білковий склад молока
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: білки
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: протерозойський
+          еон
+        http://eol(dot)org/schema/terms/protozoa_feeder: годівниця найпростіших
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: psu
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: пурини
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: фіолетовий
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: пірамідальний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: кар'єр
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Quaternary: четвертинний
+          період
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: радіоактивний осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: залізниця
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000415: піднятий пляж
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000185: підняте болото
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000365: Рамсарський сайт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: пасовище
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: пороги
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: співвідношення
+        http://rs(dot)tdwg(dot)org/dwc/terms/recordedBy: записав
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: червоний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000045: червона глина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005790: червоний ґрунт
+        http://eol(dot)org/schema/terms/reefEdge: край рифу
+        http://eol(dot)org/schema/terms/reefSlope: рифовий схил
+        http://eol(dot)org/schema/terms/reefTerrace: рифова тераса
+        http://eol(dot)org/schema/reference/referenceID: виноска
+        https://eol(dot)org/schema/terms/reflecting_superposition_eyes: відображають
+          суперпозицію очей
+        https://eol(dot)org/schema/terms/refracting_superposition_eyes: заломлюючі
+          накладення очей
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_REG: регенератор
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002256: регозол
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: розмноження
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: температура розмноження
+        http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: репродуктивний
+          стан
+        http://eol(dot)org/schema/terms/ReproductiveSkew: репродуктивний перекіс
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: репродуктивна стратегія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: водосховище
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: смола
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: частота дихання
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: дихальна система
+        http://eol(dot)org/schema/terms/RespClip: можливість повторного випуску після
+          відсікання
+        http://eol(dot)org/schema/terms/RespDist: здатність до повторного виходу після
+          порушення
+        http://eol(dot)org/schema/terms/RespFire: здатність до проростання після пожежі
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: ретиєвий
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: кореневищна рослина
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: кореневище
+        http://eol(dot)org/schema/terms/rhizomesOrRoots: кореневища або коріння
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: ризосфера
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: руданський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: ріяцький
+          період
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000418: ria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: рисове поле
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000283: хребет
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000148: нарізка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000203: рифтове озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000496: рил
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: ринкон
+        http://eol(dot)org/schema/terms/riparianWetland: прирічне заболочене місце
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: річка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: берег річки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: русло річки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: річковий острів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: гирло річки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: річкова долина
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: співвідношення рнк:днк
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: вік дороги
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: камінь
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: скелепад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000440: кам’яниця
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: скеляста пустеля
+        http://eol(dot)org/schema/terms/rockyGrassland: скелясті луки
+        https://eol(dot)org/schema/terms/rockyVegetated: скелясті відслонення з рослинністю
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005799: кам’янистий пісок
+        http://eol(dot)org/schema/terms/rootCrown: коренева крона
+        http://eol(dot)org/schema/terms/root_feeder: коренева годівниця
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000164: коренева бульба
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: глибина вкорінення
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: коріння
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: каучукова плантація
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: біг
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: рупілівський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000151: сабха
+        http://eol(dot)org/schema/terms/sacSpawner: виробник мішків
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: вік
+          сакмарів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000055: соляний випаровувальний
+          ставок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000019: солоне озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000279: сольова каструля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: солона вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005775: забруднений сіллю ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000022: солоне болото
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: толерантність до солі
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: засолення
+        http://rs(dot)tdwg(dot)org/dwc/terms/samplingEffort: зусилля відбору проб
+        http://rs(dot)tdwg(dot)org/dwc/terms/samplingProtocol: протокол вибірки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: пісок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000028: кар’єр піщаних кар’єрів
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: пісочний
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: піщаний пляж
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000172: піщана пустеля
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SUBST_SM: піщаний бруд
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000118: піщаний осад
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002229: піщаний ґрунт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: сантонівський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025538: сік
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001597: саджанець
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000178: савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005746: ґрунт савани
+        http://eol(dot)org/schema/terms/scaleLike: масштабний
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: ваги
+        http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: наукова назва
+        http://eol(dot)org/schema/terms/scraping: скребок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000194: осип
+        http://eol(dot)org/schema/terms/scrotal: мошонка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: море
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000092: морський пляж
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: морська печера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000088: морська скеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005739: морська піна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000059: ліжко з морської трави
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: морський берег
+        https://eol(dot)org/schema/terms/sea_urchin_feeder: годівниця морського їжака
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000264: підводна гора
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001857: приправа
+        http://eol(dot)org/schema/terms/secondaryConsumer: вторинний споживач
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: вторинна ксилема
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: безпека
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: осад
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: насіння
+        http://eol(dot)org/schema/terms/SeedBank: насіннєвий банк
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: суха
+          маса насіння
+        http://eol(dot)org/schema/terms/seedHoarding: накопичення насіння
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: насіннєві маси
+        http://eol(dot)org/schema/terms/SeedPeriodBegin: починається насіннєвий період
+        http://eol(dot)org/schema/terms/SeedPeriodEnd: кінець насіннєвого періоду
+        http://eol(dot)org/schema/terms/SeedSpreadRate: норма розповсюдження насіння
+        http://eol(dot)org/schema/terms/SeedlingSurvival: виживання розсади
+        http://eol(dot)org/schema/terms/SeedPerPound: насіння на фунт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: селандський
+          вік
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: вибірковий подавач
+          відкладень
+        http://eol(dot)org/schema/terms/self-supportingGrowthForm: госпрозрахункові
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: напівлистяні
+        http://eol(dot)org/schema/terms/semiInfaunal: напівфабричний
+        http://eol(dot)org/schema/terms/semi-woody: напівдерев'яні
+        http://eol(dot)org/schema/terms/semifossorial: напівфосоріальні
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: чутливість
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: чуттєвий
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: сенсорна система
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: серпуховський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: серравальський
+          вік
+        https://eol(dot)org/schema/terms/sessile_prey_feeder: годівниця сидячої видобутку
+        http://rs(dot)tdwg(dot)org/dwc/terms/sex: секс
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: статеві метаморфози
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM_YES: статеві метаморфози
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: статеве розмноження
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: статево диморфні
+        http://eol(dot)org/schema/terms/shade: тінь
+        http://eol(dot)org/schema/terms/ShadeTolerance: тіньовитривалість
+        http://eol(dot)org/schema/terms/shallowInfaunal: неглибокий інфауніл
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000034: неглибокий морський
+          осад
+        http://eol(dot)org/schema/terms/shallowReef: неглибокий риф
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: форма
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: сидіння
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: шейнвудіанський
+          вік
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: висота панцира, двостулковий
+          молюск
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: довжина оболонки
+        http://eol(dot)org/schema/terms/ShellLengthBivalve: довжина панцира, двостулковий
+          молюск
+        http://eol(dot)org/schema/terms/sheltered: захищений
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000545: гальковий пляж
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: стріляти верхівкою
+        http://eol(dot)org/schema/terms/ShootRootRatio: 'співвідношення пагін: корінь
+          (srr)'
+        http://eol(dot)org/schema/terms/shortPersistentSeedBank: короткостійкий
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000176: чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000044: кремнієвий соч
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: шовковий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000119: мулистий осад
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: силурійський
+          період
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: простий
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000047: прості очі
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000050: прості очі з декількома
+          лінзами
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: синемурійський
+          вік
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001444: поодиноке вимірювання
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000195: поглиблення
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: розмір
+        http://eol(dot)org/schema/terms/SkeletalDensity: щільність скелета
+        http://eol(dot)org/schema/terms/SkeletalReinforcement: армування скелета
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: скелет
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: скелет містить
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: будова скелета
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: шкіра
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: повільний
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: маленький
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: невелике озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: річка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: снігове поле
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: соціальний
+        http://eol(dot)org/schema/terms/SocialGroupSize: розмір соціальної групи
+        http://eol(dot)org/schema/terms/SocialSystem: соціальна система
+        http://eol(dot)org/schema/terms/softBenthicSubstrate: м'який бентосний субстрат
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000217: сольфатара
+        http://eol(dot)org/schema/terms/solitary: одиночний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002252: солончак
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002255: солонець
+        http://purl(dot)org/dc/terms/source: джерело
+        http://eol(dot)org/schema/terms/southernArcticDwarfShrubSubzone: південний
+          арктичний карликовий чагарник підзона
+        http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: питома
+          площа листя
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000327: спелеотем
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002268: сфагнове болото
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000543: сферула
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: у формі хребта
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: шипи
+        http://eol(dot)org/schema/terms/sponge_feeder: годівниця губки
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: бісквітний риф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: мінеральна (вода)
+        https://eol(dot)org/schema/terms/springing: пружинні
+        http://eol(dot)org/schema/terms/squamulose: сквамулоза
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009029: тичинка
+        http://eol(dot)org/schema/terms/StandardLength: стандартна довжина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: крохмаль
+        https://eol(dot)org/schema/terms/starfish_feeder: годівниця морських зірок
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: державний
+          період
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009047: стебло
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: діаметр стебла
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Stem_specific_density: питома
+          щільність стебла
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000046: стовбурові
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000262: степовий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005777: степовий ґрунт
+        http://eol(dot)org/schema/terms/stomachCramps: спазми в шлунку
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000183: кам'яниста пустеля
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: орган зберігання
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000142: потік банку
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000383: струмок русла
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000385: гирла струмка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002127: потік осаду
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000129: потік долини
+        http://eol(dot)org/schema/terms/stressTolerant: стійкий до стресів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000186: торфовище
+        https://eol(dot)org/schema/terms/subcarangiform: підкарангіформний
+        http://eol(dot)org/schema/terms/subadult: недорослий
+        http://eol(dot)org/schema/terms/subalpineFreshwaterLake: субальпійське прісноводне
+          озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000267: підводний каньйон
+        http://eol(dot)org/schema/terms/submassive: субмасивний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000251: субполярний
+        http://eol(dot)org/schema/terms/subshrub: підчагарник
+        http://eol(dot)org/schema/terms/Attached: підкладка
+        http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: підводний подавач
+          родовища
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000572: підземний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000050: субтидальний скелястий
+          риф
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: субтропічний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000201: субтропічний широколистяний
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000209: субтропічний хвойний
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: субтропічна пустеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000225: субтропічний сухий широколистяний
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000191: субтропічний луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000226: субтропічний вологий
+          широколистяний ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000187: субтропічна савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000213: субтропічний чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000222: субтропічний ліс
+        http://eol(dot)org/schema/terms/succulent: соковитий
+        http://eol(dot)org/schema/terms/suddHydrophyte: гідрофітний сік
+        http://eol(dot)org/schema/terms/suffrutescent: спокусливий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000159: цукрова плантація
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: ширина борозни
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000126: сірчана весна
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DZ_SUP: супраліторальна
+          зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000059: поверхневий ґрунт
+        https://eol(dot)org/schema/terms/surficialModifier: поверхневий модифікатор
+        http://purl(dot)bioontology(dot)org/ontology/MSH/D054712: виживання солоності
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP: температура виживання
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000113: зважений осад
+        http://eol(dot)org/schema/terms/suspensionFeeder: підвісна годівниця
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: болото
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00002300: підсолоджувач
+        http://purl(dot)obolibrary(dot)org/obo/GO_0036268: плавання
+        http://eol(dot)org/schema/terms/symbiontInheritance: успадкування симбіонтів
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: симбіонт
+        http://eol(dot)org/schema/terms/symbiotroph: симбіотроф
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Syntype: синтетип
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/271649006: систолічний
+          кров'яний тиск
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: довжина хвоста
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000455: смола
+        http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: висока
+          плюснева кістка + довжина середнього пальця ноги
+        http://eol(dot)org/schema/terms/TarsusLength: довжина плесені
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: плантація чаю
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: номер соски
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: зуби
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: телічійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: помірний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: помірний широколистяний
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000211: помірний хвойний ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000182: помірна пустеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000193: помірний луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000877: помірний луг, савана
+          та чагарник
+        http://eol(dot)org/schema/terms/temperate_grasslands_savannas_and_shrublands: помірні
+          луки, савани та чагарники
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000212: помірний змішаний ліс
+        http://eol(dot)org/schema/terms/TemperateOcean: помірний океан
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000189: помірна савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000215: помірний чагарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000221: помірний ліс
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: температури
+        http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: температура
+          в діапазоні середньої точки широти
+        http://eol(dot)org/schema/terms/TemperatureInRange: температура в географічному
+          діапазоні
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002323: тимчасовий розподіл
+        http://eol(dot)org/schema/terms/tenagophyte: тенагофіт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000252: термінальна морена
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000508: тераса
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Terreneuvian: епоха
+          землеробства
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: наземний
+        http://eol(dot)org/schema/terms/terrestrialPlant: наземна рослина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000070: теригенний осад
+        http://eol(dot)org/schema/terms/TestesMass: маса яєчок
+        http://eol(dot)org/schema/terms/testicond: яєчко
+        http://eol(dot)org/schema/terms/TestisLocation: розташування яєчок
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: тетракозанова кислота
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: тетрадеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: діаметр тала
+        https://eol(dot)org/schema/terms/thallus_length: довжина талуму
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: вік
+          танетія
+        http://eol(dot)org/schema/terms/OceaniaRealm: океанічне царство (острови)
+        http://eol(dot)org/schema/terms/thermalFeature: тепловий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002269: термоклін
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: товщина
+        http://eol(dot)org/schema/terms/thoraxLength: довжина грудної клітини
+        https://eol(dot)org/schema/terms/threatened: погрожували
+        https://eol(dot)org/schema/terms/thunniform: гроноподібний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000041: припливний струмок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000317: приливний басейн
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000412: припливний водотік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000456: льодовик припливної
+          води
+        https://eol(dot)org/schema/terms/tissue_contains: тканина містить
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tithonian: титонівський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: тоарківський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: тонн
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Topotype: топотип
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: тортонський
+          вік
+        http://eol(dot)org/schema/terms/TotalSpeciesSurveyed: всього обстежених видів
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: турнейський
+          вік
+        http://eol(dot)org/schema/terms/trailing: відставання
+        http://eol(dot)org/schema/terms/transientSeedBank: перехідний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: транспортування
+        http://eol(dot)org/schema/terms/transverseDivision: поперечний поділ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: трапеція
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003982: травертин
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: дерево
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: тремадокійський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000599: триакт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: тріасовий
+          період
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: приток
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: тридеканова кислота
+        http://eol(dot)org/schema/terms/trophicEcology: трофічна екологія
+        http://eol(dot)org/schema/terms/TrophicGuild: трофічна гільдія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005806: тропічний і субтропічний
+          хвойний ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000879: тропічний і субтропічний
+          вологий широколистяний ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: тропічний широколистий
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: тропічний хвойний ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: тропічна пустеля
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000227: тропічний сухий широколистяний
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002990: тропічні сухі або листяні
+          ліси (включаючи мусонні ліси) або лісисті масиви
+        http://eol(dot)org/schema/terms/tropicalFreshwaterLake: тропічне прісноводне
+          озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000192: тропічний луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002993: тропічні вологі ліси
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000228: тропічний вологий широколистяний
+          ліс
+        http://eol(dot)org/schema/terms/TropicalOcean: тропічний океан
+        http://eol(dot)org/schema/terms/tropicalOrSubtropical: тропічний або субтропічний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: тропічна савана
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000388: тропічний напівлистяний
+          ліс
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000214: тропічні чагарники
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005778: тропічний ґрунт
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP_HOT: тропічні води
+          (гарячі)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT_WARM: тропічні води
+          (теплі)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: тропічний ліс
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008247: ніжки трубки
+        https://eol(dot)org/schema/terms/tubicolous: трубчастий
+        https://eol(dot)org/schema/terms/tuft: чубок
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: тундра
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: тунель
+        http://eol(dot)org/schema/terms/turbidWater: каламутна вода
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C74723: помутніння
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000454: згорнутий
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: туронський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000370: туя
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Type: тип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#typeOfType: тип типу
+        http://eol(dot)org/schema/terms/TypeSpecimenRepository: сховище зразків типу
+        http://rs(dot)tdwg(dot)org/dwc/terms/typeStatus: статус типу
+        http://eol(dot)org/schema/terms/ultraoligotrophicAlpineFreshwaterLake: ультраоліготрофне
+          альпійське прісноводне озеро
+        http://eol(dot)org/schema/terms/ultraoligotrophicFreshwaterLake: ультраоліготрофне
+          прісноводне озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: парасолька
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002253: умбрізол
+        http://eol(dot)org/schema/terms/uncommon: нечасто
+        http://eol(dot)org/schema/terms/unconfirmedHolotype: непідтверджений голотип
+        http://eol(dot)org/schema/terms/unconfirmedLectotype: непідтверджений лектотип
+        http://eol(dot)org/schema/terms/unconfirmedParatype: непідтверджений паратип
+        http://eol(dot)org/schema/terms/unconfirmedSyntype: непідтверджений синтетип
+        http://eol(dot)org/schema/terms/unconfirmedType: непідтверджений тип
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: ундеканова кислота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: підземне озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: підземна річка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000060: підземний потік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: підземна вода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000061: підземна водойма
+        http://eol(dot)org/schema/terms/UndescribedSpeciesInMuseumCollections: неописані
+          морські види, присутні в музейних колекціях
+        https://eol(dot)org/schema/terms/unisexual_flowers: одностатеві квіти
+        http://eol(dot)org/schema/terms/unknown: невідомо
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005786: нагірний ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000314: верхня межа довіри
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperCretaceous: верхня
+          крейдова епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperDevonian: верхня
+          девонська епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperJurassic: верхня
+          юрська епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperOrdovician: верхня
+          ордовична епоха
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: верхній
+          плейстоценовий вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: верхня
+          триасова епоха
+        http://eol(dot)org/schema/terms/upperEpifaunal: епіфауналь верхнього рівня
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_UC: догори конвеєр
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000005: апвелінг
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: сечова кислота
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: сечовидільна система
+        http://eol(dot)org/schema/terms/Uses: використовуваний для
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: валангінський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: долина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000458: долинний льодовик
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54166: змінна
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: ватерит
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001305: рослинність
+        http://eol(dot)org/schema/terms/VegetativeSpreadRate: швидкість вегетативного
+          поширення
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000604: транспортний засіб
+        http://eol(dot)org/schema/terms/veneer: шпон
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimLatitude: дослівна широта
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimLongitude: дослівна довгота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002254: вертисол
+        http://eol(dot)org/schema/terms/vertivore: головоломка
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: дуже великий
+        http://eol(dot)org/schema/terms/veryLongPersistentSeedBank: дуже довготривалий
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: дуже мало
+        https://eol(dot)org/schema/terms/vestigial_eyes: рудиментарні очі
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: виноградник
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: віцеанський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002619: відвідав
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: відвідування
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: відвідує квіти
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: вітаміни
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010622: віварій
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000094: вулканічний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000351: вулканічна дуга
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000398: вулканічний конус
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000246: вулканічний кратер
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000354: вулканічне поле
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: вулканічна порода
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005785: вулканічний ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: вулкан
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: гучність
+        http://eol(dot)org/schema/terms/VoucherID: ідентифікаційний номер ваучера
+        http://eol(dot)org/schema/terms/vulnerable: вразливий
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000031: ваді
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: ходьба
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002998: теплі пустелі та напівпустелі
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002264: відходи
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: глибина води
+        http://eol(dot)org/schema/terms/SeawaterTemperature: температура води
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000002: Криниця
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000613: плавзасіб
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000040: водоспад
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: ват
+        http://eol(dot)org/schema/terms/waveExposure: хвильова експозиція
+        http://eol(dot)org/schema/terms/WeaningAge: вік відлучення
+        http://eol(dot)org/schema/terms/weddelite: ведделіт
+        https://eol(dot)org/schema/terms/weeping: плач
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000535: вулка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000026: ну
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wenlock: епоха
+          Венлока
+        http://eol(dot)org/schema/terms/bodyMassWet: волога маса тіла
+        http://eol(dot)org/schema/terms/wet_forest: вологий ліс
+        http://eol(dot)org/schema/terms/wetMass: волога маса
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000449: мокрий луг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000043: заболочена місцевість
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000140: китопадіння
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: білий
+        http://eol(dot)org/schema/terms/whiteGrey: біло-сірий
+        http://semanticscience(dot)org/resource/SIO_000042: ширина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000374: зона управління дикою
+          природою
+        http://eol(dot)org/schema/terms/winterDeciduous: зима листяна
+        http://eol(dot)org/schema/terms/winterSemiDeciduous: зимові напівлистяні
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: дерево
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: щільність деревини
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000142: дерево падіння
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&trait=Woodiness: дерев’янистість
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: лісовий масив
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001240: навіс лісу
+        http://eol(dot)org/schema/terms/woodyEpipyte: деревний епіфіт
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: вік гарячих
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: вучіапінгський
+          вік
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000218: ксерикові чагарники
+        http://eol(dot)org/schema/terms/yearRound: цілий рік
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: років
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: жовтий
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: жовто-зелений
+        http://eol(dot)org/schema/terms/yes: так
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: іпресійський
+          вік
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: zanclean
+          вік
+        http://eol(dot)org/schema/terms/zoochory: зоохорія
+        http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: режим годування зоопланктоном
+        http://eol(dot)org/schema/terms/microatmosphere: мкатм
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000023: мкг
+        http://eol(dot)org/schema/terms/µg_cm-2: мкг/см^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000017: мкм
+        http://eol(dot)org/schema/terms/perMicrometer: мкм^(-1)
+        http://eol(dot)org/schema/terms/squareMicrometer: мкм^2
+        http://eol(dot)org/schema/terms/cubicMicrometer: мкм^3
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: мкмоль/клітина/день
+        http://eol(dot)org/schema/terms/µmol_cell-1: мкмоль/клітина
+        https://eol(dot)org/schema/terms/micromolpergram: мкмоль/г
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: мкмоль/л
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: мкмоль/л
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0016490: слухова система
+        http://purl(dot)obolibrary(dot)org/obo/GO_0050959: ехолокація
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000165: рот
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001038: хордотональні органи
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001687: стрічки
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001756: барабанне середнє вухо
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0006583: статоциста
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0006860: плавальний міхур
+        https://eol(dot)org/schema/terms/extratympanic: екстратимпанічний
+        https://eol(dot)org/schema/terms/tympanic_bladder: барабанний міхур
+        https://eol(dot)org/schema/terms/omnivoreHerbivore: всеїдний-травоїдний
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D059646: розмір геному
+        http://eol(dot)org/schema/terms/geneticVoucher: генетичний ваучер
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000345: верхній гірський
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001456: тропічна гора
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000346: нижній гірський
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001455: помірний гірський
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000432: болотний ліс
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001866: витягнути
+        http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: клітина
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020049: листівка
+        http://eol(dot)org/schema/terms/algal_filament: нитка водорості
+        http://eol(dot)org/schema/terms/activelyMobile: активно мобільний
+        http://eol(dot)org/schema/terms/Colonial: колоніальний
+        http://eol(dot)org/schema/terms/NonInvasiveRange: не інвазивний в
+        http://eol(dot)org/schema/terms/Territorial: територіальний
+        http://eol(dot)org/schema/terms/harem: гарем
+        http://eol(dot)org/schema/terms/monogamous: моногамний
+        http://eol(dot)org/schema/terms/socialGroupLiving: групове проживання
+        http://eol(dot)org/schema/terms/cubicMillimeter: мм^3
+        http://eol(dot)org/schema/terms/perPound: /фунт
+        http://eol(dot)org/schema/terms/pelagic: пелагічний
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: морський лід
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000197: ендорейне озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000198: крижане озеро
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000218: чорний курець
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000228: зворотний лиман
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000240: солона заболочена територія
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000244: безодна рівнина
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000273: континентальний схил
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000274: континентальний підйом
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000315: баджада
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000318: зона припливу
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000404: стратовулкан
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002131: епілімніон
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002132: металимніон
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002249: феозем
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002260: дюнний ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002926: тепле просочування
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003071: трав'яний силос
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005743: придорожній ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005769: гірський лісовий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005770: буковий лісовий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005772: садовий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005784: ялиновий лісовий ґрунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005796: морський мул
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005797: озерне дно бруду
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000125: морська прибережна зона
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000127: холодний витік
+        http://eol(dot)org/schema/terms/coenobium: ценобій
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Гц
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000259: дБ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: мангровий острів
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000338: підстилковий шар
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000335: підлісок
+        http://eol(dot)org/schema/terms/HasDispersalVector: має вектор розсіювання
+        http://eol(dot)org/schema/terms/mol_cell-1: моль/клітина
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: пізно
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: аромат
+        http://eol(dot)org/schema/terms/OptimalGrowthpH: оптимальний ріст рН
+        http://eol(dot)org/schema/terms/mol_cell-1_day-1: моль/клітина/день
+        http://eol(dot)org/schema/terms/physiologicalState: фізіологічний стан
+        http://eol(dot)org/schema/terms/mol_m-2_s-1: моль/м^2/с
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: лентичний
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: моногамний
+        http://eol(dot)org/schema/terms/temporaryAquatic: тимчасові водні
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: радіально симетрична
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: двосторонньо симетрична
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: полігінний
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: поліандрозний
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: безладний
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: альпінізм
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: ізотип
+        http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: код колекції
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0006391: ефіра
+        http://eol(dot)org/schema/terms/podocyst: подоцист
+        http://eol(dot)org/schema/terms/microthallus: мікротом
+        http://eol(dot)org/schema/terms/macrothallus: макроталлус
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isolectotype: ізолектотип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isosyntype: ізосинтип
+        http://eol(dot)org/schema/terms/eudoxid: евдоксид
+        http://eol(dot)org/schema/terms/originalMaterial: оригінальний матеріал
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isoneotype: ізонеотип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: епітип
+        http://eol(dot)org/schema/terms/MuseumOfForestryLycksele: Музей лісового господарства
+          Лікселе
+        http://eol(dot)org/schema/terms/collection_AGarai: Колекція А. Гарай
+        http://eol(dot)org/schema/terms/collection_Fwillemse: Колекція Ф. Віллемса
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: Колекція Г.Х. Шмідта
+        http://eol(dot)org/schema/terms/collection_Heller: Колекція Хеллер
+        http://eol(dot)org/schema/terms/collection_Singrisch: Колекція Сінгрскій
+        http://eol(dot)org/schema/terms/Entomological_Museum_Department_of_Agriculture_Bangkok_Thailand: Ентомологічний
+          музей Департамент сільського господарства Бангкок Таїланд
+        http://eol(dot)org/schema/terms/exepitype: екс-епітип
+        http://eol(dot)org/schema/terms/exholotype: екс-голотип
+        http://eol(dot)org/schema/terms/exparatype: екс-паратип
+        http://eol(dot)org/schema/terms/extype: екс-тип
+        http://eol(dot)org/schema/terms/King_Abdulaziz_University: Університет короля
+          Абдулазіза
+        http://eol(dot)org/schema/terms/Löbbecke_Museum_Düsseldorf: Музей Лоббеке
+          в Дюссельдорфі
+        http://eol(dot)org/schema/terms/Mus_Rothschild: Музей Ротшильда
+        http://eol(dot)org/schema/terms/Muséum_d'histoire_naturelle_de_la_Ville_de_Genève: Музей
+          природознавства міста Женеви
+        http://eol(dot)org/schema/terms/Zoological_Museum_Helsinki: Зоологічний музей
+          Ґельсінкі
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: паранеотип
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Plastoneotype: пластонотип
+        http://eol(dot)org/schema/terms/isoparatype: ізопаратип
+        http://eol(dot)org/schema/terms/prototype: прототип
+        http://eol(dot)org/schema/terms/adolescaria: підлітковий вік
+        http://eol(dot)org/schema/terms/adultAndJuvenile: дорослі і молоді
+        http://eol(dot)org/schema/terms/adultAndLarva: доросла особина і личинка
+        http://eol(dot)org/schema/terms/adultAndNymph: дорослий і німфа
+        http://eol(dot)org/schema/terms/adultAndPupa: дорослий і лялечка
+        http://eol(dot)org/schema/terms/adultAndSubadult: дорослий і недорослий
+        http://eol(dot)org/schema/terms/alatoidNymph: алатоїдна німфа
+        http://eol(dot)org/schema/terms/apterousNymph: аптерна німфа
+        http://eol(dot)org/schema/terms/chick: курча
+        http://eol(dot)org/schema/terms/copepodid: копеподід
+        http://eol(dot)org/schema/terms/femaleFlowers: жіночі квіти
+        http://eol(dot)org/schema/terms/floweringAndFruiting: цвітіння і плодоношення
+        http://eol(dot)org/schema/terms/immatureAndOvigerous: незрілі та яєчні
+        http://eol(dot)org/schema/terms/in_bud: в бутон
+        http://eol(dot)org/schema/terms/juvenileAndOvigerous: молодняк і яйцеклітина
+        http://eol(dot)org/schema/terms/larvaAndPupa: личинка і лялечка
+        http://eol(dot)org/schema/terms/maleAndHermaphrodite: самець і гермафродит
+        http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: самець самка і
+          гермафродит
+        http://eol(dot)org/schema/terms/maleFlowers: чоловічі квіти
+        http://eol(dot)org/schema/terms/manca: манка
+        http://eol(dot)org/schema/terms/marita: маріта
+        http://eol(dot)org/schema/terms/metamorph: метаморфа
+        http://eol(dot)org/schema/terms/miracidium: мірацидій
+        http://eol(dot)org/schema/terms/morphotype: морфотип
+        http://eol(dot)org/schema/terms/nonBreeding: неплемінний
+        http://eol(dot)org/schema/terms/parthenita: партеніта
+        http://eol(dot)org/schema/terms/plerocercoid: плероцеркоїд
+        http://eol(dot)org/schema/terms/plerocercus: плероцеркус
+        http://eol(dot)org/schema/terms/postmetamorph: постметаморфа
+        http://eol(dot)org/schema/terms/praniza: праніза
+        http://eol(dot)org/schema/terms/redia: редія
+        http://eol(dot)org/schema/terms/tetrathyridium: тетратиридій
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000757: плазмодій
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: німфа
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: спора
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001293: спороносена ооциста
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: тахізоїт
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001773: ооциста
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0003670: стадія мікрофілярії
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: церкарія
+        http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: стадія спороцисти
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: родюча
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: гермафродит
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: термінал
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007001: рання стадія дозрівання
+          плодів
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007038: повна стадія дозрівання
+          плодів
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007616: стадія цвітіння
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025500: стадія розвитку плодів
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: лялечка
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014856: стадія цистицерка
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: стадія мегалопи
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000708: церкарій
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000716: метацестода
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000720: метацеркарій
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: солоноватий лиман
 ...
