@@ -23,7 +23,7 @@
         - @key_data.sort_by { |k, v| k.name || 'zzz' }.each do |predicate, trait|
           %li
             %div
-              .sample-trait-key.a= predicate.name
+              .sample-trait-key.a= predicate.i18n_name
               = render partial: "terms/desc_meta", locals: { term: predicate, search_link: true }
             %div
               - val = trait_display_value(trait, page_is_assoc_obj: predicate.inverse_only?).html_safe
