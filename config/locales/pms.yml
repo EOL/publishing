@@ -1798,7 +1798,13 @@ pms:
           changsinghian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: canal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: macia
-        http://eol(dot)org/schema/terms/ChelaWidth: Larghëssa dla chela
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: età
+          chattian-a
+        http://eol(dot)org/schema/terms/ChelaWidth: larghëssa dla chela
+        http://eol(dot)org/schema/terms/chemosymbiotroph: chemosimbiòtrof
+        https://eol(dot)org/schema/terms/marineChemosyntheticHabitat: ambient chemosintétich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: cernosiom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: chott
         http://eol(dot)org/schema/terms/CingulumWidth: larghëssa dla sentura
         http://eol(dot)org/schema/terms/CITES_I: Apendis I ëd CITES
         http://eol(dot)org/schema/terms/CITES_II: Apendis II ëd CITES
