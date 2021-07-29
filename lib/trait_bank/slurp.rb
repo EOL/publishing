@@ -1,4 +1,5 @@
 require 'set'
+require 'csv'
 
 class TraitBank::Slurp
   MAX_CSV_SIZE = 250_000
@@ -15,29 +16,36 @@ class TraitBank::Slurp
   # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
   def load_resource_from_repo
     repo = ContentServerConnection.new(@resource)
-    repo.copy_file(@resource.traits_file, 'traits.tsv')
-    repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
+
+    diff_metadata = repo.trait_diff_metadata
+
     ResourceNode.create_if_missing(
       @resource.id, 
       @resource.name, 
       @resource.description, 
       @resource.repository_id
     )
-    load_csvs
+
+    remove_traits(diff_metadata)
+    add_traits(diff_metadata)
+    add_metadata(diff_metadata)
+
+    @resource.touch
+    @resource.update!(last_published_at: Time.now)
     @resource.remove_traits_files
   end
 
   # TraitBank::Slurp.new(res).load_resource_metadata_from_repo # ...and wait.
-  def load_resource_metadata_from_repo
-    repo = ContentServerConnection.new(@resource)
-    repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
-    config = load_csv_config
-    metadata = config.keys.last
-    load_csv(metadata, config[metadata])
-    # "Touch" the resource so that it looks like it's been changed (it has):
-    @resource.touch
-    @resource.remove_traits_files
-  end
+  #def load_resource_metadata_from_repo
+  #  repo = ContentServerConnection.new(@resource)
+  #  repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
+  #  config = load_csv_config
+  #  metadata = config.keys.last
+  #  load_csv(metadata, config[metadata])
+  #  # "Touch" the resource so that it looks like it's been changed (it has):
+  #  @resource.touch
+  #  @resource.remove_traits_files
+  #end
 
   def heal_traits
     repo = ContentServerConnection.new(@resource)
@@ -118,7 +126,7 @@ class TraitBank::Slurp
 
   # TODO: (eventually) target_scientific_name: row.target_scientific_name
   def load_csv_config
-    { "traits_#{@resource.id}.csv" =>
+    { :traits =>
       {
         checks: { # NOTE: Only supported for traits file!
           "1=1" => {
@@ -219,7 +227,7 @@ class TraitBank::Slurp
           }
         }
       },
-      "meta_traits_#{@resource.id}.csv" =>
+      :metadata =>
       {
         nodes: [
           NodeConfig.new(label: 'MetaData', attributes: %i[eol_pk source literal measurement])
@@ -341,26 +349,26 @@ class TraitBank::Slurp
     (1..chunks).each do |chunk|
       sub_file = sub_file_name(basename, chunk)
       copy_head(filename, sub_file)
-      `head -n #{MAX_CSV_SIZE * chunk + 1} #{trait_file_path}/#{filename} | tail -n #{MAX_CSV_SIZE} >> #{trait_file_path}/#{sub_file}`
+      `head -n #{MAX_CSV_SIZE * chunk + 1} #{resource_file_dir}/#{filename} | tail -n #{MAX_CSV_SIZE} >> #{resource_file_dir}/#{sub_file}`
       yield sub_file
-      File.unlink("#{trait_file_path}/#{sub_file}")
+      File.unlink("#{resource_file_dir}/#{sub_file}")
     end
     unless tail.zero?
       sub_file = sub_file_name(basename, chunks + 1)
       copy_head(filename, sub_file)
-      `tail -n #{tail} #{trait_file_path}/#{filename} >> #{trait_file_path}/#{sub_file}`
+      `tail -n #{tail} #{resource_file_dir}/#{filename} >> #{resource_file_dir}/#{sub_file}`
       yield sub_file
-      File.unlink("#{trait_file_path}/#{sub_file}")
+      File.unlink("#{resource_file_dir}/#{sub_file}")
     end
   end
 
   def size_of_file(filename)
     # NOTE: Just this word-count can take a few seconds on a large file!
-    `wc -l #{trait_file_path}/#{filename}`.strip.split(' ').first.to_i
+    `wc -l #{resource_file_dir}/#{filename}`.strip.split(' ').first.to_i
   end
 
   def copy_head(filename, sub_file)
-    `head -n 1 #{trait_file_path}/#{filename} > #{trait_file_path}/#{sub_file}`
+    `head -n 1 #{resource_file_dir}/#{filename} > #{resource_file_dir}/#{sub_file}`
   end
 
   def sub_file_name(basename, chunk)
@@ -370,8 +378,8 @@ class TraitBank::Slurp
   # TODO: this is really all wrong. We should be passing around the path, but when I looked into doing that, it became
   # obvious that this shouldn't be done with class methods, but an instance that can store at least the resource, if
   # not also the path being used. So, for now, I am just hacking it. Sigh.
-  def trait_file_path
-    Rails.public_path.join('data')
+  def resource_file_dir
+    @resource.file_dir
   end
 
   def heal_traits_by_type(filename, label)
@@ -422,7 +430,11 @@ class TraitBank::Slurp
   end
 
   def csv_query_file_location(filename)
-    filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
+    filename =~ /^http/ ? 
+      filename : 
+      Rails.configuration.eol_web_url +
+        "/#{@resource.file_dir.relative_path_from(Rails.root.join('public'))}" +
+        "/#{filename}"
   end
 
   def csv_query_head(filename, where_clause = nil)
@@ -558,6 +570,52 @@ class TraitBank::Slurp
 
     ActiveGraph::Base.session do |session|
       session.run(q)
+    end
+  end
+
+  def add_traits(diff_metadata)
+    if diff_metadata.new_traits_file.nil?
+      @logger.info('no traits to add')
+      return
+    end
+
+    @logger.info('adding new traits')
+    load_csv(diff_metadata.new_traits_file, load_csv_config[:traits])
+  end
+
+  def add_metadata(diff_metadata)
+    if diff_metadata.new_metadata_file.nil?
+      @logger.info('no metadata to add')
+      return
+    end
+
+    @logger.info('adding new metadata')
+    load_csv(diff_metadata.new_metadata_file, load_csv_config[:metadata])
+  end
+
+  def remove_traits(diff_metadata)
+    if diff_metadata.remove_all_traits?
+      @logger.info('removing all traits')
+
+      TraitBank::Admin.remove_all_traits_for_resource(@resource)
+    elsif diff_metadata.removed_traits_file.present?
+      @logger.info('removing traits specified in diff file')
+
+      count = 0
+      CSV.foreach(resource_file_dir.join(diff_metadata.removed_traits_file), headers: true) do |row|
+        if row['eol_pk']
+          ActiveGraph::Base.query(
+            'MATCH (t:Trait{ eol_pk: $eol_pk }) DETACH DELETE t',
+            eol_pk: row['eol_pk']
+          ) 
+        end
+
+        count += 1
+      end   
+
+      @logger.info("removed #{count} traits")
+    else
+      @logger.info('not removing any traits')
     end
   end
 

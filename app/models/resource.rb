@@ -177,15 +177,7 @@ class Resource < ApplicationRecord
     import_logs.destroy_all
   end
 
-  def remove_content
-    # Traits:
-    count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
-    if count.zero?
-      log("No graph nodes, skipping.")
-    else
-      log("Removing #{count} graph nodes")
-      TraitBank::Admin.remove_for_resource(self)
-    end
+  def remove_non_trait_content
     # Node ancestors
     nuke(NodeAncestor)
     # Node identifiers
@@ -249,6 +241,20 @@ class Resource < ApplicationRecord
     nuke(Node)
     # You should run something like #fix_native_nodes (q.v.), but it's slow, and not terribly important if you are just
     # about to re-load the resource, so it's the responsibility of the caller to do it if desired.
+    TraitBank::Admin.remove_non_trait_content_for_resource(self)
+  end
+
+  def remove_all_content
+    remove_non_trait_content
+
+    # Traits:
+    count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
+    if count.zero?
+      log("No graph nodes, skipping.")
+    else
+      log("Removing #{count} graph nodes")
+      TraitBank::Admin.remove_for_resource(self)
+    end
   end
 
   def log(message)
@@ -400,17 +406,18 @@ class Resource < ApplicationRecord
     TraitBank::Admin.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
   end
 
-  def traits_file
-    Rails.public_path.join('data', "traits_#{id}.csv")
+  def file_dir
+    Rails.public_path.join('data', abbr)
   end
 
-  def meta_traits_file
-    Rails.public_path.join('data', "meta_traits_#{id}.csv")
+  def ensure_file_dir
+    dir = file_dir
+    FileUtils.mkdir(dir) unless File.exist?(dir)
+    dir
   end
 
   def remove_traits_files
-    File.unlink(traits_file) if File.exist?(traits_file)
-    File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
+    FileUtils.remove_dir(file_dir) if File.exist?(file_dir)
   end
 
   def self.autocomplete(query, options = {})
