@@ -32,6 +32,8 @@ class TraitBank::Slurp
 
     @resource.touch
     @resource.update!(last_published_at: Time.now)
+
+    @logger.info('Removing trait and metadata files')
     @resource.remove_traits_files
   end
 
