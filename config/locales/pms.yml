@@ -1805,8 +1805,16 @@ pms:
         https://eol(dot)org/schema/terms/marineChemosyntheticHabitat: ambient chemosintétich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: cernosiom
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: chott
+        http://eol(dot)org/schema/terms/ciliary_gliding: sghijament con parpèile
+        http://eol(dot)org/schema/terms/ciliary_mucus_feeder: as nuriss për mojen
+          dël morfel dle parpèile
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: còno ëd sënner
         http://eol(dot)org/schema/terms/CingulumWidth: larghëssa dla sentura
-        http://eol(dot)org/schema/terms/CITES_I: Apendis I ëd CITES
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: sirch
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: época
+          cisuralian-a
+        http://purl(dot)org/dc/terms/bibliographicCitation: sitassion
+        http://eol(dot)org/schema/terms/CITES_I: Apendis i ëd cites
         http://eol(dot)org/schema/terms/CITES_II: Apendis II ëd CITES
         http://eol(dot)org/schema/terms/CITES_III: Apendis III ëd CITES
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: pianta rampianta

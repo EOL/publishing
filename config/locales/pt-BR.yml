@@ -607,6 +607,7 @@ pt-BR:
   page_vernaculars_empty: Não há nomes comuns associados a esse táxon.
   pages:
     actions:
+      collect: coletar
       reindex: reindexar
     batch_lookup:
       header: pesquisa de página em lote
@@ -654,9 +655,12 @@ pt-BR:
         r_superfamily: Superfamília
         r_family: Família
         r_subfamily: Subfamília
+        r_infrafamily: Infrafamília
         r_tribe: Tribo
+        r_supergenus: Supergênero
         r_genus: Gênero
         r_subgenus: Subgênero
+        r_infragenus: Infragênero
         r_superspecies: Superespecie
         r_species: Espécies
         r_subspecies: Subespécies
@@ -678,6 +682,10 @@ pt-BR:
         Os diagramas de teia alimentar da EOL  focam nas relações alimentares de uma espécie; eles mostram as espécies em foco junto com as espécies de que se alimentam (presas), espécies que se alimentam delas (predadores) e outras espécies que se alimentam da mesma presa (competidores potenciais). Clique para aprender mais.
       trophic_web_title_html: Rede trófica <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
+    flash:
+      reindexed: Os caches para esta página foram limpos. Recarregue para ver os novos
+        valores. NOTA que, no momento, isso *não* reindexa as imagens na página. Esse
+        recurso será implementado em uma data futura.
     native_node_missing_warning: nenhuma informação de hierarquia disponível
     tabs:
       articles: artigos
@@ -747,6 +755,14 @@ pt-BR:
   recaptcha: Recaptcha
   recaptcha_error: Por favor, diga-nos que você não é um robô.
   reconciliation:
+    id_space:
+      intro: Cada identificador de entidade retornado pela API de reconciliação é
+        a parte do caminho do URL para a representação geral dessa entidade no EOL,
+        de modo que um determinado id pode ser substituído por https://eol.org/<id>
+        para produzir um url válido para sua entidade. O formato dos identificadores
+        de cada tipo é descrito abaixo.
+      headers:
+        type_id: ID de tipo
     property:
       name:
         ancestor: Antepassado
@@ -763,6 +779,8 @@ pt-BR:
       republish: republicar
       reindex: reindexar
       index: voltar para todos os recursos
+      show_all:
+        other: mostrar todo (%{count})
       clear_publishing: bloqueio claro
       clear_publishing_confirm: Isso 'concluirá' toda a publicação e poderá causar
         problemas se usado durante a publicação ativa. Você tem certeza?
