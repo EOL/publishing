@@ -150,6 +150,18 @@ module TraitBank
         TraitBank.query(%Q{MATCH (meta:MetaData {eol_pk: '#{id}'}) DETACH DELETE meta;})
       end
 
+      def remove_trait_and_metadata(eol_pk)
+        ActiveGraph::Base.query(
+          'MATCH (t:Trait{ eol_pk: $eol_pk })-[:metadata]->(m:MetaData) DETACH DELETE m',
+          eol_pk: eol_pk
+        )
+
+        ActiveGraph::Base.query(
+          'MATCH (t:Trait{ eol_pk: $eol_pk }) DETACH DELETE t',
+          eol_pk: eol_pk
+        )
+      end
+
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
         name = options[:name]

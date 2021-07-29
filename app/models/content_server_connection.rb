@@ -57,10 +57,11 @@ class ContentServerConnection
       return nil
     end
 
-    log_info('polling for trait diff metadata')
 
     url = "/resources/#{@resource.repository_id}/publish_diffs.json"
     url += "?since=#{@resource.last_published_at.to_i}" unless @resource.last_published_at.nil?
+
+    log_info("polling for trait diff metadata: #{url}")
 
     resp = nil
 

@@ -204,8 +204,6 @@ class Publishing
     end
 
     def publish_traits_with_cleanup
-      @log.start('Remove traits')
-      TraitBank::Admin.remove_for_resource(@resource)
       @log.start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
       begin
         publish_traits

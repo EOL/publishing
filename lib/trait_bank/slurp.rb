@@ -604,10 +604,7 @@ class TraitBank::Slurp
       count = 0
       CSV.foreach(resource_file_dir.join(diff_metadata.removed_traits_file), headers: true) do |row|
         if row['eol_pk']
-          ActiveGraph::Base.query(
-            'MATCH (t:Trait{ eol_pk: $eol_pk }) DETACH DELETE t',
-            eol_pk: row['eol_pk']
-          ) 
+          TraitBank::Admin.remove_trait_and_metadata(row['eol_pk'])
         end
 
         count += 1

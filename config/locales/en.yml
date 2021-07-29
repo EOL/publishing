@@ -946,6 +946,7 @@ en:
     actions:
       import_traits: "import traits (from repository)"
       republish: "republish"
+      clean_republish: "clean republish"
       reindex: "reindex"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
