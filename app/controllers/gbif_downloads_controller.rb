@@ -1,5 +1,5 @@
 class GbifDownloadsController < ApplicationController
-  before_action :require_admin
+  before_action :require_authorized_user
 
   def create
     query = TermQuery.find_or_save!(TermQuery.new(term_query_params))
@@ -23,5 +23,9 @@ class GbifDownloadsController < ApplicationController
   private
   def term_query_params
     params.require(:term_query).permit(TermQuery.expected_params)
+  end
+
+  def require_authorized_user
+    raise "Unauthorized" unless GbifDownload.enabled_for_user?(current_user)
   end
 end
