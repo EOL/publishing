@@ -17,16 +17,18 @@ module Reconciliation
 
       properties.each do |prop|
         prop_results = []
+        type = prop.type
+        settings = prop.settings
         
         if page.present?
-          if prop == Reconciliation::PropertyType::RANK
+          if type == Reconciliation::PropertyType::RANK
             prop_results = rank_value_for_page(page)
-          elsif prop == Reconciliation::PropertyType::ANCESTOR
-            prop_results = ancestor_value_for_page(page) 
+          elsif type == Reconciliation::PropertyType::ANCESTOR
+            prop_results = ancestor_value_for_page(page, settings) 
           end
         end
         
-        results[prop.id] = prop_results
+        results[prop.type.id] = prop_results
       end
 
       results
@@ -40,8 +42,18 @@ module Reconciliation
       end
     end
 
-    def ancestor_value_for_page(page)
-      page.node_ancestors.map do |a|
+    def ancestor_value_for_page(page, settings)
+      node_ancestors = page.node_ancestors.reorder(depth: 'desc')
+
+      limit = settings.find do |setting| 
+        setting.type == Reconciliation::PropertySettingType::LIMIT
+      end&.value&.to_i
+
+      if limit && limit > 0
+        node_ancestors = node_ancestors.limit(limit)
+      end
+
+      node_ancestors.map do |a|
         Reconciliation::TaxonEntity.new(a.ancestor.page).to_h
       end
     end
