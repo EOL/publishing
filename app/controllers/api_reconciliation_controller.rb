@@ -93,6 +93,29 @@ class ApiReconciliationController < ApplicationController
   end
 
   private
+  PropertySetting = Struct.new(:default, :type, :name) do
+    def i18n(field)
+      I18n.t("reconciliation.property_settings.#{name}.#{field}")
+    end
+
+    def label
+      i18n(:label)
+    end
+
+    def help_text
+      i18n(:help_text)
+    end
+
+    def to_builder
+      Jbuilder.new do |json|
+      end
+    end
+  end
+
+  PROPERTY_SETTINGS = [
+    PropertySetting.new(0, 'number', 'limit')
+  ]
+
   # GET "/" -- service manifest 
   def manifest
     # This is here instead of in a view file b/c I don't think it's possible to use the :callback option with views
@@ -122,6 +145,14 @@ class ApiReconciliationController < ApplicationController
         json.propose_properties do
           json.service_url api_reconciliation_url
           json.service_path "/properties/propose"
+        end
+
+        json.property_settings PROPERTY_SETTINGS.each do |setting|
+          json.default setting.default
+          json.type setting.type
+          json.label setting.label
+          json.name setting.name
+          json.help_text setting.help_text
         end
       end
     end.target!
@@ -169,4 +200,5 @@ class ApiReconciliationController < ApplicationController
     end
   end
 end
+
 
