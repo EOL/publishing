@@ -161,7 +161,7 @@ class ApiReconciliationController < ApplicationController
     end
 
     rows = Reconciliation::DataExtensionResult.new(query).to_h
-    meta = query.properties.map(&:to_h)
+    meta = query.properties.map { |p| p.type.to_h }
 
     respond({
       meta: meta,
