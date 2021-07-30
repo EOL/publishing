@@ -37,7 +37,7 @@ class GbifDownload < ApplicationRecord
     end
 
     def enabled_for_user?(user)
-      user&.admin? || false
+      user.present?
     end
   end
 
