@@ -42,7 +42,7 @@ class AboutController < ApplicationController
         filters: [
           TermQueryFilter.new(predicate_id: term.id)
         ],
-        result_type: :record
+        result_type: :taxa
       )
 
       {
