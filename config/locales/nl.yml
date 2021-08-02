@@ -5,6 +5,7 @@
 # Author: Elroy
 # Author: Mainframe98
 # Author: Marcelhospers
+# Author: McDutchie
 # Author: Nickthijssen1994
 # Author: Optilete
 # Author: PonkoSasuke
@@ -1196,7 +1197,7 @@ nl:
         gte: '%{pred} >= %{num_val} %{units}'
         lifestage: 'levensfase: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'waarde: %{obj}'
+        obj_only: 'met waarde: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
@@ -1206,9 +1207,9 @@ nl:
       gbif_search: GBIF doorzoeken
       gbif_search_hover: vind verspreidingsgegevens in GBIF voor de taxa in uw zoekresultaten
         (maximaal 50)
-      result_header_records: Toon %{range_begin} - %{range_end} of %{total} records
-        voor %{page_count} taxa met
-      result_header_taxa: Toon %{range_begin} - %{range_end} van %{total} taxa met
+      result_header_records: Toon %{range_begin} - %{range_end} van %{total} records
+        voor %{page_count} taxa
+      result_header_taxa: Toon %{range_begin} - %{range_end} van %{total} taxa
       result_header_taxa_notaxa: Toon %{range_begin} - %{range_end} van %{total}
       new_search: nieuwe zoekopdracht
       select:
@@ -1372,27 +1373,27 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: knop
         http://eol(dot)org/schema/terms/burl: warrelknoest
         http://eol(dot)org/schema/terms/CalcareousSoilTolerance: kalkrijke bodem tolerantie
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
-        http://eol(dot)org/schema/terms/CapitulumLength: Capitulum lengte
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (ca)
+        http://eol(dot)org/schema/terms/CapitulumLength: lengte capitulum
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catadroom
         http://eol(dot)org/schema/terms/CellDepth: celdiepte
         http://eol(dot)org/schema/terms/CellLength: cellengte
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: celmassa
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: celvolume
-        http://eol(dot)org/schema/terms/CITES_I: CITES Appendix I
-        http://eol(dot)org/schema/terms/CITES_II: CITES Appendix II
-        http://eol(dot)org/schema/terms/CITES_III: CITES Appendix III
+        http://eol(dot)org/schema/terms/CITES_I: cites appendix i
+        http://eol(dot)org/schema/terms/CITES_II: cites appendix ii
+        http://eol(dot)org/schema/terms/CITES_III: cites appendix iii
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: klimplant
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: Kustgebied
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensaal van
-        http://eol(dot)org/schema/terms/Cosmopolitan: Kosmopolitisch
+        http://eol(dot)org/schema/terms/Cosmopolitan: kosmopolitisch
         https://eol(dot)org/schema/terms/crustacean_feeder: Kreeftachtigeneter
         http://eol(dot)org/schema/terms/crustose: korstvormig
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilinder
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dagen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: bladverliezend
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: graden
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graden Celsius
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graden celsius
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: eet
         http://eol(dot)org/schema/terms/EggDiameter: ei diameter
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: groenblijvend
@@ -1440,7 +1441,7 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineair
         http://eol(dot)org/schema/terms/LittersPerYear: aantal worpen per jaar
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (mg)
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: man vrouw lichaamsgewichtverhouding
         http://eol(dot)org/schema/terms/MaleTenure: Male Tenure
         http://eol(dot)org/schema/terms/MantleLength: Mantle lengte
