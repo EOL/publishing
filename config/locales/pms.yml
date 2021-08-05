@@ -1815,8 +1815,14 @@ pms:
           cisuralian-a
         http://purl(dot)org/dc/terms/bibliographicCitation: sitassion
         http://eol(dot)org/schema/terms/CITES_I: Apendis i ëd cites
-        http://eol(dot)org/schema/terms/CITES_II: Apendis II ëd CITES
-        http://eol(dot)org/schema/terms/CITES_III: Apendis III ëd CITES
+        http://eol(dot)org/schema/terms/CITES_II: apendis ii ëd cites
+        http://eol(dot)org/schema/terms/CITES_III: apendis iii ëd cites
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: sità
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: crèja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: sediment ëd crèja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: seul ëd crèja
+        http://eol(dot)org/schema/terms/clearWater: eva ciàira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: raisura
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: pianta rampianta
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taja dla covà/nijà/portà
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costié
