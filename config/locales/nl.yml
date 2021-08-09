@@ -42,7 +42,7 @@ nl:
     actions:
       collect: verzamelen
     header:
-      blank: (Er staat niemand op deze pagina.)
+      blank: (Er staat geen tekst op deze pagina.)
       body: Tekst
       language: 'taal: %{language}'
       title: Titel
@@ -1443,14 +1443,14 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (mg)
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: man vrouw lichaamsgewichtverhouding
-        http://eol(dot)org/schema/terms/MaleTenure: Male Tenure
-        http://eol(dot)org/schema/terms/MantleLength: Mantle lengte
+        http://eol(dot)org/schema/terms/MaleTenure: mannelijke houding
+        http://eol(dot)org/schema/terms/MantleLength: mantellengte
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: mariene
         http://eol(dot)org/schema/terms/MatingSystem: mating system
         http://semanticscience(dot)org/resource/SIO_001114: max
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normaal)
         http://eol(dot)org/schema/terms/MiddleToeLength: middelste teenlengte
-        http://eol(dot)org/schema/terms/millimeterspermonth: milimeters per maand
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimeters per maand
         http://eol(dot)org/schema/terms/paleo_megaannum: miljoen jaar geleden
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: maanden
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: sterftecijferverdubbelingstijd
@@ -1499,17 +1499,17 @@ nl:
         http://eol(dot)org/schema/terms/SocialSystem: social systeem
         http://eol(dot)org/schema/terms/StandardLength: standaard lengte
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: staartlengte
-        http://eol(dot)org/schema/terms/TestesMass: Testes Mass
-        http://eol(dot)org/schema/terms/OceaniaRealm: Oceanisch gebied (eilanden)
+        http://eol(dot)org/schema/terms/TestesMass: massa teelballen
+        http://eol(dot)org/schema/terms/OceaniaRealm: oceanisch gebied (eilanden)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: dikte
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnen
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Boom
-        http://eol(dot)org/schema/terms/TropicalOcean: Tropische Oceaan
+        http://eol(dot)org/schema/terms/TropicalOcean: tropische oceaan
         http://eol(dot)org/schema/terms/Uses: gebruikt voor
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: Erg klein
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: waterdiepte
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: watt
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: wit
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: houtdichtheid
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: jaren
@@ -1518,6 +1518,6 @@ nl:
         http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /cel /dag
         http://eol(dot)org/schema/terms/µmol_cell-1: µmol/cel
         http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
-        http://eol(dot)org/schema/terms/Colonial: Koloniaal
+        http://eol(dot)org/schema/terms/Colonial: koloniaal
         http://eol(dot)org/schema/terms/NonInvasiveRange: not invasief in
 ...
