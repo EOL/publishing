@@ -50,11 +50,9 @@ properties and links of `Trait` nodes.
   `resource_id` property value.
   This value can be used as a key 
   in tables stored in one of the relational databases, where further
-  information about the resource can be found.
-  * `resource_name` property - Each `Resource` node has a 
-  `resource_name` property value, a short informal descriptor of the resource.
-  * `resource_description` property - Each `Resource` node has a 
-  `resource_description` property value, a general description of the data provider or literature source.
+  information about the resource can be found. 
+* `resource_name` property - Each `Resource` node has a `resource_name` property value, a short informal descriptor of the resource.
+* `resource_description` property - Each `Resource` node has a `resource_description` property value, a general description of the data provider or literature source.
 
 ## Page
 
