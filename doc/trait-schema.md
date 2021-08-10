@@ -93,6 +93,7 @@ Relationships:
   for this `Page`.  The `parent` link is unique, if present, and is
   only absent for the root of the dynamic hierarchy and for Page nodes
   that don't belong to the dynamic hierarchy.
+* `vernacular` link(s) (to one or many `Vernacular` nodes): the target node is a vernacular or common name for that taxon. Not necessarily a unique string. THere may be one, many, or none connected to any given Page.
 * `trait` link (to a `Trait` node): the target node gives categorical or
   quantitative information
   about the taxon.  Many `Trait`s (or no
@@ -101,6 +102,20 @@ Relationships:
   `Trait` to the `Page` is inferred.  The `Page` is a descendant of
   the `Page` that the `Trait` belongs to.  Many `Page`s can be related
   by `inferred_trait` to a single `Trait`.
+  
+
+## Vernacular
+
+A `Vernacular` node corresponds to a vernacular name associated with a Page and provided by a Resource
+
+* `vernacular_string` property - Each `Vernacular` node has a `vernacular_string` property value, corresponding to the name string provided by the Resource.
+* `vernacular_language_code` property - Each `Resource` node has a `vernacular_language_code` property value, an ISO 2 or 3 letter code.
+* `vernacular_is_preferred_name` property - Each `Resource` node has a `vernacular_is_preferred_name` property value, a boolean indicating whether the name is considered the preferred usage, according to the Resource
+
+Relationships:
+
+* `supplier` link: links to the Resource node for the resource from which 
+  this statement is drawn.
 
 ## Trait
 
