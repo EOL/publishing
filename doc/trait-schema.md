@@ -114,8 +114,7 @@ A `Vernacular` node corresponds to a vernacular name associated with a Page and 
 
 Relationships:
 
-* `supplier` link: links to the Resource node for the resource from which 
-  this statement is drawn.
+* `supplier` link: links to the Resource node for the resource which provided this vernacular name
 
 ## Trait
 
