@@ -93,7 +93,7 @@ Relationships:
   for this `Page`.  The `parent` link is unique, if present, and is
   only absent for the root of the dynamic hierarchy and for Page nodes
   that don't belong to the dynamic hierarchy.
-* `vernacular` link(s) (to one or many `Vernacular` nodes): the target node is a vernacular or common name for that taxon. Not necessarily a unique string. THere may be one, many, or none connected to any given Page.
+* `vernacular` link(s) (to one or many `Vernacular` nodes): the target node is a vernacular or common name for that taxon. Not necessarily a unique string. There may be one, many, or none connected to any given Page.
 * `trait` link (to a `Trait` node): the target node gives categorical or
   quantitative information
   about the taxon.  Many `Trait`s (or no
