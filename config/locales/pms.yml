@@ -1823,8 +1823,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: seul ëd crèja
         http://eol(dot)org/schema/terms/clearWater: eva ciàira
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: raisura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: rochera
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: pianta rampianta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: seuli ëd lìquid motobin
+          variàbil
+        http://eol(dot)org/schema/terms/cloud_forest: foresta ëd nìvole
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taja dla covà/nijà/portà
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://eol(dot)org/schema/terms/cnidaria_feeder: a mangia dle cnidarie
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costié
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: anrolament
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: comensal con

@@ -3672,8 +3672,10 @@ qqq:
           of approximately 570 to 590 nanometers.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: A color consisting of
           yellow and green hues.
-        http://eol(dot)org/schema/terms/yes: This statement is true; the answer to
-          this question is yes.
+        http://eol(dot)org/schema/terms/yes: |-
+          This statement is true; the answer to this question is yes.
+
+          {{Identical|Yes}}
         http://eol(dot)org/schema/terms/zoochory: Seed dispersal mediated by animals.
         http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: 'behavior by which
           zooplankton obtain food; ambush, feeding current, or cruising. (Barton,
