@@ -962,10 +962,16 @@ pt-BR:
     validations:
       empty_filters_error_record: você deve fornecer um filtro com um atributo ou
         valor para registro de pesquisas
+      empty_filters_error_taxa: você deve fornecer um clado ou filtro com um atributo
+        ou valor para pesquisas de taxa
   term_query_filter:
     validations:
       blank_error: deve especificar um atributo ou valor
       invalid_uri: URI inválida
+      multi_obj_error: não pode ter um termo de objeto e um clado de destino
+      pred_uri_blank_obj_clade_error: can't be blank with a target clade
+      pred_uri_blank_numeric_error: não pode ficar em branco com um valor numérico
+      range_invalid_error: deve ser >= para o primeiro valor
       units_blank_error: unidades não podem ser vazias para uma pesquisa numérica
   terms:
     attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
@@ -983,14 +989,44 @@ pt-BR:
   traits:
     data_viz:
       about_this_chart: sobre este gráfico
+      about_this_chart_tooltip_1d: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode selecionar uma categoria do gráfico
+        para restringir os resultados da pesquisa. Muitas categorias se sobrepõem
+        e uma espécie pode ser incluída em mais de uma categoria.
+      about_this_chart_tooltip_assoc: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode passar o mouse sobre o nome de um
+        táxon para destacar seus relacionamentos. Um link verde significa que o táxon
+        pairado é o sujeito da associação; um roxo significa que é o objeto. Pesquisas
+        maiores são resumidas por gênero ou família. Você pode restringi-los clicando
+        no nome de um táxon.
+      about_this_chart_tooltip_sankey_2d: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode selecionar uma categoria em qualquer
+        eixo para restringir os resultados da pesquisa. Muitas categorias se sobrepõem
+        e uma espécie pode ser incluída em mais de uma categoria no mesmo eixo.
+      about_this_chart_tooltip_sankey_3+: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode selecionar uma categoria em qualquer
+        eixo para restringir os resultados da pesquisa. Muitas categorias se sobrepõem
+        e uma espécie pode ser incluída em mais de uma categoria no mesmo eixo. Em
+        uma exibição de subconjunto destacada, essas espécies de vários valores serão
+        contadas várias vezes em outros eixos.
       about_this_chart_tooltip_taxon_summary: Este é um resumo dos grupos taxonômicos
         para os quais o EOL possui dados que correspondem à sua pesquisa. Ele pode
         ser truncado para se ajustar ao tamanho da tela. Você pode selecionar um grupo
         do gráfico para visualizar subgrupos ou para restringir os resultados da pesquisa.
+      other_term_name: outro %{term_name}
       hist_value_label: valor (%{units})
+      n_family_records:
+        one: um registro para taxa na família %{family}
+        other: '%{count} registros para táxons na família %{family}'
       n_family_taxa:
         one: um táxon na família %{family}
         other: '%{count} táxon na família %{family}'
+      n_other_records:
+        one: outro registro
+        other: '%{count} outros registros'
+      n_other_taxa:
+        one: 'outro táxon '
+        other: '%{count} outros táxons'
       num_records_label: '# de registros'
       other: outros
       page_habitat_header: '%{name}Habitats'
@@ -1006,6 +1042,23 @@ pt-BR:
         other: um=um registro com "%{obj_name}"
       n_taxa_with:
         other: uma=uma taxonomia com "%{obj_name}"
+      sankey_node_hover: clique para restringir a pesquisa a %{term_name}
+      see_n_obj_records:
+        one: clique para ver um registro com "%{obj_name}"
+        other: clique para ver %{count} registros com "%{obj_name}"
+      see_n_taxa_with:
+        one: clique para ver um táxon com "%{obj_name}"
+        other: clique para ver %{count} táxons com "%{obj_name}"
+      show_n_records_between:
+        one: clique para ver %{count} registro com valores de medição em [%{min},
+          %{limit}] %{units}
+        other: clique para ver %{count} registros com valores de medição em [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: clique para ver %{count} táxon com valores de medição em [%{min}, %{limit}]
+          %{units}
+        other: clique para ver %{count} táxosn com valores de medição em [%{min},
+          %{limit}] %{units}
       show_link:
         associations_summary: mostrar resumo de associações
         attribute_summary: mostrar resumo de atributos
@@ -1044,6 +1097,9 @@ pt-BR:
       gbif_search: GBIF procura
       gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
         seus resultados de pesquisa (limite 50)
+      result_header_records: Mostrando %{range_begin} - %{range_end} de %{total} registros
+        para %{page_count} táxon
+      result_header_taxa: Mostrando %{range_begin} - %{range_end} de %{total} táxos
       result_header_records_notaxa: Mostrando %{range_begin}- %{range_end} de %{total}
         registros para %{page_count}
       new_search: nova pesquisa
@@ -1061,12 +1117,14 @@ pt-BR:
       clade_filter_placeholder: grupo (por exemplo ursos) ( opcional)
       hide_additional_fields: oculte campos adicionais
       lifestage: fase da vida
+      records_matching_all: registros para taxa correspondendo a TODOS os filtros
       resource: recurso
       search: Pesquisar
       sex: sexo
       show_additional_fields: mostre campos adicionais
       statistical_method: método estatístico
       target_group: grupo alvo ( por exemplo salmão)
+      taxa_matching_all: taxa correspondendo a TODOS os filtros
       this_may_take_a_minute: isso pode levar um minuto
       value: valor
       value_eg: valor ( por exemplo herbívoro)
@@ -1084,6 +1142,7 @@ pt-BR:
     batch_page_lookup: Pesquisa de página em lote
     created_at: criada
     download_queue: Fila de download de dados
+    grant_power: Conceda acesso de usuário avançado
     edit_account_details: Editar detalhes da conta
     email: E-mail
     to_commit_enter_current: Para confirmar suas alterações, digite sua senha atual
@@ -1154,6 +1213,7 @@ pt-BR:
       next: próxima página
       previous: página anterior
     inverse_name:
+      fallback: inverso de '%{term_name}'
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: é comido por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: tem ectoparasita
@@ -1175,6 +1235,10 @@ pt-BR:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/mês'
         http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: idade
+          aaleniana
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: escolha anormal
+          de habitat
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundância
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: solo ácido
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: período de crescimento

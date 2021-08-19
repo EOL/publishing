@@ -328,9 +328,9 @@ pt-PT:
       articles: Artigos sobre %{page_name}
   rank:
     name:
-      r_domain: dominio
-      r_subdomain: subdominio
-      r_infradomain: infradomain
+      r_domain: domínio
+      r_subdomain: subdomínio
+      r_infradomain: infradomínio
       r_superkingdom: super-reino
       r_kingdom: reino
       r_subkingdom: sub-reino
@@ -340,27 +340,23 @@ pt-PT:
       r_subphylum: subfilo
       r_infraphylum: infrafilo
       r_superclass: superclasse
-      r_class: aula
+      r_class: classe
       r_subclass: subclasse
       r_infraclass: infraclasse
-      r_superorder: superordenar
-      r_order: pedido
+      r_superorder: superordem
+      r_order: ordem
       r_suborder: subordem
       r_infraorder: infraordem
-      r_superfamily: superfamilia
-      r_family: familia
-      r_subfamily: subfamilia
-      r_infrafamily: infrafamilia
+      r_superfamily: superfamília
+      r_family: família
+      r_subfamily: subfamília
+      r_infrafamily: infrafamília
       r_tribe: tribo
-      r_supergenus: supergenero
-      r_genus: genero
-      r_subgenus: subgeneo
-      r_infragenus: infragenoso
-      r_superspecies: superespecies
-      r_species: especies
-      r_subspecies: subespecies
-      r_infraspecies: infraespecies
-      r_form: formato
+      r_genus: género
+      r_superspecies: superespécie
+      r_species: espécie
+      r_subspecies: subespécie
+      r_infraspecies: infraespécie
   reference_compiled_from_article: '%{source} artigo nomeado "%{name}"'
   register_new_account: Registar para nova conta
   resources:
