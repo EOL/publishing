@@ -760,7 +760,11 @@ class Page < ApplicationRecord
   end
 
   def page_node
-    PageNode.find(id)
+    begin
+      PageNode.find(id)
+    rescue ActiveGraph::Node::Labels::RecordNotFound
+      nil
+    end
   end
 
   private

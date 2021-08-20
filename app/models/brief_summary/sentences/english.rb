@@ -11,6 +11,8 @@ class BriefSummary
 
       def below_family_taxonomy
         return BriefSummary::Sentences::Result.invalid unless @page.below_family?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         val = ''
         matches = @page.growth_habit_matches
 
@@ -55,9 +57,10 @@ class BriefSummary
 
       def first_appearance
         return BriefSummary::Sentences::Result.invalid unless @page.above_family?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
 
         first_appearance_trait = @page.first_trait_for_predicate(
-          TermNode.find_by_alias('fossil_first'), 
+          TermNode.find_by_alias('fossil_first'),
           with_object_term: true
         )
 
@@ -71,6 +74,7 @@ class BriefSummary
 
       def is_an_x_growth_form
         return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
 
         if match = @page.growth_habit_matches.first_of_type(:is_an_x)
           BriefSummary::Sentences::Result.valid(@helper.add_trait_val_to_fmt(
@@ -84,6 +88,7 @@ class BriefSummary
 
       def has_an_x_growth_form
         return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
 
         if match = @page.growth_habit_matches.first_of_type(:has_an_x_growth_form)
           BriefSummary::Sentences::Result.valid(@helper.add_trait_val_to_fmt(
@@ -97,6 +102,7 @@ class BriefSummary
 
       def conservation
         return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
 
         status_recs = ConservationStatus.new(@page).by_provider
         result = []
@@ -105,7 +111,7 @@ class BriefSummary
         result << conservation_part("as %s by COSEWIC", status_recs[:cosewic]) if status_recs.include?(:cosewic)
         result << conservation_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
         result << conservation_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
-        
+
         if result.any?
           BriefSummary::Sentences::Result.valid("They are listed #{result.to_sentence}.")
         else
@@ -114,7 +120,9 @@ class BriefSummary
       end
 
       def native_range
-        return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below? && @page.has_native_range?  
+        return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below? && @page.has_native_range?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         predicate = TermNode.find_by_alias('native_range')
         traits = @page.native_range_traits
 
@@ -130,7 +138,7 @@ class BriefSummary
           @page.has_native_range? ||
           traits.empty?
         )
-          return BriefSummary::Sentences::Result.invalid 
+          return BriefSummary::Sentences::Result.invalid
         end
 
         BriefSummary::Sentences::Result.valid("They are found in #{@helper.trait_vals_to_sentence(traits, predicate)}.")
@@ -146,6 +154,8 @@ class BriefSummary
       end
 
       def behavior
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         circadian = @page.first_trait_for_object_terms([
           TermNode.find_by_alias('nocturnal'),
           TermNode.find_by_alias('diurnal'),
@@ -154,7 +164,7 @@ class BriefSummary
         solitary = @page.first_trait_for_object_term(TermNode.find_by_alias('solitary'))
         begin_traits = [solitary, circadian].compact
         trophic = @page.first_trait_for_predicate(
-          TermNode.find_by_alias('trophic_level'), 
+          TermNode.find_by_alias('trophic_level'),
           exclude_values: [TermNode.find_by_alias('variable')]
         )
         sentence = nil
@@ -182,6 +192,8 @@ class BriefSummary
       end
 
       def lifespan_size
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         lifespan_part = nil
         size_part = nil
 
@@ -211,7 +223,9 @@ class BriefSummary
       end
 
       def plant_description
-        leaf_traits = @page.leaf_traits 
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
+        leaf_traits = @page.leaf_traits
         flower_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('flower_color'))
         fruit_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('fruit_type'))
         leaf_part = nil
@@ -241,34 +255,44 @@ class BriefSummary
       end
 
       def visits_flowers
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         flower_visitor_sentence_helper(:traits_for_predicate, :object_page) do |page_part|
           "They visit flowers of #{page_part}."
         end
       end
 
       def flowers_visited_by
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         flower_visitor_sentence_helper(:object_traits_for_predicate, :page) do |page_part|
           "Flowers are visited by #{page_part}."
         end
       end
 
       def form1
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         form_sentence_helper(@page.form_trait1)
       end
 
       def form2
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         form_sentence_helper(@page.form_trait2)
       end
 
       def ecosystem_engineering
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         trait = @page.first_trait_for_predicate(TermNode.find_by_alias('ecosystem_engineering'))
         obj_name = trait&.object_term&.name
 
         if obj_name
           BriefSummary::Sentences::Result.valid(@helper.add_term_to_fmt(
-            "They are %s.", 
-            obj_name.pluralize, 
-            trait.predicate, 
+            "They are %s.",
+            obj_name.pluralize,
+            trait.predicate,
             trait.object_term
           ))
         else
@@ -277,8 +301,10 @@ class BriefSummary
       end
 
       def reproduction_vw
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         matches = @page.reproduction_matches
-        
+
         vpart = if matches.has_type?(:v)
                   v_vals = matches.by_type(:v).collect do |match|
                     @helper.add_trait_val_to_fmt("%s", match.trait)
@@ -303,7 +329,7 @@ class BriefSummary
                   nil
                 end
 
-        sentence = (vpart || wpart) ? 
+        sentence = (vpart || wpart) ?
           [vpart, wpart].compact.join('; ') :
           nil
 
@@ -315,6 +341,8 @@ class BriefSummary
       end
 
       def reproduction_y
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         matches = @page.reproduction_matches
 
         if matches.has_type?(:y)
@@ -329,6 +357,8 @@ class BriefSummary
       end
 
       def reproduction_x
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         matches = @page.reproduction_matches
 
         if matches.has_type?(:x)
@@ -336,7 +366,7 @@ class BriefSummary
             @helper.add_trait_val_to_fmt('%s', match.trait)
           end
 
-          is = @page.extinct? ? 'was' : 'is' 
+          is = @page.extinct? ? 'was' : 'is'
 
           BriefSummary::Sentences::Result.valid("Reproduction #{is} #{parts.to_sentence}.")
         else
@@ -345,6 +375,8 @@ class BriefSummary
       end
 
       def reproduction_z
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+
         matches = @page.reproduction_matches
 
         if matches.has_type?(:z)
@@ -359,6 +391,8 @@ class BriefSummary
       end
 
       def motility
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
+        
         matches = @page.motility_matches
         sentence = nil
 
@@ -399,7 +433,7 @@ class BriefSummary
       end
 
       def is_or_are(count)
-        count == 0 || count > 1 ? 
+        count == 0 || count > 1 ?
           'are' :
           'is'
       end
