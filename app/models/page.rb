@@ -507,12 +507,9 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
-    tb_result = begin
-      TraitBank::Page.key_data_pks(self, KEY_DATA_LIMIT)
-    rescue ActiveGraph::Node::Labels::RecordNotFound => e
-      {}
-    end
-    return {} if tb_result.empty?
+    return {} if page_node.nil?
+    tb_result = TraitBank::Page.key_data_pks(self, KEY_DATA_LIMIT)
+    
     traits_by_id = Trait.for_eol_pks(tb_result.map { |row| row[:trait_pk] })
       .map { |t| [t.id, t] }
       .to_h
