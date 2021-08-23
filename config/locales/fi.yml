@@ -7,6 +7,7 @@
 # Author: Muovipullo
 # Author: Nike
 # Author: Pyscowicz
+# Author: Yupik
 ---
 fi:
   language_name: suomi
@@ -970,6 +971,7 @@ fi:
         http://eol(dot)org/schema/terms/Present: maantieteellisen levinneisyyden alueet
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: laidun
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: vihreä
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: talja
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tuumaa
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/vuosi
