@@ -25,12 +25,11 @@ class BriefSummary
         unless @page.genus_or_below? && @page.extinct?
           return BriefSummary::Sentences::Result.invalid
         end
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
-
+        
         key = "extinction.#{@page.rank.treat_as}_html"
         val = i18n_w_term(
-          key,
-          TermNode.find_by_alias('extinction_status'),
+          key, 
+          TermNode.find_by_alias('extinction_status'), 
           @page.extinct_trait.object_term
         )
         BriefSummary::Sentences::Result.valid(val)
@@ -58,8 +57,6 @@ class BriefSummary
       end
 
       def marine
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
-
         if @page.genus_or_below? && @page.marine?
           BriefSummary::Sentences::Result.valid(I18n.t(
             'brief_summary.marine_html',
@@ -77,8 +74,6 @@ class BriefSummary
       end
 
       def freshwater
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
-
         if @page.genus_or_below? && @page.freshwater?
           BriefSummary::Sentences::Result.valid(I18n.t(
             'brief_summary.freshwater_html',
@@ -96,8 +91,6 @@ class BriefSummary
       end
 
       def fix_nitrogen
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
-        
         predicate = TermNode.find_by_alias('fixes')
         object = TermNode.find_by_alias('nitrogen')
 
@@ -130,3 +123,4 @@ class BriefSummary
     end
   end
 end
+
