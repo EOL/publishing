@@ -18,7 +18,7 @@ class GbifDownload < ApplicationRecord
   }
 
   PAGE_LIMIT = 100_000
-  GBIF_CREATE_URI = URI("https://api.gbif.org/v1/occurrence/download/request?occurrence_status=present")
+  GBIF_CREATE_URI = URI("https://api.gbif.org/v1/occurrence/download/request")
   GBIF_USERNAME = Rails.application.config.x.gbif_credentials[:username]
   GBIF_PASSWORD = Rails.application.config.x.gbif_credentials[:password]
 
@@ -37,7 +37,7 @@ class GbifDownload < ApplicationRecord
     end
 
     def enabled_for_user?(user)
-      user&.admin? || false
+      user.present?
     end
   end
 
@@ -83,6 +83,8 @@ class GbifDownload < ApplicationRecord
     end
     gbif_pks.compact!
 
+    raise 'failed to find any GBIF ids for taxa' unless gbif_pks.any?
+
     req = Net::HTTP::Post.new(GBIF_CREATE_URI, "Content-Type" => "application/json")
     req.body = self.class.gbif_request_data(gbif_pks).to_json
     req.basic_auth GBIF_USERNAME, GBIF_PASSWORD
@@ -94,7 +96,11 @@ class GbifDownload < ApplicationRecord
     self.response_code = response.code
 
     if response.is_a? Net::HTTPCreated
-      self.result_url = response["location"]
+      key = response.body
+
+      raise 'got empty response body' unless key.present?
+
+      self.result_url = 'https://api.gbif.org/v1/occurrence/download/' + key
       self.status = :succeeded
     else
       self.error_response = response.body  

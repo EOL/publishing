@@ -667,7 +667,7 @@ RSpec.describe('BriefSummary::PageDecorator') do
     end
 
     def set_trait_for_predicate(predicate, trait)
-      allow(page).to receive(:first_trait_for_predicate).with(predicate) { trait }
+      allow(page).to receive(:first_trait_for_predicate).with(predicate, exact_predicate: true) { trait }
     end
 
     context 'when page has traits for both predicates' do

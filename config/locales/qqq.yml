@@ -1,6 +1,7 @@
 # Messages for Message documentation (Message documentation)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: EugeneZelenko
 # Author: Kareyac
 # Author: Optilete
@@ -2946,9 +2947,10 @@ qqq:
           substance comprised of any particulate matter that can be transported by
           fluid flow and which eventually is deposited as a layer of solid particles
           on the bedor bottom of a body of water or other liquid.
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: multi-tissue plant structures
-          that develop from a plant ovule and have as parts a plant embryo enclosed
-          in a seed coat.
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: |-
+          multi-tissue plant structures that develop from a plant ovule and have as parts a plant embryo enclosed in a seed coat.
+
+          {{Identical|Seed}}
         http://eol(dot)org/schema/terms/SeedBank: Location of persistent seed bank
           (longevity > 1 yr).
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: the
@@ -3670,8 +3672,10 @@ qqq:
           of approximately 570 to 590 nanometers.
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: A color consisting of
           yellow and green hues.
-        http://eol(dot)org/schema/terms/yes: This statement is true; the answer to
-          this question is yes.
+        http://eol(dot)org/schema/terms/yes: |-
+          This statement is true; the answer to this question is yes.
+
+          {{Identical|Yes}}
         http://eol(dot)org/schema/terms/zoochory: Seed dispersal mediated by animals.
         http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: 'behavior by which
           zooplankton obtain food; ambush, feeding current, or cruising. (Barton,

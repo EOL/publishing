@@ -260,7 +260,7 @@ it:
   language: Lingua
   languages:
     ab: Abkhazo
-    q27683: Acehnese
+    q27683: Aceh
     q27776: Adighè
     aa: Afar
     af: Afrikaans
@@ -277,18 +277,18 @@ it:
     q56590: Atikamekw
     av: Avaro
     ae: Avestico
-    ay: Aimara
-    q9292: Azerbaigiano
-    az: Azerbaigiano
+    ay: Aymara
+    q9292: Azero
+    az: Azero
     q33070: Balinese
     bm: Bambara
     q33151: Banjar
-    ba: Bashkir
+    ba: Baschiro
     eu: Basco
     q29540: Bavarese
     be: Bielorusso
     q8836490: Bende
-    bn: Bengalese
+    bn: Bengali
     bh: Lingue bihari
     bi: Bislama
     nb: Bokmål, Norvegese; Norvegese Bokmål
@@ -298,7 +298,7 @@ it:
     q750553: Portoghese brasiliano
     br: Bretone
     bg: Bulgaro
-    my: Burmese
+    my: Birmano
     q33120: Buriato
     q35037: Businenge Tongo
     q880301: Francese cajun
@@ -366,9 +366,12 @@ it:
     gn: Gujarati
     gu: Gujarati
     q33303: Haida
+    ht: Haitiano; Creolo haitiano
     ha: Hausa
+    q35756: Haya
     he: Ebraico
     heb: Ebraico
+    q3129390: Hehe
     hz: Herero
     q35978: Hiligaynon
     hi: Hindi
@@ -382,12 +385,14 @@ it:
     id: Indonesiano
     q33509: Inguscio
     ia: Interlingua (International Auxiliary Language Association)
+    ie: Interlingue; Occidental
     iu: Inuktitut
     ik: Inupiaq
     q33595: Iraqw
     ga: Irlandese
     it: Italiano
     ita: Italiano
+    q35939: Creolo jamaicano
     ja: Giapponese
     jp: Giapponese
     jv: Giavanese
@@ -416,11 +421,14 @@ it:
     ms: Malese
     mt: Maltese
     mlt: Maltese
+    mh: Marshallese
     q13330: Mirandese
     mn: Mongolo
     q33845: Napoletano
     ne: Nepalese
     q28224: Frisone settentrionale
+    q19933293: Luri del nord
+    se: Sami settentrionale
     "no": Norvegese
     nno: Norvegese
     nob: Norvegese
@@ -451,6 +459,7 @@ it:
     st: Sotho del sud
     es: Spagnolo; Castigliano
     slv: Spagnolo
+    ss: Swati
     sv: Svedese
     swe: Svedese
     ty: Tahitiano
@@ -458,6 +467,7 @@ it:
     tha: Thailandese
     bo: Tibetano
     to: Tongano
+    q34251: Tulu
     q56240: Arabo tunisino
     tr: Turco
     tur: Turco
@@ -648,6 +658,7 @@ it:
     id_space:
       type_names:
         taxon: Taxon
+      numeric_id: ID numerico
     property:
       name:
         rank: Posizione
@@ -757,6 +768,7 @@ it:
     genetics: Genetica
     growth: Crescita
     habitat: Habitat
+    life_expectancy: Speranza di vita
     management: Amministrazione
     migration: Migrazione
     molecular_biology: Biologia molecolare
@@ -794,6 +806,7 @@ it:
         username: Nome utente
         bio: Biografia
   stats:
+    articles: voci
     collections: collezioni
     media: media
     pages: pagine
@@ -818,9 +831,12 @@ it:
     show_all_records: mostra tutti i record
     source: fonte
     uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Scegli una pagina sopra per iniziare.
   data_definition: definizione di "%{data}"
   traits:
     data_viz:
+      about_this_chart: a proposito di questo grafico
       about_this_chart_tooltip_1d: Questo è un riepilogo basato sui dati disponibili
         in EOL. Potrebbe essere incompleto! Puoi selezionare una categoria dal grafico
         per restringere i risultati della ricerca. Molte categorie si sovrappongono

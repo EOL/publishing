@@ -1,0 +1,34 @@
+# Messages for Breton (brezhoneg)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Adriendelucca
+---
+br:
+  devise:
+    confirmations:
+      confirmed: Gwiriekaet eo bet ar chomlec'h postel.
+    failure:
+      already_authenticated: Kevreet oc'h c'hoazh.
+      inactive: N'eo ket bet gwiriekaet ho kont c'hoazh.
+      invalid: '%{authentication_keys} pe ger-tremen direizh.'
+      not_found_in_database: '%{authentication_keys} pe ger-tremen direizh.'
+    mailer:
+      confirmation_instructions:
+        greeting: Donemat %{recipient}!
+      reset_password_instructions:
+        action: Cheñch ger-tremen
+        greeting: 'Demat #{recipient}!'
+      password_change:
+        greeting: 'Demat #{recipient}!'
+        subject: Ger-tremen kemmet
+    registrations:
+      signed_up: Donemat! Kennasket oc'h bet gant berzh.
+    sessions:
+      signed_in: Kennasket gant berzh.
+      signed_out: Digennasket gant berzh
+      already_signed_out: Digennasket gant berzh
+      recaptcha: Fazioù desteniekadur "recaptcha"
+  errors:
+    messages:
+      not_found: n'eo ket bet kavet
+...

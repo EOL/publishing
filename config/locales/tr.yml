@@ -5,6 +5,7 @@
 # Author: ArdaDemirel
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
+# Author: Hedda
 # Author: Joseph
 # Author: Melissadilara
 # Author: Mim.saitkilic
@@ -865,6 +866,28 @@ tr:
       r_form: form
   recaptcha: Recaptcha
   recaptcha_error: Lütfen bize robot olmadığınızı söyleyin.
+  reconciliation:
+    id_space:
+      headers:
+        type_id: Tür kimliği
+        type_name: Tür Adı
+        id_format: Kimlik Formatı
+      type_names:
+        taxon: Takson
+      numeric_id: sayısal kimlik
+    property:
+      description:
+        ancestor: Başka bir taksonun atası olan takson.
+        rank: Bir taksonun derecesini açıklayan bir dizi, ör. "tür". Tanınmayan dereceler
+          puanlanmaz.
+      name:
+        ancestor: Ata
+        rank: Sıra
+    schema_space:
+      headers:
+        id: Kimlik
+        name: Ad
+        description: Açıklama
   reference_compiled_from: '%{links} tarafından yönlendirildi'
   reference_compiled_from_article: '"%{name}" başlıklı %{source} madde'
   register_new_account: Yeni hesap için kaydolun
@@ -1187,8 +1210,16 @@ tr:
           görmek için tıklayın'
         other: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
           görmek için tıklayın'
+      show_link:
+        associations_summary: ilişkilendirme özetini göster
+        attribute_summary: özellik özetini göster
+        taxon_summary: takson özetini göster
+      taxon_summary:
+        click_to_filter: filtrelemek için tıklayın
+        click_to_filter_by: '''%{name}'' ile filtrelemek için tıklayın'
       toggle_text:
         taxon_summary: takson özetini göster
+        trait_summary: özellik özetini göster
     properties:
       citation: Bibliyografik atıf
       method: Ölçüm yöntemi
@@ -1367,6 +1398,7 @@ tr:
           alanı seçimi
         http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: olağandışı hareket davranışı
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: bolluk
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: abisal bölge
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: abyssopelajik bölge
         http://eol(dot)org/schema/terms/acicular: sivri (iğne benzeri)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: asit kaplıcası
@@ -1389,6 +1421,7 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: hasattan sonra yeniden
           büyüme oranı
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: agatoksinler
         http://eol(dot)org/schema/terms/age At Dispersal: dağılma yaşı
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: göz açmada yaş
         http://eol(dot)org/schema/terms/AgeAtMaturity: olgunluk yaşı
@@ -1404,6 +1437,9 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: alkali yassı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: alkali habitat
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: alkali kaplıcası
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: allolektotip
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: alloneotip
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: allotip
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: alüvyon düz
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: alüvyal toprak
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alp buzulu

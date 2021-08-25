@@ -146,38 +146,42 @@ module TraitBank
 
       def key_data_pks(page, limit)
         Rails.cache.fetch("trait_bank/key_data_pks/#{page.id}/v2/limit_#{limit}", expires_in: 1.day) do
-          # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
-          page.page_node.query_as(:page)
-            .break
-            .optional_match("(page)-[#{TRAIT_RELS}]->(trait:Trait)", "(trait)-[:predicate]->(predicate:Term)")
-            .where("predicate.is_hidden_from_overview <> true")
-            .where('(NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))')
-            .break
-            .optional_match(EXEMPLAR_MATCH)
-            .with(:page, :predicate, :trait, :exemplar_value)
-            .order_by('predicate.uri ASC', EXEMPLAR_ORDER)
-            .break
-            .with(:page, :predicate, 'head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row')
-            .break
-            .with(:page, "collect({ predicate: predicate, trait: trait_row.trait, exemplar_value: trait_row.exemplar_value }) AS subj_rows")
-            .break
-            .optional_match("(:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:object_page]->(page)", '(trait)-[:predicate]->(:Term)<-[:inverse_of]-(predicate:Term)')
-            .where('predicate.is_hidden_from_overview <> true')
-            .break
-            .optional_match(EXEMPLAR_MATCH)
-            .with(:subj_rows, :trait, :page, :predicate, :exemplar_value)
-            .order_by('predicate.uri ASC', EXEMPLAR_ORDER)
-            .break
-            .with(:subj_rows, :predicate, 'head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row')
-            .break
-            .with("(subj_rows + collect({ trait: trait_row.trait, predicate: predicate, exemplar_value: trait_row.exemplar_value })) AS rows")
-            .unwind('rows AS row')
-            .with('row.trait AS trait', 'row.predicate AS predicate', 'row.exemplar_value AS exemplar_value')
-            .where('trait IS NOT NULL')
-            .return(:predicate, 'trait.eol_pk AS trait_pk')
-            .order(EXEMPLAR_ORDER)
-            .limit(limit)
-            .to_a
+          if page.page_node.nil?
+            []
+          else
+            # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
+            page.page_node.query_as(:page)
+              .break
+              .optional_match("(page)-[#{TRAIT_RELS}]->(trait:Trait)", "(trait)-[:predicate]->(predicate:Term)")
+              .where("predicate.is_hidden_from_overview <> true")
+              .where('(NOT (trait)-[:object_term]->(:Term) OR (trait)-[:object_term]->(:Term{ is_hidden_from_overview: false }))')
+              .break
+              .optional_match(EXEMPLAR_MATCH)
+              .with(:page, :predicate, :trait, :exemplar_value)
+              .order_by('predicate.uri ASC', EXEMPLAR_ORDER)
+              .break
+              .with(:page, :predicate, 'head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row')
+              .break
+              .with(:page, "collect({ predicate: predicate, trait: trait_row.trait, exemplar_value: trait_row.exemplar_value }) AS subj_rows")
+              .break
+              .optional_match("(:Page)-[#{TRAIT_RELS}]->(trait:Trait)-[:object_page]->(page)", '(trait)-[:predicate]->(:Term)<-[:inverse_of]-(predicate:Term)')
+              .where('predicate.is_hidden_from_overview <> true')
+              .break
+              .optional_match(EXEMPLAR_MATCH)
+              .with(:subj_rows, :trait, :page, :predicate, :exemplar_value)
+              .order_by('predicate.uri ASC', EXEMPLAR_ORDER)
+              .break
+              .with(:subj_rows, :predicate, 'head(collect({ trait: trait, exemplar_value: exemplar_value })) AS trait_row')
+              .break
+              .with("(subj_rows + collect({ trait: trait_row.trait, predicate: predicate, exemplar_value: trait_row.exemplar_value })) AS rows")
+              .unwind('rows AS row')
+              .with('row.trait AS trait', 'row.predicate AS predicate', 'row.exemplar_value AS exemplar_value')
+              .where('trait IS NOT NULL')
+              .return(:predicate, 'trait.eol_pk AS trait_pk')
+              .order(EXEMPLAR_ORDER)
+              .limit(limit)
+              .to_a
+          end
         end
       end
 

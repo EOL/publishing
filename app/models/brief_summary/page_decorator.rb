@@ -193,10 +193,11 @@ class BriefSummary
     end
 
     def leaf_traits
+      # exact_predicate option is required here b/c one term is a descendant of the other
       [
         TermNode.find_by_alias('leaf_complexity'),
         TermNode.find_by_alias('leaf_morphology')
-      ].collect { |term| @page.first_trait_for_predicate(term) }.compact
+      ].collect { |term| @page.first_trait_for_predicate(term, exact_predicate: true) }.compact
     end
 
     def form_trait1

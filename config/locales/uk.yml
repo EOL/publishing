@@ -45,7 +45,7 @@ uk:
     name:
       missing: Без назви
   article_from_partner: Надано %{partner}
-  article_duplicate: ця стаття також показана в "%{section}"
+  article_duplicate: ця стаття також показана в «%{section}»
   autocomplete:
     see_all:
       one: див. інші результати
@@ -105,7 +105,7 @@ uk:
           r_subfamily: '%{name1} є підсімейством %{name2} в сімействі %{name3}.'
           r_infrafamily: '%{name1} є внутрішньосімейством %{name2} в сімействі %{name3}.'
           r_tribe: '%{name1} є племенем %{name2} в сімействі %{name3}.'
-          r_supergenus: '%{name1} - надрід роду %{name2} в сімействі %{name3}.'
+          r_supergenus: '%{name1} є надрідом роду %{name2} в сімействі %{name3}.'
           r_genus: '%{name1} є родом %{name2} в сімействі %{name3}.'
           r_subgenus: '%{name1} є підродом %{name2} в сімействі %{name3}.'
           r_infragenus: '%{name1} є інфрародом %{name2} в сімействі %{name3}.'
@@ -118,7 +118,7 @@ uk:
           r_subfamily: '%{name1} є підсімейством %{name2}.'
           r_infrafamily: '%{name1} є внутрішньосімейством %{name2}.'
           r_tribe: '%{name1} є племенем %{name2}.'
-          r_supergenus: '%{name1} - надрід роду %{name2}.'
+          r_supergenus: '%{name1} є надрідом роду %{name2}.'
           r_genus: '%{name1} є родом %{name2}.'
           r_subgenus: '%{name1} є підродом %{name2}.'
           r_infragenus: '%{name1} є інфрародом %{name2}.'
@@ -162,14 +162,14 @@ uk:
       species_count: видів
       updated_at: останнє оновлення
   collect_already_in_collection: (це вже тут)
-  collect_already_in_collection_will_add_icon: (додати до медіа "%{page}")
-  collect_icon_title: Додати "%{item}" зі сторінки "%{page}" до…
+  collect_already_in_collection_will_add_icon: (додати до медіа «%{page}»)
+  collect_icon_title: Додати «%{item}» зі сторінки «%{page}» до…
   collect_new_collection: Назва нової колекції
-  collect_new_collection_title: '...нова колекція'
+  collect_new_collection_title: …нова колекція
   collect_no_existing_collections: У вас ще немає! Створіть його, використовуючи форму
     ліворуч.
-  collect_select_collection: '...Одна з ваших колекцій'
-  collect_title: Додати "%{item}" до...
+  collect_select_collection: …Одна з ваших колекцій
+  collect_title: Додати «%{item}» до…
   collected_page_added_to_collection: Додано %{page} до колекції <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: Це вже було у вашій колекції.
   collected_pages_title: Сторінки
@@ -182,16 +182,16 @@ uk:
     edit_button: редагувати
     delete_confirm: ви впевнені?
     destroyed_flash: '%{name} видалено з колекції'
-  collection_association_added_to_collection: Додано "%{associated}" до колекції <a
-    href='%{link}'>"%{name}"</a>.
+  collection_association_added_to_collection: Додано «%{associated}» до колекції <a
+    href='%{link}'>«%{name}»</a>.
   collection_associations_empty: Жодна інша колекція не пов’язана з цією. Ви можете
-    натиснути клавішу "асоціювати" в інших колекціях, щоб вони з'явилися тут.
+    натиснути клавішу «асоціювати» в інших колекціях, щоб вони з’явилися тут.
   collection_associations_title: Асоційовані колекції
   collection_collected_pages_media_remove: 'Вилучити зображення з колекції (зміни
     набирають чинності негайно):'
-  collection_created: Створено нову колекцію "%{name}".
-  collection_created_for_association: Додано "%{associated}" до нової колекції <a
-    href='%{link}'>"%{name}"</a>.
+  collection_created: Створено нову колекцію «%{name}».
+  collection_created_for_association: Додано «%{associated}» до нової колекції <a
+    href='%{link}'>«%{name}»</a>.
   collection_user_is_admin: Цей користувач є адміністратором.
   collection_pages_empty: У цій колекції немає сторінок. Спробуйте натиснути клавішу
     «зібрати» на сторінках видів, щоб додати деякі предмети!
@@ -203,7 +203,7 @@ uk:
       placeholder: повне ім’я або ім’я користувача
     actions:
       associate: асоційований
-      download_taxa_csv: завантажити CSV таксонів -
+      download_taxa_csv: завантажити CSV таксонів —
       delete: вилучити
       edit: редагувати
       sort: сортувати
@@ -222,15 +222,15 @@ uk:
         remove: '%{user} вилучив асоціацію до колекції %{associated}'
       collection:
         add: '%{user} створив колекцію'
-        change: '%{user} змінив %{field} з "%{from}" на "%{to}"'
+        change: '%{user} змінив %{field} з «%{from}» на «%{to}»'
       content:
         add: '%{user} додав на середньому %{medium} для сторінки %{page}'
         change: '%{user} змінив %{field} на середньому %{medium} для сторінки %{page}
-          з "%{from}" на "%{to}"'
+          з «%{from}» на «%{to}»'
         remove: '%{user} вилучив на середньому %{medium} для сторінки %{page}'
       page:
         add: '%{user} додав сторінку %{page}'
-        change: '%{user} змінив %{field} на сторінці %{page} з "%{from}" на "%{to}"'
+        change: '%{user} змінив %{field} на сторінці %{page} з «%{from}» на «%{to}»'
         remove: '%{user} вилучив сторінку %{page}'
       user:
         add: '%{user} додав менеджера %{manager}'
@@ -463,7 +463,7 @@ uk:
     q35756: Хая
     he: Іврит
     heb: Іврит
-    q3129390: Hehe
+    q3129390: Хехе
     hz: Хереро
     q35978: Хілігейнон
     hi: Хінді
@@ -471,7 +471,7 @@ uk:
     hu: Угорська
     is: Ісландський
     ice: Ісландський
-    io: Ido
+    io: Ідо
     ig: Ігбо
     q35936: Ілокано
     id: Індонезійська
@@ -512,8 +512,8 @@ uk:
     kj: Куаняма; Кваняма
     ku: Курдська
     q36206: Лак
-    lo: Lao
-    lao: Lao
+    lo: Лаоські
+    lao: Лаоські
     la: Латинська
     lv: Латиська
     q1160372: Лаз
@@ -524,7 +524,7 @@ uk:
     q146803: Нова французька мова
     lt: Литовський
     lit: Литовський
-    q33698: Liv
+    q33698: Лів
     q36584: Лівві
     q33754: Lombard
     q168446: Низька Саксонія
@@ -752,7 +752,7 @@ uk:
     header:
       one: Найкраще зображення для сторінки
       other: Найкраще зображення для сторінок
-  page_icon_created: Зображення "%{name}" переміщено вгору.
+  page_icon_created: Зображення «%{name}» переміщено вгору.
   page_title: Енциклопедія життя
   page_title_search: 'Пошук: %{query}'
   page_vernaculars_empty: Немає загальних назв, пов’язаних з цим таксоном.
@@ -787,11 +787,11 @@ uk:
     page_data:
       habitat_wordcloud_tooltip: Записи нашого середовища існування значною мірою
         створені з текстом, тому багато термінів зустрічаються неодноразово; частіше
-        зустрічаються терміни середовища існування - відображаються більшими в хмарі
-        слів - швидше за все, мають значення. Усі записи перелічені нижче.
+        зустрічаються терміни середовища існування — відображаються більшими в хмарі
+        слів — швидше за все, мають значення. Усі записи перелічені нижче.
       n_hidden_show_all:
-        one: 1 “%{pred_name}” запис приховано — показати все
-        other: '%{count} “%{pred_name}” записи приховано — показати все'
+        one: 1 «%{pred_name}» запис приховано — показати все
+        other: '%{count} «%{pred_name}» записи приховано — показати все'
       n_hidden_show_all_noname:
         one: 1 запис прихований — показати усе
         other: '%{count} записів приховано — показати усе'
@@ -943,7 +943,7 @@ uk:
     property:
       description:
         ancestor: Таксон, який є родоначальником іншого таксону.
-        rank: Рядок, що описує ранг таксона, наприклад, "вид". Невизнані звання не
+        rank: Рядок, що описує ранг таксона, наприклад, «вид». Невизнані звання не
           набираються.
       name:
         ancestor: Предка
@@ -956,7 +956,7 @@ uk:
         name: Назва
         description: Опис
   reference_compiled_from: Посилання на %{links}
-  reference_compiled_from_article: '%{source} стаття під назвою "%{name}"'
+  reference_compiled_from_article: '%{source} стаття під назвою «%{name}»'
   register_new_account: Зареєструйтесь для нового облікового запису
   resources:
     actions:
@@ -1103,8 +1103,8 @@ uk:
   search_suggestion:
     actions:
       create: створити нову пропозицію пошуку
-    created: Створена пропозиція пошуку для "%{match}"
-    destroyed: Знищена пропозиція щодо пошуку для "%{match}"
+    created: Створена пропозиція пошуку для «%{match}»
+    destroyed: Знищена пропозиція щодо пошуку для «%{match}»
     new:
       header: Створити пропозицію пошуку
     update:
@@ -1160,7 +1160,7 @@ uk:
   signature_with_contact_us_link: |-
     Якщо у вас виникнуть проблеми, зв’яжіться з нами за адресою %{url}.
 
-    Команда "Енциклопедія життя"
+    Команда «Енциклопедія життя»
   did_not_receive_confirmation_instructions: Не отримав інструкцій щодо підтвердження
   simple_form:
     "yes": Так
@@ -1198,7 +1198,7 @@ uk:
     users: користувачів
     references: налаштування
   term_query:
-    invalid_obsolete: НЕПРІЧАСНИЙ/ЗАСТАЛЕНИЙ
+    invalid_obsolete: НЕДІЙСНИЙ/ЗАСТАЛЕНИЙ
     validations:
       empty_filters_error_record: Ви повинні надати фільтр із атрибутом або значенням
         для пошуку записів
@@ -1225,7 +1225,7 @@ uk:
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
       select_page_above: Виберіть сторінку вище, щоб розпочати.
-  data_definition: визначення "%{data}"
+  data_definition: визначення «%{data}»
   traits:
     data_viz:
       about_this_chart: про цю діаграму
@@ -1279,18 +1279,18 @@ uk:
         one: натисніть, щоб побачити один таксон в сімействі %{family}
         other: натисніть, щоб побачити %{count} таксонів у сімействі %{family}
       n_obj_records:
-        one: один запис з "%{obj_name}"
-        other: '%{count} записів з "%{obj_name}"'
+        one: один запис з «%{obj_name}»
+        other: '%{count} записів з «%{obj_name}»'
       n_taxa_with:
-        one: один таксон з "%{obj_name}"
-        other: '%{count} таксонів з "%{obj_name}"'
+        one: один таксон з «%{obj_name}»
+        other: '%{count} таксонів з «%{obj_name}»'
       sankey_node_hover: натисніть, щоб звузити пошук до %{term_name}
       see_n_obj_records:
-        one: натисніть, щоб побачити один запис з "%{obj_name}"
-        other: натисніть, щоб побачити %{count} записів з "%{obj_name}"
+        one: натисніть, щоб побачити один запис з «%{obj_name}»
+        other: натисніть, щоб побачити %{count} записів з «%{obj_name}»
       see_n_taxa_with:
-        one: натисніть, щоб побачити один таксон з "%{obj_name}"
-        other: натисніть, щоб побачити %{count} таксонів з "%{obj_name}"
+        one: натисніть, щоб побачити один таксон з «%{obj_name}»
+        other: натисніть, щоб побачити %{count} таксонів з «%{obj_name}»
       show_n_records_between:
         one: натисніть, щоб побачити %{count} запис із значеннями вимірювань у [%{min},
           %{limit}] %{units}
@@ -1302,12 +1302,12 @@ uk:
         other: натисніть, щоб побачити %{count} таксонів зі значеннями вимірювання
           у [%{min}, %{limit}] %{units}
       show_link:
-        associations_summary: показати резюме асоціацій
+        associations_summary: показати опис асоціацій
         attribute_summary: показати підсумок атрибутів
         taxon_summary: показати резюме таксонів
       taxon_summary:
         click_to_filter: натисніть, щоб фільтрувати
-        click_to_filter_by: натисніть, щоб відфільтрувати за '%{name}'
+        click_to_filter_by: натисніть, щоб відфільтрувати за «%{name}»
       toggle_text:
         taxon_summary: показати опис таксонів
         trait_summary: показати опис атрибутів
@@ -1337,11 +1337,11 @@ uk:
       gbif_search: Пошук у форматі GBIF
       gbif_search_hover: знайдіть записи записів у GBIF для таксонів у результатах
         пошуку (ліміт 50)
-      result_header_records: Показано %{range_begin} - %{range_end} з %{total} записів
+      result_header_records: Показано %{range_begin} — %{range_end} з %{total} записів
         для %{page_count} таксонів
-      result_header_taxa: Показано %{range_begin} - %{range_end} з %{total} таксонів
-      result_header_taxa_notaxa: Показано %{range_begin} - %{range_end} з %{total}
-      result_header_records_notaxa: Показано %{range_begin} - %{range_end} з %{total}
+      result_header_taxa: Показано %{range_begin} — %{range_end} з %{total} таксонів
+      result_header_taxa_notaxa: Показано %{range_begin} — %{range_end} з %{total}
+      result_header_records_notaxa: Показано %{range_begin} — %{range_end} з %{total}
         записів для %{page_count}
       new_search: новий пошук
       select:
@@ -1427,8 +1427,8 @@ uk:
       сайті, але тепер ви повинні увійти за допомогою своєї адреси електронної пошти.
       Ми не могли перенести ваш пароль із міркувань безпеки; вибачте за клопотання.
       Ви зможете скинути його за допомогою процесу забутого пароля. Якщо ви увійшли
-      до системи лише за допомогою сторонніх постачальників - Google, Twitter або
-      FaceBook - будь ласка, будьте з нами; ми розробляємо деякі проблеми зі спільними
+      до системи лише за допомогою сторонніх постачальників — Google, Twitter або
+      FaceBook — будь ласка, будьте з нами; ми розробляємо деякі проблеми зі спільними
       процесами входу.
     sign_in: Увійти
   vernacular_names_header: Загальні імена
@@ -1463,7 +1463,7 @@ uk:
       next: наступна сторінка
       previous: попередня сторінка
     inverse_name:
-      fallback: обернено '%{term_name}'
+      fallback: обернено «%{term_name}»
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: їдять
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: має ектопаразит
@@ -1499,7 +1499,7 @@ uk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: кислотний шахтний дренаж
         http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: кисле прісноводне
           гірське озеро
-        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кислий грунт
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кислий ґрунт
         http://eol(dot)org/schema/terms/activeForaging: активний фуражир
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: період активного зростання
         http://eol(dot)org/schema/terms/adaptiveStrategy: адаптивна стратегія
@@ -1544,7 +1544,7 @@ uk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: намивна рівнина
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: алювіальний грунт
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: альпійський льодовик
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: альпійський грунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: альпійський ґрунт
         http://eol(dot)org/schema/terms/alternatingReproduction: чергування поколінь
         http://eol(dot)org/schema/terms/ambush: засідка хижака
         https://eol(dot)org/schema/terms/ampharetid_feeder: амфаретидна годівниця
@@ -1709,7 +1709,7 @@ uk:
         https://eol(dot)org/schema/terms/burrowDepth: глибина нори
         https://eol(dot)org/schema/terms/burrowDiameter: діаметр нори
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: норовщик
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: butte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: крутий пагорб
         http://eol(dot)org/schema/terms/caespitose: цеспітоза
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: кофеїн
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: вік
@@ -1818,7 +1818,7 @@ uk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: місто
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: глина
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: глинистий осад
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: глинистий грунт
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: глинистий ґрунт
         http://eol(dot)org/schema/terms/clearWater: чиста вода
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: очищення
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: скеля
@@ -1935,7 +1935,7 @@ uk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: глибокий морський осад
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: градусів
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: градуси за Цельсієм
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: dell
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: лісиста долина
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: дельта
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: щільний поселений біом
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: стоматологічна
@@ -2502,7 +2502,7 @@ uk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000261: лізоклін
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: м
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: м^2
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: maar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: маар
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: маастрихтський
           вік
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000417: крісло

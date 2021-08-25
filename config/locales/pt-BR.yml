@@ -67,6 +67,74 @@ pt-BR:
     types:
       scientific: científico
       vernacular: vernáculo
+  brief_summary:
+    extinction:
+      r_genus_html: Este gênero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_subgenus_html: Este subgênero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_infragenus_html: Este infragênero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_superspecies_html: Esta superespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_species_html: Esta espécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_subspecies_html: Esta subespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_infraspecies_html: Esta infraespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
+    fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>correção</span>
+      <span class='%{class_str}' id='%{object_id}'>nitrogênio</span>.
+    freshwater_html: Eles estão associados ao <span class='%{class_str}' id='%{id}'>habitat
+      de água doce</span>.
+    marine_html: Eles são encontrados em <span class='%{class_str}' id='%{id}'>habitat
+      marinho</span>.
+    species: '%{name1} é uma espécie de %{name2}.'
+    species_in_family: '%{name1} é uma espécie de %{name2} na família %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} é uma superfamília de %{name2}.'
+        r_domain: '%{name1} é um domínio de %{name2}.'
+        r_subdomain: '%{name1} é um subdomínio de %{name2}.'
+        r_infradomain: '%{name1} é uma infradomínio de %{name2}.'
+        r_superkingdom: '%{name1} é um super-reino de %{name2}.'
+        r_kingdom: '%{name1} é um reino de %{name2}.'
+        r_subkingdom: '%{name1} é um sub-reino de %{name2}.'
+        r_infrakingdom: '%{name1} é um infra-reino de %{name2}.'
+        r_superphylum: '%{name1} é um super-filo de %{name2}.'
+        r_phylum: '%{name1} é um filo de %{name2}.'
+        r_subphylum: '%{name1} é um subfilo de %{name2}.'
+        r_infraphylum: '%{name1} é um infrafilo de %{name2}.'
+        r_superclass: '%{name1} é uma superclasse de %{name2}.'
+        r_class: '%{name1} é uma classe de %{name2}.'
+        r_subclass: '%{name1} é uma subclasse de %{name2}.'
+        r_infraclass: '%{name1} é uma infraclasse de %{name2}.'
+        r_superorder: '%{name1} é uma superordem de %{name2}.'
+        r_order: '%{name1} é uma ordem de %{name2}.'
+        r_suborder: '%{name1} é uma subordem de %{name2}.'
+        r_infraorder: '%{name1} é uma infraordem de %{name2}.'
+        r_family: '%{name1} é uma família de %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} é uma subfamília de %{name2} na família %{name3}.'
+          r_infrafamily: '%{name1} é uma infrafamília de %{name2} na família %{name3}.'
+          r_tribe: '%{name1} é uma tribo de %{name2} na família %{name3}.'
+          r_supergenus: '%{name1} é um supergênero de %{name2} na família %{name3}.'
+          r_genus: '%{name1} é um gênero de %{name2} na família %{name3}.'
+          r_subgenus: '%{name1} é um subgênero de %{name2} na família %{name3}.'
+          r_infragenus: '%{name1} é um infragênero de %{name2} na família %{name3}.'
+          r_superspecies: '%{name1} é uma superespécie de %{name2} na família %{name3}.'
+          r_species: '%{name1} é uma espécie de %{name2} na família %{name3}.'
+          r_subspecies: '%{name1} é uma subespécie de %{name2} na família %{name3}.'
+          r_infraspecies: '%{name1} é uma infraespécie de %{name2} na família %{name3}.'
+          r_form: '%{name1} é uma forma de %{name2} na família %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} é uma subfamília de %{name2}.'
+          r_infrafamily: '%{name1} é uma infrafamília de %{name2}.'
+          r_tribe: '%{name1} é uma tribo de %{name2}.'
+          r_supergenus: '%{name1} é um supergênero de %{name2}.'
+          r_genus: '%{name1} é um gênero de %{name2}.'
+          r_subgenus: '%{name1} é um subgênero de %{name2}.'
+          r_infragenus: '%{name1} é um infragênero de %{name2}.'
+          r_superspecies: '%{name1} é uma superespécie de %{name2}.'
+          r_species: '%{name1} é uma espécie de %{name2}.'
+          r_subspecies: '%{name1} é uma subespécie de %{name2}.'
+          r_infraspecies: '%{name1} é uma infraespécie de %{name2}.'
+          r_form: '%{name1} é uma forma de %{name2}.'
   button_create: criar
   button_add: adicionar
   cancel: cancelar
@@ -336,10 +404,16 @@ pt-BR:
     q35037: Businenge Tongo
     q880301: Francês Cajun
     q35156: Carro
+    q2591230: Caxinauá
     ca: Catalão; Valenciano
+    q33239: Cebuana
+    khm: Quemer central
+    km: Quemer central
     ch: Chamorro
     q33281: Chavacano
     ce: Chechena
+    q33388: Cherokee
+    q33265: Cheyenne
     ny: Nianja; Cinianja; Chewa
     zh: Chinês
     chi: Chinês
@@ -393,7 +467,7 @@ pt-BR:
     io: Ido
     ig: Igbo
     id: Indonésio
-    ia: Interlingua
+    ia: Interlingua (Associação Internacional de Línguas Auxiliares)
     ie: Interlingue; Occidental
     iu: Inuktitut
     ik: Inupiaq
@@ -479,8 +553,8 @@ pt-BR:
   literature_and_references_header: Literatura e referências
   maps:
     empty: Não há mapas disponíveis para esta página.
-    occurrence_caption: Ocorrências conhecidas, amostras coletadas e observações de
-      %{page_name}
+    occurrence_caption: Ocorrências conhecidas, espécimes coletados e observações
+      de %{page_name}. Veja esta espécie no GBIF
     other_maps_title: Mapas não interativos
   medium:
     untitled:
@@ -533,6 +607,7 @@ pt-BR:
   page_vernaculars_empty: Não há nomes comuns associados a esse táxon.
   pages:
     actions:
+      collect: coletar
       reindex: reindexar
     batch_lookup:
       header: pesquisa de página em lote
@@ -580,9 +655,12 @@ pt-BR:
         r_superfamily: Superfamília
         r_family: Família
         r_subfamily: Subfamília
+        r_infrafamily: Infrafamília
         r_tribe: Tribo
+        r_supergenus: Supergênero
         r_genus: Gênero
         r_subgenus: Subgênero
+        r_infragenus: Infragênero
         r_superspecies: Superespecie
         r_species: Espécies
         r_subspecies: Subespécies
@@ -604,6 +682,10 @@ pt-BR:
         Os diagramas de teia alimentar da EOL  focam nas relações alimentares de uma espécie; eles mostram as espécies em foco junto com as espécies de que se alimentam (presas), espécies que se alimentam delas (predadores) e outras espécies que se alimentam da mesma presa (competidores potenciais). Clique para aprender mais.
       trophic_web_title_html: Rede trófica <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
+    flash:
+      reindexed: Os caches para esta página foram limpos. Recarregue para ver os novos
+        valores. NOTA que, no momento, isso *não* reindexa as imagens na página. Esse
+        recurso será implementado em uma data futura.
     native_node_missing_warning: nenhuma informação de hierarquia disponível
     tabs:
       articles: artigos
@@ -673,6 +755,14 @@ pt-BR:
   recaptcha: Recaptcha
   recaptcha_error: Por favor, diga-nos que você não é um robô.
   reconciliation:
+    id_space:
+      intro: Cada identificador de entidade retornado pela API de reconciliação é
+        a parte do caminho do URL para a representação geral dessa entidade no EOL,
+        de modo que um determinado id pode ser substituído por https://eol.org/<id>
+        para produzir um url válido para sua entidade. O formato dos identificadores
+        de cada tipo é descrito abaixo.
+      headers:
+        type_id: ID de tipo
     property:
       name:
         ancestor: Antepassado
@@ -689,6 +779,8 @@ pt-BR:
       republish: republicar
       reindex: reindexar
       index: voltar para todos os recursos
+      show_all:
+        other: mostrar todo (%{count})
       clear_publishing: bloqueio claro
       clear_publishing_confirm: Isso 'concluirá' toda a publicação e poderá causar
         problemas se usado durante a publicação ativa. Você tem certeza?
@@ -707,6 +799,7 @@ pt-BR:
   scientific_names_header: Nomes científicos
   send_me_reset_password_instructions: Enviar-me para redefinir as instruções de senha
   search:
+    full_name: '%{vernacular} (%{scientific})'
     flash:
       cannot_combine_paths: Não foi possível combinar resultados com %{path}
       more_than_one_species: Não foi possível combinar resultados para %{species}
@@ -715,6 +808,9 @@ pt-BR:
     n_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'
+    n_collections:
+      one: '%{count} coleção'
+      other: '%{count} coleções'
     n_results:
       zero: Sem resultados
       one: '%{count} resultado'
@@ -866,10 +962,16 @@ pt-BR:
     validations:
       empty_filters_error_record: você deve fornecer um filtro com um atributo ou
         valor para registro de pesquisas
+      empty_filters_error_taxa: você deve fornecer um clado ou filtro com um atributo
+        ou valor para pesquisas de taxa
   term_query_filter:
     validations:
       blank_error: deve especificar um atributo ou valor
       invalid_uri: URI inválida
+      multi_obj_error: não pode ter um termo de objeto e um clado de destino
+      pred_uri_blank_obj_clade_error: can't be blank with a target clade
+      pred_uri_blank_numeric_error: não pode ficar em branco com um valor numérico
+      range_invalid_error: deve ser >= para o primeiro valor
       units_blank_error: unidades não podem ser vazias para uma pesquisa numérica
   terms:
     attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
@@ -887,14 +989,44 @@ pt-BR:
   traits:
     data_viz:
       about_this_chart: sobre este gráfico
+      about_this_chart_tooltip_1d: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode selecionar uma categoria do gráfico
+        para restringir os resultados da pesquisa. Muitas categorias se sobrepõem
+        e uma espécie pode ser incluída em mais de uma categoria.
+      about_this_chart_tooltip_assoc: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode passar o mouse sobre o nome de um
+        táxon para destacar seus relacionamentos. Um link verde significa que o táxon
+        pairado é o sujeito da associação; um roxo significa que é o objeto. Pesquisas
+        maiores são resumidas por gênero ou família. Você pode restringi-los clicando
+        no nome de um táxon.
+      about_this_chart_tooltip_sankey_2d: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode selecionar uma categoria em qualquer
+        eixo para restringir os resultados da pesquisa. Muitas categorias se sobrepõem
+        e uma espécie pode ser incluída em mais de uma categoria no mesmo eixo.
+      about_this_chart_tooltip_sankey_3+: Este é um resumo baseado nos dados disponíveis
+        no EOL. Pode estar incompleto! Você pode selecionar uma categoria em qualquer
+        eixo para restringir os resultados da pesquisa. Muitas categorias se sobrepõem
+        e uma espécie pode ser incluída em mais de uma categoria no mesmo eixo. Em
+        uma exibição de subconjunto destacada, essas espécies de vários valores serão
+        contadas várias vezes em outros eixos.
       about_this_chart_tooltip_taxon_summary: Este é um resumo dos grupos taxonômicos
         para os quais o EOL possui dados que correspondem à sua pesquisa. Ele pode
         ser truncado para se ajustar ao tamanho da tela. Você pode selecionar um grupo
         do gráfico para visualizar subgrupos ou para restringir os resultados da pesquisa.
+      other_term_name: outro %{term_name}
       hist_value_label: valor (%{units})
+      n_family_records:
+        one: um registro para taxa na família %{family}
+        other: '%{count} registros para táxons na família %{family}'
       n_family_taxa:
         one: um táxon na família %{family}
         other: '%{count} táxon na família %{family}'
+      n_other_records:
+        one: outro registro
+        other: '%{count} outros registros'
+      n_other_taxa:
+        one: 'outro táxon '
+        other: '%{count} outros táxons'
       num_records_label: '# de registros'
       other: outros
       page_habitat_header: '%{name}Habitats'
@@ -910,6 +1042,23 @@ pt-BR:
         other: um=um registro com "%{obj_name}"
       n_taxa_with:
         other: uma=uma taxonomia com "%{obj_name}"
+      sankey_node_hover: clique para restringir a pesquisa a %{term_name}
+      see_n_obj_records:
+        one: clique para ver um registro com "%{obj_name}"
+        other: clique para ver %{count} registros com "%{obj_name}"
+      see_n_taxa_with:
+        one: clique para ver um táxon com "%{obj_name}"
+        other: clique para ver %{count} táxons com "%{obj_name}"
+      show_n_records_between:
+        one: clique para ver %{count} registro com valores de medição em [%{min},
+          %{limit}] %{units}
+        other: clique para ver %{count} registros com valores de medição em [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: clique para ver %{count} táxon com valores de medição em [%{min}, %{limit}]
+          %{units}
+        other: clique para ver %{count} táxosn com valores de medição em [%{min},
+          %{limit}] %{units}
       show_link:
         associations_summary: mostrar resumo de associações
         attribute_summary: mostrar resumo de atributos
@@ -928,21 +1077,29 @@ pt-BR:
       scientific_name: Nome científico
       source: Fonte
     search:
+      clade: 'clado: %{clade}'
       download_tsv: baixar tsv
       edit_filters: editar filtros
       filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
         lifestage: |2-
 
           Fase de vida %{value}
+        lte: '%{pred} <= %{num_val} %{units}'
         obj_only: 'com valor: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
+        range: '%{pred} em [%{num_val1}, %{num_val2}] %{units}'
         resource: 'recurso: %{value}'
         sex: sexo :%{value}
         statistical_method: 'método estatístico: %{value}'
       gbif_search: GBIF procura
       gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
         seus resultados de pesquisa (limite 50)
+      result_header_records: Mostrando %{range_begin} - %{range_end} de %{total} registros
+        para %{page_count} táxon
+      result_header_taxa: Mostrando %{range_begin} - %{range_end} de %{total} táxos
       result_header_records_notaxa: Mostrando %{range_begin}- %{range_end} de %{total}
         registros para %{page_count}
       new_search: nova pesquisa
@@ -960,12 +1117,14 @@ pt-BR:
       clade_filter_placeholder: grupo (por exemplo ursos) ( opcional)
       hide_additional_fields: oculte campos adicionais
       lifestage: fase da vida
+      records_matching_all: registros para taxa correspondendo a TODOS os filtros
       resource: recurso
       search: Pesquisar
       sex: sexo
       show_additional_fields: mostre campos adicionais
       statistical_method: método estatístico
       target_group: grupo alvo ( por exemplo salmão)
+      taxa_matching_all: taxa correspondendo a TODOS os filtros
       this_may_take_a_minute: isso pode levar um minuto
       value: valor
       value_eg: valor ( por exemplo herbívoro)
@@ -983,6 +1142,7 @@ pt-BR:
     batch_page_lookup: Pesquisa de página em lote
     created_at: criada
     download_queue: Fila de download de dados
+    grant_power: Conceda acesso de usuário avançado
     edit_account_details: Editar detalhes da conta
     email: E-mail
     to_commit_enter_current: Para confirmar suas alterações, digite sua senha atual
@@ -1053,6 +1213,7 @@ pt-BR:
       next: próxima página
       previous: página anterior
     inverse_name:
+      fallback: inverso de '%{term_name}'
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: é comido por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: tem ectoparasita
@@ -1072,6 +1233,12 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: flores visitadas por
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mês'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: idade
+          aaleniana
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: escolha anormal
+          de habitat
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundância
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: solo ácido
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: período de crescimento
@@ -1081,6 +1248,7 @@ pt-BR:
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: idade ao abrir os olhos
         http://eol(dot)org/schema/terms/AgeAtMaturity: idade na maturidade
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agricultural
+        http://eol(dot)org/schema/terms/amphibious: anfíbios
         http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: tolerância anaeróbica
           do solo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: lixo animal
@@ -1089,7 +1257,7 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: aqueduto
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: planta aquática
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomoção arbórea
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: arbóreo (locomoção)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: área
         https://eol(dot)org/schema/terms/arm: braço
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: braço mais comprimento
@@ -1114,7 +1282,7 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: material de construção
         http://purl(dot)obolibrary(dot)org/obo/PO_0025356: bulbo
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: calcita
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Cálcio (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: cálcio (ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato de cálcio
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfato de cálcio
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: sulfato de cálcio hemi-hidratado
@@ -1139,7 +1307,7 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualidade reduzida
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: decumbente
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: graus
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graus Celsius
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: graus celsius
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: depressão
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: diâmetro
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: ácido docosanoico
@@ -1163,7 +1331,7 @@ pt-BR:
         http://eol(dot)org/schema/terms/extinct: extinto(a)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: fazenda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: Rápido
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pés
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pé
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largura do fêmur
         http://eol(dot)org/schema/terms/FireResistance: resistência ao fogo
         http://eol(dot)org/schema/terms/FossilFirst: primeiro aparecimento
@@ -1187,9 +1355,7 @@ pt-BR:
         http://eol(dot)org/schema/HeadWidth: largura da cabeça
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: em forma de coração
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helófito
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: |2-
-
-          herbáceo
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: erva
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: ácido hexacosanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: ácido hexadecanoico
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: alto
@@ -1219,7 +1385,7 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: ripado
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: área da folha
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complexidade das folhas
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: complexidade da folha
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologia das folhas
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forma da folha
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: capacidade de queda
@@ -1235,7 +1401,7 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: baixa expectativa de
           vida
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: baixa tolerância
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnésio (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnésio (mg)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marinho bentônico
         http://semanticscience(dot)org/resource/SIO_001114: máximo
         http://rs(dot)tdwg(dot)org/dwc/terms/measurementDeterminedBy: medida determinada

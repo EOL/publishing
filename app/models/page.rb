@@ -755,7 +755,7 @@ class Page < ApplicationRecord
   end
 
   def page_node
-    PageNode.find(id)
+    PageNode.find_by(id: id)
   end
 
   private
