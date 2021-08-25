@@ -13,9 +13,9 @@ class BriefSummary
       rank&.human_treat_as
     end
 
-    # we *could* use delegate_missing_to to send all unimplemented methods to page, but
+    # we *could* use delegate_missing_to to send all unimplemented methods to page, but 
     # rspec's instance_double can't magically know that that's how this class behaves, so it's
-    # better to explicitly define delegating methods.
+    # better to explicitly define delegating methods. 
     def rank
       @page.rank
     end
@@ -26,17 +26,17 @@ class BriefSummary
     end
 
     def below_family?
-      @page.rank&.treat_as.present? &&
+      @page.rank&.treat_as.present? && 
       Rank.treat_as[@page.rank.treat_as] > Rank.treat_as[:r_family]
     end
 
     def above_family?
-      @page.rank&.treat_as.present? &&
+      @page.rank&.treat_as.present? && 
       Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
     end
 
     def genus_or_below?
-      @page.rank&.treat_as.present? &&
+      @page.rank&.treat_as.present? && 
       Rank.treat_as[@page.rank.treat_as] >= Rank.treat_as[:r_genus]
     end
 
@@ -112,7 +112,7 @@ class BriefSummary
     end
 
     def extinct?
-      @page.page_node && extinct_trait.present? && !extant_trait.present?
+      extinct_trait.present? && !extant_trait.present?
     end
 
     def extinct_trait
@@ -228,12 +228,12 @@ class BriefSummary
       unless @form_traits
         # intentionally skip descendants of this term
         traits = @page.traits_for_predicate(
-          TermNode.find_by_alias('forms'),
-          exact_predicate: true,
+          TermNode.find_by_alias('forms'), 
+          exact_predicate: true, 
           includes: [:predicate, :object_term, :lifestage_term]
         ).uniq { |t| t.object_term&.uri }
 
-        lifestage = []
+        lifestage = []        
         other = []
 
         traits.each do |t|
