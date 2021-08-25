@@ -116,7 +116,7 @@ es:
         r_family: '%{name1} es una familia de %{name2}.'
       below_family:
         with_family:
-          r_subfamily: '%{name1} es una subfamilia %{name2} en la familia %{nombre3}.'
+          r_subfamily: '%{name1} es una subfamilia %{name2} en la familia %{name3}.'
           r_infrafamily: '%{name1} es una intrafamilia de %{name2} en la familia %{name3}.'
           r_tribe: '%{name1} es una tribu de %{name2} en la familia %{name3}.'
           r_supergenus: '%{name1} es un supergénero de %{name2} en la familia %{name3}.'
