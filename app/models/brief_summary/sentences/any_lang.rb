@@ -36,7 +36,7 @@ class BriefSummary
       end
 
       def below_family_taxonomy
-        return BriefSummary::Sentences::Result.invalid unless @page.below_family?
+        return BriefSummary::Sentences::Result.invalid unless @page.below_family? && @page.a1.present?
 
         value = @page.a2.present? ?
           I18n.t(
