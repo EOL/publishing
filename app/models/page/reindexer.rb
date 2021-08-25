@@ -34,6 +34,10 @@ class Page::Reindexer
       Page.search_index.promote(index_names.sort.last, update_refresh_interval: true)
     end
 
+    # puts Searchkick.client.cat.indices
+    #
+    # You may also need something like:
+    # Page.search_index.promote('pages_staging_20200727174956767')
     def index_names
       Page.searchkick_index.all_indices
     end
