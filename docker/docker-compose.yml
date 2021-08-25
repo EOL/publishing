@@ -5,7 +5,6 @@ services:
     container_name: publishing_elasticsearch
     restart: always
     environment:
-      - RAILS_ENV
       - bootstrap.memory_lock=true
       - cluster.name=eol-search-${RAILS_ENV}
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
@@ -25,7 +24,6 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: publishing_elasticsearch2
     environment:
-      - RAILS_ENV
       - cluster.name=eol-search-${RAILS_ENV}
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
@@ -75,7 +73,6 @@ services:
     # Results are then applied to an artificial copy of the config in
     # $HOME/conf/neo4j.conf, which can be VERY confusing. Be aware.
     environment:
-      - RAILS_ENV
       - TZ=America/New_York
       - NEO4J_AUTH=neo4j/SomePasswordHere
       - NEO4J_dbms_memory_pagecache_size=34G
@@ -130,6 +127,8 @@ services:
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - WORKER_PROCESSES
+      - RUBYOPT
       - ELASTICSEARCH_URL=elasticsearch:9200
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
@@ -154,6 +153,7 @@ services:
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RUBYOPT
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
       - REDIS_PROVIDER=EOL_REDIS
