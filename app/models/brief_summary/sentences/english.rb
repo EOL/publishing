@@ -101,8 +101,8 @@ class BriefSummary
       end
 
       def conservation
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
         return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
 
         status_recs = ConservationStatus.new(@page).by_provider
         result = []
@@ -120,8 +120,8 @@ class BriefSummary
       end
 
       def native_range
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
         return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below? && @page.has_native_range?
+        return BriefSummary::Sentences::Result.invalid unless @page.page_node
 
         predicate = TermNode.find_by_alias('native_range')
         traits = @page.native_range_traits
@@ -130,8 +130,6 @@ class BriefSummary
       end
 
       def found_in
-        return BriefSummary::Sentences::Result.invalid unless @page.page_node
-
         predicate = TermNode.find_by_alias('biogeographic_realm')
         traits = @page.traits_for_predicate(predicate)
 
@@ -394,7 +392,7 @@ class BriefSummary
 
       def motility
         return BriefSummary::Sentences::Result.invalid unless @page.page_node
-
+        
         matches = @page.motility_matches
         sentence = nil
 
