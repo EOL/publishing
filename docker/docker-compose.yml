@@ -128,7 +128,6 @@ services:
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - WORKER_PROCESSES
-      - RUBYOPT
       - ELASTICSEARCH_URL=elasticsearch:9200
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
@@ -153,7 +152,6 @@ services:
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
-      - RUBYOPT
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
       - REDIS_PROVIDER=EOL_REDIS
