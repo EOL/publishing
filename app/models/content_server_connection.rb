@@ -84,6 +84,7 @@ class ContentServerConnection
     when 'completed'
       return TraitDiffMetadata.new(json, @resource, self)
     when 'processing'
+    when 'enqueued'
     when 'pending'
       sleep 10
       return trait_diff_metadata
