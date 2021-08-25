@@ -33,6 +33,8 @@ class Page
     end
 
     def first_trait_for_object_terms(object_terms, options = {})
+      return nil unless page_node
+
       trait_match = options[:match_object_descendants] ? 
         "(trait)-[:object_term]->(:Term)-[#{PARENT_TERMS}]->(object_term:Term)" :
         '(trait)-[:object_term]->(object_term:Term)'
@@ -57,6 +59,10 @@ class Page
     end
 
     def traits_for_predicates_helper(predicates, trait_match, options = {})
+      unless page_node
+        return options[:limit].present? ? nil : []
+      end
+
       predicate_ids = extract_term_arg_ids(predicates)
       predicate_match = options[:exact_predicate] ? 
         '(parent_predicate:Term)' :
