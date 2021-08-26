@@ -16,7 +16,7 @@ RUN apt-get update -q && \
 
 COPY . /app
 
-RUN chown -R eol_app:eol_app /app
+RUN chown -R eol_app:eol_app $(ls /app | awk '{if($1 != "public"){ print $1 }}')
 
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get update -q && \
