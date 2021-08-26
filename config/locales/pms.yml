@@ -1843,8 +1843,15 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000230: zòna ùmida costiera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: pere
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: sediment ëd pera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: piantament ëd còco
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000236: coefissient ëd variassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: piantament ëd cafè
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: anrolament
+        http://eol(dot)org/schema/terms/colonyDensity: densità ëd la colònia
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: color
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: comensal con
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: comunicassion
+        http://eol(dot)org/schema/terms/competitive: competitiv
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: compòst
         http://eol(dot)org/schema/terms/Cosmopolitan: Cosmopolita
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
