@@ -15,7 +15,7 @@ class TraitBank::Slurp
 
   # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
   def load_resource_from_repo
-    repo = ContentServerConnection.new(@resource)
+    repo = ContentServerConnection.new(@resource, @logger)
 
     diff_metadata = repo.trait_diff_metadata
 
