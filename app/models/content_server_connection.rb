@@ -52,45 +52,8 @@ class ContentServerConnection
   end
 
   def trait_diff_metadata
-    if @trait_diff_tries == MAX_TRAIT_DIFF_TRIES
-      log_warn("Max trait diff tries reached; giving up")
-      return nil
-    end
-
-
-    url = "/resources/#{@resource.repository_id}/publish_diffs.json"
-    url += "?since=#{@resource.last_published_at.to_i}" unless @resource.last_published_at.nil?
-
-    log_info("polling for trait diff metadata: #{url}")
-
-    resp = nil
-
-    Net::HTTP.start(@repo_site.host, @repo_site.port, use_ssl: @repo_site.scheme == 'https') do |http|
-      resp = http.get(url)
-    end
-
-    unless resp.is_a?(Net::HTTPSuccess)
-      raise "Got unexpected response code from #{url}: #{resp.code}"
-    end
-
-    result = JSON.parse(resp.body)
-    return handle_trait_diff_metadata_resp(result)
-  end
-
-  def handle_trait_diff_metadata_resp(json)
-    status = json['status']
-
-    case status
-    when 'completed'
-      return TraitDiffMetadata.new(json, @resource, self)
-    when 'processing'
-    when 'enqueued'
-    when 'pending'
-      sleep 10
-      return trait_diff_metadata
-    else
-      raise "Got unexpected status from trait diff metadata request: #{status}"
-    end
+    @trait_diff_tries = 0
+    trait_diff_metadata_helper
   end
 
   def log_info(what)
@@ -147,4 +110,46 @@ class ContentServerConnection
       conn.copy_file_for_remote_url(local, remote) unless local.nil?
     end
   end
+
+  private
+  def trait_diff_metadata_helper
+    if @trait_diff_tries == MAX_TRAIT_DIFF_TRIES
+      log_warn("Max trait diff tries reached; giving up")
+      return nil
+    end
+
+    url = "/resources/#{@resource.repository_id}/publish_diffs.json"
+    url += "?since=#{@resource.last_published_at.to_i}" unless @resource.last_published_at.nil?
+
+    log_info("polling for trait diff metadata: #{url}")
+
+    resp = nil
+
+    Net::HTTP.start(@repo_site.host, @repo_site.port, use_ssl: @repo_site.scheme == 'https') do |http|
+      resp = http.get(url)
+    end
+
+    unless resp.is_a?(Net::HTTPSuccess)
+      raise "Got unexpected response code from #{url}: #{resp.code}"
+    end
+
+    result = JSON.parse(resp.body)
+    @trait_diff_tries += 1
+    return handle_trait_diff_metadata_resp(result)
+  end
+
+  def handle_trait_diff_metadata_resp(json)
+    status = json['status']
+
+    case status
+    when 'completed'
+      return TraitDiffMetadata.new(json, @resource, self)
+    when 'pending', 'enqueued', 'processing'
+      sleep 10
+      return trait_diff_metadata_helper
+    else
+      raise "Got unexpected status from trait diff metadata request: #{status}"
+    end
+  end
+
 end
