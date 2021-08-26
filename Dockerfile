@@ -2,9 +2,6 @@ FROM ruby:2.6.5
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 LABEL last_full_rebuild="2021-08-25"
 
-RUN addgroup eol_app --gid 1333 user
-RUN adduser eol_app --disabled-password --gecos '' --uid 1333 --gid 1333 user
-
 WORKDIR /app
 
 RUN apt-get update -q && \
@@ -15,8 +12,6 @@ RUN apt-get update -q && \
     mkdir /etc/ssmtp
 
 COPY . /app
-
-RUN chown -R eol_app:eol_app /app
 
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get update -q && \
@@ -59,5 +54,4 @@ EXPOSE 3000
 
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 
-USER eol_app
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
