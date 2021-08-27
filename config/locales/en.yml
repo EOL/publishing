@@ -984,6 +984,7 @@ en:
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
   search:
+    blank_q_msg: You can search the contents of EOL using the bar at the top of the page.
     full_name: "%{vernacular} (%{scientific})"
     matched_text: "Matched %{text}"
     flash:

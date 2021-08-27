@@ -9,7 +9,9 @@ class SearchController < ApplicationController
   end
 
   def search
-    do_search
+    if params[:q].present?
+      do_search
+    end
   end
 
   def search_page

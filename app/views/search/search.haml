@@ -5,32 +5,34 @@
     %span= t("search.n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms]))
   .filter-bar-advanced>
     = link_to t("advanced"), term_search_path
-
 %ul.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
-  = render :partial => "search_page", :locals => { :type => first_type_with_results([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms])}
-= render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
-  %ul.search-filter-types.js-search-filter-types
-    - if any_results(@pages)
-      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
-    - if any_results(@images)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_images", :results => @images}
-    - if any_results(@videos)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_videos", :results => @videos}
-    - if any_results(@sounds)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_sounds", :results => @sounds}
-    - if any_results(@articles)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_articles", :results => @articles}
-    - if any_results(@collections)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_collections", :results => @collections}
-    - if any_results(@users)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_users", :results => @users}
-    - if any_results(@terms)
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_terms", :results => @terms}
-  .overlay-btn.js-apply-filter-btn apply filters
+  - if @q.blank?
+    %li.blank-q-msg= t("search.blank_q_msg") 
+  - else
+    = render :partial => "search_page", :locals => { :type => first_type_with_results([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms])}
+  = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
+    %ul.search-filter-types.js-search-filter-types
+      - if any_results(@pages)
+        = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
+      - if any_results(@images)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_images", :results => @images}
+      - if any_results(@videos)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_videos", :results => @videos}
+      - if any_results(@sounds)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_sounds", :results => @sounds}
+      - if any_results(@articles)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_articles", :results => @articles}
+      - if any_results(@collections)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_collections", :results => @collections}
+      - if any_results(@users)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_users", :results => @users}
+      - if any_results(@terms)
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_terms", :results => @terms}
+    .overlay-btn.js-apply-filter-btn apply filters
