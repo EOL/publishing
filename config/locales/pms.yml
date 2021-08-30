@@ -1007,6 +1007,8 @@ pms:
   send_me_reset_password_instructions: Mandeme j'anstrussion ëd riinissialisassion
     ëd la ciav
   search:
+    blank_q_msg: A peul fé d'arserche ant ël contnù d'EdV dovrand la sbara an àut
+      ëd la pàgina.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: A corëspond a %{text}
     flash:
@@ -1852,7 +1854,37 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: comensal con
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: comunicassion
         http://eol(dot)org/schema/terms/competitive: competitiv
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: compòst
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: compòst
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: euj compòsit
+        https://eol(dot)org/schema/terms/concave_mirror_eyes: euj an specc creus
+        http://eol(dot)org/schema/terms/cone: còno
+        http://eol(dot)org/schema/terms/conePlusHalfSphere-40Percent: còno-pi-semisfera
+          meno 40përsent
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: età
+          coniacian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: foresta ëd conìfere
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: foresta ëd conìfere
+        http://eol(dot)org/schema/terms/conservationDependent: dipendent da la conservassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: process ëd gestion dla
+          conservassion
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: stat
+          ëd conservassion
+        http://eol(dot)org/schema/terms/contaminatedHabitat: ambient contaminà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: sediment contaminà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: seul contaminà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: ìsola continental
+        http://eol(dot)org/schema/terms/copepodid3: copepòdid a lë stadi 3
+        http://eol(dot)org/schema/terms/copepodid4: copepòdid a lë stadi 4
+        http://eol(dot)org/schema/terms/copepodid5: copepòdid a lë stadi 5
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: bariera coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: bariera posterior ëd
+          bariera coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000146: crësta ëd bariera coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000144: zòna piata ëd bariera
+          coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000147: bariera anterior ëd
+          bariera coralin-a
         http://eol(dot)org/schema/terms/Cosmopolitan: Cosmopolita
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder

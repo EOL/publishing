@@ -1020,6 +1020,8 @@ fr:
   send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
     du mot de passe
   search:
+    blank_q_msg: Vous pouvez rechercher dans le contenu de l’EdlV en utilisant la
+      barre en haut de la page.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: Correspond à %{text}
     flash:

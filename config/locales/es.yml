@@ -4,6 +4,7 @@
 # Author: Alonso Biólogo
 # Author: Aramos1422
 # Author: Canaan9801
+# Author: Destinid10 2
 # Author: Fitoschido
 # Author: Gastonsaenz
 # Author: Geryescalier
@@ -13,6 +14,7 @@
 # Author: JamesB
 # Author: Jesusmc
 # Author: Joanmp17
+# Author: Johny Weissmuller Jr
 # Author: Madamebiblio
 # Author: Ncr
 # Author: Nipungorantla
@@ -22,7 +24,7 @@
 # Author: Whytheonlyone
 ---
 es:
-  language_name: español
+  language_name: Inglés
   about:
     trait_bank:
       title: TraitBank
@@ -494,7 +496,7 @@ es:
     nno: Noruego
     nob: noruego
     nor: noruego
-    oc: Occitano
+    oc: Occitano (post 1500)
     pa: Panyabí
     fa: Persa
     pl: Polaco
@@ -846,6 +848,8 @@ es:
   send_me_reset_password_instructions: Enviarme instrucciones para restablecer la
     contraseña
   search:
+    blank_q_msg: Puede buscar los contenidos de EOL utilizando la barra de la parte
+      superior de la página.
     matched_text: coincidente%{text}
     flash:
       cannot_combine_paths: No se pueden combinar los resultados con%{path}
