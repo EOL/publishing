@@ -23,6 +23,10 @@ module Reconciliation
             prop_results = rank_value_for_page(page)
           elsif prop == Reconciliation::PropertyType::ANCESTOR
             prop_results = ancestor_value_for_page(page) 
+          elsif prop == Reconciliation::PropertyType::EXTINCTION_STATUS
+            prop_results = BriefSummary::PageDecorator.new(page, nil).extinct? ?
+              'extinct' :
+              'extant'
           end
         end
         
