@@ -413,6 +413,18 @@ class Resource < ApplicationRecord
     File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
   end
 
+  def cached_nodes_count
+    Rails.cache.fetch("resources/#{id}/nodes_count") do
+      nodes.count
+    end
+  end
+
+  def cached_media_count
+    Rails.cache.fetch("resources/#{id}/media_count") do
+      media.count
+    end
+  end
+
   def self.autocomplete(query, options = {})
     search(query, options.reverse_merge({
       fields: ['name'],
