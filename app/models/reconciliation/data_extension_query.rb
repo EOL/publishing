@@ -13,6 +13,7 @@ module Reconciliation
     end
 
     private
+
     def build_properties(raw_props)
       raise TypeError, "'properties' must be an Array" unless raw_props.is_a?(Array)
 
@@ -20,10 +21,16 @@ module Reconciliation
         id = p['id']
 
         if Reconciliation::PropertyType.id_valid?(id)
-          Reconciliation::PropertyType.for_id(id)
+          property_type = Reconciliation::PropertyType.for_id(id)
         else
           raise ArgumentError, "bad property id: #{id}"
         end
+
+        settings = (p['settings'] || []).map do |k, v|
+          Reconciliation::PropertySetting.new(k, v)
+        end
+
+        Reconciliation::Property.new(property_type, settings)
       end
     end
 

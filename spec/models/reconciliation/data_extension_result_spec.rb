@@ -17,7 +17,7 @@ RSpec.describe('Reconciliation::DataExtensionResult') do
   describe('#to_h') do
     let(:query) { instance_double('Reconciliation::DataExtensionQuery') }
 
-    describe('sample query with multiple pages and properties') do
+    context('when query has multiple pages and properties') do
       let(:id1) { 'pages/1234' }
       let(:id2) { 'pages/4321' }
       let(:id_invalid) { 'foo' }
@@ -38,13 +38,17 @@ RSpec.describe('Reconciliation::DataExtensionResult') do
         }
       end
 
+      let(:prop_ancestor) { instance_double('Reconciliation::Property') }
+      let(:prop_rank) { instance_double('Reconciliation::Property') }
+      let(:setting_limit) { instance_double('Reconciliation::PropertySetting') }
+
       subject(:result) { Reconciliation::DataExtensionResult.new(query) }
       
       before do
         allow(query).to receive(:properties) do
           [
-            Reconciliation::PropertyType::ANCESTOR,
-            Reconciliation::PropertyType::RANK
+            prop_ancestor,
+            prop_rank
           ]
         end
         allow(query).to receive(:page_hash) { page_hash }
@@ -54,8 +58,16 @@ RSpec.describe('Reconciliation::DataExtensionResult') do
         allow(rank1).to receive(:human_treat_as) { nil }
         allow(rank2).to receive(:human_treat_as) { 'rank2' }
 
-        allow(page1).to receive(:node_ancestors) { [anc1, anc2] }
+        allow(page1).to receive(:node_ancestors) { [anc1, anc2, anc3] }
         allow(page2).to receive(:node_ancestors) { [anc3] }
+
+        allow(prop_ancestor).to receive(:type) { Reconciliation::PropertyType::ANCESTOR }
+        allow(prop_rank).to receive(:type) { Reconciliation::PropertyType::RANK }
+        allow(prop_rank).to receive(:settings) { [] }
+        #allow(prop_ancestor).to receive(:settings) { [setting_limit] }
+        allow(prop_ancestor).to receive(:settings) { [] }
+        allow(setting_limit).to receive(:type) { Reconciliation::PropertySettingType::LIMIT }
+        allow(setting_limit).to receive(:value) { 2 }
       end
 
       it do 

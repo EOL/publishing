@@ -933,6 +933,10 @@ en:
       name:
         ancestor: 'Ancestor'
         rank: 'Rank'
+    property_settings:
+      limit:
+        label: 'Limit'
+        help_text: 'Maximum number of values to return per row (0 for no limit)'
     schema_space:
       intro: "The collection of properties used by the Reconciliation API service is described below."
       headers:
