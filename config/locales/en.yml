@@ -929,9 +929,13 @@ en:
     property:
       description:
         ancestor: 'A taxon which is an ancestor of another taxon.'
+        conservation_status: "The conservation status of the taxon."
+        extinction_status: "The extinction status of the taxon. Possible values are 'extinct' and 'extant'"
         rank: "A string describing the rank of a taxon, e.g., 'species'. Unrecognized ranks are not scored."
       name:
         ancestor: 'Ancestor'
+        conservation_status: 'Conservation status'
+        extinction_status: 'Extinction status'
         rank: 'Rank'
     property_settings:
       limit:

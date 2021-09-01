@@ -19,24 +19,31 @@ module Reconciliation
         prop_results = []
         type = prop.type
         settings = prop.settings
-        
+
         if page.present?
           if type == Reconciliation::PropertyType::RANK
             prop_results = rank_value_for_page(page)
-          elsif prop == Reconciliation::PropertyType::ANCESTOR
+          elsif type == Reconciliation::PropertyType::ANCESTOR
             prop_results = ancestor_value_for_page(page, settings) 
-          elsif prop == Reconciliation::PropertyType::EXTINCTION_STATUS
-            prop_results = BriefSummary::PageDecorator.new(page, nil).extinct? ?
-              'extinct' :
-              'extant'
+          elsif type == Reconciliation::PropertyType::EXTINCTION_STATUS
+            prop_results = extinction_status_value_for_page(page)
           end
         end
         
-        results[prop.type.id] = prop_results
+        results[type.id] = prop_results
       end
 
       results
     end
+
+    def extinction_status_value_for_page(page)
+      str = BriefSummary::PageDecorator.new(page, nil).extinct? ?
+        'extinct' :
+        'extant'
+
+      [{ 'str' => str }]
+    end
+
 
     def rank_value_for_page(page)
       if treat_as = page.rank&.human_treat_as
