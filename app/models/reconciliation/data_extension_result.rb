@@ -27,6 +27,8 @@ module Reconciliation
             prop_results = ancestor_value_for_page(page, settings) 
           elsif type == Reconciliation::PropertyType::EXTINCTION_STATUS
             prop_results = extinction_status_value_for_page(page)
+          elsif type == Reconciliation::PropertyType::CONSERVATION_STATUS
+            prop_results = conservation_status_value_for_page(page)
           end
         end
         
@@ -36,6 +38,19 @@ module Reconciliation
       results
     end
 
+    def conservation_status_value_for_page(page)
+      decorated = BriefSummary::PageDecorator.new(page, nil)
+      trait = decorated.first_trait_for_predicate(TermNode.find_by_alias('conservation_status'))
+
+      value = trait&.object_term&.i18n_name
+
+      if value
+        [{ 'str' => value }]
+      else
+        []
+      end
+    end
+
     def extinction_status_value_for_page(page)
       str = BriefSummary::PageDecorator.new(page, nil).extinct? ?
         'extinct' :
@@ -43,7 +58,6 @@ module Reconciliation
 
       [{ 'str' => str }]
     end
-
 
     def rank_value_for_page(page)
       if treat_as = page.rank&.human_treat_as

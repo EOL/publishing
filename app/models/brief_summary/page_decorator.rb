@@ -52,7 +52,6 @@ class BriefSummary
       @native_range_traits ||= traits_for_predicate(TermNode.find_by_alias('native_range'))
     end
 
-
     def object_traits_for_predicate(predicate)
       @page.object_traits_for_predicate(predicate)
     end
