@@ -1001,6 +1001,8 @@ uk:
   scientific_names_header: Наукові імена
   send_me_reset_password_instructions: Надішліть мені інструкції щодо скидання пароля
   search:
+    blank_q_msg: Ви можете шукати вміст EOL за допомогою панелі у верхній частині
+      сторінки.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: Збіг %{text}
     flash:
