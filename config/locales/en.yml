@@ -263,6 +263,9 @@ en:
   data_missing: "(data missing, keys: %{keys})"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
+  errors:
+    internal_server: Internal server error (500)
+    not_found: Page not found (404)
   filter_by_license: "license"
   filter_by_license_any_item: "any license"
   filter_by_medium_subtype: "type"
