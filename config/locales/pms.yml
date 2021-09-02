@@ -948,6 +948,7 @@ pms:
     property:
       description:
         ancestor: Na tassonomìa ch'a l'e ce ëd n'àutra tassonomìa.
+        conservation_status: Lë stat ëd conservassion ëd la tassonomìa.
         rank: Na stringa ch'a descriv ël rangh ëd na tassonomìa, për es., 'spece'.
           Ij tangh nen arconossù a l'han gnun pontegi.
       name:
@@ -1885,6 +1886,9 @@ pms:
           coralin-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000147: bariera anterior ëd
           bariera coralin-a
+        https://eol(dot)org/schema/terms/coral_sand: sabia ëd coral
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: coralita
+        http://eol(dot)org/schema/terms/coralliteWidth: larghëssa dël coralita
         http://eol(dot)org/schema/terms/Cosmopolitan: Cosmopolita
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder

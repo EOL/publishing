@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Danieldegroot2
 # Author: Elroy
 # Author: Marcelhospers
 # Author: Optilete
@@ -12,7 +13,7 @@ nl:
       send_instructions: U ontvangt binnen enkele ogenblikken een e-mail met instructies
         hoe u uw e-mailadres kunt bevestigen.
       send_paranoid_instructions: Als uw e-mailadres in onze database staat ontvangt
-        u een email met instructies om je emailadres te bevestigen.
+        u een e-mail met instructies om je e-mailadres te bevestigen.
     failure:
       already_authenticated: U bent al aangemeld.
       inactive: Uw account is nog niet geactiveerd.
