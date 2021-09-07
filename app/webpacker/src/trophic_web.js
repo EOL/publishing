@@ -655,3 +655,5 @@ $(function() {
     loadRemote($remoteContain);
   }
 });
+
+$(function() { console.log('trophic_web.js executed') })

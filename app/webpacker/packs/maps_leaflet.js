@@ -1,3 +1,10 @@
+import 'javascripts/leaflet'
+import 'javascripts/leaflet.markercluster'
+import 'leaflet.fullscreen-master/Control.FullScreen'
+import 'Leaflet.NavBar-master/Leaflet.NavBar'
+import 'Leaflet.MarkerCluster.Freezable-0.1.1/freezable'
+import 'Leaflet.loading-master/Control.Loading'
+
 (function() {
   function createMap(data, iconPath, iconRetinaPath) {
     latlng = get_all_latlongs(data.records);

@@ -25,6 +25,7 @@
     -if Webpacker.manifest.lookup "stylesheets/#{ss_pre}#{params[:controller]}.css"
       = stylesheet_pack_tag "stylesheets/#{ss_pre}#{params[:controller]}", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
+    = javascript_include_tag "https://code.jquery.com/jquery-3.6.0.slim.min.js", integrity: 'sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=', crossorigin: 'anonymous'
     = javascript_include_tag "https://cdn.jsdelivr.net/npm/d3@6"
     = javascript_include_tag "https://unpkg.com/d3-sankey@0"
     -#
@@ -41,15 +42,17 @@
       = javascript_include_tag "https://unpkg.com/d3-drag@3"
       = javascript_include_tag "https://unpkg.com/d3-transition@3"
 
-    -# i18n-js configuration
+    -# TODO: this probably needs updating
     :javascript
       I18n = {};
       I18n.defaultLocale = "#{I18n.default_locale}"
       I18n.locale = "#{I18n.locale}"
 
-    = javascript_include_tag "application"
-    -if asset_exists? "#{params[:controller]}.js"
-      = javascript_include_tag params[:controller]
+
+    = javascript_pack_tag "application"
+    -if Webpacker.manifest.lookup "#{params[:controller]}.js"
+      = javascript_pack_tag "#{params[:controller]}.js"
+
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit.min.js"
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit-icons.min.js"
     - %w[api search sticky dimmer dropdown transition].each do |name|

@@ -1,6 +1,6 @@
-//= require traits/data_viz/sankey
-//= require traits/data_viz/assoc
-//= require traits/data_viz/taxon_summary
+import './data_viz/sankey'
+import './data_viz/assoc'
+import './data_viz/taxon_summary'
 window.TraitDataViz = (function(exports) {
   const BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 

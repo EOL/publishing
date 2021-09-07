@@ -1,3 +1,5 @@
+import 'javascripts/jqcloud'
+
 $(function() {
   $('.js-wordcloud').each(function() {
     var $this = $(this);

@@ -1,7 +1,7 @@
-//= require shared/data_row
-//= require shared/slideshow
-//= require trophic_web
-//= require traits/data_viz
+import '../src/shared/data_row.js'
+import '../src/shared/slideshow.js'
+import '../src/trophic_web.js'
+import '../src/traits/data_viz.js'
 
 (function() {
   function setupMenus() {
@@ -99,3 +99,4 @@
     scrollToRecord();
   });
 })();
+
