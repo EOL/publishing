@@ -656,4 +656,3 @@ $(function() {
   }
 });
 
-$(function() { console.log('trophic_web.js executed') })

@@ -13,7 +13,6 @@ import '../src/traits/data_viz'
 
   function fetchForm(option) {
     var data = $('#new_term_query').serializeArray();
-    console.log(data);
 
     $('.js-term-form-dimmer').addClass('active');
 

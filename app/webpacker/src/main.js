@@ -29,19 +29,15 @@ if (!window.EOL) {
     $("#search_results .uk-pagination a")
       .unbind("click")
       .on("click", function() {
-        console.log("search pagination click");
         $(this).closest(".search_result_container").dimmer("show");
       });
   };
 
   EOL.enable_tab_nav = function() {
-    console.log("enable_tab_nav");
     $("#page_nav a,#small_page_nav a").on("click", function() {
-        console.log("page_nav click");
         $("#tab_content").dimmer("show");
       }).unbind("ajax:complete")
       .bind("ajax:complete", function() {
-        console.log("page_nav complete");
         $("#tab_content").dimmer("hide");
         $("#page_nav li").removeClass("uk-active");
         $("#small_page_nav > a").removeClass("active");
@@ -52,30 +48,23 @@ if (!window.EOL) {
           $("#name-header").removeAttr("hidden");
         }
         history.pushState(null, "", this.href);
-        console.log("page_nav complete exit");
       }).unbind("ajax:error")
       .bind("ajax:error", function(evt, data, status) {
         if (status === "parsererror") {
-          console.log("** Got that curious parsererror.");
         } else {
           UIkit.modal.alert('Sorry, there was an error loading this subtab.');
         }
-        console.log("data response: " + data.responseText);
-        console.log("status: " + status);
-        console.log("page_nav error:");
       });
     EOL.dim_tab_on_pagination();
   };
 
   EOL.enable_spinners = function() {
-    console.log("enable spin buttons");
     $(".actions.loaders button").on("click", function(e) {
       $(this).parent().dimmer("show");
     })
   };
 
   EOL.dim_tab_on_pagination = function() {
-    console.log("dim_tab_on_pagination");
     $("#tab_content").dimmer("hide");
     $(".uk-pagination a").on("click", function(e) {
       $("#tab_content").dimmer("show");
@@ -83,7 +72,6 @@ if (!window.EOL) {
   };
 
   EOL.meta_data_toggle = function() {
-    console.log("enable meta_data_toggle");
     $(".meta_data_toggle").on("click", function(event) {
       var $parent = $(this).parent();
       var $div = $parent.find(".meta_data");
@@ -91,17 +79,14 @@ if (!window.EOL) {
         $div.hide();
       } else {
         if ($div.html() === "") {
-          console.log("Loading row " + $(this).data("action") + "...");
           $.ajax({
             type: "GET",
             url: $(this).data("action"),
             // While they serve no purpose NOW... I am keeping these here for
             // future use.
             beforeSend: function() {
-              console.log("Calling before send...");
             },
             complete: function() {
-              console.log("Calling complete...");
               var offset = $parent.offset();
               if (offset) {
                 $('html, body').animate({
@@ -111,16 +96,11 @@ if (!window.EOL) {
               }
             },
             success: function(resp) {
-              console.log("Calling success...");
             },
             error: function(xhr, textStatus, error) {
-              console.log("There was an error...");
-              console.log(xhr.statusText + " : " + textStatus + " : " + error);
             }
           });
         } else {
-          console.log("Using cached row...");
-          console.log($div.html());
           $div.show();
         }
       }
@@ -131,7 +111,6 @@ if (!window.EOL) {
   };
 
   EOL.enable_media_navigation = function() {
-    console.log("enable_media_navigation");
     $("#page_nav_content .dropdown").dropdown();
     /*
     $(".js-slide-modal a.uk-slidenav-large").on("click", function(e) {
@@ -150,7 +129,6 @@ if (!window.EOL) {
   };
 
   EOL.enable_data_toc = function() {
-    console.log("enable_data_toc");
     $("#section_links a").on("click", function(e) {
       var link = $(this);
       $("#section_links .item.active").removeClass("active");
@@ -189,7 +167,6 @@ if (!window.EOL) {
   };
 
   EOL.teardown = function() {
-    console.log("TEARDOWN");
     $(".typeahead").typeahead("destroy");
   };
 
@@ -199,7 +176,6 @@ if (!window.EOL) {
   }
 
   EOL.ready = function() {
-    console.log('EOL.ready')
     var $flashes = $('.eol-flash');
     if ($flashes.length) {
       $flashes.each(function() {
@@ -216,7 +192,6 @@ if (!window.EOL) {
     }
 
     if ($("#topics").length === 1) {
-      console.log("Fetching topics...");
       $.ajax({
         url: "/pages/topics.js",
         cache: false
@@ -257,7 +232,6 @@ if (!window.EOL) {
     }
     */
     $(window).bind("popstate", function() {
-      console.log("popstate " + location.href);
       // TODO: I'm not sure this is ever used. Check and remove, if not.
       $.getScript(location.href);
     });
@@ -367,41 +341,35 @@ if (!window.EOL) {
     */
 
     if ($('.find_users .typeahead').length >= 1) {
-      console.log("Enable username typeahead.");
       $('.find_users .typeahead').typeahead(null, {
         name: 'find-usernames',
         display: 'username',
         source: EOL.searchUsers
       }).bind('typeahead:selected', function(evt, datum, name) {
-        console.log('typeahead:selected:', evt, datum, name);
         $("form.find_users_form input#user_id").val(datum.id)
         $("form.find_users_form").submit();
       });
     };
 
     if ($('.predicate_filter .typeahead').length >= 1) {
-      console.log("Enable predicate typeahead.");
       $('.predicate_filter .typeahead').typeahead(null, {
         name: 'find-predicates',
         display: 'predicates',
         source: EOL.searchPredicates,
         display: "name",
       }).bind('typeahead:selected', function(evt, datum, name) {
-        console.log('typeahead:selected:', evt, datum, name);
         $(".predicate_filter form input#and_predicate").val(datum.uri);
         $(".predicate_filter form").submit();
       });
     };
 
     if ($('.object_filter .typeahead').length >= 1) {
-      console.log("Enable object typeahead.");
       $('.object_filter .typeahead').typeahead(null, {
         name: 'find-object-terms',
         display: 'object-terms',
         source: EOL.searchObjectTerms,
         display: "name",
       }).bind('typeahead:selected', function(evt, datum, name) {
-        console.log('typeahead:selected:', evt, datum, name);
         $(".object_filter form input#and_object").val(datum.uri);
         $(".object_filter form").submit();
       });
