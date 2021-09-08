@@ -1,7 +1,8 @@
-import '../src/shared/data_row.js'
-import '../src/shared/slideshow.js'
-import '../src/trophic_web.js'
-import '../src/traits/data_viz.js'
+import '../src/shared/data_row'
+import '../src/shared/slideshow'
+import '../src/trophic_web'
+import '../src/traits/data_viz'
+import '../src/maps_leaflet'
 
 (function() {
   function setupMenus() {

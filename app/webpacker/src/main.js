@@ -199,6 +199,7 @@ if (!window.EOL) {
   }
 
   EOL.ready = function() {
+    console.log('EOL.ready')
     var $flashes = $('.eol-flash');
     if ($flashes.length) {
       $flashes.each(function() {

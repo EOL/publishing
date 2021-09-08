@@ -8,7 +8,7 @@ import 'leaflet-loading'
 (function() {
   function createMap(data, iconPath, iconRetinaPath) {
     latlng = get_all_latlongs(data.records);
-    center_map = getCentroid(latlng);
+    const center_map = getCentroid(latlng);
 
     var map = L.map( 'map', {
       center: center_map,
@@ -55,7 +55,7 @@ import 'leaflet-loading'
     var markers = data.records;
     var latlng = [];
     for ( var i = 0; i < markers.length; ++i ) {
-      pic = markers[i];
+      let pic = markers[i];
       var title = '<i>'+pic.b+'</i>';                                                                                                 //sciname
       var infoHtml = '<div class="info"><h3>' + title + '</h3>';
 

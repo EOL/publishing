@@ -8,8 +8,6 @@
     = stylesheet_link_tag "Control.Loading", media: "all"
     = stylesheet_pack_tag "stylesheets/maps_leaflet", media: "all"
 
-    = javascript_pack_tag 'maps_leaflet'
-
 .map-contain{ class: local_assigns.fetch(:extra_class, "") }
   #map.map{ data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png"), :'map-data-path' => map_json_path(@page) } }
   .uk-text-meta= occurrence_map_caption(@page)

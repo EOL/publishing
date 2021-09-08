@@ -25,7 +25,8 @@
     -if Webpacker.manifest.lookup "stylesheets/#{ss_pre}#{params[:controller]}.css"
       = stylesheet_pack_tag "stylesheets/#{ss_pre}#{params[:controller]}", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
-    = javascript_include_tag "https://code.jquery.com/jquery-3.6.0.slim.min.js", integrity: 'sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=', crossorigin: 'anonymous'
+    = javascript_include_tag "https://code.jquery.com/jquery-1.12.4.min.js", integrity: "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=", crossorigin: 'anonymous'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.0/typeahead.bundle.min.js'
     = javascript_include_tag "https://cdn.jsdelivr.net/npm/d3@6"
     = javascript_include_tag "https://unpkg.com/d3-sankey@0"
     -#
@@ -48,10 +49,10 @@
       I18n.defaultLocale = "#{I18n.default_locale}"
       I18n.locale = "#{I18n.locale}"
 
-
-    = javascript_pack_tag "application"
-    -if Webpacker.manifest.lookup "#{params[:controller]}.js"
-      = javascript_pack_tag "#{params[:controller]}.js"
+    -# Making multiple calls to javascript_pack_tag breaks all the things. Don't do it.
+    - js_packs = ['application']
+    - js_packs << params[:controller] if Webpacker.manifest.lookup "#{params[:controller]}.js"
+    = javascript_pack_tag *js_packs
 
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit.min.js"
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit-icons.min.js"
