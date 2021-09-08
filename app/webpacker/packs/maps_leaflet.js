@@ -1,9 +1,9 @@
-import 'javascripts/leaflet'
-import 'javascripts/leaflet.markercluster'
-import 'leaflet.fullscreen-master/Control.FullScreen'
+import * as L from 'leaflet'
+import 'leaflet.markercluster'
+import 'leaflet.fullscreen'
 import 'Leaflet.NavBar-master/Leaflet.NavBar'
-import 'Leaflet.MarkerCluster.Freezable-0.1.1/freezable'
-import 'Leaflet.loading-master/Control.Loading'
+import 'leaflet.markercluster.freezable'
+import 'leaflet-loading'
 
 (function() {
   function createMap(data, iconPath, iconRetinaPath) {

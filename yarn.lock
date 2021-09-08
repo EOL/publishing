@@ -2757,6 +2757,33 @@ klona@^2.0.4:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
 
+leaflet-loading@^0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/leaflet-loading/-/leaflet-loading-0.1.24.tgz#eafdfc188718eb13d3cf7b9226c4c06b16e92919"
+  integrity sha1-6v38GIcY6xPTz3uSJsTAaxbpKRk=
+
+leaflet.fullscreen@1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/leaflet.fullscreen/-/leaflet.fullscreen-1.4.5.tgz#3b558dece24d9b51ce762b2e00fe902727f47272"
+  integrity sha512-rQnZswt/bI2HXmYDWjvgu8GIgg5TAyJEVOXJ1SVpo+36G9/YJ4j8gt8bz7VQU5P/gs2tQNCFbuuWtKYpSw8gbA==
+
+leaflet.markercluster.freezable@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster.freezable/-/leaflet.markercluster.freezable-0.1.1.tgz#ec1c12cb1866aa8e7317a0e6c4ae23ec465b1bfd"
+  integrity sha1-7BwSyxhmqo5zF6DmxK4j7EZbG/0=
+
+leaflet.markercluster@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-0.5.0.tgz#804a5c2b02ecacb19c064a253396ab60d5df699b"
+  integrity sha1-gEpcKwLsrLGcBkolM5arYNXfaZs=
+  dependencies:
+    leaflet "~0.7.1"
+
+leaflet@0.7.7, leaflet@~0.7.1:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-0.7.7.tgz#1e352ba54e63d076451fa363c900890cb2cf75ee"
+  integrity sha1-HjUrpU5j0HZFH6NjyQCJDLLPde4=
+
 lilconfig@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.3.tgz#68f3005e921dafbd2a2afb48379986aa6d2579fd"
