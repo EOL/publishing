@@ -1,4 +1,5 @@
-//= require "trix"
+import "javascripts/trix"
+
 (function() {
   $(document).on('trix-before-initialize', () => {
     Trix.config.blockAttributes.heading1.tagName = 'h2';
