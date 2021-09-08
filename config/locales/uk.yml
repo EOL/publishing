@@ -292,6 +292,9 @@ uk:
   data_missing: '(відсутні дані, ключі: %{keys})'
   dear_username_with_comma: Шановний %{username}
   delete_account_button: Вилучити Ваш обліковий запис
+  errors:
+    internal_server: Внутрішня помилка сервера (500)
+    not_found: Сторінку не знайдено (404)
   filter_by_license: ліцензія
   filter_by_license_any_item: будь-яка ліцензія
   filter_by_medium_subtype: тип
@@ -943,11 +946,21 @@ uk:
     property:
       description:
         ancestor: Таксон, який є родоначальником іншого таксону.
+        conservation_status: Стан збереження таксону.
+        extinction_status: Статус вимирання таксону. Можливі значення — «вимерлі»
+          та «існуючі»
         rank: Рядок, що описує ранг таксона, наприклад, «вид». Невизнані звання не
           набираються.
       name:
         ancestor: Предка
+        conservation_status: Стан охорони
+        extinction_status: Статус вимирання
         rank: Ранг
+    property_settings:
+      limit:
+        label: Обмеження
+        help_text: Максимальна кількість значень, що повертаються за рядок (0 без
+          обмежень)
     schema_space:
       intro: Колекція властивостей, яка використовується службою API звірення, описана
         нижче.

@@ -203,6 +203,9 @@ it:
       statistical_method_term: Metodo statistico utilizzato per la misurazione
   dear_username_with_comma: Caro %{username},
   delete_account_button: Cancella la tua utenza
+  errors:
+    internal_server: Errore interno server (500)
+    not_found: Pagina non trovata (404)
   filter_by_license: licenza
   filter_by_license_any_item: qualsiasi licenza
   filter_by_medium_subtype: tipo

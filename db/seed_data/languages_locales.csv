@@ -396,7 +396,7 @@ tum,Q34138
 aeb-arab,Q56240
 lfn,Q146803
 arc,Q28602
-map-bms,map-bms
+map-bms,Q33219
 kaa,Q33541
 ilo,Q35936
 atj,Q56590
@@ -529,3 +529,15 @@ bh,bh
 ha,ha
 szy,szy
 mic,Q13321
+ban-bali,q33070
+cps,q2937525
+dag,q32238
+dua,q33013
+fit,q13357
+krj,q33720
+ks-arab,ks
+ms-arab,ms
+pwn,q715755
+sjd,q33656
+trv,q716686
+ug-latn,ug
