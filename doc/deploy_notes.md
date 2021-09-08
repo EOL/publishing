@@ -64,3 +64,5 @@ run Locale.rebuild_language_mappings after the deploy
 == UP TO DATE IN PRODUCTION UP TO HERE
 
 2021-07-07 (mvitale): TermBootstrapper.new.load after bundle install (Gemfile specifies required eol_terms version)
+
+2021-09-08 (mvitale): Jen made some updates to the language/locales file. Run Locale.rebuild_language_mappings.
