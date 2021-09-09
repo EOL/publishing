@@ -263,6 +263,9 @@ en:
   data_missing: "(data missing, keys: %{keys})"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
+  errors:
+    internal_server: Internal server error (500)
+    not_found: Page not found (404)
   filter_by_license: "license"
   filter_by_license_any_item: "any license"
   filter_by_medium_subtype: "type"
@@ -365,6 +368,7 @@ en:
     q33120: "Buryat"
     q35037: "Businenge Tongo"
     q880301: "Cajun French"
+    q2937525: "Capiznon"
     q35156: "Car"
     q2591230: "Cashinahua"
     ca: "Catalan; Valencian"
@@ -390,11 +394,13 @@ en:
     hr: "Croatian"
     hrv: "Croatian"
     cs: "Czech"
+    q32238: "Dagbani"
     da: "Danish"
     q3362072: "Digo"
     q56466: "Dinka"
     dv: "Divehi; Dhivehi; Maldivian"
     q18415595: "Dotyali"
+    q33013: "Duala"
     dut: "Dutch; Flemish"
     nl: "Dutch; Flemish"
     dz: "Dzongkha"
@@ -476,6 +482,8 @@ en:
     kk: "Kazakh"
     ki: "Kikuyu"
     ki: "Kikuyu; Gikuyu"
+    q33656: "Kildin Sami"
+    q33720: "Kinaray-a"
     q11005332: "Kinga"
     q11732519: "Kingindo"
     rw: "Kinyarwanda"
@@ -525,6 +533,7 @@ en:
     q35787: "Masai"
     q6786446: "Matengo"
     q3906614: "Meadow Mari"
+    q13357: "Meänkieli"
     q13358: "Megleno Romanian"
     q13313: "Meru"
     q13321: "Miꞌkmaq"
@@ -568,6 +577,7 @@ en:
     or: "Oriya"
     om: "Oromo"
     os: "Ossetian; Ossetic"
+    q715755: "Paiwan"
     pi: "Pali"
     pa: "Panjabi; Punjabi"
     q36403: "Pare"
@@ -602,6 +612,7 @@ en:
     q845441: "Sassarese Sardinian"
     q14549: "Scots"
     gd: "Scottish Gaelic"
+    q716686: "Seediq"
     sr: "Serbian"
     q3788739: "Shambala"
     q56482: "Shan"
@@ -682,6 +693,8 @@ en:
     za: "Zhuang"
     za: "Zhuang; Chuang"
     zu: "Zulu"
+    Q33219: "Banyumasan"
+    
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
@@ -929,10 +942,18 @@ en:
     property:
       description:
         ancestor: 'A taxon which is an ancestor of another taxon.'
+        conservation_status: "The conservation status of the taxon."
+        extinction_status: "The extinction status of the taxon. Possible values are 'extinct' and 'extant'"
         rank: "A string describing the rank of a taxon, e.g., 'species'. Unrecognized ranks are not scored."
       name:
         ancestor: 'Ancestor'
+        conservation_status: 'Conservation status'
+        extinction_status: 'Extinction status'
         rank: 'Rank'
+    property_settings:
+      limit:
+        label: 'Limit'
+        help_text: 'Maximum number of values to return per row (0 for no limit)'
     schema_space:
       intro: "The collection of properties used by the Reconciliation API service is described below."
       headers:
@@ -985,6 +1006,7 @@ en:
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
   search:
+    blank_q_msg: You can search the contents of EOL using the bar at the top of the page.
     full_name: "%{vernacular} (%{scientific})"
     matched_text: "Matched %{text}"
     flash:

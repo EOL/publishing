@@ -91,7 +91,7 @@ class Node < ApplicationRecord
   end
 
   def siblings
-    @siblings ||= parent&.children&.where.not(id: self.id).includes(:page) || []
+    @siblings ||= parent&.children&.where&.not(id: self.id)&.includes(:page) || []
   end
 
   def rank_treat_as

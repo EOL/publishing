@@ -420,6 +420,18 @@ class Resource < ApplicationRecord
     FileUtils.remove_dir(file_dir) if File.exist?(file_dir)
   end
 
+  def cached_nodes_count
+    Rails.cache.fetch("resources/#{id}/nodes_count") do
+      nodes.count
+    end
+  end
+
+  def cached_media_count
+    Rails.cache.fetch("resources/#{id}/media_count") do
+      media.count
+    end
+  end
+
   def self.autocomplete(query, options = {})
     search(query, options.reverse_merge({
       fields: ['name'],

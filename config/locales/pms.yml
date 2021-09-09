@@ -295,6 +295,9 @@ pms:
   data_missing: '(dàit mancant, ciav: %{keys})'
   dear_username_with_comma: Car %{username},
   delete_account_button: Eliminé sò cont
+  errors:
+    internal_server: Eror antern dël servent (500)
+    not_found: Pàgina nen trovà (404)
   filter_by_license: licensa
   filter_by_license_any_item: licensa qualsëssìa
   filter_by_medium_subtype: sòrt
@@ -948,11 +951,20 @@ pms:
     property:
       description:
         ancestor: Na tassonomìa ch'a l'e ce ëd n'àutra tassonomìa.
+        conservation_status: Lë stat ëd conservassion ëd la tassonomìa.
+        extinction_status: Lë stat d'estinsion ëd la tassonomìa. Ij valor possìbij
+          a son 'dëstiss' e 'mnassà'
         rank: Na stringa ch'a descriv ël rangh ëd na tassonomìa, për es., 'spece'.
           Ij tangh nen arconossù a l'han gnun pontegi.
       name:
         ancestor: Ce
+        conservation_status: Stat ëd conservassion
+        extinction_status: Stat d'estinsion
         rank: Rangh
+    property_settings:
+      limit:
+        label: Lìmit
+        help_text: Nùmer màssim ëd valor da smon-e për linia (0 për gnun lìmit)
     schema_space:
       intro: La colession ëd propietà dovrà dal servissi d'API d'arconciliassion a
         l'é descrivùa sì-sota.
@@ -1007,6 +1019,8 @@ pms:
   send_me_reset_password_instructions: Mandeme j'anstrussion ëd riinissialisassion
     ëd la ciav
   search:
+    blank_q_msg: A peul fé d'arserche ant ël contnù d'EdV dovrand la sbara an àut
+      ëd la pàgina.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: A corëspond a %{text}
     flash:
@@ -1852,9 +1866,63 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: comensal con
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: comunicassion
         http://eol(dot)org/schema/terms/competitive: competitiv
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: compòst
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: compòst
-        http://eol(dot)org/schema/terms/Cosmopolitan: Cosmopolita
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: euj compòsit
+        https://eol(dot)org/schema/terms/concave_mirror_eyes: euj an specc creus
+        http://eol(dot)org/schema/terms/cone: còno
+        http://eol(dot)org/schema/terms/conePlusHalfSphere-40Percent: còno-pi-semisfera
+          meno 40përsent
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: età
+          coniacian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: foresta ëd conìfere
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: foresta ëd conìfere
+        http://eol(dot)org/schema/terms/conservationDependent: dipendent da la conservassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: process ëd gestion dla
+          conservassion
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: stat
+          ëd conservassion
+        http://eol(dot)org/schema/terms/contaminatedHabitat: ambient contaminà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: sediment contaminà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: seul contaminà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: ìsola continental
+        http://eol(dot)org/schema/terms/copepodid3: copepòdid a lë stadi 3
+        http://eol(dot)org/schema/terms/copepodid4: copepòdid a lë stadi 4
+        http://eol(dot)org/schema/terms/copepodid5: copepòdid a lë stadi 5
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: bariera coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: bariera posterior ëd
+          bariera coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000146: crësta ëd bariera coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000144: zòna piata ëd bariera
+          coralin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000147: bariera anterior ëd
+          bariera coralin-a
+        https://eol(dot)org/schema/terms/coral_sand: sabia ëd coral
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: coralita
+        http://eol(dot)org/schema/terms/coralliteWidth: larghëssa dël coralita
+        https://eol(dot)org/schema/terms/corneal_eyes: euj a camisa
+        http://eol(dot)org/schema/terms/corymbose: corimbos
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: cosmétich
+        http://eol(dot)org/schema/terms/Cosmopolitan: cosmopolita
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: piantament ëd coton
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020030: cotilédon
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Cotype: cò-tipo
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: còdes dël pais
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: stala
+        https://eol(dot)org/schema/terms/crab_feeder: as nuriss ëd grancio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: lagh volcànich
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: strusiant
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: perìod
+          dël cretass
+        https://eol(dot)org/schema/terms/crinoid_feeder: as nuriss ëd crinòid
+        http://eol(dot)org/schema/terms/criticallyEndangered: an privo crìtich
+        http://eol(dot)org/schema/terms/cruising: as nuriss bogiand-se
+        https://eol(dot)org/schema/terms/crustacean_feeder: as nuriss ëd crustass
+        http://eol(dot)org/schema/terms/crustose: crostos
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: perìod
+          criogenian
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: crioseul
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: di
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: àcid decanoid

@@ -1,4 +1,5 @@
 const { environment } = require('@rails/webpacker')
+const erb = require('./loaders/erb')
 
 environment.config.merge({
   performance: {
@@ -6,5 +7,7 @@ environment.config.merge({
     maxAssetSize: 300000
   }
 })
+
+environment.loaders.append('erb', erb)
 
 module.exports = environment

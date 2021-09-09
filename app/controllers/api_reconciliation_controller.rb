@@ -123,6 +123,14 @@ class ApiReconciliationController < ApplicationController
           json.service_url api_reconciliation_url
           json.service_path "/properties/propose"
         end
+
+        json.property_settings Reconciliation::PropertySettingType::ALL.each do |setting|
+          json.default setting.default
+          json.type setting.type
+          json.label setting.label
+          json.name setting.name
+          json.help_text setting.help_text
+        end
       end
     end.target!
 
@@ -153,7 +161,7 @@ class ApiReconciliationController < ApplicationController
     end
 
     rows = Reconciliation::DataExtensionResult.new(query).to_h
-    meta = query.properties.map(&:to_h)
+    meta = query.properties.map { |p| p.type.to_h }
 
     respond({
       meta: meta,
@@ -169,4 +177,5 @@ class ApiReconciliationController < ApplicationController
     end
   end
 end
+
 

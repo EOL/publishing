@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Danieldegroot2
 # Author: Dutchy45
 # Author: Elroy
 # Author: Mainframe98
@@ -1020,7 +1021,7 @@ nl:
     dispersal: Verspreiding
     distribution: Verspreiding
     ecology: Ecologie
-    evolution_and_systematics: Evolutie and Systematics
+    evolution_and_systematics: Evolutie en Systematics
     general_ecology: Algemene ecologie
     genetics: Genetica
     growth: Groei
@@ -1033,10 +1034,10 @@ nl:
     molecular_biology: Moleculair Biologie
     molecular_biology_and_genetics: Moleculair Biologie en Genetica
     morphology: Morfologie
-    names_and_taxonomy: Namen and Taxonomie
+    names_and_taxonomy: Namen en Taxonomie
     notes: Opmerkingen
     overview: Overzicht
-    physiology_and_cell_biology: Fysiologie and Celbiologie
+    physiology_and_cell_biology: Fysiologie en Celbiologie
     physical_description: Fysieke beschrijving
     relevance_to_humans_and_ecosystems: Relevantie voor mensen en ecosystemen
     reproduction: Reproductie
@@ -1260,7 +1261,7 @@ nl:
     form_labels:
       age_confirm: Ik ben minstens 15 jaar oud
       tou_confirm_html: Ik heb de <a href='%{tou_path}'>Gebruikersvoorwaarden</a>
-        en de<a href='%{privacy_path}'>Privacy Policy</a>
+        en het<a href='%{privacy_path}'>Privacybeleid</a> gelezen
     headers:
       bio: Korte Biografie
       collections: Verzamelingen
@@ -1280,7 +1281,7 @@ nl:
     trait_bank_cypher_form: Trait bank cypher formulier
     username: gebruikersnaam
     update: Bijwerken
-    update_email: Bewerk email
+    update_email: Bewerk e-mail
   user_download:
     created: Uw bestand wordt op de achtergrond verwerkt. Controleer uw <a href="%{url}">gebruikerspagina</a>
       om te zien of deze klaar is.

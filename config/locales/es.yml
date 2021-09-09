@@ -4,6 +4,7 @@
 # Author: Alonso Biólogo
 # Author: Aramos1422
 # Author: Canaan9801
+# Author: Destinid10 2
 # Author: Fitoschido
 # Author: Gastonsaenz
 # Author: Geryescalier
@@ -13,16 +14,19 @@
 # Author: JamesB
 # Author: Jesusmc
 # Author: Joanmp17
+# Author: Johny Weissmuller Jr
 # Author: Madamebiblio
+# Author: Mnivar
 # Author: Ncr
 # Author: Nipungorantla
 # Author: Optilete
 # Author: Rossnyev
 # Author: Silverie04
+# Author: Warming Hearth
 # Author: Whytheonlyone
 ---
 es:
-  language_name: español
+  language_name: Inglés
   about:
     trait_bank:
       title: TraitBank
@@ -307,6 +311,9 @@ es:
   data_missing: '(faltan datos; claves: %{keys})'
   dear_username_with_comma: Estimado %{username}
   delete_account_button: Eliminar tu cuenta
+  errors:
+    internal_server: Error interno del servidor (500)
+    not_found: Página no encontrada (404)
   filter_by_license: licencia
   filter_by_license_any_item: cualquier licencia
   filter_by_medium_subtype: tipo
@@ -413,6 +420,8 @@ es:
     q2591230: Cashinahua
     ca: Catalán; Valenciano
     q33239: Cebuano
+    khm: Khmer central
+    km: Khmer central
     ch: Chamorro
     q33281: Chavacano
     ce: Checheno
@@ -494,7 +503,8 @@ es:
     nno: Noruego
     nob: noruego
     nor: noruego
-    oc: Occitano
+    oc: Occitano (post 1500)
+    q28602: Arameo oficial
     pa: Panyabí
     fa: Persa
     pl: Polaco
@@ -789,14 +799,24 @@ es:
     property:
       description:
         ancestor: un taxón que es un ancestro de otro taxón.
+        conservation_status: El estado de conservación del taxón.
+        extinction_status: El estado de extinción del taxón. Los valores posibles
+          son 'extinto' y 'existente'
         rank: un texto describiendo el rango de un taxón, ej."especie". Los rangos
           no reconocidos no se puntúan.
       name:
         ancestor: ancestro
-        rank: Posición
+        conservation_status: Estado de conservación
+        extinction_status: Estado de extinción
+        rank: Rango
+    property_settings:
+      limit:
+        label: Límite
+        help_text: Numero máximo de valores para devolver por fila (0 para ningún
+          límite)
     schema_space:
       intro: La colección de propiedades empleadas por el sevicio de Reconciliación
-        API es descrito abajo.
+        API está descrito abajo.
       headers:
         id: identificación
         name: nombre
@@ -846,6 +866,8 @@ es:
   send_me_reset_password_instructions: Enviarme instrucciones para restablecer la
     contraseña
   search:
+    blank_q_msg: Puede buscar los contenidos de EOL utilizando la barra de la parte
+      superior de la página.
     matched_text: coincidente%{text}
     flash:
       cannot_combine_paths: No se pueden combinar los resultados con%{path}
@@ -1246,6 +1268,7 @@ es:
     showing_n_power_users:
       one: enlistando un usuario de poder
       other: Listing %{count} power users
+    trait_bank_cypher_form: Forma de cifrado del banco de rasgos
     username: nombre de usuario
     update: Actualizar
     update_email: Actualizar dirección de correo electrónico
@@ -1309,6 +1332,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: tiene hiperparásito
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: tiene vector
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: Es asesinado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparasitado por
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: tiene huevos que yacen
           por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitado por
@@ -1326,6 +1350,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundancia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: zona abisal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: zona abisalpelágica
+        http://eol(dot)org/schema/terms/acicular: acicular (en forma de aguja)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: aguas termales ácidas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: drenaje ácido de mina
         http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: lago minero de
@@ -1346,19 +1371,29 @@ es:
         http://eol(dot)org/schema/terms/age At Dispersal: Edad en la dispersión
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: edad en la apertura de los
           ojos
+        http://eol(dot)org/schema/terms/AgeAtMaturity: edad en la madurez
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agrícola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: material agrícola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: suelo agrícola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: terraza agrícola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: residuos agrícolas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: desechos agrícolas
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: edad albiana
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: ambiente alcalino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: piso alcalino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: hábitat alcalino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: aguas termales alcalinas
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: alolectotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: aloneotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: alotipo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: abanico aluvial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: llanura aluvial
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: suelo aluvial
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: glaciar alpino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: suelo alpino
         http://eol(dot)org/schema/terms/alternatingReproduction: alternancia de generaciones
+        http://eol(dot)org/schema/terms/ambush: depredador de emboscada
+        https://eol(dot)org/schema/terms/ampharetid_feeder: alimentador de anfáridos
         http://eol(dot)org/schema/terms/amphibious: anfibio
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: anfidromo
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anádromo
@@ -1366,6 +1401,10 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: sedimento anaeróbico
         http://eol(dot)org/schema/terms/AnaerobicSoilTolerance: tolerancia anaeróbica
           del suelo
+        https://eol(dot)org/schema/terms/anal_dorsal_fins: natación de la aleta anal
+          y dorsal
+        https://eol(dot)org/schema/terms/anal_fin: natación aleta anal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: habitación animal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: desperdicio de animal
         http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: densidad de población
           animal
@@ -1373,6 +1412,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: agua anóxica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogénico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatito
+        http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: ojos de aposición
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: Acueducto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: acuático
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: acuático (locomoción)
@@ -1396,6 +1437,9 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: corteza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: basalto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: bahía
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: playa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000529: cresta de la playa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: arena de playa
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: cera de abeja
         http://eol(dot)org/schema/terms/benthic: béntico
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: bianual

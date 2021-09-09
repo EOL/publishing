@@ -1,6 +1,6 @@
-//= require traits/data_viz/sankey
-//= require traits/data_viz/assoc
-//= require traits/data_viz/taxon_summary
+import './data_viz/sankey'
+import './data_viz/assoc'
+import './data_viz/taxon_summary'
 window.TraitDataViz = (function(exports) {
   const BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 
@@ -36,7 +36,7 @@ window.TraitDataViz = (function(exports) {
     }
 
     data.forEach((d) => {
-      pctWidth = (d.count / maxCount);
+      const pctWidth = (d.count / maxCount);
       d.width =  pctWidth * innerWidth;
       d.label = pctWidth <= .25 || pctWidth >= .75 ?
         d.label_long :
@@ -338,7 +338,7 @@ window.TraitDataViz = (function(exports) {
 
       function success() {
         $toggleSpinner.remove();
-        $toggleLink = $toggle.find('.js-viz-toggle-link');
+        const $toggleLink = $toggle.find('.js-viz-toggle-link');
         $toggleLink.html($fallbackContain.data('toggleText')); 
         $toggleLink.click(toggleViz);
       }

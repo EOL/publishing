@@ -233,6 +233,9 @@ tr:
   data_missing: '(veri eksik, tuşlar: %{keys})'
   dear_username_with_comma: Sayın %{username},
   delete_account_button: Hesabını sil
+  errors:
+    internal_server: Dahili sunucu hatası (500)
+    not_found: Sayfa bulunamadı (404)
   filter_by_license: lisans
   filter_by_license_any_item: herhangi bir lisans
   filter_by_medium_subtype: tür
@@ -882,6 +885,8 @@ tr:
           puanlanmaz.
       name:
         ancestor: Ata
+        conservation_status: Koruma durumu
+        extinction_status: Tükenmişlik durumu
         rank: Sıra
     schema_space:
       headers:

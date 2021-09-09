@@ -2,9 +2,14 @@ module Reconciliation
   PropertyType = Struct.new(:id) do
     self::ANCESTOR = self.new('ancestor')
     self::RANK = self.new('rank')
+    self::CONSERVATION_STATUS = self.new('conservation_status')
+    self::EXTINCTION_STATUS = self.new('extinction_status')
+
     self::ALL = [
       self::ANCESTOR,
-      self::RANK
+      self::RANK,
+      self::CONSERVATION_STATUS,
+      self::EXTINCTION_STATUS,
     ]
     self::ALL_BY_ID = self::ALL.map { |pt| [pt.id, pt] }.to_h
       

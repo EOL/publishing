@@ -1,5 +1,5 @@
-//= require shared/data_row
-//= require traits/data_viz 
+import '../src/shared/data_row'
+import '../src/traits/data_viz'
 
 (function() {
 

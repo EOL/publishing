@@ -5,16 +5,30 @@ require 'reconciliation/data_extension_query'
 RSpec.describe 'Reconciliation::DataExtensionQuery' do
   let(:taxon_entity_resolver) { class_double('Reconciliation::TaxonEntityResolver').as_stubbed_const }
   let(:ids) { ['page-1234', 'page-321'] }
-  let(:properties) { [{ 'id' => 'rank' }] }
+  let(:limit) { 5 }
+  let(:properties) do 
+    [
+      { 
+        'id' => 'rank',
+        'settings' => {
+          'limit' => limit
+        }
+      }
+    ] 
+  end
+
   let(:valid_query) do 
     {
       'ids' => ids,
       'properties' => properties
     }
   end
+
   let(:prop_type) { class_double('Reconciliation::PropertyType').as_stubbed_const }
   let(:prop_rank) { instance_double('Reconciliation::PropertyType') }
   let(:resolver_result) { instance_double('Hash') }
+  let(:prop_setting_class) { class_double('Reconciliation::PropertySetting').as_stubbed_const }
+  let(:prop_setting) { instance_double('Reconciliation::PropertySetting') }
   let(:expected_includes) do 
     { native_node: [:rank, node_ancestors: { ancestor: :page }] }
   end
@@ -23,6 +37,7 @@ RSpec.describe 'Reconciliation::DataExtensionQuery' do
     allow(prop_type).to receive(:id_valid?) { false }
     allow(prop_type).to receive(:id_valid?).with('rank') { true }
     allow(prop_type).to receive(:for_id).with('rank') { prop_rank }
+    allow(prop_setting_class).to receive(:new).with('limit', limit) { prop_setting }
     allow(taxon_entity_resolver).to receive(:resolve_ids).with(ids, includes: expected_includes) { resolver_result }
   end
 
@@ -114,7 +129,19 @@ RSpec.describe 'Reconciliation::DataExtensionQuery' do
   describe '#properties' do
     subject(:query) { Reconciliation::DataExtensionQuery.new(valid_query) }
 
-    it { expect(query.properties).to eq([prop_rank]) }
+    it do 
+      properties = query.properties
+      expect(properties.length).to eq(1)
+
+      property = properties.first
+      expect(property.type).to eq(prop_rank)
+
+      settings = property.settings
+      expect(settings.length).to eq(1)
+
+      setting = settings.first
+      expect(setting).to eq(prop_setting)
+    end
   end
 end
 

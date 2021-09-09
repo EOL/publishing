@@ -305,6 +305,9 @@ fr:
   data_missing: '(données manquantes, clés : %{keys})'
   dear_username_with_comma: Cher/chère %{username},
   delete_account_button: Supprimer votre compte
+  errors:
+    internal_server: Erreur interne du serveur (500)
+    not_found: Page non trouvée (404)
   filter_by_license: licence
   filter_by_license_any_item: n’importe quelle licence
   filter_by_medium_subtype: type
@@ -960,11 +963,20 @@ fr:
     property:
       description:
         ancestor: Un taxon qui est un ancêtre d’un autre taxon.
+        conservation_status: L’état de conservation du taxon.
+        extinction_status: L’état d’extinction du taxon. Les valeurs possibles sont
+          'éteint' et 'existant'
         rank: Un chaîne décrivant le rang d’un taxon, par ex., 'espèce'. Les rangs
           non reconnus ne sont pas notés.
       name:
         ancestor: Ancêtre
+        conservation_status: État de conservation
+        extinction_status: État d’extinction
         rank: Rang
+    property_settings:
+      limit:
+        label: Limite
+        help_text: Nombre maximal de valeurs à renvoyer par ligne (0 pour aucune limite)
     schema_space:
       intro: La collection de propriétés utilisée par le service d’API de réconciliation
         est décrite ci-dessous.
@@ -1020,6 +1032,8 @@ fr:
   send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
     du mot de passe
   search:
+    blank_q_msg: Vous pouvez rechercher dans le contenu de l’EdlV en utilisant la
+      barre en haut de la page.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: Correspond à %{text}
     flash:

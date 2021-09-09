@@ -25,20 +25,35 @@
     -if Webpacker.manifest.lookup "stylesheets/#{ss_pre}#{params[:controller]}.css"
       = stylesheet_pack_tag "stylesheets/#{ss_pre}#{params[:controller]}", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
-    = javascript_include_tag 'https://d3js.org/d3.v6.js'
-    -# minified
-      = javascript_include_tag "https://unpkg.com/d3@6"
+    = javascript_include_tag "https://code.jquery.com/jquery-1.12.4.min.js", integrity: "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=", crossorigin: 'anonymous'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.0/typeahead.bundle.min.js'
+    = javascript_include_tag "https://cdn.jsdelivr.net/npm/d3@6"
     = javascript_include_tag "https://unpkg.com/d3-sankey@0"
+    -#
+      = javascript_include_tag "https://unpkg.com/d3-selection@3"
+      = javascript_include_tag "https://unpkg.com/d3-dispatch@3"
+      = javascript_include_tag "https://unpkg.com/d3-timer@3"
+      = javascript_include_tag "https://unpkg.com/d3-array@3"
+      = javascript_include_tag "https://unpkg.com/d3-path@3"
+      = javascript_include_tag "https://unpkg.com/d3-hierarchy@3"
+      = javascript_include_tag "https://unpkg.com/d3-interpolate@3"
+      = javascript_include_tag "https://unpkg.com/d3-shape@3"
+      = javascript_include_tag "https://unpkg.com/d3-scale@3"
+      = javascript_include_tag "https://unpkg.com/d3-zoom@3"
+      = javascript_include_tag "https://unpkg.com/d3-drag@3"
+      = javascript_include_tag "https://unpkg.com/d3-transition@3"
 
-    -# i18n-js configuration
+    -# TODO: this probably needs updating
     :javascript
       I18n = {};
       I18n.defaultLocale = "#{I18n.default_locale}"
       I18n.locale = "#{I18n.locale}"
 
-    = javascript_include_tag "application"
-    -if asset_exists? "#{params[:controller]}.js"
-      = javascript_include_tag params[:controller]
+    -# Making multiple calls to javascript_pack_tag breaks all the things. Don't do it.
+    - js_packs = ['application']
+    - js_packs << params[:controller] if Webpacker.manifest.lookup "#{params[:controller]}.js"
+    = javascript_pack_tag *js_packs
+
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit.min.js"
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit-icons.min.js"
     - %w[api search sticky dimmer dropdown transition].each do |name|

@@ -107,6 +107,9 @@ ko:
   data_missing: '(데이터 없음. 키: %{keys})'
   dear_username_with_comma: '%{username}님,'
   delete_account_button: 내 계정 삭제
+  errors:
+    internal_server: 내부 서버 오류 (500)
+    not_found: 페이지를 찾을 수 없습니다 (404)
   filter_by_license: 라이선스
   filter_by_medium_any_item: 모든 유형
   filter_by_resource: 제공자
