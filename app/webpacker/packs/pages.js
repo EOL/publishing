@@ -1,7 +1,8 @@
-//= require shared/data_row
-//= require shared/slideshow
-//= require trophic_web
-//= require traits/data_viz
+import '../src/shared/data_row'
+import '../src/shared/slideshow'
+import '../src/trophic_web'
+import '../src/traits/data_viz'
+import '../src/maps_leaflet'
 
 (function() {
   function setupMenus() {
@@ -99,3 +100,4 @@
     scrollToRecord();
   });
 })();
+

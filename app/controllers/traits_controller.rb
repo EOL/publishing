@@ -6,6 +6,7 @@ class TraitsController < ApplicationController
   before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
   before_action :build_query, only: [:create_search, :search_results, :search_form]
   before_action :set_title, only: [:search, :search_results]
+  skip_before_action :verify_authenticity_token, only: :search_form
 
   PER_PAGE = 50
   GBIF_LINK_LIMIT = PER_PAGE
