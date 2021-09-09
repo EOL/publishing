@@ -71,6 +71,30 @@ de:
     types:
       scientific: wissenschaftlich
       vernacular: volkstümlich
+  brief_summary:
+    extinction:
+      r_genus_html: Diese Gattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_subgenus_html: Diese Untergattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+    species: '%{name1} ist eine Spezies von %{name2}.'
+    species_in_family: '%{name1} ist eine Spezies von %{name2} in der Familie %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} ist eine Oberfamilie von %{name2}.'
+        r_domain: '%{name1} ist eine Domäne von %{name2}.'
+        r_subdomain: '%{name1} ist eine Unterdomäne von %{name2}.'
+        r_class: '%{name1} ist eine Klasse von %{name2}.'
+        r_subclass: '%{name1} ist eine Unterklasse von %{name2}.'
+        r_order: '%{name1} ist eine Ordnung von %{name2}.'
+        r_suborder: '%{name1} ist eine Unterordnung von %{name2}.'
+        r_family: '%{name1} ist eine Familie von %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} ist eine Unterfamilie von %{name2} in der Familie
+            %{name3}.'
+          r_tribe: '%{name1} ist ein Tribus von %{name2} in der Familie %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} ist eine Unterfamilie von %{name2}.'
+          r_genus: '%{name1} ist eine Gattung von %{name2}.'
   button_create: erstellen
   button_add: hinzufügen
   cancel: abbrechen
@@ -220,6 +244,9 @@ de:
       statistical_method_term: Für Messungen verwendete statistische Methode
   dear_username_with_comma: Lieber %{username},
   delete_account_button: Dein Benutzerkonto löschen
+  errors:
+    internal_server: Interner Serverfehler (500)
+    not_found: Seite nicht gefunden (404)
   filter_by_license: Lizenz
   filter_by_license_any_item: Jede Lizenz
   filter_by_medium_subtype: Typ
@@ -702,8 +729,12 @@ de:
         r_subdomain: Subdomäne
         r_kingdom: Königreich
         r_class: Klasse
+        r_order: Ordnung
+        r_suborder: Unterordnung
         r_family: Familie
         r_tribe: Stamm
+        r_genus: Gattung
+        r_subgenus: Untergattung
         r_species: Spezies
         r_form: Form
       reference_taxon_attrib: Referenz-Taxon von %{dataset_name}
@@ -759,6 +790,8 @@ de:
       r_subdomain: Subdomäne
       r_phylum: Stamm
       r_class: Klasse
+      r_order: Ordnung
+      r_suborder: Unterordnung
       r_family: Familie
       r_genus: Gattung
       r_subgenus: Untergattung
@@ -1207,6 +1240,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blau
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Körperlänge
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Körpermasse
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: Brackwassersee
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: Brackwasser
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breit
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brüten

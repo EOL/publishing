@@ -1919,6 +1919,10 @@ pms:
         http://eol(dot)org/schema/terms/criticallyEndangered: an privo crìtich
         http://eol(dot)org/schema/terms/cruising: as nuriss bogiand-se
         https://eol(dot)org/schema/terms/crustacean_feeder: as nuriss ëd crustass
+        http://eol(dot)org/schema/terms/crustose: crostos
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: perìod
+          criogenian
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: crioseul
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: di
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: àcid decanoid

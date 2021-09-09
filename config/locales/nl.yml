@@ -1261,7 +1261,7 @@ nl:
     form_labels:
       age_confirm: Ik ben minstens 15 jaar oud
       tou_confirm_html: Ik heb de <a href='%{tou_path}'>Gebruikersvoorwaarden</a>
-        en de<a href='%{privacy_path}'>Privacy Policy</a>
+        en het<a href='%{privacy_path}'>Privacybeleid</a> gelezen
     headers:
       bio: Korte Biografie
       collections: Verzamelingen
