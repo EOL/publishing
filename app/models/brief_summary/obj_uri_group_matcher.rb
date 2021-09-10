@@ -71,8 +71,12 @@ class BriefSummary
       # XXX: not performant
       def remove(match)
         @matches.delete(match)
+
         @by_uri[match.uri].delete(match)
+        @by_uri.delete(match.uri) if @by_uri[match.uri].empty?
+
         @by_type[match.type].delete(match)
+        @by_type.delete(match.type) if @by_type[match.type].empty?
       end
     end
 
