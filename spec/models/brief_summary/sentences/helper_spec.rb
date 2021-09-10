@@ -213,29 +213,57 @@ RSpec.describe('BriefSummary::Sentences::Helper') do
 
     context 'when traits.any?' do
       let(:trait1) { instance_double('Trait') }
+      let(:pred1) { instance_double('TermNode') }
       let(:object_term1) { instance_double('TermNode') }
       let(:object_name1) { 'object1' }
       let(:trait2) { instance_double('Trait') }
+      let(:pred2) { instance_double('TermNode') }
       let(:object_term2) { instance_double('TermNode') }
       let(:object_name2) { 'object2' }
       let(:trait3) { instance_double('Trait') }
-      let(:literal) { 'object3' }
-      let(:traits) { [trait1, trait2, trait3] } 
+      let(:pred3) { instance_double('TermNode') }
+      let(:literal) { 'literal3' }
+      let(:trait3) { instance_double('Trait') }
+      let(:pred3) { instance_double('TermNode') }
+      let(:trait4) { instance_double('Trait') }
+      let(:pred4) { instance_double('TermNode') }
+      let(:object_term3) { instance_double('TermNode') }
+      let(:traits) { [trait1, trait2, trait3, trait4] } 
+      let(:expected) { '<tag>object1</tag>, <tag>object2</tag>, and literal3' }
+      let(:id1) { 1 }
+      let(:id2) { 2 }
 
       before do
         allow(object_term1).to receive(:i18n_name) { object_name1 }
         allow(object_term2).to receive(:i18n_name) { object_name2 }
+        allow(object_term1).to receive(:eol_id) { id1 }
+        allow(object_term2).to receive(:eol_id) { id2 }
+        allow(object_term3).to receive(:eol_id) { id2 }
         allow(trait1).to receive(:object_term) { object_term1 }
         allow(trait2).to receive(:object_term) { object_term2 }
         allow(trait3).to receive(:object_term) { nil }
+        allow(trait4).to receive(:object_term) { object_term3 }
         allow(trait3).to receive(:literal) { literal }
+        allow(trait1).to receive(:predicate) { pred1 }
+        allow(trait2).to receive(:predicate) { pred2 }
+        allow(trait3).to receive(:predicate) { pred3 }
         allow(tagger).to receive(:tag).with(object_name1, predicate, object_term1, nil) { '<tag>object1</tag>' }
         allow(tagger).to receive(:tag).with(object_name2, predicate, object_term2, nil) { '<tag>object2</tag>' }
+        allow(tagger).to receive(:tag).with(object_name1, pred1, object_term1, nil) { '<tag>object1</tag>' }
+        allow(tagger).to receive(:tag).with(object_name2, pred2, object_term2, nil) { '<tag>object2</tag>' }
       end
 
-      it { expect(helper.trait_vals_to_sentence(traits, predicate)).to eq('<tag>object1</tag>, <tag>object2</tag>, and object3') }
+      context 'when predicate parameter is passed and present' do
+        it { expect(helper.trait_vals_to_sentence(traits, predicate)).to eq(expected) }
+      end
 
-      # TODO: you were here, finish spec.
+      context 'when predicate parameter is passed and nil' do
+        it { expect(helper.trait_vals_to_sentence(traits, nil)).to eq(expected) }
+      end
+
+      context 'when predicate parameter is not passed' do
+        it { expect(helper.trait_vals_to_sentence(traits)).to eq(expected) }
+      end
     end
 
     context 'when not traits.any?' do
@@ -243,10 +271,6 @@ RSpec.describe('BriefSummary::Sentences::Helper') do
 
       it { expect(helper.trait_vals_to_sentence([], predicate)).to eq('') }
 
-    end
-
-    context 'when predicate is nil' do
-      it { expect { helper.trait_vals_to_sentence([], nil) }.to raise_error(TypeError) }
     end
   end
 

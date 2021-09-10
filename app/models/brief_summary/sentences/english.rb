@@ -363,8 +363,9 @@ class BriefSummary
         sentence = nil
 
         if matches.has_type?(:c)
-          match = matches.first_of_type(:c)
-          sentence = @helper.add_trait_val_to_fmt('They rely on %s to move around.', match.trait)
+          type_matches = matches.by_type(:c)
+          value_part = @helper.trait_vals_to_sentence(type_matches.map(&:trait))
+          sentence = "They rely on #{value_part} to move around."
         elsif matches.has_type?(:a) && matches.has_type?(:b)
           a_match = matches.first_of_type(:a)
           b_match = matches.first_of_type(:b)
