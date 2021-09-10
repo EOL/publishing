@@ -1103,7 +1103,6 @@ RSpec.describe('BriefSummary::Sentences::English') do
     end
 
     def build_match
-      
       match
     end
 

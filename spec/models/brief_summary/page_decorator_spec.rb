@@ -81,7 +81,7 @@ RSpec.describe('BriefSummary::PageDecorator') do
     let(:predicate) { instance_double('TermNode') }
     let(:traits) { instance_double('Array') }
 
-    before { allow(page).to receive(:traits_for_predicate).with(predicate) { traits } }
+    before { allow(page).to receive(:traits_for_predicate).with(predicate, exclude_hidden_from_overview: true) { traits } }
 
     it { expect(decorator.traits_for_predicate(predicate)).to eq(traits) }
   end
@@ -91,7 +91,7 @@ RSpec.describe('BriefSummary::PageDecorator') do
     predicate = instance_double('TermNode')
 
     allow(term_node).to receive(:find_by_alias).with('native_range') { predicate }
-    allow(page).to receive(:traits_for_predicate).with(predicate) { traits }
+    allow(page).to receive(:traits_for_predicate).with(predicate, exclude_hidden_from_overview: true) { traits }
   end
 
   describe '#native_range_traits' do
@@ -430,7 +430,8 @@ RSpec.describe('BriefSummary::PageDecorator') do
 
       context 'when extant trait is present' do
         before do
-          allow(page).to receive(:first_trait_for_object_terms).with([extant_obj], match_object_descendants: true) { extant_trait }
+          allow(page).to receive(:first_trait_for_object_terms)
+            .with([extant_obj], match_object_descendants: true) { extant_trait }
         end
 
         it { expect(decorator.extinct?).to eq(false) }
@@ -581,7 +582,6 @@ RSpec.describe('BriefSummary::PageDecorator') do
   end
 
   describe '#greatest_value_size_trait' do
-
     def build_trait(measurement, units)
       trait = instance_double('Trait')
       allow(trait).to receive(:normal_measurement) { measurement }
@@ -667,7 +667,8 @@ RSpec.describe('BriefSummary::PageDecorator') do
     end
 
     def set_trait_for_predicate(predicate, trait)
-      allow(page).to receive(:first_trait_for_predicate).with(predicate, exact_predicate: true) { trait }
+      allow(page).to receive(:first_trait_for_predicate)
+        .with(predicate, exclude_hidden_from_overview: true, exact_predicate: true) { trait }
     end
 
     context 'when page has traits for both predicates' do
@@ -719,6 +720,7 @@ RSpec.describe('BriefSummary::PageDecorator') do
       allow(page).to receive(:traits_for_predicate).with(
         predicate,
         exact_predicate: true,
+        exclude_hidden_from_overview: true,
         includes: [:predicate, :object_term, :lifestage_term]
       ) { traits }
     end
@@ -826,7 +828,7 @@ RSpec.describe('BriefSummary::PageDecorator') do
 
     before do
       allow(term_node).to receive(:find_by_alias).with('reproduction') { predicate }
-      allow(page).to receive(:traits_for_predicate).with(predicate) { traits }
+      allow(page).to receive(:traits_for_predicate).with(predicate, exclude_hidden_from_overview: true) { traits }
       allow(matcher).to receive(:match_all).with(traits) { matches }
     end
 

@@ -116,7 +116,7 @@ class BriefSummary
 
     def extinct_trait
       unless @extinct_checked
-        @extinct_trait = first_trait_for_object_terms([TermNode.find_by_alias('iucn_ex')])
+        @extinct_trait = @page.first_trait_for_object_terms([TermNode.find_by_alias('iucn_ex')])
         @extinct_checked = true
       end
 
@@ -125,7 +125,8 @@ class BriefSummary
 
     def extant_trait
       unless @extant_checked
-        @extant_trait = first_trait_for_object_terms([TermNode.find_by_alias('extant')], match_object_descendants: true)
+        # bypass decorator first_trait_for_object_terms since that adds the exclude_hidden_from_overview option
+        @extant_trait = @page.first_trait_for_object_terms([TermNode.find_by_alias('extant')], match_object_descendants: true)
         @extant_checked = true
       end
 
@@ -149,7 +150,7 @@ class BriefSummary
     end
 
     def freshwater_trait
-      @freshwater_trait ||= first_trait_for_object_terms([TermNode.find_by_alias('freshwater')])
+      @freshwater_trait ||= @page.first_trait_for_object_terms([TermNode.find_by_alias('freshwater')])
     end
 
     def first_trait_for_predicate(predicate, options = {})
@@ -171,8 +172,8 @@ class BriefSummary
     end
 
     def greatest_value_size_trait
-      size_traits = traits_for_predicate(TermNode.find_by_alias('body_mass'), includes: [:units_term])
-      size_traits = traits_for_predicate(TermNode.find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
+      size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_mass'), includes: [:units_term])
+      size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
 
       greatest_value_trait = nil
 
