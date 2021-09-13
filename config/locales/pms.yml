@@ -400,6 +400,7 @@ pms:
     q33120: Buryat
     q35037: Businenge Tongo
     q880301: Fransèis cajun
+    q2937525: Capisnon
     q35156: Car
     q2591230: Cashinahua
     ca: Catalan; Valensian
@@ -425,11 +426,13 @@ pms:
     hr: Croat
     hrv: Croat
     cs: Cech
+    q32238: Dagbani
     da: Danèis
     q3362072: Digo
     q56466: Dinka
     dv: Divehi; Dhivehi; Maldivian
     q18415595: Dotyali
+    q33013: Duala
     dut: Olandèis; Flamand
     nl: olandèis; flamand
     dz: Dzongkha
@@ -507,6 +510,8 @@ pms:
     q33690: Kashubian
     kk: Kasach
     ki: Kikuyu; Gikuyu
+    q33656: Kildin Sami
+    q33720: Kinaray-a
     q11005332: Kinga
     q11732519: Kingindo
     rw: kinyarwanda
@@ -553,6 +558,7 @@ pms:
     mh: marshalèis
     q6786446: Matengo
     q3906614: Meadow Mari
+    q13357: Meänkieli
     q13358: Rumen Megleno
     q13313: Meru
     q13321: Mi’kmaq
@@ -594,6 +600,7 @@ pms:
     or: oriya
     om: oromo
     os: osset
+    q715755: Paiwan
     pi: pali
     pa: Punjabi
     q36403: Pare
@@ -626,6 +633,7 @@ pms:
     sc: sard
     q845441: Sard sassarèis
     q14549: Scossèis
+    q716686: Seediq
     sr: serb
     q3788739: Shambala
     q56482: Shan
@@ -701,6 +709,7 @@ pms:
     q237409: Zelandèis
     za: zhuang; chuang
     zu: zulù
+    Q33219: Banyumasan
   layout_sign_in: Rintré ant ël sistema
   layout_sign_up: Anscriv-se
   layout_sign_out: Seurte dal sistema
@@ -1923,9 +1932,24 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: perìod
           criogenian
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: crioseul
+        http://eol(dot)org/schema/terms/cuneiform: a forma 'd cun-i
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: maré d'arsipress
+        http://eol(dot)org/schema/terms/dahllite: dahlit
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: prodot dël làit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003862: prodot dël làit (ambient
+          micròbich)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: dambo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: età danian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: età
+          dapingian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Darriwilian: età
+          darriwilian-a
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: di
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: mòrt
+        http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: rumenta
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: àcid decanoid
+        https://eol(dot)org/schema/terms/decapod_feeder: as nuriss ëd decapòd
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: precaria
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualità degradà
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: strusiant

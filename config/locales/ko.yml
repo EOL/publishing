@@ -336,6 +336,9 @@ ko:
     id_space:
       headers:
         id_format: ID 포맷
+    property_settings:
+      limit:
+        label: 제한
     schema_space:
       headers:
         id: ID

@@ -195,6 +195,9 @@ fi:
   data_missing: '(tietoja puuttuu, avaimet: %{keys})'
   dear_username_with_comma: Hyvä %{username},
   delete_account_button: Poista käyttäjätunnuksesi
+  errors:
+    internal_server: Sisäinen palvelinvirhe (500)
+    not_found: Sivua ei löytynyt (404)
   filter_by_license: lisenssi
   filter_by_license_any_item: kaikki lisenssit
   filter_by_medium_subtype: tyyppi
@@ -361,6 +364,7 @@ fi:
     ks: Kašmiri
     kk: Kazakki
     ki: Kikuju
+    q33656: Kiltinänsaame
     rw: Ruanda
     ky: Kirgiisi
     kv: Komi
