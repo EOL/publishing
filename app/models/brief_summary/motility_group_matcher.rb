@@ -26,7 +26,24 @@ class BriefSummary
         "http://purl.obolibrary.org/obo/NBO_0000364",
         "http://purl.obolibrary.org/obo/NBO_0000370",
         "http://purl.obolibrary.org/obo/NBO_0000369",
-        "http://purl.obolibrary.org/obo/NBO_0000055"
+        "http://purl.obolibrary.org/obo/NBO_0000055",
+        "http://purl.obolibrary.org/obo/GO_0036268",
+        "https://eol.org/schema/terms/anal_dorsal_fins",
+        "https://eol.org/schema/terms/anal_fin",
+        "https://eol.org/schema/terms/anguilliform",
+        "https://eol.org/schema/terms/body_caudal_fin",
+        "https://eol.org/schema/terms/carangiform",
+        "https://eol.org/schema/terms/carcharhiniform",
+        "https://eol.org/schema/terms/dorsal_fin",
+        "https://eol.org/schema/terms/dorsoventral_undulatory",
+        "https://eol.org/schema/terms/drag_based_swimming",
+        "https://eol.org/schema/terms/lift_based_swimming",
+        "https://eol.org/schema/terms/median_paired_fin",
+        "https://eol.org/schema/terms/ostraciiform",
+        "https://eol.org/schema/terms/pectoral_fins",
+        "https://eol.org/schema/terms/pectoral_oscillation",
+        "https://eol.org/schema/terms/subcarangiform",
+        "https://eol.org/schema/terms/thunniform",
       ]
     })
 
