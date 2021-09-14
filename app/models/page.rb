@@ -512,14 +512,14 @@ class Page < ApplicationRecord
       .map { |t| [t.id, t] }
       .to_h
 
-    tb_result.map do |row| 
-      trait = traits_by_id[row[:trait_pk]]
+    result = {}
 
-      [
-        row[:predicate],
-        trait
-      ]
-    end.to_h
+    tb_result.each do |row| 
+      trait = traits_by_id[row[:trait_pk]]
+      result[row[:predicate]] = trait if trait
+    end
+
+    result
   end
 
   def has_data?

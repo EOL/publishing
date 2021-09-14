@@ -1,3 +1,5 @@
+require 'set'
+
 class BriefSummary
   module Sentences
     class Helper
@@ -53,16 +55,21 @@ class BriefSummary
         end
       end
 
-      def trait_vals_to_sentence(traits, predicate)
-        raise TypeError, "predicate can't be nil" if predicate.nil? 
+      def trait_vals_to_sentence(traits, predicate = nil)
+        seen_object_term_ids = Set.new
 
         traits.map do |trait|
           if trait.object_term
-            @tagger.tag(trait.object_term.i18n_name, predicate, trait.object_term, nil)
+            next nil if seen_object_term_ids.include?(trait.object_term.eol_id)
+
+            seen_object_term_ids.add(trait.object_term.eol_id)
+            tag_predicate = predicate.nil? ? trait.predicate : predicate
+
+            @tagger.tag(trait.object_term.i18n_name, tag_predicate, trait.object_term, nil)
           else
             trait.literal
           end
-        end.to_sentence
+        end.compact.to_sentence
       end
 
       def toggle_id(predicate, term, source)

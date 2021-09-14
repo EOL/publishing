@@ -1103,23 +1103,47 @@ RSpec.describe('BriefSummary::Sentences::English') do
     end
 
     def build_match
-      
       match
     end
 
     context 'when there are c-type matches' do
-      let(:match) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
-      let(:trait) { instance_double('Trait') }
-      let(:expected) { 'They rely on <motility> to move around.' }
+      let(:match1) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:trait1) { instance_double('Trait') }
+      let(:match2) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:trait2) { instance_double('Trait') }
+      let(:match3) { instance_double('BriefSummary::ObjUriGroupMatcher::Match') }
+      let(:trait3) { instance_double('Trait') }
 
       before do
-        allow(match).to receive(:trait) { trait }
-        allow(matches).to receive(:has_type?).with(:c) { true }
-        allow(matches).to receive(:first_of_type).with(:c) { match }
-        allow(helper).to receive(:add_trait_val_to_fmt).with('They rely on %s to move around.', trait) { expected }
+        allow(helper).to receive(:add_trait_val_to_fmt).with('%s', trait1) { h }
+        allow(match1).to receive(:trait) { trait1 }
+        allow(match2).to receive(:trait) { trait2 }
+        allow(match3).to receive(:trait) { trait3 }
       end
 
-      it { expect(sentences.motility.value).to eq(expected) }
+      context 'when there is one c-type match' do
+        let(:expected) { 'They rely on <motility> to move around.' }
+
+        before do
+          allow(matches).to receive(:has_type?).with(:c) { true }
+          allow(matches).to receive(:by_type).with(:c) { [match1] }
+          allow(helper).to receive(:trait_vals_to_sentence).with([trait1]) { '<motility>' }
+        end
+
+        it { expect(sentences.motility.value).to eq(expected) }
+      end
+
+      context 'when there are multiple c-type matches' do
+        let(:expected) { 'They rely on <motility1>, <motility2>, and <motility3> to move around.' }
+
+        before do
+          allow(matches).to receive(:has_type?).with(:c) { true }
+          allow(matches).to receive(:by_type).with(:c) { [match1, match2, match3] }
+          allow(helper).to receive(:trait_vals_to_sentence).with([trait1, trait2, trait3]) { '<motility1>, <motility2>, and <motility3>' }
+        end
+
+        it { expect(sentences.motility.value).to eq(expected) }
+      end
     end
 
     context 'when there are a and b-type matches' do

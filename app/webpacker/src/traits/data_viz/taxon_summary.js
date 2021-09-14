@@ -23,7 +23,9 @@ window.TaxonSummaryViz = (function(exports) {
 
     filterText = $viz.data('prompt');
     root = pack(data);
-    focus = root;
+
+    const initFocusIsRoot = root.children.length > 1;
+    focus = initFocusIsRoot ? root : root.children[0]
 
     d3.select($viz[0])
       .style('width', `${width}px`)
@@ -42,9 +44,6 @@ window.TaxonSummaryViz = (function(exports) {
       .style('margin', '0 auto')
       .style('display', 'block')
       .style('background', bgColor)
-      .style('cursor', 'pointer')
-      .on('click', (e, d) => zoom(root))
-      ;
 
     node = svg.append('g')
       .selectAll('circle')
@@ -53,6 +52,14 @@ window.TaxonSummaryViz = (function(exports) {
         .attr('fill', d => d.children ? outerCircColor : innerCircColor)
         .on('click', handleNodeClick)
         ;
+
+    if (initFocusIsRoot) {
+      svg
+        .on('click', (e, d) => zoom(root))
+        .style('cursor', 'pointer')
+    } else {
+      node.style('cursor', 'pointer');
+    }
 
     label = svg.append('g')
       .style('font',  '12px sans-serif')
@@ -76,18 +83,21 @@ window.TaxonSummaryViz = (function(exports) {
       .attr('dy', -labelTspanOffset)
       .text(d => `(${d.data.count})`);
 
-    outerFilterPrompt = d3.select($viz[0])
-      .append('button')
-      .style('position', 'absolute')
-      .style('top', '5px')
-      .style('right', '5px')
-      .style('text-anchor', 'end')
-      .style('padding', '2px 4px')
-      .style('font', 'bold 14px sans-serif')
-      .style('display', 'none')
-      .style('cursor', 'pointer');
+    if (initFocusIsRoot) {
+      outerFilterPrompt = d3.select($viz[0])
+        .append('button')
+        .style('position', 'absolute')
+        .style('top', '5px')
+        .style('right', '5px')
+        .style('text-anchor', 'end')
+        .style('padding', '2px 4px')
+        .style('font', 'bold 14px sans-serif')
+        .style('display', 'none')
+        .style('cursor', 'pointer');
+    }
 
-    zoomTo([root.x, root.y, root.r * 2]);
+    zoomTo(zoomCoords(focus));
+    styleLabelsForZoom();
   }
   exports.build = build;
 
@@ -103,21 +113,31 @@ window.TaxonSummaryViz = (function(exports) {
   function zoom(d) {
     focus = d;
 
-    if (focus !== root && focus.children) {
-      outerFilterPrompt.html(focus.data.promptText);
-      outerFilterPrompt.style('display', 'block');
-      outerFilterPrompt.on('click', () => window.location = d.data.searchPath);
-    } else {
-      outerFilterPrompt.style('display', 'none');
+    if (outerFilterPrompt) {
+      if (focus !== root && focus.children) {
+        outerFilterPrompt.html(focus.data.promptText);
+        outerFilterPrompt.style('display', 'block');
+        outerFilterPrompt.on('click', () => window.location = d.data.searchPath);
+      } else {
+        outerFilterPrompt.style('display', 'none');
+      }
     }
 
     const transition = svg.transition()
         .duration(750)
         .tween("zoom", d => {
-          const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
+          const i = d3.interpolateZoom(view, zoomCoords(focus));
           return t => zoomTo(i(t));
         });
 
+    styleLabelsForZoom();
+  }
+
+  function zoomCoords(node) {
+    return [node.x, node.y, node.r * 2];
+  }
+
+  function styleLabelsForZoom() {
     label
       .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
       .style('fill-opacity', d => d.parent === focus ? 1 : 0)
