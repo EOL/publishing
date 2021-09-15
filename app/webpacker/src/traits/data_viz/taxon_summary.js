@@ -1,3 +1,5 @@
+import * as d3 from 'd3'
+
 window.TaxonSummaryViz = (function(exports) {
   const width = 800
       , height = 800
@@ -8,13 +10,15 @@ window.TaxonSummaryViz = (function(exports) {
       , labelTspanOffset = 13
       ;
 
-  let view;
-  let root;
-  let focus;
-  let node;
-  let label;
-  let svg;
-  let filterText
+  let view
+    , root
+    , focus
+    , node
+    , label
+    , svg
+    , filterText
+    , outerFilterPrompt
+    ;
 
   function build($contain) {
     const $viz = $contain.find('.js-taxon-summary')
@@ -211,13 +215,15 @@ window.TaxonSummaryViz = (function(exports) {
   }
 
   function nodeTransform(d, v, k) {
+    let x, y;
+
     // layout is better with child nodes rotated 90 deg. about center of parent circle
     if (!d.children) {
-      parentX = transformCoord(d.parent.x, v[0], k);
-      parentY = transformCoord(d.parent.y, v[1], k);
+      const parentX = transformCoord(d.parent.x, v[0], k);
+      const parentY = transformCoord(d.parent.y, v[1], k);
 
-      xNew = transformCoord(d.x, v[0], k);
-      yNew = transformCoord(d.y, v[1], k);
+      const xNew = transformCoord(d.x, v[0], k);
+      const yNew = transformCoord(d.y, v[1], k);
 
       x = yNew - parentY + parentX;
       y = xNew - parentX + parentY;

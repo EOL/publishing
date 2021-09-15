@@ -1,3 +1,6 @@
+import * as d3 from 'd3'
+import * as d3Sankey from 'd3-sankey'
+
 // copied from/based on https://observablehq.com/@d3/parallel-sets"
 window.Sankey = (function(exports) {
   exports.build = function($contain) {
@@ -19,7 +22,7 @@ window.Sankey = (function(exports) {
     , height = maxAxisNodes > shortHeightCutoffNodes ? fullHeight : shortHeight
     ;
 
-    const sankey = d3.sankey()
+    const sankey = d3Sankey()
       .nodeWidth(15)
       .nodePadding(25)
       .extent([[0, 5], [width, height - 20]])

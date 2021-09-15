@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 $(function() {
   function createViz($trophicWeb) {
     var sitePrefix = ''; //"https://beta.eol.org";
