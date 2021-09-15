@@ -1309,7 +1309,7 @@ en:
       sample_size: "Sample size"
       scientific_name: "Scientific name"
       source: "Source"
-    search:
+    search_results:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"
       edit_filters: "edit filters"
@@ -1332,14 +1332,15 @@ en:
       result_header_taxa_notaxa: "Showing %{range_begin} - %{range_end} of %{total}"
       result_header_records_notaxa: "Showing %{range_begin} - %{range_end} of %{total} records for %{page_count}"
       new_search: "new search"
+      show_query: "show query"
+      switch_to_list: "switch to list view"
+      switch_to_gallery: "switch to gallery view"
+    search:
       select:
         child_term: "select a child term (optional)"
         top_level:
           object_term: "or select a value"
           predicate: "or select an attribute"
-      show_query: "show query"
-      switch_to_list: "switch to list view"
-      switch_to_gallery: "switch to gallery view"
     search_form:
       attribute: "attribute"
       attribute_eg: "attribute (e.g.: trophic level)"

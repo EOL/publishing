@@ -265,10 +265,6 @@ import '../src/traits/data_viz'
   }
 
   $(function() {
-    $('.js-edit-filters').click(function() {
-      $('.js-filter-form-contain').removeClass('is-hidden');
-      $('.js-filter-list').addClass('is-hidden');
-    });
     $('.show-raw-query').click(function() {
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
