@@ -59,8 +59,6 @@
     - %w[api search sticky dimmer dropdown transition].each do |name|
       = javascript_include_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.js"
     - if Rails.env.staging? || Rails.env.production?
-      -#TODO: investigate -- is it necessary?
-      = javascript_include_tag "https://edge.quantserve.com/quant.js"
       %script{async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-3298646-10"}
       :javascript
         window.dataLayer = window.dataLayer || [];
