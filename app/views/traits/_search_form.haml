@@ -14,7 +14,7 @@
         %li.filter.uk-form-row
           - if f.object.filters.length > 1
             .l-filter-first.filter-icon
-              .js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
+              .remove-filter.js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
             
           .filter-fields
             = render 'filter_field', field_name: 'predicate', placeholder: t(".attribute_eg"), ff: ff, term_for_name_field: ff.object.root_predicate.present? ? ff.object.root_predicate : ff.object.predicate, nested_selects: true
