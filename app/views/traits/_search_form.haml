@@ -5,9 +5,7 @@
         - @query.errors.full_messages_for(:base).each do |e|
           %li= e
 
-    .input-field.js-typeahead-wrap
-      = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".clade_filter_placeholder")
-      = f.hidden_field :clade_id, :class => "js-typeahead-field"
+    = render 'search_input', f: f, text_field_name: 'clade_name', val: f.object.clade&.native_node&.canonical_form, typeahead_class: 'js-clade-typeahead', placeholder: t('.clade_filter_placeholder'), id_field_name: 'clade_id'
 
     -#
       .filters-label trait filters

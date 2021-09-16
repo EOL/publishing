@@ -20,9 +20,29 @@ h1 {
 }
 
 .input-field {
+  position: relative;
   width: 100%;
 
   &>span {
+    width: 100%;
+
+    &>input {
+      padding-right: 30px;
+    }
+  }
+
+  & > .clear-field {
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    width: auto;
+  }
+
+  & .tt-menu {
+    border: 1px solid $light-gray;
+    max-height: 300px;
+    overflow-y: auto;
     width: 100%;
   }
 }
@@ -95,21 +115,6 @@ h1 {
   top: -15px;
   white-space: nowrap;
   width: 100%;
-}
-
-.filter-field {
-  position: relative;
-
-  & > span {
-    width: 100%;
-  }
-
-  & .tt-menu {
-    border: 1px solid $light-gray;
-    max-height: 300px;
-    overflow-y: auto;
-    width: 100%;
-  }
 }
 
 .filter-field-radio {

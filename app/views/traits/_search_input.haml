@@ -1,0 +1,5 @@
+.input-field.js-typeahead-wrap
+  = text_field_tag text_field_name, val, class: ['uk-input', 'js-typeahead', typeahead_class], placeholder: placeholder, data: local_assigns.fetch(:typeahead_data, nil)
+  = f.hidden_field id_field_name, class: ['js-typeahead-field', local_assigns.fetch(:id_field_class, nil)]
+  %span.clear-field.js-clear-field{ :class => val.blank? ? 'uk-hidden' : '', :'uk-icon' => 'close' }
+  = yield
