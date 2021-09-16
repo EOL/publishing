@@ -89,6 +89,7 @@ Rails.application.routes.draw do
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
       get 'republish'
+      get 'clean_republish'
       get 'reindex'
       get 'fix_no_names'
       get 'dashboard', on: :collection

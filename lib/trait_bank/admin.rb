@@ -69,6 +69,37 @@ module TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
+      def remove_all_traits_for_resource(resource)
+        remove_most_metadata_relationships(resource.id)
+        remove_with_query(
+          name: :meta,
+          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        remove_with_query(
+          name: :rel,
+          q: "()-[rel:inferred_trait]-(:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        remove_with_query(
+          name: :trait,
+          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        Rails.cache.clear # Sorry, this is easiest. :|
+      end
+
+      def remove_non_trait_content_for_resource(resource)
+        # 'external' metadata
+        remove_with_query(
+          name: :meta,
+          q: "(meta:MetaData)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+
+        remove_with_query(
+          name: :vernacular,
+          q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        Rails.cache.clear # Sorry, this is easiest. :|
+      end
+
       def remove_for_resource(resource)
         remove_most_metadata_relationships(resource.id)
         remove_with_query(
@@ -91,7 +122,6 @@ module TraitBank
           name: :vernacular,
           q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
-        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       def remove_most_metadata_relationships(resource_id)
@@ -118,6 +148,18 @@ module TraitBank
         # Now that metadata no longer has a relationship to the resource, making it very hard to delete.
         # We remove it here to avoid having to try.
         TraitBank.query(%Q{MATCH (meta:MetaData {eol_pk: '#{id}'}) DETACH DELETE meta;})
+      end
+
+      def remove_trait_and_metadata(eol_pk)
+        ActiveGraph::Base.query(
+          'MATCH (t:Trait{ eol_pk: $eol_pk })-[:metadata]->(m:MetaData) DETACH DELETE m',
+          eol_pk: eol_pk
+        )
+
+        ActiveGraph::Base.query(
+          'MATCH (t:Trait{ eol_pk: $eol_pk }) DETACH DELETE t',
+          eol_pk: eol_pk
+        )
       end
 
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
