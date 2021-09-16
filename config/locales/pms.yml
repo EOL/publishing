@@ -1951,10 +1951,14 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: àcid decanoid
         https://eol(dot)org/schema/terms/decapod_feeder: as nuriss ëd decapòd
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: precaria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: foresta d'erbo ch'a
+          perdo le feuje
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualità degradà
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: strusiant
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: sediment marengh profond
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: gre
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: gre Celsius
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: delta
         http://eol(dot)org/schema/terms/DevelopmentalMode: meud ëd dësvlup
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapàusa
         http://eol(dot)org/schema/terms/DietBreadth: estension dël regim
