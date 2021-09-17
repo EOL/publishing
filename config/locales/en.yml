@@ -1309,7 +1309,7 @@ en:
       sample_size: "Sample size"
       scientific_name: "Scientific name"
       source: "Source"
-    search_hdr: 'TraitBank Search'
+    search_hdr: 'Data Search'
     search_results:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"
