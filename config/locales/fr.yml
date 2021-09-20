@@ -1000,6 +1000,7 @@ fr:
     actions:
       import_traits: importer des traits (du dépôt)
       republish: publier
+      clean_republish: nettoyer la republication
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources

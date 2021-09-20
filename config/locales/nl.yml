@@ -65,6 +65,12 @@ nl:
     types:
       scientific: wetenschappelijk
       vernacular: volksmond
+  brief_summary:
+    extinction:
+      r_genus_html: Het genus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_subgenus_html: Dit subgenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_infragenus_html: Dit infragenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_superspecies_html: Deze supersoort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
   button_create: maken
   button_add: toevoegen
   cancel: annuleren

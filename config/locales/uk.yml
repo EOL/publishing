@@ -984,6 +984,7 @@ uk:
     actions:
       import_traits: імпорт ознак (із сховища)
       republish: переопублікувати
+      clean_republish: чисте перевидання
       reindex: переіндексування
       fix_no_names: виправити НІ ІМЕНІ
       index: повернутися до всіх ресурсів

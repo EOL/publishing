@@ -653,6 +653,7 @@ fi:
   resources:
     actions:
       republish: uudelleenjulkaise
+      clean_republish: puhdas uudelleenjulkaisu
       reindex: uudelleenindeksoi
       index: takaisin kaikkiin resursseihin
       show_all:
