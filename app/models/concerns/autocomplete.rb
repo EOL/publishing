@@ -15,17 +15,26 @@ module Autocomplete
 
     def autocomplete(query, options = {})
       self.assert_autocompletes
-      search body: {
-        suggest: {
-          autocomplete: { # arbitrary name, but expected by SearchController
-            prefix: query,
-            completion: {
-              field: "#{@ac_field_name}_#{I18n.locale}",
-              size: options[:limit] || DEFAULT_AUTOCOMPLETE_LIMIT
+      locale = options[:locale] || I18n.locale
+
+      begin 
+        search body: {
+          suggest: {
+            autocomplete: { # arbitrary name, but expected by SearchController
+              prefix: query,
+              completion: {
+                field: "#{@ac_field_name}_#{locale}",
+                size: options[:limit] || DEFAULT_AUTOCOMPLETE_LIMIT
+              }
             }
           }
         }
-      }
+      rescue Searchkick::InvalidQueryError => e
+        raise e if locale == I18n.default_locale
+
+        logger.warn("Error in autocomplete, possibly due to locale #{locale} missing from index. Retrying with default locale.")
+        return autocomplete(query, options.merge(locale: I18n.default_locale))
+      end
     end
 
     def autocomplete_searchkick_properties

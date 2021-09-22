@@ -1,5 +1,6 @@
 class ResourcesController < ApplicationController
   before_action :require_admin, except: [:index, :show, :by_abbr, :autocomplete]
+  before_action :set_resource, only: [:republish, :clean_republish]
 
   def index
     @resources = Resource.order('updated_at DESC')
@@ -48,10 +49,12 @@ class ResourcesController < ApplicationController
   end
 
   def republish
-    @resource = Resource.find(params[:resource_id])
-    Delayed::Job.enqueue(RepublishJob.new(@resource.id))
-    flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
-    redirect_to @resource
+    republish_helper
+  end
+
+  def clean_republish
+    @resource.update!(last_published_at: nil)
+    republish_helper
   end
 
   def reindex
@@ -81,5 +84,16 @@ class ResourcesController < ApplicationController
     @top_cpu = `ps aux | sort -nrk 3,3 | head -n 3`.split(/\n/)
     @queue_count = Delayed::Job.count
     @queue = Delayed::Job.all.limit(16)
+  end
+
+  private
+  def republish_helper
+    Delayed::Job.enqueue(RepublishJob.new(@resource.id))
+    flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
+    redirect_to @resource
+  end
+
+  def set_resource
+    @resource = Resource.find(params[:resource_id])
   end
 end
