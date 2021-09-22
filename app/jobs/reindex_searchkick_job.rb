@@ -2,7 +2,7 @@
 class ReindexSearchkickJob < ApplicationJob
   def perform
     Rails.logger.warn("START ReindexSearchkickJob")
-    Page.reindex(async: {wait: true}, resume: true)
+    Page::Reindexer.reindex
     Rails.logger.warn("END ReindexSearchkickJob.")
   end
 end

@@ -1,16 +1,16 @@
 # Reindex the pages in a resumable way.
 # nohup rails r "Page::Reindexer.reindex" > log/reindex.log 2>&1 &
 # OR (for JUST pages, the log will go to /app/log/es_page_reindex.log automatically)
-# rails r "Page::Reindexer.background_reindex"
+# rails r "Page::Reindexer.background_reindex_pages"
 class Page::Reindexer
   # NOTE: There were instance methods here to *manually* reindex things and "watch" the progress. I've removed them. If
   # you want to see them again, checkout 69b3076fa15c880daff673a45e073eb22d026371
   class << self
     def reindex
-      Page.reindex(async: true, refresh_interval: '60s')
+      TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
       Resource.reindex(async: {wait: true}, refresh_interval: '60s')
       User.reindex(async: {wait: true}, refresh_interval: '60s')
-      TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
+      background_reindex_pages
     end
 
     # Simply Page::Reindexer.resume_reindex
@@ -18,9 +18,11 @@ class Page::Reindexer
       Page.reindex(async: true, resume: true, refresh_interval: '60s')
     end
 
-    def background_reindex
+    def background_reindex_pages
       path = Rails.root.join('log', 'es_page_reindex.log')
-      `nohup rails r 'Page.reindex(async: {wait: true}, resume: true)' > #{path} 2>&1 &`
+      cmd = 'Page.reindex(async: {wait: true}, resume: true)'
+      rescue_cmd = 'Page.reindex(async: true, refresh_interval: "60s")'
+      `nohup rails r '#{cmd} rescue #{rescue_cmd}' > #{path} 2>&1 &`
     end
 
     def promote_background_index(force = false)

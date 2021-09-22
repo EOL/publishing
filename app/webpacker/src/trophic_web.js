@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 $(function() {
   function createViz($trophicWeb) {
     var sitePrefix = ''; //"https://beta.eol.org";
@@ -352,10 +354,10 @@ $(function() {
     }
 
     function calculatePositions() {
-      width = $container.width();
-      height = $container.height();
-      sourceX = (width - 100) / 2;
-      sourceY = height / 2;
+      const width = $container.width();
+      const height = $container.height();
+      const sourceX = (width - 100) / 2;
+      const sourceY = height / 2;
 
       s.attr("width", width)
        .attr("height", height);
@@ -363,9 +365,9 @@ $(function() {
       svg.attr("width", width)
          .attr("height", height);  
 
-      sourcePos = [];
-      preyPos = [];
-      predPos = [];
+      const sourcePos = [];
+      const preyPos = [];
+      const predPos = [];
       
       var add, preyAngle, predAngle;
 
@@ -430,7 +432,7 @@ $(function() {
         linksEnter.attr('opacity', 0);
       }
 
-      nodeResult = createNodes(animate);
+      const nodeResult = createNodes(animate);
 
       transition = transition || animate;
 

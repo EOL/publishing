@@ -410,6 +410,7 @@ fr:
     q33120: bouriate
     q35037: ndjuka
     q880301: français cadien
+    q2937525: Capiznon
     q35156: nicobarais car
     q2591230: cashinahua
     ca: catalan ; valencien
@@ -435,11 +436,13 @@ fr:
     hr: Croate
     hrv: croate
     cs: tchèque
+    q32238: Dagbani
     da: danois
     q3362072: digo
     q56466: dinka
     dv: divehi ; maldivien
     q18415595: dotyali
+    q33013: Douala
     dut: néerlandais ; flamand
     nl: néerlandais ; flamand
     dz: dzongkha
@@ -517,6 +520,8 @@ fr:
     q33690: cachoube
     kk: kazakh
     ki: kikuyu ; gikuyu
+    q33656: Same de Kildin
+    q33720: Kinaray-a
     q11005332: kinga
     q11732519: kingindo
     rw: kinyarwanda
@@ -563,6 +568,7 @@ fr:
     mh: marshallais
     q6786446: matengo
     q3906614: mari des prairies
+    q13357: Meänkieli
     q13358: mégléno-roumain
     q13313: mérou
     q13321: Mi’kmaq
@@ -604,6 +610,7 @@ fr:
     or: odiya
     om: oromo
     os: ossète
+    q715755: Paiwan
     pi: pali
     pa: pendjabi
     q36403: asou
@@ -636,6 +643,7 @@ fr:
     sc: sarde
     q845441: sarde sassarais
     q14549: scots
+    q716686: Seediq
     sr: serbe
     q3788739: chambala
     q56482: Shan
@@ -711,6 +719,7 @@ fr:
     q237409: zélandais
     za: zhuang
     zu: zoulou
+    Q33219: Banyumasan
   layout_sign_in: Se connecter
   layout_sign_up: S’inscrire
   layout_sign_out: Déconnexion
@@ -991,6 +1000,7 @@ fr:
     actions:
       import_traits: importer des traits (du dépôt)
       republish: publier
+      clean_republish: nettoyer la republication
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
