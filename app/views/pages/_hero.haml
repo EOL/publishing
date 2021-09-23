@@ -1,6 +1,6 @@
 = link_to @page.medium, :class => "hero-link" do
   .hero{ :class => class_name }
-    = image_tag @page.medium.original_size_url
+    = image_tag @page.medium.large_size_url
     .img-info
       - unless @page.medium.license&.no_copyright?
         %i.copyright.icon
