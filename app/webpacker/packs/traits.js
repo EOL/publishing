@@ -213,8 +213,6 @@ import '../src/traits/data_viz'
     setupTermSelects();
   }
 
-  EOL.onReady(setupForm);
-
   function setupTermSelects() {
     setupTermSelect($('.js-term-select'));
   }
@@ -283,5 +281,6 @@ import '../src/traits/data_viz'
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
     });
+    setupForm();
   });
 })();

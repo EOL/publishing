@@ -1,5 +1,7 @@
+import { Routes } from './routes.js.erb'
+
 if (!window.EOL) {
-  EOL = {};
+  window.EOL = {};
 
 
   var eolReadyCbs = [];
@@ -422,4 +424,5 @@ if (!window.EOL) {
   };
 }
 
-$(document).on("ready page:load page:change", EOL.ready);
+$(EOL.ready);
+
