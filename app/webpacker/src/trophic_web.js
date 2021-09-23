@@ -365,9 +365,9 @@ $(function() {
       svg.attr("width", width)
          .attr("height", height);  
 
-      const sourcePos = [];
-      const preyPos = [];
-      const predPos = [];
+      sourcePos = [];
+      preyPos = [];
+      predPos = [];
       
       var add, preyAngle, predAngle;
 
