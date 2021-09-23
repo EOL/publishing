@@ -36,6 +36,8 @@ $(function() {
       , sourceY
       , radius = 6
       , source_radius = 30
+      , width
+      , height
       ;
       
     //node colors
@@ -354,10 +356,10 @@ $(function() {
     }
 
     function calculatePositions() {
-      const width = $container.width();
-      const height = $container.height();
-      const sourceX = (width - 100) / 2;
-      const sourceY = height / 2;
+      width = $container.width();
+      height = $container.height();
+      sourceX = (width - 100) / 2;
+      sourceY = height / 2;
 
       s.attr("width", width)
        .attr("height", height);
