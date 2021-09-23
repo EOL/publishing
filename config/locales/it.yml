@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
 # Author: Beta16
+# Author: ElisaPaglia
 # Author: G313
 # Author: JackLantern
 # Author: Lorem Ipsum
@@ -61,6 +62,29 @@ it:
     types:
       scientific: scientifico
       vernacular: vernacolare
+  brief_summary:
+    extinction:
+      r_genus_html: Questo genere è <span class='%{class_str}' id='%{id}'>estinto</span>.
+      r_subgenus_html: Questo sottogenere è <span class='%{class_str}' id='%{id}'>estinto</span>.
+      r_infragenus_html: Questo infragenus è <span class='%{class_str}' id='%{id}'>estinto</span>.
+      r_superspecies_html: Questa superspecie è <span class='%{class_str}' id='%{id}'>estinta</span>.
+      r_species_html: Questa specie è <span class='%{class_str}' id='%{id}'>estinta</span>.
+      r_subspecies_html: Questa sottospecia è <span class='%{class_str}' id='%{id}'>estinta</span>.
+      r_infraspecies_html: Questa infraspecies è <span class='%{class_str}' id='%{id}'>estinta</span>.
+      r_form_html: Questa form è <span class='%{class_str}' id='%{id}'>estinta</span>.
+    fix_nitrogen_html: Essi <span class='%{class_str}' id='%{predicate_id}'>fissano</span>
+      <span class='%{class_str}' id='%{object_id}'>azoto</span>.
+    freshwater_html: Essi sono associati a <span class='%{class_str}' id='%{id}'>habitat
+      di acqua dolce</span>.
+    marine_html: Si trovano in <span class='%{class_str}' id='%{id}'>habitat marini</span>.
+    species: '%{name1} è una specie di %{name2}.'
+    species_in_family: '%{name1} è una specie del %{name2} della famiglia %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} è una superfamiglia del %{name2}.'
+        r_domain: '%{name1} è un dominio di %{name2}.'
+        r_subdomain: '%{name1} è un subdominio di %{name2}.'
+        r_infradomain: '%{name1} è un infradominio di %{name2}.'
   button_create: crea
   button_add: aggiungi
   cancel: annulla
@@ -857,7 +881,7 @@ it:
       method: Metodo di misurazione
       scientific_name: Nome scientifico
       source: Fonte
-    search:
+    search_results:
       download_tsv: scarica tsv
       edit_filters: modifica filtri
       filter_display:
@@ -870,11 +894,12 @@ it:
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
         sex: 'sesso: %{value}'
       new_search: nuova ricerca
+      switch_to_list: passa alla vista elenco
+    search:
       select:
         top_level:
           object_term: o seleziona un valore
           predicate: o seleziona un attributo
-      switch_to_list: passa alla vista elenco
     search_form:
       attribute: attributo
       search: Cerca

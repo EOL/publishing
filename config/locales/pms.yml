@@ -1353,7 +1353,7 @@ pms:
       sample_size: Taja dël campion
       scientific_name: Nòm sientìfich
       source: Sorgiss
-    search:
+    search_results:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv
       edit_filters: modifiché ij filtr
@@ -1381,14 +1381,15 @@ pms:
       result_header_records_notaxa: Visualisassion dj'argistrassion %{range_begin}
         - %{range_end} su %{total} argistrassion për %{page_count}
       new_search: neuva arserca
+      show_query: smon-e l'arcesta
+      switch_to_list: passé a la visualisassion a lista
+      switch_to_gallery: passé a la visualisassion a galarìa
+    search:
       select:
         child_term: selession na condission fieul (opsional)
         top_level:
           object_term: o selessioné un valor
           predicate: o selessioné n'atribù
-      show_query: smon-e l'arcesta
-      switch_to_list: passé a la visualisassion a lista
-      switch_to_gallery: passé a la visualisassion a galarìa
     search_form:
       attribute: atribù
       attribute_eg: 'atribù (për es.: livel tròfich)'
@@ -1979,10 +1980,15 @@ pms:
         http://eol(dot)org/schema/terms/diandry: diàndrich
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapàusa
         https://eol(dot)org/schema/terms/diatom_feeder: an nuriss ëd diàtom
+        http://eol(dot)org/schema/terms/dielVerticalMigration: migrassion vertical
+          dë 'd di
         http://eol(dot)org/schema/terms/DietBreadth: estension dël regim
         http://eol(dot)org/schema/terms/Diet: ël regim a comprend
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: sistema digestiv
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digital
-        http://eol(dot)org/schema/terms/DiscDiameter: Diàmeter dël disch
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: sulfida ëd dimetil
+        https://eol(dot)org/schema/terms/dioicous: diòich
+        http://eol(dot)org/schema/terms/DiscDiameter: diàmeter dël disch
         http://eol(dot)org/schema/terms/DispersalAge: età dla dispersion
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: àcid docosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: àcid dodecanoid

@@ -1194,7 +1194,7 @@ es:
       sample_size: Tamaño de la muestra
       scientific_name: Nombre científico
       source: Fuente
-    search:
+    search_results:
       clade: 'clado: %{clade}'
       download_tsv: descargar tsv
       edit_filters: editar filtros
@@ -1221,14 +1221,15 @@ es:
       result_header_records_notaxa: Mostrando %{range_begin} - %{range_end} del %{total}
         de los registros para %{page_count}
       new_search: búsqueda nueva
+      show_query: mostrar consulta
+      switch_to_list: cambiar a la vista de lista
+      switch_to_gallery: cambiar a la vista de galería
+    search:
       select:
         child_term: seleccione un término secundario (opcional)
         top_level:
           object_term: o seleccione un valor
           predicate: o seleccione un atributo
-      show_query: mostrar consulta
-      switch_to_list: cambiar a la vista de lista
-      switch_to_gallery: cambiar a la vista de galería
     search_form:
       attribute: atributo
       attribute_eg: 'atributo (p. ej.: nivel trófico)'
@@ -1466,6 +1467,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: presa de castor
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: cera de abeja
         http://eol(dot)org/schema/terms/benthic: béntico
+        https://eol(dot)org/schema/terms/benthic_diatom_feeder: se alimenta de diatomeas
+          bentónicas
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: bianual
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biopelícula
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: Residuos biológicos
@@ -1486,6 +1489,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: lago salobre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: estanque salobre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: agua salobre
+        https://eol(dot)org/schema/terms/brittlestar_feeder: se alimenta de estrellas
+          quebradizas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: amplio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: Bosque de frondosas
         http://eol(dot)org/schema/terms/bromelicolous: bromelias
@@ -1519,8 +1524,12 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volumen de célula
         http://eol(dot)org/schema/terms/CellWidth: Ancho de célula
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: cemento
+        https://eol(dot)org/schema/terms/cephalopod_feeder: se alimenta de cefalópodos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: tiza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: canal
+        http://eol(dot)org/schema/terms/chemosymbiotroph: quimiosimbiotrófico
+        http://eol(dot)org/schema/terms/ciliary_mucus_feeder: se alimenta de moco
+          ciliar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: Ciudad
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: arcilla
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: Sedimento de arcilla
@@ -1532,6 +1541,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://eol(dot)org/schema/terms/cnidaria_feeder: se alimenta de moco ciliar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: Duna costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: Tierra costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: planicie costal
@@ -1554,14 +1564,17 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Arrecife de coral
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: Cosméticos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: sembradío de algodón
+        https://eol(dot)org/schema/terms/crab_feeder: se alimenta de cangrejos
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: arrastrándose
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
+        https://eol(dot)org/schema/terms/crinoid_feeder: se alimenta de crinoideos
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: Cilindro
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: lácteo
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: días
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: Muerto
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: escombros
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: ácido decanoico
+        https://eol(dot)org/schema/terms/decapod_feeder: se alimenta de decápodos
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: deciduo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: Bosque caducifolio
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: calidad disminuida
@@ -1588,6 +1601,7 @@ es:
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: Diámetro
         http://eol(dot)org/schema/terms/diandry: diándrico
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapausa
+        https://eol(dot)org/schema/terms/diatom_feeder: se alimenta de diatomeas
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: Sistema digestivo
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: sulfuro de dimetilo
         http://eol(dot)org/schema/terms/DiscDiameter: diámetro de disco
@@ -1612,11 +1626,14 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: Tinte
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: Temprano
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
+        http://eol(dot)org/schema/terms/echinoderm_feeder: se alimenta de equinodermos
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: Ingeniería de ecosistema
+        https://eol(dot)org/schema/terms/eel_feeder: se alimenta de anguilas
         http://eol(dot)org/schema/terms/eggDensity: Densidad de huevo
         http://eol(dot)org/schema/terms/EggDiameter: diámetro del huevo
         http://eol(dot)org/schema/terms/EggMass: Masa del huevo
         http://eol(dot)org/schema/terms/eggStage: Etapa del huevo
+        https://eol(dot)org/schema/terms/elasmobranch_feeder: se alimenta de elasmobranquios
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: Elevado
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: Elevación
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: elongado
@@ -1624,6 +1641,7 @@ es:
         http://eol(dot)org/schema/terms/endangered: en peligro de extinción
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: Sistema endocrino
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
+        http://eol(dot)org/schema/terms/epifauna_feeder: se alimenta de epifauna
         http://eol(dot)org/schema/terms/excavating: Excavador
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Expuesto
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo externo
@@ -1711,6 +1729,7 @@ es:
           crecimiento
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: zona hadal
+        https://eol(dot)org/schema/terms/hagfish_feeder: se alimenta de peces bruja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: Puerto
         http://eol(dot)org/schema/terms/hardBenthicSubstrate: substrato béntico duro
         https://eol(dot)org/schema/terms/harvested_in: Cosechado en
@@ -1743,6 +1762,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: Colina
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: Miel
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: Horizontal
+        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: se alimenta de cangrejos
+          de herradura
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: Hospital
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: Fuente termal
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0007937: Artículos de casa
@@ -1752,6 +1773,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: Sistema inmunitario
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pulgadas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: Calidad aumentada
+        http://eol(dot)org/schema/terms/infauna_feeder: se alimenta de infauna
         https://eol(dot)org/schema/terms/infection_effect: Efecto de la infección
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: Lago intermitente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000504: estanque intermitente
@@ -1785,6 +1807,8 @@ es:
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/año
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: Mata
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: Especie marina conocida
+        https://eol(dot)org/schema/terms/labile_material_feeder: se alimenta de material
+          lábil
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: Laguna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: Lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: Sedimento de lago
@@ -1844,6 +1868,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
         https://eol(dot)org/schema/terms/microalgae: microalgas
+        https://eol(dot)org/schema/terms/mobile_prey_feeder: se alimenta de presas
+          móviles
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: músculo
         https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/hora
         https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/min
@@ -1852,6 +1878,8 @@ es:
         http://eol(dot)org/schema/terms/no: "no"
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: Ningún cuidado parental
         http://eol(dot)org/schema/terms/noPaternalCare: sin cuidado paternal
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: se alimenta de
+          depósitos no selectivos
         http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: Isla oceánica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: Zona oceánica
@@ -1860,6 +1888,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxígeno
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: porcentaje
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        http://eol(dot)org/schema/terms/phagocytosis: se alimenta por fagocitosis
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautótrofo
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterótrofo
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001060: célula fotorreceptora
@@ -1867,12 +1896,33 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
+        https://eol(dot)org/schema/terms/polychaete_feeder: se alimenta de poliquetos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: estanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: estanque de agua
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posición
+        http://eol(dot)org/schema/terms/predatory_suspension_feeder: se alimenta de
+          presas en suspensión
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: presa de
+        http://eol(dot)org/schema/terms/protozoa_feeder: se alimenta de protozoarios
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: proporción
+        http://eol(dot)org/schema/terms/root_feeder: se alimenta de raíces
+        https://eol(dot)org/schema/terms/sea_urchin_feeder: se alimenta de erizos
+          de mar
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: se alimenta de
+          depósitos selectivos
+        https://eol(dot)org/schema/terms/sessile_prey_feeder: se alimenta de presas
+          sésiles
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://eol(dot)org/schema/terms/sponge_feeder: se alimenta de esponjas
+        https://eol(dot)org/schema/terms/starfish_feeder: se alimenta de estrellas
+          de mar
+        http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: se alimenta de depósitos
+          subterráneos
+        http://eol(dot)org/schema/terms/suspensionFeeder: se alimenta de suspensiones
+        http://eol(dot)org/schema/terms/trophicEcology: ecología trófica
+        https://eol(dot)org/schema/terms/unisexual_flowers: flores unisexuales
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: muy pequeño
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: visita flores de
         http://eol(dot)org/schema/terms/microatmosphere: µatm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
         http://eol(dot)org/schema/terms/µg_cm-2: µg/cm^2
@@ -1892,12 +1942,15 @@ es:
         http://eol(dot)org/schema/terms/pelagic: pelágico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: hielo marino
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: paraneotipo
+        http://eol(dot)org/schema/terms/femaleFlowers: flores femeninas
         http://eol(dot)org/schema/terms/in_bud: en pleno brote
         http://eol(dot)org/schema/terms/juvenileAndOvigerous: juvenil y ovígero
         http://eol(dot)org/schema/terms/larvaAndPupa: larva and pupa
         http://eol(dot)org/schema/terms/maleAndHermaphrodite: macho y hermafrodita
+        http://eol(dot)org/schema/terms/maleFlowers: flores masculinas
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: espora
         http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: etapa de esporoquiste
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: terminal
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007616: etapa de floración
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: pupa
 ...

@@ -601,7 +601,7 @@ cs:
       other: ostatní
     properties:
       scientific_name: Vědecký název
-    search:
+    search_results:
       filter_display:
         sex: 'pohlaví: %{value}'
       new_search: nové hledání

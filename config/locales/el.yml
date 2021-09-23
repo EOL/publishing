@@ -865,7 +865,7 @@ el:
       sample_size: Μέγεθος δείγματος
       scientific_name: Επιστημονική ονομασία
       source: Πηγή
-    search:
+    search_results:
       edit_filters: Επεξεργασία φίλτρου
       filter_display:
         eq: '%{pred} = %{num_val} %{units}'
@@ -878,13 +878,14 @@ el:
         sex: 'φύλο: %{value}'
         statistical_method: 'στατιστική μέθοδος: %{value}'
       new_search: Νέα αναζήτηση
+      show_query: εμφάνιση αναζήτησης
+      switch_to_list: εναλλαγή σε θέαση λίστας
+      switch_to_gallery: Εναλλαγή σε προβολή πλακιδίων
+    search:
       select:
         top_level:
           object_term: ή επιλέξτε μία τιμή
           predicate: ή επιλέξτε μία ιδιότητα
-      show_query: εμφάνιση αναζήτησης
-      switch_to_list: εναλλαγή σε θέαση λίστας
-      switch_to_gallery: Εναλλαγή σε προβολή πλακιδίων
     search_form:
       attribute: Χαρακτηριστικό
       attribute_eg: 'Χαρακτηριστικό (πχ: τροφικό επίπεδο)'

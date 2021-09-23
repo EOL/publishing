@@ -1076,7 +1076,7 @@ pt-BR:
       sample_size: Tamanho da amostra
       scientific_name: Nome científico
       source: Fonte
-    search:
+    search_results:
       clade: 'clado: %{clade}'
       download_tsv: baixar tsv
       edit_filters: editar filtros
@@ -1103,14 +1103,15 @@ pt-BR:
       result_header_records_notaxa: Mostrando %{range_begin}- %{range_end} de %{total}
         registros para %{page_count}
       new_search: nova pesquisa
+      show_query: mostrar consulta
+      switch_to_list: Mude para a lista de visualização
+      switch_to_gallery: Mude para a galeria de visualizações
+    search:
       select:
         child_term: selecione um termo infantil ( opcional)
         top_level:
           object_term: ou selecione um valor
           predicate: ou selecione um atributo.
-      show_query: mostrar consulta
-      switch_to_list: Mude para a lista de visualização
-      switch_to_gallery: Mude para a galeria de visualizações
     search_form:
       attribute: atributo
       attribute_eg: atributo (por exemplo nível trófico)

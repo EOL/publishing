@@ -916,7 +916,7 @@ sv:
     properties:
       scientific_name: Vetenskapligt namn
       source: Källa
-    search:
+    search_results:
       download_tsv: ladda ned tsv
       edit_filters: redigeringsfilter
       filter_display:
@@ -933,6 +933,7 @@ sv:
         för %{page_count} taxa
       result_header_taxa: Visar %{range_begin} - %{range_end} av %{total} taxa
       new_search: ny sökning
+    search:
       select:
         top_level:
           object_term: eller välj ett värde
