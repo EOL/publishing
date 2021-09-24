@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
     post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type
 
-    resources :data, only: [:show]
+    get 'records/:id' => 'data#show', as: :datum
 
     # Putting users second only because they tend to drive a lot of site behavior:
     devise_for :users, controllers: { registrations: "user/registrations", sessions: "user/sessions"}
