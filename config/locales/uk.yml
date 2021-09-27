@@ -1343,6 +1343,7 @@ uk:
       sample_size: Обсяг вибірки
       scientific_name: Наукова назва
       source: Джерело
+    search_hdr: Пошук даних
     search_results:
       clade: 'клада: %{clade}'
       download_tsv: завантажити tsv
