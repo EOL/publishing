@@ -157,7 +157,7 @@ $habitat-chart-trans-width: 1380px;
 .tabs {
   border-top: $border;
   border-bottom: $border;
-  font-size: 11px;
+  font-size: $font-sz-sm;
   height: $tabs-height;
   list-style: none;
   margin: 0 auto;
@@ -190,7 +190,7 @@ $habitat-chart-trans-width: 1380px;
   $padding-tb: 13px;
 
   border-bottom: $border;
-  font-size: 11px;
+  font-size: $font-sz-m;
   line-height: 1.36;
   margin: 0;
   padding: 0 $padding-left-s $padding-tb $padding-left-s;
@@ -203,7 +203,7 @@ $habitat-chart-trans-width: 1380px;
 .sample-traits {
   display: flex;
   flex-wrap: wrap;
-  font-size: $font-sz-sm;
+  font-size: $font-sz-m;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -211,8 +211,9 @@ $habitat-chart-trans-width: 1380px;
   & > li {
     border-bottom: $border;
     border-right: $border;
+    font-size: $font-sz-m;
     flex: 1 0 auto;
-    height: 48px;
+    height: 58px;
     padding: 7px $pad-l-sm;
   }
 }
@@ -346,7 +347,7 @@ div:first-of-type.article {
       $height: $tabs-m-height - 2 * $border-width;
       height: $height;
       line-height: $height;
-      font-size: 14px;
+      font-size: $font-sz-m;
       padding: 0 10px;
     }
   }
@@ -360,7 +361,7 @@ div:first-of-type.article {
 
   .desc {
     $padding-tb: 15px;
-    font-size: 14px;
+    font-size: $font-sz-m;
     padding: 0 $padding-left-m $padding-tb $padding-left-m;
 
     & > p {
@@ -373,7 +374,6 @@ div:first-of-type.article {
 
     & > li {
       padding-left: $pad-l-m;
-      height: 58px;
     }
   }
 
