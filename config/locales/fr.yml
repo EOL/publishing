@@ -5,6 +5,7 @@
 # Author: Ajeje Brazorf
 # Author: Alno
 # Author: Crochet.david
+# Author: DreZhsh
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: JenyxGym
@@ -1372,6 +1373,7 @@ fr:
       sample_size: Taille de l’échantillon
       scientific_name: Nom scientifique
       source: Source
+    search_hdr: Recherche de données
     search_results:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv

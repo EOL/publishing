@@ -1353,6 +1353,7 @@ pms:
       sample_size: Taja dël campion
       scientific_name: Nòm sientìfich
       source: Sorgiss
+    search_hdr: Arserca dij dàit
     search_results:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv
