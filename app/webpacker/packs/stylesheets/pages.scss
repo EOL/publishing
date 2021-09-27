@@ -22,6 +22,7 @@ $pad-l-m: 17px;
 
 $font-sz-sm: 11px;
 $font-sz-m: 14px;
+$font-sz-lg: 18px;
 
 $habitat-chart-min-width: 780px;
 $habitat-chart-trans-width: 1380px;
@@ -211,7 +212,6 @@ $habitat-chart-trans-width: 1380px;
   & > li {
     border-bottom: $border;
     border-right: $border;
-    font-size: $font-sz-m;
     flex: 1 0 auto;
     height: 58px;
     padding: 7px $pad-l-sm;
@@ -229,8 +229,13 @@ $habitat-chart-trans-width: 1380px;
 }
 
 .page-children {
+  font-size: $font-sz-m;
   margin-top: 10px;
-  padding: 12px 0 0 $padding-left-m;
+  padding: 12px 0 0 $padding-left-s;
+  
+  & > h4 {
+    font-size: $font-sz-m;
+  }
 }
 
 .page-child-list {
@@ -361,7 +366,7 @@ div:first-of-type.article {
 
   .desc {
     $padding-tb: 15px;
-    font-size: $font-sz-m;
+    font-size: $font-sz-lg;
     padding: 0 $padding-left-m $padding-tb $padding-left-m;
 
     & > p {
@@ -370,15 +375,28 @@ div:first-of-type.article {
   }
 
   .sample-traits {
-    font-size: $font-sz-m;
+    font-size: $font-sz-lg;
 
     & > li {
+      height: 68px;
       padding-left: $pad-l-m;
     }
   }
 
   .article {
     padding-left: $pad-l-m;
+  }
+
+  .map-caption { 
+    font-size: 14px;
+  }
+
+  .page-children {
+    font-size: $font-sz-lg;
+    
+    & > h4 {
+      font-size: $font-sz-lg;
+    }
   }
 }
 
