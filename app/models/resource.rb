@@ -262,6 +262,11 @@ class Resource < ApplicationRecord
     @log.log(message, cat: :infos)
   end
 
+  def log_update(message)
+    @log ||= Publishing::PubLog.new(self, use_existing_log: true)
+    @log.log_update(message, cat: :infos)
+  end
+
   def nuke(klass)
     total_count = klass.where(resource_id: id).count
     log("++ NUKE: #{klass} (#{total_count})")
@@ -271,11 +276,12 @@ class Resource < ApplicationRecord
       klass.where(resource_id: id).delete_all
     else
       log("++ Batch removal of #{total_count} instances...")
+      log("Starting (this log message should be replaced shortly)")
       batch_size = 10_000
       times = 0
       max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
       begin
-        log("Batch #{times}...")
+        log_update("Batch #{times}...")
         STDOUT.flush
         klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}")
         times += 1
