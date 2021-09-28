@@ -84,7 +84,7 @@ Rails.application.routes.draw do
       post "unhide"
     end
     resources :open_authentications, only: [:new, :create]
-    resources :page_icons, only: [:create]
+    get 'page_icons' => 'page_icons#create'
     get 'resources/by_abbr/:abbr' => "resources#by_abbr"
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
