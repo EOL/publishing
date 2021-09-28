@@ -270,7 +270,8 @@ class Publishing
         file_count = `wc #{@data_file}`.split.first.to_i
         @klass.connection.execute(q.join(' '))
         after_db_count = @klass.where(resource_id: @resource.id).count - before_db_count
-        if file_count != after_db_count
+        # All a fencepost error here for a newline at the end of the file:
+        if (file_count != after_db_count) || (file_count != after_db_count + 1)
           @log.warn("INCORRECT NUMBER OF ROWS DURING IMPORT OF #{@klass.name.pluralize.downcase}: "\
             "got #{after_db_count}, expected #{file_count} (from #{@data_file})")
         end
