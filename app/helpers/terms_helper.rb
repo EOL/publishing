@@ -16,7 +16,7 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    units_term = filter.predicate.units_term
+    units_term = TraitBank::Term.normal_units_for_predicate(filter.predicate)
     options_for_select([[units_term.i18n_name, units_term.id]], units_term.id)
   end
 
