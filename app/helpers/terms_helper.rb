@@ -117,7 +117,7 @@ module TermsHelper
                             end
                        "#{op} #{filter.num_val}"
                      end
-        "with #{filter.predicate.name} #{value_part}"
+        "with #{filter.predicate.name} #{value_part} #{filter.units_term&.i18n_name}"
       elsif filter.obj_clade
         "that #{filter.predicate.name} #{filter.obj_clade.name}"
       elsif filter.association_pred?
