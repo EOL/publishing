@@ -52,7 +52,7 @@ module TermsHelper
   def filter_display_string(filter)
     return en_filter_display_string(filter) if I18n.locale == :en
     parts = []
-    prefix = "traits.search.filter_display."
+    prefix = "traits.search_results.filter_display."
 
     if filter.predicate?
       pred_name = filter.predicate.i18n_name
@@ -60,7 +60,7 @@ module TermsHelper
       if filter.object?
         parts << t("#{prefix}pred_obj", pred: pred_name, obj: filter_obj_name(filter))
       elsif filter.numeric?
-        units = i18n_term_name_for_uri(filter.units_uri)
+        units = filter.units_term&.i18n_name
 
         if filter.gt?
           parts << t("#{prefix}gte", pred: pred_name, num_val: filter.num_val1, units: units)
