@@ -1991,8 +1991,12 @@ pms:
         https://eol(dot)org/schema/terms/dioicous: diòich
         http://eol(dot)org/schema/terms/DiscDiameter: diàmeter dël disch
         http://eol(dot)org/schema/terms/DispersalAge: età dla dispersion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000069: sboch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: fossà
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: àcid docosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: àcid dodecanoid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: dolin-a
+        https://eol(dot)org/schema/terms/domesticated_in: domestià an
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: toleransa a la suitin-a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica

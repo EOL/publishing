@@ -32,6 +32,9 @@ qqq:
       links_count: '{{Identical|Link}}'
   collected_pages:
     delete_button: '{{Identical|Delete}}'
+  collection:
+    actions:
+      delete: '{{Identical|Delete}}'
   footer:
     discover:
       flowering_plants: Alle planten die tot deze groep horen, laten bloemen zien,
