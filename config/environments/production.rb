@@ -27,7 +27,6 @@ Rails.application.configure do
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL", compress: true }
 
   config.action_mailer.perform_caching = false
-  config.action_dispatch.default_headers = { 'X-Frame-Options' => 'ALLOWALL' }
   config.action_mailer.default_url_options = Rails.application.secrets.host.symbolize_keys
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
