@@ -1956,7 +1956,7 @@ es:
         https://eol(dot)org/schema/terms/labile_material_feeder: se alimenta de material
           lábil
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: edad
-          Ladiniense
+          Ladinícense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: Laguna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: Lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: Sedimento de lago
@@ -2030,10 +2030,15 @@ es:
         https://eol(dot)org/schema/terms/microalgae: microalgas
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: edad
           Pleistoceno medio
+        http://eol(dot)org/schema/terms/mlO2perhour: ml/hr o2
         http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mm hg
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3meses
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4mes
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6mes
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7mes
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8mes
         http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/día
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sec
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/año
@@ -2218,6 +2223,12 @@ es:
         http://eol(dot)org/schema/terms/perPound: /lb
         http://eol(dot)org/schema/terms/pelagic: pelágico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: hielo marino
+        http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: léntico
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monógamo
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: poligínico
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: poliandroso
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: promiscuo
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: paraneotipo
         http://eol(dot)org/schema/terms/adultAndJuvenile: adulto y juvenil
         http://eol(dot)org/schema/terms/adultAndNymph: adulto y ninfa

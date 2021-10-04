@@ -1997,6 +1997,14 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: àcid dodecanoid
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: dolin-a
         https://eol(dot)org/schema/terms/domesticated_in: domestià an
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: dorsal
+        https://eol(dot)org/schema/terms/dorsal_fin: nov dla palma dorsal
+        https://eol(dot)org/schema/terms/dorsoventral_undulatory: nov ondolatòri dossal-ventral
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: dossal-ventral
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: ancalanator dissendent
+        https://eol(dot)org/schema/terms/dracaenoid: dragonòid
+        http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: bes-cia da soma
+        https://eol(dot)org/schema/terms/drag_based_swimming: nov possà da 'n tir
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: toleransa a la suitin-a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
