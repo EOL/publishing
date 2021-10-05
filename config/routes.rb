@@ -54,8 +54,8 @@ Rails.application.routes.draw do
         get "search"
       end
       member do
-        get "grant_power"
-        get "revoke_power"
+        get "grant"
+        get "revoke"
       end
       resources :user_downloads, only: [:show], as: :downloads do
         get "error" => "user_download/errors#show", as: :error
