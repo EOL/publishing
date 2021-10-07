@@ -2005,6 +2005,8 @@ pms:
         https://eol(dot)org/schema/terms/dracaenoid: dragonòid
         http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: bes-cia da soma
         https://eol(dot)org/schema/terms/drag_based_swimming: nov possà da 'n tir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: canal dë sboch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000140: ciusa ëd drainagi
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: toleransa a la suitin-a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
