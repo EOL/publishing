@@ -483,7 +483,8 @@ ko:
       other: 기타
     properties:
       scientific_name: 학명
-    search:
+    search_hdr: 데이터 검색
+    search_results:
       gbif_search: GBIF 검색
       switch_to_gallery: 갤러리 뷰로 전환
   trust:

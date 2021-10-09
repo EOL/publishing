@@ -1063,7 +1063,7 @@ de:
       method: Messverfahren
       scientific_name: Wissenschaftliche Bezeichnung
       source: Quelle
-    search:
+    search_results:
       clade: 'Klade: %{clade}'
       download_tsv: tsv herunterladen
       edit_filters: Filter bearbeiten

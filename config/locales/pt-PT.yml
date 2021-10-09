@@ -487,7 +487,7 @@ pt-PT:
       toggle_text:
         taxon_summary: mostrar resumo do táxon
         trait_summary: mostrar resumo de atributos
-    search:
+    search_results:
       result_header_records_notaxa: Mostrando%{range_begin}-%{range_end}de%{total}
         registros para%{page_count}
   trust:

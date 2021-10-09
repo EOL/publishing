@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
     post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type
 
-    resources :data, only: [:show]
+    get 'records/:id' => 'data#show', as: :datum
 
     # Putting users second only because they tend to drive a lot of site behavior:
     devise_for :users, controllers: { registrations: "user/registrations", sessions: "user/sessions"}
@@ -54,8 +54,8 @@ Rails.application.routes.draw do
         get "search"
       end
       member do
-        post "grant_power"
-        post "revoke_power"
+        get "grant"
+        get "revoke"
       end
       resources :user_downloads, only: [:show], as: :downloads do
         get "error" => "user_download/errors#show", as: :error
@@ -84,7 +84,7 @@ Rails.application.routes.draw do
       post "unhide"
     end
     resources :open_authentications, only: [:new, :create]
-    resources :page_icons, only: [:create]
+    get 'page_icons' => 'page_icons#create'
     get 'resources/by_abbr/:abbr' => "resources#by_abbr"
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection

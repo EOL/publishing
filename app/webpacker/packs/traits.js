@@ -33,7 +33,12 @@ import '../src/traits/data_viz'
   }
 
   function buildTypeahead(selector, typeaheadOptions, dataOptions, datumField, selectFn) {
-    $(selector).typeahead(typeaheadOptions, dataOptions).bind('typeahead:selected', function(evt, datum, name) {
+    const $elmt = $(selector)
+        , $contain = $elmt.closest('.js-typeahead-wrap')
+        , $clearField = $contain.find('.js-clear-field')
+        ;
+
+    $elmt.typeahead(typeaheadOptions, dataOptions).bind('typeahead:selected', function(evt, datum, name) {
       var $target = $(evt.target);
 
       $target.data('lastCleanVal', $target.val());
@@ -44,25 +49,34 @@ import '../src/traits/data_viz'
       }
     });
 
-    $(selector).on('input', function() {
-      var $this = $(this);
+    $elmt.on('input', function() {
+      const $this = $(this)
+          ;
 
       if ($this.val().length === 0) {
         $this.data('lastCleanVal', '');
-        $this.closest('.js-typeahead-wrap').find('.js-typeahead-field').val('');
+        $contain.find('.js-typeahead-field').val('');
 
         if (selectFn) {
           selectFn();
         }
+        $clearField.addClass('uk-hidden');
+      } else {
+        $clearField.removeClass('uk-hidden');
       }
     });
 
-    $(selector).on('blur', function() {
+    $elmt.on('blur', function() {
       var lastCleanVal = $(this).data('lastCleanVal');
 
       if (typeof lastCleanVal !== 'undefined') {
         $(this).val($(this).data('lastCleanVal'));
       }
+    });
+
+    $clearField.click(() => {
+      $elmt.val('')
+      $elmt.trigger('input');
     });
   }
 
@@ -199,8 +213,6 @@ import '../src/traits/data_viz'
     setupTermSelects();
   }
 
-  EOL.onReady(setupForm);
-
   function setupTermSelects() {
     setupTermSelect($('.js-term-select'));
   }
@@ -265,13 +277,10 @@ import '../src/traits/data_viz'
   }
 
   $(function() {
-    $('.js-edit-filters').click(function() {
-      $('.js-filter-form-contain').removeClass('is-hidden');
-      $('.js-filter-list').addClass('is-hidden');
-    });
     $('.show-raw-query').click(function() {
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
     });
+    setupForm();
   });
 })();

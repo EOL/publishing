@@ -303,6 +303,15 @@ module TraitBank
         end
       end
 
+      def normal_units_for_predicate(predicate)
+        predicate
+          .query_as(:predicate)
+          .match('(t:Trait)-[:predicate]->(:Term)-[:parent_term*0..]->(predicate)')
+          .match('(t)-[:normal_units_term]->(u:Term)')
+          .proxy_as(TermNode, :u)
+          .first
+      end
+
       def any_direct_records_for_pred?(uri)
         key = "trait_bank/any_direct_records_for_pred?/#{uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do

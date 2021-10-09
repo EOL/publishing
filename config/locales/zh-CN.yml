@@ -1,4 +1,4 @@
-# Messages for Simplified Chinese (中文（简体）‎)
+# Messages for Simplified Chinese (中文（简体）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: A Chinese Wikipedian
@@ -23,6 +23,7 @@
 # Author: Si109
 # Author: SomeyaMako
 # Author: Tiger
+# Author: TsuyaMarisa
 # Author: VulpesVulpes825
 # Author: Xiaomingyan
 # Author: Xyb
@@ -1272,7 +1273,8 @@ zh-CN:
       sample_size: 样本量
       scientific_name: 学名
       source: 来源
-    search:
+    search_hdr: 数据搜索
+    search_results:
       clade: '进化支: %{clade}'
       download_tsv: 下载TSV
       edit_filters: 编辑过滤器
@@ -1295,14 +1297,15 @@ zh-CN:
       result_header_taxa_notaxa: 显示%{total}个之中的%{range_begin} - %{range_end}
       result_header_records_notaxa: 显示%{page_count}页%{total}条记录的%{range_begin} - %{range_end}
       new_search: 新搜索
+      show_query: 显示查询
+      switch_to_list: 切换到列表视图
+      switch_to_gallery: 切换到图库视图
+    search:
       select:
         child_term: 选择一个子术语（可选）
         top_level:
           object_term: 或选择一个值
           predicate: 或选择一个属性
-      show_query: 显示查询
-      switch_to_list: 切换到列表视图
-      switch_to_gallery: 切换到图库视图
     search_form:
       attribute: 属性
       attribute_eg: 属性（比如：营养级）

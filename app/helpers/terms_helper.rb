@@ -16,7 +16,7 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    units_term = filter.predicate.units_term
+    units_term = TraitBank::Term.normal_units_for_predicate(filter.predicate)
     options_for_select([[units_term.i18n_name, units_term.id]], units_term.id)
   end
 
@@ -52,7 +52,7 @@ module TermsHelper
   def filter_display_string(filter)
     return en_filter_display_string(filter) if I18n.locale == :en
     parts = []
-    prefix = "traits.search.filter_display."
+    prefix = "traits.search_results.filter_display."
 
     if filter.predicate?
       pred_name = filter.predicate.i18n_name
@@ -60,7 +60,7 @@ module TermsHelper
       if filter.object?
         parts << t("#{prefix}pred_obj", pred: pred_name, obj: filter_obj_name(filter))
       elsif filter.numeric?
-        units = i18n_term_name_for_uri(filter.units_uri)
+        units = filter.units_term&.i18n_name
 
         if filter.gt?
           parts << t("#{prefix}gte", pred: pred_name, num_val: filter.num_val1, units: units)
@@ -117,7 +117,7 @@ module TermsHelper
                             end
                        "#{op} #{filter.num_val}"
                      end
-        "with #{filter.predicate.name} #{value_part}"
+        "with #{filter.predicate.name} #{value_part} #{filter.units_term&.i18n_name}"
       elsif filter.obj_clade
         "that #{filter.predicate.name} #{filter.obj_clade.name}"
       elsif filter.association_pred?

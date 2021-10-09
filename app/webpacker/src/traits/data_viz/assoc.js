@@ -1,3 +1,5 @@
+import * as d3 from 'd3'
+
 // Based on https://observablehq.com/@d3/hierarchical-edge-bundling
 window.AssocViz = (function(exports) {
   function populateLinks(root) {

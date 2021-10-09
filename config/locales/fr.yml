@@ -5,6 +5,7 @@
 # Author: Ajeje Brazorf
 # Author: Alno
 # Author: Crochet.david
+# Author: DreZhsh
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: JenyxGym
@@ -1000,6 +1001,7 @@ fr:
     actions:
       import_traits: importer des traits (du dépôt)
       republish: publier
+      clean_republish: nettoyer la republication
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
@@ -1371,7 +1373,8 @@ fr:
       sample_size: Taille de l’échantillon
       scientific_name: Nom scientifique
       source: Source
-    search:
+    search_hdr: Recherche de données
+    search_results:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv
       edit_filters: modifier les filtres
@@ -1398,14 +1401,15 @@ fr:
       result_header_records_notaxa: Affichage des enregistrements de %{range_begin}
         à %{range_end} sur %{total} pour %{page_count}
       new_search: nouvelle recherche
+      show_query: afficher la requête
+      switch_to_list: basculer dans la vue liste
+      switch_to_gallery: basculer dans la vue galerie
+    search:
       select:
         child_term: sélectionner une condition fille (facultatif)
         top_level:
           object_term: ou sélectionner une valeur
           predicate: ou sélectionner un attribut
-      show_query: afficher la requête
-      switch_to_list: basculer dans la vue liste
-      switch_to_gallery: basculer dans la vue galerie
     search_form:
       attribute: attribut
       attribute_eg: 'attribu (p.ex. : niveau trophique)'

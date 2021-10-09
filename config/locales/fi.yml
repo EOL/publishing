@@ -653,6 +653,7 @@ fi:
   resources:
     actions:
       republish: uudelleenjulkaise
+      clean_republish: puhdas uudelleenjulkaisu
       reindex: uudelleenindeksoi
       index: takaisin kaikkiin resursseihin
       show_all:
@@ -871,7 +872,7 @@ fi:
     properties:
       scientific_name: Tieteellinen nimi
       source: Lähde
-    search:
+    search_results:
       download_tsv: lataa tsv-muodossa
       edit_filters: muokkaa suodattimia
       new_search: uusi haku

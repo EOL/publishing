@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_admin, only: [:power_user_index, :grant_power, :revoke_power]
+  before_action :require_admin, only: [:power_user_index, :grant, :revoke]
 
   def show
     @user = User.find_by!(id: params[:id], active: true)
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
   end
 
-  def grant_power
+  def grant
     @user = User.find_by!(id: params[:id], active: true)
     if @user.admin?
       return redirect_to(user_path(@user), notice: "Cannot grant access to admin.")
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def revoke_power
+  def revoke
     @user = User.find_by!(id: params[:id], active: true)
     unless @user.power_user?
       return redirect_to(user_path(@user), notice: "This user does not have power-user privileges; nothing to revoke.")

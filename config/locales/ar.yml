@@ -1110,7 +1110,7 @@ ar:
       sample_size: حجم العينة
       scientific_name: الاسم العلمي
       source: المصدر
-    search:
+    search_results:
       download_tsv: تنزيل tsv
       edit_filters: مرشحات التعديل
       filter_display:
@@ -1132,12 +1132,13 @@ ar:
       result_header_records_notaxa: عرض %{range_begin} - %{range_end} من %{total}
         سجلات من اجل %{page_count}
       new_search: بحث جديد
+      show_query: عرض الاستعلام
+      switch_to_list: بدل إلى عرض القائمة
+    search:
       select:
         child_term: اختار مصطلح الطفل (اختياري)
         top_level:
           object_term: أو حدد قيمة
-      show_query: عرض الاستعلام
-      switch_to_list: بدل إلى عرض القائمة
     search_form:
       attribute: سمة
       clade_filter_placeholder: 'مجموعة (مثال: دببة) (اختياري)'

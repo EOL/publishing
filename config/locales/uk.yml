@@ -984,6 +984,7 @@ uk:
     actions:
       import_traits: імпорт ознак (із сховища)
       republish: переопублікувати
+      clean_republish: чисте перевидання
       reindex: переіндексування
       fix_no_names: виправити НІ ІМЕНІ
       index: повернутися до всіх ресурсів
@@ -1342,7 +1343,8 @@ uk:
       sample_size: Обсяг вибірки
       scientific_name: Наукова назва
       source: Джерело
-    search:
+    search_hdr: Пошук даних
+    search_results:
       clade: 'клада: %{clade}'
       download_tsv: завантажити tsv
       edit_filters: редагувати фільтри
@@ -1368,14 +1370,15 @@ uk:
       result_header_records_notaxa: Показано %{range_begin} — %{range_end} з %{total}
         записів для %{page_count}
       new_search: новий пошук
+      show_query: показати запит
+      switch_to_list: переключитися на перегляд списку
+      switch_to_gallery: переключитися на перегляд галереї
+    search:
       select:
         child_term: вибрати дочірній термін (необов’язково)
         top_level:
           object_term: або виберіть значення
           predicate: або виберіть атрибут
-      show_query: показати запит
-      switch_to_list: переключитися на перегляд списку
-      switch_to_gallery: переключитися на перегляд галереї
     search_form:
       attribute: атрибут
       attribute_eg: 'атрибут (наприклад: трофічний рівень)'

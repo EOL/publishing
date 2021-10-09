@@ -17,8 +17,12 @@ class TraitsController < ApplicationController
   DataViz = Struct.new(:type, :data)
 
   def search
-    @query = TermQuery.new(:result_type => :taxa)
-    @query.filters.build
+    if params[:tq].present?
+      build_query
+    else
+      @query = TermQuery.new(:result_type => :taxa)
+      @query.filters.build
+    end
   end
 
   # The search form POSTs here and is redirected to a clean, short shareable url
@@ -38,7 +42,7 @@ class TraitsController < ApplicationController
       fmt.html do
         if @query.valid?
           Rails.logger.warn @query.to_s
-          search_common
+          do_search
         else
           @query.add_filter_if_none
           render "search"
@@ -100,7 +104,7 @@ class TraitsController < ApplicationController
     @query.filters.build(:op => :is_any) if params[:add_filter]
   end
 
-  def search_common
+  def do_search
     @page = params[:page]&.to_i || 1
     @per_page = PER_PAGE
     Rails.logger.warn "&&TS Running search:"
@@ -110,7 +114,7 @@ class TraitsController < ApplicationController
   
     build_gbif_url(@query, @search)
     data_viz_type(@query, @search)
-    render "search"
+    render "search_results"
   end
 
   def set_title

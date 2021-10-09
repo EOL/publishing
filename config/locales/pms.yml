@@ -988,6 +988,7 @@ pms:
     actions:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
+      clean_republish: dëscancelé l'arpublicassion
       reindex: riandicisé
       fix_no_names: fiss a NO NAMEs
       index: andré a tute j'arsorse
@@ -1352,7 +1353,8 @@ pms:
       sample_size: Taja dël campion
       scientific_name: Nòm sientìfich
       source: Sorgiss
-    search:
+    search_hdr: Arserca dij dàit
+    search_results:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv
       edit_filters: modifiché ij filtr
@@ -1380,14 +1382,15 @@ pms:
       result_header_records_notaxa: Visualisassion dj'argistrassion %{range_begin}
         - %{range_end} su %{total} argistrassion për %{page_count}
       new_search: neuva arserca
+      show_query: smon-e l'arcesta
+      switch_to_list: passé a la visualisassion a lista
+      switch_to_gallery: passé a la visualisassion a galarìa
+    search:
       select:
         child_term: selession na condission fieul (opsional)
         top_level:
           object_term: o selessioné un valor
           predicate: o selessioné n'atribù
-      show_query: smon-e l'arcesta
-      switch_to_list: passé a la visualisassion a lista
-      switch_to_gallery: passé a la visualisassion a galarìa
     search_form:
       attribute: atribù
       attribute_eg: 'atribù (për es.: livel tròfich)'
@@ -1958,16 +1961,52 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: sediment marengh profond
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: gre
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: gre Celsius
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: valon
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: delta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: biòma a popolament ës-ciass
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: dentari
+        http://eol(dot)org/schema/terms/depositFeeder: as nuriss ëd depòsit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: depression
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: desert
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: landa ëd ronze desèrtiche
+          e ch'a chërso ant ël sech
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: òasi dël desert
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: sabia ëd desert
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: lande desèrtiche d'arborin
+        http://eol(dot)org/schema/terms/determinateGrowth: chërsùa determinà
         http://eol(dot)org/schema/terms/DevelopmentalMode: meud ëd dësvlup
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: perìod
+          devonian
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: diàmeter
+        http://eol(dot)org/schema/terms/diandry: diàndrich
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapàusa
+        https://eol(dot)org/schema/terms/diatom_feeder: an nuriss ëd diàtom
+        http://eol(dot)org/schema/terms/dielVerticalMigration: migrassion vertical
+          dë 'd di
         http://eol(dot)org/schema/terms/DietBreadth: estension dël regim
         http://eol(dot)org/schema/terms/Diet: ël regim a comprend
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: sistema digestiv
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digital
-        http://eol(dot)org/schema/terms/DiscDiameter: Diàmeter dël disch
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: sulfida ëd dimetil
+        https://eol(dot)org/schema/terms/dioicous: diòich
+        http://eol(dot)org/schema/terms/DiscDiameter: diàmeter dël disch
         http://eol(dot)org/schema/terms/DispersalAge: età dla dispersion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000069: sboch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: fossà
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: àcid docosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: àcid dodecanoid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: dolin-a
+        https://eol(dot)org/schema/terms/domesticated_in: domestià an
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: dorsal
+        https://eol(dot)org/schema/terms/dorsal_fin: nov dla palma dorsal
+        https://eol(dot)org/schema/terms/dorsoventral_undulatory: nov ondolatòri dossal-ventral
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: dossal-ventral
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: ancalanator dissendent
+        https://eol(dot)org/schema/terms/dracaenoid: dragonòid
+        http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: bes-cia da soma
+        https://eol(dot)org/schema/terms/drag_based_swimming: nov possà da 'n tir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: canal dë sboch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000140: ciusa ëd drainagi
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: toleransa a la suitin-a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica

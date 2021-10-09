@@ -292,10 +292,11 @@ da:
   traits:
     properties:
       source: Kilde
-    search:
+    search_results:
       filter_display:
         obj_only: 'med værdien: %{obj}'
       new_search: ny søgning
+    search:
       select:
         top_level:
           object_term: eller vælg en værdi

@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 $(function() {
   function createViz($trophicWeb) {
     var sitePrefix = ''; //"https://beta.eol.org";
@@ -34,6 +36,8 @@ $(function() {
       , sourceY
       , radius = 6
       , source_radius = 30
+      , width
+      , height
       ;
       
     //node colors
@@ -430,7 +434,7 @@ $(function() {
         linksEnter.attr('opacity', 0);
       }
 
-      nodeResult = createNodes(animate);
+      const nodeResult = createNodes(animate);
 
       transition = transition || animate;
 

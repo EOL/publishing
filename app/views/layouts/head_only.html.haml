@@ -25,10 +25,8 @@
     -if Webpacker.manifest.lookup "stylesheets/#{ss_pre}#{params[:controller]}.css"
       = stylesheet_pack_tag "stylesheets/#{ss_pre}#{params[:controller]}", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
-    = javascript_include_tag "https://code.jquery.com/jquery-1.12.4.min.js", integrity: "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=", crossorigin: 'anonymous'
-    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.0/typeahead.bundle.min.js'
-    = javascript_include_tag "https://cdn.jsdelivr.net/npm/d3@6"
-    = javascript_include_tag "https://unpkg.com/d3-sankey@0"
+    = javascript_include_tag "https://code.jquery.com/jquery-1.12.4.min.js", integrity: "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=", crossorigin: 'anonymous', defer: true
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.0/typeahead.bundle.min.js', defer: true
     -#
       = javascript_include_tag "https://unpkg.com/d3-selection@3"
       = javascript_include_tag "https://unpkg.com/d3-dispatch@3"
@@ -43,6 +41,11 @@
       = javascript_include_tag "https://unpkg.com/d3-drag@3"
       = javascript_include_tag "https://unpkg.com/d3-transition@3"
 
+    = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit.min.js", defer: true
+    = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit-icons.min.js", defer: true
+    - %w[api search sticky dimmer dropdown transition].each do |name|
+      = javascript_include_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.js", defer: true
+
     -# TODO: this probably needs updating
     :javascript
       I18n = {};
@@ -52,16 +55,10 @@
     -# Making multiple calls to javascript_pack_tag breaks all the things. Don't do it.
     - js_packs = ['application']
     - js_packs << params[:controller] if Webpacker.manifest.lookup "#{params[:controller]}.js"
-    = javascript_pack_tag *js_packs
+    = javascript_pack_tag *js_packs, defer: true
 
-    = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit.min.js"
-    = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit-icons.min.js"
-    - %w[api search sticky dimmer dropdown transition].each do |name|
-      = javascript_include_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.js"
     - if Rails.env.staging? || Rails.env.production?
-      = javascript_include_tag "https://edge.quantserve.com/quant.js"
-      = javascript_include_tag "https://www.google-analytics.com/ga.js"
-      %script{async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-3298646-16"}
+      %script{async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-3298646-10"}
       :javascript
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}

@@ -299,7 +299,7 @@ tr:
     q27683: Açece
     q27776: Adigece
     aa: Afarca
-    af: Afrikaanca
+    af: Afrikaans
     ak: Akan
     alb: Arnavutça
     sq: Arnavutça
@@ -1232,7 +1232,7 @@ tr:
       sample_size: Örnek boyut
       scientific_name: Bilimsel ad
       source: Kaynak
-    search:
+    search_results:
       clade: 'klad: %{clade}'
       download_tsv: tsv indir
       edit_filters: filtreleri düzenle
@@ -1257,14 +1257,15 @@ tr:
       result_header_records_notaxa: Kayıtlar için %{page_count} %{range_begin} - %{range_end}
         %{total} gösteriyor
       new_search: yeni arama
+      show_query: sorguyu göster
+      switch_to_list: liste görünümüne geç
+      switch_to_gallery: galeri görünümüne geç
+    search:
       select:
         child_term: bir alt terimi seçin (isteğe bağlı)
         top_level:
           object_term: veya bir değer seçin
           predicate: veya bir özellik seçin
-      show_query: sorguyu göster
-      switch_to_list: liste görünümüne geç
-      switch_to_gallery: galeri görünümüne geç
     search_form:
       attribute: nitelik
       attribute_eg: 'özellik (ör.: tropik düzey)'

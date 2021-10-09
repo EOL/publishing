@@ -3,13 +3,62 @@
 @import "./shared/summary_card";
 @import "./colors";
 
+h1 {
+  font-size: 22px;
+  margin-top: 10px;
+  text-align: center;
+}
+
 .l-terms {
   padding: 10px percentage(math.div(15, 375));
 }
 
-.filter {
-  margin-bottom: 16px;
+.filters {
+  list-style: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
+
+.input-field {
   position: relative;
+  width: 100%;
+
+  &>span {
+    width: 100%;
+
+    &>input {
+      padding-right: 30px;
+    }
+  }
+
+  & > .clear-field {
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    width: auto;
+  }
+
+  & .tt-menu {
+    border: 1px solid $light-gray;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
+}
+
+.remove-filter {
+  cursor: pointer;
+}
+
+.filter {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.filter-fields {
+  border: 1px solid $eol-gray;
+  padding: 14px;
 }
 
 .is-multiple-filters .filter {
@@ -27,11 +76,21 @@
   margin-top: 20px;
 }
 
+.filters-label {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 18px 0 10px 0;
+  text-align: center;
+}
+
 .filter-row {
   display: flex;
-  margin-bottom: 15px;
-  justify-content: center;
+  margin-bottom: 8px;
   width: 100%;
+}
+
+.filter-row-center {
+  justify-content: center;
 }
 
 .filter-row-flex {
@@ -62,25 +121,8 @@
   width: 100%;
 }
 
-.filter-field {
-  position: relative;
-
-  & > span {
-    width: 100%;
-  }
-
-  & .tt-menu {
-    border: 1px solid $light-gray;
-    max-height: 300px;
-    overflow-y: auto;
-    width: 100%;
-  }
-}
-
 .filter-field-radio {
-  margin: 0 15px;
-  white-space: nowrap;
-  width: auto;
+  margin: 0 10px;
 }
 
 .filter-radios {
@@ -116,6 +158,10 @@
 
 .add-filter {
   cursor: pointer;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px;
+  border: 1px solid $eol-gray;
 }
 
 .is-icon-disabled {

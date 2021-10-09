@@ -11,11 +11,19 @@
 - classes = [ff.object.errors[term_id_name].any? ? "is-filter-row-with-errors" : nil, local_assigns.fetch(:extra_class, nil)].compact
 .filter-row{:class => classes}
   .filter-row-group.js-filter-row-group
-    %span.js-typeahead-wrap.filter-field
-      = text_field_tag term_name_input_name, term_for_name_field&.i18n_name, :class => "uk-input js-#{local_assigns.fetch(:typeahead_class, field_name.gsub('_', '-'))}-typeahead js-term-name", :placeholder => placeholder, :data => local_assigns.fetch(:typeahead_data, nil)
-      = ff.hidden_field term_id_name, :class => "js-typeahead-field js-term-id"
+    = render 'search_input', f: ff, text_field_name: term_name_input_name, val: term_for_name_field&.i18n_name, typeahead_class: %W(js-#{local_assigns.fetch(:typeahead_class, field_name.gsub('_', '-'))}-typeahead js-term-name), placeholder: placeholder, typeahead_data: local_assigns.fetch(:typeahead_data, nil), id_field_name: term_id_name, id_field_class: 'js-term-id' do
       - show_error(ff.object, term_id_name)
       - if local_assigns.fetch(:nested_selects, false)
         = ff.hidden_field "root_#{term_id_name}", :class => "js-typeahead-field js-top-term-id"
         .js-term-select-contain.term-select-contain
           = nested_term_selects(ff, field_name)
+    -#
+      %span.js-typeahead-wrap.filter-field
+        = text_field_tag term_name_input_name, term_for_name_field&.i18n_name, :class => "uk-input js-#{local_assigns.fetch(:typeahead_class, field_name.gsub('_', '-'))}-typeahead js-term-name", :placeholder => placeholder, :data => local_assigns.fetch(:typeahead_data, nil)
+        = ff.hidden_field term_id_name, :class => "js-typeahead-field js-term-id"
+        %span.clear-field.js-clear-field{ :class => val.blank? ? 'uk-hidden' : '', :'uk-icon' => 'close' }
+        - show_error(ff.object, term_id_name)
+        - if local_assigns.fetch(:nested_selects, false)
+          = ff.hidden_field "root_#{term_id_name}", :class => "js-typeahead-field js-top-term-id"
+          .js-term-select-contain.term-select-contain
+            = nested_term_selects(ff, field_name)

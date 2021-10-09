@@ -65,6 +65,12 @@ nl:
     types:
       scientific: wetenschappelijk
       vernacular: volksmond
+  brief_summary:
+    extinction:
+      r_genus_html: Het genus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_subgenus_html: Dit subgenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_infragenus_html: Dit infragenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_superspecies_html: Deze supersoort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
   button_create: maken
   button_add: toevoegen
   cancel: annuleren
@@ -1189,7 +1195,7 @@ nl:
       sample_size: Steekproefomvang
       scientific_name: wetenschappelijke naam
       source: Bron
-    search:
+    search_results:
       clade: 'clade: %{clade}'
       download_tsv: download tsv
       edit_filters: Filter bewerken
@@ -1213,14 +1219,15 @@ nl:
       result_header_taxa: Toon %{range_begin} - %{range_end} van %{total} taxa
       result_header_taxa_notaxa: Toon %{range_begin} - %{range_end} van %{total}
       new_search: nieuwe zoekopdracht
+      show_query: zoekopdracht weergeven
+      switch_to_list: overschakelen naar lijstweergave
+      switch_to_gallery: overschakelen naar gallerijweergave
+    search:
       select:
         child_term: selecteer een kinderterm (optioneel)
         top_level:
           object_term: of selecteer een waarde
           predicate: of selecteer een kenmerk
-      show_query: zoekopdracht weergeven
-      switch_to_list: overschakelen naar lijstweergave
-      switch_to_gallery: overschakelen naar gallerijweergave
     search_form:
       attribute: kenmerk
       attribute_eg: 'attribuut (bijv.: trofisch niveau)'

@@ -1151,7 +1151,7 @@ mk:
       sample_size: Големина на примерокот
       scientific_name: Научно име
       source: Извор
-    search:
+    search_results:
       clade: 'клад: %{clade}'
       download_tsv: преземи TSV
       edit_filters: измени филтри
@@ -1175,14 +1175,15 @@ mk:
       result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
         таксони
       new_search: ново пребарување
+      show_query: прикажи барање
+      switch_to_list: списочен поглед
+      switch_to_gallery: сликореден поглед
+    search:
       select:
         child_term: изберете зависен поим (незадол.)
         top_level:
           object_term: или одберете вредност
           predicate: или одберете атрибут
-      show_query: прикажи барање
-      switch_to_list: списочен поглед
-      switch_to_gallery: сликореден поглед
     search_form:
       attribute: својство
       attribute_eg: атрибут (на пр. трофно ниво)
