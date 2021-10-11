@@ -2007,7 +2007,14 @@ pms:
         https://eol(dot)org/schema/terms/drag_based_swimming: nov possà da 'n tir
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: canal dë sboch
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000140: ciusa ëd drainagi
+        http://eol(dot)org/schema/terms/droughtSemiDeciduous: semi-përsistenta al
+          sech
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: toleransa a la suitin-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: età drumian-a
+        http://eol(dot)org/schema/terms/bodyMassDry: massa dël còrp a sech
+        http://eol(dot)org/schema/terms/dry_forest: foresta sëcca
+        http://eol(dot)org/schema/terms/dryFruit: frut sech
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: lagh a sech
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
         http://eol(dot)org/schema/terms/EggDiameter: diàmeter ëd l'euv
