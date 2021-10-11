@@ -1437,6 +1437,8 @@ es:
         https://eol(dot)org/schema/terms/anal_dorsal_fins: natación de la aleta anal
           y dorsal
         https://eol(dot)org/schema/terms/anal_fin: natación aleta anal
+        https://eol(dot)org/schema/terms/andromonoecious: andromonoico
+        http://eol(dot)org/schema/terms/androviviparous: androvivíparo
         http://eol(dot)org/schema/terms/anemochory: anemocoria
         https://eol(dot)org/schema/terms/anguilliform: anguilliforme
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: habitación animal
@@ -1451,6 +1453,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: anterior
         http://purl(dot)obolibrary(dot)org/obo/PO_0009066: antera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogénico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002204: característica de contaminación
+          antropogénica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatito
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: ojos de aposición
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: edad Aptiense
@@ -1486,12 +1490,15 @@ es:
         http://eol(dot)org/schema/terms/ballistichory: balisticoria
         https://eol(dot)org/schema/terms/bamboo_forest: bosque de bambú
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: Plantación de plátano
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000167: bar
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: sulfato de bario
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: corteza
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: edad
           Barremiense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bartonian: edad
           Bartoniense
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: tasa metabólica
+          basal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: basalto
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bashkirian: edad
           Bashkiriense
@@ -1518,7 +1525,10 @@ es:
         http://eol(dot)org/schema/terms/BillLength: longitud de lista
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: biodifusor
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biopelícula
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: sílice biogénica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: sedimento biológico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: Residuos biológicos
+        http://eol(dot)org/schema/terms/Bioluminescent: bioluminiscente
         https://eol(dot)org/schema/terms/bipedal_running: bípedo corriendo
         https://eol(dot)org/schema/terms/bivalve_feeder: Alimentador bivalvo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: Negro
@@ -1546,6 +1556,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: brote
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: edificio
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: material de construcción
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: bulbo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: edad
           Burdigaliense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: suelo quemado
@@ -1559,6 +1570,12 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: sulfato de calcio dihidratado
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: edad
           Calloviense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: período
+          Cámbrico
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries2: época
+          Cámbrica de la serie 2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries3: época
+          cámbrica de la serie 3
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: periodo
           Cámbrico edad 10
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: periodo
@@ -1603,11 +1620,16 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: edad
           Changhsingiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: canal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: chaparral
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: edad
           Chattiense
         http://eol(dot)org/schema/terms/chemosymbiotroph: quimiosimbiotrófico
         http://eol(dot)org/schema/terms/ciliary_mucus_feeder: se alimenta de moco
           ciliar
+        http://purl(dot)org/dc/terms/bibliographicCitation: citación
+        http://eol(dot)org/schema/terms/CITES_I: cita el apéndice i
+        http://eol(dot)org/schema/terms/CITES_II: cita el apéndice ii
+        http://eol(dot)org/schema/terms/CITES_III: cita el apéndice iii
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: Ciudad
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: arcilla
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: Sedimento de arcilla
@@ -1643,6 +1665,8 @@ es:
         http://eol(dot)org/schema/terms/contaminatedHabitat: Hábitat contaminado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: suelo contaminado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: isla continental
+        http://eol(dot)org/schema/terms/copepodid3: copépodo etapa 3
+        http://eol(dot)org/schema/terms/copepodid5: copépodo etapa 5
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Arrecife de coral
         https://eol(dot)org/schema/terms/coral_sand: arena de coral
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: Cosméticos
@@ -2052,6 +2076,7 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: edad
           Moscoviense
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: músculo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: etapa de nauplio
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: neonato
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: era
           neoproterozoica
@@ -2162,8 +2187,11 @@ es:
         http://eol(dot)org/schema/terms/sponge_feeder: se alimenta de esponjas
         https://eol(dot)org/schema/terms/starfish_feeder: se alimenta de estrellas
           de mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000251: subpolar
         http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: se alimenta de depósitos
           subterráneos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: desierto subtropical
         http://eol(dot)org/schema/terms/suspensionFeeder: se alimenta de suspensiones
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: edad
           Telychiense
@@ -2253,8 +2281,11 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: terminal
         http://purl(dot)obolibrary(dot)org/obo/PO_0007001: etapa de maduración temprana
           de la fruta
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007038: etapa completa de maduración
+          de la fruta
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: etapa de floración
         http://purl(dot)obolibrary(dot)org/obo/PO_0025500: etapa de desarrollo de
           la fruta
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: pupa
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: etapa de megalopa
 ...
