@@ -252,7 +252,11 @@ class Publishing
     end
 
     def grab_file(name)
-      open(@data_file, 'wb') { |file| file.write(@repo.file(name)) }
+      if repo_file = @repo.file(name)
+        open(@data_file, 'wb') { |file| file.write(repo_file) }
+      else
+        return false
+      end
     end
 
     def import

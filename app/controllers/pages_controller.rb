@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     2913056,
     2908256
   ])
-  
+
   # See your environment config; this action should be ignored by logs.
   def ping
     if ActiveRecord::Base.connection.active?
@@ -132,8 +132,8 @@ class PagesController < ApplicationController
     set_noindex_if_needed(@page)
     @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
-    @key_data = @page.key_data    # get_media # NOTE: we're not *currently* showing them, but we will.
-    
+    @key_data = @page.key_data
+
     # For autogen summary text
     @associations = build_page_associations(@page)
 
@@ -183,16 +183,16 @@ class PagesController < ApplicationController
       nil
     @traits_per_group = 5
     grouped_trait_result = TraitBank::Page.grouped_traits_for_page(
-      @page, 
-      resource: @selected_resource, 
-      limit: @selected_predicate ? nil : @traits_per_group, 
+      @page,
+      resource: @selected_resource,
+      limit: @selected_predicate ? nil : @traits_per_group,
       selected_predicate: @selected_predicate
     )
     @grouped_data = grouped_trait_result[:grouped_traits]
     @predicates = @grouped_data.keys.sort { |a, b| a.name <=> b.name }
     @selected_predicates = @selected_predicate ? [@selected_predicate] : @predicates
     @page_title = t("page_titles.pages.data", page_name: @page.name)
-    @resources = @selected_predicate ? 
+    @resources = @selected_predicate ?
       grouped_trait_result[:all_traits].map { |t| t.resource }.compact.sort { |a, b| a.name <=> b.name }.uniq :
       Resource.where(id: @page.page_node.trait_resource_ids).order(:name)
 
