@@ -281,7 +281,7 @@ class Resource < ApplicationRecord
       times = 0
       max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
       begin
-        log_update("Batch #{times}...")
+        log_update("Batch #{times} (will stop at #{max_times})...")
         STDOUT.flush
         klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}")
         times += 1
