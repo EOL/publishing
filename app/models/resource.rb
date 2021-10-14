@@ -264,7 +264,7 @@ class Resource < ApplicationRecord
 
   def log_update(message)
     @log ||= Publishing::PubLog.new(self, use_existing_log: true)
-    @log.log_update(message, cat: :infos)
+    @log.log_update(message)
   end
 
   def nuke(klass)
