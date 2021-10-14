@@ -188,7 +188,7 @@ class Publishing
 
     def traits_by_resource
       abort_if_already_running
-      @log = @resource.import_logs.last
+      @log = Publishing::PubLog.new(@resource, use_existing_log: true)
       @repo = create_server_connection
       @can_clean_up = true
       begin
