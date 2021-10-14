@@ -253,7 +253,7 @@ class Resource < ApplicationRecord
       log("No graph nodes, skipping.")
     else
       log("Removing #{count} graph nodes")
-      TraitBank::Admin.remove_for_resource(self)
+      TraitBank::Admin.remove_for_resource(self, @log)
     end
   end
 
