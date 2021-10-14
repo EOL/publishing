@@ -464,29 +464,6 @@ pt-PT:
     source: fonte
   data_definition: definição de "%{data}"
   traits:
-    data_viz:
-      about_this_chart_tooltip_taxon_summary: Este é um resumo dos grupos taxonômicos
-        para os quais o EOL possui dados que correspondem à sua pesquisa. Ele pode
-        ser truncado para se ajustar ao tamanho da tela. Você pode selecionar um grupo
-        do gráfico para visualizar subgrupos ou para restringir os resultados da pesquisa.
-      n_family_records: '{{PLURAL | one = um registro para táxons na família%{family}
-        |%{count} registros para táxons na família%{family}}}'
-      n_family_taxa: '{{PLURAL | one = um táxon na família%{family} |%{count} táxon
-        na família% {family}}}'
-      show_n_family_records: '{{PLURAL | one = clique para ver um registro para táxons
-        na família%{family} | clique para ver%{count} registros para táxons na família%{family}}}'
-      show_n_family_taxa: '{{PLURAL | one = clique para ver um táxon na família%{family}
-        | clique para ver%{count} táxons na família%{family}}}'
-      show_link:
-        associations_summary: mostrar resumo de associações
-        attribute_summary: mostrar resumo de atributos
-        taxon_summary: mostrar resumo do táxon
-      taxon_summary:
-        click_to_filter: clique para filtrar
-        click_to_filter_by: clique para filtrar por '%{name}'
-      toggle_text:
-        taxon_summary: mostrar resumo do táxon
-        trait_summary: mostrar resumo de atributos
     search_results:
       result_header_records_notaxa: Mostrando%{range_begin}-%{range_end}de%{total}
         registros para%{page_count}

@@ -286,7 +286,7 @@ it:
     stats_cleared: Le statistiche sono state ricalcolate.
   language: Lingua
   languages:
-    ab: Abkhazo
+    ab: Abcaso
     q27683: Aceh
     q27776: Adighè
     aa: Afar
@@ -436,9 +436,11 @@ it:
     kk: Kazako
     ko: Coreano
     kor: Coreano
+    ku: Curdo
     lo: Lao
     lao: Lao
     la: Latino
+    lv: Lettone
     q36106: Ligure
     li: Limburghese
     lt: Lituano
@@ -448,6 +450,7 @@ it:
     ms: Malese
     mt: Maltese
     mlt: Maltese
+    mi: Maori
     mh: Marshallese
     q13330: Mirandese
     mn: Mongolo

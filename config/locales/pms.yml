@@ -2015,11 +2015,43 @@ pms:
         http://eol(dot)org/schema/terms/dry_forest: foresta sëcca
         http://eol(dot)org/schema/terms/dryFruit: frut sech
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: lagh a sech
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: let ëd lagh sech
+        http://eol(dot)org/schema/terms/dryMass: massa sëcca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: fium sùit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: comba fluvial sùita
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: seul sech
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: ri sùit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: comba sëcca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: dun-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000308: creus antra le dun-e
+        https://eol(dot)org/schema/terms/duodichogamous: duodicòmam
+        http://eol(dot)org/schema/terms/DurationOfIllness: durà dla maladìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: póer
+        http://eol(dot)org/schema/terms/dwarfMales: mas-cc nan
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: colorant
+        http://eol(dot)org/schema/terms/dystrophicMontaneFreshwaterLake: lagh d'eva
+          dossa ëd montagna distròfich
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: primiss
+        http://eol(dot)org/schema/terms/earlySpring: prinsipi dla prima
+        http://eol(dot)org/schema/terms/earlySummer: prinsipi dl'istà
+        http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Montagne ëd l'Arc oriental
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: a mangia
+        http://eol(dot)org/schema/terms/echinoderm_feeder: as nuriss d'echinoderma
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: angignerìa dj'ecosistema
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ectoparassita ëd
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: perìod
+          edicarian
+        https://eol(dot)org/schema/terms/eel_feeder: as nuriss d'anguile
+        http://eol(dot)org/schema/terms/eggDensity: densità dl'euv
         http://eol(dot)org/schema/terms/EggDiameter: diàmeter ëd l'euv
         http://eol(dot)org/schema/terms/EggMass: massa dl'euv
+        http://eol(dot)org/schema/terms/eggStage: stadi d'euv
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: euv (da consumassion)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: àcid eicosanoid
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: età
+          eifelian-a
+        https://eol(dot)org/schema/terms/elasmobranch_feeder: as nuriss d'elasmobranchi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: slongà
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoschéletr
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longheur ëd l'epicòno
