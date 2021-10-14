@@ -42,6 +42,18 @@ class ImportLog < ApplicationRecord
     end
   end
 
+  def log_update(body)
+    raise "Updates limited to 65,500 characters" if body.size > 65_500
+    options ||= {}
+    last_event = ImportEvent.where(import_log: self).last
+    if last_event.cat == :updates
+      last_event.body = body
+      last_event.save
+    else
+      import_events << ImportEvent.create(import_log: self, cat: :updates, body: body)
+    end
+  end
+
   def chop_into_text_chunks(str)
     chunks = []
     while str.size > 65_500
