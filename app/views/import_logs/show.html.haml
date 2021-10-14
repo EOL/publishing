@@ -33,6 +33,6 @@
     - @events.each do |event|
       %li
         %b= l(event.created_at.localtime, format: '%H:%M:%S.%3N')
-        %span.uk-text-muted= "(#{event.cat})"
+        %span.uk-text-muted= "(#{event.cat || 'updates'})"
         = event.body
 = paginate @events

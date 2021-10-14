@@ -46,7 +46,7 @@ class ImportLog < ApplicationRecord
     raise "Updates limited to 65,500 characters" if body.size > 65_500
     options ||= {}
     last_event = ImportEvent.where(import_log: self).last
-    if last_event.cat == :updates
+    if last_event.updates?
       last_event.body = body
       last_event.save
     else
