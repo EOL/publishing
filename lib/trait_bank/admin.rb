@@ -100,26 +100,31 @@ module TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
-      def remove_for_resource(resource)
+      def remove_for_resource(resource, log)
         remove_most_metadata_relationships(resource.id)
         remove_with_query(
           name: :meta,
+          log: log,
           q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
           name: :meta,
+          log: log,
           q: "(meta:MetaData)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
           name: :rel,
+          log: log,
           q: "()-[rel:inferred_trait]-(:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
           name: :trait,
+          log: log,
           q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
         remove_with_query(
           name: :vernacular,
+          log: log,
           q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
         )
       end
@@ -168,14 +173,22 @@ module TraitBank
         q = invert_quotes(options[:q])
         delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
         size = options[:size] || 64
+        log = options[:log]
         count_before = count_by_query(name, q)
         count = 0
         return if count_before.nil? || ! count_before.positive?
         loop do
-          time_before = Time.now
-          apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
           TraitBank::Logger.log("--TB_DEL: #{apoc}")
-          TraitBank.query(apoc)
+          time_before = Time.now
+          begin
+            apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+            TraitBank.query(apoc)
+          rescue => e
+            log.log("ERROR during delete of #{size} x #{name}: #{e.message}", cat: :warns) if log
+            sleep size
+            size = size / 2
+            retry unless size <= 16
+          end
           time_delta = Time.now - time_before
           TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
           count += size
