@@ -42,10 +42,9 @@ class Publishing::PubLog
     @logger&.log(what, type)
   end
 
-  def log_update(what, type = nil)
-    cat = type && type.key?(:cat) ? type[:cat] : :starts
-    add_text_logs("(#{cat}) #{what}")
-    @logger&.log_update(what, type)
+  def log_update(what)
+    add_text_logs("(update) #{what}")
+    @logger&.log_update(what)
   end
 
   def fail_on_error(e)
