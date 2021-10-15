@@ -67,3 +67,4 @@ run Locale.rebuild_language_mappings after the deploy
 
 == UP TO DATE IN PRODUCTION UP TO HERE
 
+2021-10-15: rails r bin/update_ranks.rb
