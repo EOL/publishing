@@ -10,7 +10,7 @@ gem 'mysql2', '0.5.3'
 gem 'mimemagic', '0.4.3'
 
 # "Internal" EOL gems:
-gem 'eol_terms', '>= 0.9.25', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
+gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
 # Asset-related gems next:
 gem 'webpacker', '~> 6.x'
