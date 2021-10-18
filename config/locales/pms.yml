@@ -2052,7 +2052,15 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: età
           eifelian-a
         https://eol(dot)org/schema/terms/elasmobranch_feeder: as nuriss d'elasmobranchi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: dzorelevà
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: autëssa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: slongà
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: stadi embrional
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: età emsian-a
+        http://eol(dot)org/schema/terms/endangered: an privo
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: sistema endòcrin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: ambient endolìtich
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: endoparassita ëd
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoschéletr
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longheur ëd l'epicòno
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempevërda

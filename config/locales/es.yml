@@ -24,6 +24,7 @@
 # Author: Rossnyev
 # Author: Silverie04
 # Author: Warming Hearth
+# Author: Whovian Biologist
 # Author: Whytheonlyone
 ---
 es:
@@ -448,9 +449,15 @@ es:
     q3362072: Digo
     q56466: Dinka
     dv: Divehi; Dhivehi; Maldivo
+    q18415595: Doteli
+    q33013: Duala
     dut: neerlandés; flamenco
     nl: Holandés; flamenco
+    dz: Butanés
+    dzo: Butanés
+    q4126517: Inuktitut oriental canadiense
     en: Inglés
+    q29952: Erzya
     eo: Esperanto
     et: Estonio
     est: estonio
@@ -459,13 +466,17 @@ es:
     fj: Fiyiano
     fi: Finlandés
     fin: finlandés
+    q667747: Fipa
     fr: Francés
     fra: Francés
+    ff: Fula
     gd: Gaélico escocés
     gl: Gallego
+    q33475: Gan chino
     ka: Georgiano
     de: Alemán
     deu: Alemán
+    q5575236: Goan Konkani
     el: Griego, Moderno (1453-)
     gre: Griego
     gn: Guaraní
@@ -1484,6 +1495,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atolón
         http://eol(dot)org/schema/terms/autochory: autocoria
         http://eol(dot)org/schema/terms/average: promedio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: tierra yerma
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002872: bagaso
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: edad
           Bajociense
@@ -1543,6 +1555,8 @@ es:
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura corporal
         http://eol(dot)org/schema/terms/BodyVolume: volumen corporal
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: ancho del cuerpo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: pozo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: campo de rocas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: lago salobre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: estanque salobre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: agua salobre
@@ -1551,15 +1565,22 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: amplio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: Bosque de frondosas
         http://eol(dot)org/schema/terms/bromelicolous: bromelias
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: inquietante
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrón
         http://eol(dot)org/schema/terms/browsing: navegador
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: brote
+        http://eol(dot)org/schema/terms/BudSource: fuente de yemas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: edificio
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: material de construcción
         http://purl(dot)obolibrary(dot)org/obo/PO_0025356: bulbo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: edad
           Burdigaliense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: suelo quemado
+        https://eol(dot)org/schema/terms/burrow_builder: constructor de madrigueras
+        https://eol(dot)org/schema/terms/burrowDepth: profundidad de la madriguera
+        https://eol(dot)org/schema/terms/burrowDiameter: diámetro de la madriguera
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: madriguera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: butte
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: cafeína
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: edad
           Calabriense
@@ -1776,6 +1797,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epidermis
         http://eol(dot)org/schema/terms/epifauna_feeder: se alimenta de epifauna
         http://eol(dot)org/schema/terms/epizoochory: epizoocoria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: escarpadura
         http://eol(dot)org/schema/terms/excavating: Excavador
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Expuesto
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo externo
@@ -1917,6 +1939,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: Colina
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: edad
           Hirnantiense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Holocene: época
+          del holoceno
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: edad
           Homeriense
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: Miel
@@ -1927,6 +1951,10 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: Fuente termal
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0007937: Artículos de casa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: filtración de hidrocarburos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: embalse hidroeléctrico
+        http://www(dot)marinespecies(dot)org/traits/Hydrostatic: esqueleto hidrostático
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: respiradero hidrotermal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: hielo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: iceberg
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: Sistema inmunitario

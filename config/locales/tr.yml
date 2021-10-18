@@ -67,6 +67,72 @@ tr:
     types:
       scientific: bilimsel
       vernacular: yerel
+  brief_summary:
+    extinction:
+      r_genus_html: Bu cins <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_subgenus_html: Bu altcins <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_infragenus_html: Bu infracins <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_superspecies_html: Bu üsttür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_species_html: Bu tür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_subspecies_html: Bu alttür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_infraspecies_html: Bu infratür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_form_html: Bu form <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+    fix_nitrogen_html: <span class='%{class_str}' id='%{object_id}'>Nitrojeni</span>
+      <span class='%{class_str}' id='%{predicate_id}'>düzenlerler</span>.
+    freshwater_html: <span class='%{class_str}' id='%{id}'>Tatlısu habitatı</span>
+      ile bağlantılılar.
+    species: '%{name1}, %{name2} türüdür.'
+    species_in_family: '%{name1}, %{name_family} familyasına bağlı olan %{name2} türüdür.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1}, %{name2} üstfamilyasıdır.'
+        r_domain: '%{name1}, %{name2} altında bir âlemdir.'
+        r_subdomain: '%{name1}, %{name2} altında bir altâlemdir.'
+        r_infradomain: '%{name1}, %{name2} altında bir infraâlemdir.'
+        r_superkingdom: '%{name1}, %{name2} altında bir üstâlemdir.'
+        r_kingdom: '%{name1}, %{name2} altında bir âlemdir.'
+        r_subkingdom: '%{name1}, %{name2} altında bir altâlemdir.'
+        r_infrakingdom: '%{name1}, %{name2} altında bir infraâlemdir.'
+        r_superphylum: '%{name1}, %{name2} altında bir üstşubedir.'
+        r_phylum: '%{name1}, %{name2} altında bir şubedir.'
+        r_subphylum: '%{name1}, %{name2} altında bir altşubedir.'
+        r_infraphylum: '%{name1}, %{name2} altında bir infraşubedir.'
+        r_superclass: '%{name1}, %{name2} üstsınıftır.'
+        r_class: '%{name1}, %{name2} altında bir sınıftır.'
+        r_subclass: '%{name1}, %{name2} altında bir altsınıftır.'
+        r_infraclass: '%{name1}, %{name2} altında bir infrasınıftır.'
+        r_superorder: '%{name1}, %{name2} altında bir üsttakımdır.'
+        r_order: '%{name1}, %{name2} altında bir takımdır.'
+        r_suborder: '%{name1}, %{name2} altında bir alttakımdır.'
+        r_infraorder: '%{name1}, %{name2} altında bir infratakımdır.'
+        r_family: '%{name1}, %{name2} altında bir familyadır.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1}, %{name3} familyasına bağlı olan %{name2} altfamilyasıdır.'
+          r_infrafamily: '%{name1}, %{name3} familyasına bağlı olan %{name2} infrafamilyadır.'
+          r_tribe: '%{name1}, %{name3} familyasına bağlı olan %{name2} oymağıdır.'
+          r_supergenus: '%{name1}, %{name3} familyasına bağlı olan %{name2} üstcinsidir.'
+          r_genus: '%{name1}, %{name3} familyasına bağlı olan %{name2} cinsidir.'
+          r_subgenus: '%{name1}, %{name3} familyasına bağlı olan %{name2} altcinsidir.'
+          r_infragenus: '%{name1}, %{name3} familyasına bağlı olan %{name2} infracinsdir.'
+          r_superspecies: '%{name1}, %{name3} familyasına bağlı olan %{name2} üsttürüdür.'
+          r_species: '%{name1}, %{name3} familyasına bağlı olan %{name2} türüdür.'
+          r_subspecies: '%{name1}, %{name3} familyasına bağlı olan %{name2} alttürüdür.'
+          r_infraspecies: '%{name1}, %{name3} familyasına bağlı olan %{name2} infratürüdür.'
+          r_form: '%{name1}, %{name3} familyasına bağlı olan %{name2} formdur.'
+        without_family:
+          r_subfamily: '%{name1}, %{name2} altfamilyasıdır.'
+          r_infrafamily: '%{name1}, %{name2} infrafamilyasıdır.'
+          r_tribe: '%{name1}, %{name2} oymağıdır.'
+          r_supergenus: '%{name1}, %{name2} üstcinsidir.'
+          r_genus: '%{name1}, %{name2} cinsidir.'
+          r_subgenus: '%{name1}, %{name2} altcinsidir.'
+          r_infragenus: '%{name1}, %{name2} infracinsidir.'
+          r_superspecies: '%{name1}, %{name2} üsttürüdür.'
+          r_species: '%{name1}, %{name2} türüdür.'
+          r_subspecies: '%{name1}, %{name2} alttürüdür.'
+          r_infraspecies: '%{name1}, %{name2} infratürüdür.'
+          r_form: '%{name1}, %{name2} formudur.'
   button_create: oluştur
   button_add: ekle
   cancel: iptal
@@ -1232,6 +1298,7 @@ tr:
       sample_size: Örnek boyut
       scientific_name: Bilimsel ad
       source: Kaynak
+    search_hdr: Veri Arama
     search_results:
       clade: 'klad: %{clade}'
       download_tsv: tsv indir
@@ -3093,6 +3160,7 @@ tr:
           dönemi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: haraç
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: tridekanoik asit
+        http://eol(dot)org/schema/terms/trophicEcology: tropik ekoloji
         http://eol(dot)org/schema/terms/TrophicGuild: beslenme birliği
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005806: tropikal ve subtropikal
           iğne yapraklı orman
@@ -3307,10 +3375,24 @@ tr:
         http://eol(dot)org/schema/terms/collection_GHSchmidt: G. H. Schmidt koleksiyonu
         http://eol(dot)org/schema/terms/collection_Heller: Heller koleksiyonu
         http://eol(dot)org/schema/terms/collection_Singrisch: Singrisch koleksiyonu
+        http://eol(dot)org/schema/terms/King_Abdulaziz_University: Kral Abdulaziz
+          Üniversitesi
         http://eol(dot)org/schema/terms/Mus_Rothschild: Rothschild Müzesi
+        http://eol(dot)org/schema/terms/Zoological_Museum_Helsinki: Helsinki Zooloji
+          Müzesi
+        http://eol(dot)org/schema/terms/prototype: Prototip
+        http://eol(dot)org/schema/terms/adultAndLarva: yetişkin ve larva
+        http://eol(dot)org/schema/terms/adultAndNymph: yetişkin ve nimfa
         http://eol(dot)org/schema/terms/adultAndPupa: yetişkin ve pupa
+        http://eol(dot)org/schema/terms/femaleFlowers: dişi çiçekler
         http://eol(dot)org/schema/terms/floweringAndFruiting: çiçekli ve meyveli
+        http://eol(dot)org/schema/terms/larvaAndPupa: larva ve pupa
+        http://eol(dot)org/schema/terms/maleAndHermaphrodite: erkek ve hermafrodit
+        http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: erkek dişi ve
+          hermafrodit
         http://eol(dot)org/schema/terms/maleFlowers: Eril çiçekler
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: doğurgan
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: hermafrodit
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: çiçeklenme aşaması
         http://purl(dot)obolibrary(dot)org/obo/PO_0025500: meyve gelişim aşaması
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: pupa
