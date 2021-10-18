@@ -155,10 +155,12 @@ class TermBootstrapper
     term_from_gem.keys.each do |key|
       if (
           (key == 'eol_id' && term_from_gem[key] != term_from_neo4j[key]) || # if one has an integer eol_id and the other a string, they aren't equivalent
-          term_from_gem[key].to_s != term_from_neo4j[key].to_s 
+          term_from_gem[key].to_s != term_from_neo4j[key].to_s
       )
         # Ignore false-like values compared to false:
         next if term_from_gem[key] == [] && term_from_neo4j[key].blank?
+        next if term_from_gem[key].blank? && term_from_neo4j[key] == []
+        next if term_from_gem[key].is_a?(Array) && term_from_gem[key].first.blank? && term_from_neo4j[key] == []
         next if term_from_gem[key] == 'false' && term_from_neo4j[key].blank?
         next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
         next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
@@ -222,9 +224,9 @@ class TermBootstrapper
     in_rels = rels_by_direction(uri, :incoming)
 
     # We don't really care about these.
-    out_rels.delete('synonym_of') 
-    out_rels.delete('parent_term') 
-    out_rels.delete('units_term') 
+    out_rels.delete('synonym_of')
+    out_rels.delete('parent_term')
+    out_rels.delete('units_term')
     out_rels.delete('object_for_predicate')
     in_rels.delete('object_for_predicate')
 
