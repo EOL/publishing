@@ -473,24 +473,41 @@ es:
     gd: Gaélico escocés
     gl: Gallego
     q33475: Gan chino
+    lg: Ganda
     ka: Georgiano
     de: Alemán
     deu: Alemán
     q5575236: Goan Konkani
+    q3272630: Gogo
+    q2501174: Gorontalo
     el: Griego, Moderno (1453-)
     gre: Griego
     gn: Guaraní
     gu: Guyaratí
+    q33303: Haida
     ht: Criollo haitiano
     ha: hausa
+    q35756: Haya
     he: Hebreo
     heb: Hebreo
+    q3129390: Hehe
+    hz: Herero
+    q35978: Hiligueino
     hi: hindú
+    ho: Jirimotu
     hu: Húngaro
     is: Islandés
     ice: Islandés
+    io: Ido
+    ig: Igbo
+    q35936: Ilocano
     id: Indonesio
+    q33509: Ingusetio
     ia: Interlingua (Asociación Internacional de Idiomas Auxiliares)
+    ie: Interlingue; Occidental
+    iu: Inuktitut
+    ik: Inupiaq
+    q33595: Iraqw
     ga: Irlandés
     it: Italiano
     ita: Italiano
@@ -498,22 +515,71 @@ es:
     ja: Japonés
     jp: Japonés
     jv: Javanés
+    q33522: Cabardino circasiano
+    q35475: kabiyé
+    q35853: Cabilio
+    kl: Kalaallisut groenlandés
+    q33634: Calmuco
+    kn: Canarés
+    kr: Kanuri
+    q36121: Pampango
+    q33541: Karakalpako
+    ks: Cachemiro
+    q33690: Casubio
     kk: Kazajo
+    ki: Kikuyu
+    q33656: Sami kildin
+    q33720: Kinaray-a
+    q11005332: Kinga
+    q11732519: Kingindo
     rw: Kiñaruanda
+    ky: Kirguís
+    kv: Komi
+    kg: Kongo
     ko: Coreano
     kor: Coreano
+    kj: Kuanyama; Kwanyama
     ku: Kurdo
+    q36206: Lak
+    lo: Laosiano
+    lao: Laosiano
     la: Latín
     lv: letón
+    q1160372: Laz
+    q31746: Lezgiano
+    q36106: Ligur
     li: Limburgués
+    ln: Lingala
+    q146803: Lingua Franca Nova
     lt: Lituano
     lit: lituano
+    q33698: Livonio
+    q36584: Livvi
+    q33754: Lombardo
+    q168446: Bajo alemán
+    q13286: Bajo sorabo
+    lu: KiLuba
+    q3437661: Luguru
     lb: Luxemburgués
+    q35787: Masái
     mk: Macedonio
+    q497345: Franconio oriental
+    q36109: Maithili
     mg: Malgache
     ms: malayo
+    ml: Malabar
     mt: Maltés
+    mlt: Maltés
+    gv: Manés
     mi: maorí
+    mr: Maratí
+    mh: Marshalés
+    q6786446: Matengo
+    q3906614: Mari oriental
+    q13357: Meänkieli
+    q13358: Meglenorrumano
+    q13313: Meru
+    q13321: Micmac
     mn: Mongol
     q56426: Árabe marroquí
     nv: Navajo
@@ -2104,6 +2170,7 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: edad
           Moscoviense
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: músculo
+        http://eol(dot)org/schema/terms/myrmecochory: mirmecocoria
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: etapa de nauplio
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: neonato
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: era

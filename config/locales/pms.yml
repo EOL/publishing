@@ -2061,8 +2061,23 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: sistema endòcrin
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: ambient endolìtich
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: endoparassita ëd
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000551: bassin endorèich
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoschéletr
+        https://eol(dot)org/schema/terms/endosymbiontOf: endosimbiont ëd
+        http://eol(dot)org/schema/terms/endozoochory: endo-zoocorìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003082: teren anrichì
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: distribussion
+          geogràfica antrega
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: época
+          eocenia
+        https://eol(dot)org/schema/terms/epibiontOf: epibiont ëd
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longheur ëd l'epicòno
+        http://eol(dot)org/schema/terms/epicormicBuds: but epicòrmich
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epiderme
+        http://eol(dot)org/schema/terms/epifauna_feeder: as nuriss d'epifàuna
+        http://www(dot)marinespecies(dot)org/traits/Epifaunal: epifàun
+        http://eol(dot)org/schema/terms/epihydate: epidat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008501: epifita ëd
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempevërda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esponù
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: lest
