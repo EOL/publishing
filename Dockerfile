@@ -50,6 +50,9 @@ RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
 RUN ln -s /tmp /app/tmp
 
+RUN source .env && git config --global user.email "$EOL_GITHUB_EMAIL"
+RUN source .env && git config --global user.name "$EOL_GITHUB_USER"
+
 EXPOSE 3000
 
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
