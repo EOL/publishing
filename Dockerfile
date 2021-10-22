@@ -13,6 +13,11 @@ RUN apt-get update -q && \
 
 COPY . /app
 
+# RUN apt-get update -q && \
+#     apt-get install -qq -y ca-certificates && \
+#     apt-get update && \
+#     curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get update -q && \
     apt-get install -qq -y nodejs && \
@@ -50,8 +55,8 @@ RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
 RUN ln -s /tmp /app/tmp
 
-RUN source .env && git config --global user.email "$EOL_GITHUB_EMAIL"
-RUN source .env && git config --global user.name "$EOL_GITHUB_USER"
+RUN source docker/.env && git config --global user.email "$EOL_GITHUB_EMAIL"
+RUN source docker/.env && git config --global user.name "$EOL_GITHUB_USER"
 
 EXPOSE 3000
 
