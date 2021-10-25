@@ -77,8 +77,8 @@ es:
         están disponibles "las migas de pan"
     setting_header: nombres en rutas de navegación
     types:
-      scientific: Científico
-      vernacular: Vernáculo
+      scientific: científico
+      vernacular: vernáculo
   brief_summary:
     extinction:
       r_genus_html: Este género es <span class='%{class_str}' id='%{id}'>extinct</span>.
@@ -181,7 +181,7 @@ es:
       referents_count: referentes
       species_count: especies
       updated_at: última actualización
-  collect_already_in_collection: (ya se encuentra aqui)
+  collect_already_in_collection: (ya se encuentra aquí)
   collect_already_in_collection_will_add_icon: (agregar medios de comunicación a "%{page}")
   collect_icon_title: Añade "%{item}" de la "%{page}" página a...
   collect_new_collection: Nombre de la colección nueva
@@ -224,7 +224,7 @@ es:
       placeholder: Nombre completo o nombre de usuario
     actions:
       associate: asociar
-      download_taxa_csv: descargar un archivo CSV de "taxa"
+      download_taxa_csv: descargar archivo CSV de los taxones
       delete: eliminar
       edit: editar
       sort: Poner en orden
@@ -260,14 +260,14 @@ es:
       placeholder: Buscar en la colección…
       submit: buscar
     sort:
-      hierarchy: hierarhia
+      hierarchy: jerarquía
       position: fecha de adición
       sci_name: nombre científico, A-Z
       sci_name_rev: nombre científico, Z-A
       sort_field: anotación, A-Z
       sort_field_rev: anotación, Z-A
     updated: Se actualizó la colección.
-  collection_unauthorized_edit: El usuario propietario solo puede editar esta colección.
+  collection_unauthorized_edit: Solo el usuario propietario puede editar esta colección.
   complete_registration: Sigue haciendo tu registro por favor
   content_appears_on: 'Se incluye en las páginas siguientes:'
   content_collected_in: 'Presentado en las siguientes colecciones:'
@@ -276,7 +276,7 @@ es:
     altitude: altitud
     author: autor/a
     bibliographic_citation: cita bibliográfica
-    contributor: Colaborador
+    contributor: colaborador
     compiler: Compilador
     creator: creador/a
     editor: editor
@@ -356,7 +356,7 @@ es:
       invertebrates: Invertebrados
       mammals: Mamíferos
       molds: Los mohos
-      mushrooms: Hongos
+      mushrooms: Setas
       mollusks: Moluscos
       plants: Plantas
       protists: Protistas
@@ -580,46 +580,110 @@ es:
     q13358: Meglenorrumano
     q13313: Meru
     q13321: Micmac
+    q36455: Min dong
+    q13324: Minangkabau
+    q13359: Mingreliano
+    q13330: Mirandés
+    q13343: Moksha
     mn: Mongol
     q56426: Árabe marroquí
+    q6944725: Mwera
+    q13300: Náhuatl
+    q3508074: Nai
+    na: Nauruano
     nv: Navajo
+    nd: Ndebele del norte; Ndebele septentrional
+    nr: Ndebele del sur; Ndebele meridional
+    ng: Ndonga
+    q33845: Napolitano
     ne: Nepalí
+    q7022366: Ngindo
+    q28224: Frisón del norte
+    q19933293: Luri del norte
     se: Sami norteño
     "no": Noruego
     nno: Noruego
     nob: noruego
     nor: noruego
+    nn: Nynorsk noruego
+    q36738: Novial
+    q3272620: Nyakusa
+    q4121131: Nyamwezi
+    q7193418: Nyaturu
+    q11128374: Nyiha
+    q16115145: Nyika
     oc: Occitano (post 1500)
     q28602: Arameo oficial
+    oj: Ojibwa
+    or: Oriya
+    om: Oromo
+    os: Osetio; Osético
+    q715755: Paiwan
+    pi: Pali
     pa: Panyabí
+    q36403: Pare
     fa: Persa
+    q23014: Alemán palatino
+    q34024: Picardo
+    q15085: Piamontés
+    q2429648: Pogoro
     pl: Polaco
     pol: Polaco
+    q36748: Póntico
     pt: Portugués
+    ps: Pastún; Pashtun
     qu: Quechua
+    q584983: Rangi
+    ro: Rumano; Moldavo
     rm: Romanche
+    rn: Rundi
     ru: Ruso
     rus: Ruso
+    q26245: Rusino
+    q34299: Yakuto
+    q718269: Sakizaya
     sm: Samoano
+    q213434: Samogitiano
+    q34016: Sandavés
+    sg: Sango
     sa: Sánscrito
+    q33965: Santalí
     sc: Sardo
+    q845441: Sardo sassarés
+    q14549: Escocés
+    q716686: Seediq
     sr: Serbio
+    q3788739: Shambala
+    q56482: Shan
+    sn: Shona
+    q34004: Shona
+    ii: Sichuan Yi; Nuosu
+    q33973: Siciliano
+    sd: Sindi
     si: Cingalés
     sk: Eslovaco
     slk: eslovaco
     sl: Esloveno
     so: somalí
     som: Somalí
+    st: Soto meridional
     es: Español; Castellano
     slv: Español
+    q2638144: Sukuma
+    su: Sondanés
     sw: swahili
+    ss: Suazi
     sv: Sueco
     swe: Sueco
     tl: Tagalo
+    ty: Tahitiano
     tg: Tayiko
+    q34318: Talish
     ta: Tamil
+    tt: Tártaro
     te: Telugu
     th: Tai
+    tha: Tailandés
     bo: Tibetano
     ti: Tigriña
     q34159: Tok pisin
