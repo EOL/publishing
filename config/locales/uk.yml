@@ -1,6 +1,7 @@
 # Messages for Ukrainian (українська)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Base
 # Author: DDPAT
 # Author: Movses
 # Author: SteveR
@@ -1770,8 +1771,8 @@ uk:
           стадія 4 вік
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: кембрійська
           стадія 5 вік
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: вік
-          компанії
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: кампанський
+          вік
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: канал
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: тростини
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: навіс
