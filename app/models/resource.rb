@@ -403,8 +403,9 @@ class Resource < ApplicationRecord
     Node::Mover.by_resource(self)
   end
 
-  def slurp_traits
-    TraitBank::Slurp.load_csvs(self)
+  # Meant to be called manually:
+  def republish_traits
+    Publishing::Fast.traits_by_resource(self)
   end
 
   # Note this does NOT include metadata!

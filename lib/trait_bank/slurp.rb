@@ -20,9 +20,9 @@ class TraitBank::Slurp
     diff_metadata = repo.trait_diff_metadata
 
     ResourceNode.create_if_missing(
-      @resource.id, 
-      @resource.name, 
-      @resource.description, 
+      @resource.id,
+      @resource.name,
+      @resource.description,
       @resource.repository_id
     )
 
@@ -349,6 +349,7 @@ class TraitBank::Slurp
     tail = lines_without_header % MAX_CSV_SIZE
     # NOTE: Each one of these head/tail commands can take a few seconds.
     (1..chunks).each do |chunk|
+      sleep(chunk * 120) if chunk > 1 # 4 minutes for chunk 2, 6 for chunk 3, 8 for chunk 4, etc.
       sub_file = sub_file_name(basename, chunk)
       copy_head(filename, sub_file)
       `head -n #{MAX_CSV_SIZE * chunk + 1} #{resource_file_dir}/#{filename} | tail -n #{MAX_CSV_SIZE} >> #{resource_file_dir}/#{sub_file}`
@@ -432,8 +433,8 @@ class TraitBank::Slurp
   end
 
   def csv_query_file_location(filename)
-    filename =~ /^http/ ? 
-      filename : 
+    filename =~ /^http/ ?
+      filename :
       Rails.configuration.eol_web_url +
         "/#{@resource.file_dir.relative_path_from(Rails.root.join('public'))}" +
         "/#{filename}"
@@ -610,7 +611,7 @@ class TraitBank::Slurp
         end
 
         count += 1
-      end   
+      end
 
       @logger.info("removed #{count} traits")
     else
