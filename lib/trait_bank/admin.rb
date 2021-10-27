@@ -178,10 +178,10 @@ module TraitBank
         count = 0
         return if count_before.nil? || ! count_before.positive?
         loop do
-          TraitBank::Logger.log("--TB_DEL: #{apoc}")
           time_before = Time.now
           begin
             apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+            TraitBank::Logger.log("--TB_DEL: #{apoc}")
             TraitBank.query(apoc)
           rescue => e
             log.log("ERROR during delete of #{size} x #{name}: #{e.message}", cat: :warns) if log
