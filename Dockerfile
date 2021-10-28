@@ -14,9 +14,12 @@ COPY . /app
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.email '$EOL_GITHUB_EMAIL'"]
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.name '$EOL_GITHUB_USER'"]
 
-SHELL ["/bin/bash", "-c" , "source /app/docker/.env && /app/bin/rake assets:precompile"]
-SHELL ["/bin/bash", "-c" , "source /app/docker/.env && /usr/local/bundle/bin/bundle install"]
-SHELL ["/bin/bash", "-c" , "source /app/docker/.env && /usr/local/bundle/bin/bundle update eol_terms"]
+RUN RAILS_ENV=production bundle install
+RUN RAILS_ENV=production bundle update eol_terms
+RUN RAILS_ENV=production bundle exec rake assets:precompile
+
+# SHELL ["/bin/bash", "-c" , "source /app/docker/.env && /usr/local/bundle/bin/bundle install"]
+# SHELL ["/bin/bash", "-c" , "source /app/docker/.env && /usr/local/bundle/bin/bundle update eol_terms"]
 
 EXPOSE 3000
 
