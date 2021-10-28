@@ -1,6 +1,6 @@
 FROM ruby:2.6.5
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2021-08-25"
+LABEL last_full_rebuild="2021-10-28"
 
 WORKDIR /app
 
