@@ -2084,6 +2084,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000282: esker
         http://rs(dot)tdwg(dot)org/dwc/terms/establishmentMeans: mojen d'anstalassion
         http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: stim
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000020: estuarian
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002160: pàuta estuarian-a
+        http://eol(dot)org/schema/terms/eutrophicFreshwaterLake: lagh d'eva dossa
+          eutròfich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002224: eva eutròfica
+        http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: dàita dl'eveniment
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempevërda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esponù
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: lest

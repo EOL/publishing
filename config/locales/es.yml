@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alonso Biólogo
 # Author: Aramos1422
+# Author: Avengium
 # Author: Canaan9801
 # Author: Destinid10 2
 # Author: Fitoschido
@@ -688,8 +689,12 @@ es:
     ti: Tigriña
     q34159: Tok pisin
     to: Tongano
+    q180937: Tosco albanés
+    ts: Tsonga
+    q56240: Árabe tunecino
     tr: Turco
     tur: turco
+    q36730: Turco, otomano
     uk: Ucraniano
     ukr: Ucraniano
     none: No especificado
@@ -1596,21 +1601,26 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogénico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002204: característica de contaminación
           antropogénica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010001: material ambiental antropogénico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: terrestre antropogénico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatito
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: ojos de aposición
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: edad Aptiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: Acueducto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: acuático
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: acuático (locomoción)
+        http://eol(dot)org/schema/terms/aquatic: acuático adaptado
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: planta acuática
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: acuífero
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: edad
           Aquitaniense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: suelo arable
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonito
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: arbóreo (locomoción)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: hábitat arbóreo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: eón arcaico
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: área
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: arista
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: árido
         https://eol(dot)org/schema/terms/arm: brazo
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: brazo más longitud del
@@ -1625,6 +1635,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atolón
         http://eol(dot)org/schema/terms/autochory: autocoria
         http://eol(dot)org/schema/terms/average: promedio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: remanso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: tierra yerma
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002872: bagaso
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: edad
