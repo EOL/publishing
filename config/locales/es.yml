@@ -691,23 +691,44 @@ es:
     to: Tongano
     q180937: Tosco albanés
     ts: Tsonga
+    tn: Setsuana
+    q34251: Tulu
+    q34138: Tumbuka
     q56240: Árabe tunecino
     tr: Turco
     tur: turco
     q36730: Turco, otomano
+    tk: Turcomano
+    tw: Twi
+    q13238: Udmurto
+    ug: Uighur; Uyghur
     uk: Ucraniano
     ukr: Ucraniano
     none: No especificado
+    q13248: Alto sorabo
     ur: Urdu
     uz: Uzbeko
+    ve: Venda
+    q32747: Vepsio
     vi: Vietnamita
+    vo: Volapük
+    q32858: Votio
+    wa: Valón
+    q34279: Waray
     cy: Galés
     wel: galés
     q100103: Flamenco occidental
+    fy: Frisón occidental
     wo: Wólof
     q34290: wu
+    xh: Xhosa
     yi: Yidis
+    yo: Yoruba
+    q10199: Zazaki
+    q237409: Zelandés
+    za: Zhuang; Chuang
     zu: Zulú
+    Q33219: Banyumasan
   layout_sign_in: Iniciar sesión
   layout_sign_up: Registrarse
   layout_sign_out: Cerrar sesión
@@ -1507,6 +1528,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: tiene huevos que yacen
           por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: tiene parasitoide
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: tiene patógeno
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: cazado por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visitado por
