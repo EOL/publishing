@@ -2094,7 +2094,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: foresta sempevërda
         https://eol(dot)org/schema/terms/everse: ancurvà andrinta
         http://eol(dot)org/schema/terms/excavating: scavator
+        http://eol(dot)org/schema/terms/explanate: planar
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esponù
+        http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo esterior
+        http://eol(dot)org/schema/terms/extinct: dëstiss
+        http://eol(dot)org/schema/terms/extinctInTheWild: dëstiss a lë stat sërvaj
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: lest
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pe
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: longheur dël fémur

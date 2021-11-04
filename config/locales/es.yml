@@ -1718,6 +1718,7 @@ es:
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura corporal
         http://eol(dot)org/schema/terms/BodyVolume: volumen corporal
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: ancho del cuerpo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003097: agua de pozo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: pozo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: campo de rocas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: lago salobre
@@ -1726,6 +1727,7 @@ es:
         https://eol(dot)org/schema/terms/brittlestar_feeder: se alimenta de estrellas
           quebradizas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: amplio
+        http://eol(dot)org/schema/terms/broadcastSpawner: Desovador dispersor
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: Bosque de frondosas
         http://eol(dot)org/schema/terms/bromelicolous: bromelias
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: inquietante
@@ -1744,16 +1746,25 @@ es:
         https://eol(dot)org/schema/terms/burrowDiameter: diámetro de la madriguera
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: madriguera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: butte
+        http://eol(dot)org/schema/terms/caespitose: cespitosa
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: cafeína
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: edad
           Calabriense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000567: calanque
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: cieno calcáreo
+        http://eol(dot)org/schema/terms/CalcareousSoilTolerance: tolerancia a suelo
+          calcáreo
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: calcita
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcio (ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato de calcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfato de calcio
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: sulfato de calcio
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: sulfato de calcio dihidratado
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: sulfato de calcio hemihidrato
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: caldera
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: edad
           Calloviense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002235: cambisol
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: período
           Cámbrico
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries2: época
@@ -1771,17 +1782,25 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: edad
           Campaniense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: canal
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: Cañas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: dosel
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: cañón
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: edad
           Capitaniense
+        http://eol(dot)org/schema/terms/CapitulumLength: longitud del capítulo
+        https://eol(dot)org/schema/terms/carangiform: carangiforme
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: caparazón
         http://eol(dot)org/schema/terms/CarapaceLength: largo del caparazón
         http://purl(dot)dataone(dot)org/odo/ECSO_00001143: biomasa de carbono
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: período
+          carbonífero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: armazón
+        https://eol(dot)org/schema/terms/carcharhiniform: carcarriniformes
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: edad
           Carniense
+        http://eol(dot)org/schema/terms/carnivorous_scavenger: carroñero carnívoro
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: cartílago
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catádromo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: cueva
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: entrada a la cueva
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: suelo de la cueva
@@ -1799,6 +1818,9 @@ es:
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: cemento
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: edad
           Cenomaniense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: era
+          cenozoica
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: sistema nervioso central
         https://eol(dot)org/schema/terms/cephalopod_feeder: se alimenta de cefalópodos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: tiza
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: edad
