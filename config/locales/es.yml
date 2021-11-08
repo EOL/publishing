@@ -1823,15 +1823,20 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: sistema nervioso central
         https://eol(dot)org/schema/terms/cephalopod_feeder: se alimenta de cefalópodos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: tiza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: suelo de tiza
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: edad
           Changhsingiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: canal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: chaparral
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: edad
           Chattiense
+        http://eol(dot)org/schema/terms/ChelaWidth: ancho de la quela
         http://eol(dot)org/schema/terms/chemosymbiotroph: quimiosimbiotrófico
         http://eol(dot)org/schema/terms/ciliary_mucus_feeder: se alimenta de moco
           ciliar
+        http://eol(dot)org/schema/terms/CingulumWidth: ancho del cíngulo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: época
+          Cisuraliense
         http://purl(dot)org/dc/terms/bibliographicCitation: citación
         http://eol(dot)org/schema/terms/CITES_I: cita el apéndice i
         http://eol(dot)org/schema/terms/CITES_II: cita el apéndice ii
@@ -1845,46 +1850,84 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: acantilado
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: Escalador
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: clina
+        http://eol(dot)org/schema/terms/cloud_forest: bosque nuboso
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: nidada/progenie/tamaño
+          de la camada
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
         http://eol(dot)org/schema/terms/cnidaria_feeder: se alimenta de moco ciliar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: Duna costera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: ensenada costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: Tierra costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: planicie costal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: matorral costero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: Agua costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000230: Humedal costero
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: guijarro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: sedimento de guijarros
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: plantación de coco
         http://purl(dot)obolibrary(dot)org/obo/STATO_0000236: coeficiente de variación
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: plantacion de cafe
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: enrollar
         http://eol(dot)org/schema/terms/colonyDensity: densidad de colonias
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: color
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: comensal de
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: comunicación
         http://eol(dot)org/schema/terms/competitive: competitivo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: compost
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: compuesto
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: ojos compuestos
+        https://eol(dot)org/schema/terms/concave_mirror_eyes: ojos de espejo cóncavo
         http://eol(dot)org/schema/terms/cone: cono
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: edad
           Coniaciense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: bosque de conífera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: bosque de coníferas
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: estado
+          de conservación
         http://eol(dot)org/schema/terms/contaminatedHabitat: Hábitat contaminado
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: sedimento contaminado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: suelo contaminado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: isla continental
         http://eol(dot)org/schema/terms/copepodid3: copépodo etapa 3
         http://eol(dot)org/schema/terms/copepodid5: copépodo etapa 5
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Arrecife de coral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: fondo arrecifal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000146: cresta arrecifal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000144: llanura arrecifal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000147: frente arrecifal
         https://eol(dot)org/schema/terms/coral_sand: arena de coral
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: coralito
+        http://eol(dot)org/schema/terms/coralliteWidth: ancho del coralito
+        https://eol(dot)org/schema/terms/corneal_eyes: ojos corneales
+        http://eol(dot)org/schema/terms/corymbose: corimbosos
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: Cosméticos
+        http://eol(dot)org/schema/terms/Cosmopolitan: cosmopolita
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: sembradío de algodón
         http://purl(dot)obolibrary(dot)org/obo/PO_0020030: cotiledón
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Cotype: cotipo
         http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: código del país
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: establo de vacas
         https://eol(dot)org/schema/terms/crab_feeder: se alimenta de cangrejos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: lago de cráter
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: arrastrándose
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: período
+          cretáceo
         https://eol(dot)org/schema/terms/crinoid_feeder: se alimenta de crinoideos
+        http://eol(dot)org/schema/terms/criticallyEndangered: en peligro crítico
+        http://eol(dot)org/schema/terms/crustose: costroso
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: período
+          Criogénico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: criosol
+        http://eol(dot)org/schema/terms/cuneiform: cuneiforme
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: Cilindro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: pantano de cipreses
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: lácteo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003862: lácteos (hábitat microbiano)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: dambo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: edad Daniense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: edad
           Dapingiense
@@ -1922,7 +1965,10 @@ es:
         http://eol(dot)org/schema/terms/diandry: diándrico
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapausa
         https://eol(dot)org/schema/terms/diatom_feeder: se alimenta de diatomeas
+        http://eol(dot)org/schema/terms/DietBreadth: amplitud de la dieta
+        http://eol(dot)org/schema/terms/Diet: la dieta incluye
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: Sistema digestivo
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digitado
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: sulfuro de dimetilo
         https://eol(dot)org/schema/terms/dioicous: dioico
         http://eol(dot)org/schema/terms/DiscDiameter: diámetro de disco
@@ -1931,6 +1977,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: acequia
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: ácido docosanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: ácido dodecanoico
+        https://eol(dot)org/schema/terms/domesticated_in: domesticado en
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: dorsal
         https://eol(dot)org/schema/terms/dorsal_fin: natación de aleta dorsal
         https://eol(dot)org/schema/terms/dorsoventral_undulatory: natación ondulatoria
@@ -1946,10 +1993,13 @@ es:
         http://eol(dot)org/schema/terms/dry_forest: Bosque seco
         http://eol(dot)org/schema/terms/dryFruit: Fruta seca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: Lago seco
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: lecho seco del lago
         http://eol(dot)org/schema/terms/dryMass: Masa seca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: Río seco
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: Valle de río seco
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: suelo seco
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: corriente seca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: valle seco
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: Duna
         http://eol(dot)org/schema/terms/DurationOfIllness: Duración de la enfermedad
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: Polvo
@@ -1978,11 +2028,22 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: edad Emsiense
         http://eol(dot)org/schema/terms/endangered: en peligro de extinción
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: Sistema endocrino
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: endoparásito de
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
+        http://eol(dot)org/schema/terms/endozoochory: endozoocoria
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: época
+          del eoceno
+        https://eol(dot)org/schema/terms/epibiontOf: epibionto de
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epidermis
         http://eol(dot)org/schema/terms/epifauna_feeder: se alimenta de epifauna
         http://eol(dot)org/schema/terms/epizoochory: epizoocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: escarpadura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000020: estuarino
+        http://eol(dot)org/schema/terms/eutrophicFreshwaterLake: lago eutrófico de
+          agua dulce
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002224: agua eutrófica
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: Perennifolio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: bosque perennifolio
         http://eol(dot)org/schema/terms/excavating: Excavador
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Expuesto
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo externo
@@ -2001,12 +2062,14 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: Hembra
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: Longitud del fémur
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: Ancho del fémur
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: pantano
         http://purl(dot)obolibrary(dot)org/obo/GO_0009566: Fertilización
         http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: Notas de campo
         http://eol(dot)org/schema/terms/FireResistance: Resistencia al fuego
         http://eol(dot)org/schema/terms/FireTolerance: Tolerancia al fuego
         http://eol(dot)org/schema/terms/FossilFirst: primera aparición
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: Cueva de fisura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: fiordo
         http://eol(dot)org/schema/terms/fleshyFruit: Fruta carnosa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: edad Floiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: Prado de inundación
@@ -2015,6 +2078,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: Color de la flor
         http://purl(dot)obolibrary(dot)org/obo/RO_0002623: las flores fueron visitadas
           por
+        http://eol(dot)org/schema/terms/foliose: folioso
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: Aditivo alimentario
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorante alimentario
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bosque

@@ -2099,6 +2099,14 @@ pms:
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo esterior
         http://eol(dot)org/schema/terms/extinct: dëstiss
         http://eol(dot)org/schema/terms/extinctInTheWild: dëstiss a lë stat sërvaj
+        https://eol(dot)org/schema/terms/extirpated: rancà via
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: ambient estrem
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: euj
+        http://eol(dot)org/schema/terms/facultativeClimber: grimpeur facoltativ
+        http://eol(dot)org/schema/terms/facultativeEpiphyte: epifita facoltativ
+        http://eol(dot)org/schema/terms/facultativeParasite: parassita facoltativ
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: età
+          famenian-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: lest
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pe
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: longheur dël fémur

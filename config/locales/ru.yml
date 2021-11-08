@@ -1,0 +1,1033 @@
+# Messages for Russian (русский)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: 1233qwer1234qwer4
+# Author: DDPAT
+# Author: Dimitri Nakashidze
+# Author: HFoxii
+# Author: INS Pirat
+# Author: Kareyac
+# Author: Katunchik
+# Author: Khaietart
+# Author: Lugimax
+# Author: Movses
+# Author: MuratTheTurkish
+# Author: Pacha Tchernof
+# Author: Rivka Silinsky
+# Author: Saimongoltinio
+# Author: Steve Lemo
+# Author: Wileyfoxyx
+# Author: YuliaVo
+# Author: Марио
+---
+ru:
+  language_name: Английский
+  about:
+    trait_bank:
+      title: TraitBank
+      body_html: <p>Техническая команда и команда управления данными в EOL ссылаются
+        на структурированные ресурсы данных в EOL-trait и другие данные атрибутов,
+        экологические взаимодействия и нашей естественную  классификацию, Динамическую
+        Рабочую иерархию - в совокупности как на TraitBank. Этот контент управляется
+        несколько иначе, чем наш "классический" контент - изображения, видео, аудио
+        и описательный текст - и это полезно для разных вещей.</p><p>TraitBank моложе,
+        чем остальная часть EOL; первоначально он был задуман директором группы Species
+        Pages Синтией Парр и начал работать в EOL v2 в январе 2014 года. С тех пор
+        структурированные данные стали нашим главным приоритетом в разработке контента.</p><p>Сейчас
+        вы можете<a href='%{example_search_path}'>проводить поиск</a> или перемещаться
+        по EOL по структурированным данным, или загружать их, или вы можете увидеть
+        их на нашей новой обзорной вкладке в виде<a href='%{autogen_page_path}'>автоматически
+        сгенерированного текста</a>. Как и остальная часть контента EOL, он доступен
+        для повторного использования и поставляется с подробными данными атрибутов,
+        поэтому вы можете сослаться на него, если будете использовать его в своей
+        работе.</p><p>Эти данные моделируются в виде <a href='%{property_graph_url}'>графика
+        свойств</a> в <a href='%{neo4j_url}'>neo4j</a>. <a href='%{data_services_path}'>Услуги
+        по обработке данных</a> предоставляются.</p>
+  account_already_linked: ваша учетная запись уже связана с EOL
+  account_not_linked: ваша учетная запись не связана с EOL
+  advanced: продвинутый
+  are_you_sure_delete_account: Вы уверены, что хотите удалить вашу учётную запись
+    EOL?
+  article:
+    actions:
+      collect: собрать
+    header:
+      blank: (В статье отсутствует тело.)
+      body: Текст сообщения
+      language: 'язык: %{language}'
+      title: Заголовок
+      untitled: Без названия
+    name:
+      missing: Без названия
+  article_from_partner: предоставлено %{partner}
+  article_duplicate: Эта статья также показана в "%{section}"
+  autocomplete:
+    see_all:
+      one: смотреть другие результаты
+      other: смотреть все %{count} результаты
+  breadcrumbs:
+    notices:
+      canonical: Научные названия будут отображены в навигационной цепочке.
+      vernacular: Общеизвестные имена сейчас будут отображены в навигационной цепочке,
+        где доступны
+    setting_header: названия в навигационной цепочке
+    types:
+      scientific: научный
+      vernacular: просторечный
+  brief_summary:
+    extinction:
+      r_genus_html: Этот род <span class='%{class_str}' id='%{id}'>вымер</span> .
+      r_subgenus_html: Этот подрод <span class='%{class_str}' id='%{id}'>вымер</span>.
+      r_infragenus_html: Этот инфрарод <span class='%{class_str}' id='%{id}'>вымер</span>.
+      r_superspecies_html: Этот надвид <span class='%{class_str}' id='%{id}'>вымер</span>.
+      r_species_html: Этот вид <span class='%{class_str}' id='%{id}'>вымер</span>.
+      r_subspecies_html: Этот подвид <span class='%{class_str}' id='%{id}'>вымер</span>.
+      r_infraspecies_html: Этот инфравид <span class='%{class_str}' id='%{id}'>вымер</span>.
+      r_form_html: Эта форма <span class='%{class_str}' id='%{id}'>вымерла</span>.
+    fix_nitrogen_html: Они <span class='%{class_str}' id='%{predicate_id}'>исправляют</span>
+      <span class='%{class_str}' id='%{object_id}'>азот</span>.
+    freshwater_html: Они обитают в <span class='%{class_str}' id='%{id}'>морской среде
+      обитания</span>
+    marine_html: Они обитают в <span class='%{class_str}' id='%{id}'>морской среде
+      обитания</span>.
+    species: '%{name1} - это вид %{name2}.'
+    species_in_family: '%{name1} - это вид %{name2} в семействе %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} - это надсемейство %{name2}.'
+        r_domain: '%{name1} - это надцарство %{name2}'
+        r_subdomain: '%{name1} - это поддомен %{name2}.'
+        r_infradomain: '%{name1} - это инфрадомен %{name2}.'
+        r_superkingdom: '%{name1} - это надцарство %{name2}.'
+        r_kingdom: '%{name1} - это царство %{name2}'
+        r_subkingdom: '%{name1} - это подцарство %{name2}.'
+        r_infrakingdom: '%{name1} - это инфрацарство %{name2}.'
+        r_superphylum: '%{name1} - это надтип %{name2}.'
+        r_phylum: '%{name1} - это тип %{name2}.'
+        r_subphylum: '%{name1} - это подтип %{name2}.'
+        r_infraphylum: '%{name1} - это инфратип %{name2}.'
+        r_superclass: '%{name1} - это надкласс %{name2}.'
+        r_class: '%{name1} - это класс %{name2}.'
+        r_subclass: '%{name1} - это подкласс %{name2}.'
+        r_infraclass: '%{name1} - это инфракласс %{name2}.'
+        r_superorder: '%{name1} - это надотряд %{name2}.'
+        r_order: '%{name1} - это отряд %{name2}.'
+        r_suborder: '%{name1} - это подотряд %{name2}.'
+        r_infraorder: '%{name1} - это инфраотряд %{name2}.'
+        r_family: '%{name1} - это семейство %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} - это подсемейство %{name2} в семействе %{name3}.'
+          r_infrafamily: '%{name1} - это инфрасемейство %{name2} в семействе %{name3}.'
+          r_tribe: '%{name1} - это триба %{name2} в семействе %{name3}.'
+          r_supergenus: '%{name1} - это надрод %{name2} в семействе %{name3}.'
+          r_genus: '%{name1} - это род %{name2} в семействе %{name3}.'
+          r_subgenus: '%{name1} - это подвид %{name2} в семействе %{name3}.'
+          r_infragenus: '% {name1} - это подрод %{name2} в семействе %{name3}.'
+          r_superspecies: '%{name1} - это надвид %{name2} в семействе %{name3}.'
+          r_species: '%{name1} - это вид %{name2} в семействе %{name3}.'
+          r_subspecies: '%{name1} - это подвид %{name2} в семействе %{name3}.'
+          r_infraspecies: '%{name1} — это инфравид %{name2} в семействе %{name3}.'
+          r_form: '%{name1} - это форма %{name2} в семействе %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} - это подсемейство %{name2}'
+          r_infrafamily: '%{name1} - это инфрасемейство %{name2}.'
+          r_tribe: '%{name1} - это триба %{name2}.'
+          r_supergenus: '%{name1} - это надрод %{name2}.'
+          r_genus: '%{name1} - род %{name2}.'
+          r_subgenus: '%{name1} - это подрод %{name2}.'
+          r_infragenus: '%{name1} - инфрарод %{name2}.'
+          r_superspecies: '%{name1} - это надвид %{name2}.'
+          r_species: '%{name1} - это вид %{name2}.'
+          r_subspecies: '%{name1} - это подвид %{name2}.'
+          r_infraspecies: '%{name1} - инфравид %{name2}.'
+          r_form: '%{name1} - это форма %{name2}.'
+  button_create: создать
+  button_add: добавить
+  cancel: отмена
+  change_my_password: Изменить мой пароль
+  change_your_password: Изменить Ваш пароль
+  classifications:
+    children:
+      see_more: узнать больше
+    hierarchies:
+      this_page: (эта страница)
+    richness:
+      header: Богатство страницы
+      score: оценка богатства
+      page_contents_count: связанный контент
+      missing: Богатство еще не рассчитано для этой страницы.
+      media_count: медиа
+      articles_count: статьи
+      links_count: ссылки
+      maps_count: карты
+      data_count: данные
+      nodes_count: Узлы
+      vernaculars_count: наречия
+      scientific_names_count: научные названия
+      referents_count: референты
+      species_count: виды
+      updated_at: последнее изменение
+  collect_already_in_collection: (уже здесь)
+  collect_already_in_collection_will_add_icon: (добавить медиа на "%{page}")
+  collect_icon_title: Добавить "%{item}" со страницы "%{page}" в…
+  collect_new_collection: Название новой коллекции
+  collect_new_collection_title: '...Новая коллекция'
+  collect_no_existing_collections: У вас их еще нет! Создайте его, используя форму
+    слева.
+  collect_select_collection: '...Одна из Ваших коллекций'
+  collect_title: Добавить "%{item}" в…
+  collected_page_added_to_collection: В коллекцию <a href='%{link}'>%{name}</a> добавлен
+    %{page}.
+  collected_page_already_in_collection: Это уже было в вашей коллекции.
+  collected_pages_title: Страницы
+  collected_pages_medium:
+    destroyed_flash: Изображение удалено с собранной страницы.
+  collection_associations:
+    destroyed_flash: '%{name} больше не находится в этой коллекции.'
+  collected_pages:
+    delete_button: удалить
+    edit_button: править
+    delete_confirm: Вы уверены?
+    destroyed_flash: Страница "%{name}" удалена из коллекции.
+  collection_association_added_to_collection: В коллекцию <a href='%{link}'>"%{name}"</a>
+    добавлен «%{associated}».
+  collection_associations_empty: Никакие другие коллекции не связаны с этой. Вы можете
+    нажать кнопку «связать» с другими коллекциями, чтобы они появились здесь.
+  collection_associations_title: Связанные коллекции
+  collection_collected_pages_media_remove: 'Удалите изображения из коллекции (изменения
+    немедленно вступят в силу):'
+  collection_created: Создана новая коллекция "%{name}".
+  collection_created_for_association: В коллекцию <a href='%{link}'>"%{name}"</a>
+    добавлен «%{associated}».
+  collection_user_is_admin: Этот участник - администратор.
+  collection_pages_empty: В этой коллекции нет страниц. Попробуйте нажать кнопку «собрать»
+    на страницах видов, чтобы добавить несколько предметов!
+  collection:
+    admins:
+      header: Пользователи, которые могут редактировать эту коллекцию (изменения вступят
+        в силу немедленно)
+      label: 'Добавить пользователя, который сможет редактировать эту коллекцию:'
+      placeholder: полное имя или имя пользователя
+    actions:
+      associate: ассоциироваться
+      download_taxa_csv: скачать CSV таксонов
+      delete: удалить
+      edit: править
+      sort: сортировать
+    collection_type:
+      normal: обычный
+      gallery: Галерея
+    delete_confirm: Это приведет к удалению всей коллекции, и её НЕВОЗМОЖНО будет
+      вернуть. Вы уверены?
+    destroyed: '"%{name}" был(а) безвозвратно удален(а).'
+    pages_count: '{{МНОЖЕСТВЕННОЕ|один=1 день|%{count} дней}}'
+    log:
+      associated_collection:
+        add: '%{user} добавил общество к коллекции %{associated}'
+        remove: '%{user} убрал общество из коллекции %{associated}'
+      collection:
+        add: '%{user} создал коллекцию'
+        change: '%{user} изменил %{field} с "%{from}" на "%{to}"'
+      content:
+        add: '%{user} добавил медиум %{medium} для страницы %{page}'
+        change: '%{user} изменил %{field} медиум %{medium} для страницы %{page} с
+          "%{from}" на "%{to}"'
+        remove: '%{user} убрал медиум %{medium} для страницы %{page}'
+      page:
+        add: '%{user} добавил страницу %{page}'
+        change: '%{user} изменил %{field} на странице %{page} с "%{from}" на "%{to}"'
+        remove: '%{user} удалил страницу %{page}'
+      user:
+        add: '%{user} добавил менеджера %{manager}'
+        remove: '%{user} убрал менеджера %{manager}'
+    search:
+      placeholder: Найти в коллекцию...
+      submit: найти
+    sort:
+      hierarchy: иерархия
+      position: дата добавлена
+      sci_name: научное имя, А-Я
+      sci_name_rev: научное название, Я-А
+      sort_field: аннотация, А-Я
+      sort_field_rev: аннотация, Я-А
+    updated: Коллекция обновлена.
+  collection_unauthorized_edit: Только пользователь-владелец может редактировать эту
+    коллекцию.
+  complete_registration: Пожалуйста, продолжите регистрацию
+  content_appears_on: 'Включено на следующих страницах:'
+  content_collected_in: 'Показано в следующих коллекциях:'
+  content_attributions_header: Подробнее
+  content_attributions_labels:
+    altitude: высота
+    author: автор
+    bibliographic_citation: библиографическая ссылка
+    contributor: Вкладчик
+    compiler: составитель
+    creator: создатель
+    editor: редактор
+    latitude: широта
+    license: лицензия
+    location: местоположение
+    location_verbatim: дословно
+    longitude: долгота
+    original_media_file: исходный медиафайл
+    owner: авторские права
+    photographer: фотограф
+    publisher: издатель
+    project: проект
+    provider: провайдер
+    resource_label: сайт партнёра
+    resource_pk: '(id: %{key})'
+    rights_statement: заявление о правах
+    source: источник
+    spatial_location: пространственный
+    view_source_label: Оригинальный
+    view_source_link: посмотреть исходное изображение
+    view_source_page_link: Ознакомиться с источником
+  content_not_in_any_collection_image: Этого изображения нет ни в одном сборнике.
+  content_not_in_any_collection_sound: Этого звука нет ни в одном сборнике.
+  content_not_in_any_collection_video: Этого видео нет ни в одном сборнике.
+  data:
+    modifier:
+      sex_term: Пол организма определен
+      lifestage_term: Стадия развития организма определена
+      statistical_method_term: Статистический метод, используемый для измерения
+  data_missing: '(данные отсутствуют, ссылки: %{keys})'
+  dear_username_with_comma: Дорогой %{username},
+  delete_account_button: Удалить вашу учётную запись
+  errors:
+    internal_server: Внутренняя ошибка сервера (ошибка 500)
+    not_found: Страница не найдена (ошибка 404)
+  filter_by_license: лицензия
+  filter_by_license_any_item: любая лицензия
+  filter_by_medium_subtype: тип
+  filter_by_medium_any_item: любой тип
+  filter_by_resource: провайдер
+  filter_by_resource_any_item: любой провайдер
+  filters:
+    filter_by_attribute: фильтровать по атрибуту
+    filter_by_language: фильтр по языку
+    filter_by_provider: фильтровать по провайдеру
+  footer:
+    eol_info:
+      citing_eol: цитируя EOL
+      contact_us: Свяжитесь с нами
+      data_services: Услуги передачи данных
+      donate: Пожертвовать
+      education: Образование
+      food_webs: Пищевые сети
+      glossary: Словарь
+      help: Справка
+      language_support: Языковая поддержка
+      terms_of_use: Условия использования
+      the_eol_forum: Форум EOL
+      what_is_eol: Что такое EOL?
+      whats_new: Что нового?
+    discover:
+      algae: Во́доросли
+      amphibians: Земноводные
+      animals: Животные
+      archaea: Археи
+      bacteria: Бактерии
+      birds: Птицы
+      crustaceans: Ракообразные
+      fishes: Рыбы
+      flowering_plants: Цветковые растения
+      fungi: Грибы
+      insects: Насекомые
+      invertebrates: Беспозвоночные
+      mammals: Млекопитающие
+      molds: Плесневые грибы
+      mushrooms: Грибы
+      mollusks: Моллюски
+      plants: Растения
+      protists: Протисты
+      reptiles: Рептилии
+      spiders: Пауки
+      trees: Деревья
+      viruses: Вирусы
+      worms: Черви
+    eol_is_hosted_by: 'EOL размещён на:'
+  forgot_your_password: Забыли пароль?
+  landing_page:
+    header: Всемирный доступ к информации о жизни на Земле
+    stats_cleared: Статистика была пересчитана.
+  language: Язык
+  languages:
+    ab: Абхазский
+    q27683: Ачехский язык
+    q27776: Адыгейский
+    aa: Афарский
+    af: африкаанс
+    ak: Акан
+    alb: албанский
+    sq: албанский
+    q131339: Алеманнский
+    am: Амхарский
+    ar: Арабский
+    an: Арагонский
+    hy: Армянский
+    as: Ассамский
+    q29507: Астурийский язык
+    q56590: Атикамек
+    av: Аварский язык
+    ae: Авестийский язык
+    ay: Аймара
+    q9292: Азербайджанский язык
+    az: Азербайджанский язык
+    q33070: Балийский
+    bm: Бамбара
+    q33151: Банджар
+    ba: Башкир
+    eu: Баски
+    q29540: Баварский
+    be: Белорусский
+    q8836490: Бендэ
+    bn: Бенгальский
+    bh: Бихарские языки
+    bi: Бислама
+    nb: Букмол, Норвежский язык; Норвежский Букмол
+    q4941378: Бондеи
+    bs: Боснийский
+    q33202: Брагуи
+    q750553: Бразильский португальский
+    br: Бретонский язык
+    bg: Болгарский
+    my: Бирманский язык
+    q33120: Буряты
+    q35037: Ндюка
+    q880301: Луизианский французский
+    q2937525: Капизноны
+    q35156: Кар
+    q2591230: Кашинауа
+    ca: Каталанский язык; Валенсийский диалект
+    q33239: Себуанский язык
+    khm: Центральный кхмерский язык
+    km: Центральный кхмерский язык
+    ch: Чаморро
+    q33281: Чабакано
+    ce: Чеченец
+    q33388: Чероки
+    q33265: Шайенны
+    ny: Ньянджа; Чева; Ньянджа
+    zh: Китайский
+    chi: Китайский
+    q32979: Чокто
+    cu: Старославянский язык
+    cv: Чуваши
+    q37041: Вэньянь
+    kw: Корнский язык
+    co: Корсиканец
+    cr: Кри
+    q33357: Крымскотатарский
+    hr: Хорватский
+    hrv: Хорватский
+    cs: Чешский
+    q32238: Дагбани
+    da: Датский
+    q3362072: Диго
+    q56466: Динка
+    q18415595: Дотяли
+    q33013: Дуала
+    dut: Нидерландский язык; фламандский диалект
+    nl: Нидерландский язык; фламандский диалект
+    dz: Язык дзонг-кэ
+    dzo: Язык дзонг-кэ
+    en: Английский
+    q29952: Эрзя
+    eo: Эсперанто
+    et: Эстонский язык
+    est: Эстонский
+    ee: Язык эве
+    fo: Фарерский язык
+    fj: Язык фиджи
+    fi: Финский
+    fin: Финский
+    q667747: Язык фипа
+    fr: Французский
+    fra: Французский
+    ff: Язык фула
+    gd: Гэльский язык
+    gl: Галисийский язык
+    q33475: Язык Гань
+    lg: Язык ганда
+    ka: Грузинский
+    de: Немецкий
+    deu: Немецкий
+    q5575236: Язык конкани
+    q3272630: Язык гого
+    q2501174: Язык горонтало
+    el: Греческий, современный (1453-н.в.)
+    gre: Греческий
+    gn: Язык гуарани
+    gu: Гуджаратский язык
+    q33303: Язык Хайда
+    ht: Гаитянский; Гаитянский креольский язык
+    ha: Хауса
+    q35756: Хаяа
+    he: Иврит
+    heb: Иврит
+    q3129390: Хехе
+    hz: Гереро
+    q35978: Хилигайнон
+    hi: Хинди
+    ho: Хири-моту
+    hu: Венгерский
+    is: Исландский
+    ice: Исландский язык
+    io: Язык идо
+    ig: Язык игбо
+    q35936: Илоканский язык
+    id: Индонезийский язык
+    q33509: Ингушский язык
+    ia: Интерлингва (Международная ассоциация вспомогательного языка)
+    ie: Интерлингва; окциденталь
+    iu: Язык инуктитут
+    ik: Язык инупиак
+    q33595: Язык ираку
+    ga: Ирландский язык
+    it: Итальянский
+    ita: Итальянский
+    q35939: Ямайский креольский вариант английского языка
+    ja: Японский
+    jp: Японский
+    jv: Яванский язык
+    q33522: Кабардино-черкесский язык
+    q35475: Язык кабийе
+    q35853: Кабильский язык
+    kl: Гренландский язык; Гренландский язык
+    q33634: Калмыцкий язык
+    kn: Язык каннада
+    kr: Язык канури
+    q36121: Капампанганский язык
+    q33541: Каракалпакский язык
+    ks: Кашмирский язык
+    q33690: Кашубский язык
+    kk: Казахи
+    ki: Язык кикуйю
+    q33656: Кильдинский саамский язык
+    q33720: Кинарайский язык
+    q11005332: Кинга
+    q11732519: Кингиндо
+    rw: Язык киньяруанда
+    ky: Киргизский язык
+    kv: Коми
+    kg: Конго
+    ko: Корейский
+    kor: Корейский
+    ku: Курдский язык
+    q36206: Лакский язык
+    lo: Лаосский
+    lao: Лаосский
+    la: Латинский
+    lv: Латышский
+    q1160372: Лазский
+    q31746: Лезгинский язык
+    q36106: Лигурский язык
+    li: Лимбургский; Лимбургер;
+    ln: Лингала
+    q146803: Лингва франка нова
+    lt: Литовский
+    lit: Литовский
+    q36584: Ливвиковское наречие
+    q33754: Ломбардский язык
+    q168446: Нижнесаксонский
+    q13286: Нижнелужицкий язык
+    lu: Луба-катанга
+    q3437661: Лугуру
+    q35787: Масаи
+    mk: Македонский
+    q497345: Майнфранкские диалекты
+    q36109: Майтхили
+    mg: Малагасийская республика
+    ms: Малайский язык
+    ml: Малаялам
+    mt: Мальтийский
+    mlt: Мальтийский
+    gv: Мэнский язык
+    mi: Маори
+    mr: Маратхи
+    mh: Маршалльский язык
+    q6786446: Язык матенго
+    q3906614: Луговомарийский язык
+    q13357: Меянкиели
+    q13358: Мегленорумынский язык
+    q13313: Меру
+    q13321: Микмаки
+    q36455: Мин Донг (восточный диалект Мин)
+    q13324: Минангкабау
+    q13359: Мегрельский язык
+    q13330: Мирандский язык
+    q13343: Мокшанский язык
+    mn: Монгольский язык
+    q56426: Марокканский диалект арабского языка
+    q6944725: Мвера
+    q13300: Науатль
+    q3508074: Биакский язык
+    na: Науру
+    ng: Ндонга
+    q33845: Неаполитанский язык
+    ne: Непальский язык
+    q7022366: Нгиндо язык
+    q28224: Севернофризский язык
+    q19933293: Северный лурский язык
+    se: Северносаамский язык
+    "no": Норвежский
+    nno: Новонорвежский
+    nob: Норвежский, букмол
+    nor: Норвежский
+    nn: Норвежский нюнорск; Нюнорск, Норвежский
+    q11128374: Язык нииха
+    q16115145: Язык нииха
+    oc: Окситанский (пост 1500)
+    q28602: Официальный арамейский язык
+    oj: Оджибве
+    or: Ория
+    om: Оромо
+    q715755: Пайвань
+    pi: Пали
+    pa: Панджаби
+    q36403: Паре
+    fa: Персидский
+    q23014: Пфальцский
+    q34024: Пикардский язык
+    q15085: Пьемонтский язык
+    q2429648: Язык поголо
+    pl: Польский
+    pol: Польский
+    q36748: Понтийцы
+    pt: Португальский
+    ru: Русский
+    rus: Русский
+    si: Сингальский
+    slv: Испанский
+    th: Тайский
+    tha: Тайский
+    bo: Тибетский
+    to: Тонганский
+    uk: Украинский
+    ukr: Украиский язык
+    ur: Урду
+    uz: Узбекский
+    q100103: Западнофламандский
+  layout_sign_in: Войти
+  layout_sign_up: Зарегистрироваться
+  layout_sign_out: Выйти
+  literature_and_references_header: Литература и ссылки
+  maps:
+    empty: Для данной страницы доступные карты отсутствуют.
+    other_maps_title: Неинтерактивные карты
+  medium:
+    untitled:
+      image: Изображение без названия
+      image_of: Изображение %{page_name}
+      video: Видео без названия
+      video_of: Видео %{page_name}
+      sound: Звук без названия
+      sound_of: Звук %{page_name}
+      map: Карта без названия
+      map_of: Карта %{page_name}
+      js_map: Интерактивная карта без названия
+    subclasses:
+      image: изображение
+      video: видео
+      map_image: карта
+      js_map: интерактивная карта
+  medium_description_blank: Описание для данного объекта отсутствует.
+  medium_header_title: 'Заголовок:'
+  medium_header_description: 'Описание:'
+  names:
+    hide_langs:
+      one: скрыть один язык
+      other: скрыть %{count} языки
+  nav:
+    about: О проекте
+    discuss: Обсудить
+    education: Образование
+    search:
+      no_results_html: <strong>Нет подтвержденных результатов</strong><br />Нажмите
+        Ввод, чтобы увидеть необработанные результаты
+  page_title: Энциклопедия жизни
+  page_title_search: 'Поиск: %{query}'
+  page_vernaculars_empty: Общих названий, связанных с этим таксоном, не найдено.
+  pages:
+    actions:
+      collect: собрать
+      comment:
+        zero: комментариев
+        one: '%{count} комментарий'
+        other: '%{count} комментариев'
+    batch_lookup:
+      new_search: новый поиск
+      search: поиск
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL содержит данные для <a href="%{data_path}">одного атрибута</a>:'
+        other: 'EOL содержит данные для <a href="%{data_path}">%{count} атрибутов</a>,
+          включая:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL содержит данные для <a href="%{data_path}">одного атрибута</a>.
+        other: EOL содержит данные для <a href="%{data_path}">%{count} атрибутов</a>.
+    filter_menu:
+      show_all: показать все
+    page_data:
+      habitat_wordcloud_tooltip: Наши записи о среде обитания в основном обрабатываются
+        методом интеллектуального анализа текста, поэтому многие термины встречаются
+        несколько раз; более часто встречающиеся термины среды обитания, отображаемые
+        крупнее в облаке слов, с большей вероятностью будут важны. Все записи перечислены
+        ниже.
+      n_hidden_show_all:
+        one: 1 “%{pred_name}” запись скрыта — показать
+        other: '%{count} “%{pred_name}” записей скрыто — показать'
+      n_hidden_show_all_noname:
+        one: 1 запись скрыта — показать
+        other: '%{count} записей скрыто — показать'
+      show_all: показать все
+    resource_names:
+      name_recognized_by_w_rank: '%{rank} признан %{by}'
+      name_recognized_by_w_status: '%{status} согласно %{by}'
+      rank:
+        r_domain: Домен
+        r_subdomain: Поддомен
+        r_infradomain: Инфрадомен
+        r_superkingdom: Надцарство
+        r_kingdom: Царство
+        r_subkingdom: Подцарство
+        r_infrakingdom: Инфрацарство
+        r_superphylum: Надтип
+        r_phylum: Тип
+        r_subphylum: Подтип
+        r_infraphylum: Инфратип
+        r_superclass: Надкласс
+        r_class: Класс
+        r_subclass: Подкласс
+        r_infraclass: Инфракласс
+        r_superorder: Надотряд
+        r_order: Отряд
+        r_suborder: Подотряд
+        r_infraorder: Инфраотряд
+        r_superfamily: Надсемейство
+        r_family: Семейство
+        r_subfamily: Подсемейство
+        r_infrafamily: Инфрасемейство
+        r_tribe: Триба
+        r_supergenus: Надрод
+        r_genus: Род
+        r_subgenus: Подрод
+        r_infragenus: Инфрарод
+        r_superspecies: Надвид
+        r_species: Вид
+        r_subspecies: Подвид
+        r_infraspecies: Инфравид
+        r_form: Форма
+      username_missing: пользователь %{user_id}
+    trophic_web:
+      predator: Хищник
+      prey: Жертва
+    tabs:
+      articles: статьи
+      classifications: классификации
+      data: данные
+      literature_and_references: литература и ссылки
+      overview: обзор
+      maps: карты
+      media: медиа
+      names: имена
+    iucn_status:
+      label: 'Статус согласно МСОП:'
+      ex: исчезнувшие (EX)
+      ew: исчезнувшие в дикой природе (EW)
+      cr: в критической опасности (CR)
+      en: в опасности (EN)
+      vu: в уязвимом положении (VU)
+      nt: близки к уязвимому положению (NT)
+      lc: находятся под наименьшей угрозой (LC)
+      dd: данных недостаточно (DD)
+      ne: угроза не оценивается (NE)
+  rank:
+    name:
+      r_domain: домен
+      r_subdomain: поддомен
+      r_superkingdom: надцарство
+      r_kingdom: царство
+      r_subkingdom: подцарство
+      r_superphylum: надтип
+      r_phylum: тип
+      r_superclass: Надкласс
+      r_class: класс
+      r_subclass: подкласс
+      r_superorder: надотряд
+      r_superfamily: надсемейство
+      r_family: семейство
+      r_subfamily: подсемейство
+      r_supergenus: надрод
+      r_superspecies: надвид
+      r_species: виды
+      r_subspecies: подвиды
+      r_form: форма
+  recaptcha_error: Подтвердите, что Вы не робот.
+  reconciliation:
+    id_space:
+      type_names:
+        taxon: Таксон
+    schema_space:
+      headers:
+        description: Описание
+  register_new_account: Зарегистрируйтесь, чтобы создать новый аккаунт
+  scientific_name:
+    status_title:
+      accepted: Принятые названия
+      alternative: Альтернативные названия
+      preferred: Предпочтительные названия
+      unusable: Недопустимые названия
+      synonym: Синонимы
+  scientific_names_header: Научные названия
+  search_results:
+    medium_article: Статья
+    medium_image: Изображение
+    medium_map: Карта
+    medium_sound: Звук
+    medium_video: Видео
+    medium_title_article_html: 'Статья: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Изображение: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Карта: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Аудио: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Видео: <span class=''sub''>%{title}</span>'
+    empty: Ничего не найдено
+    user_title_html: 'Пользователь: <span class=''sub''>%{name}</span>'
+  sections:
+    behavior: Поведение
+    conservation_status: Охранный статус
+    distribution: Распространение
+    ecology: Экология
+    evolution_and_systematics: Эволюция и систематика
+    general_ecology: Общая экология
+    genetics: Генетика
+    habitat: Среда обитания
+    life_expectancy: Средняя продолжительность жизни
+    migration: Миграция
+    molecular_biology: Молекулярная биология
+    molecular_biology_and_genetics: Молекулярная биология и генетика
+    morphology: Морфология
+    names_and_taxonomy: Названия и таксономия
+    notes: Примечания
+    overview: Обзор
+    reproduction: Размножение
+    risks: Угрозы
+    size: Размер
+    taxonomy: Таксономия
+    wikipedia: Википедия
+  settings: настройки
+  sign_in: Войти
+  sign_up: Зарегистрироваться
+  simple_form:
+    "yes": Да
+    "no": Нет
+    labels:
+      defaults:
+        email: Эл. почта
+        password: Пароль
+        username: Имя пользователя
+  stats:
+    articles: статьи
+    collections: коллекции
+    pages: страницы
+  terms:
+    scientific_name: научное название
+  traits:
+    properties:
+      citation: Библиографическая ссылка
+      method: Метод измерения
+      source: Источник
+    search_results:
+      clade: 'клада: %{clade}'
+      edit_filters: изменить фильтры
+      filter_display:
+        lte: '%{pred} <= %{num_val} %{units}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        statistical_method: 'статистический метод: %{value}'
+    search_form:
+      statistical_method: статистический метод
+  trophic_web:
+    group_descriptions:
+      predator: питается %{source_name}
+      prey: входит в рацион %{source_name}
+  user:
+    email: Электронная почта
+    form_labels:
+      age_confirm: Мне больше 13 лет
+    headers:
+      bio: Краткая биография
+      collections: Коллекции
+      downloads: Загрузки
+      links: Ссылки
+  term:
+    edit:
+      submit: Сохранить
+    pagination:
+      next: следующая страница
+      previous: предыдущая страница
+    name:
+      by_uri:
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: ааленский
+          век
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кислая почва
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: период активного роста
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: наносно-глинистая почва
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: Взрослый
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: аэронский
+          век
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: сельскохозяйственная
+          почва
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: альбский
+          век
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: наносная почва
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: высокогорная почва
+        http://eol(dot)org/schema/terms/amphibious: земноводный
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: Код страны
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: аптский
+          век
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: артинский
+          век
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: ассельский
+          век
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: атолл
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: байосский
+          век
+        https://eol(dot)org/schema/terms/bamboo_forest: Бамбуковый лес
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: барремский
+          век
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: пляж
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: Пчелиный воск
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: Кровь
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: Строительный материал
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Кальций (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: кальдера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: канал
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: каньон
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: пещера
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: мел
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: цирк
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: город
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: см
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: См²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: См³
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: Код страны
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: Мертвый
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: Стоматологический
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: Депрессия
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: пустыня
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: диаметр
+        http://eol(dot)org/schema/terms/diandry: диандрический
+        http://eol(dot)org/schema/terms/DiapauseInitiation: диапауза
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: Пищеварительная система
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: дорсальный
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: дюна
+        http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Восточный рифт
+        http://eol(dot)org/schema/terms/EggDiameter: диаметр яйца
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: глаза
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: фьорд
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: лес
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: лесная почва
+        http://eol(dot)org/schema/terms/ForkLength: Длина вилки
+        https://eol(dot)org/schema/terms/freshwater_animals: пресноводные животные
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: фронтальный
+        http://eol(dot)org/schema/terms/fructose: фруктоза
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: фрукт
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000084: Г/см³
+        http://eol(dot)org/schema/terms/genotype: генотип
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: ледник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: Клей
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: трава
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: земля
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guadalupian: гваделупская
+          эпоха
+        http://eol(dot)org/schema/HeadWidth: ширина головы
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: в форме сердца
+        http://semanticscience(dot)org/resource/SIO_000040: Высота
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: холм
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: мед
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: горизонтальный
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: лед
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: айсберг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: Остров
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: кг
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: лагуна
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: озеро
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: латеральный
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: лиман
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: м
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: Магний (Mg)
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: мезозойская
+          эра
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: мг
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: Мг/л
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: эпоха
+          среднего девона
+        http://semanticscience(dot)org/resource/SIO_001113: мин
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: Минералы
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: мм
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: гора
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: Муниципалитет
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: Мыжцы
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: Природный заповедник
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: Нервная система
+        http://eol(dot)org/schema/terms/no: нет
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: оранжевый
+        http://eol(dot)org/schema/terms/outerReef: Внешний риф
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: кислород
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: Палеозойская
+          эра
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: Персмкая
+          эра
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: плато
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025281: Пыльца
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: прерия
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: Охраняемая территория
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: железная дорога
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: река
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: море
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Семена
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: Чувствительность
+        http://rs(dot)tdwg(dot)org/dwc/terms/sex: пол
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: Половой метаморфоз
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: форма
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: силурийский
+          период
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: скелет
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002252: солончак
+        http://purl(dot)org/dc/terms/source: Источник
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: Крахмал
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: статерианский
+          период
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009047: Стебель
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: Температура
+        http://eol(dot)org/schema/terms/thermalFeature: Термальный
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000879: Тропический и субтропический
+          влажный широколиственный лес
+        http://eol(dot)org/schema/terms/TropicalOcean: Тропический океан
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: тундра
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperDevonian: эпоха
+          верхнего девона
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: эпоха
+          верхнего триаса
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: Мочевыделительная система
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: очень маленький
+        https://eol(dot)org/schema/terms/vestigial_eyes: рудиментарные глаза
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: вулкан
+        http://semanticscience(dot)org/resource/SIO_000042: Ширина
+        http://eol(dot)org/schema/terms/yes: да
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000404: Стратовулкан
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Гц
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: Мангровый остров
+        http://eol(dot)org/schema/terms/mol_cell-1: Моль/клетка
+        http://eol(dot)org/schema/terms/King_Abdulaziz_University: Университет короля
+          Абдулазиза
+        http://eol(dot)org/schema/terms/Zoological_Museum_Helsinki: Зоологический
+          музей Хельсинки
+        http://eol(dot)org/schema/terms/larvaAndPupa: личинка и куколка
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: Нимфа
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: Гермафродит
+...
