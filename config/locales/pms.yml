@@ -2107,13 +2107,27 @@ pms:
         http://eol(dot)org/schema/terms/facultativeParasite: parassita facoltativ
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: età
           famenian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: fatorìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: seul dla fatorìa
+        http://eol(dot)org/schema/terms/farming_symbiotroph: simbiotròp agrìcol
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: lest
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: piuma
+        http://eol(dot)org/schema/terms/feedingCurrent: as nuriss con la corent
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pe
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: fumela
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: longheur dël fémur
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: larghëssa dël fémur
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002246: ferasseuli
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009566: fertilisassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: seuli fertilisà
+        http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: nòte dël camp
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005755: seuli ëd camp
         http://eol(dot)org/schema/terms/FireResistance: arzistensa al feu
         http://eol(dot)org/schema/terms/FireTolerance: toleransa al feu
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: balma ëd filura
+        https://eol(dot)org/schema/terms/fixes: a fissa
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vòl
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: color ëd fior
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorit

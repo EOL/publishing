@@ -33,23 +33,23 @@ es:
   about:
     trait_bank:
       title: TraitBank
-      body_html: '<p> El equipo técnico y de administración de información en EOL
-        conoce los recursos de datos estructurados en EOL- datos de rasgos y otros
+      body_html: <p> El equipo técnico y de administración de información en EOL se
+        refiere a los recursos de datos estructurados en EOL- datos de rasgos y otros
         atributos, interacciones ecológicas, y nuestra clasificación nativa, el Dynamic
         Working Hierarchy- colectivamente como TraitBank. Este contenido es administrado
-        de manera algo diferente que nuestro contenido "clásico"- imagenes, videos,
-        grabaciones, y texto de descripción- y es útil para cosas distintas.</p><p>TraitBank
+        de manera algo diferente que nuestro contenido "clásico"- imágenes, videos,
+        grabaciones, y texto descriptivo- y es útil para cosas distintas.</p><p>TraitBank
         es más nuevo que el resto de EOL; originalmente fue ideado por la directora
-        del Species Pages Group Cynthia Parr, y comenzó a funcionar en EO: v2 en enero
-        de 2014. Desde entonces, datos estructurados han sido nuestra máxima prioridad
-        para el desarrollo de contenidos.</p><p>Ahora, puedes <a href=''%{example_search_path}''>buscar</a>
+        del Species Pages Group Cynthia Parr, y comenzó a funcionar en EOL v2 en enero
+        de 2014. Desde entonces, los datos estructurados han sido nuestra máxima prioridad
+        para el desarrollo de los contenidos.</p><p>Ahora, puedes <a href='%{example_search_path}'>buscar</a>
         o explorar EOL por datos estructurados, o descargarlos, o puedes encontrarlos
-        en nuestra nueva ficha de resumen en la forma de  <a href=''%{autogen_page_path}''>texto
+        en nuestra nueva ficha de resumen en la forma de  <a href='%{autogen_page_path}'>texto
         autogenerado</a>. Como el resto del contenido de EOL, está disponsible para
-        reuso, junto con datos minuciosos de atribución para que puedes atribuirlos
+        reuso, junto con datos minuciosos de atribución para que puedas atribuirlos
         si los usas en tu propio trabajo. </p><p>Estos datos son modelados como un
-        <a href=''%{property_graph_url}''>gráfico de propiedad</a> in <a href=''%{neo4j_url}''>neo4j</a>.
-        <a href=''%{data_services_path}''>Servicios de información</a> están disponsibles.</p>'
+        <a href='%{property_graph_url}'>gráfico de propiedad</a> in <a href='%{neo4j_url}'>neo4j</a>.
+        <a href='%{data_services_path}'>Servicios de información</a> están disponsibles.</p>
   account_already_linked: tu cuenta ya está enlazada con EOL
   account_not_linked: tu cuenta no está enlazada con EOL
   advanced: avanzado
@@ -85,11 +85,11 @@ es:
       r_genus_html: Este género es <span class='%{class_str}' id='%{id}'>extinct</span>.
       r_subgenus_html: Este subgénero es <span class='%{class_str}' id='%{id}'>extinct</span>.
       r_infragenus_html: Este infragénero es <span class='%{class_str}' id='%{id}'>extinct</span>.
-      r_superspecies_html: Esta superespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
-      r_species_html: Esta especie está <span class='%{class_str}' id='%{id}'>extinta</span>.
-      r_subspecies_html: Esta subespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
-      r_infraspecies_html: Esta infraespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
-      r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_superspecies_html: Esta superespecie es <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_species_html: Esta especie es <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_subspecies_html: Esta subespecie es <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_infraspecies_html: Esta infraespecie es <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_form_html: Esta forma es <span class='%{class_str}' id='%{id}'>extinta</span>.
     fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>fijan</span>
       <span class='%{class_str}' id='%{object_id}'>nitrógeno</span>.
     freshwater_html: Están asociados con <span class='%{class_str}' id='%{id}'>el
@@ -228,7 +228,7 @@ es:
       download_taxa_csv: descargar archivo CSV de los taxones
       delete: eliminar
       edit: editar
-      sort: Poner en orden
+      sort: ordenar
     collection_type:
       normal: normal
       gallery: galería
@@ -2003,6 +2003,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: Duna
         http://eol(dot)org/schema/terms/DurationOfIllness: Duración de la enfermedad
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: Polvo
+        http://eol(dot)org/schema/terms/dwarfMales: machos enanos
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: Tinte
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: Temprano
         http://eol(dot)org/schema/terms/earlySpring: inicio de la primavera
@@ -2011,6 +2012,8 @@ es:
         http://eol(dot)org/schema/terms/echinoderm_feeder: se alimenta de equinodermos
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: Ingeniería de ecosistema
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ectoparásito de
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: período
+          Ediacárico
         https://eol(dot)org/schema/terms/eel_feeder: se alimenta de anguilas
         http://eol(dot)org/schema/terms/eggDensity: Densidad de huevo
         http://eol(dot)org/schema/terms/EggDiameter: diámetro del huevo
@@ -2028,6 +2031,7 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: edad Emsiense
         http://eol(dot)org/schema/terms/endangered: en peligro de extinción
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: Sistema endocrino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: hábitats endolíticos
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: endoparásito de
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
         http://eol(dot)org/schema/terms/endozoochory: endozoocoria
@@ -2036,8 +2040,10 @@ es:
         https://eol(dot)org/schema/terms/epibiontOf: epibionto de
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epidermis
         http://eol(dot)org/schema/terms/epifauna_feeder: se alimenta de epifauna
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008501: epífita de
         http://eol(dot)org/schema/terms/epizoochory: epizoocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: escarpadura
+        http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: estimar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000020: estuarino
         http://eol(dot)org/schema/terms/eutrophicFreshwaterLake: lago eutrófico de
           agua dulce
@@ -2048,6 +2054,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Expuesto
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo externo
         http://eol(dot)org/schema/terms/extinct: extincto
+        http://eol(dot)org/schema/terms/extinctInTheWild: Extinto en la naturaleza
         https://eol(dot)org/schema/terms/extirpated: extirpado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: Hábitat extremo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: Ojos
@@ -2064,6 +2071,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: Ancho del fémur
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: pantano
         http://purl(dot)obolibrary(dot)org/obo/GO_0009566: Fertilización
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: suelo fertilizado
         http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: Notas de campo
         http://eol(dot)org/schema/terms/FireResistance: Resistencia al fuego
         http://eol(dot)org/schema/terms/FireTolerance: Tolerancia al fuego
@@ -2081,6 +2089,8 @@ es:
         http://eol(dot)org/schema/terms/foliose: folioso
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: Aditivo alimentario
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorante alimentario
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longitud de la extremidad
+          anterior
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bosque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: suelo de bosque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: edad
@@ -2174,7 +2184,9 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: Seto
         http://semanticscience(dot)org/resource/SIO_000040: Altura
         http://eol(dot)org/schema/terms/HeightStanding: altura de pie
+        http://eol(dot)org/schema/terms/hemiepiphyte: hemiepífita
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: Hierba
+        http://eol(dot)org/schema/terms/herpetivore: herpetívoro
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: edad
           Hettangiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: ocultar
@@ -2188,6 +2200,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: Colina
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: edad
           Hirnantiense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002243: histosol
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Holocene: época
           del holoceno
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: edad
@@ -2197,21 +2210,28 @@ es:
         https://eol(dot)org/schema/terms/horseshoe_crab_feeder: se alimenta de cangrejos
           de herradura
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: Hospital
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: Anfitrión de
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: Fuente termal
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0007937: Artículos de casa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: filtración de hidrocarburos
+        http://eol(dot)org/schema/terms/hydrochory: hidrocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: embalse hidroeléctrico
         http://www(dot)marinespecies(dot)org/traits/Hydrostatic: esqueleto hidrostático
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: respiradero hidrotermal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: hielo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: capa de hielo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: lámina de hielo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: iceberg
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001501: inmaduro
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: Sistema inmunitario
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pulgadas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: Calidad aumentada
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: edad Induense
         http://eol(dot)org/schema/terms/infauna_feeder: se alimenta de infauna
         https://eol(dot)org/schema/terms/infection_effect: Efecto de la infección
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000475: ensenada
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: instrumento
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: Lago intermitente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000504: estanque intermitente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: lago salino intermitente
@@ -2221,6 +2241,7 @@ es:
         http://eol(dot)org/schema/terms/InvasiveRange: invasivo en
         https://eol(dot)org/schema/terms/inverse: inverso
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertido
+        http://eol(dot)org/schema/terms/invertivore: invertívoro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: Canal de riego
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: Dique de riego
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: Cuneta de riego
@@ -2267,14 +2288,25 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: edad
           Langhiense
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: Grande
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: gran lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: Río grande
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: gran delta del río
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: modo de desarrollo
+          larvario
+        http://eol(dot)org/schema/terms/lateSpring: finales de la primavera
+        http://eol(dot)org/schema/terms/lateSummer: finales del verano
+        http://eol(dot)org/schema/terms/lateWinter: finales del invierno
+        http://eol(dot)org/schema/terms/LatentPeriod: periodo latente
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: Lateral
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: Cueva de lava
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: Campo de lava
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: Túnel de lava
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: Pone huevos en
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002141: lixiviado
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: área foliar
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: complejidad de la hoja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: Longitud de hoja
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area: Masa
           de hoja por área
@@ -2293,12 +2325,18 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: Lípidos
         http://eol(dot)org/schema/terms/littoralZone: Zona litoral
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: franco
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: localidad
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: edad
           Lochkoviense
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: baja
+        http://eol(dot)org/schema/terms/lowCNRatio: menor a (<23)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: baja esperanza de vida
+        http://eol(dot)org/schema/terms/TemperatureTolerance: tolerancia a bajas temperaturas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: baja zona de mareas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: baja tolerancia
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: límite de confianza
+          inferior
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: edad
           Ludfordiense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: edad
@@ -2319,6 +2357,11 @@ es:
         https://eol(dot)org/schema/terms/marine_carnivore: Carnívoro marino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000108: Esfera de agua fría
           marina
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: masa
+        http://eol(dot)org/schema/terms/MatingSystem: sistema de apareamiento
+        http://semanticscience(dot)org/resource/SIO_001109: media
+        http://eol(dot)org/schema/terms/meanAnnualTemperature: temperatura media anual
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: carne
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: edad
           Messiniense
         http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
@@ -2396,6 +2439,8 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: edad
           Oxfordiense
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxígeno
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: cuidado parental
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado parental
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: porcentaje
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
         http://eol(dot)org/schema/terms/phagocytosis: se alimenta por fagocitosis
