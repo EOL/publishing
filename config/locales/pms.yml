@@ -2128,9 +2128,20 @@ pms:
         http://eol(dot)org/schema/terms/FossilFirst: prima aparission
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: balma ëd filura
         https://eol(dot)org/schema/terms/fixes: a fissa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: ansen
+        http://eol(dot)org/schema/terms/fleshyFruit: frut carnos
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vòl
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: età flojan-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: camp d'inondassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: pian-a d'inondassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000195: prairìa inondà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: savan-a inondà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000256: canal ëd derivassion
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: color ëd fior
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002623: fior visità da
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: bialera
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002273: seul aluvional
         http://eol(dot)org/schema/terms/ForagingHabitat: ambient ëd pastura
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: fòrb
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longheur ëd la piòta anans
