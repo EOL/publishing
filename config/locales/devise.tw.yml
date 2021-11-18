@@ -1,0 +1,36 @@
+# Messages for Twi (Twi)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Robertjamal12
+---
+tw:
+  devise:
+    confirmations:
+      confirmed: Yɛn agye wo email address no atu mu
+      send_instructions: Wo nsa bɛka email bi a ɛbɛ kyerɛw sɛnea wo bɛ gye wo email
+        address no atu mu wɔ sima kakra bi mu.
+      send_paranoid_instructions: Sɛ wo email address no wɔ yɛn nwuma mu a, wo nsa
+        bɛka email bi a ɛbɛ kyerɛw sɛnea wo bɛ gye wo email address no atu mu wɔ sima
+        kakra bi mu.
+    failure:
+      already_authenticated: Wo wɔ so deda
+      inactive: Wo account no nyɛ adwuma ansa.
+      last_attempt: Wo wɔ akwanya baako ansa na wo account no ato mu.
+      unconfirmed: Ɛsɛ sɛ wo gye wo email address no to mu ansa na yɛn atua so.
+    mailer:
+      confirmation_instructions:
+        action: Gye me account no to mu
+        instruction: 'Wo bɛtumi de link na ɛwɔ ase no asi wo account email no so bio:'
+        subject: Gye tu mu nkyerɛkyerɛ
+      reset_password_instructions:
+        action: Sesa me kukuwa mu ahyɛnsode
+        instruction: Obi regye link a ɛdi bɛ sesa wo kukuwa mu ahyɛnsode, link na
+          ɛwɔ ase no wobɛtumi ama wo ayɛ bi.
+        instruction_2: Sɛ wo ɛmbisa ade wei a, mepa wo hyɛw gyae no.
+        subject: Nkyerɛkyerɛ a ɛwɔ senea wobɛtumi asesa wo kukuwa mu ahyɛnsode
+      password_change:
+        message: Yɛ pɛ sɛ w'aso ti sɛ wo asesa wo kukuwa mu ahyɛnsode.
+    passwords:
+      send_instructions: Wo nsa bɛka email bi a ɛbɛ kyerɛw sɛnea wo bɛ sesa wo kukuwa
+        mu ahyɛnsode sima kakra bi mu.
+...

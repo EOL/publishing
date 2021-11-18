@@ -2142,10 +2142,17 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: bialera
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorit
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002273: seul aluvional
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: mangé për animaj
+        http://eol(dot)org/schema/terms/foliose: folios
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010358: fomita
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: aditiv alimentar
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorant alimentar
         http://eol(dot)org/schema/terms/ForagingHabitat: ambient ëd pastura
+        https://eol(dot)org/schema/terms/foram_feeder: as nuriss ëd foraminìfere
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: fòrb
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longheur ëd la piòta anans
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: foresta
+        http://eol(dot)org/schema/terms/forestEdge: bordura ëd foresta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eva corenta
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frut
         http://eol(dot)org/schema/terms/FruitSeedColor: color dij frut o dle smens
