@@ -52,7 +52,7 @@ ru:
     actions:
       collect: собрать
     header:
-      blank: (В статье отсутствует тело.)
+      blank: (В статье отсутствует текст.)
       body: Текст сообщения
       language: 'язык: %{language}'
       title: Заголовок
@@ -60,7 +60,7 @@ ru:
     name:
       missing: Без названия
   article_from_partner: предоставлено %{partner}
-  article_duplicate: Эта статья также показана в "%{section}"
+  article_duplicate: Эта статья также показана в «%{section}»
   autocomplete:
     see_all:
       one: смотреть другие результаты
@@ -90,58 +90,58 @@ ru:
       обитания</span>
     marine_html: Они обитают в <span class='%{class_str}' id='%{id}'>морской среде
       обитания</span>.
-    species: '%{name1} - это вид %{name2}.'
-    species_in_family: '%{name1} - это вид %{name2} в семействе %{name_family}.'
+    species: '%{name1} — это вид %{name2}.'
+    species_in_family: '%{name1} — это вид %{name2} в семействе %{name_family}.'
     taxonomy:
       family_above:
-        r_superfamily: '%{name1} - это надсемейство %{name2}.'
-        r_domain: '%{name1} - это надцарство %{name2}'
-        r_subdomain: '%{name1} - это поддомен %{name2}.'
-        r_infradomain: '%{name1} - это инфрадомен %{name2}.'
-        r_superkingdom: '%{name1} - это надцарство %{name2}.'
-        r_kingdom: '%{name1} - это царство %{name2}'
-        r_subkingdom: '%{name1} - это подцарство %{name2}.'
-        r_infrakingdom: '%{name1} - это инфрацарство %{name2}.'
-        r_superphylum: '%{name1} - это надтип %{name2}.'
-        r_phylum: '%{name1} - это тип %{name2}.'
-        r_subphylum: '%{name1} - это подтип %{name2}.'
-        r_infraphylum: '%{name1} - это инфратип %{name2}.'
-        r_superclass: '%{name1} - это надкласс %{name2}.'
-        r_class: '%{name1} - это класс %{name2}.'
-        r_subclass: '%{name1} - это подкласс %{name2}.'
-        r_infraclass: '%{name1} - это инфракласс %{name2}.'
-        r_superorder: '%{name1} - это надотряд %{name2}.'
-        r_order: '%{name1} - это отряд %{name2}.'
-        r_suborder: '%{name1} - это подотряд %{name2}.'
-        r_infraorder: '%{name1} - это инфраотряд %{name2}.'
-        r_family: '%{name1} - это семейство %{name2}.'
+        r_superfamily: '%{name1} — это надсемейство %{name2}.'
+        r_domain: '%{name1} — это надцарство %{name2}'
+        r_subdomain: '%{name1} — это поддомен %{name2}.'
+        r_infradomain: '%{name1} — это инфрадомен %{name2}.'
+        r_superkingdom: '%{name1} — это надцарство %{name2}.'
+        r_kingdom: '%{name1} — это царство %{name2}'
+        r_subkingdom: '%{name1} — это подцарство %{name2}.'
+        r_infrakingdom: '%{name1} — это инфрацарство %{name2}.'
+        r_superphylum: '%{name1} — это надтип %{name2}.'
+        r_phylum: '%{name1} — это тип %{name2}.'
+        r_subphylum: '%{name1} — это подтип %{name2}.'
+        r_infraphylum: '%{name1} — это инфратип %{name2}.'
+        r_superclass: '%{name1} — это надкласс %{name2}.'
+        r_class: '%{name1} — это класс %{name2}.'
+        r_subclass: '%{name1} — это подкласс %{name2}.'
+        r_infraclass: '%{name1} — это инфракласс %{name2}.'
+        r_superorder: '%{name1} — это надотряд %{name2}.'
+        r_order: '%{name1} — это отряд %{name2}.'
+        r_suborder: '%{name1} — это подотряд %{name2}.'
+        r_infraorder: '%{name1} — это инфраотряд %{name2}.'
+        r_family: '%{name1} — это семейство %{name2}.'
       below_family:
         with_family:
-          r_subfamily: '%{name1} - это подсемейство %{name2} в семействе %{name3}.'
-          r_infrafamily: '%{name1} - это инфрасемейство %{name2} в семействе %{name3}.'
-          r_tribe: '%{name1} - это триба %{name2} в семействе %{name3}.'
-          r_supergenus: '%{name1} - это надрод %{name2} в семействе %{name3}.'
-          r_genus: '%{name1} - это род %{name2} в семействе %{name3}.'
-          r_subgenus: '%{name1} - это подвид %{name2} в семействе %{name3}.'
-          r_infragenus: '% {name1} - это подрод %{name2} в семействе %{name3}.'
-          r_superspecies: '%{name1} - это надвид %{name2} в семействе %{name3}.'
-          r_species: '%{name1} - это вид %{name2} в семействе %{name3}.'
-          r_subspecies: '%{name1} - это подвид %{name2} в семействе %{name3}.'
+          r_subfamily: '%{name1} — это подсемейство %{name2} в семействе %{name3}.'
+          r_infrafamily: '%{name1} — это инфрасемейство %{name2} в семействе %{name3}.'
+          r_tribe: '%{name1} — это триба %{name2} в семействе %{name3}.'
+          r_supergenus: '%{name1} — это надрод %{name2} в семействе %{name3}.'
+          r_genus: '%{name1} — это род %{name2} в семействе %{name3}.'
+          r_subgenus: '%{name1} — это подвид %{name2} в семействе %{name3}.'
+          r_infragenus: '%{name1} — это подрод %{name2} в семействе %{name3}.'
+          r_superspecies: '%{name1} — это надвид %{name2} в семействе %{name3}.'
+          r_species: '%{name1} — это вид %{name2} в семействе %{name3}.'
+          r_subspecies: '%{name1} — это подвид %{name2} в семействе %{name3}.'
           r_infraspecies: '%{name1} — это инфравид %{name2} в семействе %{name3}.'
-          r_form: '%{name1} - это форма %{name2} в семействе %{name3}.'
+          r_form: '%{name1} — это форма %{name2} в семействе %{name3}.'
         without_family:
-          r_subfamily: '%{name1} - это подсемейство %{name2}'
-          r_infrafamily: '%{name1} - это инфрасемейство %{name2}.'
-          r_tribe: '%{name1} - это триба %{name2}.'
-          r_supergenus: '%{name1} - это надрод %{name2}.'
-          r_genus: '%{name1} - род %{name2}.'
-          r_subgenus: '%{name1} - это подрод %{name2}.'
-          r_infragenus: '%{name1} - инфрарод %{name2}.'
-          r_superspecies: '%{name1} - это надвид %{name2}.'
-          r_species: '%{name1} - это вид %{name2}.'
-          r_subspecies: '%{name1} - это подвид %{name2}.'
-          r_infraspecies: '%{name1} - инфравид %{name2}.'
-          r_form: '%{name1} - это форма %{name2}.'
+          r_subfamily: '%{name1} — это подсемейство %{name2}'
+          r_infrafamily: '%{name1} — это инфрасемейство %{name2}.'
+          r_tribe: '%{name1} — это триба %{name2}.'
+          r_supergenus: '%{name1} — это надрод %{name2}.'
+          r_genus: '%{name1} — род %{name2}.'
+          r_subgenus: '%{name1} — это подрод %{name2}.'
+          r_infragenus: '%{name1} — инфрарод %{name2}.'
+          r_superspecies: '%{name1} — это надвид %{name2}.'
+          r_species: '%{name1} — это вид %{name2}.'
+          r_subspecies: '%{name1} — это подвид %{name2}.'
+          r_infraspecies: '%{name1} — инфравид %{name2}.'
+          r_form: '%{name1} — это форма %{name2}.'
   button_create: создать
   button_add: добавить
   cancel: отмена
@@ -149,8 +149,12 @@ ru:
   change_your_password: Изменить Ваш пароль
   classifications:
     children:
+      header_html:
+        one: '%{name} включает <a href="%{names_path}">%{count} ребёнка</a>:'
+        other: '%{name} включает <a href="%{names_path}">% {count} детей</a>:'
       see_more: узнать больше
     hierarchies:
+      see_resource_file: Полный список смотреть <a href='%{href}'>файле ресурсов</a>.
       this_page: (эта страница)
     richness:
       header: Богатство страницы
@@ -163,20 +167,20 @@ ru:
       maps_count: карты
       data_count: данные
       nodes_count: Узлы
-      vernaculars_count: наречия
+      vernaculars_count: местные языки
       scientific_names_count: научные названия
       referents_count: референты
       species_count: виды
       updated_at: последнее изменение
   collect_already_in_collection: (уже здесь)
-  collect_already_in_collection_will_add_icon: (добавить медиа на "%{page}")
-  collect_icon_title: Добавить "%{item}" со страницы "%{page}" в…
+  collect_already_in_collection_will_add_icon: (добавить медиа на «%{page}»)
+  collect_icon_title: Добавить «%{item}» со страницы «%{page}» в…
   collect_new_collection: Название новой коллекции
   collect_new_collection_title: '...Новая коллекция'
   collect_no_existing_collections: У вас их еще нет! Создайте его, используя форму
     слева.
   collect_select_collection: '...Одна из Ваших коллекций'
-  collect_title: Добавить "%{item}" в…
+  collect_title: Добавить «%{item}» в…
   collected_page_added_to_collection: В коллекцию <a href='%{link}'>%{name}</a> добавлен
     %{page}.
   collected_page_already_in_collection: Это уже было в вашей коллекции.
@@ -189,7 +193,7 @@ ru:
     delete_button: удалить
     edit_button: править
     delete_confirm: Вы уверены?
-    destroyed_flash: Страница "%{name}" удалена из коллекции.
+    destroyed_flash: Страница «%{name}» удалена из коллекции.
   collection_association_added_to_collection: В коллекцию <a href='%{link}'>"%{name}"</a>
     добавлен «%{associated}».
   collection_associations_empty: Никакие другие коллекции не связаны с этой. Вы можете
@@ -197,10 +201,10 @@ ru:
   collection_associations_title: Связанные коллекции
   collection_collected_pages_media_remove: 'Удалите изображения из коллекции (изменения
     немедленно вступят в силу):'
-  collection_created: Создана новая коллекция "%{name}".
+  collection_created: Создана новая коллекция «%{name}».
   collection_created_for_association: В коллекцию <a href='%{link}'>"%{name}"</a>
     добавлен «%{associated}».
-  collection_user_is_admin: Этот участник - администратор.
+  collection_user_is_admin: Этот участник — администратор.
   collection_pages_empty: В этой коллекции нет страниц. Попробуйте нажать кнопку «собрать»
     на страницах видов, чтобы добавить несколько предметов!
   collection:
@@ -210,7 +214,7 @@ ru:
       label: 'Добавить пользователя, который сможет редактировать эту коллекцию:'
       placeholder: полное имя или имя пользователя
     actions:
-      associate: ассоциироваться
+      associate: ассоциировать
       download_taxa_csv: скачать CSV таксонов
       delete: удалить
       edit: править
@@ -220,23 +224,25 @@ ru:
       gallery: Галерея
     delete_confirm: Это приведет к удалению всей коллекции, и её НЕВОЗМОЖНО будет
       вернуть. Вы уверены?
-    destroyed: '"%{name}" был(а) безвозвратно удален(а).'
-    pages_count: '{{МНОЖЕСТВЕННОЕ|один=1 день|%{count} дней}}'
+    destroyed: «%{name}» был(а) безвозвратно удален(а).
+    pages_count:
+      one: 1 день
+      other: '%{count} дней'
     log:
       associated_collection:
         add: '%{user} добавил общество к коллекции %{associated}'
         remove: '%{user} убрал общество из коллекции %{associated}'
       collection:
         add: '%{user} создал коллекцию'
-        change: '%{user} изменил %{field} с "%{from}" на "%{to}"'
+        change: '%{user} изменил %{field} с «%{from}» на «%{to}»'
       content:
         add: '%{user} добавил медиум %{medium} для страницы %{page}'
         change: '%{user} изменил %{field} медиум %{medium} для страницы %{page} с
-          "%{from}" на "%{to}"'
+          «%{from}» на «%{to}»'
         remove: '%{user} убрал медиум %{medium} для страницы %{page}'
       page:
         add: '%{user} добавил страницу %{page}'
-        change: '%{user} изменил %{field} на странице %{page} с "%{from}" на "%{to}"'
+        change: '%{user} изменил %{field} на странице %{page} с «%{from}» на «%{to}»'
         remove: '%{user} удалил страницу %{page}'
       user:
         add: '%{user} добавил менеджера %{manager}'
@@ -277,6 +283,9 @@ ru:
     publisher: издатель
     project: проект
     provider: провайдер
+    references_header:
+      one: Примечание
+      other: Примечания
     resource_label: сайт партнёра
     resource_pk: '(id: %{key})'
     rights_statement: заявление о правах
@@ -589,6 +598,7 @@ ru:
     oj: Оджибве
     or: Ория
     om: Оромо
+    os: Осетинский; Осетинский
     q715755: Пайвань
     pi: Пали
     pa: Панджаби
@@ -602,14 +612,49 @@ ru:
     pol: Польский
     q36748: Понтийцы
     pt: Португальский
+    ps: Пушту; Пушту;
+    qu: Кечуа
+    q584983: Ранги
+    ro: Румынский; Молдавский; Молдавский
+    rm: Романшский язык
+    rn: Рунди
     ru: Русский
     rus: Русский
+    q26245: Русины
     q34299: Сакха
     q718269: Сакизая
     sm: Самоанский
     q213434: Жемайтийский
+    q34016: Сандаве
+    sg: Санго
+    sa: Санскрит
+    q33965: Сантали
+    sc: Сардинский язык
+    q845441: Сассарский язык
+    q14549: Шотландский
+    q716686: Сидик
+    sr: Сербский
+    q3788739: Шамбала
+    q56482: Шань
+    sn: Шона
+    q34004: Шона
     si: Сингальский
+    sk: Словацкий
+    slk: Словацкий
+    sl: Словенский
+    so: Cомалийский
+    som: Cомалийский
+    es: Испанский; Кастильский
     slv: Испанский
+    q2638144: Сукума
+    su: Сунданезский
+    sw: Суахили
+    ss: Свати
+    sv: Шведский
+    swe: Шведский
+    tl: Тагальский язык
+    ty: Таитянский
+    tg: Таджикский
     th: Тайский
     tha: Тайский
     bo: Тибетский
@@ -618,12 +663,28 @@ ru:
     tr: Турецкий
     tur: Турецкий
     q36730: Турецкий, Османская
+    tk: Туркменский
     tw: Тви
+    q13238: Удмуртский
     uk: Украинский
     ukr: Украиский язык
+    none: Не уточнено
+    q13248: Верхнелужицкий язык
     ur: Урду
     uz: Узбекский
+    wa: Валлонский
+    q34279: Варайский язык
+    cy: Валлийский язык
+    wel: Валлийский язык
     q100103: Западнофламандский
+    q34290: Ву
+    xh: Коса
+    yi: Идиш
+    yo: Йоруба
+    q10199: Зазаки
+    q237409: Зеландский диалект
+    zu: Зулу
+    Q33219: Баньюмасанский язык
   layout_sign_in: Войти
   layout_sign_up: Зарегистрироваться
   layout_sign_out: Выйти
@@ -660,6 +721,9 @@ ru:
     hide_langs:
       one: скрыть один язык
       other: скрыть %{count} языки
+    prefer: предпочитать
+    preferred_in_language_for_page: '%{name} теперь является предпочтительным %{language}
+      диалектом для %{page}'
   nav:
     about: О проекте
     discuss: Обсудить
