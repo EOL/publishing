@@ -1,6 +1,7 @@
 import '../src/wordcloud'
 import '../src/main'
 import '../src/youtube'
+import '../src/webtrends.min'
 import '@client-side-validations/client-side-validations'
 import '@client-side-validations/simple-form'
 import { Routes } from '../src/routes.js.erb'
