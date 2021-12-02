@@ -85,6 +85,51 @@ it:
         r_domain: '%{name1} è un dominio di %{name2}.'
         r_subdomain: '%{name1} è un subdominio di %{name2}.'
         r_infradomain: '%{name1} è un infradominio di %{name2}.'
+        r_superkingdom: '%{name1} è un superregno di %{name2}.'
+        r_kingdom: '%{name1} è un regno di %{name2}.'
+        r_subkingdom: '%{name1} è un sottoregno di %{name2}.'
+        r_infrakingdom: '%{name1} è un infraregno di %{name2}.'
+        r_superphylum: '%{name1} è un superphylum di %{name2}.'
+        r_phylum: '%{name1} è un phylum di %{name2}.'
+        r_subphylum: '%{name1} è un subphylum di %{name2}.'
+        r_infraphylum: '%{name1} è un infraphylum di %{name2}.'
+        r_superclass: '%{name1} è una superclasse di %{name2}.'
+        r_class: '%{name1} è una classe di %{name2}.'
+        r_subclass: '%{name1} è una sottoclasse di %{name2}.'
+        r_infraclass: '%{name1} è un''infraclasse di %{name2}.'
+        r_superorder: '%{name1} è un superordine di %{name2}.'
+        r_order: '%{name1} è un ordine di %{name2}.'
+        r_suborder: '%{name1} è un sottordine di %{name2}.'
+        r_infraorder: '%{name1} è un infraordine di %{name2}.'
+        r_family: '%{name1} è una famiglia di %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} è una sottofamiglia di %{name2} nella famiglia %{name3}.'
+          r_infrafamily: '%{name1} è un''infrafamiglia di %{name2} nella famiglia
+            %{name3}.'
+          r_tribe: '%{name1} è una tribù di %{name2} nella famiglia %{name3}.'
+          r_supergenus: '%{name1} è un supergenere di %{name2} nella famiglia %{name3}.'
+          r_genus: '%{name1} è un genere di %{name2} nella famiglia %{name3}.'
+          r_subgenus: '%{name1} è un sottogenere di %{name2} nella famiglia %{name3}.'
+          r_infragenus: '%{name1} è un infragenere di %{name2} nella famiglia %{name3}.'
+          r_superspecies: '%{name1} è una superspecie di %{name2} nella famiglia %{name3}.'
+          r_species: '%{name1} è una specie di %{name2} nella famiglia %{name3}.'
+          r_subspecies: '%{name1} è una sottospecie di %{name2} nella famiglia %{name3}.'
+          r_infraspecies: '%{name1} è un''infraspecie di %{name2} nella famiglia %{name3}.'
+          r_form: '%{name1} è una forma di %{name2} nella famiglia %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} è una sottofamiglia di %{name2}.'
+          r_infrafamily: '%{name1} è un''infrafamiglia di %{name2}.'
+          r_tribe: '%{name1} è una tribù di %{name2}.'
+          r_supergenus: '%{name1} è un supergenere di %{name2}.'
+          r_genus: '%{name1} è un genere di %{name2}.'
+          r_subgenus: '%{name1} è un sottogenere di %{name2}.'
+          r_infragenus: '%{name1} è un infragenere di %{name2}.'
+          r_superspecies: '%{name1} è una superspecie di %{name2}.'
+          r_species: '%{name1} è una specie di %{name2}.'
+          r_subspecies: '%{name1} è una sottospecie di %{name2}.'
+          r_infraspecies: '%{name1} è un''infraspecie di %{name2}.'
+          r_form: '%{name1} è una forma di %{name2}.'
   button_create: crea
   button_add: aggiungi
   cancel: annulla
@@ -329,6 +374,7 @@ it:
     q33120: Buriato
     q35037: Businenge Tongo
     q880301: Francese cajun
+    q2937525: Capiznon
     q35156: Car
     q2591230: Cashinahua
     ca: Catalano; Valenciano
@@ -354,11 +400,13 @@ it:
     hr: Croato
     hrv: Croato
     cs: Ceco
+    q32238: Dagbani
     da: Danese
     q3362072: Digo
     q56466: Dinka
     dv: Divehi; Dhivehi; Maldiviano
     q18415595: Doteli
+    q33013: Duala
     dut: Olandese; Fiammingo
     nl: Olandese; Fiammingo
     dz: Dzongkha
@@ -423,6 +471,7 @@ it:
     ja: Giapponese
     jp: Giapponese
     jv: Giavanese
+    q33522: Circasso cabardo
     q35475: kabiye
     q35853: Cabilo
     kl: Kalaallisut; groenlandese
@@ -434,6 +483,7 @@ it:
     ks: Kashmiri
     q33690: Casciubo
     kk: Kazako
+    ki: Kikuyu; Gikuyu
     ko: Coreano
     kor: Coreano
     ku: Curdo
@@ -454,6 +504,8 @@ it:
     mh: Marshallese
     q13330: Mirandese
     mn: Mongolo
+    q56426: Arabo marocchino
+    na: Nauruano
     q33845: Napoletano
     ne: Nepalese
     q28224: Frisone settentrionale
@@ -508,7 +560,9 @@ it:
     vi: Vietnamita
     q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
+    yo: Yoruba
     q237409: Zelandese
+    zu: Zulu
   layout_sign_in: Accedi
   layout_sign_up: Registrati
   layout_sign_out: Esci
@@ -640,7 +694,13 @@ it:
       label: 'Stato IUCN:'
       ex: estinto (EX)
       ew: estinto in natura (EW)
+      cr: in pericolo critico (CR)
+      en: in pericolo  (EN)
       vu: vulnerabile (VU)
+      nt: prossima alla minaccia (NT)
+      lc: rischio minimo (LC)
+      dd: dati insufficienti (DD)
+      ne: non valutato (NE)
   page_titles:
     pages:
       data: '%{page_name} dati'
@@ -770,6 +830,8 @@ it:
         one: '%{count} collezione'
         other: '%{count} collezioni'
     collection_title_html: 'Collezione: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles: '{{PLURALE|one=1 ARTICOLO|%{count} ARTICOLI}}'
     user_title_html: 'Utente: <span class=''sub''>%{name}</span>'
   search_suggestion:
     actions:
@@ -934,6 +996,11 @@ it:
   users:
     sign_in: Accedi
   vernacular_names_header: Nomi comuni
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} di %{n}'
   term:
     actions:
       sort: ordina per
@@ -960,7 +1027,13 @@ it:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/mese'
         http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: piano
+          aaleniano
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: scelta anomala dell'habitat
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: comportamento locomotorio
+          anormale
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abbondanza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: zona abissale
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: suolo acido
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adulto
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuale

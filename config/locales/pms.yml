@@ -2154,7 +2154,17 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: foresta
         http://eol(dot)org/schema/terms/forestEdge: bordura ëd foresta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: seul ëd foresta
+        http://eol(dot)org/schema/terms/ForkLength: longheur ëd la forca
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: età
+          fortunian-a
+        http://eol(dot)org/schema/terms/fossorialOrGround: scavator o vivent për tèra
+        http://eol(dot)org/schema/terms/groundDwelling: mach scavator o vivent për
+          tèra
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Frasnian: età
+          frasnian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eva corenta
+        https://eol(dot)org/schema/terms/freshwater_animals: animaj d'eva dossa
+        https://eol(dot)org/schema/terms/freshwater_benthic: fondal d'eva dossa
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frut
         http://eol(dot)org/schema/terms/FruitSeedColor: color dij frut o dle smens
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: sòrt ëd frut
