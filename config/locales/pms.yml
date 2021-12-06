@@ -2165,12 +2165,31 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eva corenta
         https://eol(dot)org/schema/terms/freshwater_animals: animaj d'eva dossa
         https://eol(dot)org/schema/terms/freshwater_benthic: fondal d'eva dossa
+        https://eol(dot)org/schema/terms/freshwater_carnivore: carnìvor d'eva dossa
+        https://eol(dot)org/schema/terms/freshwater_decapods: decapòd d'eva dossa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000053: maré d'eva dossa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000243: zòna ùmida d'eva dossa
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: frontal
+        http://eol(dot)org/schema/terms/fructose: frutòsi
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frut
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: color ëd la fruta
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: longheur dël frut
         http://eol(dot)org/schema/terms/FruitSeedColor: color dij frut o dle smens
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: forma dël frut
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: sòrt ëd frut
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: larghëssa dël frut
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: bròda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000216: fumaròla
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000587: mobilia
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Furongian: época
+          furongian-a
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/di
         http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/an
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm³
+        http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m²
         http://eol(dot)org/schema/terms/gramsPerMonth: g/mèis
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79641: anfiura
         http://eol(dot)org/schema/terms/GenerationTime: temp ëd generassion
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/GeographicRangeArea: spantiament geogràfich

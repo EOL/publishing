@@ -21,7 +21,7 @@
 # Author: Марио
 ---
 ru:
-  language_name: Английский
+  language_name: английский
   about:
     trait_bank:
       title: TraitBank
@@ -805,6 +805,9 @@ ru:
         r_subspecies: Подвид
         r_infraspecies: Инфравид
         r_form: Форма
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
       username_missing: пользователь %{user_id}
     trophic_web:
       predator: Хищник
