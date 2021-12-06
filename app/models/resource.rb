@@ -253,18 +253,20 @@ class Resource < ApplicationRecord
       log("No graph nodes, skipping.")
     else
       log("Removing #{count} graph nodes")
-      TraitBank::Admin.remove_for_resource(self, @log)
+      TraitBank::Admin.remove_by_resource(self, log_handle)
     end
   end
 
-  def log(message)
+  def log_handle
     @log ||= Publishing::PubLog.new(self, use_existing_log: true)
-    @log.log(message, cat: :infos)
+  end
+
+  def log(message)
+    log_handle.log(message, cat: :infos)
   end
 
   def log_update(message)
-    @log ||= Publishing::PubLog.new(self, use_existing_log: true)
-    @log.log_update(message)
+    log_handle.log_update(message)
   end
 
   def nuke(klass)

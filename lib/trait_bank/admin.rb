@@ -100,7 +100,8 @@ module TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
-      def remove_for_resource(resource, log)
+      def remove_by_resource(resource, log = nil)
+        log ||= resource.log_handle
         remove_most_metadata_relationships(resource.id)
         remove_with_query(
           name: :meta,
