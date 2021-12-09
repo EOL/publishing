@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Borichèt
+# Author: Borichèt
 ---
 pms:
   language_name: Piemontèis
@@ -2190,12 +2191,21 @@ pms:
         http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m²
         http://eol(dot)org/schema/terms/gramsPerMonth: g/mèis
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C79641: anfiura
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025340: gametofita
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: teren ëd giardin
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: età
+          gelasian-a
+        http://eol(dot)org/schema/terms/GenbankAccessionNumber: nùmer d'acess a genbank
         http://eol(dot)org/schema/terms/GenerationTime: temp ëd generassion
+        http://eol(dot)org/schema/terms/genotype: genotipo
         http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
         http://eol(dot)org/schema/terms/GeographicRangeArea: spantiament geogràfich
           (taja dl'àrea)
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geòfita
+        http://eol(dot)org/schema/terms/geothermal: geotermal
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durà dla gestassion
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Givetian: età
+          givetian-a
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: vòl planà
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: graminassa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairìa
