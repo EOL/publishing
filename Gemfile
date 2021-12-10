@@ -6,8 +6,10 @@ gem 'rails', '5.2.6'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 
-# Fixes a licensing issue with Rails:
+# TEMP: Fixes a licensing issue with Rails:
 gem 'mimemagic', '0.4.3'
+# TEMP: Fixes a security patch in nokogiri:
+gem 'nokogiri', '>= 1.12.5'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
