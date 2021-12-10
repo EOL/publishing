@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
-  revision: d1b8d1171e4164bc3ee89568cfadc974306a0e0d
+  revision: 920dd69d250f537825415dc5c4e68a6cd50d57c6
   branch: main
   specs:
-    eol_terms (0.9.25)
+    eol_terms (0.9.41)
       yaml
 
 GIT
@@ -280,7 +280,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (7.2.0)
     nio4r (2.5.7)
-    nokogiri (1.12.4)
+    nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     oj (3.12.0)
@@ -296,7 +296,7 @@ GEM
     public_suffix (4.0.6)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-contrib (2.3.0)
       rack (~> 2.0)
@@ -497,7 +497,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    yaml (0.1.1)
+    yaml (0.2.0)
     yard (0.9.26)
     zeitwerk (2.4.2)
 
@@ -527,7 +527,7 @@ DEPENDENCIES
   discourse_api (~> 0.40)
   draper (~> 4.0)
   elasticsearch (~> 6)
-  eol_terms (>= 0.9.25)!
+  eol_terms!
   font-awesome-sass (~> 5.15)
   font-kit-rails (~> 1.2)
   friendly_id (~> 5.4)
@@ -547,6 +547,7 @@ DEPENDENCIES
   mysql2 (= 0.5.3)
   neo4j-ruby-driver!
   newrelic_rpm
+  nokogiri (>= 1.12.5)
   oj (~> 3.12)
   pry-rails
   pundit (~> 2.1)
