@@ -656,6 +656,8 @@ ru:
     q56482: Шань
     sn: Шона
     q34004: Шона
+    q33973: Cицилийский
+    sd: Синдхи
     si: Сингальский
     sk: Словацкий
     slk: Словацкий
@@ -673,11 +675,19 @@ ru:
     tl: Тагальский язык
     ty: Таитянский
     tg: Таджикский
+    q34318: Талышский
+    ta: Тамильский
+    tt: Татарский
+    te: Телугу
     th: Тайский
     tha: Тайский
     bo: Тибетский
+    ti: Тигринья
     to: Тонганский
+    ts: Тсонга
+    tn: Тсвана
     q34251: Тулу
+    q34138: Тумбука
     tr: Турецкий
     tur: Турецкий
     q36730: Турецкий, Османская
@@ -690,11 +700,15 @@ ru:
     q13248: Верхнелужицкий язык
     ur: Урду
     uz: Узбекский
+    vi: Вьетнамский
+    vo: Волапюк
+    q32858: Водский
     wa: Валлонский
     q34279: Варайский язык
     cy: Валлийский язык
     wel: Валлийский язык
     q100103: Западнофламандский
+    wo: Волоф
     q34290: Ву
     xh: Коса
     yi: Идиш
@@ -749,6 +763,8 @@ ru:
     search:
       no_results_html: <strong>Нет подтвержденных результатов</strong><br />Нажмите
         Ввод, чтобы увидеть необработанные результаты
+      placeholder: Искать Энциклопедию жизни...
+  name_preferred_label: предпочтительный
   page_title: Энциклопедия жизни
   page_title_search: 'Поиск: %{query}'
   page_vernaculars_empty: Общих названий, связанных с этим таксоном, не найдено.
@@ -761,7 +777,12 @@ ru:
         other: '%{count} комментариев'
     batch_lookup:
       download_tsv: скачать CSV
+      match: Совпадение
       new_search: новый поиск
+      page_id: Идентификатор страницы
+      page_url: Адрес страницы
+      query: запрос
+      query_cant_be_blank: Запрос не может быть пустым
       search: поиск
     overview:
       eol_has_data_for_n_attributes_including_html:
@@ -787,6 +808,7 @@ ru:
         other: '%{count} записей скрыто — показать'
       show_all: показать все
     resource_names:
+      name_recognized_by: Признанный %{by}
       name_recognized_by_w_rank: '%{rank} признан %{by}'
       name_recognized_by_w_status: '%{status} согласно %{by}'
       rank:
@@ -828,6 +850,7 @@ ru:
         (%{remarks})
       username_missing: пользователь %{user_id}
     trophic_web:
+      competitor: Участник соревнования
       predator: Хищник
       prey: Жертва
       reset: сбросить
@@ -892,11 +915,18 @@ ru:
       r_species: виды
       r_subspecies: подвиды
       r_form: форма
+  recaptcha: reCAPTCHA
   recaptcha_error: Подтвердите, что Вы не робот.
   reconciliation:
     id_space:
       type_names:
         taxon: Таксон
+    property:
+      name:
+        rank: Ранг
+    property_settings:
+      limit:
+        label: Ограничение
     schema_space:
       headers:
         description: Описание

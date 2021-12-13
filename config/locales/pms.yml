@@ -2206,9 +2206,23 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durà dla gestassion
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Givetian: età
           givetian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: lagh glassial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: val glassial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: giassé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002244: seul motos
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: vòl planà
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: graminassa
+        'http://purl(dot)obolibrary(dot)org/obo/NBO_0000369 ': planant
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: còla
+        http://eol(dot)org/schema/terms/gonadRatioFemaleToMale: rapòrt ëd gònad f/m
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: età
+          gorstian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000290: fossà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000117: sediment granular
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: erba
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005750: teren ëd prairìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: giàira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000548: teren ëd giàira
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: ambient
         http://eol(dot)org/schema/terms/HabitatBreadth: larghëssa dl'ambient
