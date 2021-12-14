@@ -99,7 +99,7 @@ Relationships:
   `Trait` to the `Page` is inferred.  The `Page` is a descendant of
   the `Page` that the `Trait` belongs to.  Many `Page`s can be related
   by `inferred_trait` to a single `Trait`.
-* `vernacular` link (to a `Vernacular` node): the target node provides a common or verancular name for the taxon
+* `vernacular` link (to a `Vernacular` node): the target node provides a common or vernacular name for the taxon
 
 
 ## Vernacular
