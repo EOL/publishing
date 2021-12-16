@@ -1,3 +1,6 @@
+# Yes, if you are investigating the data, you want to use this. e.g.:
+# bad_trait = TraitNode.find("R520-PK96770863")
+# bad_trait.metadata # etc, etc.
 class TraitNode
   include ActiveGraph::Node
 
@@ -53,7 +56,7 @@ class TraitNode
 
       metadata.each do |m|
         if (
-          m.predicate && 
+          m.predicate &&
           TraitBank::Constants::GROUP_META_VALUE_URIS.include?(m.predicate.uri)
         )
           if combined_metadata.include?(m.predicate.uri)
@@ -107,7 +110,7 @@ class TraitNode
     attr_reader :predicate, :object_term, :object_page, :measurement, :literal, :units_term
 
     def initialize(
-      pred_alias, 
+      pred_alias,
       measurement,
       object_term
     )
@@ -139,4 +142,3 @@ class TraitNode
     end
   end
 end
-

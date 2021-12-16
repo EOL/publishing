@@ -303,7 +303,7 @@ class TraitBank::Slurp
       #  end
       #end
 
-      @logger.info("Importing data from #{sub_filename}")
+      @logger.info("Importing #{MAX_CSV_SIZE} rows from #{sub_filename}")
 
       # build nodes required by all rows
       nodes.each do |node|
@@ -336,7 +336,9 @@ class TraitBank::Slurp
     if line_count < MAX_CSV_SIZE
       yield filename
     else
-      break_up_large_file(filename, line_count) do |sub_filename|
+      num_chunks = (line_count / MAX_CSV_SIZE.to_f).ceil
+      @logger.warn("Found #{line_count} rows, will break up into #{MAX_CSV_SIZE}")
+      break_up_large_file(filename, line_count) do |sub_filename, chunk|
         yield sub_filename
       end
     end
@@ -345,7 +347,9 @@ class TraitBank::Slurp
   def break_up_large_file(filename, line_count)
     basename = File.basename(filename, '.*') # It's .csv, but I want to be safe...
     lines_without_header = line_count - 1
-    chunks = lines_without_header / MAX_CSV_SIZE # NOTE: without #ceil and #to_f, this yields a floor!
+    # NOTE: without #ceil and #to_f, this yields a floor. We will run an *additional* "chunk" after going through this
+    # number of chunks.
+    chunks = lines_without_header / MAX_CSV_SIZE
     tail = lines_without_header % MAX_CSV_SIZE
     # NOTE: Each one of these head/tail commands can take a few seconds.
     (1..chunks).each do |chunk|
@@ -362,14 +366,14 @@ class TraitBank::Slurp
       sub_file = sub_file_name(basename, chunk)
       copy_head(filename, sub_file)
       `head -n #{MAX_CSV_SIZE * chunk + 1} #{resource_file_dir}/#{filename} | tail -n #{MAX_CSV_SIZE} >> #{resource_file_dir}/#{sub_file}`
-      yield sub_file
+      yield(sub_file, chunk)
       File.unlink("#{resource_file_dir}/#{sub_file}")
     end
     unless tail.zero?
       sub_file = sub_file_name(basename, chunks + 1)
       copy_head(filename, sub_file)
       `tail -n #{tail} #{resource_file_dir}/#{filename} >> #{resource_file_dir}/#{sub_file}`
-      yield sub_file
+      yield(sub_file, chunk)
       File.unlink("#{resource_file_dir}/#{sub_file}")
     end
   end
