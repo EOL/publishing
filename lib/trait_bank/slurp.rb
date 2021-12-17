@@ -373,7 +373,7 @@ class TraitBank::Slurp
       sub_file = sub_file_name(basename, chunks + 1)
       copy_head(filename, sub_file)
       `tail -n #{tail} #{resource_file_dir}/#{filename} >> #{resource_file_dir}/#{sub_file}`
-      yield(sub_file, chunk)
+      yield(sub_file, chunks + 1)
       File.unlink("#{resource_file_dir}/#{sub_file}")
     end
   end
