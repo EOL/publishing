@@ -17,6 +17,7 @@ class Publishing::PubLog
   end
 
   def start(what)
+    @resource.import_logs.last&.running
     log(what.to_s, cat: :starts)
   end
 

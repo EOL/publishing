@@ -64,6 +64,13 @@ class ImportLog < ApplicationRecord
     chunks
   end
 
+  def running
+    update_attribute(:completed_at, nil)
+    update_attribute(:status, 'currently running')
+    resource.touch # Ensure that we see the resource as having changed
+    log('Running', cat: :starts)
+  end
+
   def complete
     update_attribute(:completed_at, Time.now) unless destroyed?
     update_attribute(:status, 'completed') unless destroyed?

@@ -163,6 +163,10 @@ class Resource < ApplicationRecord
     Publishing::Fast.by_resource(self)
   end
 
+  def running
+    import_logs.last.running
+  end
+
   def unlock
     import_logs.running.update_all(failed_at: Time.now)
   end
