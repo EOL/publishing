@@ -53,7 +53,7 @@ end
     request['Cookie'] = cookies
     response = http.request(request)
     if response.code.to_i >= @unacceptable_codes
-      log_warn("MISSING #{@repo_site}#{url} [#{response.code}] (#{resp.size} bytes); skipping")
+      log_warn("MISSING #{@repo_site}#{url} [#{response.code}] (#{response.size} bytes); skipping")
       return false
     elsif response.body.size < response.content_length - 1
       log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length}")
