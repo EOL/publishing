@@ -1,5 +1,5 @@
 class ContentServerConnection
-  TRAIT_DIFF_SLEEP = 10 
+  TRAIT_DIFF_SLEEP = 10
   MAX_TRAIT_DIFF_TRIES = 30 # * 10s = 30 = 300s = 5 mins
 
   def initialize(resource, log = nil)
@@ -73,25 +73,37 @@ class ContentServerConnection
   end
 
   class TraitDiffMetadata
-    attr_reader :new_traits_file, :removed_traits_file, :new_metadata_file
+    attr_reader :new_traits_file, :removed_traits_file, :new_metadata_file, :json, :resource, :connection
 
     def initialize(json, resource, connection)
+      @json = json
+      @resource = resource
+      @connection = connection
       @remove_all_traits = json['remove_all_traits']
 
-      new_traits_path_remote = json['new_traits_path'] 
-      removed_traits_path_remote = json['removed_traits_path']
-      new_metadata_path_remote = json['new_metadata_path']
-      
-      new_traits_path = local_path(new_traits_path_remote, resource)
-      removed_traits_path = local_path(removed_traits_path_remote, resource)
-      new_metadata_path = local_path(new_metadata_path_remote, resource)
+      copy_new_traits
+      copy_remove_traits
+      copy_new_metadata
+    end
 
-      copy_file(new_traits_path, new_traits_path_remote, connection)
-      copy_file(removed_traits_path, removed_traits_path_remote, connection)
-      copy_file(new_metadata_path, new_metadata_path_remote, connection)
+    def copy_new_traits
+      new_traits_path_remote = @json['new_traits_path']
+      new_traits_path = local_path(new_traits_path_remote)
+      copy_trait_file(new_traits_path, new_traits_path_remote)
+      @new_traits_file = new_traits_path.nil? ? nil : File.basename(new_traits_path)
+    end
 
-      @new_traits_file = new_traits_path.nil? ? nil : File.basename(new_traits_path) 
+    def copy_remove_traits
+      removed_traits_path_remote = @json['removed_traits_path']
+      removed_traits_path = local_path(removed_traits_path_remote)
+      copy_trait_file(removed_traits_path, removed_traits_path_remote)
       @removed_traits_file = removed_traits_path.nil? ? nil : File.basename(removed_traits_path)
+    end
+
+    def copy_new_metadata
+      new_metadata_path_remote = @json['new_metadata_path']
+      new_metadata_path = local_path(new_metadata_path_remote)
+      copy_trait_file(new_metadata_path, new_metadata_path_remote)
       @new_metadata_file = new_metadata_path.nil? ? nil : File.basename(new_metadata_path)
     end
 
@@ -100,14 +112,14 @@ class ContentServerConnection
     end
 
     private
-    def local_path(remote_path, resource)
-      remote_path.nil? ? 
+    def local_path(remote_path)
+      remote_path.nil? ?
         nil :
-        resource.ensure_file_dir.join(File.basename(remote_path))
+        @resource.ensure_file_dir.join(File.basename(remote_path))
     end
 
-    def copy_file(local, remote, conn)
-      conn.copy_file_for_remote_url(local, remote) unless local.nil?
+    def copy_trait_file(local, remote)
+      @connection.copy_file_for_remote_url(local, remote) unless local.nil?
     end
   end
 

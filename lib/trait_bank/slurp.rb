@@ -1,6 +1,7 @@
 require 'set'
 require 'csv'
 
+# NOTE: Publishing will call .load_resource_from_repo q.v..
 class TraitBank::Slurp
   MAX_CSV_SIZE = 250_000
   MAX_SKIP_PKS = 1_000
@@ -14,10 +15,11 @@ class TraitBank::Slurp
   end
 
   # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
+  # NOTE: this is the method called by Publishing::Fast
   def load_resource_from_repo
     repo = ContentServerConnection.new(@resource, @logger)
 
-    diff_metadata = repo.trait_diff_metadata
+    @diff_metadata = repo.trait_diff_metadata
 
     ResourceNode.create_if_missing(
       @resource.id,
@@ -26,9 +28,9 @@ class TraitBank::Slurp
       @resource.repository_id
     )
 
-    remove_traits(diff_metadata)
-    add_traits(diff_metadata)
-    add_metadata(diff_metadata)
+    remove_traits
+    add_traits
+    add_metadata
 
     @resource.touch
     @resource.update!(last_published_at: Time.now)
@@ -589,36 +591,36 @@ class TraitBank::Slurp
     end
   end
 
-  def add_traits(diff_metadata)
-    if diff_metadata.new_traits_file.nil?
+  def add_traits
+    if @diff_metadata.new_traits_file.nil?
       @logger.info('no traits to add')
       return
     end
 
     @logger.info('adding new traits')
-    load_csv(diff_metadata.new_traits_file, load_csv_config[:traits])
+    load_csv(@diff_metadata.new_traits_file, load_csv_config[:traits])
   end
 
-  def add_metadata(diff_metadata)
-    if diff_metadata.new_metadata_file.nil?
+  def add_metadata
+    if @diff_metadata.new_metadata_file.nil?
       @logger.info('no metadata to add')
       return
     end
 
     @logger.info('adding new metadata')
-    load_csv(diff_metadata.new_metadata_file, load_csv_config[:metadata])
+    load_csv(@diff_metadata.new_metadata_file, load_csv_config[:metadata])
   end
 
-  def remove_traits(diff_metadata)
-    if diff_metadata.remove_all_traits?
+  def remove_traits
+    if @diff_metadata.remove_all_traits?
       @logger.info('removing all traits')
 
       TraitBank::Admin.remove_all_traits_for_resource(@resource)
-    elsif diff_metadata.removed_traits_file.present?
+    elsif @diff_metadata.removed_traits_file.present?
       @logger.info('removing traits specified in diff file')
 
       count = 0
-      CSV.foreach(resource_file_dir.join(diff_metadata.removed_traits_file), headers: true) do |row|
+      CSV.foreach(resource_file_dir.join(@diff_metadata.removed_traits_file), headers: true) do |row|
         if row['eol_pk']
           TraitBank::Admin.remove_trait_and_metadata(row['eol_pk'])
         end

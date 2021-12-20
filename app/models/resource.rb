@@ -158,6 +158,11 @@ class Resource < ApplicationRecord
     end
   end
 
+  # You would only call this manually, there should be no references to this method in code.
+  def publish
+    Publishing::Fast.by_resource(self)
+  end
+
   def unlock
     import_logs.running.update_all(failed_at: Time.now)
   end
