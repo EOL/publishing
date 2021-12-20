@@ -20,7 +20,7 @@ class ContentServerConnection
   end
 
   def exists?(name)
-    url = URI.parse(file_url(name))
+    url = URI.parse(file_url(name)) # e.g.: "/data/NMNHtypes/publish_publish_metadata.tsv"
     req = Net::HTTP.new(@repo_site.host, @repo_site.port)
     req.use_ssl = @repo_site.scheme == 'https'
     res = req.request_head(url.path)
@@ -39,16 +39,27 @@ class ContentServerConnection
     file_for_url(file_url(name))
   end
 
+if nil
+end
+
   def file_for_url(url)
-    resp = nil
-    result = Net::HTTP.start(@repo_site.host, @repo_site.port, use_ssl: @repo_site.scheme == 'https') do |http|
-      resp = http.get(url)
-    end
-    unless result.code.to_i < @unacceptable_codes
-      log_warn("MISSING #{@repo_site}#{url} [#{result.code}] (#{resp.size} bytes); skipping")
+    # Need to get the _harvester_session cookie or this will not work:
+    uri = URI.parse(Rails.application.secrets.repository[:url] + '/')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    response = http.request(Net::HTTP::Get.new(uri.request_uri))
+    cookies = response.response['set-cookie']
+    request = Net::HTTP::Get.new(url)
+    request['Cookie'] = cookies
+    response = http.request(request)
+    if response.code.to_i >= @unacceptable_codes
+      log_warn("MISSING #{@repo_site}#{url} [#{response.code}] (#{resp.size} bytes); skipping")
+      return false
+    elsif response.body.size < response.content_length - 1
+      log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length}")
       return false
     end
-    resp.body.gsub(/\\\n/, "\n").gsub(/\\N/, '')
+    response.body.gsub(/\\\n/, "\n").gsub(/\\N/, '')
   end
 
   def trait_diff_metadata

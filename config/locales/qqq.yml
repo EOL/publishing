@@ -26,6 +26,7 @@ qqq:
     taxonomy:
       family_above:
         r_superkingdom: "Domain is also named superkingdom. See also: \nhttps://en.wikipedia.org/wiki/Domain_(biology)"
+  button_create: '{{Identical|Create}}'
   cancel: '{{Identical|Cancel}}'
   classifications:
     richness:
