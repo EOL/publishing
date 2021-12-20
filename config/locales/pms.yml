@@ -2223,9 +2223,26 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005750: teren ëd prairìa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: giàira
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000548: teren ëd giàira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000473: poss ëd giàira
+        http://eol(dot)org/schema/terms/grayGreen: gris-verd
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verd
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: teren
+        http://eol(dot)org/schema/terms/growthHabit: abitùdin ëd chërsùa
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: tass ëd chërsùa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guadalupian: época
+          guadalopian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000265: montagna piata sot-marenga
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guzhangian: età
+          guzhangian-a
+        https://eol(dot)org/schema/terms/gynomonoecious: ginomonòich
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: età
+          gzhelian-a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: ambient
         http://eol(dot)org/schema/terms/HabitatBreadth: larghëssa dl'ambient
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TF_HAB: fabricator d'ambient
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: zòna adal
+        https://eol(dot)org/schema/terms/hagfish_feeder: an nuriss ëd meduse
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: ambient alin
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: a l'ha n'òspit
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a l'ha n'agent patògen
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: longheur da la testa a
