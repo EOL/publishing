@@ -3460,8 +3460,10 @@ qqq:
         http://rs(dot)tdwg(dot)org/dwc/terms/typeStatus: A list (concatenated and
           separated) of nomenclatural types (type status, typified scientific name,
           publication) applied to the subject.
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: A canopy designed to
-          protect against precipitation or sunlight.
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: |-
+          A canopy designed to protect against precipitation or sunlight.
+
+          {{Identical|Umbrella}}
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002253: Umbrisols are soils
           in which organic matter has accumulated within the mineral surface soil
           (in most cases with low base saturation) to the extent that it significantly

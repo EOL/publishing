@@ -1,0 +1,44 @@
+# Messages for Catalan (català)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Fitoschido
+# Author: Mguix
+---
+ca:
+  devise:
+    confirmations:
+      confirmed: La vostra adreça de correu electrònic ha estat correctament confirmada.
+      send_instructions: Rebreu en uns minuts un missatge amb les instruccions de
+        confirmació de la vostra adreça electrònica.
+      send_paranoid_instructions: Si la vostra adreça de correu electrònic existeix
+        en la nostra base de dades, rebràs un correu electrònic amb instruccions per
+        a confirmar la vostra adreça de correu electrònic en pocs minuts.
+    failure:
+      already_authenticated: Ja esteu connectat.
+      inactive: El vostre compte encara no s’ha activat.
+      invalid: '%{authentication_keys} o contrasenya no vàlids.'
+      locked: El vostre compte està bloquejat. Torneu-ho a provar en una hora
+      last_attempt: Teniu un intent més abans de bloquejar el vostre compte.
+      not_found_in_database: '%{authentication_keys} o contrasenya no vàlids.'
+    mailer:
+      confirmation_instructions:
+        action: Confirma el meu compte
+        greeting: Us donem la benvinguda, %{recipient}!
+        subject: Instruccions de confirmació
+      reset_password_instructions:
+        action: Canvia la contrasenya
+        greeting: 'Hola #{recipient}!'
+        subject: Instruccions per a reinicialitzar la contrasenya
+      unlock_instructions:
+        subject: Instruccions de desblocament
+      password_change:
+        greeting: 'Hola #{recipient}!'
+        message: Us hem contactat per a notificar-vos que la vostra contrasenya ha
+          canviat.
+    registrations:
+      update_needs_confirmation: Heu actualitzat el vostre compte correctament, però
+        hem de verificar la vostra nova adreça electrònica. Per a fer-ho, us demanem
+        que reviseu la bústia i cliqueu l’enllaç de confirmació.
+    sessions:
+      recaptcha: Errors de validació del Recaptcha
+...

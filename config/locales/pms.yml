@@ -2243,17 +2243,39 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: zòna adal
         https://eol(dot)org/schema/terms/hagfish_feeder: an nuriss ëd meduse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: ambient alin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000516: hammock
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: valada sospèisa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: pòrt
+        http://eol(dot)org/schema/terms/hardBenthicSubstrate: sostrà bèntich dur
+        http://eol(dot)org/schema/terms/hardSubstrateBoring: sgav ëd sostrà dur
+        https://eol(dot)org/schema/terms/harvested_in: cujì an
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002633: a l'ha coma etoparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: a l'ha dj'euv butà ansima
+          da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002635: a l'ha coma endoparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008502: a l'ha n'epifita
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: a l'ha n'òspit
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002554: a l'ha coma iperparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002209: a l'ha coma parassitòid
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a l'ha n'agent patògen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002460: a l'ha coma vetor
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hauterivian: età
+          hauterivian-a
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: testa
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: longheur da la testa a
           la sinta
         http://eol(dot)org/schema/HeadWidth: larghëssa dla testa
         http://eol(dot)org/schema/terms/HeadBodyLength: longheur testa-còrp
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000153: bassin versant
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: a forma ëd cheur
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: landa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: cioenda
+        http://semanticscience(dot)org/resource/SIO_000040: autëssa
         http://eol(dot)org/schema/terms/HeightStanding: autëssa da 'n pe
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: elòfita
+        http://eol(dot)org/schema/terms/hemiepiphyte: emiepifita
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: àcid etadecanoid
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: erbosa
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: erba
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: àcid esacosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: àcid esadecanòid
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: gran durà ëd vita
