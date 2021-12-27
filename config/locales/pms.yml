@@ -2276,12 +2276,42 @@ pms:
         http://eol(dot)org/schema/terms/hemiepiphyte: emiepifita
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: àcid etadecanoid
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: erba
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000099: animal erbìvor da
+          pastura
+        http://eol(dot)org/schema/terms/herpetivore: erpetìvor
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: età
+          hettangian-a
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: àcid esacosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: àcid esadecanòid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: stërmé
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: àut
+        http://eol(dot)org/schema/terms/highCNRatio: àut (>59)
+        http://eol(dot)org/schema/terms/highArctic: àrtich superior
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: gran durà ëd vita
+        http://eol(dot)org/schema/terms/highNitrogenFixation: fissassion ëd l'asòt
+          elevà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002025: ambient d'àuta temperadura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: àuta toleransa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: colin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: caden-a ëd colin-e
         http://eol(dot)org/schema/terms/HindTarsusLength: longheur dël tars posterior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: età
+          hirnantian-a
+        http://eol(dot)org/schema/terms/hispidose: ispidos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002243: istoseul
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Holocene: época
+          olocen-a
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: olotipo
         http://eol(dot)org/schema/terms/HomeRange: àrea doméstica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: età
+          omerian-a
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: amel
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: orisontal
+        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: as nuriss ëd lìmuj
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: ospidal
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: òspit ëd
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: sorgiss càuda
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0007937: artìcoj ëd ca
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: idròfita
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: idrossipatita
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longheur ëd l'ipocòno
