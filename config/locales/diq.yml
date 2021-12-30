@@ -103,6 +103,7 @@ diq:
     altitude: berziye
     author: nuştekar
     bibliographic_citation: notgırewtışo bibliyografik
+    contributor: iştırakkerdoğ
     compiler: têarêker
     creator: vıraştoğ
     editor: vurnayoğ
@@ -184,6 +185,7 @@ diq:
     aa: Afarki
     af: Afrikaanki
     ak: Akanki
+    alb: Arnawudki
     sq: Arnawudki
     am: Amharki
     ar: Erebki
@@ -224,6 +226,7 @@ diq:
     ce: Çeçenki
     ny: Çiçewaki, Nyanja
     zh: Çinki
+    chi: Çinki
     q32979: Çoktawki
     cu: Slawkiya kıliseyi
     cv: Çuwaşki
@@ -232,12 +235,14 @@ diq:
     cr: Kreeki
     q33357: Tatarkiya Kırımı
     hr: Xırwatki
+    hrv: Xırwatki
     cs: Çekki
     da: Danki
     q3362072: Digoki
     q56466: Dinka
     dv: Maldivki
     q18415595: Dotyalki
+    dut: Hollandki; Flamanki
     nl: Hollandki, Flamanki
     dz: Dzongkha
     dzo: Dzongkha
@@ -245,12 +250,15 @@ diq:
     en: İngılızki
     eo: Esperanto
     et: Estonki
+    est: Estonki
     ee: Eweki
     fo: Faroeki
     fj: Ficiki
     fi: Finki
+    fin: Finki
     q667747: Fipaki
     fr: Fransızki
+    fra: Fransızki
     ff: Fulahki
     gd: Galkiya İskoçya
     gl: Galiçyaki
@@ -258,10 +266,12 @@ diq:
     lg: Ganda
     ka: Gurciki
     de: Almanki
+    deu: Almanki
     q5575236: Goan Konkani
     q3272630: Gogoki
     q2501174: Gorontalo
     el: Yunani, Modern (1453-)
+    gre: Yunanki
     gn: Guaranki
     gu: Gujaratki
     q33303: Haida
@@ -269,6 +279,7 @@ diq:
     ha: Hausaki
     q35756: Hayaki
     he: İbraniki
+    heb: İbranki
     q3129390: Heheki
     hz: Herero
     q35978: Hiligaynon
@@ -276,6 +287,7 @@ diq:
     ho: Hiri Motu
     hu: Macarki
     is: İslandki
+    ice: İslandki
     io: İdoki
     ig: İgboki
     q35936: İlokano
@@ -288,6 +300,7 @@ diq:
     q33595: Iraqwiki
     ga: İrlandki
     it: İtalyanki
+    ita: İtalyanki
     q35939: Kreolekiya Jamaika
     ja: Japonki
     jp: Japonki
@@ -308,9 +321,11 @@ diq:
     kv: Komiki
     kg: Kongoki
     ko: Koreki
+    kor: Koreki
     kj: Kuanyama; Kwanyama
     ku: Kurdki
     lo: Laoki
+    lao: Laoki
     la: Latinki
     lv: Letonki
     q1160372: Lazki
@@ -318,6 +333,7 @@ diq:
     ln: Lingala
     q146803: Lingua Franca Nova
     lt: Litwanki
+    lit: Litwanki
     q33698: Livonki
     q36584: Livviki
     lu: Luba-Katanga
@@ -354,6 +370,9 @@ diq:
     q19933293: Lurkiya Zımey
     se: Samikiya Zımey
     "no": Norwecki
+    nno: Norwecki
+    nob: Norwecki
+    nor: Norwecki
     nn: Norwecki, Nynorsk
     q36738: Novial
     q3272620: Nyakusa
@@ -374,6 +393,7 @@ diq:
     q23014: Almankiya Palatini
     q2429648: Pogoro
     pl: Polonki
+    pol: Polonki
     q36748: Pontuski
     pt: Portekizki
     ps: Peştunki
@@ -383,6 +403,7 @@ diq:
     rm: Romanşki
     rn: Rundiki
     ru: Ruski
+    rus: Ruski
     sm: Samoaki
     q34016: Sandaveki
     sg: Sangoki
@@ -398,15 +419,19 @@ diq:
     sd: Sindhi
     si: Seylanki
     sk: Slowakki
+    slk: Slowaki
     sl: Slowenki
     so: Somalki
+    som: Somalki
     st: Sothoki
     es: İspanyolki; Kastilyaki
+    slv: İspanyolki
     q2638144: Sukuma
     su: Sundaki
     sw: Svahiliki
     ss: Swatiki
     sv: İswecki
+    swe: İswecki
     tl: Tagalogki
     ty: Tahitiki
     tg: Tacıgki
@@ -415,6 +440,7 @@ diq:
     tt: Tatarki
     te: Teluguki
     th: Tayki
+    tha: Tayki
     bo: Tibetki
     ti: Tigrinki
     q34159: Tok Pisin
@@ -425,11 +451,14 @@ diq:
     q34138: Tumbuka
     q56240: Erebkiya Tunısi
     tr: Tırki
+    tur: Tırki
     q36730: Usmanıcki
     tk: Turkmenki
     tw: Twiki
     ug: Uyğurki
     uk: Ukraynki
+    ukr: Ukraynki
+    none: Nêvaciyayo
     ur: Urduki
     uz: Uzbegki
     ve: Verdaki
@@ -443,6 +472,7 @@ diq:
     xh: Xhosaki
     yi: Yidışki
     yo: Yoruba
+    q10199: Zazaki
     za: Zhuangki
     zu: Zuluki
   layout_sign_in: Cı kewe
@@ -568,7 +598,36 @@ diq:
       articles: '%{page_name} meqaleyi'
     traits:
       search: Xısusiyet cıgeyrayış
+  rank:
+    name:
+      r_kingdom: alem
+      r_subkingdom: bınalem
+      r_phylum: şube
+      r_subphylum: bınşube
+      r_class: sınıfe
+      r_subclass: bınsınıfe
+      r_order: taxım
+      r_suborder: bıntaxım
+      r_family: familya
+      r_subfamily: bınfamilya
+      r_tribe: qebila
+      r_genus: cıns
+      r_subgenus: bıncıns
+      r_species: tewri
+      r_subspecies: bıntewri
   recaptcha: Recaptcha
+  reconciliation:
+    property:
+      name:
+        rank: Rêze
+    property_settings:
+      limit:
+        label: Sinor
+    schema_space:
+      headers:
+        id: Kamiye
+        name: Name
+        description: Şınasnayış
   resources:
     actions:
       republish: bıweşane
@@ -670,14 +729,22 @@ diq:
     scientific_names: nameyi
     users: karberi
     references: tercihi
+  traits:
+    properties:
+      source: Çıme
+    search_form:
+      resource: çıme
   trust:
     trusted: itımadıno
   user:
+    email: E-poste
     headers:
       links: Gıreyi
     username: nameyê karberi
     update: Rocane ke
   term:
+    fields:
+      name: 'name:'
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Hera asidik
