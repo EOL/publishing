@@ -347,6 +347,7 @@ diq:
     ms: Malayki
     ml: Malayalamki
     mt: Maltaki
+    mlt: Maltaki
     gv: Manki
     mi: Maoriki
     mr: Marathiki
@@ -467,6 +468,7 @@ diq:
     q32858: Votiki
     wa: Walonki
     cy: Galki
+    wel: Galki
     fy: Frizkiya Rocawani
     wo: Wolofki
     xh: Xhosaki
@@ -729,6 +731,8 @@ diq:
     scientific_names: nameyi
     users: karberi
     references: tercihi
+  terms:
+    source: çıme
   traits:
     properties:
       source: Çıme
@@ -740,9 +744,12 @@ diq:
     email: E-poste
     headers:
       links: Gıreyi
+    new_password: Parolaya newiye
     username: nameyê karberi
     update: Rocane ke
   term:
+    edit:
+      submit: Qeyd ke
     fields:
       name: 'name:'
     name:
@@ -761,8 +768,11 @@ diq:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: kalsiyum sulfat dihidrat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: kalsiyum sulfat hemihidrate
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: reng
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: suriyeya şıfaqi
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: silindir
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: roci
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: merde
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: nımız biyayen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: gıştın
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eikosanoik asid
@@ -770,29 +780,45 @@ diq:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: pêt
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: florit
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: Awa şirın
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: meywe
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geophyte
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çere
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: kıho
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: Şekılê zerri
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helophyte
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: vaş
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: bınımne
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: hemgên
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: cemed
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: tadeyaye
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: gol
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: gırse
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: lathlike
+        http://semanticscience(dot)org/resource/SIO_000041: dergiye
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (mg)
+        http://eol(dot)org/schema/terms/no: nê
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: turuncuu
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksicen
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: golık
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: mor
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: sur
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rhizome
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rêçey
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: gureyneno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: qum
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: hêdêna
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: dındani
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezoid
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: dare
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: undekanoik asit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: sıpe
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: serri
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: zerd
+        http://eol(dot)org/schema/terms/yes: eya
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000165: fek
 ...

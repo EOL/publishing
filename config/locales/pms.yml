@@ -2313,9 +2313,19 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: sorgiss càuda
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0007937: artìcoj ëd ca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: surtìa d'idrocarbur
+        http://eol(dot)org/schema/terms/hydrochory: idrocorìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: serbator idroelétrich
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: idròfita
+        http://www(dot)marinespecies(dot)org/traits/Hydrostatic: scheletr idrostàtich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000134: flùid idrotermal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: fornel idrotermal
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: idrossipatita
+        http://eol(dot)org/schema/terms/hyperhydate: iperidrat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: iperparassita ëd
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: eva ipersalà
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longheur ëd l'ipocòno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002130: ipolimnion
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pòles
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: qualità ameliorà
         http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
