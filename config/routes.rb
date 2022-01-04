@@ -80,8 +80,8 @@ Rails.application.routes.draw do
     resources :collected_pages
     resources :media, only: [:show] do
       get "fix_source_pages"
-      post "hide"
-      post "unhide"
+      get "hide"
+      get "unhide"
     end
     resources :open_authentications, only: [:new, :create]
     get 'page_icons' => 'page_icons#create'

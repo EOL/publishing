@@ -39,7 +39,7 @@
                   - hide_confirm_msg = "Are you sure you want to hide this image?"
                   - hide_url = medium_hide_path(medium.id, page_id: page.id)
                 %li
-                  = link_to hide_url, method: "post", data: { confirm: hide_confirm_msg } do
+                  = link_to hide_url, data: { confirm: hide_confirm_msg } do
                     %span{ uk: { icon: "icon: #{hide_icon}" } }
               - if index > 0 || params[:page] && params[:page].to_i > 0
                 %li
