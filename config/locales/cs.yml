@@ -1,6 +1,7 @@
 # Messages for Czech (čeština)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Adam N.
 # Author: Georg101
 # Author: Jachym
 # Author: Juandev
@@ -285,6 +286,7 @@ cs:
     q33357: Krymská tatarština
     hr: Chorvatština
     cs: Čeština
+    q32238: Dagbánština
     da: Dánština
     nl: Vlámština
     en: Angličtina
