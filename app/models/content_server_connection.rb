@@ -39,9 +39,6 @@ class ContentServerConnection
     file_for_url(file_url(name))
   end
 
-if nil
-end
-
   def file_for_url(url)
     # Need to get the _harvester_session cookie or this will not work:
     uri = URI.parse(Rails.application.secrets.repository[:url] + '/')
