@@ -229,7 +229,8 @@ class Publishing
     end
 
     def import_and_prop_ids(klass)
-      @log.start(@klass = klass)
+      @klass = klass
+      @log.start("#import_and_prop_ids #{@klass}")
       @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
       if grab_file("#{@klass.table_name}.tsv")
         import
@@ -252,6 +253,7 @@ class Publishing
     end
 
     def grab_file(name)
+      @log.start("#grab_file #{name}")
       if repo_file = @repo.file(name)
         open(@data_file, 'wb') { |file| file.write(repo_file) }
       else
