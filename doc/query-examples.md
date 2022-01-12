@@ -113,9 +113,8 @@ MATCH (t:Trait)<-[:trait]-(p:Page),
       (t)-[:predicate]->(pred:Term)
 OPTIONAL MATCH (t)-[:object_term]->(obj:Term)
 OPTIONAL MATCH (t)-[:normal_units_term]->(units:Term)
-OPTIONAL MATCH (lit:Term) WHERE lit.uri = t.literal
 RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.uri, pred.name,
-       t.object_page_id, obj.uri, obj.name, t.normal_measurement, units.uri, units.name, t.normal_units, t.literal, lit.name
+       t.object_page_id, obj.uri, obj.name, t.normal_measurement, units.uri, units.name, t.normal_units, t.literal
 LIMIT 5
 ```
 ## Show (numerical) value of a predicate, for a given taxon
@@ -204,21 +203,23 @@ LIMIT 40
 
 Provenance metadata can be found as properties on the trait node or as linked MetaData nodes. 
 
-Properties: t.source, if available, is a URL provided by the data partner, pointing to the original data source. Other properties are identifiers which can be used to construct URLs. For instance, r.resource_id can be used to construct a resource url like https://eol.org/resources/396. The EOL trait record URL of the form https://eol.org/pages/328651/data#trait_id=R261-PK22175282 can be constructed from p.page_id and t.eol_pk.  
+Properties: t.source, if available, is a URL provided by the data partner, pointing to the original data source. t.citation, if available is the bibliographic citation provided by the data partner. Other properties are identifiers which can be used to construct URLs. For instance, r.resource_id can be used to construct a resource url like https://eol.org/resources/396. The EOL trait record URL of the form https://eol.org/pages/328651/data#trait_id=R261-PK22175282 can be constructed from p.page_id and t.eol_pk.  
 
-Nodes: Most other provenance information can be found on MetaData nodes with three predicates. Adding the following to your query will fetch one of each, if present:
+Nodes: Most other provenance information can be found on neighboring nodes representing people or publications. Adding the following to your query will fetch one of each, if present:
 ```
-OPTIONAL MATCH (t)-[:metadata]->(contr:MetaData)-[:predicate]->(:Term {name:"contributor"})
-OPTIONAL MATCH (t)-[:metadata]->(cite:MetaData)-[:predicate]->(:Term {name:"citation"})
-OPTIONAL MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
-RETURN contr.literal, cite.literal, ref.literal
+
+OPTIONAL MATCH (t)-[:contributor]->(contr:Term)
+OPTIONAL MATCH (t)-[:compiler]->(comp:Term)
+OPTIONAL MATCH (t)-[:determined_by]->(detr:Term)
+OPTIONAL MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"reference"})
+RETURN contr.name, comp.name, detr.name, ref.literal
 ```
-Where references are present, there may be more than one; to ensure you have them all, you can run an additional query. Multiple contributors are also possible, but rare.
+Where references are present, there may be more than one; to ensure you have them all, you can run an additional query. Multiple contributors, compilers, or determined_by are also possible, but rare. 
 
 to fetch multiple references for a given trait record:
 
 ```
-MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
+MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"reference"})
 WHERE t.eol_pk = "R483-PK24828656"
 RETURN ref.literal
 LIMIT 5
