@@ -176,7 +176,7 @@ MATCH (p:Page)-[:trait|:inferred_trait]->(t:Trait),
 (t)-[:supplier]->(r:Resource),
 (t)-[:predicate]->(pred:Term)
 WHERE p.canonical = "Enhydra lutris" AND pred.name = "eats"
-MATCH (p2:Page {page_id:t.object_page_id}) 
+MATCH (t)-[:object_page]->(p2:Page) 
 RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 5
 ```
