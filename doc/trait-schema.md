@@ -205,16 +205,10 @@ information.
 * `method` property: measurement method (see http://rs.tdwg.org/dwc/terms/measurementMethod)
 * `remarks` property: measurement remarks (see http://rs.tdwg.org/dwc/terms/measurementRemarks)
 * `sample_size` property: sample size (see http://eol.org/schema/terms/SampleSize)
-* `statistical_method` property [more documentation needed]
 * `statistical_method_term` link
 * `sex_term` link
 * `lifestage_term` link
 
-Sometimes (always?) these qualifying properties and links are
-redundant with `MetaData` nodes for this `Trait` node.  E.g. it
-appears that if there is a `sex_term` link then there is also a
-`MetaData` node that has a `sex` property.  Similarly for
-`lifestage_term` and the `life stage` MetaData property.
 
 ## Metadata
 
