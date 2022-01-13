@@ -2337,7 +2337,15 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: sistema imunitari
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: boca d'antruch
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pòles
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: spostament për contrassion
+          e slongament
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: qualità ameliorà
+        http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: nùmer d'esemplar
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: età induan-a
+        http://eol(dot)org/schema/terms/infauna_feeder: as nuriss d'anfàun
+        http://www(dot)marinespecies(dot)org/traits/Infaunal: anfàun
+        https://eol(dot)org/schema/terms/infection_effect: efet d'anfession
+        http://eol(dot)org/schema/terms/inguinal: dl'angonaja
         http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
         http://eol(dot)org/schema/terms/InterBirthInterval: antërval antra le nassense
         http://eol(dot)org/schema/terms/InvasiveRange: invasiv an
