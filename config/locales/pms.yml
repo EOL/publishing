@@ -2347,9 +2347,24 @@ pms:
         https://eol(dot)org/schema/terms/infection_effect: efet d'anfession
         http://eol(dot)org/schema/terms/inguinal: dl'angonaja
         http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000089: rochera anterna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000475: passage
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: utiss
         http://eol(dot)org/schema/terms/InterBirthInterval: antërval antra le nassense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000527: antrafium
+        http://eol(dot)org/schema/terms/intermediateEpifaunal: epifàuna ëd livel antërmedi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: lagh antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000504: baciass antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: lagh salà antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000549: pian d'eva antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000389: zòna ùmida antërmitenta
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: cuchija anterna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: sediment antërtidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: zòna antërtidal
         http://eol(dot)org/schema/terms/InvasiveRange: invasiv an
+        https://eol(dot)org/schema/terms/inverse: anvers
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: a l'anvers
+        http://eol(dot)org/schema/terms/invertivore: anvertìvor
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: a l'é mangià da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a l'é vetor ëd
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: àcid isoesadecanòid
