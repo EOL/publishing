@@ -44,6 +44,7 @@ class ContentServerConnection
     uri = URI.parse(Rails.application.secrets.repository[:url] + '/')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
+    log_info("Connecting to #{uri} ...")
     response = http.request(Net::HTTP::Get.new(uri.request_uri))
     cookies = response.response['set-cookie']
     request = Net::HTTP::Get.new(url)
