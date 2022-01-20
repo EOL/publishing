@@ -2365,10 +2365,22 @@ pms:
         https://eol(dot)org/schema/terms/inverse: anvers
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: a l'anvers
         http://eol(dot)org/schema/terms/invertivore: anvertìvor
+        http://ecoinformatics(dot)org/oboe/oboe(dot)1(dot)0/oboe-characteristics(dot)owl#Irradiance: iradiansa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canal d'irigassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: ciusa d'irigassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: fossà d'irigassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: serbator d'irigassion
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: a l'é un
+          component ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: a l'é mangià da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002627: a l'é massà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a l'é vetor ëd
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: ìsola
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: àcid isoesadecanòid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: àcid isotetradecanòid
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0026310: bisotarìa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: età
+          jianshanian-a
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ann
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: clepto-parassita ëd
