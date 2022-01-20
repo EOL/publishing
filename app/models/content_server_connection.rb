@@ -1,6 +1,6 @@
 class ContentServerConnection
   TRAIT_DIFF_SLEEP = 10
-  MAX_TRAIT_DIFF_TRIES = 30 # * 10s = 30 = 300s = 5 mins
+  MAX_TRAIT_DIFF_TRIES = 60 # * 10s = 30 = 300s = 5 mins
 
   def initialize(resource, log = nil)
     @resource = resource
@@ -134,11 +134,6 @@ class ContentServerConnection
 
   private
   def trait_diff_metadata_helper
-    if @trait_diff_tries == MAX_TRAIT_DIFF_TRIES
-      log_warn("Max trait diff tries reached; giving up")
-      return nil
-    end
-
     url = "/resources/#{@resource.repository_id}/publish_diffs.json"
     url += "?since=#{@resource.last_published_at.to_i}" unless @resource.last_published_at.nil?
 
@@ -156,6 +151,11 @@ class ContentServerConnection
 
     result = JSON.parse(resp.body)
     @trait_diff_tries += 1
+    if @trait_diff_tries == MAX_TRAIT_DIFF_TRIES
+      log_warn("Max trait diff tries (#{MAX_TRAIT_DIFF_TRIES}) reached; giving up. Response: #{result.to_s[0..6_000]}")
+      return nil
+    end
+
     return handle_trait_diff_metadata_resp(result)
   end
 
