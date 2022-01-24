@@ -2381,6 +2381,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0026310: bisotarìa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: età
           jianshanian-a
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: sautand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000241: foresta ëd zenèiver
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: perìod
+          giuràssich
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: giovanil
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ann
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: clepto-parassita ëd
