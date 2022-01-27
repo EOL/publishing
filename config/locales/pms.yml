@@ -2386,10 +2386,26 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: perìod
           giuràssich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: giovanil
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000175: cars
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012411: balma càrsica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: età
+          kasimovian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: età katian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000058: foresta d'alghe
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m²
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ann
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: a massa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: età
+          kimmeridgian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000410: autura vegetal an mes
+          a la lava
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: clepto-parassita ëd
+        http://eol(dot)org/schema/terms/squarekilometer: km²
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: spece marenghe conossùe
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: età
+          kungurian-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grand
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: smijant a 'n baston
