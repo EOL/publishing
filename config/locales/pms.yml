@@ -2406,8 +2406,28 @@ pms:
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: spece marenghe conossùe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: età
           kungurian-a
+        https://eol(dot)org/schema/terms/labile_material_feeder: as nuriss ëd materiaj
+          déboj
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: età
+          ladinian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: lagun-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: fond ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000476: passage d'intrada ëd
+          lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: sediment ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000382: riva ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: surfassa ëd lagh
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: mar anterior
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: sghijament ëd teren
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: età
+          langhian-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: grand lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: fium largh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: delta ëd fium largh
+        http://eol(dot)org/schema/terms/lateSpring: tarda prima
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: smijant a 'n baston
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surfassa ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color ëd feuja
