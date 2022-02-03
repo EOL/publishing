@@ -2427,7 +2427,13 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: grand lagh
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: fium largh
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: delta ëd fium largh
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: manera ëd dësvlup an
+          forma ëd gata
         http://eol(dot)org/schema/terms/lateSpring: tarda prima
+        http://eol(dot)org/schema/terms/lateSummer: tarda istà
+        http://eol(dot)org/schema/terms/lateWinter: tard invern
+        http://eol(dot)org/schema/terms/LatentPeriod: perìod ëstërmà
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: lateral
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: smijant a 'n baston
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surfassa ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color ëd feuja
