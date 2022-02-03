@@ -107,7 +107,7 @@ class TermBootstrapper
 
   def create_yaml
     File.open(@filename, 'w') do |file|
-      file.write "# This file was automatically generated from the eol_website codebase using TermBootstrapper.\n"
+      file.write "# This file was automatically generated from the publishing codebase using TermBootstrapper.\n"
       file.write "# COMPILED: #{Time.now.strftime('%F %T')}\n"
       file.write "# You MAY edit this file as you see fit. You may remove this message if you care to.\n\n"
       file.write({ 'terms' => terms_from_neo4j }.to_yaml)

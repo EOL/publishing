@@ -1,10 +1,10 @@
-# eol_website
+# publishing
 This repository contains rails code for the new version of EOL (TRAMEA).
 
-[![Build Status](https://travis-ci.org/EOL/eol_website.svg?branch=master)](https://travis-ci.org/EOL/eol_website)
+[![Build Status](https://travis-ci.org/EOL/publishing.svg?branch=master)](https://travis-ci.org/EOL/publishing)
 [![Coverage
-Status](https://coveralls.io/repos/github/EOL/eol_website/badge.svg?branch=master)](https://coveralls.io/github/EOL/eol_website?branch=master)
-[![Code Climate](https://codeclimate.com/github/EOL/eol_website/badges/gpa.svg)](https://codeclimate.com/github/EOL/eol_website)
+Status](https://coveralls.io/repos/github/EOL/publishing/badge.svg?branch=master)](https://coveralls.io/github/EOL/publishing?branch=master)
+[![Code Climate](https://codeclimate.com/github/EOL/publishing/badges/gpa.svg)](https://codeclimate.com/github/EOL/publishing)
 
 ## Up and Running on OS X:
 

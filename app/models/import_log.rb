@@ -86,11 +86,11 @@ class ImportLog < ApplicationRecord
         break if i > 9 # Too much info, man!
         if i > 2
           # TODO: Add other filters here...
-          next unless trace =~ /eol_website/
+          next unless trace =~ /publishing/
         end
         trace.gsub!(/^.*\/gems\//, 'gem:') # Remove ruby version stuff...
         trace.gsub!(/^.*\/ruby\//, 'ruby:') # Remove ruby version stuff...
-        trace.gsub!(/^.*\/eol_website\//, './') # Remove website path..
+        trace.gsub!(/^.*\/publishing\//, './') # Remove website path..
         log(trace, cat: :errors)
       end
     end
