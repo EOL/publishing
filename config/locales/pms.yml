@@ -2434,7 +2434,11 @@ pms:
         http://eol(dot)org/schema/terms/lateWinter: tard invern
         http://eol(dot)org/schema/terms/LatentPeriod: perìod ëstërmà
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: lateral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000249: moren-a lateral
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: smijant a 'n baston
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: balma ëd lava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: camp ëd lava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: galarìa ëd lava
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surfassa ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja

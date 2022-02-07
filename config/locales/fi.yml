@@ -29,7 +29,7 @@ fi:
         ja sen mukana on yksityiskohtaiset attribuutiotiedot, jotta voit mahdollisesti
         käyttäessäsi sitä omissa projekteissasi mainita sen.</p><p>Tämä data on mallinnettu
         <a href='%{property_graph_url}'>ominaisuuskaavioksi</a> <a href='%{neo4j_url}'>neo4j:ssä</a>.
-        <a href='%{data_services_path}'>Datapalvelut</a> ovat saatavissa.</p>
+        <a href='%{data_services_path}'>Tietopalvelut</a> ovat saatavissa.</p>
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tiliäsi ei ole linkitetty EOL:ään
   advanced: edistynyt haku
@@ -202,6 +202,7 @@ fi:
       download_taxa_csv: lataa CSV taksoneista
       delete: poista
       edit: muokkaa
+      sort: lajittele
     collection_type:
       normal: normaali
       gallery: galleria
@@ -300,6 +301,7 @@ fi:
       data_services: Tietopalvelut
       donate: Lahjoita
       education: Opetus
+      food_webs: Ravintoverkot
       glossary: Sanasto
       help: Ohje
       language_support: Kielituki
@@ -780,6 +782,8 @@ fi:
     page_data:
       show_all: näytä kaikki
     resource_names:
+      name_recognized_by: Tunnustanut %{by}
+      name_recognized_by_w_rank: '%{rank}, tunnustanut %{by}'
       name_recognized_by_w_status: '%{status} tahon %{by} mukaan'
       rank:
         r_domain: Domeeni
@@ -913,6 +917,7 @@ fi:
       name:
         ancestor: Esi-isä
         conservation_status: Uhanalaisuusluokitus
+        extinction_status: Hävinnyt vai ei hävinnyt
         rank: Sija
     schema_space:
       headers:
@@ -933,6 +938,7 @@ fi:
         other: näytä (%{count}) varoitusta
     headers:
       index: Resurssit
+      import_log: Kohteen %{resource} tuontiloki
     index:
       harvest_jobs:
         zero: ei julkaistavaa
@@ -1036,6 +1042,12 @@ fi:
       n_articles:
         one: 1 ARTIKKELI
         other: '%{count} ARTIKKELIA'
+      n_data:
+        one: 1 TIETO
+        other: '%{count} TIETOA'
+      n_media:
+        one: 1 MEDIATIEDOSTO
+        other: '%{count} MEDIATIEDOSTOA'
     user_title_html: 'Käyttäjä: <span class=''sub''>%{name}</span>'
   search_suggestion:
     actions:
@@ -1117,15 +1129,17 @@ fi:
   stats:
     articles: artikkelit
     collections: kokoelmat
-    data: tietorekisterit
+    data: tietorekisteri(ä)
     media: media
     pages: sivut
     scientific_names: nimet
     users: käyttäjät
-    references: viitteet
+    references: viitettä
+  term_query:
+    invalid_obsolete: VIRHEELLINEN/VANHENTUNUT
   term_query_filter:
     validations:
-      invalid_uri: virheelllinen URI
+      invalid_uri: virheellinen URI
   terms:
     attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Kommentti:</strong> %{comment}
@@ -1136,7 +1150,7 @@ fi:
     source: lähde
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
-      select_page_above: Aloita valitsemalla yllä oleva sivu.
+      select_page_above: Aloita valitsemalla yltä sivu.
   traits:
     data_viz:
       about_this_chart: tietoa tästä kaaviosta
@@ -1145,18 +1159,25 @@ fi:
         kaaviosta. Monet kategoriat menevät päällekkäin, ja laji voi sisältyä useampaan
         kuin yhteen kategoriaan.
       other: muu
+      page_habitat_header: Taksonin %{name} elinympäristöjä
       page_habitat_explanation: Luettelo elinympäristöistä, joissa tiedetään elävän
-        useita taksoniin %{name} kuuluvia lajeja. Kun valitset jonkin listan elinympäristöistä,
+        taksoniin %{name} kuuluvia lajeja. Kun valitset jonkin listan elinympäristöistä,
         saat luettelon siinä elävistä taksoniin %{name} kuuluvista lajeista.
+      see_n_taxa_with:
+        one: klikkaa nähdäksesi yksi elinympäristöön "%{obj_name}" liittyvä taksoni
+        other: klikkaa nähdäksesi %{count} elinympäristöön "%{obj_name}" liittyvää
+          taksonia
       show_link:
-        taxon_summary: näytä taksonin yhteenveto
+        taxon_summary: näytä taksoniyhteenveto
       taxon_summary:
         click_to_filter: suodata
+        click_to_filter_by: klikkaa suodattaaksesi taksonilla '%{name}'
       toggle_text:
-        taxon_summary: näytä taksonin yhteenveto
+        taxon_summary: näytä taksoniyhteenveto
     properties:
       scientific_name: Tieteellinen nimi
       source: Lähde
+    search_hdr: Tiedon haku
     search_results:
       clade: 'kladi: %{clade}'
       download_tsv: lataa tsv-muodossa
@@ -1166,11 +1187,16 @@ fi:
         sex: 'sukupuoli: %{value}'
         statistical_method: 'tilastollinen metodi: %{value}'
       gbif_search: GBIF-haku
+      result_header_records: Näytetään %{range_begin} - %{range_end} tulosta kaikista
+        %{page_count} taksonia koskevasta %{total} tuloksesta
+      result_header_taxa_notaxa: Näytetään %{range_begin} - %{range_end} tulosta kaikista
+        %{total} tuloksesta
       new_search: uusi haku
       show_query: näytä kysely
       switch_to_list: vaihda luettelonäkymään
       switch_to_gallery: vaihda gallerianäkymään
     search_form:
+      attribute_eg: määrite (esim. trofiataso)
       clade_filter_placeholder: ryhmä (esim. karhut) (valinnainen)
       hide_additional_fields: piilota lisäkentät
       lifestage: elämänvaihe
@@ -1179,7 +1205,9 @@ fi:
       show_additional_fields: näytä lisäkentät
       statistical_method: tilastollinen metodi
       target_group: kohderyhmä (esim. lohikalat)
+      taxa_matching_all: taksonit jotka täsmäävät KAIKKIA suodattimia
       this_may_take_a_minute: Tämä saattaa kestää hetken
+      trait_filter: piirresuodatin
       value: arvo
   trophic_web:
     group_descriptions:
@@ -1231,7 +1259,7 @@ fi:
       vain käyttämällä kolmannen osapuolen palveluntarjoajaa- Google, Twitter tai
       Facebook- kestä meitä; selvitämme joitain jaettujen kirjautumisprosessien ongelmia.
     sign_in: Kirjaudu sisään
-  vernacular_names_header: Yleisnimet
+  vernacular_names_header: Kansankieliset nimet
   wordcloud_credit_html: luotu <a href='%{url}'>jQCloudilla</a>
   term:
     actions:
@@ -1258,14 +1286,20 @@ fi:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: on ravintoa lajille
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: on isäntä lajille
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ulkoloinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: sisäloinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: laji jolle on isäntä
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: hyperloinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasiitti
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: loinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: taudinaiheuttaja tälle
+          lajille
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistaja
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: kukissa vierailee
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/kuukausi'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: Aalen-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: abyssaalivyöhyke
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: aktiivinen kasvukausi
@@ -1273,6 +1307,7 @@ fi:
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: aikuinen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: Aeron-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosoli
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: agatoksiinit
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: ikä silmien avauduttua
         http://eol(dot)org/schema/terms/AgeAtMaturity: ikä sukukypsänä
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: Alba-vaihe
@@ -1286,13 +1321,18 @@ fi:
           tiheys
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: Anisus-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: hapeton vesi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogeeninen
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatiitti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: Apt-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: akvaattinen
+        http://eol(dot)org/schema/terms/aquatic: sopeutunut akvaattisuuteen
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: vesikasvi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: Akvitania-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: viljelykelpoinen maaperä
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragoniitti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: arkeeinen
           aioni
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: alue
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: Artinsk-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: Assel-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atolli
@@ -1426,6 +1466,9 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: Coniacum-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: havumetsä
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: uhanalaisuusluokitus
+        http://eol(dot)org/schema/terms/copepodid3: kolmas kopepodiitti-vaihe
+        http://eol(dot)org/schema/terms/copepodid4: neljäs kopepodiitti-vaihe
+        http://eol(dot)org/schema/terms/copepodid5: viides kopepodiitti-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: koralliriutta
         https://eol(dot)org/schema/terms/coral_sand: korallihiekka
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: koralliitti
@@ -1439,6 +1482,8 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: liitukausi
         http://eol(dot)org/schema/terms/criticallyEndangered: äärimmäisen uhanalainen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: kryogeenikausi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: kryosoli
+        http://eol(dot)org/schema/terms/cuneiform: kiilamainen
         http://eol(dot)org/schema/terms/dahllite: dahlliitti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: Dania-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: Daping-kausi
@@ -1449,6 +1494,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: kesävihanta metsä
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: astetta
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: celsiusastetta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: painuma
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: suisto
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: dentaalinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: aavikko
@@ -1457,17 +1503,21 @@ fi:
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: läpimitta
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapaussi
         https://eol(dot)org/schema/terms/diatom_feeder: piilevänsyöjä
+        http://eol(dot)org/schema/terms/Diet: ruokavaliossa
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: ruoansulatuskanava
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: doliini
         https://eol(dot)org/schema/terms/domesticated_in: paikka jossa domestikoitui
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: selänpuoleinen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: Drum-vaihe
+        http://eol(dot)org/schema/terms/dry_forest: kuiva metsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: kuivunut järvi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: kuivunut joki
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: dyyni
+        http://eol(dot)org/schema/terms/earlySpring: alkukevät
         http://eol(dot)org/schema/terms/earlySummer: alkukesä
         http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Eastern Arc -vuoristo
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: syö seuraav(i)a
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: laji jolle on ulkoloinen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: ediacarakausi
         http://eol(dot)org/schema/terms/EggDiameter: munan läpimitta
         http://eol(dot)org/schema/terms/EggMass: munan massa
@@ -1475,14 +1525,21 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: Eifel-vaihe
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: korkeus merenpinnasta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: pitkäomainen
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: alkiovaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: Ems-vaihe
         http://eol(dot)org/schema/terms/endangered: erittäin uhanalainen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: laji jolle on sisäloinen
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: sisäinen tukiranka
+        https://eol(dot)org/schema/terms/endosymbiontOf: laji jolle on endosymbiontti
+        http://eol(dot)org/schema/terms/endozoochory: endozookoria
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: koko maantieteellinen
           levinneisyys
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: eoseeni
-        https://eol(dot)org/schema/terms/epibiontOf: epibiontti lajille
+        https://eol(dot)org/schema/terms/epibiontOf: laji jolle on epibiontti
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: orvaskesi
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008501: laji jolle on päällyskasvi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: jaksottainen
+        http://eol(dot)org/schema/terms/epizoochory: epizookoria
         http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: arvio
         http://eol(dot)org/schema/terms/eutrophicFreshwaterLake: runsasravinteinen
           makeanveden järvi
@@ -1496,7 +1553,9 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: nopea
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: höyhen
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: jalkaa
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: naaras
         http://eol(dot)org/schema/terms/FireResistance: tulenkestävyys
+        http://eol(dot)org/schema/terms/FireTolerance: tulensietokyky
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: Flo-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: tulvaniitty
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: tulvatasanko
@@ -1528,7 +1587,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PO_0025340: gametofyytti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: Gela-vaihe
         http://eol(dot)org/schema/terms/GenerationTime: sukupolven kesto
-        http://eol(dot)org/schema/terms/Present: maantieteellisen levinneisyyden alueet
+        http://eol(dot)org/schema/terms/Present: maantieteellinen levinneisyys sisältää
         http://eol(dot)org/schema/terms/GeographicRangeArea: maantieteellinen alue
           (alueen koko)
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofyytti
@@ -1550,6 +1609,11 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: elinympäristö
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: hadaalivyöhyke
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: satama
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002633: ulkoloinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002635: sisäloinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008502: päällyskasvi
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: taudinaiheuttaja tälle
+          lajille
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hauterivian: Hauterive-vaihe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: pää
         http://eol(dot)org/schema/HeadWidth: pään leveys
@@ -1567,10 +1631,11 @@ fi:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: holotyyppi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: Homer-vaihe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: hunaja
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: on isäntä lajille
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: laji jolle on isäntä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: kuuma lähde
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: hydroksyyliapatiitti
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: laji jolle on hyperparasiitti
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: jää
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: lakijäätikkö
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: mannerjäätikkö
@@ -1582,10 +1647,12 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: törmäyskraatteri
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tuumaa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: Indus-vaihe
+        http://eol(dot)org/schema/terms/InterBirthInterval: synnytysten väli
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: vuorovesialue
         http://eol(dot)org/schema/terms/InvasiveRange: haitallinen vieraslaji alueella
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: kastelukanava
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: kastelupato
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: tätä lajia syö
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: saari
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: Jiangshan-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: jurakausi
@@ -1598,7 +1665,9 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/vuosi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: Kimmeridge-vaihe
-        http://eol(dot)org/schema/terms/squarekilometer: km^2
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: laji jolle on kleptoparasiitti
+        http://eol(dot)org/schema/terms/squarekilometer: neliökilometriä
+        http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: tunnettuja merilajeja
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: Kungur-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: Ladini-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: laguuni
@@ -1653,6 +1722,8 @@ fi:
         http://eol(dot)org/schema/terms/maleOrUnsexed: koiras/uros tai määrittämätön
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: mangrovesuo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: merellinen
+        http://eol(dot)org/schema/terms/MatingSystem: parittelujärjestelemä
+        http://semanticscience(dot)org/resource/SIO_001114: maks.
         http://eol(dot)org/schema/terms/meanAnnualTemperature: vuoden keskilämpötila
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: nahkealehtinen metsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000878: nahkealehtinen kasvillisuus
@@ -1684,6 +1755,8 @@ fi:
         http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
         http://eol(dot)org/schema/terms/paleo_megaannum: miljoona(a) vuotta sitten
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: mineraalilähde
+        https://eol(dot)org/schema/terms/mineralizedSkeletonContains: mineralisoituneessa
+          luurangossa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: mioseeni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: Mississippi-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: sekametsä
@@ -1698,7 +1771,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/päivä
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/s
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/vuosi
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: neliömillimetriä
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
         http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m^2/day
@@ -1712,8 +1785,12 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: muta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: mutatulivuori
         http://rs(dot)tdwg(dot)org/dwc/terms/municipality: kunta
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualistinen suhde lajiin
+        http://eol(dot)org/schema/terms/NativeRange: luontainen levinneisyysalue sisältää
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: luonnonsatama
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: luonnonsuojelualue
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0015170: nauplius-silmä
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: nauplius-vaihe
         http://eol(dot)org/schema/terms/nearThreatened: silmälläpidettävä
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: neogeenikausi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: neoproterotsooinen
@@ -1728,6 +1805,8 @@ fi:
         http://eol(dot)org/schema/terms/no: ei
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: Noricum-vaihe
         http://eol(dot)org/schema/terms/fossilOccPBDB: fossiiliesiintymien määrä
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: julkisten havaintojen
+          määrä BOLDissa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: öljypalmuplantaasi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: Olenjok-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oligocene: oligoseeni
@@ -1754,16 +1833,19 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: kourasuoninen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: palsa
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: paralektotyyppi
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: loisii lajissa
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: laji jossa loisii
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: loinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: laji jolle on parasitoidi
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: paratyyppi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: laidunmaa
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: laji jonka taudinaiheuttaja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: pelaginen vyöhyke
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pennsylvanian: Pennsylvania-kausi
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: prosentti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: permikausi
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000209: foottinen vyöhyke
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautotrofi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: Piacenza-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantaasi
@@ -1782,9 +1864,10 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: Praha-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: preeria
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: saalistaja
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistaa kohdetta
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistuksen kohde
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: Priabona-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: Pridoli-epookki
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: tuottaa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: proglasiaalijärvi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: suojelualue
         http://eol(dot)org/schema/terms/practicalSalinityUnits: psu
@@ -1797,6 +1880,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: punainen
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: lisääntyminen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: Rhaetia-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: ritsosfääri
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: Rhuddan-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: Rhyax-kausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: riisipelto
@@ -1819,6 +1903,7 @@ fi:
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: tieteellinen nimi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: meri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: merenranta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sedimentti
         http://eol(dot)org/schema/terms/SeedBank: siemenpankki
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: Selandia-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: Serpuhov-vaihe
@@ -1843,6 +1928,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtrooppinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: subtrooppinen aavikko
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000187: subtrooppinen savanni
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000222: subtrooppinen metsämaa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000159: sokeriplantaasi
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/DZ_SUP: supralitoraali
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: suo
@@ -1856,6 +1942,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000212: lauhkea sekametsä
         http://eol(dot)org/schema/terms/TemperateOcean: lauhkea valtameri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000189: lauhkea savanni
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000221: lauhkea metsämaa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: lämpötila
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Terreneuvian: Terreneuve-epookki
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: Thanet-vaihe
@@ -1870,6 +1957,7 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: Tremadoc-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: triaskausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: sivujoki
+        http://eol(dot)org/schema/terms/TrophicGuild: trofiakilta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: trooppinen lehtimetsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: trooppinen havumetsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: trooppinen aavikko
@@ -1877,6 +1965,7 @@ fi:
           järvi
         http://eol(dot)org/schema/terms/tropicalOrSubtropical: trooppinen tai subtrooppinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: trooppinen savanni
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: trooppinen metsämaa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: tundra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: tunneli
         http://eol(dot)org/schema/terms/turbidWater: samea vesi
@@ -1898,9 +1987,11 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: myöhäistriaskausi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: Valangin-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: laakso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001305: kasvillistunut alue
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: hyvin suuri
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: hyvin pieni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: Visé-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: vierailun kohde
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: vierailee kukissa jotka
           kuuluvat lajiin
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: vitamiinit
@@ -1919,6 +2010,7 @@ fi:
         http://eol(dot)org/schema/terms/whiteGrey: valkeanharmaa
         http://semanticscience(dot)org/resource/SIO_000042: leveys
         http://eol(dot)org/schema/terms/winterDeciduous: kesävihanta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: metsämaa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: Word-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: Wuchiaping-vaihe
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
@@ -1939,11 +2031,13 @@ fi:
         https://eol(dot)org/schema/terms/micromolpergram: µmol/g
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: µmol/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0016490: kuulojärjestelmä
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000165: suu
         http://purl(dot)bioontology(dot)org/ontology/MESH/D059646: genomin koko
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001456: trooppinen vuori
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000432: suometsä
         http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: solu
+        http://eol(dot)org/schema/terms/activelyMobile: liikkuu aktiivisesti
         http://eol(dot)org/schema/terms/NonInvasiveRange: alue jossa ei haitallinen
           vieraslaji
         http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
@@ -1952,6 +2046,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000218: musta savuttaja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000273: mannerrinne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000404: kerrostulivuori
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002131: päällysvesi
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://eol(dot)org/schema/terms/mol_cell-1: mol/solu
@@ -1961,9 +2056,10 @@ fi:
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/sekunti
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: lenttinen
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: yksiavioinen
+        http://eol(dot)org/schema/terms/temporaryAquatic: tilapäisesti akvaattinen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: kaksikylkissymmetrinen
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: uros moniavioinen
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: naaras moniavioinen
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: polyandrinen
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: isotyyppi
         http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: kokoelman koodi
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isolectotype: isolektotyyppi
