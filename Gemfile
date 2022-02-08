@@ -74,7 +74,7 @@ gem 'font-awesome-sass', '~> 5.15'
 # This is used to locally have a copy of Open Sans. IF YOU STOP USING OPEN SANS (note the space), YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2'
 # url helpers in JS
-gem 'js-routes', '~> 2.0', '>= 2.0.8'
+gem 'js-routes', '~> 2.2'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
 gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
@@ -86,7 +86,7 @@ gem 'lograge', '~> 0.11'
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
-gem 'oj', '~> 3.12'
+gem 'oj', '~> 3.13'
 # Debugging:
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
@@ -112,23 +112,23 @@ gem 'client_side_validations-simple_form', '~> 13'
 gem 'typhoeus', '~> 1.4'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'activegraph', '~> 10.0' # NOTE: there's at least a version 11, but I am scared of it.
+gem 'activegraph', '~> 10.1' # NOTE: there's at least a version 11, but I am scared of it.
 gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 
 #Sitemap
-gem 'sitemap_generator', '~> 6.1'
+gem 'sitemap_generator', '~> 6.2'
 
 # url slug support
 gem 'friendly_id', '~> 5.4'
 
 # translations in JS
-gem 'i18n-js', '~> 3.8' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
+gem 'i18n-js', '~> 3.9' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
 
 # CORS middleware
 gem 'rack-cors'
 
 # JSON schema-based validation
-gem 'json_schemer'
+gem 'json_schemer', '~> 0.2'
 
 group :development, :test do
   gem 'active_record_query_trace', '~> 1'
