@@ -9,7 +9,7 @@ gem 'mysql2', '0.5.3'
 # TEMP: Fixes a licensing issue with Rails:
 gem 'mimemagic', '0.4.3'
 # TEMP: Fixes a security patch in nokogiri:
-gem 'nokogiri', '>= 1.12.5'
+gem 'nokogiri', '>= 1.13.1'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
@@ -21,23 +21,21 @@ gem 'webpacker', '~> 6.x'
 # Sass is end-of-life. Update to sassc gem: https://github.com/sass/sassc-ruby#readme
 gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11.2'
+gem 'jbuilder', '~> 2.11.5'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails', '~> 4.4'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 2.2', group: :doc
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
-gem 'unicorn', '~> 6.0'
+gem 'unicorn', '~> 6.1'
 # NOTE: there's a unicorn-worker-killer-2, but that is UNMAINTAINED. Ignore it.
 gem 'unicorn-worker-killer', '~> 0.4'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-gem 'kaminari', '~> 1.2.1'
+gem 'kaminari', '~> 1.2.2'
 
 # All other non-environment-specific gems come next.
 #
@@ -47,13 +45,13 @@ gem 'kaminari', '~> 1.2.1'
 # maintainable!
 
 # For bulk inserts:
-gem 'activerecord-import', '~> 1.1'
+gem 'activerecord-import', '~> 1.3'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 1.0'
 # Faster startup:
-gem 'bootsnap', '~> 1.7', require: false
+gem 'bootsnap', '~> 1.10', require: false
 # Counter Culture handles cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 2.8'
+gem 'counter_culture', '~> 2.9'
 # Cron jobs:
 gem 'crono', '~> 1.1'
 # Run background jobs:
@@ -68,7 +66,7 @@ gem 'devise', '~> 4.8'
 gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
 # Discourse handles comments and chat:
-gem 'discourse_api', '~> 0.40'
+gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
 # Icons
