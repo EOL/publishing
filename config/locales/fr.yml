@@ -66,19 +66,19 @@ fr:
       vernacular: vernaculaire
   brief_summary:
     extinction:
-      r_genus_html: Ce genre est <span class='%{class_str}' id='%{id}'>éteint</span>.
-      r_subgenus_html: Ce sous-genre est <span class='%{class_str}' id='%{id}'>éteint</span>.
-      r_infragenus_html: Cet infra-genre est <span class='%{class_str}' id='%{id}'>éteint</span>.
-      r_superspecies_html: Cette super-espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
-      r_species_html: Cette espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
-      r_subspecies_html: Cette sous-espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
-      r_infraspecies_html: Cette infra-espèce est <span class='%{class_str}' id='%{id}'>éteinte</span>.
-      r_form_html: Cette forme est <span class='%{class_str}' id='%{id}'>éteinte</span>.
-    fix_nitrogen_html: Ils <span class='%{class_str}' id='%{predicate_id}'>fixent</span>
-      <span class='%{class_str}' id='%{object_id}'>l’azote</span>.
-    freshwater_html: Ils sont associés avec <span class='%{class_str}' id='%{id}'>un
-      habitat en eau douce</span>.
-    marine_html: Ils sont trouvés dans <span class='%{class_str}' id='%{id}'>un habitat
+      r_genus_html: Ce genre est <span class="%{class_str}" id="%{id}">éteint</span>.
+      r_subgenus_html: Ce sous-genre est <span class="%{class_str}" id="%{id}">éteint</span>.
+      r_infragenus_html: Cet infra-genre est <span class="%{class_str}" id="%{id}">éteint</span>.
+      r_superspecies_html: Cette super-espèce est <span class="%{class_str}" id="%{id}">éteinte</span>.
+      r_species_html: Cette espèce est <span class="%{class_str}" id="%{id}">éteinte</span>.
+      r_subspecies_html: Cette sous-espèce est <span class="%{class_str}" id="%{id}">éteinte</span>.
+      r_infraspecies_html: Cette infra-espèce est <span class="%{class_str}" id="%{id}">éteinte</span>.
+      r_form_html: Cette forme est <span class="%{class_str}" id="%{id}">éteinte</span>.
+    fix_nitrogen_html: Les individus <span class="%{class_str}" id="%{predicate_id}">fixent</span>
+      l’<span class="%{class_str}" id='%{object_id}">azote</span>.
+    freshwater_html: Les individus sont associés avec un <span class="%{class_str}"
+      id="%{id}">habitat en eau douce</span>.
+    marine_html: Les individus sont trouvés dans un <span class="%{class_str}" id="%{id}">habitat
       marin</span>.
     species: '%{name1} est une espèce de %{name2}.'
     species_in_family: '%{name1} est une espèce de %{name2} dans la famille %{name_family}.'
@@ -411,7 +411,7 @@ fr:
     q33120: bouriate
     q35037: ndjuka
     q880301: français cadien
-    q2937525: Capiznon
+    q2937525: capiznon
     q35156: nicobarais car
     q2591230: cashinahua
     ca: catalan ; valencien
@@ -437,13 +437,13 @@ fr:
     hr: Croate
     hrv: croate
     cs: tchèque
-    q32238: Dagbani
+    q32238: dagbani
     da: danois
     q3362072: digo
     q56466: dinka
     dv: divehi ; maldivien
     q18415595: dotyali
-    q33013: Douala
+    q33013: douala
     dut: néerlandais ; flamand
     nl: néerlandais ; flamand
     dz: dzongkha
@@ -521,8 +521,8 @@ fr:
     q33690: cachoube
     kk: kazakh
     ki: kikuyu ; gikuyu
-    q33656: Same de Kildin
-    q33720: Kinaray-a
+    q33656: same de Kildin
+    q33720: kinaray-a
     q11005332: kinga
     q11732519: kingindo
     rw: kinyarwanda
@@ -569,10 +569,10 @@ fr:
     mh: marshallais
     q6786446: matengo
     q3906614: mari des prairies
-    q13357: Meänkieli
+    q13357: meänkieli
     q13358: mégléno-roumain
     q13313: mérou
-    q13321: Mi’kmaq
+    q13321: mi’kmaq
     q36455: mindong
     q13324: minangkabau
     q13359: mingrélien
@@ -611,7 +611,7 @@ fr:
     or: odiya
     om: oromo
     os: ossète
-    q715755: Paiwan
+    q715755: paiwan
     pi: pali
     pa: pendjabi
     q36403: asou
@@ -644,7 +644,7 @@ fr:
     sc: sarde
     q845441: sarde sassarais
     q14549: scots
-    q716686: Seediq
+    q716686: seediq
     sr: serbe
     q3788739: chambala
     q56482: Shan
@@ -720,7 +720,7 @@ fr:
     q237409: zélandais
     za: zhuang
     zu: zoulou
-    Q33219: Banyumasan
+    Q33219: banyumasan
   layout_sign_in: Se connecter
   layout_sign_up: S’inscrire
   layout_sign_out: Déconnexion
@@ -960,23 +960,23 @@ fr:
     id_space:
       intro: Chaque identifiant d’entité renvoyé par l’API de réconciliation est la
         partie du chemin de l’URL pour cette représentation générale de l’entité sur
-        EdlV, de telles façon qu’un id donné peut être substitué dans https://eol.org/<id>
-        pour forger un URL valide pour cette entité. Le format des identifiants de
-        chaque type est décrit ci-dessous.
+        l’EdlV, de telle façon qu’un identifiant donné peut être substitué dans https://eol.org/<identifiant>
+        pour former un lien URL valide pour cette entité. Le format des identifiants
+        de chaque type est décrit ci-dessous.
       headers:
-        type_id: ID du type
+        type_id: Identifiant du type
         type_name: Nom du type
-        id_format: Format de l’ID
+        id_format: Format de l’identifiant
       type_names:
         taxon: Taxon
-      numeric_id: ID numérique
+      numeric_id: identifiant numérique
     property:
       description:
         ancestor: Un taxon qui est un ancêtre d’un autre taxon.
         conservation_status: L’état de conservation du taxon.
         extinction_status: L’état d’extinction du taxon. Les valeurs possibles sont
-          'éteint' et 'existant'
-        rank: Un chaîne décrivant le rang d’un taxon, par ex., 'espèce'. Les rangs
+          « éteint » et « existant »
+        rank: Une chaîne décrivant le rang d’un taxon, par ex., « espèce ». Les rangs
           non reconnus ne sont pas notés.
       name:
         ancestor: Ancêtre
@@ -991,7 +991,7 @@ fr:
       intro: La collection de propriétés utilisée par le service d’API de réconciliation
         est décrite ci-dessous.
       headers:
-        id: ID
+        id: Identifiant
         name: Nom
         description: Description
   reference_compiled_from: Référencé par %{links}
@@ -1300,11 +1300,11 @@ fr:
         plus d’une catégorie du même axe. Dans un affichage de sous-ensemble mis en
         évidence, ces espèces à valeurs multiples seront comptées plusieurs fois sur
         les autres axes.
-      about_this_chart_tooltip_taxon_summary: Ceci est un résumé des groupes taxonomiques
-        pour lesquels EdlV a des données qui correspondent à votre recherche. Il peut
-        être tronqué pour être adapté à la largeur de l’affichage. Vous pouvez sélectionner
-        un groupe depuis le graphique pour afficher les sous-groupes ou pour réduire
-        vos résultats de recherche.
+      about_this_chart_tooltip_taxon_summary: Voici un résumé des groupes taxonomiques
+        pour lesquels l’EdlV a des données qui correspondent à votre recherche. Il
+        peut être tronqué pour être adapté à la largeur de l’affichage. Vous pouvez
+        sélectionner un groupe depuis le graphique pour afficher les sous-groupes
+        ou pour réduire vos résultats de recherche.
       other_term_name: autre %{term_name}
       hist_value_label: valeur (%{units})
       n_family_records:
@@ -1379,14 +1379,14 @@ fr:
       download_tsv: télécharger le tsv
       edit_filters: modifier les filtres
       filter_display:
-        eq: '%{pred} = %{num_val} %{units}'
-        gte: '%{pred} ≥ %{num_val} %{units}'
-        lifestage: 'étape de vie : %{value}'
-        lte: '%{pred} ≤ %{num_val} %{units}'
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} ≥ %{num_val} %{units}'
+        lifestage: 'stade de vie : %{value}'
+        lte: '%{pred} ≤ %{num_val} %{units}'
         obj_only: 'avec la valeur : %{obj}'
         pred_obj: '%{pred} : %{obj}'
         pred_only: '%{pred}'
-        range: '%{pred} dans [%{num_val1}, %{num_val2}] %{units}'
+        range: '%{pred} dans [%{num_val1}, %{num_val2}] %{units}'
         resource: 'ressource : %{value}'
         sex: 'sexe : %{value}'
         statistical_method: 'méthode statistique : %{value}'
@@ -1403,7 +1403,7 @@ fr:
       new_search: nouvelle recherche
       show_query: afficher la requête
       switch_to_list: basculer dans la vue liste
-      switch_to_gallery: basculer dans la vue galerie
+      switch_to_gallery: basculer vers la vue galerie
     search:
       select:
         child_term: sélectionner une condition fille (facultatif)

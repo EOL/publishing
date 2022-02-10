@@ -81,6 +81,7 @@ fi:
         r_domain: '%{name1} on ryhmään %{name2} kuuluva domeeni.'
         r_subdomain: '%{name1} on taksoniin %{name2} kuuluva aladomeeni.'
         r_infradomain: '%{name1} on taksoniin %{name2} kuuluva osadomeeni.'
+        r_superkingdom: '%{name1} on taksoniin %{name2} kuuluva domeeni.'
         r_kingdom: '%{name1} on ryhmään %{name2} kuuluva kunta.'
         r_subkingdom: '%{name1} on taksoniin %{name2} kuuluva alakunta.'
         r_infrakingdom: '%{name1} on taksoniin %{name2} kuuluva osakunta.'
@@ -432,7 +433,7 @@ fi:
     fi: suomi
     fin: suomi
     q667747: Fipa
-    fr: Ranska
+    fr: ranska
     fra: ranska
     ff: Fulah
     gd: gaeli
@@ -1292,15 +1293,18 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: hyperloinen
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasiitti
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: loinen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: parasitoidi
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: taudinaiheuttaja tälle
           lajille
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistaja
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: vierailija
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: kukissa vierailee
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/kuukausi'
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: Aalen-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: yleisyys
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: abyssaalivyöhyke
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: aktiivinen kasvukausi
         http://eol(dot)org/schema/terms/adaptiveStrategy: sopeutumisstrategia
@@ -1334,6 +1338,7 @@ fi:
           aioni
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: alue
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: Artinsk-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: suvuton lisääntyminen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: Assel-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atolli
         http://eol(dot)org/schema/terms/average: keskiarvo
@@ -1414,6 +1419,8 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: kanaali
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: kanjoni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Capitan-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: kuoripanssari
+        http://eol(dot)org/schema/terms/CarapaceLength: kuoripanssarin pituus
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: kivihiilikausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: raato
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: Carnia-vaihe
@@ -1909,6 +1916,7 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: Serpuhov-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: Serravalle-vaihe
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: sukupuoli
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: suvullinen lisääntyminen
         http://eol(dot)org/schema/terms/shallowReef: matalanveden riutta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: ulkomuoto
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: Sheinwood-vaihe
