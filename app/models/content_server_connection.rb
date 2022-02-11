@@ -1,3 +1,4 @@
+# TODO: Rename this to HarvestingServerConnection to be consistent with naming
 class ContentServerConnection
   TRAIT_DIFF_SLEEP = 10
   MAX_TRAIT_DIFF_TRIES = 60 # * 10s = 30 = 300s = 5 mins
@@ -57,7 +58,10 @@ class ContentServerConnection
       log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length}")
       return false
     end
-    response.body.gsub(/\\\n/, "\n").gsub(/\\N/, '')
+    # NOTE: neo4j cannot properly handle all cases of meta-quoted double quotes ("") so we change them here
+    # to backslashed quotes (\"). This is not the greatest place to do it, as we've obfuscated the transofmration,
+    # but it would be less efficient elsewhere.
+    response.body.gsub(/\\\n/, "\n").gsub(/\\N/, '').gsub(/""/, '\\"')
   end
 
   def trait_diff_metadata
