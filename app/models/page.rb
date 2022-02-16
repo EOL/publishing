@@ -905,7 +905,7 @@ class Page < ApplicationRecord
     page_ids.each do |id|
       if !have_seen_trophic_relationship?(id)
         if trop_hash = trophic_hash(@trophic_relationship_pages_by_id[id], group)
-          seen_trophic_relationships(trop_hash[:id])
+          add_seen_trophic_relationships(trop_hash[:id])
           result << trop_hash
         end
       end
