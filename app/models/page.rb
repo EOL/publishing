@@ -781,13 +781,13 @@ class Page < ApplicationRecord
   PRED_PREY_LIMIT = 7
   COMP_LIMIT = 10
   def handle_pred_prey_comp_relationships
+    prey_ids = trophic_relationship_ids_by_type('prey', :target)
+    pred_ids = trophic_relationship_ids_by_type('predator', :source)
+    comp_ids = trophic_relationship_ids_by_type('competitor', :source)
     @trophic_relationship_pages_by_id =
       load_trophic_relationship_pages_by_id(Set.new([id]) + prey_ids + pred_ids + comp_ids)
     source_nodes = collect_trophic_relationships_by_group([id], :source)
     return { nodes: [], links: [] } if source_nodes.empty?
-    prey_ids = trophic_relationship_ids_by_type('prey', :target)
-    pred_ids = trophic_relationship_ids_by_type('predator', :source)
-    comp_ids = trophic_relationship_ids_by_type('competitor', :source)
     links = trophic_relationships.map do |relationship|
       { source: relationship[:source], target: relationship[:target] }
     end
