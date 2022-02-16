@@ -808,6 +808,7 @@ class Page < ApplicationRecord
   end
 
   def have_seen_trophic_relationship?(id)
+    return false unless defined?(@src_tgt_ids)
     @src_tgt_ids.include?(id)
   end
 
