@@ -19,7 +19,7 @@ module TraitBank
     OBJ_COUNT_LIMIT_PAD = 5
     MAX_ASSOC_TAXA = 200
     MAX_TAXA_FOR_TAXON_SUMMARY = 500_000
-    TAXON_SUMMARY_LIMIT = 100 
+    TAXON_SUMMARY_LIMIT = 100
 
     TaxonSummaryRanks = Struct.new(:parent, :child)
 
@@ -150,7 +150,7 @@ module TraitBank
           sankey_add_final_agg_and_return_parts(parts, anc_obj_vars)
 
           TraitBank::ResultHandling.results_to_hashes(
-            TraitBank.query(parts.join("\n"), params), 
+            TraitBank.query(parts.join("\n"), params),
             'key'
           )
         end
@@ -200,7 +200,7 @@ module TraitBank
           UNWIND pages as page
           WITH page
           WHERE page.page IS NOT NULL
-          WITH sum(CASE WHEN page.rank = 'species' THEN 1 ELSE 0 END) AS species_count, 
+          WITH sum(CASE WHEN page.rank = 'species' THEN 1 ELSE 0 END) AS species_count,
             sum(CASE WHEN page.rank = 'genus' THEN 1 ELSE 0 END) AS genus_count,
             sum(CASE WHEN page.rank = 'family' THEN 1 ELSE 0 END) AS family_count
           RETURN species_count, genus_count, family_count
@@ -215,10 +215,10 @@ module TraitBank
 
       def assoc_data_begin_part(query, params)
         TraitBank::Search.term_record_search_matches(
-          query, 
-          params, 
-          always_match_obj_clade: true, 
-          obj_clade_var: :obj_clade, 
+          query,
+          params,
+          always_match_obj_clade: true,
+          obj_clade_var: :obj_clade,
           trait_var: :trait
         )
       end
@@ -260,7 +260,7 @@ module TraitBank
           WITH group_taxon, taxon, count(DISTINCT trait) AS count
         CYPHER
       end
-      
+
       def taxon_summary_data_pages(tq, params, ranks)
         begin_part = TraitBank::Search.term_page_search_matches(tq, params)
         <<~CYPHER
@@ -397,7 +397,10 @@ module TraitBank
         CheckResult.valid
       end
 
-      def pred_prey_comp_for_page(page)
+      # Returns an array of hashes, with the keys: type, source, target, id
+      # The id at the end is not a real id, but a concatenation of source and target ids,
+      # and is not reflected in the DB.
+      def trophic_relationships_for_page(page)
         eats_string = TraitBank::Queries.array_to_qs([EolTerms.alias_uri('eats'), EolTerms.alias_uri('preys_on')])
         limit_per_group = 100
         comp_limit = 10
@@ -452,7 +455,7 @@ module TraitBank
       def taxon_summary_ranks_for_query(tq)
         # queries with a clade that doesn't have a rank aren't allowed this far
         if (
-          !tq.clade || 
+          !tq.clade ||
           Rank.treat_as[tq.clade.rank.treat_as] < Rank.treat_as[:r_phylum]
         )
           TaxonSummaryRanks.new('phylum', 'family')
@@ -470,10 +473,10 @@ module TraitBank
         clade_target = assoc_data_target_rank_for_clades(query)
 
         result = [
-          [:r_species, counts[:species_count]], 
-          [:r_genus, counts[:genus_count]], 
+          [:r_species, counts[:species_count]],
+          [:r_genus, counts[:genus_count]],
           [:r_family, counts[:family_count]]
-        ].find do |c| 
+        ].find do |c|
           rank = c[0]
           rank_match = Rank.treat_as[rank] >= Rank.treat_as[clade_target] # clade must be of equal or greater specificity than clade_target. We want the most specific level that matches the MAX_ASSOC_TAXA threshold, hence the order.
           rank_match && c[1] <= MAX_ASSOC_TAXA
@@ -551,9 +554,9 @@ module TraitBank
       # Usual trait search MATCHes, collect tgt_obj and obj nodes for each filter/page
       def add_sankey_match_part(term_query, query_parts, params, collected_obj_pairs_vars, obj_var_pairs)
         query_parts << TraitBank::Search.term_search_matches_helper(
-          term_query, 
-          params, 
-          always_match_obj: true, 
+          term_query,
+          params,
+          always_match_obj: true,
           with_tgt_vars: true
         ) do |i, filter, trait_var, pred_var, tgt_pred_var, obj_var, tgt_obj_var|
           with = "WITH page, "
@@ -562,7 +565,7 @@ module TraitBank
 
           if i < term_query.filters.length - 1
             collected_obj_pairs_var = obj_var + "_pairs"
-            collect = filter.object_term? ? 
+            collect = filter.object_term? ?
               "{ obj: #{obj_var}, tgt_obj: #{tgt_obj_var} }" :
               "{ obj: #{obj_var} }"
             with.concat("collect(#{collect}) AS #{collected_obj_pairs_var}")
@@ -606,7 +609,7 @@ module TraitBank
 
           part
         end
-        
+
         # We didn't collect the pairs for the last filter (they're already 'unwound', so to speak), so just pass them through
         obj_var_parts << obj_var_pairs[-1][:obj]
         obj_var_parts << obj_var_pairs[-1][:tgt_obj] if obj_var_pairs[-1][:tgt_obj]
