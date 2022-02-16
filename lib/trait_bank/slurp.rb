@@ -3,7 +3,7 @@ require 'csv'
 
 # NOTE: Publishing will call .load_resource_from_repo q.v..
 class TraitBank::Slurp
-  MAX_CSV_SIZE = 250_000
+  MAX_CSV_SIZE = 128_000
   MAX_SKIP_PKS = 1_000
 
   delegate :query, to: TraitBank
@@ -557,7 +557,13 @@ class TraitBank::Slurp
     end
 
     # Then merge the triple:
-    autocommit_query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
+    query = "#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})"
+    begin
+      autocommit_query(query)
+    rescue => e
+      @logger.warn("Exception (#{e.class}) FROM: #merge_triple QUERY: {#{q}}")
+      raise
+    end
   end
 
   def set_attribute(name, attribute, on_set)
@@ -586,8 +592,13 @@ class TraitBank::Slurp
   def autocommit_query(q) # for use with WITH PERIODIC COMMIT queries (CSV loading)
     #@logger&.info("Executing PERIODIC COMMIT query:\n#{q}")
 
-    ActiveGraph::Base.session do |session|
-      session.run(q)
+    begin
+      ActiveGraph::Base.session do |session|
+        session.run(q)
+      end
+    rescue => e
+      @logger.warn("Exception (#{e.class}) QUERY: {#{q}} MESSAGE: #{e.message}")
+      raise
     end
   end
 

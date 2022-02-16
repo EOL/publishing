@@ -4,6 +4,7 @@
 # Author: Alcali
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
+# Author: EnaldoSS
 # Author: Jadethomaz
 # Author: Jhonnatanricardo
 # Author: Leonardo9387
@@ -301,6 +302,9 @@ pt-BR:
   data_missing: '(dados ausentes, chaves: %{keys})'
   dear_username_with_comma: Olá %{username},
   delete_account_button: Remover sua conta
+  errors:
+    internal_server: Erro interno do servidor (500)
+    not_found: Página não encontrada (404)
   filter_by_license: licença
   filter_by_license_any_item: qualquer licença
   filter_by_medium_subtype: tipo
@@ -426,6 +430,7 @@ pt-BR:
     hr: Croato
     hrv: Croata
     cs: Checo
+    q32238: Dagbani
     da: Dinamarquês
     q3362072: Digo
     dv: Divehi; Dhivehi; Maldivense

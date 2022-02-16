@@ -9,7 +9,7 @@ gem 'mysql2', '0.5.3'
 # TEMP: Fixes a licensing issue with Rails:
 gem 'mimemagic', '0.4.3'
 # TEMP: Fixes a security patch in nokogiri:
-gem 'nokogiri', '>= 1.12.5'
+gem 'nokogiri', '>= 1.13.1'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
@@ -21,23 +21,21 @@ gem 'webpacker', '~> 6.x'
 # Sass is end-of-life. Update to sassc gem: https://github.com/sass/sassc-ruby#readme
 gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11.2'
+gem 'jbuilder', '~> 2.11.5'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails', '~> 4.4'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 2.2', group: :doc
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
-gem 'unicorn', '~> 6.0'
+gem 'unicorn', '~> 6.1'
 # NOTE: there's a unicorn-worker-killer-2, but that is UNMAINTAINED. Ignore it.
 gem 'unicorn-worker-killer', '~> 0.4'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-gem 'kaminari', '~> 1.2.1'
+gem 'kaminari', '~> 1.2.2'
 
 # All other non-environment-specific gems come next.
 #
@@ -47,13 +45,13 @@ gem 'kaminari', '~> 1.2.1'
 # maintainable!
 
 # For bulk inserts:
-gem 'activerecord-import', '~> 1.1'
+gem 'activerecord-import', '~> 1.3'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 1.0'
 # Faster startup:
-gem 'bootsnap', '~> 1.7', require: false
+gem 'bootsnap', '~> 1.10', require: false
 # Counter Culture handles cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 2.8'
+gem 'counter_culture', '~> 2.9'
 # Cron jobs:
 gem 'crono', '~> 1.1'
 # Run background jobs:
@@ -68,7 +66,7 @@ gem 'devise', '~> 4.8'
 gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
 # Discourse handles comments and chat:
-gem 'discourse_api', '~> 0.40'
+gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
 # Icons
@@ -76,7 +74,7 @@ gem 'font-awesome-sass', '~> 5.15'
 # This is used to locally have a copy of Open Sans. IF YOU STOP USING OPEN SANS (note the space), YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2'
 # url helpers in JS
-gem 'js-routes', '~> 2.0', '>= 2.0.8'
+gem 'js-routes', '~> 2.2'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
 gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
@@ -88,7 +86,7 @@ gem 'lograge', '~> 0.11'
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
-gem 'oj', '~> 3.12'
+gem 'oj', '~> 3.13'
 # Debugging:
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
@@ -114,23 +112,23 @@ gem 'client_side_validations-simple_form', '~> 13'
 gem 'typhoeus', '~> 1.4'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'activegraph', '~> 10.0' # NOTE: there's at least a version 11, but I am scared of it.
+gem 'activegraph', '~> 10.1' # NOTE: there's at least a version 11, but I am scared of it.
 gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 
 #Sitemap
-gem 'sitemap_generator', '~> 6.1'
+gem 'sitemap_generator', '~> 6.2'
 
 # url slug support
 gem 'friendly_id', '~> 5.4'
 
 # translations in JS
-gem 'i18n-js', '~> 3.8' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
+gem 'i18n-js', '~> 3.9' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
 
 # CORS middleware
 gem 'rack-cors'
 
 # JSON schema-based validation
-gem 'json_schemer'
+gem 'json_schemer', '~> 0.2'
 
 group :development, :test do
   gem 'active_record_query_trace', '~> 1'

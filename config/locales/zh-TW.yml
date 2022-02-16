@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Carrot Li
 # Author: Kly
+# Author: Madeleinemcc
 # Author: Taieol
 # Author: Winston Sung
 # Author: Xiplus
@@ -48,6 +49,9 @@ zh-TW:
     types:
       scientific: 學術
       vernacular: 方言
+  brief_summary:
+    extinction:
+      r_genus_html: <span class='%{class_str}' id='%{id}'>已消失</span>。
   button_create: 建立
   button_add: 添加
   cancel: 取消
