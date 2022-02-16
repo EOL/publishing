@@ -514,7 +514,7 @@ class Page < ApplicationRecord
 
     result = {}
 
-    tb_result.each do |row| 
+    tb_result.each do |row|
       trait = traits_by_id[row[:trait_pk]]
       result[row[:predicate]] = trait if trait
     end
@@ -560,7 +560,7 @@ class Page < ApplicationRecord
     @object_data = TraitBank::Page.object_traits_by_page(id) unless @object_data
     @object_data
   end
-  
+
   def association_page_ids
     TraitBank::Page.association_page_ids(id)
   end
@@ -770,7 +770,10 @@ class Page < ApplicationRecord
     pred_ids = Set.new
     comp_ids = Set.new
 
+    pages_that_exist = Page.where(id: relationships.flat_map {|h| [h[:source], h[:target]] }.sort.uniq).pluck(:id)
+
     links = relationships.map do |row|
+      next unless pages_that_exist.include?(row[:source]) && pages_that_exist.include?(row[:target])
       if row[:type] == "prey"
         prey_ids.add(row[:target])
       elsif row[:type] == "predator"
@@ -812,7 +815,7 @@ class Page < ApplicationRecord
     prey_ids = Set.new(prey_nodes.map { |p| p[:id] })
     comp_ids = Set.new(comp_nodes.map { |c| c[:id] })
 
-    links.each do |link|
+    links.compact.each do |link|
       source = link[:source]
       target = link[:target]
 
