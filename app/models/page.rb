@@ -802,8 +802,12 @@ class Page < ApplicationRecord
     Page.where(id: ids.to_a).with_scientific_name_and_rank.index_by(&:id)
   end
 
+  def reset_seen_trophic_relationships
+    @src_tgt_ids = Set.new
+  end
+
   def add_seen_trophic_relationships(ids)
-    @src_tgt_ids ||= Set.new
+    reset_seen_trophic_relationships unless defined?(@src_tgt_ids)
     ids.is_a?(Array) ? @src_tgt_ids.merge(ids) : @src_tgt_ids.add(ids)
   end
 
@@ -842,6 +846,7 @@ class Page < ApplicationRecord
     prey_to_comp_ids
   end
 
+  # We're suddenly calling them "nodes" here because they will now become nodes in the graphic of the trophic web.
   def collect_all_trophic_relationships(links, source_nodes, pred_ids, prey_ids, comp_ids)
     pred_nodes = collect_trophic_relationships_by_group(pred_ids, :predator)
     prey_nodes = collect_trophic_relationships_by_group(prey_ids, :prey)
@@ -866,8 +871,10 @@ class Page < ApplicationRecord
     keep_pred_nodes = pred_nodes[0, PRED_PREY_LIMIT]
 
     nodes = source_nodes.concat(keep_pred_nodes).concat(keep_prey_nodes).concat(keep_comp_nodes)
-    add_seen_trophic_relationships(nodes.collect { |n| n[:id] })
+    reset_seen_trophic_relationships # Flush them out because we culled the lists by size!
+    add_seen_trophic_relationships(nodes.collect { |n| n[:id] }) # Now rebuild them...
 
+    # Only keep links where we have source information:
     links = links.select do |link|
       have_seen_trophic_relationship?(link[:source]) && have_seen_trophic_relationship?(link[:target])
     end
