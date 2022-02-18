@@ -1,7 +1,7 @@
 - open_row = defined?(open_row) ? open_row : false
 - hide_pred_when_closed = local_assigns.fetch(:hide_pred_when_closed, false)
 - page = local_assigns.include?(:page) ? page : trait.page
-- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/trait_#{trait.id}/page_#{page.id}/hide_pred_when_closed/#{hide_pred_when_closed}"
+- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/trait_#{trait&.id}/page_#{page&.id}/hide_pred_when_closed/#{hide_pred_when_closed}"
 - cache(key) do
   - Rails.logger.info("&& TB Cached #{key}")
   - page_is_assoc_obj = local_assigns.fetch(:page_is_assoc_obj, false)
