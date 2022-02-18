@@ -2326,23 +2326,121 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: eva ipersalà
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longheur ëd l'ipocòno
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002130: ipolimnion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: giassa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: calòta ëd giassa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: feuj ëd giassa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000380: piataforma ëd giassa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000392: lenga ëd giassa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: iceberg
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: ròch afoà
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001501: zerb
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: sistema imunitari
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: boca d'antruch
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pòles
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: spostament për contrassion
+          e slongament
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: qualità ameliorà
+        http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: nùmer d'esemplar
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: età induan-a
+        http://eol(dot)org/schema/terms/infauna_feeder: as nuriss d'anfàun
+        http://www(dot)marinespecies(dot)org/traits/Infaunal: anfàun
+        https://eol(dot)org/schema/terms/infection_effect: efet d'anfession
+        http://eol(dot)org/schema/terms/inguinal: dl'angonaja
         http://eol(dot)org/schema/terms/InitialMortalityRate: tass ëd mortalità inissial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000089: rochera anterna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000475: passage
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: utiss
         http://eol(dot)org/schema/terms/InterBirthInterval: antërval antra le nassense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000527: antrafium
+        http://eol(dot)org/schema/terms/intermediateEpifaunal: epifàuna ëd livel antërmedi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: lagh antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000504: baciass antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: lagh salà antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000549: pian d'eva antërmitent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000389: zòna ùmida antërmitenta
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: cuchija anterna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: sediment antërtidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: zòna antërtidal
         http://eol(dot)org/schema/terms/InvasiveRange: invasiv an
+        https://eol(dot)org/schema/terms/inverse: anvers
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: a l'anvers
+        http://eol(dot)org/schema/terms/invertivore: anvertìvor
+        http://ecoinformatics(dot)org/oboe/oboe(dot)1(dot)0/oboe-characteristics(dot)owl#Irradiance: iradiansa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canal d'irigassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: ciusa d'irigassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: fossà d'irigassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: serbator d'irigassion
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: a l'é un
+          component ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: a l'é mangià da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002627: a l'é massà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: a l'é vetor ëd
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: ìsola
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: àcid isoesadecanòid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: àcid isotetradecanòid
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0026310: bisotarìa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: età
+          jianshanian-a
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: sautand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000241: foresta ëd zenèiver
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: perìod
+          giuràssich
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: giovanil
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000175: cars
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012411: balma càrsica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: età
+          kasimovian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: età katian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000058: foresta d'alghe
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m²
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ann
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: a massa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: età
+          kimmeridgian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000410: autura vegetal an mes
+          a la lava
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: clepto-parassita ëd
+        http://eol(dot)org/schema/terms/squarekilometer: km²
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: spece marenghe conossùe
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: età
+          kungurian-a
+        https://eol(dot)org/schema/terms/labile_material_feeder: as nuriss ëd materiaj
+          déboj
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: età
+          ladinian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: lagun-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: fond ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000476: passage d'intrada ëd
+          lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: sediment ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000382: riva ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: surfassa ëd lagh
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: mar anterior
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: sghijament ëd teren
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: età
+          langhian-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: grand lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: fium largh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: delta ëd fium largh
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: manera ëd dësvlup an
+          forma ëd gata
+        http://eol(dot)org/schema/terms/lateSpring: tarda prima
+        http://eol(dot)org/schema/terms/lateSummer: tarda istà
+        http://eol(dot)org/schema/terms/lateWinter: tard invern
+        http://eol(dot)org/schema/terms/LatentPeriod: perìod ëstërmà
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: lateral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000249: moren-a lateral
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: smijant a 'n baston
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: balma ëd lava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: camp ëd lava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: galarìa ëd lava
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: a fà j'euv su
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surfassa ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja

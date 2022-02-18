@@ -78,6 +78,7 @@ class Page < ApplicationRecord
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
   scope :with_scientific_name, -> { includes(native_node: [:scientific_names]) }
+  scope :with_scientific_name_and_rank, -> { includes(native_node: [:scientific_names, :rank]) }
   scope :with_name, -> { with_scientific_name.includes(:preferred_vernaculars) }
 
   KEY_DATA_LIMIT = 12
@@ -722,8 +723,7 @@ class Page < ApplicationRecord
       if !rank&.r_species? # all nodes must be species, so bail
         { nodes: [], links: [] }
       else
-        relationships = TraitBank::Stats.pred_prey_comp_for_page(self)
-        handle_pred_prey_comp_relationships(relationships)
+        handle_pred_prey_comp_relationships
       end
     end
     result[:labelKey] = breadcrumb_type == BreadcrumbType.vernacular ? "shortName" : "canonicalName"
@@ -763,51 +763,57 @@ class Page < ApplicationRecord
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end
 
+  # An array of hashes, with the keys: type, source, target, id
+  def trophic_relationships
+    return @trophic_relationships if defined?(@trophic_relationships)
+    @trophic_relationships = TraitBank::Stats.trophic_relationships_for_page(self)
+    pages_that_exist =
+      Page.where(id: @trophic_relationships.flat_map { |h| [h[:source], h[:target]] }.sort.uniq).
+        select(:id).index_by(&:id)
+    types = %w[prey predator competitor]
+    raise "Unrecognized relationship type `#{row[:type]}` in trophic relationship #{row[:id]}" if
+      @trophic_relationships.any? { |relationship| !types.include?(relationship[:type]) }
+    @trophic_relationships.delete_if do |relationship|
+      !pages_that_exist.key?(relationship[:source]) || ! pages_that_exist.key?(relationship[:target])
+    end
+  end
+
   PRED_PREY_LIMIT = 7
   COMP_LIMIT = 10
-  def handle_pred_prey_comp_relationships(relationships)
-    prey_ids = Set.new
-    pred_ids = Set.new
-    comp_ids = Set.new
-
-    pages_that_exist = Page.where(id: relationships.flat_map {|h| [h[:source], h[:target]] }.sort.uniq).pluck(:id)
-
-    links = relationships.map do |row|
-      next unless pages_that_exist.include?(row[:source]) && pages_that_exist.include?(row[:target])
-      if row[:type] == "prey"
-        prey_ids.add(row[:target])
-      elsif row[:type] == "predator"
-        pred_ids.add(row[:source])
-      elsif row[:type] == "competitor"
-        comp_ids.add(row[:source])
-      else
-        raise "unrecognized relationship type in result: #{row[:type]}"
-      end
-
-      {
-        source: row[:source],
-        target: row[:target]
-      }
+  def handle_pred_prey_comp_relationships
+    prey_ids = trophic_relationship_ids_by_type('prey', :target)
+    pred_ids = trophic_relationship_ids_by_type('predator', :source)
+    comp_ids = trophic_relationship_ids_by_type('competitor', :source)
+    @trophic_relationship_pages_by_id =
+      load_trophic_relationship_pages_by_id(Set.new([id]) + prey_ids + pred_ids + comp_ids)
+    source_nodes = collect_trophic_relationships_by_group([id], :source)
+    return { nodes: [], links: [] } if source_nodes.empty?
+    links = trophic_relationships.map do |relationship|
+      { source: relationship[:source], target: relationship[:target] }
     end
+    collect_all_trophic_relationships(links, source_nodes, pred_ids, prey_ids, comp_ids)
+  end
 
-    all_ids = Set.new([id])
-    all_ids.merge(prey_ids).merge(pred_ids).merge(comp_ids)
+  def trophic_relationship_ids_by_type(type, key)
+    Set.new(trophic_relationships.select { |rel| rel[:type] == type }.map { |rel| rel[key] })
+  end
 
-    pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
-      [page.id, page]
-    end.to_h
-    node_ids = Set.new
+  def load_trophic_relationship_pages_by_id(ids)
+    Page.where(id: ids.to_a).with_scientific_name_and_rank.index_by(&:id)
+  end
 
-    source_nodes = pages_to_nodes([id], :source, pages, node_ids)
+  def reset_seen_trophic_relationships
+    @src_tgt_ids = Set.new
+  end
 
-    if source_nodes.empty?
-      {
-        nodes: [],
-        links: []
-      }
-    else
-      build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
-    end
+  def add_seen_trophic_relationships(ids)
+    reset_seen_trophic_relationships unless defined?(@src_tgt_ids)
+    ids.is_a?(Array) ? @src_tgt_ids.merge(ids) : @src_tgt_ids.add(ids)
+  end
+
+  def have_seen_trophic_relationship?(id)
+    return false unless defined?(@src_tgt_ids)
+    @src_tgt_ids.include?(id)
   end
 
   def build_prey_to_comp_ids(prey_nodes, comp_nodes, links)
@@ -840,10 +846,11 @@ class Page < ApplicationRecord
     prey_to_comp_ids
   end
 
-  def build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
-    pred_nodes = pages_to_nodes(pred_ids, :predator, pages, node_ids)
-    prey_nodes = pages_to_nodes(prey_ids, :prey, pages, node_ids)
-    comp_nodes = pages_to_nodes(comp_ids, :competitor, pages, node_ids)
+  # We're suddenly calling them "nodes" here because they will now become nodes in the graphic of the trophic web.
+  def collect_all_trophic_relationships(links, source_nodes, pred_ids, prey_ids, comp_ids)
+    pred_nodes = collect_trophic_relationships_by_group(pred_ids, :predator)
+    prey_nodes = collect_trophic_relationships_by_group(prey_ids, :prey)
+    comp_nodes = collect_trophic_relationships_by_group(comp_ids, :competitor)
 
     prey_to_comp_ids = build_prey_to_comp_ids(prey_nodes, comp_nodes, links)
 
@@ -864,10 +871,12 @@ class Page < ApplicationRecord
     keep_pred_nodes = pred_nodes[0, PRED_PREY_LIMIT]
 
     nodes = source_nodes.concat(keep_pred_nodes).concat(keep_prey_nodes).concat(keep_comp_nodes)
-    node_ids = Set.new(nodes.collect { |n| n[:id] })
+    reset_seen_trophic_relationships # Flush them out because we culled the lists by size!
+    add_seen_trophic_relationships(nodes.collect { |n| n[:id] }) # Now rebuild them...
 
+    # Only keep links where we have source information:
     links = links.select do |link|
-      node_ids.include?(link[:source]) && node_ids.include?(link[:target])
+      have_seen_trophic_relationship?(link[:source]) && have_seen_trophic_relationship?(link[:target])
     end
 
     {
@@ -876,7 +885,7 @@ class Page < ApplicationRecord
     }
   end
 
-  def pred_prey_comp_node(page, group)
+  def trophic_hash(page, group)
     if page.rank&.r_species? && page.icon
       {
         shortName: page.short_name_notags,
@@ -897,16 +906,14 @@ class Page < ApplicationRecord
     I18n.t("trophic_web.group_descriptions.#{group}", source_name: short_name_notags)
   end
 
-  def pages_to_nodes(page_ids, group, pages, node_ids)
+  def collect_trophic_relationships_by_group(page_ids, group)
     result = []
 
     page_ids.each do |id|
-      if !node_ids.include?(id)
-        node = pred_prey_comp_node(pages[id], group)
-
-        if node
-          node_ids.add(node[:id])
-          result << node
+      if !have_seen_trophic_relationship?(id)
+        if trop_hash = trophic_hash(@trophic_relationship_pages_by_id[id], group)
+          add_seen_trophic_relationships(trop_hash[:id])
+          result << trop_hash
         end
       end
     end
