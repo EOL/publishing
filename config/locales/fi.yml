@@ -71,7 +71,8 @@ fi:
       r_form_html: Tämä muoto on <span class='%{class_str}' id='%{id}'>hävinnyt</span>.
     fix_nitrogen_html: Ne <span class='%{class_str}' id='%{predicate_id}'>sitovat</span>
       <span class='%{class_str}' id='%{object_id}'>typpeä</span>.
-    freshwater_html: Niillä on <span class='%{class_str}' id='%{id}'>makeanveden elinympäristö</span>.
+    freshwater_html: Ne elävät <span class='%{class_str}' id='%{id}'>makeavetisissä
+      elinympäristöissä</span>.
     marine_html: Niitä tavataan <span class='%{class_str}' id='%{id}'>merivesissä</span>.
     species: '%{name1} on taksoniin %{name2} kuuluva laji.'
     species_in_family: '%{name1} on laji ryhmän %{name2} heimossa %{name_family}.'
@@ -1966,6 +1967,8 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: triaskausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: sivujoki
         http://eol(dot)org/schema/terms/TrophicGuild: trofiakilta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005806: trooppinen ja subtrooppinen
+          havumetsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: trooppinen lehtimetsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: trooppinen havumetsä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: trooppinen aavikko
