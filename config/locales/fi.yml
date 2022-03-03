@@ -786,7 +786,7 @@ fi:
     resource_names:
       name_recognized_by: Tunnustanut %{by}
       name_recognized_by_w_rank: '%{rank}, tunnustanut %{by}'
-      name_recognized_by_w_status: '%{status} tahon %{by} mukaan'
+      name_recognized_by_w_status: '%{status} taho(je)n %{by} mukaan'
       rank:
         r_domain: Domeeni
         r_subdomain: Aladomeeni
