@@ -972,6 +972,7 @@ ru:
       index: вернуться ко всем ресурсам
     headers:
       index: Ресурсы
+    no_events: Запрос отсутствует !
   scientific_name:
     status_title:
       accepted: Принятые названия
