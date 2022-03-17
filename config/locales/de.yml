@@ -8,6 +8,7 @@
 # Author: Elliot
 # Author: FF-11
 # Author: FF11
+# Author: Jhammock
 # Author: Katja
 # Author: Kghbln
 # Author: Killarnee
@@ -21,7 +22,7 @@
 # Author: Wolfdietmann
 ---
 de:
-  language_name: Englisch
+  language_name: Deutsch
   about:
     trait_bank:
       title: TraitBank

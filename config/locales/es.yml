@@ -6,6 +6,7 @@
 # Author: Avengium
 # Author: Canaan9801
 # Author: Destinid10 2
+# Author: DiegoAmbrocio
 # Author: Fitoschido
 # Author: Gastonsaenz
 # Author: Genesis
@@ -1011,6 +1012,7 @@ es:
     actions:
       import_traits: importar rasgos (del repositorio)
       republish: volver a publicar
+      clean_republish: Republicación limpia
       reindex: volver a indizar
       fix_no_names: arreglar NO NOMBRES
       index: Volver a todos los recursos
@@ -1597,6 +1599,7 @@ es:
         https://eol(dot)org/schema/terms/ampharetid_feeder: alimentador de anfáridos
         http://eol(dot)org/schema/terms/amphibious: anfibio
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: anfidromo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: anabranch
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anádromo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: lodo anaeróbico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: sedimento anaeróbico
@@ -1618,6 +1621,8 @@ es:
           Anisiense
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: agua anóxica
+        http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: ácido ante-isooctadecanoic
+        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: ácido ante-isotetradecanoic
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: anterior
         http://purl(dot)obolibrary(dot)org/obo/PO_0009066: antera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogénico
@@ -1707,8 +1712,10 @@ es:
         https://eol(dot)org/schema/terms/bipedal_running: bípedo corriendo
         https://eol(dot)org/schema/terms/bivalve_feeder: Alimentador bivalvo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: Negro
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: ventilador ciego
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: sangre
         http://eol(dot)org/schema/terms/BloomPeriod: period de florecimiento
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000313: soplo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: azul
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: fluido corporal
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: cavidad corporal

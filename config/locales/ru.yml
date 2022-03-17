@@ -11,6 +11,7 @@
 # Author: HFoxii
 # Author: INS Pirat
 # Author: INS Pirat
+# Author: Ice bulldog
 # Author: Kareyac
 # Author: Kareyac
 # Author: Katunchik
@@ -971,6 +972,7 @@ ru:
       index: вернуться ко всем ресурсам
     headers:
       index: Ресурсы
+    no_events: Запрос отсутствует !
   scientific_name:
     status_title:
       accepted: Принятые названия
