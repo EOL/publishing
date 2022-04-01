@@ -30,13 +30,14 @@ class SearchController < ApplicationController
     pages_simple = autocomplete_results(pages_results, "pages")
     terms_simple = autocomplete_results(term_results, "term_nodes")
     render json: (pages_simple.concat(terms_simple).sort do |a, b|
-      a[:name].length <=> b[:name].length 
+      a[:name].length <=> b[:name].length
     end)[0, MAX_AUTOCOMPLETE_RESULTS]
   end
 
 private
   def do_search
     searcher = MultiClassSearch.new(params[:q], params)
+    @page = params[:page]
     @q = searcher.query # get a clean version of the search string for re-use in the form
 
     path = searcher.suggested_path?
@@ -45,7 +46,7 @@ private
 
     searcher.search
     if searcher.errors.any?
-      logger.error("Search errors: #{searcher.errors.join("; ")}")
+      logger.error("Search errors: #{searcher.errors.join('; ')}")
       raise "search failed"
     end
 
@@ -59,27 +60,9 @@ private
       fmt.html do
         @page_title = t(:page_title_search, query: @q)
       end
-
+      # TODO: JSON. This has been broken since Feb 27, 2020, so look at code from before that if you want to make
+      # another attempt.
       fmt.js { }
-
-      # TODO: JSON results for other types! TODO: move; this is view logic...
-      # This is broken as of 2/27/20 (probably much earlier). Commenting out in case we want it later - mvitale
-     # fmt.json do
-     #   render json: JSON.pretty_generate(@pages.results.as_json(
-     #     except: :native_node_id,
-     #     methods: :scientific_name,
-     #     include: {
-     #       preferred_vernaculars: { only: [:string],
-     #         include: { language: { only: :code } } },
-     #       # NOTE I'm excluding a lot more for search than you would want for
-     #       # the basic page json:
-     #       top_media: { only: [ :id, :guid, :owner, :name ],
-     #         methods: [:small_icon_url, :medium_icon_url],
-     #         include: { provider: { only: [:id, :name] },
-     #           license: { only: [:id, :name, :icon_url] } } }
-     #     }
-     #   ))
-     # end
     end
   end
 end
