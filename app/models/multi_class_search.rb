@@ -221,7 +221,7 @@ class MultiClassSearch
 
   def basic_search(klass, options = {})
     klass.search(@query, options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
-      match: :word_start, execute: false, page: @page, per_page: 50))
+      match: :word_start, execute: false, page: @page, per_page: MultiClassSearch::PAGE_SIZE))
   end
 
   # So-called "self-healing" code for pages that have no native node and were probably deleted:
