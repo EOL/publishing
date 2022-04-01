@@ -37,7 +37,7 @@ class SearchController < ApplicationController
 private
   def do_search
     searcher = MultiClassSearch.new(params[:q], params)
-    @page = params[:page]
+    @page = params[:page]&.to_i
     @q = searcher.query # get a clean version of the search string for re-use in the form
 
     path = searcher.suggested_path?
