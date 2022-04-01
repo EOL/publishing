@@ -207,10 +207,7 @@ class Resource < ApplicationRecord
     TraitBank::Admin.remove_non_trait_content_for_resource(self)
   end
 
-  def remove_all_content
-    remove_non_trait_content
-
-    # Traits:
+  def remove_trait_content
     count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
     if count.zero?
       log("No graph nodes, skipping.")
@@ -218,6 +215,11 @@ class Resource < ApplicationRecord
       log("Removing #{count} graph nodes")
       TraitBank::Admin.remove_by_resource(self, log_handle)
     end
+  end
+
+  def remove_all_content
+    remove_non_trait_content
+    remove_trait_content
   end
 
   def log_handle
