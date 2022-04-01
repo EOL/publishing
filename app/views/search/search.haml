@@ -5,12 +5,14 @@
     - upper_bound = results.size
     - if @page && @page > 1
       - upper_bound = @page * MultiClassSearch::PAGE_SIZE
-      = link_to t("pagination.previous"), search_path(@q, page: @page - 1)
+      = link_to t("pagination.previous"), search_path(q: @q, page: @page - 1)
+      &larr;
     - else
       - @page = 1
     %span= t("search.n_results", :count => total_results)
     - unless upper_bound > total_results
-      = link_to t("pagination.next"), search_path(@q, page: @page + 1)
+      &rarr;
+      = link_to t("pagination.next"), search_path(q: @q, page: @page + 1)
   .filter-bar-advanced>
     = link_to t("advanced"), term_search_path
 %ul.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
