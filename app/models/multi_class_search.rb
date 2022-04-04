@@ -1,5 +1,6 @@
 class MultiClassSearch
   attr_accessor :query, :notice, :pages, :collections, :articles, :terms, :users
+  PAGE_SIZE=50
 
   def initialize(query, options = {})
     @search_text = query.dup
@@ -148,7 +149,7 @@ class MultiClassSearch
   def prepare_pages_query
     if @types[:pages]
       #fields = %w[autocomplete_names^20 synonyms]
-      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10 synonyms^10 providers resource_pks] 
+      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10 synonyms^10 providers resource_pks]
       match = @words.size == 1 ? :text_start : :phrase
       basic_search(
         Page,
@@ -216,11 +217,11 @@ class MultiClassSearch
     end
 
     errors
-  end 
+  end
 
   def basic_search(klass, options = {})
     klass.search(@query, options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
-      match: :word_start, execute: false, page: @page, per_page: 50))
+      match: :word_start, execute: false, page: @page, per_page: MultiClassSearch::PAGE_SIZE))
   end
 
   # So-called "self-healing" code for pages that have no native node and were probably deleted:

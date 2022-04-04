@@ -220,6 +220,7 @@ diq:
     q35156: Carki
     q2591230: Kashinawaki
     ca: Katalanki; Valensiyaki
+    khm: Kmerkiyê Merkezi
     km: Kmerki
     ch: Çamorroki
     q33281: Çavakanoki
@@ -368,6 +369,7 @@ diq:
     ng: Ndonga
     ne: Nepalki
     q7022366: Ngindo
+    q28224: Frizkiyê Zımeyi
     q19933293: Lurkiya Zımey
     se: Samikiya Zımey
     "no": Norwecki
@@ -390,7 +392,7 @@ diq:
     pi: Paliki
     pa: Pencabki
     q36403: Pareki
-    fa: Farıski
+    fa: Farski
     q23014: Almankiya Palatini
     q2429648: Pogoro
     pl: Polonki
@@ -617,6 +619,7 @@ diq:
       r_subgenus: bıncıns
       r_species: tewri
       r_subspecies: bıntewri
+      r_form: form
   recaptcha: Recaptcha
   reconciliation:
     property:
@@ -738,6 +741,8 @@ diq:
       source: Çıme
     search_form:
       resource: çıme
+      search: Cı geyre
+      value: erc
   trust:
     trusted: itımadıno
   user:
@@ -752,6 +757,9 @@ diq:
       submit: Qeyd ke
     fields:
       name: 'name:'
+    pagination:
+      next: pela bahdoyêne
+      previous: pela verêne
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Hera asidik

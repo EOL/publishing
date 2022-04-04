@@ -4,6 +4,7 @@
 # Author: Carrot Li
 # Author: Kly
 # Author: Madeleinemcc
+# Author: StarrySky
 # Author: Taieol
 # Author: Winston Sung
 # Author: Xiplus
@@ -52,6 +53,69 @@ zh-TW:
   brief_summary:
     extinction:
       r_genus_html: <span class='%{class_str}' id='%{id}'>已消失</span>。
+      r_subgenus_html: 該亞屬已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+      r_infragenus_html: 該下屬已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+      r_superspecies_html: 該超級物種已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+      r_species_html: 該物種已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+      r_subspecies_html: 該亞種已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+      r_infraspecies_html: 該下種已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+      r_form_html: 該型已<span class='%{class_str}' id='%{id}'>滅絕</span>。
+    fix_nitrogen_html: 它們<span class='%{class_str}' id='%{predicate_id}'>固</span><span
+      class='%{class_str}' id='%{object_id}'>氮</span>。
+    freshwater_html: 它們與<span class='%{class_str}' id='%{id}'>淡水棲息地有關</span>。
+    marine_html: 它們發現於<span class='%{class_str}' id='%{id}'>海洋棲息地</span>。
+    species: '%{name1}是%{name2}的一個物種。'
+    species_in_family: '%{name1}是科%{name_family}中%{name2}的一個物種。'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1}是%{name2}的一個超科。'
+        r_domain: '%{name1}是%{name2}的一個域。'
+        r_subdomain: '%{name1}是%{name2}的一個亞域。'
+        r_infradomain: '%{name1}是%{name2}的一個下域。'
+        r_superkingdom: '%{name1}是%{name2}的一個域。'
+        r_kingdom: '%{name1}是%{name2}的一個界。'
+        r_subkingdom: '%{name1}是%{name2}的一個亞界。'
+        r_infrakingdom: '%{name1}是%{name2}的一個下界。'
+        r_superphylum: '%{name1}是%{name2}的一個超門。'
+        r_phylum: '%{name1}是%{name2}的一個門。'
+        r_subphylum: '%{name1}是%{name2}的一個亞門。'
+        r_infraphylum: '%{name1}是%{name2}的一個下門。'
+        r_superclass: '%{name1}是%{name2}的一個超綱。'
+        r_class: '%{name1}是%{name2}的一個綱。'
+        r_subclass: '%{name1}是%{name2}的一個亞綱。'
+        r_infraclass: '%{name1}是%{name2}的一個下綱。'
+        r_superorder: '%{name1}是%{name2}的一個超目。'
+        r_order: '%{name1}是%{name2}的一個目。'
+        r_suborder: '%{name1}是%{name2}的一個亞目。'
+        r_infraorder: '%{name1}是%{name2}的一個下目。'
+        r_family: '%{name1}是%{name2}的一個科。'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1}是科%{name3}中%{name2}的一個亞科。'
+          r_infrafamily: '%{name1}是科%{name3}中%{name2}的一個下科。'
+          r_tribe: '%{name1}是科%{name3}中%{name2}的一個族。'
+          r_supergenus: '%{name1}是科%{name3}中%{name2}的一個超屬。'
+          r_genus: '%{name1}是科%{name3}中%{name2}的一個屬。'
+          r_subgenus: '%{name1}是科%{name3}中%{name2}的一個亞屬。'
+          r_infragenus: '%{name1}是科%{name3}中%{name2}的一個下屬。'
+          r_superspecies: '%{name1}是科%{name3}中%{name2}的一個超種。'
+          r_species: '%{name1}是科%{name3}中%{name2}的一個物種。'
+          r_subspecies: '%{name1}是科%{name3}中%{name2}的一個亞種。'
+          r_infraspecies: '%{name1}是科%{name3}中%{name2}的一個下物種。'
+          r_form: '%{name1}是科%{name3}中%{name2}的一個型。'
+        without_family:
+          r_subfamily: '%{name1}是%{name2}的一個亞科。'
+          r_infrafamily: '%{name1}是%{name2}的一個下科。'
+          r_tribe: '%{name1}是%{name2}的一個族。'
+          r_supergenus: '%{name1}是%{name2}的一個超屬。'
+          r_genus: '%{name1}是%{name2}的一個屬。'
+          r_subgenus: '%{name1}是%{name2}的一個亞屬。'
+          r_infragenus: '%{name1}是%{name2}的一個下屬。'
+          r_superspecies: '%{name1}是%{name2}的一個超種。'
+          r_species: '%{name1}是%{name2}的一個物種。'
+          r_subspecies: '%{name1}是%{name2}的一個亞種。'
+          r_infraspecies: '%{name1}是%{name2}的一個下物種。'
+          r_form: '%{name1}是%{name2}的一個型。'
   button_create: 建立
   button_add: 添加
   cancel: 取消
@@ -208,6 +272,9 @@ zh-TW:
   data_missing: （資料遺失，關鍵內容：%{keys}）
   dear_username_with_comma: 親愛的%{username}：
   delete_account_button: 刪除您的帳號
+  errors:
+    internal_server: 內部伺服器錯誤（500）
+    not_found: 頁面未找到（404）
   filter_by_license: 許可
   filter_by_license_any_item: 任何許可
   filter_by_medium_subtype: 類型
@@ -309,6 +376,7 @@ zh-TW:
     q33120: 布里亞特語
     q35037: Businenge Tongo 語
     q880301: 路易斯安那法語
+    q2937525: 卡皮茲語
     q35156: Car 語
     q2591230: 卡西納瓦語
     ca: 加泰隆語
@@ -334,11 +402,13 @@ zh-TW:
     hr: 克羅埃西亞語
     hrv: 克羅埃西亞語
     cs: 捷克語
+    q32238: 達戈姆巴語
     da: 丹麥語
     q3362072: 迪戈語
     q56466: 丁卡語
     dv: 迪維西、馬爾地夫語
     q18415595: Dotyali 語
+    q33013: 杜阿拉語
     dut: 荷蘭、佛萊明語
     nl: 荷蘭、佛萊明語
     dz: 宗喀語
@@ -416,6 +486,7 @@ zh-TW:
     q33690: 卡舒比語
     kk: 哈薩克語
     ki: 基庫尤語
+    q33656: 基爾丁薩米語
     q11005332: 金加語
     q11732519: Kingindo 語
     rw: 盧安達語
@@ -462,8 +533,10 @@ zh-TW:
     mh: 馬紹爾語
     q6786446: 馬滕戈語
     q3906614: 草原馬里語
+    q13357: 梅安語
     q13358: 梅戈來諾羅馬尼亞語
     q13313: 梅魯語
+    q13321: 密克馬克語
     q36455: 閩東語
     q13324: 米南佳保語
     q13359: 明格列爾語
@@ -502,6 +575,7 @@ zh-TW:
     or: 歐利亞語
     om: 奧羅莫語
     os: 奧塞提亞語
+    q715755: 排灣語
     pi: 馬利語
     pa: 旁遮普語
     q36403: 帕爾語
@@ -534,6 +608,7 @@ zh-TW:
     sc: 薩丁尼亞語
     q845441: 薩沙里語
     q14549: 低地蘇格蘭語
+    q716686: 賽德克語
     sr: 塞爾維亞語
     q3788739: 尚巴拉語
     q56482: 撣語
@@ -791,6 +866,18 @@ zh-TW:
       articles: '%{page_name}條目'
     traits:
       search: 特質搜尋
+  rank:
+    name:
+      r_domain: 域
+      r_subdomain: 亞域
+      r_infradomain: 下域
+      r_superkingdom: 總界
+      r_kingdom: 界
+      r_subkingdom: 亞界
+      r_infrakingdom: 下界
+      r_superphylum: 總門
+      r_phylum: 門
+      r_subphylum: 亞門
   recaptcha: Recaptcha
   recaptcha_error: 請告訴我們你不是機器人。
   reference_compiled_from: 出自%{links}的參考資料
