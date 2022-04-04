@@ -285,7 +285,7 @@ class Resource < ApplicationRecord
       PageIcon.where(["medium_id IN (?)", group]).delete_all if klass == Medium
       contents = PageContent.where(page_id: page_id, content_type: klass, content_id: group)
       content_count = contents.count
-      contents.delete
+      contents.delete_all
       Page.where(id: page_id).update_all("#{field} = #{field} - #{group.size}, page_contents_count = page_contents_count - #{content_count}")
     end
   end
