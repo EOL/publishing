@@ -246,7 +246,7 @@ class Resource < ApplicationRecord
       log("Starting (this log message should be replaced shortly)")
       batch_size = 10_000
       times = 0
-      expected_times = (total_count / batch_size.to_float).ceil
+      expected_times = (total_count / batch_size.to_f).ceil
       max_times = expected_times * 2
       begin
         log_update("Batch #{times} (expect #{expected_times} batches, maximum #{max_times})...")
