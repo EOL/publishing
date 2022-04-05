@@ -325,7 +325,7 @@ class Resource < ApplicationRecord
   def fix_missing_page_contents(options = {})
     log("Fixing missing page contents")
     delete = options.key?(:delete) ? options[:delete] : false
-    [Medium, Article, Link].each { |type| fix_missing_page_contents_by_type(klass, options.merge(delete: delete)) }
+    [Medium, Article, Link].each { |klass| fix_missing_page_contents_by_type(klass, options.merge(delete: delete)) }
   end
 
   # TODO: this should be extracted and generalized so that a resource_id is an option (thus allowing ALL contents to be
@@ -413,6 +413,10 @@ class Resource < ApplicationRecord
   # Goes and asks the Harvesting site for information on how to move the nodes between pages...
   def move_nodes
     Node::Mover.by_resource(self)
+  end
+
+  def republish
+    Delayed::Job.enqueue(RepublishJob.new(id))
   end
 
   # Meant to be called manually:
