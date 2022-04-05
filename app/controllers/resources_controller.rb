@@ -88,7 +88,7 @@ class ResourcesController < ApplicationController
 
   private
   def republish_helper
-    Delayed::Job.enqueue(RepublishJob.new(@resource.id))
+    @resource.republish
     flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
     redirect_to @resource
   end
