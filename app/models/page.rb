@@ -126,7 +126,7 @@ class Page < ApplicationRecord
     end
 
     def log_healing(msg)
-      page_healing_log.info("[#{Time.now.localtime.strftime('%F %T')}] #{msg}")
+      page_healing_log.info("[#{Time.now.in_time_zone.strftime('%F %T')}] #{msg}")
     end
 
     # TODO: abstract this to allow updates of the other count fields.
