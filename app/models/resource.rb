@@ -350,7 +350,7 @@ class Resource < ApplicationRecord
     batch_start = first_content_id
     batch_end = batch_start + 2000
     batch_end = last_content_id if batch_end > last_content_id
-    batches = (delta / 2000.0).ciel
+    batches = (delta / 2000.0).ceil
     loop do
       batch_contents = contents.where(["content_id >= ? AND content_id <= ?", batch_start, batch_end])
       batch_contents.pluck(:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
