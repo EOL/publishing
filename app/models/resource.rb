@@ -334,12 +334,12 @@ class Resource < ApplicationRecord
     log("Fixing #{klass}")
     delete = options.key?(:delete) ? options[:delete] : false
     by_count = {}
-    count_contents_per_page(klass, delete).each { |page_id, count| by_count[count] ||= [] ; by_count[count] << page_id }
+    count_contents_per_page(klass, delete, options).each { |page_id, count| by_count[count] ||= [] ; by_count[count] << page_id }
     fix_page_content_counts_on_pages(klass, by_count, delete)
   end
 
   # Homegrown #find_in_batches because of custom content_id ranges...
-  def count_contents_per_page(klass, delete)
+  def count_contents_per_page(klass, delete, options)
     page_counts = {}
     contents = PageContent.where(content_type: klass.name, resource_id: id)
     contents = contents.where(options[:clause]) if options[:clause]
