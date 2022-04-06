@@ -335,7 +335,7 @@ class Resource < ApplicationRecord
     delete = options.key?(:delete) ? options[:delete] : false
     by_count = {}
     count_contents_per_page(klass, delete, options).each { |page_id, count| by_count[count] ||= [] ; by_count[count] << page_id }
-    fix_page_content_counts_on_pages(klass, by_count, delete)
+    fix_page_content_counts_on_pages(klass, by_count, delete) unless by_count.empty?
   end
 
   # Homegrown #find_in_batches because of custom content_id ranges...
@@ -345,6 +345,11 @@ class Resource < ApplicationRecord
     contents = contents.where(options[:clause]) if options[:clause]
     first_content_id = klass.where(resource_id: id).first&.id
     last_content_id = klass.where(resource_id: id).last&.id
+    if first_content_id.nil? || last_content_id.nil?
+      puts "Failed to find any content to count, aborting"
+      log("#count_contents_per_page found zero content, skipping.")
+      return {}
+    end
     delta = last_content_id - first_content_id
     batch_num = 0
     batch_start = first_content_id
