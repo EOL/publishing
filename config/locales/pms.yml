@@ -2441,10 +2441,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: galarìa ëd lava
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: a fà j'euv su
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002141: përcolà
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surfassa ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color ëd feuja
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: complessità ëd la feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: longheur ëd la feuja
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area: massa
+          ëd la feuja për unità 'd surfassa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologìa dla feuja
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: asòt
+          ëd na feuja për quantità ëd massa sëcca
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forma ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
