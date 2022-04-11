@@ -2455,6 +2455,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: smijant a na feuja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005783: seul ëd bòsch ëd fojam
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000544: bialera
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Lectotype: letotipo
+        http://semanticscience(dot)org/resource/SIO_000041: longheur
+        https://eol(dot)org/schema/terms/lens_eyes: euj lenticolar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: leptosseul
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: abitùdin ëd sicl ëd vita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durà dla vita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear

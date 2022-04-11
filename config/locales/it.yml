@@ -9,6 +9,7 @@
 # Author: ElisaPaglia
 # Author: G313
 # Author: G313
+# Author: IrsY
 # Author: JackLantern
 # Author: JackLantern
 # Author: Lorem Ipsum
@@ -582,6 +583,7 @@ it:
     sv: Svedese
     swe: Svedese
     ty: Tahitiano
+    ta: Tamil
     th: Thailandese
     tha: Thailandese
     bo: Tibetano
@@ -788,7 +790,11 @@ it:
       numeric_id: ID numerico
     property:
       name:
+        ancestor: Antenato
         rank: Posizione
+    property_settings:
+      limit:
+        label: Limite
     schema_space:
       headers:
         id: ID
@@ -806,6 +812,7 @@ it:
         other: mostra tutti (%{count})
     headers:
       index: Risorse
+    no_events: Nessuno!
   resource_missing: risorsa non trovata
   scientific_name:
     status_title:
