@@ -141,7 +141,7 @@ class ContentServerConnection
     url = "/resources/#{@resource.repository_id}/publish_diffs.json"
     url += "?since=#{@resource.last_published_at.to_i}" unless @resource.last_published_at.nil?
 
-    log_info("polling for trait diff metadata: #{url}")
+    log_info("polling for trait diff metadata: #{url}") if @trait_diff_tries.zero?
 
     resp = nil
 
@@ -170,6 +170,7 @@ class ContentServerConnection
     when 'completed'
       return TraitDiffMetadata.new(json, @resource, self)
     when 'pending', 'enqueued', 'processing'
+      log_info("harvesting server processing results, waiting for completion... (attempt #{@trait_diff_tries}/#{MAX_TRAIT_DIFF_TRIES})")
       sleep 10
       return trait_diff_metadata_helper
     else
