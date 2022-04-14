@@ -990,6 +990,10 @@ pms:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
       clean_republish: dëscancelé l'arpublicassion
+      republish_confirm: Sòn a dëscancelërà TUT ël contnù associà a l'arsorsa (gavà
+        ij trat, ch'a dovrëran na dif). É-lo SIGUR?
+      clean_republish_confirm: Sòn a dëscancelërà TUT ël contnù për l'arsorsa e a
+        dovrërà NEN le dif për ij trat. É-lo SIGUR?
       reindex: riandicisé
       fix_no_names: fiss a NO NAMEs
       index: andré a tute j'arsorse
@@ -2461,8 +2465,13 @@ pms:
         http://semanticscience(dot)org/resource/SIO_000041: longheur
         https://eol(dot)org/schema/terms/lens_eyes: euj lenticolar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: leptosseul
+        http://eol(dot)org/schema/terms/lichenicole: licherìcol
+        http://eol(dot)org/schema/terms/lichenous: lìcher
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: abitùdin ëd sicl ëd vita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durà dla vita
+        http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: stadi ëd vita
+        https://eol(dot)org/schema/terms/lift_based_swimming: nov possà da dj'ale
+        http://eol(dot)org/schema/terms/lignotuber: gonfiura radical
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
         http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion

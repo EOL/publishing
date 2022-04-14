@@ -1002,6 +1002,10 @@ fr:
       import_traits: importer des traits (du dépôt)
       republish: publier
       clean_republish: nettoyer la republication
+      republish_confirm: Ceci va supprimer TOUT le contenu associé à la ressource
+        (hormis les traits, qui utiliseront un diff). En êtes-vous SÛR(E) ?
+      clean_republish_confirm: Ceci va supprimer TOUS le contenu associé à la ressource
+        et n’utilisera PAS les diffs sur les traits. En êtes-vous SÛR(E) ?
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources

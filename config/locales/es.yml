@@ -1013,6 +1013,10 @@ es:
       import_traits: importar rasgos (del repositorio)
       republish: volver a publicar
       clean_republish: Republicación limpia
+      republish_confirm: Esto eliminará TODO el contenido del recurso (excepto los
+        rasgos, que utilizarán un diff). ¿Estás seguro?
+      clean_republish_confirm: Esto borrará TODO el contenido del recurso y NO utilizará
+        los diffs de rasgos. ¿Estás seguro?
       reindex: volver a indizar
       fix_no_names: arreglar NO NOMBRES
       index: Volver a todos los recursos
@@ -1726,6 +1730,8 @@ es:
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura corporal
         http://eol(dot)org/schema/terms/BodyVolume: volumen corporal
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: ancho del cuerpo
+        https://eol(dot)org/schema/terms/body_caudal_fin: cuerpo/propulsión de la
+          aleta caudal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003097: agua de pozo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: pozo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: campo de rocas
