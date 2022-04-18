@@ -2472,7 +2472,13 @@ pms:
         http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: stadi ëd vita
         https://eol(dot)org/schema/terms/lift_based_swimming: nov possà da dj'ale
         http://eol(dot)org/schema/terms/lignotuber: gonfiura radical
+        http://eol(dot)org/schema/terms/lignotuberOrBurl: gonfiura radical o dël tronch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: liman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005766: seul ëd tèra drua
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: calcar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: seuli calcari
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: taja linear
         http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita

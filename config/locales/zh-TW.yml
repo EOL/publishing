@@ -4,6 +4,7 @@
 # Author: Carrot Li
 # Author: Kly
 # Author: Madeleinemcc
+# Author: Sidishandsome
 # Author: StarrySky
 # Author: Taieol
 # Author: Winston Sung
@@ -880,6 +881,13 @@ zh-TW:
       r_subphylum: 亞門
   recaptcha: Recaptcha
   recaptcha_error: 請告訴我們你不是機器人。
+  reconciliation:
+    id_space:
+      headers:
+        type_id: ID類型
+    schema_space:
+      headers:
+        name: 名稱
   reference_compiled_from: 出自%{links}的參考資料
   reference_compiled_from_article: '%{source}條目標題為「%{name}」'
   register_new_account: 新帳號註冊
@@ -1189,6 +1197,7 @@ zh-TW:
       sample_size: 樣本大小
       scientific_name: 學名
       source: 來源
+    search_hdr: 資料搜尋
     search_results:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV
