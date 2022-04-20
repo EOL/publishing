@@ -1013,6 +1013,10 @@ es:
       import_traits: importar rasgos (del repositorio)
       republish: volver a publicar
       clean_republish: Republicación limpia
+      republish_confirm: Esto eliminará TODO el contenido del recurso (excepto los
+        rasgos, que utilizarán un diff). ¿Estás seguro?
+      clean_republish_confirm: Esto borrará TODO el contenido del recurso y NO utilizará
+        los diffs de rasgos. ¿Estás seguro?
       reindex: volver a indizar
       fix_no_names: arreglar NO NOMBRES
       index: Volver a todos los recursos
@@ -1726,6 +1730,8 @@ es:
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura corporal
         http://eol(dot)org/schema/terms/BodyVolume: volumen corporal
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: ancho del cuerpo
+        https://eol(dot)org/schema/terms/body_caudal_fin: cuerpo/propulsión de la
+          aleta caudal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003097: agua de pozo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: pozo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: campo de rocas
@@ -2049,6 +2055,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epidermis
         http://eol(dot)org/schema/terms/epifauna_feeder: se alimenta de epifauna
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: epífita de
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: episódico
         http://eol(dot)org/schema/terms/epizoochory: epizoocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: escarpadura
         http://rs(dot)tdwg(dot)org/dwc/terms/establishmentMeans: medio de establecimiento
@@ -2090,13 +2097,17 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: Cueva de fisura
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: fiordo
         http://eol(dot)org/schema/terms/fleshyFruit: Fruta carnosa
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vuelo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: edad Floiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: Prado de inundación
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: Llanura de inundación
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000195: praderas inundadas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: savanna inundada
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000256: vía de inundación
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: Color de la flor
         http://purl(dot)obolibrary(dot)org/obo/RO_0002623: las flores fueron visitadas
           por
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: canaleta
         http://eol(dot)org/schema/terms/foliose: folioso
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: Aditivo alimentario
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorante alimentario
