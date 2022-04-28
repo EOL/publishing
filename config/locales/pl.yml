@@ -522,6 +522,9 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: lotniczy
         http://eol(dot)org/schema/terms/AgeAtMaturity: wiek w momencie dojrzałości
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: rolniczy
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: |2-
+
+          materiał rolniczy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: gleba rolnicza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: Odpady rolnicze
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: Odpady rolnicze
@@ -531,9 +534,11 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: poprzedni
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: Akwedukt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: wodny
+        http://eol(dot)org/schema/terms/aquatic: przystosowany do wody
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: roślina wodna
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: teren
         https://eol(dot)org/schema/terms/arm: ramię
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: rozmnażanie bezpłciowe
         http://eol(dot)org/schema/terms/average: średnia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: łacha
         https://eol(dot)org/schema/terms/bamboo_forest: las bambusowy
@@ -556,6 +561,9 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: niebieski
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: płyn ustrojowy
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: jama ciała
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: |2-
+
+          masa ciała
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura ciała
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: pole głazowe
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: szeroki
@@ -641,13 +649,16 @@ pl:
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: gruzy
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: liściaste
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: lasy liściaste
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: obniżona jakość
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: stopnie
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: stopnie celsjusza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: delta
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: dentystyczny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: depresja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: pustynia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: pustynna oaza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: piasek pustyni
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000242: pustynne zarośla
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: średnica
         http://eol(dot)org/schema/terms/Diet: |2-
 
@@ -678,9 +689,17 @@ pl:
 
           średnica jajka
         http://eol(dot)org/schema/terms/EggMass: masa jajek
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: jajka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: podniesiony
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: podniesienie
         http://eol(dot)org/schema/terms/endangered: zagrożony
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoszkielet
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003082: |2-
+
+          wzbogacona gleba
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: |2-
+
+          naskórek
         http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: kosztorys
         http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: Data wydarzenia
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: zimozielony
@@ -709,6 +728,9 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: lot
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: łąka zalewowa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000195: zalane łąki
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: |2-
+
+          zalana sawanna
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kolor kwiatów
         http://purl(dot)obolibrary(dot)org/obo/RO_0002623: kwiaty odwiedzone przez
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: koryto
@@ -722,6 +744,7 @@ pl:
         https://eol(dot)org/schema/terms/freshwater_animals: zwierzęta słodkowodne
         https://eol(dot)org/schema/terms/freshwater_benthic: bentos słodkowodny
         https://eol(dot)org/schema/terms/freshwater_carnivore: mięsożerca słodkowodny
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000053: bagno słodkowodne
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: czołowy
         http://eol(dot)org/schema/terms/fructose: fruktoza
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: owoc
@@ -750,28 +773,45 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: żwir
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000548: pole żwirowe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000473: żwirownia
+        http://eol(dot)org/schema/terms/grayGreen: szarozielony
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: zielony
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: ziemia
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: tempo wzrostu
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: siedlisko
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: port
+        https://eol(dot)org/schema/terms/harvested_in: zebrane w
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: ma jaja złożone przez
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: głowa
         http://eol(dot)org/schema/HeadWidth: szerokość głowy
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: w kształcie serca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: żywopłot
         http://semanticscience(dot)org/resource/SIO_000040: wysokość
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: ziele
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: skóra
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: wysoki
         http://eol(dot)org/schema/terms/highCNRatio: wysoki (>59)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: |2-
+
+          wysoka żywotność
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: |2-
 
           wysoka tolerancja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: Wzgórze
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: |2-
+
+          pasmo wzgórz
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: miód
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: horyzontalny
+        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: |2-
+
+          karmnik dla krabów podkowy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: Szpital
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: gorące źródło
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: lód
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: pokrywa lodowa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: pokrywa śnieżna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000380: półka lodowa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: góra lodowa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: skały magmowe
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001501: niedojrzały
@@ -779,6 +819,10 @@ pl:
 
           system odprnościowy
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: cale
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: podwyższona jakość
+        http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: |2-
+
+          liczba indywidualna
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: |2-
 
           instrument
@@ -799,10 +843,12 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelwin
         http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/rok
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: zabija
         http://eol(dot)org/schema/terms/squarekilometer: km^2
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: laguna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: Jezioro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: dno jeziora
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: osad jeziorny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000382: brzeg jeziora
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: powierzchnia jeziora
@@ -812,6 +858,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: Duży
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: duże jezioro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: duża rzeka
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: duża delta rzeki
         http://eol(dot)org/schema/terms/lateSpring: |2-
 
           późna wiosna
@@ -831,16 +878,19 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: długość życia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: wapień
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: liniowy
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: rozmiar liniowy
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lipidy
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: lokomocja
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: niska
         http://eol(dot)org/schema/terms/lowCNRatio: niska (<23)
+        http://eol(dot)org/schema/terms/lowArctic: niska arktyka
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: niska tolerancja
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: mężczyzna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: morski
         https://eol(dot)org/schema/terms/marine_animals: zwierzęta morskie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: park morski
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: bagno
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: masa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: dojrzały
@@ -856,16 +906,24 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: mesa
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: metaboliczny
         http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm^2
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/dzień
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
         http://eol(dot)org/schema/terms/midSpring: środek wiosny
         http://eol(dot)org/schema/terms/midSummer: |2-
 
           środek lata
         http://eol(dot)org/schema/terms/MiddleToeLength: długość środkowego palca
         http://eol(dot)org/schema/terms/migratory: emigracyjny
+        http://eol(dot)org/schema/terms/millimeterspermonth: milimetry na miesiąc
         http://eol(dot)org/schema/terms/paleo_megaannum: milion lat temu
+        http://semanticscience(dot)org/resource/SIO_001113: min
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: minerały
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mieszany
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: las mieszany
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/rok
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
@@ -875,6 +933,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: pasmo górskie
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: śluz
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: błoto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: wulkan błotny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: |2-
 
           błotnista gleba
@@ -882,16 +941,21 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: mięsień
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: układ mięśniowo-szkieletowy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003033: kompost grzybowy
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: naturalny port
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: Rezerwat przyrody
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: system nerwowy
         http://eol(dot)org/schema/terms/no: nie
         http://eol(dot)org/schema/terms/noHarem: bez haremu
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: brak opieki rodzicielskiej
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: Żaden
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: wyspa oceaniczna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: strefa oceaniczna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000193: Gaj oliwny
+        https://eol(dot)org/schema/terms/omnidirectional: dookólna
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: pomarańczowy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: Sad
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: układ narządów
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: odpady organiczne
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientacja
         http://eol(dot)org/schema/terms/otherBudSource: inne
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: tlen
@@ -899,6 +963,9 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: pastwisko
         http://eol(dot)org/schema/terms/perAcre: za akr
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: |2-
+
+          Zwalczanie szkodników
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: molo
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: wysokość rośliny
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma życia roślin
@@ -911,6 +978,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: pustynia polarna
         http://purl(dot)obolibrary(dot)org/obo/PO_0025281: pyłek
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: zapylane przez
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: zapylacze
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: Staw
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: woda w stawie
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000062: zaludnione miejsce
@@ -920,7 +988,11 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: Pozycja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: dziura drogowa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: preria
+        http://eol(dot)org/schema/terms/predatorScavenger: drapieżnik-zmiatacz
         http://rs(dot)tdwg(dot)org/dwc/terms/preparations: preparaty
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: |2-
+
+          żeruje na
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produkuje
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: Obszar chroniony
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: białka
@@ -939,6 +1011,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PO_0025603: żywica
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: Układ oddechowy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: pole ryżowe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000283: grań
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Rzeka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: brzeg rzeki
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: koryto rzeczne
@@ -985,6 +1058,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: wrażliwość
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: sensoryczny
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: płeć
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: rozmnażanie płciowe
         http://eol(dot)org/schema/terms/shade: cień
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: kształt
         http://eol(dot)org/schema/terms/sheltered: bezpieczny
