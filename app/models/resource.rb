@@ -46,7 +46,7 @@ class Resource < ApplicationRecord
           node_map = {}
           batch.each { |node| node_map[node.page_id] = node.id }
           page_group = []
-          log("#{batch.size} nodes id > #{batch.first.id}")
+          resource.log("#{batch.size} nodes id > #{batch.first.id}")
           STDOUT.flush
           # NOTE: native_node_id is NOT indexed, so this is not speedy:
           Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
@@ -54,7 +54,7 @@ class Resource < ApplicationRecord
             count += 1
             page_group << page.id
             page.update_attribute :native_node_id, node_map[page.id]
-            log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
+            resource.log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
             STDOUT.flush
           end
           begin
@@ -67,7 +67,7 @@ class Resource < ApplicationRecord
             retry
           end
         end
-      log('#update_native_nodes Done.')
+      resource.log('#update_native_nodes Done.')
       Searchkick.enable_callbacks
     end
 
