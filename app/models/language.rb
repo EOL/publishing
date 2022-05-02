@@ -33,8 +33,13 @@ class Language < ApplicationRecord
 
     def cache_locales
       Rails.cache.fetch("languages/locale_cache") do
-        cache = Language.all.index_by { |l| l.locale&.code&.downcase }
-        cache.delete(nil) # This causes problems elsewhere.
+        cache = {}
+        Language.all.each do |lang|
+          key = lang.locale&.code&.downcase
+          next if key.nil?
+          cache[key] ||= []
+          cache[key] << lang
+        end
         cache
       end
     end
