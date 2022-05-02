@@ -33,7 +33,6 @@ class Resource < ApplicationRecord
       find_by_native(true)
     end
 
-    # You should probably reindex Searchkick after calling this, but it's too expensive to do in-line.
     def update_native_nodes(resource = nil)
       resource ||= Resource.native
       count = 0
@@ -50,7 +49,7 @@ class Resource < ApplicationRecord
           STDOUT.flush
           # NOTE: native_node_id is NOT indexed, so this is not speedy:
           Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
-            next if page.native_node&.resource_id == Resource.native.id
+            next if page.native_node&.resource_id == resource.id
             count += 1
             page_group << page.id
             page.update_attribute :native_node_id, node_map[page.id]
