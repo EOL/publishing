@@ -24,27 +24,23 @@ class Resource < ApplicationRecord
   end
 
   class << self
-    # NOTE: if you change this, you MUST call .update_dwh_from (see below) once it's in place!
     def native
-      Rails.cache.fetch('resources/dynamic_hierarchy_1_1') do
-        Resource.where(abbr: 'dvdtg').first_or_create do |r|
-          r.name = 'EOL Dynamic Hierarchy 1.1'
-          r.partner = Partner.native
-          r.description = ''
-          r.abbr = 'dvdtg'
-          r.is_browsable = true
-          r.has_duplicate_nodes = false
-          r.nodes_count = 650000
-        end
-      end
+      # Note this CLASS method will return the FIRST resource flagged as native! That's hugely important. As we add new
+      # ones, we'll use the old until the flag is flipped back to false. That's intentional: you'll need to continue to
+      # use the "old" native resource (via Resource.native) for mathing of the new one, and yet you STILL need to know
+      # that the new one WILL be "native" (via resource_instance.native?); both logics are used in names_matcher, for
+      # example.
+      find_by_native(true)
     end
 
-    def update_native_nodes
+    # You should probably reindex Searchkick after calling this, but it's too expensive to do in-line.
+    def update_native_nodes(resource = nil)
+      resource ||= Resource.native
       count = 0
       Searchkick.disable_callbacks
       Searchkick.timeout = 500
       batch_size = 64 # This may actually be too large? 128 was failing frequently. :|
-      Node.joins(:page).where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id', Resource.native.id]).
+      Node.joins(:page).where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id', resource.id]).
         select('nodes.id, nodes.page_id').
         find_in_batches(batch_size: 10_000) do |batch|
           node_map = {}
