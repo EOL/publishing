@@ -1,4 +1,4 @@
-# Represents a provider-supplied language 
+# Represents a provider-supplied language
 class Language < ApplicationRecord
   has_many :articles, inverse_of: :license
   has_many :links, inverse_of: :license
@@ -27,10 +27,13 @@ class Language < ApplicationRecord
     end
 
     def for_locale(locale)
-      locale_str = locale.downcase
+      @locale_cache ||= cache_locales
+      @locale_cache[locale.downcase]
+    end
 
-      Rails.cache.fetch("languages/for_locale/#{locale_str}") do
-        Language.where(locale: Locale.find_by_code(locale_str))
+    def cache_locales
+      Rails.cache.fetch("languages/locale_cache") do
+        Language.all.index_by { |l| l.locale&.code&.downcase }
       end
     end
 
