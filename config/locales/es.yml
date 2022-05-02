@@ -18,6 +18,7 @@
 # Author: Jesusmc
 # Author: Joanmp17
 # Author: Johny Weissmuller Jr
+# Author: Josuert
 # Author: Madamebiblio
 # Author: Mnivar
 # Author: Ncr
@@ -1014,9 +1015,9 @@ es:
       republish: volver a publicar
       clean_republish: Republicación limpia
       republish_confirm: Esto eliminará TODO el contenido del recurso (excepto los
-        rasgos, que utilizarán un diff). ¿Estás seguro?
+        rasgos, que utilizarán un diff). ¡¿Estás seguro?!
       clean_republish_confirm: Esto borrará TODO el contenido del recurso y NO utilizará
-        los diffs de rasgos. ¿Estás seguro?
+        los diffs de rasgos. ¡¿Estás SEGURO?!
       reindex: volver a indizar
       fix_no_names: arreglar NO NOMBRES
       index: Volver a todos los recursos
