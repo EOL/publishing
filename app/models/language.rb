@@ -28,7 +28,7 @@ class Language < ApplicationRecord
 
     def for_locale(locale)
       @locale_cache ||= cache_locales
-      @locale_cache[locale.downcase]
+      @locale_cache[locale.to_s.downcase]
     end
 
     def cache_locales
