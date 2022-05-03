@@ -66,7 +66,9 @@ class Resource < ApplicationRecord
     end
 
     def read_last_updated_native_node
-      File.read(Rails.public_path.join('last_updated_native_node.txt')).to_i
+      file = Rails.public_path.join('last_updated_native_node.txt')
+      return 0 unless File.exist?(file)
+      File.read(file).to_i
     end
 
     def record_last_updated_native_node(node_id)
@@ -74,7 +76,9 @@ class Resource < ApplicationRecord
     end
 
     def read_updated_native_node_count
-      File.read(Rails.public_path.join('updated_native_node_count.txt')).to_i
+      file = Rails.public_path.join('updated_native_node_count.txt')
+      return 0 unless File.exist?(file)
+      File.read(file).to_i
     end
 
     def record_updated_native_node_count(count)
