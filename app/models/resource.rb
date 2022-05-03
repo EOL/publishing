@@ -52,7 +52,7 @@ class Resource < ApplicationRecord
       # This may actually be too large? 128 was failing frequently. :|
       batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 64
       Node.joins(:page).
-        where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id AND nodes.id >= ?', resource.id, start_id]).
+        where(['nodes.resource_id = ? AND nodes.id >= ?', resource.id, start_id]).
         select('nodes.id, nodes.page_id').
         find_in_batches(batch_size: 10_000) do |batch|
           record_last_updated_native_node(batch.first.id)
@@ -63,6 +63,7 @@ class Resource < ApplicationRecord
       record_last_updated_native_node(1)
       record_updated_native_node_count(0)
       Searchkick.enable_callbacks
+      Rails.cache.clear # expensive, but necessary.
     end
 
     def read_last_updated_native_node
@@ -91,15 +92,20 @@ class Resource < ApplicationRecord
       batch.each { |node| node_map[node.page_id] = node.id }
       page_group = []
       resource.log("#{batch.size} nodes id > #{batch.first.id}")
-      STDOUT.flush
-      # NOTE: native_node_id is NOT indexed, so this is not speedy:
-      Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
+      Page.where(id: batch.map(&:page_id)).includes(:native_node).
+           select('pages.id, pages.native_node_id, nodes.resource_id').
+           find_each do |page|
+        page_group << page.id
         next if page.native_node&.resource_id == resource.id
         count += 1
-        page_group << page.id
         page.update_attribute :native_node_id, node_map[page.id]
         resource.log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
       end
+      reindex_pages(page_group, batch_size)
+      count
+    end
+
+    def reindex_pages(page_group, batch_size)
       begin
         page_group.in_groups_of(batch_size, false) do |group|
           Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: group)
@@ -109,7 +115,6 @@ class Resource < ApplicationRecord
         raise e if batch_size <= 2
         retry
       end
-      count
     end
 
     # Required to read the IUCN status
