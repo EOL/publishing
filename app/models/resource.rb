@@ -95,7 +95,7 @@ class Resource < ApplicationRecord
       Page.where(id: batch.map(&:page_id)).includes(:native_node).
            select('pages.id, pages.native_node_id, nodes.resource_id').
            find_each do |page|
-        page_group << page.id
+        page_group << page.id # We need to reindex it in case it wasn't in the new DH.
         next if page.native_node&.resource_id == resource.id
         count += 1
         page.update_attribute :native_node_id, node_map[page.id]
