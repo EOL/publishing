@@ -52,7 +52,7 @@ class Resource < ApplicationRecord
       # This may actually be too large? 128 was failing frequently. :|
       batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 64
       Node.joins(:page).
-        where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id AND node.id >= ?', resource.id, start_id]).
+        where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id AND nodes.id >= ?', resource.id, start_id]).
         select('nodes.id, nodes.page_id').
         find_in_batches(batch_size: 10_000) do |batch|
           record_last_updated_native_node(batch.first.id)
