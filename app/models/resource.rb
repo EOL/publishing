@@ -92,7 +92,7 @@ class Resource < ApplicationRecord
       batch.each { |node| node_map[node.page_id] = node.id }
       page_group = []
       resource.log("#{batch.size} nodes id > #{batch.first.id}")
-      Page.where(id: batch.map(&:page_id)).includes(:native_node).
+      Page.where(id: batch.map(&:page_id)).joins(:native_node).
            select('pages.id, pages.native_node_id, nodes.resource_id').
            find_each do |page|
         page_group << page.id # We need to reindex it in case it wasn't in the new DH.
