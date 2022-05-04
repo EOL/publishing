@@ -28,7 +28,7 @@
             %dt.uk-margin-small-top= t("classifications.richness.media_count")
             %dd= @page.media_count
             %dt.uk-margin-small-top= t("classifications.richness.updated_at")
-            %dd= l(@page.updated_at.localtime, format: :short)
+            %dd= l(@page.updated_at.in_time_zone, format: :short)
           %dl.uk-description-list
             %dt.uk-margin-small-top= t("classifications.richness.articles_count")
             %dd= @page.articles_count

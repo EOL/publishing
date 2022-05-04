@@ -24,55 +24,97 @@ class Resource < ApplicationRecord
   end
 
   class << self
-    # NOTE: if you change this, you MUST call .update_dwh_from (see below) once it's in place!
     def native
-      Rails.cache.fetch('resources/dynamic_hierarchy_1_1') do
-        Resource.where(abbr: 'dvdtg').first_or_create do |r|
-          r.name = 'EOL Dynamic Hierarchy 1.1'
-          r.partner = Partner.native
-          r.description = ''
-          r.abbr = 'dvdtg'
-          r.is_browsable = true
-          r.has_duplicate_nodes = false
-          r.nodes_count = 650000
-        end
-      end
+      # Note this CLASS method will return the FIRST resource flagged as native! That's hugely important. As we add new
+      # ones, we'll use the old until the flag is flipped back to false. That's intentional: you'll need to continue to
+      # use the "old" native resource (via Resource.native) for mathing of the new one, and yet you STILL need to know
+      # that the new one WILL be "native" (via resource_instance.native?); both logics are used in names_matcher, for
+      # example.
+      find_by_native(true)
     end
 
-    def update_native_nodes
-      count = 0
-      Searchkick.disable_callbacks
+    # Resource.update_native_nodes(resource: Resource.find(SOME_NEW_RESOURCE_ID)) --> start change before switchover
+    # Resource.update_native_nodes --> Default, does everything from scratch. Slow.
+    # Resource.update_native_nodes(resume: true) --> If the former times out, resume from about the same place.
+    # Resource.update_native_nodes(start_id: 12345) --> If you lost your place, you can specify the node_id to start
+    # with like this.
+    def update_native_nodes(options = {})
+      resource = options.has_key?(:resource) ? options[:resource] : Resource.native
+      start_id = if options[:resume]
+        raise "Cannot resume AND specify a start_id" if options.has_key?(:start_id)
+        read_last_updated_native_node
+      else
+        options.has_key?(:start_id) ? options[:start_id] : 1
+      end
+      count = read_updated_native_node_count
+      Searchkick.disable_callbacks # We will call these manually, in batches. Too slow individually.
       Searchkick.timeout = 500
-      batch_size = 64 # This may actually be too large? 128 was failing frequently. :|
-      Node.joins(:page).where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id', Resource.native.id]).
+      # This may actually be too large? 128 was failing frequently. :|
+      batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 64
+      Node.joins(:page).
+        where(['nodes.resource_id = ? AND nodes.id >= ?', resource.id, start_id]).
         select('nodes.id, nodes.page_id').
         find_in_batches(batch_size: 10_000) do |batch|
-          node_map = {}
-          batch.each { |node| node_map[node.page_id] = node.id }
-          page_group = []
-          log("#{batch.size} nodes id > #{batch.first.id}")
-          STDOUT.flush
-          # NOTE: native_node_id is NOT indexed, so this is not speedy:
-          Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
-            next if page.native_node&.resource_id == Resource.native.id
-            count += 1
-            page_group << page.id
-            page.update_attribute :native_node_id, node_map[page.id]
-            log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
-            STDOUT.flush
-          end
-          begin
-            page_group.in_groups_of(batch_size, false) do |group|
-              Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: group)
-            end
-          rescue Faraday::TimeoutError => e
-            batch_size /= 2
-            raise e if batch_size <= 2
-            retry
-          end
+          record_last_updated_native_node(batch.first.id)
+          batch_count = update_native_node_batch(batch, resource, batch_size)
+          record_updated_native_node_count(count += batch_count)
         end
-      log('#update_native_nodes Done.')
+      resource.log('#update_native_nodes Done.')
+      record_last_updated_native_node(1)
+      record_updated_native_node_count(0)
       Searchkick.enable_callbacks
+      Rails.cache.clear # expensive, but necessary.
+    end
+
+    def read_last_updated_native_node
+      file = Rails.public_path.join('last_updated_native_node.txt')
+      return 0 unless File.exist?(file)
+      File.read(file).to_i
+    end
+
+    def record_last_updated_native_node(node_id)
+      File.open(Rails.public_path.join('last_updated_native_node.txt'), 'w') { |file| file.write(node_id) }
+    end
+
+    def read_updated_native_node_count
+      file = Rails.public_path.join('updated_native_node_count.txt')
+      return 0 unless File.exist?(file)
+      File.read(file).to_i
+    end
+
+    def record_updated_native_node_count(count)
+      File.open(Rails.public_path.join('updated_native_node_count.txt'), 'w') { |file| file.write(count) }
+    end
+
+    def update_native_node_batch(batch, resource, batch_size)
+      count = 0
+      node_map = {}
+      batch.each { |node| node_map[node.page_id] = node.id }
+      page_group = []
+      resource.log("#{batch.size} nodes id > #{batch.first.id}")
+      Page.where(id: batch.map(&:page_id)).joins(:native_node).
+           select('pages.id, pages.native_node_id, nodes.resource_id').
+           find_each do |page|
+        page_group << page.id # We need to reindex it in case it wasn't in the new DH.
+        next if page.native_node&.resource_id == resource.id
+        count += 1
+        page.update_attribute :native_node_id, node_map[page.id]
+        resource.log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
+      end
+      reindex_pages(page_group, batch_size)
+      count
+    end
+
+    def reindex_pages(page_group, batch_size)
+      begin
+        page_group.in_groups_of(batch_size, false) do |group|
+          Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: group)
+        end
+      rescue Faraday::TimeoutError => e
+        batch_size /= 2
+        raise e if batch_size <= 2
+        retry
+      end
     end
 
     # Required to read the IUCN status

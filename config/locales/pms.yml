@@ -990,6 +990,10 @@ pms:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
       clean_republish: dëscancelé l'arpublicassion
+      republish_confirm: Sòn a dëscancelërà TUT ël contnù associà a l'arsorsa (gavà
+        ij trat, ch'a dovrëran na dif). É-lo SIGUR?
+      clean_republish_confirm: Sòn a dëscancelërà TUT ël contnù për l'arsorsa e a
+        dovrërà NEN le dif për ij trat. É-lo SIGUR?
       reindex: riandicisé
       fix_no_names: fiss a NO NAMEs
       index: andré a tute j'arsorse
@@ -2441,17 +2445,40 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: galarìa ëd lava
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: a fà j'euv su
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002141: përcolà
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surfassa ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color ëd feuja
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: complessità ëd la feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: longheur ëd la feuja
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_mass_per_area: massa
+          ëd la feuja për unità 'd surfassa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologìa dla feuja
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Leaf_nitrogen_content_per_leaf_dry_mass: asòt
+          ëd na feuja për quantità ëd massa sëcca
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forma ëd feuja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: smijant a na feuja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005783: seul ëd bòsch ëd fojam
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000544: bialera
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Lectotype: letotipo
+        http://semanticscience(dot)org/resource/SIO_000041: longheur
+        https://eol(dot)org/schema/terms/lens_eyes: euj lenticolar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: leptosseul
+        http://eol(dot)org/schema/terms/lichenicole: licherìcol
+        http://eol(dot)org/schema/terms/lichenous: lìcher
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: abitùdin ëd sicl ëd vita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durà dla vita
+        http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: stadi ëd vita
+        https://eol(dot)org/schema/terms/lift_based_swimming: nov possà da dj'ale
+        http://eol(dot)org/schema/terms/lignotuber: gonfiura radical
+        http://eol(dot)org/schema/terms/lignotuberOrBurl: gonfiura radical o dël tronch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: liman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005766: seul ëd tèra drua
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: calcar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: seuli calcari
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: taja linear
         http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita

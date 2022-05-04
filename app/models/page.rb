@@ -73,7 +73,10 @@ class Page < ApplicationRecord
       } } }])
   end
 
-  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, dh_node: [:scientific_names], native_node: [:scientific_names]) }
+  scope :search_import, -> do
+    includes(:scientific_names, :preferred_scientific_names,
+             vernaculars: [:language], dh_node: [:scientific_names], native_node: [:scientific_names])
+  end
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
@@ -126,7 +129,7 @@ class Page < ApplicationRecord
     end
 
     def log_healing(msg)
-      page_healing_log.info("[#{Time.now.localtime.strftime('%F %T')}] #{msg}")
+      page_healing_log.info("[#{Time.now.in_time_zone.strftime('%F %T')}] #{msg}")
     end
 
     # TODO: abstract this to allow updates of the other count fields.

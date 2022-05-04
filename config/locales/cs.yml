@@ -191,6 +191,8 @@ cs:
   data_missing: '(chybí data, klíče: %{keys})'
   dear_username_with_comma: Vážený %{username},
   delete_account_button: Smazat váš účet
+  errors:
+    not_found: Stránka nenalezena (404)
   filter_by_license: licence
   filter_by_license_any_item: jakákoli licence
   filter_by_medium_subtype: typ
@@ -208,6 +210,7 @@ cs:
       data_services: Datové služby
       donate: Darovat
       education: Vzdělávání
+      food_webs: Potravinové weby
       glossary: Slovník
       help: Nápověda
       language_support: Jazyková podpora
@@ -247,11 +250,14 @@ cs:
   language: Jazyk
   languages:
     ab: Abcházština
+    q27683: Acehnština
+    q27776: Adyghe
     aa: Afar
     af: Afrikánština
     ak: Akan
     alb: Albánština
     sq: Albánština
+    q131339: Alemanština
     am: Amharština
     ar: Arabština
     an: Aragonština
@@ -260,81 +266,130 @@ cs:
     q29507: Asturianština
     q56590: Atikamekwština
     av: Avarština
+    ae: Avestánština
+    ay: Aymarština
     q9292: Ázerbájdžánština
     az: Ázerbájdžánština
     q33070: Balinésština
+    bm: Bambara
+    q33151: Bandžar
+    ba: Baškirština
     eu: Baskičtina
     q29540: Bavorština
     be: Běloruština
+    q8836490: Bende
     bn: Bengálština
     bh: Bihárské jazyky
+    bi: Bislama
     nb: Norština
     bs: Bosenština
+    q33202: Brahui
     q750553: Brazilská portugalština
     br: Bretonština
     bg: Bulharština
     my: Barmština
+    q35037: Businenge Tongo
+    q880301: Cajunská francouzština
+    q2937525: Capiznon
+    q35156: Car
+    q2591230: Kašinahua
     ca: Katalánština
+    q33239: Cebuánština
+    khm: Khmérština
     km: Khmérština
+    ch: Šamorro
+    q33281: Chavacano
     ce: Čečenština
+    q33388: Čerokézština
+    q33265: Cheyenne
     ny: Čičevština
     zh: Čínština
     chi: Čínština
+    q32979: Čokotavština
     cu: Staroslověnština
     cv: Čuvačština
+    q37041: Klasická čínština
+    kw: Cornish
     co: Korsičtina
+    cr: Cree
     q33357: Krymská tatarština
     hr: Chorvatština
+    hrv: Chorvatština
     cs: Čeština
+    q32238: Dagbani
     da: Dánština
+    q3362072: Digo
+    q56466: Dinka
+    dv: Divehi; Dhivehi; maledivština
+    q18415595: Dotyali
+    q33013: Duala
+    dut: Vlámština
     nl: Vlámština
+    dz: dzongkhština
+    dzo: Dzongkha
+    q4126517: Východokanadský inuktitský jazyk
     en: Angličtina
     eo: Esperanto
     et: Estonština
     est: Estonština
     fo: Faroeština
     fi: Finština
+    fin: finština
     fr: Francouzština
     fra: Francouzština
     gd: Skotská galština
     gl: Galícijština
     ka: Gruzínština
     de: Němčina
+    deu: Němčina
     el: Řečtina
     gre: Řečtina
     ht: Haitiština, Haitská kreolština
     he: Hebrejština
+    heb: Hebrejština
     hi: Hindština
     hu: Maďarština
     is: Islandština
+    ice: Islandština
     id: Indonésština
     ia: Interlingua (Mezinárodní asociace pomocných jazyků)
     ga: Irština
     it: Italština
+    ita: Italština
     q35939: Kreolská jamajština
     ja: Japonština
     jp: Japonština
     jv: Javánština
+    q33522: Kabardská čerkesština
     q33634: Kalmyčtina
+    kn: Kannadština
     kk: Kazašština
     rw: Kinyarwanda
     kg: Kongžština
     ko: Korejština
+    kor: Korejština
     ku: Kurdština
     lo: Laoština
     la: Latina
     lv: Lotyšština
+    q36106: Ligurština
     li: Limburština
     lt: Litevština
     lit: Litevština
     lb: Lucemburština
     mk: Makedonština
+    ml: Malajálamština
     mt: Maltézština
+    mlt: Maltézština
     mi: Maorština
     mn: Mongolština
     q56426: Marocká arabština
     nv: Navajština
     ne: Nepálština
+    "no": Norština
+    nno: Norština
+    nob: Norština
+    nor: Norština
     nn: Nynorsk Norština
     os: Ossetijština
     pa: Pandžábština
@@ -347,6 +402,7 @@ cs:
     qu: Kečuánština
     ro: Rumunština; Moldavština; Moldovan
     ru: Ruština
+    rus: Ruština
     sm: Samoaština
     sg: Sango
     sa: Sanskrit
@@ -359,11 +415,13 @@ cs:
     slk: Slovenština
     sl: Slovinština
     so: Somálština
+    som: Somálština
     es: Španělština; Kastilština
     slv: Španělština
     sw: Swahilština
     ss: Swati
     sv: Švédština
+    swe: Švédština
     ty: Tahitština
     ta: Tamilština
     tt: Tatarština
@@ -371,11 +429,15 @@ cs:
     th: Thajština
     bo: Tibetština
     to: Tongština
+    q180937: Tosk Albánština
+    q56240: Tuniská arabština
     tr: Turečtina
+    tur: Turečtina
     q36730: Turečtina, Ottomanština
     tk: Turkmenština
     ug: Ujgurština
     uk: Ukrajinština
+    ukr: Ukrajinština
     none: Neurčeno
     ur: Urdština
     uz: Uzbečtina
@@ -393,6 +455,7 @@ cs:
   literature_and_references_header: Literatura a reference
   maps:
     empty: Pro tuto stránku nejsou k dispozici žádné mapy.
+    other_maps_title: Neinteraktivní mapy
   medium:
     untitled:
       image: Nepojmenovaný obrázek
@@ -426,6 +489,7 @@ cs:
     actions:
       collect: sbírat
     batch_lookup:
+      canonical_name: kanonický název
       download_tsv: Stáhnout TSV
       new_search: Nové hledání
       page_id: ID stránky
@@ -452,6 +516,8 @@ cs:
         r_kingdom: Království
         r_subkingdom: Podkrálovství
         r_infrakingdom: Infrakrálovství
+        r_superphylum: Nadčeleď
+        r_phylum: Čeleď
         r_class: Třída
         r_subclass: Podtřída
         r_order: Pořadí
@@ -495,8 +561,24 @@ cs:
       data: '%{page_name} data'
       media: media %{page_name}
       articles: '%{page_name} články'
+  rank:
+    name:
+      r_domain: doména
+      r_subdomain: poddoména
+      r_infradomain: infradoména
+      r_class: třída
+      r_subclass: podtřída
   recaptcha: Recaptcha
   recaptcha_error: Prosím potvrďte, že nejste robot.
+  reconciliation:
+    id_space:
+      type_names:
+        taxon: Taxon
+    schema_space:
+      headers:
+        id: ID
+        name: Název
+        description: Popis
   register_new_account: Registrovat nový účet
   resources:
     actions:
@@ -551,6 +633,7 @@ cs:
     reproduction: Rozmnožování
     risks: Rizika
     size: Velikost
+    taxonomy: Taxonomie
     threats: Nebezpečí
     trends: Trendy
     wikipedia: Wikipedie
@@ -595,6 +678,7 @@ cs:
     scientific_name: vědecký název
     show_all_records: Zobrazit všechny záznamy
     source: zdroj
+    uri_field_html: <strong>URI:</strong> %{uri}
   traits:
     data_viz:
       about_this_chart: o této tabulce
@@ -602,12 +686,15 @@ cs:
       other: ostatní
     properties:
       scientific_name: Vědecký název
+      source: Zdroj
     search_results:
       filter_display:
         sex: 'pohlaví: %{value}'
       new_search: nové hledání
     search_form:
+      resource: zdroj
       sex: pohlaví
+      value: hodnota
   trophic_web:
     group_descriptions:
       predator: živí se na %{source_name}
@@ -665,6 +752,7 @@ cs:
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/měsíc'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: kyselá půda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: přilnavý
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: dospělý
@@ -749,6 +837,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: křídová půda
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: černozem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: šot
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: město
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: jíl
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: jílová usazenina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: jílová půda
