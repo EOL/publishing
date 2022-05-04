@@ -202,7 +202,7 @@ module PagesHelper
 
   def sorted_grouped_vernaculars(page)
     grouped_vernaculars = page.vernaculars.includes(language: :locale).group_by do |n|
-      n.language.locale&.code 
+      n.language.locale&.code
     end
 
     cur_locale = Locale.current.code
@@ -218,7 +218,7 @@ module PagesHelper
 
         # sort unmapped languages to the end
         if a_exists && !b_exists
-          -1 
+          -1
         elsif !a_exists && b_exists
           1
         else
@@ -265,10 +265,7 @@ private
                     if node.node_ancestors.loaded?
                       node.node_ancestors.collect(&:ancestor).compact
                     else
-                      Rails.logger.warn('INEFFICIENT LOAD OF PAGE ANCESTORS FOR #hierarchy_helper')
-                      node.node_ancestors.
-                        includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
-                        collect(&:ancestor).compact
+                      node.ancestors_for_landmarks
                     end
                   else
                     []
@@ -351,9 +348,9 @@ private
   end
 
   def gbif_species_page_url(page)
-    page.gbif_node ? 
+    page.gbif_node ?
       "https://gbif.org/species/#{page.gbif_node.resource_pk}" :
-      nil 
+      nil
   end
 
   def occurrence_map_caption(page)
