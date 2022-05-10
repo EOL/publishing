@@ -310,6 +310,9 @@ pl:
       show_all: pokaż wszystko
     resource_names:
       rank:
+        r_domain: |2-
+
+          Domena
         r_kingdom: Królestwo
         r_class: Klasa
         r_family: Rodzina
@@ -333,6 +336,7 @@ pl:
     iucn_status:
       ex: wymarły (WY)
       unknown: nieznany (brak informacji)
+    unresolved_name: Nierozpoznana nazwa
     unresolved_name_prefix: 'Nierozpoznana nazwa:'
   page_titles:
     pages:
@@ -352,6 +356,9 @@ pl:
   recaptcha: Recaptcha
   recaptcha_error: Proszę powiedzieć nam że nie jesteś robotem.
   reconciliation:
+    id_space:
+      headers:
+        type_name: Wpisz imię
     property:
       name:
         ancestor: Przodek
@@ -371,6 +378,7 @@ pl:
     headers:
       index: Zasoby
     no_events: Żadne!
+  resource_missing: nie znaleziono zasobów
   scientific_name:
     status_title:
       accepted: Zaakceptowane Nazwy
@@ -378,10 +386,18 @@ pl:
       preferred: Preferowane nazwy
       unusable: Nieużyteczne nazwy
       synonym: Snonimy
+  scientific_names_header: nazwy naukowe
   search:
     matched_text: |2-
 
       Dopasowane%{text}
+    flash:
+      cannot_combine_paths: Nie można połączyć wyników z %{path}
+      more_than_one_species: Nie można połączyć wyników z %{species}
+      more_than_two_terms: 'Nie można połączyć wyników dla więcej niż dwóch terminów:
+        %{terms}'
+    n_articles:
+      other: jeden=%{count} artykuł
   search_results:
     medium_article: Artykuł
     medium_image: obraz
@@ -452,6 +468,7 @@ pl:
   term_query_filter:
     validations:
       invalid_uri: Nieprawidłowy URI
+      range_invalid_error: musi być> = do pierwszej wartości
   terms:
     scientific_name: nazwa naukowe
     source: źródło
@@ -536,12 +553,16 @@ pl:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: jest zjadany przez
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: gospodarzem
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: jest zabity przez
         http://purl(dot)obolibrary(dot)org/obo/RO_0008507: ma jaja złożone przez
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: pasożytowane przez
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: żerowany przez
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: odwiedzony przez
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: kwiaty odwiedzone przez
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/miesiąc'
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: obfitość
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: spoiwo
@@ -589,6 +610,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: niebieski
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: płyn ustrojowy
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: jama ciała
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: ciała długość
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: |2-
 
           masa ciała
@@ -726,6 +748,7 @@ pl:
 
           średnica jajka
         http://eol(dot)org/schema/terms/EggMass: masa jajek
+        http://eol(dot)org/schema/terms/eggStage: etap jajka
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: jajka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: podniesiony
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: podniesienie
@@ -804,6 +827,7 @@ pl:
         http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m^2
         http://eol(dot)org/schema/terms/gramsPerMonth: g/miesiąc
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: gleby ogrodowe
+        http://eol(dot)org/schema/terms/GenerationTime: Czas tworzenia
         http://eol(dot)org/schema/terms/geothermal: geotermalna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: jezioro polodowcowe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: lodowiec
@@ -847,6 +871,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: |2-
 
           pasmo wzgórz
+        http://eol(dot)org/schema/terms/HomeRange: zakres domowy
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: miód
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: horyzontalny
         https://eol(dot)org/schema/terms/horseshoe_crab_feeder: |2-
@@ -880,6 +905,7 @@ pl:
         http://eol(dot)org/schema/terms/InvasiveRange: inwazyjne w
         https://eol(dot)org/schema/terms/inverse: odwrotność
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: odwrotny
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: tama nawadniająca
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: |2-
 
           jest zjadany przez
@@ -1012,6 +1038,7 @@ pl:
         http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7miesiąc
         http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8miesiąc
         http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/dzień
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sek
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/rok
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
@@ -1204,6 +1231,7 @@ pl:
         http://eol(dot)org/schema/terms/SkeletalDensity: gęstość szkieletu
         http://eol(dot)org/schema/terms/SkeletalReinforcement: wzmocnienie szkieletowe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: szkielet
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: szkielet ma
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: struktura szkieletu
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: skóra
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: powolny
@@ -1222,6 +1250,7 @@ pl:
 
           rafa gąbczasta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: woda źródlana
+        http://eol(dot)org/schema/terms/StandardLength: długość standardowa
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: skrobia
         http://purl(dot)obolibrary(dot)org/obo/PO_0009047: trzon
         http://eol(dot)org/schema/terms/stomachCramps: skurcze żołądka
