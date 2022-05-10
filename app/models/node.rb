@@ -36,6 +36,7 @@ class Node < ApplicationRecord
     @comparison_scientific_name ||= ActionView::Base.full_sanitizer.sanitize(scientific_name).downcase
   end
 
+  # Checks whether this node has a landmark that shows up in a "minimal" view.
   def use_breadcrumb?
     has_breadcrumb? && (minimal? || abbreviated?)
   end
@@ -49,6 +50,14 @@ class Node < ApplicationRecord
   # ordering.
   def ancestors
     node_ancestors.map(&:ancestor)
+  end
+
+  # Really, you should have loaded your page (or node) with these includes BEFORE calling this:
+  def ancestors_for_landmarks
+    Rails.logger.warn('INEFFICIENT call of #ancestors_for_landmarks')
+    node_ancestors.
+      includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
+      collect(&:ancestor).compact
   end
 
   def preferred_scientific_name

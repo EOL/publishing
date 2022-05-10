@@ -192,6 +192,7 @@ cs:
   dear_username_with_comma: Vážený %{username},
   delete_account_button: Smazat váš účet
   errors:
+    internal_server: Chyba interního serveru (500)
     not_found: Stránka nenalezena (404)
   filter_by_license: licence
   filter_by_license_any_item: jakákoli licence
@@ -282,12 +283,14 @@ cs:
     bh: Bihárské jazyky
     bi: Bislama
     nb: Norština
+    q4941378: Bondei
     bs: Bosenština
     q33202: Brahui
     q750553: Brazilská portugalština
     br: Bretonština
     bg: Bulharština
     my: Barmština
+    q33120: Buryat
     q35037: Businenge Tongo
     q880301: Cajunská francouzština
     q2937525: Capiznon
@@ -329,30 +332,56 @@ cs:
     dzo: Dzongkha
     q4126517: Východokanadský inuktitský jazyk
     en: Angličtina
+    q29952: Erzya
     eo: Esperanto
     et: Estonština
     est: Estonština
+    ee: Ewe
     fo: Faroeština
+    fj: Fidžijština
     fi: Finština
     fin: finština
+    q667747: Fipa
     fr: Francouzština
     fra: Francouzština
+    ff: Fulah
     gd: Skotská galština
     gl: Galícijština
+    q33475: Gan Čínština
+    lg: Ganda
     ka: Gruzínština
     de: Němčina
     deu: Němčina
+    q5575236: Goan Konkani
+    q3272630: Gogo
+    q2501174: Gorontalo
     el: Řečtina
     gre: Řečtina
+    gn: Guarani
+    gu: Gujarati
+    q33303: Haida
     ht: Haitiština, Haitská kreolština
+    ha: Hausa
+    q35756: Haya
     he: Hebrejština
     heb: Hebrejština
+    q3129390: Hehe
+    hz: Herero
+    q35978: Hiligaynon
     hi: Hindština
+    ho: Hiri Motu
     hu: Maďarština
     is: Islandština
     ice: Islandština
+    io: Ido
+    ig: Igbo
+    q35936: Ilocano
     id: Indonésština
+    q33509: Ingush
     ia: Interlingua (Mezinárodní asociace pomocných jazyků)
+    iu: Inuktitut
+    ik: Inupiaq
+    q33595: Iraqw
     ga: Irština
     it: Italština
     ita: Italština
@@ -361,8 +390,13 @@ cs:
     jp: Japonština
     jv: Javánština
     q33522: Kabardská čerkesština
+    q35475: Kabiyè
+    q35853: Kabyle
     q33634: Kalmyčtina
     kn: Kannadština
+    kr: Kanuri
+    q36121: Kapampangan
+    q33541: Kara-Kalpak
     kk: Kazašština
     rw: Kinyarwanda
     kg: Kongžština
@@ -370,6 +404,7 @@ cs:
     kor: Korejština
     ku: Kurdština
     lo: Laoština
+    lao: Laoština
     la: Latina
     lv: Lotyšština
     q36106: Ligurština
@@ -378,12 +413,14 @@ cs:
     lit: Litevština
     lb: Lucemburština
     mk: Makedonština
+    ms: Malajština
     ml: Malajálamština
     mt: Maltézština
     mlt: Maltézština
     mi: Maorština
     mn: Mongolština
     q56426: Marocká arabština
+    q3508074: Nai
     nv: Navajština
     ne: Nepálština
     "no": Norština
@@ -391,6 +428,7 @@ cs:
     nob: Norština
     nor: Norština
     nn: Nynorsk Norština
+    oj: Ojibwa
     os: Ossetijština
     pa: Pandžábština
     fa: Perština
@@ -404,6 +442,7 @@ cs:
     ru: Ruština
     rus: Ruština
     sm: Samoaština
+    q34016: Sandawe
     sg: Sango
     sa: Sanskrit
     sc: Sardinijština
@@ -422,33 +461,53 @@ cs:
     ss: Swati
     sv: Švédština
     swe: Švédština
+    tl: Tagalog
     ty: Tahitština
+    q34318: Talysh
     ta: Tamilština
     tt: Tatarština
     te: Teluguština
     th: Thajština
+    tha: Thajština
     bo: Tibetština
     to: Tongština
     q180937: Tosk Albánština
+    ts: Tsonga
+    tn: Tswana
+    q34251: Tulu
+    q34138: Tumbuka
     q56240: Tuniská arabština
     tr: Turečtina
     tur: Turečtina
     q36730: Turečtina, Ottomanština
     tk: Turkmenština
+    tw: Twi
+    q13238: Udmurt
     ug: Ujgurština
     uk: Ukrajinština
     ukr: Ukrajinština
     none: Neurčeno
     ur: Urdština
     uz: Uzbečtina
+    ve: Venda
+    q32747: Vepsian
     vi: Vietnamština
+    vo: Volapük
+    q32858: Votic
     wa: Waloonština
+    q34279: Waray
     cy: Welšština
+    wel: Welšština
     fy: Západní frísština
+    wo: Wolof
+    q34290: Wu
+    xh: Xhosa
     yi: Jiddiš
     yo: Yorubština
+    q10199: Zazaki
     za: Čínština
     zu: Zulujština
+    Q33219: Banyumasan
   layout_sign_in: Přihlásit se
   layout_sign_up: Zaregistrovat se
   layout_sign_out: Odhlásit se
@@ -614,10 +673,14 @@ cs:
       description: shoduje se s popisem
       resource_pk: 'shoduje se vnějším ID:'
   sections:
+    associations: Asociace
     behavior: Chování
     brief_summary: Rychlé shrnutí
+    conservation: Ochrana
     conservation_status: Stav ochrany
+    diseases_and_parasites: Nemoci a parazité
     ecology: Ekoloogie
+    evolution_and_systematics: Vývoj a systematika
     general_ecology: Obecná ekologie
     genetics: Genetika
     growth: Růst
@@ -692,7 +755,9 @@ cs:
         sex: 'pohlaví: %{value}'
       new_search: nové hledání
     search_form:
+      attribute: atribut
       resource: zdroj
+      search: Hledat
       sex: pohlaví
       value: hodnota
   trophic_web:
@@ -740,6 +805,7 @@ cs:
       comment: 'komentář:'
       sections: sekce
     pagination:
+      next: další stránka
       previous: Předchozí stránka
     inverse_name:
       by_uri:
