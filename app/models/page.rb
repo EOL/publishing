@@ -276,9 +276,9 @@ class Page < ApplicationRecord
 
   def preferred_vernacular_strings
     if vernaculars.loaded?
-      vernaculars.select { |v| v.is_preferred? }.map { |v| v.string }
+      vernaculars.select { |v| v.is_preferred? }.map { |v| v.safe_string }
     else
-      vernaculars.preferred.map { |v| v.string }
+      vernaculars.preferred.map { |v| v.safe_string }
     end
   end
 
@@ -302,9 +302,9 @@ class Page < ApplicationRecord
 
   def vernacular_strings
     if vernaculars.loaded?
-      vernaculars.select { |v| !v.is_preferred? }.map { |v| v.string }
+      vernaculars.select { |v| !v.is_preferred? }.map { |v| v.safe_string }
     else
-      vernaculars.nonpreferred.map { |v| v.string }
+      vernaculars.nonpreferred.map { |v| v.safe_string }
     end
   end
 

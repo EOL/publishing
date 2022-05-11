@@ -229,4 +229,8 @@ class Vernacular < ApplicationRecord
     page.vernaculars.where(language_id: language_id).where(['vernaculars.id != ?', id]).update_all(is_preferred: false)
     update_attribute(:is_preferred, true)
   end
+
+  def safe_string
+    string.gsub(/[\u0001-\u001F]/ , "\u25A1")
+  end
 end
