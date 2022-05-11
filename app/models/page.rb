@@ -267,7 +267,7 @@ class Page < ApplicationRecord
       vernaculars.preferred_by_resource.where(language: Language.for_locale(locale))
     end
 
-    result.map { |v| v.string }
+    result.map { |v| v.safe_string }
   end
 
   def scientific_name_string
@@ -293,7 +293,7 @@ class Page < ApplicationRecord
       vernaculars.preferred.where(language: langs)
     end
 
-    result.collect { |v| v.string }
+    result.collect { |v| v.safe_string }
   end
 
   def preferred_scientific_strings
@@ -468,15 +468,15 @@ class Page < ApplicationRecord
   # NAMES METHODS
 
   def name(locale = nil)
-    vernacular(locale: locale)&.string || scientific_name
+    vernacular(locale: locale)&.safe_string || scientific_name
   end
 
   def short_name_notags(locale = nil)
-    vernacular(locale: locale)&.string || canonical_notags
+    vernacular(locale: locale)&.safe_string || canonical_notags
   end
 
   def short_name(locale = nil)
-    vernacular(locale: locale)&.string || canonical
+    vernacular(locale: locale)&.safe_string || canonical
   end
 
   def canonical_notags
@@ -505,7 +505,7 @@ class Page < ApplicationRecord
   end
 
   def vernacular_or_canonical(locale = nil)
-    vernacular(locale: locale)&.string&.titlecase || canonical
+    vernacular(locale: locale)&.safe_string&.titlecase || canonical
   end
 
   # TRAITS METHODS
