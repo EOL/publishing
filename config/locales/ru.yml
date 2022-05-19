@@ -24,6 +24,7 @@
 # Author: Movses
 # Author: MuratTheTurkish
 # Author: MuratTheTurkish
+# Author: NR Deblocked
 # Author: Pacha Tchernof
 # Author: Pacha Tchernof
 # Author: Rivka Silinsky
@@ -595,6 +596,9 @@ ru:
     q13300: Науатль
     q3508074: Биакский язык
     na: Науру
+    nv: Навахо
+    nd: Северный ндебле
+    nr: Ндебле, южный; Южный ндебле
     ng: Ндонга
     q33845: Неаполитанский язык
     ne: Непальский язык
@@ -658,6 +662,7 @@ ru:
     q56482: Шань
     sn: Шона
     q34004: Шона
+    ii: Сычуаньский и; Носу
     q33973: Cицилийский
     sd: Синдхи
     si: Сингальский
@@ -666,6 +671,7 @@ ru:
     sl: Словенский
     so: Cомалийский
     som: Cомалийский
+    st: Сото, южный
     es: Испанский; Кастильский
     slv: Испанский
     q2638144: Сукума
@@ -699,6 +705,7 @@ ru:
     tk: Туркменский
     tw: Тви
     q13238: Удмуртский
+    ug: Уйгурский
     uk: Украинский
     ukr: Украиский язык
     none: Не уточнено
@@ -723,6 +730,7 @@ ru:
     yo: Йоруба
     q10199: Зазаки
     q237409: Зеландский диалект
+    za: Чжуаньский; Чжуанский
     zu: Зулу
     Q33219: Баньюмасанский язык
   layout_sign_in: Войти
@@ -754,6 +762,7 @@ ru:
       sound: звучит
       map_image: карта
       js_map: интерактивная карта
+  medium_collect_button: Коллективное медиа
   medium_description_blank: Описание для данного объекта отсутствует.
   medium_header_title: 'Заголовок:'
   medium_header_description: 'Описание:'
