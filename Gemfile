@@ -9,7 +9,7 @@ gem 'mysql2', '0.5.3'
 # TEMP: Fixes a licensing issue with Rails:
 gem 'mimemagic', '0.4.3'
 # TEMP: Fixes a security patch in nokogiri:
-gem 'nokogiri', '>= 1.13.1'
+gem 'nokogiri', '>= 1.13.5'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
@@ -165,4 +165,3 @@ group :development do
   # For benchmarking queries:
   gem 'meta_request', '~> 0'
 end
-
