@@ -1,3 +1,10 @@
+# The main "god" class for EoL, this is a single "species page" on the site. There's no good name for this thing; it's
+# not a species, it's not a taxon concept, it's not a node. ...it's just ... the thing where we collect all of the data
+# that we assume are talking about the "same thing."
+#
+# If you are looking for the autogen text / page summary / overview, you might peek at PageDecorator to see where it's
+# cached, but the main work is done in BriefSummary::Builder, and most of the page-related methods are in
+# BriefSummary::PageDecorator. 
 class Page < ApplicationRecord
   include Autocomplete
   include HasVernaculars
