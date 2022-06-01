@@ -2,15 +2,13 @@
 # https://opendata.eol.org/dataset/identifier-map (this should actually just be a symlink to...)
 # and here:
 # http://eol.org/data/provider_ids.csv.gz
-class BuildIdentifierMapJob < ApplicationJob
+class BuildFullIdentifierMapJob < ApplicationJob
   def perform
     Rails.logger.warn("START BuildIdentifierMapJob")
-    file = Rails.public_path.join('data', 'provider_ids.csv')
+    file = Rails.public_path.join('data', 'full_provider_ids.csv')
     CSV.open(file, 'wb') do |csv|
       csv << %w[node_id resource_pk resource_id page_id preferred_canonical_for_page]
-      browsable_resource_ids = Resource.classification.pluck(:id)
       Node.includes(:identifiers, :scientific_names, page: { native_node: :scientific_names }).
-           where(resource_id: browsable_resource_ids).
            find_each do |node|
              next if node.page.nil? # Shouldn't happen, but let's be safe.
              use_node =  node.page.native_node || node

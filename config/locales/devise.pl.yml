@@ -1,0 +1,66 @@
+# Messages for Polish (polski)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Strebski
+---
+pl:
+  devise:
+    confirmations:
+      confirmed: Twój adres e-mail został pomyślnie potwierdzony.
+      send_instructions: Za kilka minut otrzymasz wiadomość e-mail z instrukcjami,
+        jak potwierdzić swój adres e-mail.
+      send_paranoid_instructions: Jeśli Twój adres e-mail istnieje w naszej bazie
+        danych, w ciągu kilku minut otrzymasz wiadomość e-mail z instrukcjami, jak
+        potwierdzić swój adres e-mail.
+    failure:
+      already_authenticated: Jesteś już zalogowany.
+      inactive: Twoje konto nie zostało jeszcze aktywowane.
+      invalid: Nieprawidłowe %{authentication_keys} lub hasło.
+      locked: Twoje konto jest zablokowane, spróbuj ponownie za godzinę
+      last_attempt: Masz jeszcze jedną próbę, zanim Twoje konto zostanie zablokowane.
+      not_found_in_database: Nieprawidłowe %{authentication_keys} lub hasło.
+      recaptcha_error: Wystąpił błąd w poniższym kodzie recaptcha. Wprowadź kod ponownie
+        i kliknij Prześlij.
+      timeout: Twoja sesja wygasła. Zaloguj się ponownie, aby kontynuować.
+      unauthenticated: Aby kontynuować, musisz się zalogować lub zarejestrować.
+      unconfirmed: Aby kontynuować, musisz potwierdzić swój adres e-mail.
+    mailer:
+      confirmation_instructions:
+        action: Potwierdź moje konto
+        greeting: Witaj %{recipient}!
+        instruction: 'Możesz potwierdzić swój adres e-mail konta, klikając poniższy
+          odnośnik:'
+        subject: Instrukcje potwierdzania
+      reset_password_instructions:
+        action: Zmień moje hasło
+        greeting: 'Witaj #{recipient}!'
+        instruction: Ktoś poprosił o odnośnik do zmiany Twojego hasła, a możesz to
+          uczynić korzystając z poniższego łącza.
+        instruction_2: Jeśli nie Ty o to prosiłeś, zignoruj ​​tę wiadomość e-mail.
+        instruction_3: Twoje hasło nie zmieni się, dopóki nie uzyskasz dostępu do
+          powyższego odnośnika i nie utworzysz nowego.
+        subject: Instrukcje resetowania hasła
+      unlock_instructions:
+        subject: Instrukcje odblokowywania
+      password_change:
+        greeting: 'Witaj #{recipient}!'
+        message: Kontaktujemy się z Tobą, aby powiadomić Cię, że Twoje hasło zostało
+          zmienione.
+        subject: Hasło zostało zmienione
+    passwords:
+      no_token: Nie możesz uzyskać dostępu do tej strony bez otrzymania wiadomości
+        e-mail dotyczącej resetowania hasła.  Jeśli pochodzisz z wiadomości e-mail
+        dotyczącej resetowania hasła, upewnij się, że użyłeś pełnego podanego adresu
+        URL.
+      send_instructions: Za kilka minut otrzymasz e-mail z instrukcjami, jak zresetować
+        hasło.
+      send_paranoid_instructions: Jeśli Twój adres e-mail istnieje w naszej bazie
+        danych, w ciągu kilku minut otrzymasz na swój adres e-mail link do odzyskiwania
+        hasła.
+      updated: Twoje hasło zostało zmienione. Jesteś teraz zalogowany.
+      updated_not_active: Twoje hasło zostało zmienione.
+    registrations:
+      destroyed: Do zobaczenia! Twoje konto zostało pomyślnie zlikwidowane. Mamy nadzieję
+        zobaczyć Cię ponownie wkrótce.
+      signed_up: Witaj! Zarejestrowałeś się pomyślnie.
+...

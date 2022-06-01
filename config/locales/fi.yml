@@ -921,6 +921,9 @@ fi:
         conservation_status: Uhanalaisuusluokitus
         extinction_status: Hävinnyt vai ei hävinnyt
         rank: Sija
+    property_settings:
+      limit:
+        label: Raja
     schema_space:
       headers:
         id: Tunniste
@@ -1639,6 +1642,7 @@ fi:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: holotyyppi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: Homer-vaihe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: hunaja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: sairaala
         http://purl(dot)obolibrary(dot)org/obo/RO_0002453: laji jolle on isäntä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: kuuma lähde
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
@@ -1765,6 +1769,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: mineraalilähde
         https://eol(dot)org/schema/terms/mineralizedSkeletonContains: mineralisoituneessa
           luurangossa
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: mineraalit
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: mioseeni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: Mississippi-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: sekametsä
@@ -1911,6 +1916,7 @@ fi:
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: tieteellinen nimi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: meri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: merenranta
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: turvallisuus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sedimentti
         http://eol(dot)org/schema/terms/SeedBank: siemenpankki
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: Selandia-vaihe
@@ -1990,6 +1996,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000060: maanalainen virta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: maanalainen vesi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000061: maanalainen vesistö
+        http://eol(dot)org/schema/terms/unknown: tuntematon
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperCretaceous: myöhäisliitukausi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperDevonian: myöhäisdevonikausi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperJurassic: myöhäisjurakausi

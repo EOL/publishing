@@ -627,12 +627,19 @@ cs:
       r_infradomain: infradoména
       r_class: třída
       r_subclass: podtřída
+      r_species: druhy
   recaptcha: Recaptcha
   recaptcha_error: Prosím potvrďte, že nejste robot.
   reconciliation:
     id_space:
       type_names:
         taxon: Taxon
+    property:
+      name:
+        ancestor: Předchůdce
+        conservation_status: Stav ochrany
+        extinction_status: Stav vyhynutí
+        rank: Pořadí
     schema_space:
       headers:
         id: ID
@@ -748,6 +755,7 @@ cs:
       num_records_label: '# záznamů'
       other: ostatní
     properties:
+      sample_size: Velikost vzorku
       scientific_name: Vědecký název
       source: Zdroj
     search_results:
@@ -756,6 +764,7 @@ cs:
       new_search: nové hledání
     search_form:
       attribute: atribut
+      lifestage: životní fáze
       resource: zdroj
       search: Hledat
       sex: pohlaví

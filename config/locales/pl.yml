@@ -32,6 +32,7 @@ pl:
     name:
       missing: nie zatytułowany
   article_from_partner: dostarczone przez %{partner}
+  article_duplicate: ten artykuł jest również pokazany w "%{section}"
   button_create: stwórz
   button_add: dodaj
   cancel: anuluj
@@ -95,6 +96,9 @@ pl:
     delete_confirm: Spowoduje to usunięcie całej kolekcji i NIE MOŻNA jej cofnąć.
       Jesteś pewny?
     destroyed: '"%{name}" został trwale usunięty.'
+    log:
+      collection:
+        add: '%{user} utworzył kolekcję'
     search:
       placeholder: Szukaj w kolekcji...
       submit: szukaj
@@ -246,6 +250,7 @@ pl:
     sr: Serbski
     sk: Słowacki
     slk: Słowacki
+    sl: Słoweński
     slv: Hiszpański
     sv: Szwedzki
     swe: Szwedzki
