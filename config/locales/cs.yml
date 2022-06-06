@@ -1055,15 +1055,18 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: jezerní usazenina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: plocha jezera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: vnitrozemské moře
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: velký
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: velké jezero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: velká řeka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: velká říční delta
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: larvální způsob vývoje
         http://eol(dot)org/schema/terms/lateSpring: pozdní jaro
         http://eol(dot)org/schema/terms/lateSummer: pozdní léto
         http://eol(dot)org/schema/terms/lateWinter: pozdní zima
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: lávová jeskyně
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: lávové pole
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: lávový tunel
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: klade vejce na
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: plocha listu
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: barva listu
@@ -1075,20 +1078,49 @@ cs:
         http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: stádium života
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: pazourek
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: pazourková cesta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m²
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: samec
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: dospělý
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: louka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: středozemní les
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: střední
+        http://eol(dot)org/schema/terms/mediumCNRatio: střední (23 – 59)
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm²
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm²/den
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
         http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m²
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m²
         http://semanticscience(dot)org/resource/SIO_001113: minimum
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: minerály
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: měsíců
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: bláto
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/hodina
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranžová
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: organický materiál
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: organický odpad
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientace
+        http://eol(dot)org/schema/terms/otherBudSource: ostatní
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: kyslík
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: pastvina
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procento
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantáž
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: populace
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppb
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: růžová
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: červená
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: rýžové pole
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: skála
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: skalnatá poušť
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: kořeny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: kaučuková plantáž
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: usazenina
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: semena
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000047: jednoduché oči
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: velikost
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: kostra
 ...
