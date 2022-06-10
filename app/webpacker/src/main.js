@@ -440,4 +440,6 @@ if (!window.EOL) {
   };
 }
 
+var defaultLocale = 'en';
+
 $(EOL.ready);
