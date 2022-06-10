@@ -8,6 +8,7 @@
 # Author: Destinid10 2
 # Author: DiegoAmbrocio
 # Author: Fitoschido
+# Author: Francodiaz7
 # Author: Gastonsaenz
 # Author: Genesis
 # Author: Geryescalier
@@ -99,8 +100,8 @@ es:
       hábitat de agua dulce</span>.
     marine_html: Se encuentran en <span class='%{class_str}' id='%{id}'>el hábitat
       marino</span>.
-    species: '%{nombre1}es una especie de %{nombre2}.'
-    species_in_family: '%{nombre1} es una especie de %{nombre2} en la familia %{name_family}.'
+    species: '%{name1}es una especie de %{name2}.'
+    species_in_family: '%{name1} es una especie de %{name2} en la familia %{name_family}.'
     taxonomy:
       family_above:
         r_superfamily: '%{name1} es una superfamilia de %{name2}.'
@@ -111,7 +112,7 @@ es:
         r_kingdom: '%{name1} es un reino de %{name2}.'
         r_subkingdom: '%{name1} es un subreino de %{name2}.'
         r_infrakingdom: '%{name1} es un infrareino %{name2}.'
-        r_superphylum: '%{name1} e un superfilo de %{name2}.'
+        r_superphylum: '%{name1} es un superfilo de %{name2}.'
         r_phylum: '%{name1} es un filo de %{name2}.'
         r_subphylum: '%{name1} es un subfilo de %{name2}.'
         r_infraphylum: '%{name1} es un infrafilo de  %{name2}.'
@@ -119,7 +120,7 @@ es:
         r_class: '%{name1} es una clase de %{name2}.'
         r_subclass: '%{name1} es una subclase de %{name2}.'
         r_infraclass: '%{name1} es una infraclase de %{name2}.'
-        r_superorder: '%{name1} es una superorden de %{name2}.'
+        r_superorder: '%{name1} es un superorden de %{name2}.'
         r_order: '%{name1} es una orden de %{name2}.'
         r_suborder: '%{name1} es una suborden de %{name2}.'
         r_infraorder: '%{name1} es una infraorden de %{name2}.'
@@ -205,7 +206,7 @@ es:
     delete_button: eliminar
     edit_button: editar
     delete_confirm: ¿Está seguro?
-    destroyed_flash: '%{name}removido de la colección.'
+    destroyed_flash: '%{name} removido de la colección.'
   collection_association_added_to_collection: Se añadió «%{associated}» a la colección
     <a href='%{link}'>«%{name}»</a>.
   collection_associations_empty: No hay otras colecciones asociadas con esta. Puede
@@ -249,8 +250,8 @@ es:
         add: '%{user} creó la colección'
         change: '%{user} cambio el %{field} de "%{from}" a "%{to}"'
       content:
-        add: '%{user} añadió el medio %{medium} por página %{page}'
-        change: '%{user} cambio el %{field} en medio %{medium} por página %{page}
+        add: '%{user} añadió el medio %{medium} por la página %{page}'
+        change: '%{user} cambió el %{field} en medio %{medium} por página %{page}
           de "%{from}" a "%{to}"'
         remove: '%{user} removió el medio %{medium} por página %{page}'
       page:
@@ -281,7 +282,7 @@ es:
     author: autor/a
     bibliographic_citation: cita bibliográfica
     contributor: colaborador
-    compiler: Compilador
+    compiler: compilador
     creator: creador/a
     editor: editor
     latitude: latitud
@@ -292,7 +293,7 @@ es:
     original_media_file: archivo multimedia original
     owner: derechos de autor
     photographer: fotógrafo
-    publisher: Editorial
+    publisher: editorial
     project: proyecto
     provider: proveedor
     references_header:
@@ -315,7 +316,7 @@ es:
       lifestage_term: Etapa de vida del organismo medido
       statistical_method_term: Método estadístico utilizado para la medición
   data_missing: '(faltan datos; claves: %{keys})'
-  dear_username_with_comma: Estimado %{username}
+  dear_username_with_comma: Estimado %{username},
   delete_account_button: Eliminar tu cuenta
   errors:
     internal_server: Error interno del servidor (500)
@@ -372,8 +373,8 @@ es:
     eol_is_hosted_by: 'EOL está presentado por:'
   forgot_your_password: ¿Has olvidado tu contraseña?
   gbif_download:
-    created: GBIF creó trabajo de descarga. Revisa tu <a href="%{url}">página de perfil
-      de usuario</a>para ver su estado
+    created: GBIF descargar trabajo creado. Revisa tu <a href="%{url}">perfil de usuario</a>
+      para ver su estado
   landing_page:
     header: Acceso global al conocimiento sobre la vida en la Tierra
     stats_cleared: Se recalcularon las estadísticas.
@@ -520,7 +521,7 @@ es:
     jp: Japonés
     jv: Javanés
     q33522: Cabardino circasiano
-    q35475: kabiyé
+    q35475: Kabiyé
     q35853: Cabilio
     kl: Kalaallisut groenlandés
     q33634: Calmuco
@@ -780,7 +781,7 @@ es:
     discuss: Debatir
     education: Educación
     search:
-      no_results_html: <strong>resultados no confirmados</strong><br />presiona enter
+      no_results_html: <strong>Resultados no confirmados</strong><br />Presiona enter
         para ver resultados no organizados
       placeholder: Buscar en EOL…
     trait_bank: TraitBank
@@ -836,9 +837,7 @@ es:
         other: '%{count} registros escondidos — mostrar todos'
       show_all: mostrar todo
     resource_names:
-      name_recognized_by: |2-
-
-        Reconocido por %{by}
+      name_recognized_by: Reconocido por %{by}
       name_recognized_by_w_rank: '%{rank} reconocido por %{by}'
       name_recognized_by_w_status: '%{status} según %{by}'
       rank:
@@ -1756,6 +1755,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PO_0025356: bulbo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: edad
           Burdigaliense
+        http://eol(dot)org/schema/terms/burl: lupia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: suelo quemado
         https://eol(dot)org/schema/terms/burrow_builder: constructor de madrigueras
         https://eol(dot)org/schema/terms/burrowDepth: profundidad de la madriguera
@@ -1848,6 +1848,8 @@ es:
           Chattiense
         http://eol(dot)org/schema/terms/ChelaWidth: ancho de la quela
         http://eol(dot)org/schema/terms/chemosymbiotroph: quimiosimbiotrófico
+        https://eol(dot)org/schema/terms/marineChemosyntheticHabitat: hábitat quimiosintético
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: chernozem
         http://eol(dot)org/schema/terms/ciliary_mucus_feeder: se alimenta de moco
           ciliar
         http://eol(dot)org/schema/terms/CingulumWidth: ancho del cíngulo
@@ -2583,22 +2585,36 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: Población
         http://eol(dot)org/schema/terms/population_trend: Tendencia de la población
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posición
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: Bache
         http://purl(dot)obolibrary(dot)org/obo/UO_0000170: partes por mil millones
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: edad
           Pragiense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: pradera
+        http://eol(dot)org/schema/terms/PrecipitationTolerance: tolerancia a la precipitación
         http://eol(dot)org/schema/terms/predatory_suspension_feeder: se alimenta de
           presas en suspensión
+        http://eol(dot)org/schema/terms/predatorScavenger: depredador-carroñero
+        http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: duración del
+          desarrollo prenatal
         http://rs(dot)tdwg(dot)org/dwc/terms/preparations: Preparaciones
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: presa de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: se alimenta de
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: edad
           Priaboniense
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produce
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: Área protegida
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: proteinas
         http://eol(dot)org/schema/terms/protozoa_feeder: se alimenta de protozoarios
         http://eol(dot)org/schema/terms/practicalSalinityUnits: Unidades prácticas
           de salinidad
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: Morado
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: piramidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: cantera
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Quaternary: Periodo
+          cuaternario
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: Sedimento radioactivo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: Ferrocarril
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000415: playa levantada
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: pastizales
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: rápidos
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: proporción
@@ -2695,6 +2711,21 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: edad
           Sinemuriense
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: tamaño
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: esqueleto
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: el esqueleto contiene
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: estructura de esqueleto
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: piel
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lento
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: pequeño
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: lago pequeño
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: río pequeño
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: campo de nieve
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: social
+        http://eol(dot)org/schema/terms/SocialGroupSize: medida de grupo social
+        http://eol(dot)org/schema/terms/SocialSystem: sistema social
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: tierra
+        http://eol(dot)org/schema/terms/solitary: solitario
+        http://purl(dot)org/dc/terms/source: fuente
         http://eol(dot)org/schema/terms/sponge_feeder: se alimenta de esponjas
         http://eol(dot)org/schema/terms/StandardLength: longitud estándar
         https://eol(dot)org/schema/terms/starfish_feeder: se alimenta de estrellas
@@ -2715,6 +2746,11 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000213: matorral subtropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000222: bosque subtropical
         http://eol(dot)org/schema/terms/suspensionFeeder: se alimenta de suspensiones
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: pantano
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00002300: Endulzante
+        http://purl(dot)obolibrary(dot)org/obo/GO_0036268: natación
+        http://eol(dot)org/schema/terms/symbiontInheritance: herencia simbiótica
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbionte de
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longitud de cola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: plantación de té
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: dientes
@@ -2784,7 +2820,9 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: visita flores de
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: vitaminas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: volcán
+        http://eol(dot)org/schema/terms/vulnerable: vulnerable
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: caminando
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002264: desecho
         http://eol(dot)org/schema/terms/SeawaterTemperature: temperatura del agua
         http://eol(dot)org/schema/terms/WeaningAge: edad de destete
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000140: blanco
@@ -2817,6 +2855,12 @@ es:
         http://eol(dot)org/schema/terms/perPound: /lb
         http://eol(dot)org/schema/terms/pelagic: pelágico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: hielo marino
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tarde
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: fragancia
+        http://eol(dot)org/schema/terms/OptimalGrowthpH: pH optimo para crecimiento
+        http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/cell/dia
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/s
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: léntico
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monógamo
