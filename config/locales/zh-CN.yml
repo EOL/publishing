@@ -932,13 +932,18 @@ zh-CN:
     property:
       description:
         ancestor: 一个分类群是另一个分类群的祖先。
+        conservation_status: 分类单元的保护状况。
+        extinction_status: 分类单元的灭绝状态。可能的值是“绝灭”和“现生”
         rank: 描述分类群等级的字符串，例如“物种”。未识别的等级不计分。
       name:
         ancestor: 祖先
+        conservation_status: 保护状况
+        extinction_status: 灭绝状况
         rank: 等级
     property_settings:
       limit:
         label: 限制
+        help_text: 每行返回值的最大数量（0表示无限）
     schema_space:
       intro: 核对API服务所使用的属性集合描述如下。
       headers:
@@ -990,6 +995,7 @@ zh-CN:
   scientific_names_header: 学名
   send_me_reset_password_instructions: 向我发送重置密码的说明
   search:
+    blank_q_msg: 您可以使用页面顶栏搜索EOL的内容。
     full_name: '%{vernacular} (%{scientific})'
     matched_text: 与%{text}相符
     flash:

@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Brettchenweber
 # Author: Elliot
 # Author: Umlaut
 ---
@@ -9,28 +10,29 @@ de:
     confirmations:
       confirmed: Ihre E-Mail Adresse wurde bestätigt.
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit einer Anleitung,
-        wie Sie ihre E-Mail-Adresse bestätigen können.
-      send_paranoid_instructions: Wenn ihre E-Mail Adresse in unserer Datenbank bereits
+        wie Sie Ihre E-Mail-Adresse bestätigen können.
+      send_paranoid_instructions: Wenn Ihre E-Mail-Adresse in unserer Datenbank bereits
         existiert, erhalten Sie in einigen Minuten eine E-Mail mit Anweisungen, wie
-        Sie ihre E-Mail Adresse bestätigen können.
+        Sie Ihre E-Mail Adresse bestätigen können.
     failure:
       already_authenticated: Sie sind bereits angemeldet.
       inactive: Ihr Konto ist noch nicht aktiviert.
       invalid: Ungültige %{authentication_keys} oder Passwort.
       locked: Ihr Konto ist gesperrt, bitte versuchen Sie es in einer Stunde erneut.
-      last_attempt: Sie haben noch einen Versuch, bevor ihr Konto gesperrt wird.
+      last_attempt: Sie haben noch einen Versuch, bevor Ihr Konto gesperrt wird.
       not_found_in_database: Ungültige %{authentication_keys} oder Passwort.
-      recaptcha_error: Es gab einen Fehler mit dem unteren Recaptcha-Code. Bitte geben
-        sie den Code erneut ein und klicken Sie auf Absenden.
-      timeout: Ihre Sitzung ist abgelaufen. Bitte melden Sie sich an, um fortzufahren.
-      unauthenticated: Sie müssen sich anmelden oder registrieren um fortzufahren.
-      unconfirmed: Sie müssen ihre E-Mail bestätigen um fortzufahren.
+      recaptcha_error: Es gab einen Fehler bei dem unteren Recaptcha-Code. Bitte geben
+        Sie den Code erneut ein und klicken Sie auf Absenden.
+      timeout: Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an, um fortzufahren.
+      unauthenticated: Sie müssen sich anmelden oder registrieren, um fortzufahren.
+      unconfirmed: Sie müssen Ihre E-Mail-Adresse bestätigen, um fortzufahren.
     mailer:
       confirmation_instructions:
         action: Mein Konto bestätigen
         greeting: Willkommen %{recipient}!
-        instruction: 'Sie können die E-Mail ihres Kontos durch den unteren Link bestätigen:'
-        subject: Anweisungen zur Bestätigung
+        instruction: 'Sie können die E-Mail-Adresse Ihres Kontos durch den unteren
+          Link bestätigen:'
+        subject: Anleitung für die Bestätigung
       reset_password_instructions:
         action: Passwort ändern
         greeting: 'Hallo #{recipient}!'
@@ -38,7 +40,7 @@ de:
           Sie können dies durch den folgenden Link bestätigen.
         instruction_2: Wenn diese Anfrage nicht von Ihnen stammt, ignorieren Sie bitte
           diese E-Mail.
-        instruction_3: Ihr Passwort ändert sich solange nicht, bis Sie mit dem oberen
+        instruction_3: Ihr Passwort ändert sich solange nicht, bis Sie unter dem oberen
           Link ein neues angeben.
         subject: Passwort zurücksetzen
       unlock_instructions:
@@ -53,7 +55,7 @@ de:
         E-Mail zum Zurücksetzen des Passworts kommen, stellen Sie bitte sicher, dass
         Sie die vollständige URL verwendet haben.
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit einer Anleitung,
-        wie Sie ihre E-Mail Adresse bestätigen können.
+        wie Sie Ihr Passwort zurücksetzen können.
       send_paranoid_instructions: Wenn Ihre E-Mail-Adresse in unserer Datenbank vorhanden
         ist, erhalten Sie in wenigen Minuten einen Link zur Wiederherstellung des
         Passworts an Ihre E-Mail-Adresse.
@@ -76,12 +78,12 @@ de:
       signed_in: Sie sind angemeldet.
       signed_out: Sie sind abgemeldet.
       already_signed_out: Sie sind abgemeldet.
-      recaptcha: Recaptcha Überprüfungsfehler
+      recaptcha: Recaptcha-Überprüfungsfehler
       sign_in_remember_me_disabled_for_admins: Aus Sicherheitsgründen dürfen Administratoren
         die Funktion "An mich erinnern" nicht verwenden.
     unlocks:
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit einer Anleitung,
-        wie Sie ihre Konto freischalten können.
+        wie Sie Ihr Konto freischalten können.
       send_paranoid_instructions: Wenn Ihr Konto existiert, erhalten Sie in wenigen
         Minuten eine E-Mail mit Anweisungen, wie Sie dieses freischalten können.
       unlocked: Ihr Konto wurde freigeschaltet. Bitte melden Sie sich an, um fortzufahren.

@@ -2044,8 +2044,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: fleuve à sec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: lac de montagne asséché
         http://eol(dot)org/schema/terms/dryMass: poids sec
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: fleuve ou rivière à
-          sec
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: cours d’eau à sec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: vallée fluviale sèche
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: sol sec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: ruisseau à sec
@@ -2460,7 +2459,7 @@ fr:
           langhien
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grand
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: grand lac
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: rivière large
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: cours d’eau large
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: large delta fluvial
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: mode de développement
           larvaire
@@ -3074,12 +3073,12 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000496: rigole
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: bras mort
         http://eol(dot)org/schema/terms/riparianWetland: zone humide riparienne
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rivière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: cours d’eau
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: lit fluvial
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: lit de rivière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: lit de cours d’eau
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: île fluviale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: embouchure
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: vallée de rivière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: vallée fluviale
         http://eol(dot)org/schema/terms/RNAtoDNAratio: rapport ARN/ADN
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: âge roadien
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: rocher
