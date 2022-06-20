@@ -1081,6 +1081,9 @@ ru:
     pagination:
       next: следующая страница
       previous: предыдущая страница
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: съел_а
     name:
       by_uri:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: ааленский
