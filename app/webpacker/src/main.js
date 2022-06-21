@@ -320,9 +320,7 @@ if (!window.EOL) {
       remote: {
         url: '/' +
           (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
-          'autocomplete?' + new URLSearchParams({
-          query: 'QUERY'
-        }).toString(),
+          'autocomplete/QUERY').toString(),
         wildcard: 'QUERY'
       }
     });
