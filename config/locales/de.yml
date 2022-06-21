@@ -4,6 +4,7 @@
 # Author: Ajeje Brazorf
 # Author: Anna7321
 # Author: Bergrübe
+# Author: Brettchenweber
 # Author: DraconicDark
 # Author: Elliot
 # Author: FF-11
@@ -70,7 +71,7 @@ de:
       canonical: Wissenschaftliche Bezeichnungen werden ab jetzt in digitalen Seiten-Brotkrumen
         angezeigt
       vernacular: Volkstümliche Namen werden ab jetzt als digitale Seiten-Brotkrumen
-        angezeigt wo immer sie zur Verfügung stehen
+        angezeigt, wo immer sie zur Verfügung stehen
     setting_header: Namen in Brotkrumen
     types:
       scientific: wissenschaftlich
