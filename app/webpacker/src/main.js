@@ -243,7 +243,7 @@ if (!window.EOL) {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
         url: '/' +
-          (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'pages/autocomplete?' + new URLSearchParams({
           query: 'QUERY',
           no_multiple_text: true
@@ -261,7 +261,7 @@ if (!window.EOL) {
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
         url: '/' +
-          (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'users/autocomplete?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
@@ -276,7 +276,7 @@ if (!window.EOL) {
       queryTokenizer: Bloodhound.tokenizers.nonword,
       remote: {
         url: '/' +
-          (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'terms/predicate_glossary.js?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
@@ -291,7 +291,7 @@ if (!window.EOL) {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
         url: '/' +
-          (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'terms/object_term_glossary.js?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
@@ -305,7 +305,7 @@ if (!window.EOL) {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
         url: '/' +
-          (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'resources/autocomplete?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
@@ -319,7 +319,7 @@ if (!window.EOL) {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
         url: '/' +
-          (document.documentElement.lang === defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'autocomplete/QUERY',
         wildcard: 'QUERY'
       }
@@ -428,7 +428,6 @@ if (!window.EOL) {
         $(this).closest('form').submit();
       }
     });
-
 
     EOL.enableDropdowns();
 
