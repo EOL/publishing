@@ -277,7 +277,7 @@ if (!window.EOL) {
       remote: {
         url: '/' +
           (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
-          'terms/predicate_glossary.js?' + new URLSearchParams({
+          'terms/predicate_glossary.json?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
         wildcard: 'QUERY'
@@ -292,7 +292,7 @@ if (!window.EOL) {
       remote: {
         url: '/' +
           (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
-          'terms/object_term_glossary.js?' + new URLSearchParams({
+          'terms/object_term_glossary.json?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
         wildcard: 'QUERY'
