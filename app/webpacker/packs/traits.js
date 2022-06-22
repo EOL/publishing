@@ -111,7 +111,7 @@ import '../src/traits/data_viz'
             // }),
             url: '/' +
               (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
-              '/terms/meta_object_terms.js?' + new URLSearchParams({
+              '/terms/meta_object_terms.json?' + new URLSearchParams({
               query: 'QUERY', meta_predicate: $(this).data('metaPredicate')
             }).toString(),
             wildcard: 'QUERY'
@@ -150,7 +150,7 @@ import '../src/traits/data_viz'
         // }),
         url: '/' +
           (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
-          'terms/trait_search_predicates.js?' + new URLSearchParams({
+          'terms/trait_search_predicates.json?' + new URLSearchParams({
           query: 'QUERY'
         }).toString(),
         wildcard: 'QUERY'
@@ -176,7 +176,7 @@ import '../src/traits/data_viz'
           // }),
           url: '/' +
             (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
-            'terms/object_terms_for_predicate.js?' + new URLSearchParams({
+            'terms/object_terms_for_predicate.json?' + new URLSearchParams({
             query: 'QUERY',
             predicate_id: $(this).data('predicateId')
           }).toString(),
