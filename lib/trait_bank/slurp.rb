@@ -357,12 +357,9 @@ class TraitBank::Slurp
     (1..chunks).each do |chunk|
       if chunk > 1
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
-        if chunk > 8 # If there are THIS many traits, we really have to go VERY slowly.
-          wait_time = chunk * 300
-        else # 4 minutes for chunk 2, 6 for chunk 3, 8 for chunk 4, etc.
-          wait_time = chunk * 150
-        end
-        @logger.info("Waiting #{wait_time} seconds for the last 'chunk' to be added to neo4j...")
+        wait_time = chunk * 2.minutes
+        wait_time = 30.minutes if wait_time > 30.minutes
+        @logger.info("Waiting #{wait_time / 60} minutes for the last 'chunk' to be added to neo4j...")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
