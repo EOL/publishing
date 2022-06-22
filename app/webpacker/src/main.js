@@ -243,7 +243,7 @@ if (!window.EOL) {
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
         url: '/' +
-          (document.documentElement.lang === I18n.I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'pages/autocomplete?' + new URLSearchParams({
           query: 'QUERY',
           no_multiple_text: true
