@@ -23,7 +23,7 @@ import '../src/traits/data_viz'
     $.ajax({
       method: 'POST',
       data: $.param(data),
-      url: 'terms/search_form',
+      url: 'search_form',
       success: function(res) {
         $('#term_form_container').html(res)
         setupForm();
