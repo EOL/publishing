@@ -1815,6 +1815,7 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: edad
           Carniense
         http://eol(dot)org/schema/terms/carnivorous_scavenger: carroñero carnívoro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000235: carr
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: cartílago
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catádromo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: cueva
@@ -1831,6 +1832,7 @@ es:
           célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volumen de célula
         http://eol(dot)org/schema/terms/CellWidth: Ancho de célula
+        https://eol(dot)org/schema/terms/cell_sucker: Célula-ventosa
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: cemento
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: edad
           Cenomaniense
@@ -1850,9 +1852,13 @@ es:
         http://eol(dot)org/schema/terms/chemosymbiotroph: quimiosimbiotrófico
         https://eol(dot)org/schema/terms/marineChemosyntheticHabitat: hábitat quimiosintético
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: chernozem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: chott
+        http://eol(dot)org/schema/terms/ciliary_gliding: deslizamiento ciliar
         http://eol(dot)org/schema/terms/ciliary_mucus_feeder: se alimenta de moco
           ciliar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: cono de escoria
         http://eol(dot)org/schema/terms/CingulumWidth: ancho del cíngulo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: cirque
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: época
           Cisuraliense
         http://purl(dot)org/dc/terms/bibliographicCitation: citación
@@ -1903,6 +1909,9 @@ es:
           Coniaciense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: bosque de conífera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: bosque de coníferas
+        http://eol(dot)org/schema/terms/conservationDependent: La conservación dependiente
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: Proceso de administración
+          de la conservación
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: estado
           de conservación
         http://eol(dot)org/schema/terms/contaminatedHabitat: Hábitat contaminado
@@ -1910,6 +1919,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: suelo contaminado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: isla continental
         http://eol(dot)org/schema/terms/copepodid3: copépodo etapa 3
+        http://eol(dot)org/schema/terms/copepodid4: copepodid etapa 4
         http://eol(dot)org/schema/terms/copepodid5: copépodo etapa 5
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Arrecife de coral
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: fondo arrecifal
@@ -1936,6 +1946,8 @@ es:
           cretáceo
         https://eol(dot)org/schema/terms/crinoid_feeder: se alimenta de crinoideos
         http://eol(dot)org/schema/terms/criticallyEndangered: en peligro crítico
+        http://eol(dot)org/schema/terms/cruising: Navegando alimentador
+        https://eol(dot)org/schema/terms/crustacean_feeder: Alimentador de crustáceo
         http://eol(dot)org/schema/terms/crustose: costroso
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: período
           Criogénico
@@ -1943,6 +1955,7 @@ es:
         http://eol(dot)org/schema/terms/cuneiform: cuneiforme
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: Cilindro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: pantano de cipreses
+        http://eol(dot)org/schema/terms/dahllite: dahllite
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: lácteo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003862: lácteos (hábitat microbiano)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: dambo
@@ -1963,6 +1976,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: Sedimento marino profundo
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: Grados
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: grados Celsius
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000439: hondonada
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: Delta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: Bioma de poblamiento
           denso
@@ -1983,6 +1997,7 @@ es:
         http://eol(dot)org/schema/terms/diandry: diándrico
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapausa
         https://eol(dot)org/schema/terms/diatom_feeder: se alimenta de diatomeas
+        http://eol(dot)org/schema/terms/dielVerticalMigration: diel migración vertical
         http://eol(dot)org/schema/terms/DietBreadth: amplitud de la dieta
         http://eol(dot)org/schema/terms/Diet: la dieta incluye
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: Sistema digestivo
@@ -1995,12 +2010,18 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: acequia
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: ácido docosanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: ácido dodecanoico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: Dolina
         https://eol(dot)org/schema/terms/domesticated_in: domesticado en
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: dorsal
         https://eol(dot)org/schema/terms/dorsal_fin: natación de aleta dorsal
         https://eol(dot)org/schema/terms/dorsoventral_undulatory: natación ondulatoria
           dorso-ventral
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: dorsoventral
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: Transportador descendente
+        https://eol(dot)org/schema/terms/dracaenoid: dracaenoid
+        http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: animal del bosquejo
+        https://eol(dot)org/schema/terms/drag_based_swimming: natacion impulsada por
+          arrastre
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: canal de drenaje
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000140: Cuneta de drenaje
         http://eol(dot)org/schema/terms/droughtSemiDeciduous: sequía semidecidua
@@ -2019,10 +2040,14 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: corriente seca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: valle seco
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: Duna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000308: holgura dunar
+        https://eol(dot)org/schema/terms/duodichogamous: duodichogamoso
         http://eol(dot)org/schema/terms/DurationOfIllness: Duración de la enfermedad
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: Polvo
         http://eol(dot)org/schema/terms/dwarfMales: machos enanos
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: Tinte
+        http://eol(dot)org/schema/terms/dystrophicMontaneFreshwaterLake: Distrófico
+          montane lago de agua dulce
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: Temprano
         http://eol(dot)org/schema/terms/earlySpring: inicio de la primavera
         http://eol(dot)org/schema/terms/earlySummer: comienzo del verano

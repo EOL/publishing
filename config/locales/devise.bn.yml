@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Joysriramsarkar.manathetiger56
+# Author: আফতাবুজ্জামান
 ---
 bn:
   devise:
@@ -35,16 +36,16 @@ bn:
         subject: নির্দেশাবলির নিশ্চিতকরণ
       reset_password_instructions:
         action: আমার পাসওয়ার্ড বদলান
-        greeting: 'নমস্কার #{recipient}!'
+        greeting: 'সুপ্রিয় #{recipient}!'
         instruction: কেউ একজন আপনার পরিবর্তনের জন্য একটি লিঙ্ক পাঠিয়েছেন, নিচের এই
           লিঙ্কের মাধ্যমে আপনি তা করতে পারেন।
-        instruction_2: আপনি যদি এটা না করে থাকেন তাহলে এই ইমেইলটিকে গুরুত্ব দেওয়ার
-          কোনও প্রয়োজন নেই, কিন্তু আপনার অ্যাকাউন্টের ব্যাপারে খেয়াল রাখুন।
+        instruction_2: আপনি যদি এই অনুরোধটি না করে থাকেন, তবে দয়া করে ইমেইলটি উপেক্ষা
+          করুন।
         subject: পাসওয়ার্ড পরিবর্তনের নির্দেশাবলি
       unlock_instructions:
         subject: নির্দেশাবলি খুলুন
       password_change:
-        greeting: 'নমস্কার #{recipient}!'
+        greeting: 'সুপ্রিয় #{recipient}!'
         message: আমরা আপনি জানাতে চাই যে আপনার পাসওয়ার্ড পরিবর্তিত হয়েছে।
         subject: পাসওয়ার্ড পরিবর্তন সম্পূর্ণ হয়েছে।
     sessions:
