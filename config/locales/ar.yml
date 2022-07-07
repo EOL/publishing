@@ -681,8 +681,8 @@ ar:
       one: إخفاء لغة واحدة
       other: إخفاء %{count} لغات
     prefer: تفضل
-    preferred_in_language_for_page: '%{name} هي الآن %{language} العامية المفضل لـ
-      %{page}'
+    preferred_in_language_for_page: '%{name} هو الآن الاسم المفضل باللغة %{language}
+      العامية لـ %{page}'
     show_more_langs:
       one: إظهار لغة واحدة أخرى
       other: إظهار %{count} لغات
