@@ -506,48 +506,87 @@ cs:
     kk: Kazašština
     rw: Kinyarwanda
     ky: Kirgizština
+    kv: Komi
     kg: Kongžština
     ko: Korejština
     kor: Korejština
+    kj: Kuanyama; Kwanyama
     ku: Kurdština
+    q36206: Lak
     lo: Laoština
     lao: Laoština
     la: Latina
     lv: Lotyšština
+    q1160372: Laz
     q36106: Ligurština
     li: Limburština
+    ln: Lingala
+    q146803: Lingua Franca Nova
     lt: Litevština
     lit: Litevština
+    q33698: Liv
+    q36584: Livvi
     q33754: Lombardština
     q168446: Dolnosasština
     q13286: Dolní lužická srbština
+    lu: Luba-Katanga
+    q3437661: Luguru
     lb: Lucemburština
     q35787: Masajština
     mk: Makedonština
+    q497345: Mainfränkisch
+    q36109: Maithili
     mg: Malgašština
     ms: Malajština
     ml: Malajálamština
     mt: Maltézština
     mlt: Maltézština
+    gv: Manx
     mi: Maorština
     mr: maráthština
+    q6786446: Matengo
+    q13357: Meänkieli
+    q13313: Meru
+    q13321: Miꞌkmaq
+    q36455: Min Dong
+    q13324: Minangkabau
+    q13343: Moksha
     mn: Mongolština
     q56426: Marocká arabština
+    q6944725: Mwera
+    q13300: Nahuatl
     q3508074: Nai
+    na: Nauru
     nv: Navajština
+    nd: Ndebele, sever; Severní Ndebele
+    nr: Ndebele, jih; Jižní Ndebele
+    ng: Ndonga
     q33845: Neapolština
     ne: Nepálština
+    q7022366: Ngindo
     q28224: Severofríština
+    q19933293: Severní Luri
+    se: Severní Sami
     "no": Norština
     nno: Norština
     nob: Norština
     nor: Norština
     nn: Nynorsk Norština
+    q36738: Novial
+    q3272620: Nyakusa
+    q4121131: Nyamwezi
+    q7193418: Nyaturu
+    q11128374: Nyiha
+    q16115145: Nyika
     oc: okcitánština (po roce 1500)
     q28602: Oficiální aramejština
     oj: Ojibwa
+    om: Oromo
     os: Ossetijština
+    q715755: Paiwan
+    pi: Pali
     pa: Pandžábština
+    q36403: Pare
     fa: Perština
     pl: Polština
     pol: Polština
@@ -1448,6 +1487,8 @@ cs:
         http://eol(dot)org/schema/terms/aerial: letecký
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: letecký
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: vzdušné stanoviště
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: aeronianský
+          věk
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: míra opětovného
           růstu po sklizni
