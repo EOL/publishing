@@ -320,9 +320,10 @@ class TraitBank::Slurp
           if try_again
             try_again = false
             @logger.warn(e.message)
-            @logger.warn("FAILED on build_nodes query (#{node.label}), will "\
-                         "re-try once...")
+            @logger.warn("WARNING: exception on build_nodes query (#{node.label}), will re-try once...")
             retry
+          else
+            raise e
           end
         end
       end
