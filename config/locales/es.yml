@@ -2296,6 +2296,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000549: Cuerpo de agua intermitente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000389: humedal intermitente
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: Concha interna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: sedimento intermareal
         http://eol(dot)org/schema/terms/InvasiveRange: invasivo en
         https://eol(dot)org/schema/terms/inverse: inverso
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertido
@@ -2471,6 +2472,8 @@ es:
         http://eol(dot)org/schema/terms/paleo_megaannum: Hace millones de años
         http://semanticscience(dot)org/resource/SIO_001113: mín
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: Minerales
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: época
+          del mioceno
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mezclado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: Bosque mixto
         http://eol(dot)org/schema/terms/mlO2perhour: ml/hr o2
@@ -2565,7 +2568,11 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: edad
           Oxfordiense
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxígeno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: arrozal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: suelo de arrozal
         http://eol(dot)org/schema/terms/stingPain: Dolor de picadura
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: era
+          paleoarcaica
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: era
           paleozoica
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: Parásito de
@@ -2574,9 +2581,11 @@ es:
         http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: esqueleto
           particulado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: Pasto
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patógeno de
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: zona pelágica
         http://eol(dot)org/schema/terms/perAcre: por acre
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: porcentaje
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: perenne
         http://eol(dot)org/schema/terms/persistentSeedBank: Persistente
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: Control de plaga
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
@@ -2640,6 +2649,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: Sedimento radioactivo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: Ferrocarril
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000415: playa levantada
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000365: sitio Ramsar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: pastizales
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: rápidos
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: proporción
@@ -2662,10 +2672,12 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: edad
           Rhaetiense
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: Rizoma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: rizosfera
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: edad
           Rhuddaniense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: Campo de arroz
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000203: lago de grietas
+        http://eol(dot)org/schema/terms/riparianWetland: humedal ribereño
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: río
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: orilla del río
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: el cauce/el lecho
@@ -2683,6 +2695,7 @@ es:
           Rupeliense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: edad
           Sakmariense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000019: lago salino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: agua salada
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005775: suelo contaminado por
           sal
@@ -2700,6 +2713,8 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: edad
           Santoniense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000178: Sabana
+        http://eol(dot)org/schema/terms/scaleLike: en forma de escama
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: escamas
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: nombre científico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: mar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: Orilla de mar
