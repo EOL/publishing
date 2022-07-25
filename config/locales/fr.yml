@@ -264,7 +264,7 @@ fr:
   complete_registration: Veuillez poursuivre votre inscription
   content_appears_on: 'Inclus dans les pages suivantes :'
   content_collected_in: 'Mis en vedette dans les collections suivantes :'
-  content_attributions_header: Informations de provenance
+  content_attributions_header: Informations sur la provenance
   content_attributions_labels:
     altitude: altitude
     author: auteur
@@ -2517,7 +2517,7 @@ fr:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: époque
           de llandovery
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: terreau
-        http://rs(dot)tdwg(dot)org/dwc/terms/locality: localité
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: lieu-dit
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: âge
           lochkovien
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
