@@ -11,6 +11,7 @@
 # Author: Umlaut
 # Author: Verdy p
 # Author: Xyb
+# Author: YuriNikolai
 ---
 qqq:
   language_name: |-
@@ -289,6 +290,8 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: Capable of the biological
           process in which new individuals are produced by either a single cell or
           a group of cells, in the absence of any sexual process.
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: 'Geochronologic
+          stage of the Permian, see also: https://en.wikipedia.org/wiki/Asselian'
         http://eol(dot)org/schema/terms/atLeastShortPersistentSeedBank: Of seed bank
           longevity.  Seed bank longevity is > 1 and at least <= 5 yr (could be longer
           but it is unknown).
