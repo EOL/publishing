@@ -5,6 +5,7 @@
 # Author: Aramos1422
 # Author: Avengium
 # Author: Canaan9801
+# Author: Danniel07
 # Author: Destinid10 2
 # Author: DiegoAmbrocio
 # Author: Fitoschido
@@ -1905,6 +1906,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: ojos compuestos
         https://eol(dot)org/schema/terms/concave_mirror_eyes: ojos de espejo cóncavo
         http://eol(dot)org/schema/terms/cone: cono
+        http://eol(dot)org/schema/terms/conePlusHalfSphere-40Percent: coneplushalfsphere
+          menos 40 por ciento
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: edad
           Coniaciense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: bosque de conífera
@@ -2053,6 +2056,7 @@ es:
         http://eol(dot)org/schema/terms/earlySummer: comienzo del verano
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
         http://eol(dot)org/schema/terms/echinoderm_feeder: se alimenta de equinodermos
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: gremio ecomorfológico
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: Ingeniería de ecosistema
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ectoparásito de
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: período
@@ -2076,13 +2080,22 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: Sistema endocrino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: hábitats endolíticos
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: endoparásito de
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000551: cuenca endorreica
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
+        https://eol(dot)org/schema/terms/endosymbiontOf: endosimbionte de
         http://eol(dot)org/schema/terms/endozoochory: endozoocoria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003082: suelo enriquecido
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#Distribution: distribución
+          geográfica completa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: época
           del eoceno
         https://eol(dot)org/schema/terms/epibiontOf: epibionto de
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longitud del epicón
+        http://eol(dot)org/schema/terms/epicormicBuds: brotes epicórmicos
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epidermis
         http://eol(dot)org/schema/terms/epifauna_feeder: se alimenta de epifauna
+        http://www(dot)marinespecies(dot)org/traits/Epifaunal: epifaunal
+        http://eol(dot)org/schema/terms/epihydate: epihidratado
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: epífita de
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: episódico
         http://eol(dot)org/schema/terms/epizoochory: epizoocoria
@@ -2098,6 +2111,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: Perennifolio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: bosque perennifolio
         http://eol(dot)org/schema/terms/excavating: Excavador
+        http://eol(dot)org/schema/terms/explanate: explicar
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Expuesto
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: tubo externo
         http://eol(dot)org/schema/terms/extinct: extincto
@@ -2105,6 +2119,7 @@ es:
         https://eol(dot)org/schema/terms/extirpated: extirpado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: Hábitat extremo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: Ojos
+        http://eol(dot)org/schema/terms/facultativeParasite: parásito facultativo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: edad
           Fameniense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: Granja
