@@ -1075,7 +1075,7 @@ fr:
       one: '%{count} son'
       other: '%{count} sons'
     n_taxon_pages:
-      one: '%{count} page de taxon'
+      one: une page de taxon
       other: '%{count} pages de taxon'
     n_users:
       one: '%{count} utilisateur'
@@ -1338,10 +1338,10 @@ fr:
         one: cliquer pour voir un taxon de la famille %{family}
         other: cliquer pour voir %{count} taxons de la famille %{family}
       n_obj_records:
-        one: un enregistrement avec « %{obj_name} »
+        one: '%{count} enregistrement avec « %{obj_name} »'
         other: '%{count} enregistrements avec « %{obj_name} »'
       n_taxa_with:
-        one: un taxon avec « %{obj_name} »
+        one: '%{count} taxon avec « %{obj_name} »'
         other: '%{count} taxons avec « %{obj_name} »'
       sankey_node_hover: Cliquer pour restreindre la recherche à %{term_name}
       see_n_obj_records:
@@ -2347,7 +2347,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: fuite d’hydrocarbures
         http://eol(dot)org/schema/terms/hydrochory: hydrochorie
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: réservoir hydroélectrique
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: bassin de retenue hydroélectrique
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
         http://www(dot)marinespecies(dot)org/traits/Hydrostatic: squelette hydrostatique
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000134: fluide hydrothermal
@@ -2402,7 +2402,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canal d’irrigation
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: barrage d’irrigation
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: fossé d’irrigation
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: réservoir d’irrigation
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: bassin de retenue d’irrigation
         http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: est un
           composant de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: est mangé par
@@ -3048,7 +3048,7 @@ fr:
         http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: condition reproductive
         http://eol(dot)org/schema/terms/ReproductiveSkew: biais reproductif
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: stratégie reproductive
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: réservoir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: bassin de retenue
         http://purl(dot)obolibrary(dot)org/obo/PO_0025603: résine
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: rythme respiratoire
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: système respiratoire
