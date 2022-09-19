@@ -24,55 +24,97 @@ class Resource < ApplicationRecord
   end
 
   class << self
-    # NOTE: if you change this, you MUST call .update_dwh_from (see below) once it's in place!
     def native
-      Rails.cache.fetch('resources/dynamic_hierarchy_1_1') do
-        Resource.where(abbr: 'dvdtg').first_or_create do |r|
-          r.name = 'EOL Dynamic Hierarchy 1.1'
-          r.partner = Partner.native
-          r.description = ''
-          r.abbr = 'dvdtg'
-          r.is_browsable = true
-          r.has_duplicate_nodes = false
-          r.nodes_count = 650000
-        end
-      end
+      # Note this CLASS method will return the FIRST resource flagged as native! That's hugely important. As we add new
+      # ones, we'll use the old until the flag is flipped back to false. That's intentional: you'll need to continue to
+      # use the "old" native resource (via Resource.native) for mathing of the new one, and yet you STILL need to know
+      # that the new one WILL be "native" (via resource_instance.native?); both logics are used in names_matcher, for
+      # example.
+      find_by_native(true)
     end
 
-    def update_native_nodes
-      count = 0
-      Searchkick.disable_callbacks
+    # Resource.update_native_nodes(resource: Resource.find(SOME_NEW_RESOURCE_ID)) --> start change before switchover
+    # Resource.update_native_nodes --> Default, does everything from scratch. Slow.
+    # Resource.update_native_nodes(resume: true) --> If the former times out, resume from about the same place.
+    # Resource.update_native_nodes(start_id: 12345) --> If you lost your place, you can specify the node_id to start
+    # with like this.
+    def update_native_nodes(options = {})
+      resource = options.has_key?(:resource) ? options[:resource] : Resource.native
+      start_id = if options[:resume]
+        raise "Cannot resume AND specify a start_id" if options.has_key?(:start_id)
+        read_last_updated_native_node
+      else
+        options.has_key?(:start_id) ? options[:start_id] : 1
+      end
+      count = read_updated_native_node_count
+      Searchkick.disable_callbacks # We will call these manually, in batches. Too slow individually.
       Searchkick.timeout = 500
-      batch_size = 64 # This may actually be too large? 128 was failing frequently. :|
-      Node.joins(:page).where(['nodes.resource_id = ? AND pages.native_node_id != nodes.id', Resource.native.id]).
+      # This may actually be too large? 128 was failing frequently. :|
+      batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 64
+      Node.joins(:page).
+        where(['nodes.resource_id = ? AND nodes.id >= ?', resource.id, start_id]).
         select('nodes.id, nodes.page_id').
         find_in_batches(batch_size: 10_000) do |batch|
-          node_map = {}
-          batch.each { |node| node_map[node.page_id] = node.id }
-          page_group = []
-          log("#{batch.size} nodes id > #{batch.first.id}")
-          STDOUT.flush
-          # NOTE: native_node_id is NOT indexed, so this is not speedy:
-          Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
-            next if page.native_node&.resource_id == Resource.native.id
-            count += 1
-            page_group << page.id
-            page.update_attribute :native_node_id, node_map[page.id]
-            log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
-            STDOUT.flush
-          end
-          begin
-            page_group.in_groups_of(batch_size, false) do |group|
-              Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: group)
-            end
-          rescue Faraday::TimeoutError => e
-            batch_size /= 2
-            raise e if batch_size <= 2
-            retry
-          end
+          record_last_updated_native_node(batch.first.id)
+          batch_count = update_native_node_batch(batch, resource, batch_size)
+          record_updated_native_node_count(count += batch_count)
         end
-      log('#update_native_nodes Done.')
+      resource.log('#update_native_nodes Done.')
+      record_last_updated_native_node(1)
+      record_updated_native_node_count(0)
       Searchkick.enable_callbacks
+      Rails.cache.clear # expensive, but necessary.
+    end
+
+    def read_last_updated_native_node
+      file = Rails.public_path.join('last_updated_native_node.txt')
+      return 0 unless File.exist?(file)
+      File.read(file).to_i
+    end
+
+    def record_last_updated_native_node(node_id)
+      File.open(Rails.public_path.join('last_updated_native_node.txt'), 'w') { |file| file.write(node_id) }
+    end
+
+    def read_updated_native_node_count
+      file = Rails.public_path.join('updated_native_node_count.txt')
+      return 0 unless File.exist?(file)
+      File.read(file).to_i
+    end
+
+    def record_updated_native_node_count(count)
+      File.open(Rails.public_path.join('updated_native_node_count.txt'), 'w') { |file| file.write(count) }
+    end
+
+    def update_native_node_batch(batch, resource, batch_size)
+      count = 0
+      node_map = {}
+      batch.each { |node| node_map[node.page_id] = node.id }
+      page_group = []
+      resource.log("#{batch.size} nodes id > #{batch.first.id}")
+      Page.where(id: batch.map(&:page_id)).joins(:native_node).
+           select('pages.id, pages.native_node_id, nodes.resource_id').
+           find_each do |page|
+        page_group << page.id # We need to reindex it in case it wasn't in the new DH.
+        next if page.native_node&.resource_id == resource.id
+        count += 1
+        page.update_attribute :native_node_id, node_map[page.id]
+        resource.log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
+      end
+      reindex_pages(page_group, batch_size)
+      count
+    end
+
+    def reindex_pages(page_group, batch_size)
+      begin
+        page_group.in_groups_of(batch_size, false) do |group|
+          Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: group)
+        end
+      rescue Faraday::TimeoutError => e
+        batch_size /= 2
+        raise e if batch_size <= 2
+        retry
+      end
     end
 
     # Required to read the IUCN status
@@ -187,36 +229,9 @@ class Resource < ApplicationRecord
   end
 
   def remove_non_trait_content
-    # Node ancestors
-    nuke(NodeAncestor)
-    # Node identifiers
-    nuke(Identifier)
-    # content_sections
-    [Medium, Article, Link].each do |klass|
-      all_pages = klass.where(resource_id: id).pluck(:page_id)
-      field = "#{klass.name.pluralize.downcase}_count"
-      all_pages.in_groups_of(2000, false) do |pages|
-        Page.where(id: pages).update_all("#{field} = #{field} - 1")
-        klass.where(resource_id: id).select("id").find_in_batches do |group|
-          ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, group.map(&:id)]).delete_all
-          if klass == Medium
-            # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
-            # deleted):
-            PageIcon.where(["medium_id IN (?)", group]).delete_all
-          end
-        end
-      end
-    end
-    # javascripts
-    nuke(Javascript)
-    # locations
-    nuke(Location)
-    # Bibliographic Citations
-    nuke(BibliographicCitation)
-    # references, referents
-    nuke(Reference)
-    nuke(Referent)
-    fix_missing_page_contents(delete: true)
+    [NodeAncestor, Identifier].each { |klass| nuke(klass) }
+    [Medium, Article, Link].each { |klass| nuke_content_section(klass) }
+    [Javascript, Location, BibliographicCitation, Reference, Referent].each { |klass| nuke(klass) }
     # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
       # t.integer  "data_count",             limit: 4,   default: 0,     null: false
@@ -224,39 +239,17 @@ class Resource < ApplicationRecord
       # t.integer  "scientific_names_count", limit: 4,   default: 0,     null: false
       # t.integer  "referents_count",        limit: 4,   default: 0,     null: false
       # t.integer  "species_count",          limit: 4,   default: 0,     null: false
-
-    # Media, image_info
-    nuke(ImageInfo)
-    nuke(Medium)
-    # Articles
-    nuke(Article)
-    # Links
-    nuke(Link)
-    # occurrence_maps
-    nuke(OccurrenceMap)
-    # Scientific Names
-    nuke(ScientificName)
-    # Vernaculars
-    nuke(Vernacular)
-    # Attributions
-    nuke(Attribution)
-    # Update page node counts
-    # Get list of affected pages
-    log("Updating page node counts...")
-    pages = Node.where(resource_id: id).pluck(:page_id)
-    pages.in_groups_of(5000, false) do |group|
-      Page.where(id: group).update_all("nodes_count = nodes_count - 1")
+    [ImageInfo, Medium, Article, Link, OccurrenceMap, ScientificName, Vernacular, Attribution].each do |klass|
+      nuke(klass)
     end
+    update_page_node_counts
     nuke(Node)
     # You should run something like #fix_native_nodes (q.v.), but it's slow, and not terribly important if you are just
     # about to re-load the resource, so it's the responsibility of the caller to do it if desired.
     TraitBank::Admin.remove_non_trait_content_for_resource(self)
   end
 
-  def remove_all_content
-    remove_non_trait_content
-
-    # Traits:
+  def remove_trait_content
     count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
     if count.zero?
       log("No graph nodes, skipping.")
@@ -264,6 +257,11 @@ class Resource < ApplicationRecord
       log("Removing #{count} graph nodes")
       TraitBank::Admin.remove_by_resource(self, log_handle)
     end
+  end
+
+  def remove_all_content
+    remove_non_trait_content
+    remove_trait_content
   end
 
   def log_handle
@@ -290,9 +288,10 @@ class Resource < ApplicationRecord
       log("Starting (this log message should be replaced shortly)")
       batch_size = 10_000
       times = 0
-      max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
+      expected_times = (total_count / batch_size.to_f).ceil
+      max_times = expected_times * 2
       begin
-        log_update("Batch #{times} (will stop at #{max_times})...")
+        log_update("Batch #{times} (expect #{expected_times} batches, maximum #{max_times})...")
         STDOUT.flush
         klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}")
         times += 1
@@ -310,6 +309,34 @@ class Resource < ApplicationRecord
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry rescue "UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
+  end
+
+  def nuke_content_section(klass)
+    total_count = klass.where(resource_id: id).count
+    log("++ NUKE: #{klass} (#{total_count})")
+    all_pages = {}
+    klass.where(resource_id: id).select('id, page_id').find_each do |instance|
+      all_pages[instance.page_id] ||= []
+      all_pages[instance.page_id] << instance.id
+    end
+    field = "#{klass.name.pluralize.downcase}_count"
+    all_pages.each do |page_id, group|
+      ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, group]).delete_all
+      # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
+      # deleted):
+      PageIcon.where(["medium_id IN (?)", group]).delete_all if klass == Medium
+      contents = PageContent.where(page_id: page_id, content_type: klass, content_id: group)
+      content_count = contents.count
+      contents.delete_all
+      Page.where(id: page_id).update_all("#{field} = #{field} - #{group.size}, page_contents_count = page_contents_count - #{content_count}")
+    end
+  end
+
+  def update_page_node_counts
+    log("Updating page node counts...")
+    Node.where(resource_id: id).pluck(:page_id).in_groups_of(5000, false) do |group|
+      Page.where(id: group).update_all("nodes_count = nodes_count - 1")
+    end
   end
 
   def clear_import_logs
@@ -336,46 +363,67 @@ class Resource < ApplicationRecord
     end
   end
 
-  # This is kinda cool... and faster than fix_counter_culture_counts
+  # This is kinda cool... and MUCH faster than fix_counter_culture_counts
   def fix_missing_page_contents(options = {})
+    log("Fixing missing page contents")
     delete = options.key?(:delete) ? options[:delete] : false
-    [Medium, Article, Link].each { |type| fix_missing_page_contents_by_type(type, options.merge(delete: delete)) }
+    [Medium, Article, Link].each { |klass| fix_missing_page_contents_by_type(klass, options.merge(delete: delete)) }
   end
 
-  # TODO: this should be extracted and generalized so that a resource_id is options (thus allowing ALL contents to be
-  # fixed). TODO: I think the pluck at the beginning will need to be MANUALLY segmented, as it takes too long
-  # (285749.5ms on last go).
-  def fix_missing_page_contents_by_type(type, options = {})
+  # TODO: this should be extracted and generalized so that a resource_id is an option (thus allowing ALL contents to be
+  # fixed).
+  def fix_missing_page_contents_by_type(klass, options = {})
+    log("Fixing #{klass}")
     delete = options.key?(:delete) ? options[:delete] : false
-    page_counts = {}
-    type_table = type.table_name
-    first_content_id = type.where(resource_id: id).first&.id
-    last_content_id = type.where(resource_id: id).last&.id
-    contents = PageContent.where(content_type: type.name, resource_id: id).
-                           where(["content_id >= ? AND content_id <= ?", first_content_id, last_content_id])
-    contents = contents.where(options[:clause]) if options[:clause]
-    if delete
-      contents.joins(
-        %Q{LEFT JOIN #{type_table} ON (page_contents.content_id = #{type_table}.id)}
-      ).where("#{type_table}.id IS NULL")
-    else
-      PageContent
-    end
-    # .where('page_contents.id > 31617148').pluck(:page_id)
-    contents.pluck(:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
     by_count = {}
-    page_counts.each { |pid, count| by_count[count] ||= [] ; by_count[count] << pid }
-    contents.delete_all if delete
+    count_contents_per_page(klass, delete, options).each { |page_id, count| by_count[count] ||= [] ; by_count[count] << page_id }
+    fix_page_content_counts_on_pages(klass, by_count, delete) unless by_count.empty?
+  end
+
+  # Homegrown #find_in_batches because of custom content_id ranges...
+  def count_contents_per_page(klass, delete, options)
+    page_counts = {}
+    contents = PageContent.where(content_type: klass.name, resource_id: id)
+    contents = contents.where(options[:clause]) if options[:clause]
+    first_content_id = klass.where(resource_id: id).first&.id
+    last_content_id = klass.where(resource_id: id).last&.id
+    if first_content_id.nil? || last_content_id.nil?
+      puts "Failed to find any content to count, aborting"
+      log("#count_contents_per_page found zero content, skipping.")
+      return {}
+    end
+    delta = last_content_id - first_content_id
+    batch_num = 0
+    batch_start = first_content_id
+    batch_end = batch_start + 2000
+    batch_end = last_content_id if batch_end > last_content_id
+    batches = (delta / 2000.0).ceil
+    loop do
+      batch_contents = contents.where(["content_id >= ? AND content_id <= ?", batch_start, batch_end])
+      batch_contents.pluck(:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
+      batch_contents.delete_all if delete
+      puts "Batch #{batch_num += 1}/#{batches} (#{batch_start}-#{batch_end} --> #{page_counts.keys.size})"
+      log("Batch #{batch_num}/#{batches} (#{batch_end}/#{last_content_id}, #{page_counts.keys.size} done)") if
+        (batch_num % 50).zero?
+      break if batch_end >= last_content_id
+      batch_start = batch_end
+      batch_end = batch_start + 2000
+      batch_end = last_content_id if batch_end > last_content_id
+    end
+    page_counts
+  end
+
+  def fix_page_content_counts_on_pages(klass, by_count, delete)
     by_count.each do |count, pages|
       pages.in_groups_of(5_000, false) do |group|
         pages = Page.where(id: group)
-        type_field = "#{type.table_name}_count"
+        klass_field = "#{klass.table_name}_count"
         update =
           if delete
             "page_contents_count = IF(page_contents_count > #{count}, (page_contents_count - #{count}),0), "\
-              "#{type_field} = IF(#{type_field} > #{count}, (#{type_field} - #{count}),0)"
+              "#{klass_field} = IF(#{klass_field} > #{count}, (#{klass_field} - #{count}),0)"
           else
-            "page_contents_count = page_contents_count + #{count}, #{type_field} = #{type_field} + #{count}"
+            "page_contents_count = page_contents_count + #{count}, #{klass_field} = #{klass_field} + #{count}"
           end
         pages.update_all(update)
       end
@@ -412,6 +460,10 @@ class Resource < ApplicationRecord
   # Goes and asks the Harvesting site for information on how to move the nodes between pages...
   def move_nodes
     Node::Mover.by_resource(self)
+  end
+
+  def republish
+    Delayed::Job.enqueue(RepublishJob.new(id))
   end
 
   # Meant to be called manually:

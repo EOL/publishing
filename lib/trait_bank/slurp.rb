@@ -3,7 +3,7 @@ require 'csv'
 
 # NOTE: Publishing will call .load_resource_from_repo q.v..
 class TraitBank::Slurp
-  MAX_CSV_SIZE = 250_000
+  MAX_CSV_SIZE = 128_000
   MAX_SKIP_PKS = 1_000
 
   delegate :query, to: TraitBank
@@ -357,12 +357,9 @@ class TraitBank::Slurp
     (1..chunks).each do |chunk|
       if chunk > 1
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
-        if chunk > 8 # If there are THIS many traits, we really have to go VERY slowly.
-          wait_time = chunk * 300
-        else # 4 minutes for chunk 2, 6 for chunk 3, 8 for chunk 4, etc.
-          wait_time = chunk * 150
-        end
-        @logger.info("Waiting #{wait_time} seconds for the last 'chunk' to be added to neo4j...")
+        wait_time = chunk * 2.minutes
+        wait_time = 30.minutes if wait_time > 30.minutes
+        @logger.info("Waiting #{wait_time / 60} minutes for the last 'chunk' to be added to neo4j...")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
@@ -557,7 +554,13 @@ class TraitBank::Slurp
     end
 
     # Then merge the triple:
-    autocommit_query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
+    query = "#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})"
+    begin
+      autocommit_query(query)
+    rescue => e
+      @logger.warn("Exception (#{e.class}) FROM: #merge_triple QUERY: {#{q}}")
+      raise
+    end
   end
 
   def set_attribute(name, attribute, on_set)
@@ -586,8 +589,13 @@ class TraitBank::Slurp
   def autocommit_query(q) # for use with WITH PERIODIC COMMIT queries (CSV loading)
     #@logger&.info("Executing PERIODIC COMMIT query:\n#{q}")
 
-    ActiveGraph::Base.session do |session|
-      session.run(q)
+    begin
+      ActiveGraph::Base.session do |session|
+        session.run(q)
+      end
+    rescue => e
+      @logger.warn("Exception (#{e.class}) QUERY: {#{q}} MESSAGE: #{e.message}")
+      raise
     end
   end
 

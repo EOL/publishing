@@ -36,7 +36,7 @@
     - tab("overview", page_path(@page))
     - if @page.has_data?
       - tab("data", page_data_path(@page))
-    - if @page.media_count > 0
+    - if @page.icon || @page.media_count > 0
       - tab("media", page_media_path(@page))
     - if @page.articles_count > 0
       - tab("articles", page_articles_path(@page))

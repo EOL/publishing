@@ -1,6 +1,7 @@
+# TODO: Rename this to HarvestingServerConnection to be consistent with naming
 class ContentServerConnection
   TRAIT_DIFF_SLEEP = 10
-  MAX_TRAIT_DIFF_TRIES = 30 # * 10s = 30 = 300s = 5 mins
+  MAX_TRAIT_DIFF_TRIES = 60 # * 10s = 30 = 300s = 5 mins
 
   def initialize(resource, log = nil)
     @resource = resource
@@ -44,6 +45,7 @@ class ContentServerConnection
     uri = URI.parse(Rails.application.secrets.repository[:url] + '/')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
+    log_info("Connecting to #{uri} ...")
     response = http.request(Net::HTTP::Get.new(uri.request_uri))
     cookies = response.response['set-cookie']
     request = Net::HTTP::Get.new(url)
@@ -56,7 +58,10 @@ class ContentServerConnection
       log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length}")
       return false
     end
-    response.body.gsub(/\\\n/, "\n").gsub(/\\N/, '')
+    # NOTE: neo4j cannot properly handle all cases of meta-quoted double quotes ("") so we change them here
+    # to backslashed quotes (\"). This is not the greatest place to do it, as we've obfuscated the transofmration,
+    # but it would be less efficient elsewhere.
+    response.body.gsub(/\\\n/, "\n").gsub(/\\N/, '').gsub(/""/, '\\"')
   end
 
   def trait_diff_metadata
@@ -133,15 +138,10 @@ class ContentServerConnection
 
   private
   def trait_diff_metadata_helper
-    if @trait_diff_tries == MAX_TRAIT_DIFF_TRIES
-      log_warn("Max trait diff tries reached; giving up")
-      return nil
-    end
-
     url = "/resources/#{@resource.repository_id}/publish_diffs.json"
     url += "?since=#{@resource.last_published_at.to_i}" unless @resource.last_published_at.nil?
 
-    log_info("polling for trait diff metadata: #{url}")
+    log_info("polling for trait diff metadata: #{url}") if @trait_diff_tries.zero?
 
     resp = nil
 
@@ -155,6 +155,11 @@ class ContentServerConnection
 
     result = JSON.parse(resp.body)
     @trait_diff_tries += 1
+    if @trait_diff_tries == MAX_TRAIT_DIFF_TRIES
+      log_warn("Max trait diff tries (#{MAX_TRAIT_DIFF_TRIES}) reached; giving up. Response: #{result.to_s[0..6_000]}")
+      return nil
+    end
+
     return handle_trait_diff_metadata_resp(result)
   end
 
@@ -165,6 +170,7 @@ class ContentServerConnection
     when 'completed'
       return TraitDiffMetadata.new(json, @resource, self)
     when 'pending', 'enqueued', 'processing'
+      log_info("harvesting server processing results, waiting for completion... (attempt #{@trait_diff_tries}/#{MAX_TRAIT_DIFF_TRIES})")
       sleep 10
       return trait_diff_metadata_helper
     else

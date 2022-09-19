@@ -11,6 +11,7 @@
 # Author: HFoxii
 # Author: INS Pirat
 # Author: INS Pirat
+# Author: Ice bulldog
 # Author: Kareyac
 # Author: Kareyac
 # Author: Katunchik
@@ -23,6 +24,7 @@
 # Author: Movses
 # Author: MuratTheTurkish
 # Author: MuratTheTurkish
+# Author: NR Deblocked
 # Author: Pacha Tchernof
 # Author: Pacha Tchernof
 # Author: Rivka Silinsky
@@ -557,6 +559,7 @@ ru:
     q146803: Лингва франка нова
     lt: Литовский
     lit: Литовский
+    q33698: Лив
     q36584: Ливвиковское наречие
     q33754: Ломбардский язык
     q168446: Нижнесаксонский
@@ -593,6 +596,9 @@ ru:
     q13300: Науатль
     q3508074: Биакский язык
     na: Науру
+    nv: Навахо
+    nd: Северный ндебле
+    nr: Ндебле, южный; Южный ндебле
     ng: Ндонга
     q33845: Неаполитанский язык
     ne: Непальский язык
@@ -656,6 +662,7 @@ ru:
     q56482: Шань
     sn: Шона
     q34004: Шона
+    ii: Сычуаньский и; Носу
     q33973: Cицилийский
     sd: Синдхи
     si: Сингальский
@@ -664,6 +671,7 @@ ru:
     sl: Словенский
     so: Cомалийский
     som: Cомалийский
+    st: Сото, южный
     es: Испанский; Кастильский
     slv: Испанский
     q2638144: Сукума
@@ -683,23 +691,29 @@ ru:
     tha: Тайский
     bo: Тибетский
     ti: Тигринья
+    q34159: Ток-писин
     to: Тонганский
+    q180937: Тоскский диалект албанского языка
     ts: Тсонга
     tn: Тсвана
     q34251: Тулу
     q34138: Тумбука
+    q56240: Тунисский диалект арабского языка
     tr: Турецкий
     tur: Турецкий
     q36730: Турецкий, Османская
     tk: Туркменский
     tw: Тви
     q13238: Удмуртский
+    ug: Уйгурский
     uk: Украинский
     ukr: Украиский язык
     none: Не уточнено
     q13248: Верхнелужицкий язык
     ur: Урду
     uz: Узбекский
+    ve: Венда
+    q32747: Вепсы
     vi: Вьетнамский
     vo: Волапюк
     q32858: Водский
@@ -708,6 +722,7 @@ ru:
     cy: Валлийский язык
     wel: Валлийский язык
     q100103: Западнофламандский
+    fy: Западнофризский язык
     wo: Волоф
     q34290: Ву
     xh: Коса
@@ -715,6 +730,7 @@ ru:
     yo: Йоруба
     q10199: Зазаки
     q237409: Зеландский диалект
+    za: Чжуаньский; Чжуанский
     zu: Зулу
     Q33219: Баньюмасанский язык
   layout_sign_in: Войти
@@ -746,6 +762,7 @@ ru:
       sound: звучит
       map_image: карта
       js_map: интерактивная карта
+  medium_collect_button: Коллективное медиа
   medium_description_blank: Описание для данного объекта отсутствует.
   medium_header_title: 'Заголовок:'
   medium_header_description: 'Описание:'
@@ -776,6 +793,7 @@ ru:
         one: '%{count} комментарий'
         other: '%{count} комментариев'
     batch_lookup:
+      canonical_name: каноническое имя
       download_tsv: скачать CSV
       match: Совпадение
       new_search: новый поиск
@@ -894,43 +912,76 @@ ru:
       maps: карты %{page_name}
       names: имена %{page_name}
       articles: страницы %{page_name}
+    traits:
+      search: Поиск по признакам
   rank:
     name:
       r_domain: домен
       r_subdomain: поддомен
+      r_infradomain: инфрадомен
       r_superkingdom: надцарство
       r_kingdom: царство
       r_subkingdom: подцарство
+      r_infrakingdom: инфрацарство
       r_superphylum: надтип
       r_phylum: тип
+      r_subphylum: подтип
+      r_infraphylum: инфратип
       r_superclass: Надкласс
       r_class: класс
       r_subclass: подкласс
+      r_infraclass: инфракласс
       r_superorder: надотряд
+      r_order: Отряд
+      r_suborder: подотряд
+      r_infraorder: инфраотряд
       r_superfamily: надсемейство
       r_family: семейство
       r_subfamily: подсемейство
+      r_infrafamily: инфрасемейство
+      r_tribe: Триба
       r_supergenus: надрод
+      r_genus: род
+      r_subgenus: подрод
+      r_infragenus: инфрарод
       r_superspecies: надвид
       r_species: виды
       r_subspecies: подвиды
+      r_infraspecies: инфравид
       r_form: форма
   recaptcha: reCAPTCHA
   recaptcha_error: Подтвердите, что Вы не робот.
   reconciliation:
     id_space:
+      headers:
+        type_id: Напишите Идентификатор
+        type_name: Напишите Имя
+        id_format: Формат Идентификатора
       type_names:
         taxon: Таксон
     property:
       name:
+        ancestor: Предок
+        conservation_status: Охранный статус
+        extinction_status: Статус исчезнувшего вида
         rank: Ранг
     property_settings:
       limit:
         label: Ограничение
     schema_space:
       headers:
+        id: Идентификатор
+        name: Имя
         description: Описание
+  reference_compiled_from: Ссылается на %{links}
   register_new_account: Зарегистрируйтесь, чтобы создать новый аккаунт
+  resources:
+    actions:
+      republish: переиздать
+      index: вернуться ко всем ресурсам
+    headers:
+      index: Ресурсы
+    no_events: Запрос отсутствует !
   scientific_name:
     status_title:
       accepted: Принятые названия
@@ -952,6 +1003,11 @@ ru:
     medium_title_video_html: 'Видео: <span class=''sub''>%{title}</span>'
     empty: Ничего не найдено
     user_title_html: 'Пользователь: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: создать новое предложение для поиска
+    new:
+      header: Создать Предложение для Поиска
   sections:
     behavior: Поведение
     conservation_status: Охранный статус
@@ -1025,6 +1081,9 @@ ru:
     pagination:
       next: следующая страница
       previous: предыдущая страница
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: съел_а
     name:
       by_uri:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: ааленский

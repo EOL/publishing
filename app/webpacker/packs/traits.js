@@ -23,7 +23,7 @@ import '../src/traits/data_viz'
     $.ajax({
       method: 'POST',
       data: $.param(data),
-      url: Routes.term_search_form_path(),
+      url: 'search_form',
       success: function(res) {
         $('#term_form_container').html(res)
         setupForm();
@@ -104,11 +104,16 @@ import '../src/traits/data_viz'
           datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
-            url: Routes.terms_meta_object_terms_path({ 
-              query: 'QUERY',
-              meta_predicate: $(this).data('metaPredicate'),
-              format: 'json'
-            }),
+            // url: Routes.terms_meta_object_terms_path({
+            //   query: 'QUERY',
+            //   meta_predicate: $(this).data('metaPredicate'),
+            //   format: 'json'
+            // }),
+            url: '/' +
+              (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+              '/terms/meta_object_terms.json?' + new URLSearchParams({
+              query: 'QUERY', meta_predicate: $(this).data('metaPredicate')
+            }).toString(),
             wildcard: 'QUERY'
           }
         })
@@ -139,10 +144,15 @@ import '../src/traits/data_viz'
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: Routes.trait_search_predicate_typeahead_path({ 
-          query: 'QUERY',
-          format: 'json'
-        }),
+        // url: Routes.trait_search_predicate_typeahead_path({
+        //   query: 'QUERY',
+        //   format: 'json'
+        // }),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'terms/trait_search_predicates.json?' + new URLSearchParams({
+          query: 'QUERY'
+        }).toString(),
         wildcard: 'QUERY'
       }
     });
@@ -159,11 +169,17 @@ import '../src/traits/data_viz'
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-          url: Routes.terms_object_terms_for_predicate_path({ 
+          // url: Routes.terms_object_terms_for_predicate_path({
+          //   query: 'QUERY',
+          //   predicate_id: $(this).data('predicateId'),
+          //   format: 'json'
+          // }),
+          url: '/' +
+            (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+            'terms/object_terms_for_predicate.json?' + new URLSearchParams({
             query: 'QUERY',
-            predicate_id: $(this).data('predicateId'),
-            format: 'json'
-          }),
+            predicate_id: $(this).data('predicateId')
+          }).toString(),
           wildcard: 'QUERY'
         }
       });
@@ -208,7 +224,7 @@ import '../src/traits/data_viz'
     });
 
     $('#new_term_query').submit(showNotification);
-    
+
     setupMetaFilters();
     setupTermSelects();
   }
@@ -221,20 +237,20 @@ import '../src/traits/data_viz'
     $select.change(function(e) {
       var $that = $(this)
         , $filterGroup = $that.closest('.js-filter-row-group')
-        ; 
+        ;
 
       if ($that.val()) {
         setValFromTermSelect($filterGroup, $that);
       } else {
         // $.prev only matches the immediate previous sibling, which doesn't work here. This technically fetches a collection, but it'll only have length 1
-        var $prev = $that.closest('.js-term-select-children').prevAll('.js-term-select'); 
+        var $prev = $that.closest('.js-term-select-children').prevAll('.js-term-select');
 
         if ($prev.val()) {
           setValFromTermSelect($filterGroup, $prev);
         } else {
-          setTermVal($filterGroup, $filterGroup.find('.js-top-term-id').val()); 
+          setTermVal($filterGroup, $filterGroup.find('.js-top-term-id').val());
         }
-      } 
+      }
 
       fetchForm();
     });
@@ -253,7 +269,7 @@ import '../src/traits/data_viz'
       , $contain = $('.js-pie-contain')
       , loaded = false
       ;
-      
+
     if ($contain.length) {
       pieChartHelper();
       $(window).resize(pieChartHelper);
@@ -270,7 +286,7 @@ import '../src/traits/data_viz'
         if (width < minWidth) {
           $contain.hide();
         } else {
-          $contain.show() 
+          $contain.show()
         }
       }
     }

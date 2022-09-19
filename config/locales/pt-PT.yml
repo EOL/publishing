@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Emma Franzen
+# Author: EnaldoSS
 # Author: Hamilton Abreu
 # Author: Mansil
 # Author: Mansil alfalb
@@ -32,6 +33,13 @@ pt-PT:
   breadcrumbs:
     types:
       scientific: cientifico
+  brief_summary:
+    species: '%{name1} é uma espécie de %{name2}.'
+    species_in_family: '%{name1} é uma espécie de %{name2} na família %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} é uma superfamília de %{name2}.'
+        r_domain: '%{name1} é um domínio de %{name2}.'
   button_create: criar
   button_add: adicionar
   cancel: cancelar

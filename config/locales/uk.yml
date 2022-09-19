@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Base
 # Author: DDPAT
+# Author: Ice bulldog
 # Author: Movses
 # Author: SteveR
 # Author: Vlnt
@@ -986,6 +987,10 @@ uk:
       import_traits: імпорт ознак (із сховища)
       republish: переопублікувати
       clean_republish: чисте перевидання
+      republish_confirm: Це призведе до видалення ВСЬОГО вмісту для ресурсу (крім
+        ознак, які використовуватимуть diff). Ви ВПЕВНЕНІ?!
+      clean_republish_confirm: Це призведе до видалення ВСЬОГО вмісту ресурсу і НЕ
+        використовуватиме відмінності ознак. Ви ВПЕВНЕНІ?!
       reindex: переіндексування
       fix_no_names: виправити НІ ІМЕНІ
       index: повернутися до всіх ресурсів

@@ -3,7 +3,7 @@
 
 The traits database is stored as a neo4j 'graph'.  The schema (node
 types and properties) is described in the [trait schema
-document](https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md). New
+document](https://github.com/EOL/publishing/blob/master/doc/trait-schema.md). New
 Cypher users may find neo4j's [Cypher
 documentation](https://neo4j.com/docs/developer-manual/current/cypher/)
 helpful.  [This

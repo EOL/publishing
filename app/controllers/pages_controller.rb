@@ -411,8 +411,7 @@ private
     end
 
     media = page_media.includes(:license, :resource, page_contents: {
-      page: %i[native_node preferred_vernaculars] }).where(['page_contents.source_page_id = ?',
-      @page.id]).references(:page_contents)
+      page: %i[native_node preferred_vernaculars] }).references(:page_contents)
 
     if params[:license_group]
       @license_group = LicenseGroup.find_by_key!(params[:license_group])

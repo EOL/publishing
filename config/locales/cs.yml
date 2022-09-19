@@ -1,6 +1,7 @@
 # Messages for Czech (čeština)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Adam N.
 # Author: Georg101
 # Author: Jachym
 # Author: Juandev
@@ -190,6 +191,9 @@ cs:
   data_missing: '(chybí data, klíče: %{keys})'
   dear_username_with_comma: Vážený %{username},
   delete_account_button: Smazat váš účet
+  errors:
+    internal_server: Chyba interního serveru (500)
+    not_found: Stránka nenalezena (404)
   filter_by_license: licence
   filter_by_license_any_item: jakákoli licence
   filter_by_medium_subtype: typ
@@ -207,6 +211,7 @@ cs:
       data_services: Datové služby
       donate: Darovat
       education: Vzdělávání
+      food_webs: Potravinové weby
       glossary: Slovník
       help: Nápověda
       language_support: Jazyková podpora
@@ -246,11 +251,14 @@ cs:
   language: Jazyk
   languages:
     ab: Abcházština
+    q27683: Acehnština
+    q27776: Adyghe
     aa: Afar
     af: Afrikánština
     ak: Akan
     alb: Albánština
     sq: Albánština
+    q131339: Alemanština
     am: Amharština
     ar: Arabština
     an: Aragonština
@@ -259,82 +267,168 @@ cs:
     q29507: Asturianština
     q56590: Atikamekwština
     av: Avarština
+    ae: Avestánština
+    ay: Aymarština
     q9292: Ázerbájdžánština
     az: Ázerbájdžánština
     q33070: Balinésština
+    bm: Bambara
+    q33151: Bandžar
+    ba: Baškirština
     eu: Baskičtina
     q29540: Bavorština
     be: Běloruština
+    q8836490: Bende
     bn: Bengálština
     bh: Bihárské jazyky
+    bi: Bislama
     nb: Norština
+    q4941378: Bondei
     bs: Bosenština
+    q33202: Brahui
     q750553: Brazilská portugalština
     br: Bretonština
     bg: Bulharština
     my: Barmština
+    q33120: Buryat
+    q35037: Businenge Tongo
+    q880301: Cajunská francouzština
+    q2937525: Capiznon
+    q35156: Car
+    q2591230: Kašinahua
     ca: Katalánština
+    q33239: Cebuánština
+    khm: Khmérština
     km: Khmérština
+    ch: Šamorro
+    q33281: Chavacano
     ce: Čečenština
+    q33388: Čerokézština
+    q33265: Cheyenne
     ny: Čičevština
     zh: Čínština
     chi: Čínština
+    q32979: Čokotavština
     cu: Staroslověnština
     cv: Čuvačština
+    q37041: Klasická čínština
+    kw: Cornish
     co: Korsičtina
+    cr: Cree
     q33357: Krymská tatarština
     hr: Chorvatština
+    hrv: Chorvatština
     cs: Čeština
+    q32238: Dagbani
     da: Dánština
+    q3362072: Digo
+    q56466: Dinka
+    dv: Divehi; Dhivehi; maledivština
+    q18415595: Dotyali
+    q33013: Duala
+    dut: Vlámština
     nl: Vlámština
+    dz: dzongkhština
+    dzo: Dzongkha
+    q4126517: Východokanadský inuktitský jazyk
     en: Angličtina
+    q29952: Erzya
     eo: Esperanto
     et: Estonština
     est: Estonština
+    ee: Ewe
     fo: Faroeština
+    fj: Fidžijština
     fi: Finština
+    fin: finština
+    q667747: Fipa
     fr: Francouzština
     fra: Francouzština
+    ff: Fulah
     gd: Skotská galština
     gl: Galícijština
+    q33475: Gan Čínština
+    lg: Ganda
     ka: Gruzínština
     de: Němčina
+    deu: Němčina
+    q5575236: Goan Konkani
+    q3272630: Gogo
+    q2501174: Gorontalo
     el: Řečtina
     gre: Řečtina
+    gn: Guarani
+    gu: Gujarati
+    q33303: Haida
     ht: Haitiština, Haitská kreolština
+    ha: Hausa
+    q35756: Haya
     he: Hebrejština
+    heb: Hebrejština
+    q3129390: Hehe
+    hz: Herero
+    q35978: Hiligaynon
     hi: Hindština
+    ho: Hiri Motu
     hu: Maďarština
     is: Islandština
+    ice: Islandština
+    io: Ido
+    ig: Igbo
+    q35936: Ilocano
     id: Indonésština
+    q33509: Ingush
     ia: Interlingua (Mezinárodní asociace pomocných jazyků)
+    iu: Inuktitut
+    ik: Inupiaq
+    q33595: Iraqw
     ga: Irština
     it: Italština
+    ita: Italština
     q35939: Kreolská jamajština
     ja: Japonština
     jp: Japonština
     jv: Javánština
+    q33522: Kabardská čerkesština
+    q35475: Kabiyè
+    q35853: Kabyle
     q33634: Kalmyčtina
+    kn: Kannadština
+    kr: Kanuri
+    q36121: Kapampangan
+    q33541: Kara-Kalpak
     kk: Kazašština
     rw: Kinyarwanda
     kg: Kongžština
     ko: Korejština
+    kor: Korejština
     ku: Kurdština
     lo: Laoština
+    lao: Laoština
     la: Latina
     lv: Lotyšština
+    q36106: Ligurština
     li: Limburština
     lt: Litevština
     lit: Litevština
     lb: Lucemburština
     mk: Makedonština
+    ms: Malajština
+    ml: Malajálamština
     mt: Maltézština
+    mlt: Maltézština
     mi: Maorština
     mn: Mongolština
     q56426: Marocká arabština
+    q3508074: Nai
     nv: Navajština
     ne: Nepálština
+    "no": Norština
+    nno: Norština
+    nob: Norština
+    nor: Norština
     nn: Nynorsk Norština
+    oj: Ojibwa
     os: Ossetijština
     pa: Pandžábština
     fa: Perština
@@ -346,7 +440,9 @@ cs:
     qu: Kečuánština
     ro: Rumunština; Moldavština; Moldovan
     ru: Ruština
+    rus: Ruština
     sm: Samoaština
+    q34016: Sandawe
     sg: Sango
     sa: Sanskrit
     sc: Sardinijština
@@ -358,40 +454,67 @@ cs:
     slk: Slovenština
     sl: Slovinština
     so: Somálština
+    som: Somálština
     es: Španělština; Kastilština
     slv: Španělština
     sw: Swahilština
     ss: Swati
     sv: Švédština
+    swe: Švédština
+    tl: Tagalog
     ty: Tahitština
+    q34318: Talysh
     ta: Tamilština
     tt: Tatarština
     te: Teluguština
     th: Thajština
+    tha: Thajština
     bo: Tibetština
     to: Tongština
+    q180937: Tosk Albánština
+    ts: Tsonga
+    tn: Tswana
+    q34251: Tulu
+    q34138: Tumbuka
+    q56240: Tuniská arabština
     tr: Turečtina
+    tur: Turečtina
     q36730: Turečtina, Ottomanština
     tk: Turkmenština
+    tw: Twi
+    q13238: Udmurt
     ug: Ujgurština
     uk: Ukrajinština
+    ukr: Ukrajinština
     none: Neurčeno
     ur: Urdština
     uz: Uzbečtina
+    ve: Venda
+    q32747: Vepsian
     vi: Vietnamština
+    vo: Volapük
+    q32858: Votic
     wa: Waloonština
+    q34279: Waray
     cy: Welšština
+    wel: Welšština
     fy: Západní frísština
+    wo: Wolof
+    q34290: Wu
+    xh: Xhosa
     yi: Jiddiš
     yo: Yorubština
+    q10199: Zazaki
     za: Čínština
     zu: Zulujština
+    Q33219: Banyumasan
   layout_sign_in: Přihlásit se
   layout_sign_up: Zaregistrovat se
   layout_sign_out: Odhlásit se
   literature_and_references_header: Literatura a reference
   maps:
     empty: Pro tuto stránku nejsou k dispozici žádné mapy.
+    other_maps_title: Neinteraktivní mapy
   medium:
     untitled:
       image: Nepojmenovaný obrázek
@@ -425,6 +548,7 @@ cs:
     actions:
       collect: sbírat
     batch_lookup:
+      canonical_name: kanonický název
       download_tsv: Stáhnout TSV
       new_search: Nové hledání
       page_id: ID stránky
@@ -451,6 +575,8 @@ cs:
         r_kingdom: Království
         r_subkingdom: Podkrálovství
         r_infrakingdom: Infrakrálovství
+        r_superphylum: Nadčeleď
+        r_phylum: Čeleď
         r_class: Třída
         r_subclass: Podtřída
         r_order: Pořadí
@@ -494,8 +620,31 @@ cs:
       data: '%{page_name} data'
       media: media %{page_name}
       articles: '%{page_name} články'
+  rank:
+    name:
+      r_domain: doména
+      r_subdomain: poddoména
+      r_infradomain: infradoména
+      r_class: třída
+      r_subclass: podtřída
+      r_species: druhy
   recaptcha: Recaptcha
   recaptcha_error: Prosím potvrďte, že nejste robot.
+  reconciliation:
+    id_space:
+      type_names:
+        taxon: Taxon
+    property:
+      name:
+        ancestor: Předchůdce
+        conservation_status: Stav ochrany
+        extinction_status: Stav vyhynutí
+        rank: Pořadí
+    schema_space:
+      headers:
+        id: ID
+        name: Název
+        description: Popis
   register_new_account: Registrovat nový účet
   resources:
     actions:
@@ -531,10 +680,14 @@ cs:
       description: shoduje se s popisem
       resource_pk: 'shoduje se vnějším ID:'
   sections:
+    associations: Asociace
     behavior: Chování
     brief_summary: Rychlé shrnutí
+    conservation: Ochrana
     conservation_status: Stav ochrany
+    diseases_and_parasites: Nemoci a parazité
     ecology: Ekoloogie
+    evolution_and_systematics: Vývoj a systematika
     general_ecology: Obecná ekologie
     genetics: Genetika
     growth: Růst
@@ -550,6 +703,7 @@ cs:
     reproduction: Rozmnožování
     risks: Rizika
     size: Velikost
+    taxonomy: Taxonomie
     threats: Nebezpečí
     trends: Trendy
     wikipedia: Wikipedie
@@ -594,19 +748,27 @@ cs:
     scientific_name: vědecký název
     show_all_records: Zobrazit všechny záznamy
     source: zdroj
+    uri_field_html: <strong>URI:</strong> %{uri}
   traits:
     data_viz:
       about_this_chart: o této tabulce
       num_records_label: '# záznamů'
       other: ostatní
     properties:
+      sample_size: Velikost vzorku
       scientific_name: Vědecký název
+      source: Zdroj
     search_results:
       filter_display:
         sex: 'pohlaví: %{value}'
       new_search: nové hledání
     search_form:
+      attribute: atribut
+      lifestage: životní fáze
+      resource: zdroj
+      search: Hledat
       sex: pohlaví
+      value: hodnota
   trophic_web:
     group_descriptions:
       predator: živí se na %{source_name}
@@ -652,6 +814,7 @@ cs:
       comment: 'komentář:'
       sections: sekce
     pagination:
+      next: další stránka
       previous: Předchozí stránka
     inverse_name:
       by_uri:
@@ -664,6 +827,7 @@ cs:
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/měsíc'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: kyselá půda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: přilnavý
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: dospělý
@@ -748,6 +912,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: křídová půda
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: černozem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: šot
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: město
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: jíl
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: jílová usazenina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: jílová půda
@@ -890,15 +1055,18 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: jezerní usazenina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: plocha jezera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: vnitrozemské moře
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: velký
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: velké jezero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: velká řeka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000889: velká říční delta
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/LM: larvální způsob vývoje
         http://eol(dot)org/schema/terms/lateSpring: pozdní jaro
         http://eol(dot)org/schema/terms/lateSummer: pozdní léto
         http://eol(dot)org/schema/terms/lateWinter: pozdní zima
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: lávová jeskyně
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: lávové pole
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: lávový tunel
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: klade vejce na
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: plocha listu
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: barva listu
@@ -910,20 +1078,49 @@ cs:
         http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: stádium života
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: pazourek
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: pazourková cesta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m²
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: samec
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: dospělý
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: louka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: středozemní les
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: střední
+        http://eol(dot)org/schema/terms/mediumCNRatio: střední (23 – 59)
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm²
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm²/den
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
         http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m²
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m²
         http://semanticscience(dot)org/resource/SIO_001113: minimum
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: minerály
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: měsíců
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: bláto
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/hodina
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranžová
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: organický materiál
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: organický odpad
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientace
+        http://eol(dot)org/schema/terms/otherBudSource: ostatní
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: kyslík
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: pastvina
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procento
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantáž
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: populace
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppb
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: růžová
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: červená
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: rýžové pole
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: skála
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: skalnatá poušť
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: kořeny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: kaučuková plantáž
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: usazenina
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: semena
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000047: jednoduché oči
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: velikost
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: kostra
 ...

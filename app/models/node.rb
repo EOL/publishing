@@ -20,7 +20,7 @@ class Node < ApplicationRecord
   scope :dh, -> { where(resource_id: Resource.native.id) }
 
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
-  # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.
+  # https://github.com/EOL/publishing/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.
   enum landmark: %i[no_landmark minimal abbreviated extended full]
 
   counter_culture :resource
@@ -36,6 +36,7 @@ class Node < ApplicationRecord
     @comparison_scientific_name ||= ActionView::Base.full_sanitizer.sanitize(scientific_name).downcase
   end
 
+  # Checks whether this node has a landmark that shows up in a "minimal" view.
   def use_breadcrumb?
     has_breadcrumb? && (minimal? || abbreviated?)
   end
@@ -49,6 +50,14 @@ class Node < ApplicationRecord
   # ordering.
   def ancestors
     node_ancestors.map(&:ancestor)
+  end
+
+  # Really, you should have loaded your page (or node) with these includes BEFORE calling this:
+  def ancestors_for_landmarks
+    Rails.logger.warn('INEFFICIENT call of #ancestors_for_landmarks')
+    node_ancestors.
+      includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
+      collect(&:ancestor).compact
   end
 
   def preferred_scientific_name

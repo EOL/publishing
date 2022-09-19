@@ -122,7 +122,7 @@ services:
       - publishing_network
   pub_web:
     build: ..
-    image: eol_website
+    image: publishing
     container_name: pub_web
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
@@ -135,7 +135,7 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_web_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/eol_website:/tmp
+      - /eol/tmp/publishing:/tmp
     depends_on:
       - mysql
       - neo4j
@@ -147,7 +147,7 @@ services:
       - publishing_network
   pub_jobs:
     build: ..
-    image: eol_website
+    image: publishing
     container_name: pub_jobs
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
@@ -161,7 +161,7 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/eol_website_jobs:/tmp
+      - /eol/tmp/publishing_jobs:/tmp
     depends_on:
       - mysql
       - neo4j

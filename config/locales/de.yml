@@ -4,13 +4,16 @@
 # Author: Ajeje Brazorf
 # Author: Anna7321
 # Author: Bergrübe
+# Author: Brettchenweber
 # Author: DraconicDark
 # Author: Elliot
 # Author: FF-11
 # Author: FF11
+# Author: Jhammock
 # Author: Katja
 # Author: Kghbln
 # Author: Killarnee
+# Author: LilFlo3000
 # Author: Lorisobi
 # Author: Schmackes
 # Author: Symposiarch
@@ -44,7 +47,7 @@ de:
         steht zur Verfügung.</p>"
   account_already_linked: Ihr Konto ist bereits mit EOL verknüpft
   account_not_linked: Ihr Konto ist nicht mit EOL verknüpft
-  advanced: Erweitert
+  advanced: Fortgeschitten
   are_you_sure_delete_account: Sind Sie sicher, dass Sie Ihr EOL-Konto löschen möchten?
   article:
     actions:
@@ -65,8 +68,10 @@ de:
       other: alle %{count} Ergebnisse ansehen
   breadcrumbs:
     notices:
-      canonical: Wissenschaftliche Bezeichnungen werden ab jetzt in den Seiten breadcrumbs
+      canonical: Wissenschaftliche Bezeichnungen werden ab jetzt in digitalen Seiten-Brotkrumen
         angezeigt
+      vernacular: Volkstümliche Namen werden ab jetzt als digitale Seiten-Brotkrumen
+        angezeigt, wo immer sie zur Verfügung stehen
     setting_header: Namen in Brotkrumen
     types:
       scientific: wissenschaftlich
@@ -75,6 +80,8 @@ de:
     extinction:
       r_genus_html: Diese Gattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_subgenus_html: Diese Untergattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_superspecies_html: Diese Superspezies ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_species_html: Diese Spezies ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
     species: '%{name1} ist eine Spezies von %{name2}.'
     species_in_family: '%{name1} ist eine Spezies von %{name2} in der Familie %{name_family}.'
     taxonomy:
@@ -82,6 +89,9 @@ de:
         r_superfamily: '%{name1} ist eine Oberfamilie von %{name2}.'
         r_domain: '%{name1} ist eine Domäne von %{name2}.'
         r_subdomain: '%{name1} ist eine Unterdomäne von %{name2}.'
+        r_superkingdom: '%{name1} ist ein Superreich von %{name2}.'
+        r_kingdom: '%{name1} ist ein Reich von %{name2}.'
+        r_subkingdom: '%{name1} ist ein Unterreich von %{name2}.'
         r_class: '%{name1} ist eine Klasse von %{name2}.'
         r_subclass: '%{name1} ist eine Unterklasse von %{name2}.'
         r_order: '%{name1} ist eine Ordnung von %{name2}.'
@@ -92,9 +102,20 @@ de:
           r_subfamily: '%{name1} ist eine Unterfamilie von %{name2} in der Familie
             %{name3}.'
           r_tribe: '%{name1} ist ein Tribus von %{name2} in der Familie %{name3}.'
+          r_form: '%{name1} ist eine Form von %{name2} in der Familie %{name3}.'
         without_family:
           r_subfamily: '%{name1} ist eine Unterfamilie von %{name2}.'
+          r_infrafamily: '%{name1} ist eine Unterfamilie von %{name2}.'
+          r_tribe: '%{name1} ist ein Stamm von %{name2}.'
+          r_supergenus: '%{name1} ist eine Übergattung von %{name2}.'
           r_genus: '%{name1} ist eine Gattung von %{name2}.'
+          r_subgenus: '%{name1} ist eine Untergattung von %{name2}.'
+          r_infragenus: '%{name1} ist eine Untergattung von %{name2}.'
+          r_superspecies: '%{name1} ist eine Superspezies von %{name2}.'
+          r_species: '%{name1} ist eine Spezies von %{name2}.'
+          r_subspecies: '%{name1} ist eine Subspezies von %{name2}.'
+          r_infraspecies: '%{name1} ist eine Untergattung von %{name2}.'
+          r_form: '%{name1} ist eine Form von %{name2}.'
   button_create: erstellen
   button_add: hinzufügen
   cancel: abbrechen
@@ -727,15 +748,27 @@ de:
       rank:
         r_domain: Domäne
         r_subdomain: Subdomäne
+        r_superkingdom: Über-Reich
         r_kingdom: Königreich
+        r_subkingdom: Unterreich
+        r_superphylum: Überstamm
+        r_phylum: Stamm
+        r_subphylum: Unterstamm
+        r_superclass: Überklasse
         r_class: Klasse
+        r_subclass: Unterklasse
+        r_superorder: Überordnung
         r_order: Ordnung
         r_suborder: Unterordnung
+        r_superfamily: Überfamilie
         r_family: Familie
+        r_subfamily: Unterfamilie
         r_tribe: Stamm
         r_genus: Gattung
         r_subgenus: Untergattung
+        r_superspecies: Artenkreis
         r_species: Spezies
+        r_subspecies: Unterart
         r_form: Form
       reference_taxon_attrib: Referenz-Taxon von %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
@@ -917,15 +950,27 @@ de:
         one: 1 MEDIUM
         other: '%{count} MEDIEN'
     user_title_html: 'Benutzer: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: einen neuen Suchvorschlag erstellen
+    new:
+      header: Suchvorschlag erstellen
+    update:
+      header: Suchvorschlag aktualisieren
+    index:
+      header: Suchvorschläge
   sections:
     behavior: Verhalten
     benefits: Vorteile
     brief_summary: Kurze Zusammenfassung
     comprehensive_description: Ausführliche Beschreibung
+    conservation: Naturschutz
+    conservation_status: Erhaltungszustand
     cyclicity: Zyklizität
     diagnostic_description: Diagnostische Beschreibung
     diseases_and_parasites: Krankheiten und Parasiten
     dispersal: Ausbreitung
+    distribution: Verbreitung
     ecology: Ökologie
     evolution_and_systematics: Evolution und Systematik
     general_ecology: Allgemeine Ökologie
@@ -939,6 +984,7 @@ de:
     molecular_biology: Molekularbiologie
     molecular_biology_and_genetics: Molekularbiologie und Genetik
     morphology: Morphologie
+    names_and_taxonomy: Bezeichnungen und Taxonomie
     notes: Anmerkungen
     overview: Übersicht
     physiology_and_cell_biology: Physiologie und Zellbiologie
@@ -1061,8 +1107,11 @@ de:
     properties:
       citation: Bibliographisches Zitat
       method: Messverfahren
+      remarks: Anmerkungen
+      sample_size: Stichprobengröße
       scientific_name: Wissenschaftliche Bezeichnung
       source: Quelle
+    search_hdr: Datensuche
     search_results:
       clade: 'Klade: %{clade}'
       download_tsv: tsv herunterladen
@@ -1070,6 +1119,7 @@ de:
       filter_display:
         eq: '%{pred} = %{num_val} %{units}'
         gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'Lebensstadium: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
         obj_only: 'mit Wert: %{obj}'
         pred_obj: '%{pred}: %{obj}'
@@ -1085,9 +1135,17 @@ de:
       result_header_records_notaxa: '%{range_begin} - %{range_end} von %{total} Einträgen
         für %{page_count}'
       new_search: neue Suche
+      show_query: Anfrage anzeigen
       switch_to_list: Listenansicht
       switch_to_gallery: zur Galerieansicht
+    search:
+      select:
+        top_level:
+          object_term: oder einen Wert auswählen
+          predicate: oder ein Merkmal auswählen
     search_form:
+      attribute: Merkmal
+      attribute_eg: 'Merkmal (z.B.: Trophiestufe)'
       clade_filter_placeholder: 'Gruppe (z.B.: Bären)(optional)'
       hide_additional_fields: Zusätzliche Felder verbergen
       lifestage: Lebensphase
@@ -1189,6 +1247,10 @@ de:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/Monat'
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: Aalenium
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: ungewöhnliche Lebensraumwahl
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: ungewöhnliches Verhalten
+          des Bewegungsapparates
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: Fülle
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: Abyssal
         http://eol(dot)org/schema/terms/acicular: nadelförmig
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: Thermalquelle
@@ -1198,25 +1260,51 @@ de:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: Aeronium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: Aerosol
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: Agatoxine
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: landwirtschaftlich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: landwirtschaftliches
+          Material
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: landwirtschaftliche
+          Terrasse
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: landwirtschaftliche
+          Abfälle
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: Albium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: alkalisches Milieu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: alkalischer Lebensraum
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: alkalische heiße Quelle
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: Allolectotyp
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: Alpengletscher
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alpiner Boden
+        http://eol(dot)org/schema/terms/ambush: Lauerjäger
+        http://eol(dot)org/schema/terms/amphibious: amphibisch
+        https://eol(dot)org/schema/terms/anal_fin: Afterflossen-Schwimmen
+        https://eol(dot)org/schema/terms/andromonoecious: After- und Rückenflossen-Schwimmen
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: Dichte des Tierbestands
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: tierische Abfälle
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: Anisium
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: jährlich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: Anoxisches Wasser
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: anthropogen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002204: aquatisch
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: Apatit
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: Facettenaugen
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: Aptium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: Aquädukt
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Wasserpflanze
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: Grundwasserleiter
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: Aquitanium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: Ackerland
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: Aragonit
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: Archaikum
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: Fläche
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: Artinskium
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: Asselium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: Atoll
+        http://eol(dot)org/schema/terms/average: durchschnittlich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: Rückstau(-wasser)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: Badlands
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002872: Bagasse
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: Bajocium
+        http://eol(dot)org/schema/terms/ballistichory: Strandsand
         https://eol(dot)org/schema/terms/bamboo_forest: Bambuswald
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: Bananenplantage
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Bariumsulfat
@@ -1233,45 +1321,81 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: Biberdamm
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: Bienenwachs
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: Berriasium
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: zweijährlich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: Biofilm
         http://eol(dot)org/schema/terms/Bioluminescent: Biolumineszenz
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: schwarz
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: Blut
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blau
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: Körperflüssigkeit
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: Körperhöhle
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Körperlänge
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Körpermasse
+        http://eol(dot)org/schema/terms/BodyShape: Körperform
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: Körpertemperatur
+        http://eol(dot)org/schema/terms/BodyVolume: Körpervolumen
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: Körperweite
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: Bohrloch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: Geröllfeld
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: Brackwassersee
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: Brackwasserteich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: Brackwasser
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breit
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brüten
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: braun
         http://eol(dot)org/schema/terms/browsing: Browser
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: Knospe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: Gebäude
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: Baumaterial
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: Knolle
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: Burdigalium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: verbrannte Erde
+        https://eol(dot)org/schema/terms/burrow_builder: Höhlenbauer
+        https://eol(dot)org/schema/terms/burrowDepth: Höhlentiefe
+        https://eol(dot)org/schema/terms/burrowDiameter: Höhlendurchmesser
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: Wühltier
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: Spitzkuppe
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: Koffein
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: Calabrium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: Kalkschlamm
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: Calcit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: Calciumcarbonat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: Calciumphosphat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: Calciumsulfat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: Calciumsulfat-Dihydrat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: Kalziumsulfat Halbhydrat
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: Caldera
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: Callovium
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: Cambrium
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: Campanium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: Kanal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: Blätterdach
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: Canyon
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: Capitanium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: Kadaver
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: Karnium
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: Knorpel
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: katadrom
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: Höhle
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: Höhleneingang
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: Höhlenboden
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: Höhlensystem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: Höhlenwand
+        http://eol(dot)org/schema/terms/CellDepth: Zelltiefe
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: Zelldurchmesser
+        http://eol(dot)org/schema/terms/CellLength: Zelllänge
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: Zellmasse
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000055: Zellgröße
+        http://eol(dot)org/schema/terms/CellSurfaceArea: Zellenoberfläche
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: Zellvolumen
+        http://eol(dot)org/schema/terms/CellWidth: Zellweite
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: Zement
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: Cenomanium
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: Känozoikum
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: Zentrales Nervensystem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: Kalk
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: Kalkboden
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: Chaparral
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: Chattium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: Schwarzerde
@@ -1290,12 +1414,20 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: küstennah
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: Küstendüne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: Förde
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: Küstenland
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: Küstenebene
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: küstennahes Buschland(-schaft)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: Küstenwasser
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000230: Küstenfeuchtgebiet
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: Geröll
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: Kokosnußplantage
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: Kaffeplantage
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: Farbe
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: Kommunikation
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: Coniacium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: Nadelholzwald
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: Nadelwald
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Korallenriff
         https://eol(dot)org/schema/terms/coral_sand: Korallensand

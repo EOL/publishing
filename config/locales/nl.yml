@@ -4,6 +4,7 @@
 # Author: Danieldegroot2
 # Author: Dutchy45
 # Author: Elroy
+# Author: Jeroen N
 # Author: Mainframe98
 # Author: Marcelhospers
 # Author: McDutchie
@@ -71,6 +72,7 @@ nl:
       r_subgenus_html: Dit subgenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
       r_infragenus_html: Dit infragenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
       r_superspecies_html: Deze supersoort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+    species_in_family: '%{name1} is een %{name2} uit de familie %{name_family}.'
   button_create: maken
   button_add: toevoegen
   cancel: annuleren
@@ -207,7 +209,7 @@ nl:
     creator: Maker
     editor: Bewerker
     latitude: Breedtegraad
-    license: vergunning
+    license: licentie
     location: plek
     location_verbatim: verbatim
     longitude: Lengtegraad

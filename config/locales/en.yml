@@ -694,7 +694,7 @@ en:
     za: "Zhuang; Chuang"
     zu: "Zulu"
     Q33219: "Banyumasan"
-    
+
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
@@ -968,6 +968,8 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       clean_republish: "clean republish"
+      republish_confirm: "This will delete ALL content for the resource (except traits, which will use a diff). Are you SURE?!"
+      clean_republish_confirm: "This will delete ALL content for the resource and will NOT use trait diffs. Are you SURE?!"
       reindex: "reindex"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
@@ -1251,7 +1253,7 @@ en:
       about_this_chart_tooltip_taxon_summary: "This is a summary of taxonomic groups for which EOL has data matching your search. It may be truncated to fit the display size. You can select a group from the chart to view subgroups or to narrow your search results."
       other_term_name: "other %{term_name}"
       hist_value_label: "value (%{units})"
-      n_family_records: 
+      n_family_records:
         one: "one record for taxa in family %{family}"
         other: "%{count} records for taxa in family %{family}"
       n_family_taxa:
@@ -1268,7 +1270,7 @@ en:
       page_habitat_header: "%{name} Habitats"
       page_habitat_explanation: "The environments in which many %{name} species are known to live. Select an environment to see its %{name} species checklist."
       pie_prompt: "mouse over a segment or key to highlight"
-      show_n_family_records: 
+      show_n_family_records:
         one: "click to see one record for taxa in family %{family}"
         other: "click to see %{count} records for taxa in family %{family}"
       show_n_family_taxa:

@@ -242,10 +242,12 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: Routes.autocomplete_pages_path({ 
-          query: 'QUERY', 
-          no_multiple_text: true 
-        }),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'pages/autocomplete?' + new URLSearchParams({
+          query: 'QUERY',
+          no_multiple_text: true
+        }).toString(),
         wildcard: 'QUERY'
       }
     });
@@ -258,7 +260,11 @@ if (!window.EOL) {
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: Routes.autocomplete_users_path({ query: 'QUERY' }),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'users/autocomplete?' + new URLSearchParams({
+          query: 'QUERY'
+        }).toString(),
         wildcard: 'QUERY'
       }
     });
@@ -269,10 +275,11 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.nonword,
       remote: {
-        url: Routes.predicate_glossary_path({
-          query: 'QUERY',
-          format: 'json'
-        }),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'terms/predicate_glossary.json?' + new URLSearchParams({
+          query: 'QUERY'
+        }).toString(),
         wildcard: 'QUERY'
       }
     });
@@ -283,10 +290,11 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: Routes.object_term_glossary_path({
-          query: 'QUERY',
-          format: 'json'
-        }),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'terms/object_term_glossary.json?' + new URLSearchParams({
+          query: 'QUERY'
+        }).toString(),
         wildcard: 'QUERY'
       }
     });
@@ -296,7 +304,11 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: Routes.autocomplete_resources_path({ query: 'QUERY'}),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'resources/autocomplete?' + new URLSearchParams({
+          query: 'QUERY'
+        }).toString(),
         wildcard: 'QUERY'
       }
     });
@@ -306,7 +318,9 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: Routes.general_autocomplete_path({ query: 'QUERY'}),
+        url: '/' +
+          (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
+          'autocomplete/QUERY',
         wildcard: 'QUERY'
       }
     });
@@ -384,7 +398,7 @@ if (!window.EOL) {
 
     $('.js-overlay-x').click(EOL.hideOverlay);
 
-    $('.js-bread-type-toggle').change(function() { 
+    $('.js-bread-type-toggle').change(function() {
       $(this).submit();
     });
 
@@ -415,7 +429,6 @@ if (!window.EOL) {
       }
     });
 
-
     EOL.enableDropdowns();
 
     $.each(eolReadyCbs, function(i, cb) {
@@ -425,4 +438,3 @@ if (!window.EOL) {
 }
 
 $(EOL.ready);
-

@@ -22,6 +22,7 @@
 # Author: Shoufen
 # Author: Si109
 # Author: SomeyaMako
+# Author: StarrySky
 # Author: Tiger
 # Author: TsuyaMarisa
 # Author: VulpesVulpes825
@@ -395,6 +396,7 @@ zh-CN:
     q33120: 布里亚特语
     q35037: 布西嫩格通戈语
     q880301: 卡津法语
+    q2937525: 卡皮兹语
     q35156: 卡尔尼科巴语
     q2591230: 卡西纳瓦
     ca: 加泰罗尼亚语；瓦伦西亚语
@@ -425,6 +427,7 @@ zh-CN:
     q56466: 丁卡语
     dv: 马尔代夫语
     q18415595: 多蒂亚利语
+    q33013: 杜阿拉语
     dut: 荷兰语；弗莱芒语
     nl: 荷兰语；弗莱芒语
     dz: 宗卡语
@@ -589,6 +592,7 @@ zh-CN:
     or: 奥里亚语
     om: 奥罗莫语
     os: 奥塞迪语
+    q715755: 排湾语
     pi: 马里
     pa: 旁遮普语
     q36403: 帕尔语
@@ -621,6 +625,7 @@ zh-CN:
     sc: 撒丁语
     q845441: 意大利语之一
     q14549: 苏格兰英语
+    q716686: 赛德克语
     sr: 塞尔维亚语
     q3788739: 藏语的乌托邦世界；净土
     q56482: 掸语
@@ -927,10 +932,18 @@ zh-CN:
     property:
       description:
         ancestor: 一个分类群是另一个分类群的祖先。
+        conservation_status: 分类单元的保护状况。
+        extinction_status: 分类单元的灭绝状态。可能的值是“绝灭”和“现生”
         rank: 描述分类群等级的字符串，例如“物种”。未识别的等级不计分。
       name:
         ancestor: 祖先
+        conservation_status: 保护状况
+        extinction_status: 灭绝状况
         rank: 等级
+    property_settings:
+      limit:
+        label: 限制
+        help_text: 每行返回值的最大数量（0表示无限）
     schema_space:
       intro: 核对API服务所使用的属性集合描述如下。
       headers:
@@ -982,6 +995,7 @@ zh-CN:
   scientific_names_header: 学名
   send_me_reset_password_instructions: 向我发送重置密码的说明
   search:
+    blank_q_msg: 您可以使用页面顶栏搜索EOL的内容。
     full_name: '%{vernacular} (%{scientific})'
     matched_text: 与%{text}相符
     flash:

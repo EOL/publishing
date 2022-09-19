@@ -19,7 +19,7 @@
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
-  language_name: العربية
+  language_name: الإنجليزية
   about:
     trait_bank:
       title: بنك الصفات
@@ -1676,6 +1676,7 @@ ar:
         http://eol(dot)org/schema/terms/lateWinter: أواخر الشتاء
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: كهف الحمم البركانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: منطقة الحمم البركانية
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: وضع البيض على
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: رطل
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: مساحة الورقة
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: لون الورقة
