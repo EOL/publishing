@@ -7,7 +7,6 @@ class PagesController < ApplicationController
   before_action :handle_page_redirects
   before_action :set_media_page_size, only: [:show, :media]
   before_action :no_main_container
-  before_action :require_admin, only: [:batch_lookup, :batch_lookup_results]
   after_action :no_cache_json
 
   helper :data
