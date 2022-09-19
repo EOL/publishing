@@ -205,8 +205,6 @@ ru:
     %{page}.
   collected_page_already_in_collection: Это уже было в вашей коллекции.
   collected_pages_title: Страницы
-  collected_pages_medium:
-    destroyed_flash: Изображение удалено с собранной страницы.
   collection_associations:
     destroyed_flash: '%{name} больше не находится в этой коллекции.'
   collected_pages:
