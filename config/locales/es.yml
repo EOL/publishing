@@ -2232,6 +2232,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: zona hadal
         https://eol(dot)org/schema/terms/hagfish_feeder: se alimenta de peces bruja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: hábitat halino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000516: hamaca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: Puerto
         http://eol(dot)org/schema/terms/hardBenthicSubstrate: substrato béntico duro
@@ -2288,6 +2289,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: filtración de hidrocarburos
         http://eol(dot)org/schema/terms/hydrochory: hidrocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: embalse hidroeléctrico
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hidrófita
         http://www(dot)marinespecies(dot)org/traits/Hydrostatic: esqueleto hidrostático
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: respiradero hidrotermal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: hielo
@@ -2316,6 +2318,7 @@ es:
         https://eol(dot)org/schema/terms/inverse: inverso
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertido
         http://eol(dot)org/schema/terms/invertivore: invertívoro
+        http://ecoinformatics(dot)org/oboe/oboe(dot)1(dot)0/oboe-characteristics(dot)owl#Irradiance: irradiancia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: Canal de riego
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: Dique de riego
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: Cuneta de riego
@@ -2480,6 +2483,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
         https://eol(dot)org/schema/terms/microalgae: microalgas
+        http://eol(dot)org/schema/terms/midSpring: plena primavera
         http://eol(dot)org/schema/terms/midSummer: pleno verano
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: edad
           Pleistoceno medio
@@ -2518,6 +2522,7 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: edad
           Moscoviense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: Montañas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: lodo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: suelo lodoso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005793: agua lodosa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: Dique multiuso
@@ -2525,6 +2530,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: músculo
         https://eol(dot)org/schema/terms/muscular_waves: Olas musculares
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: Sistema musculoesquelético
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001386: arrecife de mejillones
         http://eol(dot)org/schema/terms/myrmecochory: mirmecocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: puerto natural
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: Reserva natural
