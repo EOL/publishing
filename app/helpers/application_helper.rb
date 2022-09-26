@@ -124,12 +124,12 @@ module ApplicationHelper
   end
 
   def basic_button(icon, label, url, options = {})
-    addclass = options.delete(:button_class) || nil
     nomargin = options.delete(:no_margin) || false
     classes = %w(ui labeled small icon basic button)
     classes << "uk-margin-small-bottom" unless nomargin
-    classes << addclass if addclass
-    haml_tag("button.#{classes.join(".")}") do
+    tag = "button.#{classes.join('.')}"
+    raise "Illegal class: #{tag.class}" unless tag.is_a?(String)
+    haml_tag(tag) do
       haml_tag("i.#{icon}.icon")
       haml_concat(link_to(label, url, options))
     end
