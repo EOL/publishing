@@ -797,7 +797,7 @@ fr:
       download_tsv: Télécharger au format TSV
       match: correspondance
       new_search: nouvelle recherche
-      page_id: ID de page
+      page_id: identifiant de page
       page_url: URL de la page
       query: requête
       query_cant_be_blank: la requête ne peut être vide
