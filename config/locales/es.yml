@@ -2054,6 +2054,8 @@ es:
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: Temprano
         http://eol(dot)org/schema/terms/earlySpring: inicio de la primavera
         http://eol(dot)org/schema/terms/earlySummer: comienzo del verano
+        http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Montañas del Arco del
+          Este
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
         http://eol(dot)org/schema/terms/echinoderm_feeder: se alimenta de equinodermos
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: gremio ecomorfológico
@@ -2100,6 +2102,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: episódico
         http://eol(dot)org/schema/terms/epizoochory: epizoocoria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: escarpadura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000282: Esker
         http://rs(dot)tdwg(dot)org/dwc/terms/establishmentMeans: medio de establecimiento
         http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: estimar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000020: estuarino
@@ -2119,11 +2122,14 @@ es:
         https://eol(dot)org/schema/terms/extirpated: extirpado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: Hábitat extremo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: Ojos
+        http://eol(dot)org/schema/terms/facultativeClimber: escalador facultativo
+        http://eol(dot)org/schema/terms/facultativeEpiphyte: epífita facultativa
         http://eol(dot)org/schema/terms/facultativeParasite: parásito facultativo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: edad
           Fameniense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: Granja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: Tierra de granja
+        http://eol(dot)org/schema/terms/farming_symbiotroph: simbiotrofo agrícola
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: rápido
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: Pluma
         http://eol(dot)org/schema/terms/feedingCurrent: corriente alimentadora
@@ -2132,13 +2138,16 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: Longitud del fémur
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: Ancho del fémur
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: pantano
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002246: ferralsol
         http://purl(dot)obolibrary(dot)org/obo/GO_0009566: Fertilización
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: suelo fertilizado
         http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: Notas de campo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005755: suelo de campo
         http://eol(dot)org/schema/terms/FireResistance: Resistencia al fuego
         http://eol(dot)org/schema/terms/FireTolerance: Tolerancia al fuego
         http://eol(dot)org/schema/terms/FossilFirst: primera aparición
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: Cueva de fisura
+        https://eol(dot)org/schema/terms/fixes: correcciones
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: fiordo
         http://eol(dot)org/schema/terms/fleshyFruit: Fruta carnosa
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vuelo
@@ -2152,9 +2161,15 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002623: las flores fueron visitadas
           por
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: canaleta
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorita
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002273: fluvisol
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: forraje
         http://eol(dot)org/schema/terms/foliose: folioso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010358: fómite
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: Aditivo alimentario
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorante alimentario
+        http://eol(dot)org/schema/terms/ForagingHabitat: hábitat de alimentación
+        https://eol(dot)org/schema/terms/foram_feeder: se alimenta de cangrejos
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longitud de la extremidad
           anterior
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bosque

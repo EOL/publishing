@@ -504,7 +504,9 @@ cs:
     ks: kašmírština
     q33690: kašubský jazyk
     kk: Kazašština
+    ki: Kikuyu; Gikuyu
     q33656: Kildin Sami
+    q33720: Kinaray-a
     q11005332: Kinga
     q11732519: Kingindo
     rw: Kinyarwanda
@@ -1646,6 +1648,7 @@ cs:
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: teplota těla
         http://eol(dot)org/schema/terms/BodyVolume: objem těla
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: šířka těla
+        https://eol(dot)org/schema/terms/body_caudal_fin: pohyb tělem/ocasní ploutví
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003097: voda z vrtu
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002226: vrt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000537: balvanité pole
