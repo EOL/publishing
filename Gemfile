@@ -78,7 +78,8 @@ gem 'js-routes', '~> 2.2'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
 gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
-gem 'haml-rails', '~> 2.0'
+gem 'haml', '~> 5.2.1'
+gem 'haml-rails', '~> 2.0.1'
 # HTTP client
 gem 'http', '~> 5.0'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
