@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
   public
 
   # Authorization:
-  include Pundit
+  include Pundit::Authorization
   # TODO: we may want to use :null_session when for the API, when we set that up.
   protect_from_forgery with: :exception
   def logged_in?
@@ -166,7 +166,7 @@ private
   end
 
   def set_last_regular_path
-    if !request.xhr? && params[:controller] != "user/sessions" && !params[:controller].start_with?("api") 
+    if !request.xhr? && params[:controller] != "user/sessions" && !params[:controller].start_with?("api")
       cookies[:last_regular_path] = request.fullpath
     end
   end
@@ -175,4 +175,3 @@ private
     cookies[:last_regular_path] || root_path
   end
 end
-
