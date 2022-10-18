@@ -462,6 +462,10 @@ class Resource < ApplicationRecord
     Node::Mover.by_resource(self)
   end
 
+  def diff
+    Delayed::Job.enqueue(DiffJob.new(id))
+  end
+
   def republish
     Delayed::Job.enqueue(RepublishJob.new(id))
   end

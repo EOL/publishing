@@ -80,6 +80,9 @@ qqq:
       headers:
         name: '{{identical|Name}}'
         description: '{{identical|Description}}'
+  resources:
+    actions:
+      diff: "'diff' is a common computer-science shorthand for 'find the differences.' Since this text is for a small button, it would be best to try and use an abbreviation in your language as well; otherwise using 'diff' verbatim may be appropriate."
   search:
     full_name: '{{Optional}}'
   sections:

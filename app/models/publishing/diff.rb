@@ -1,44 +1,12 @@
 class Publishing
-  class Fast
+  class Diff
     require 'net/http'
     include Publishing::Common
     attr_accessor :data_file, :log
 
     def self.by_resource(resource)
-      publr = new(resource)
-      # Because I do this manually and the class name is needed for that:
-      # publr = Publishing::Fast.new(res)
-      publr.by_resource
-    end
-
-    def self.traits_by_resource(resource)
-      publr = new(resource)
-      publr.traits_by_resource
-    end
-
-    # e.g.: nohup rails r "Publishing::Fast.update_attributes_by_resource(Resource.find(724), ScientificName, [:dataset_name])" > dwh_datasets.log 2>&1 &
-    def self.update_attributes_by_resource(resource, klass, fields)
-      publr = new(resource)
-      publr.update_attributes(klass, fields)
-    end
-
-    # e.g.: Publishing::Fast.load_local_file(Resource.find(123), NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
-    def self.load_local_file(resource, klass, file)
-      publr = new(resource)
-      publr.load_local_file(klass, file)
-    end
-
-    def load_local_file(klass, file)
-      new_log
-      set_relationships
-      @klass = klass
-      @data_file = file
-      @log.start("One-shot manual import of #{@klass} starting...")
-      @log.start("#import #{@klass}")
-      import
-      @log.start("#propagate_ids #{@klass}")
-      propagate_ids
-      @log.start("One-shot manual import of #{@klass} COMPLETED.")
+      differ = new(resource)
+      differ.by_resource
     end
 
     def initialize(resource, log = nil)
@@ -49,66 +17,6 @@ class Publishing
       @repo = create_server_connection
       @files = []
       @can_clean_up = true
-    end
-
-    # NOTE: this does NOT work for traits. Don't try. You'll need to make a different method for that.
-    def update_attributes(klass, fields)
-      require 'csv'
-      abort_if_already_running
-      @klass = klass
-      fields = Array(fields)
-      positions = []
-      fields.each do |field|
-        # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
-        positions << @klass.column_names.index(field.to_s) - 1
-      end
-      new_log
-      begin
-        plural = @klass.table_name
-        unless @repo.exists?("#{plural}.tsv")
-          raise("#{@repo.file_url("#{plural}.tsv")} does not exist! "\
-                "Are you sure the resource has successfully finished harvesting?")
-        end
-        @log.start("Updating attributes: #{fields.join(', ')} (#{positions.join(', ')}) for #{plural}")
-        @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
-        if grab_file("#{plural}.tsv")
-          all_data = CSV.read(@data_file, col_sep: "\t")
-          possible_pks = %w(harv_db_id resource_pk node_resource_pk)
-          pk = possible_pks.find { |pk| @klass.column_names.include?(pk.to_s) }
-          pk_pos = @klass.column_names.index(pk) - 1 # fix the 0-index
-          all_data.in_groups_of(2000, false) do |lines|
-            pks = lines.map { |l| l[pk_pos] }
-            pks.map! { |k| k.to_i } if pk == 'harv_db_id' # Integer!
-            instances = @klass.where(:resource_id => @resource.id, pk => pks).load
-            @log.warn("#{instances.size} instances by #{pk}")
-            keyed_instances = instances.group_by(&pk.to_sym)
-            @log.warn("#{keyed_instances.keys.size} groups of keyed_instances")
-            changes = []
-            lines.each do |line|
-              line_pk = line[pk_pos]
-              line_pk = line_pk.to_i if pk == 'harv_db_id'
-              values = {}
-              positions.each_with_index { |pos, i| values[fields[i]] = line[pos] }
-              keyed_instances[line_pk].each do |instance|
-                values.each { |field, val| instance[field] = val unless instance[field] == val }
-                changes << instance if instance.changed?
-              end
-            end
-            @log.warn("#{changes.size} changes...")
-            @klass.import(changes, on_duplicate_key_update: fields)
-          end
-          @files << @data_file
-        else
-          @log.warn("COULDN'T FIND #{plural}.tsv !")
-        end
-      rescue => e
-        @log.fail_on_error(e)
-        raise e
-      ensure
-        @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
-        @log.close
-        ImportLog.all_clear!
-      end
     end
 
     def by_resource
@@ -184,7 +92,7 @@ class Publishing
     def publish_traits_with_cleanup
       @log.start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
       begin
-        publish_traits
+        # YOU WILL HAVE TO WRITE THIS ARGH
       rescue => e
         backtrace = [e.backtrace[0]] + e.backtrace.grep(/\bapp\b/)[1..5]
         @log.warn("Trait Publishing failed: #{e.message} FROM #{backtrace.join(' << ')}")
@@ -230,10 +138,6 @@ class Publishing
         puts '...and B) add "local_infile=true" to your database.yml config for this to work.'
         raise e
       end
-    end
-
-    def publish_traits
-      TraitBank::Slurp.new(@resource, @log).load_resource_from_repo
     end
   end
 end

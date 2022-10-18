@@ -16,6 +16,8 @@
         [publishing now]
     - else
       .ui.red.inverted.button
+        = link_to(t("resources.actions.diff"), resource_diff_path(@resource))
+      .ui.red.inverted.button
         = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
           data: { confirm: t("resources.actions.republish_confirm") })
       .ui.red.inverted.button

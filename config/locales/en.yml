@@ -968,6 +968,7 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       clean_republish: "clean republish"
+      diff: "diff"
       republish_confirm: "This will delete ALL content for the resource (except traits, which will use a diff). Are you SURE?!"
       clean_republish_confirm: "This will delete ALL content for the resource and will NOT use trait diffs. Are you SURE?!"
       reindex: "reindex"

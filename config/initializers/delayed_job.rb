@@ -10,6 +10,22 @@ Delayed::Worker.queue_attributes = {
 Delayed::Worker.raise_signal_exceptions = :term # unlock jobs on SIGTERM so that they can be picked up by the next available worker
 
 # NOTE: If you add another one of these, you should really move them to a jobs folder.
+DiffJob = Struct.new(:resource_id) do
+  def perform
+    resource = Resource.find(resource_id)
+    Delayed::Worker.logger.info("Publishing diff for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Publishing::Diff.by_resource(resource)
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
 RepublishJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
