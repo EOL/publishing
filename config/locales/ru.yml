@@ -976,6 +976,7 @@ ru:
   resources:
     actions:
       republish: переиздать
+      diff: разн.
       index: вернуться ко всем ресурсам
     headers:
       index: Ресурсы

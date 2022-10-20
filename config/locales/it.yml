@@ -806,6 +806,7 @@ it:
   resources:
     actions:
       republish: ripubblica
+      diff: diff
       reindex: reindicizza
       index: torna a tutte le risorse
       show_all:
