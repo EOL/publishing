@@ -843,6 +843,7 @@ pt-BR:
       import_traits: traços de importação (do repositório)
       republish: republicar
       clean_republish: republicação limpa
+      diff: dif
       reindex: reindexar
       fix_no_names: consertar SEM NOMEs
       index: voltar para todos os recursos

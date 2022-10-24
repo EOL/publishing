@@ -857,6 +857,7 @@ ar:
     actions:
       import_traits: استيراد السمات (من المستودع)
       republish: إعادة النشر
+      diff: فرق
       reindex: إعادة الفهرسة
       fix_no_names: عدم إصلاح أية أسماء
       index: العودة إلى جميع الموارد
