@@ -75,20 +75,31 @@ class Publishing::Repository
     @log.log("Importing #{key.pluralize}: page #{page}/#{total_pages} (#{pct}%)", cat: :infos)
   end
 
+  def diffs
+    url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/publishing_diffs.json"
+    response = get_url_safely(url)
+    raise "No files from #{url}" unless response.key?('files')
+    return response['files']
+  end
+
   def get_response_safely(key, page, path_without_page)
     url = "#{Rails.configuration.repository_url}/#{path_without_page}page=#{page}"
     url += "&since=#{@since}" if @since
+    response = get_url_safely(url)
+    return response if response.key?(key)
+    @log.log("Empty #{key}: #{url}", cat: :infos)
+    nil
+  end
+
+  def get_url_safely(url)
     tries ||= 3
     html_response = Net::HTTP.get_response(URI.parse(url))
     # Raise error if not success (poorly named method)
     html_response.value
-    response = JSON.parse(html_response.body)
-    return response if response.key?(key)
-    @log.log("Empty #{key}: #{url}", cat: :infos)
-    nil
+    JSON.parse(html_response.body)
   rescue => e
     tries -= 1
-    @log.log("!! Failed to read #{key} page #{page}! url: #{url} message: #{e.message[0..100]}", cat: :errors)
+    @log.log("!! Failed to read #{url} message: #{e.message[0..100]}", cat: :errors)
     log_parsed_result(response)
     retry if tries.positive?
     @log.log("!! FAILURE: exceeded retry count.", cat: :errors)

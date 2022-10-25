@@ -3,6 +3,16 @@ class Publishing
     require 'net/http'
     attr_accessor :data_file, :log
 
+    def initialize(resource, log = nil)
+      @start_at = Time.now
+      @resource = resource
+      # NOTE: this is likely to get overridden once we create a new log, but nice to have in case we need it:
+      @log = log # Okay if it's nil.
+      @repo = create_server_connection
+      @files = []
+      @can_clean_up = true
+    end
+
     def create_server_connection
       ContentServerConnection.new(@resource, @log)
     end
@@ -35,8 +45,12 @@ class Publishing
 
     def new_log
       @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
-      @repo = create_server_connection
+      connect_to_repo
       @log
+    end
+
+    def connect_to_repo
+      @repo = create_server_connection
     end
 
     def clean_up
