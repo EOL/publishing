@@ -17,6 +17,7 @@
 # Author: Lorisobi
 # Author: Schmackes
 # Author: Symposiarch
+# Author: ThisCarthing
 # Author: Tiin
 # Author: Umherirrender
 # Author: Umlaut
@@ -835,6 +836,7 @@ de:
     id_space:
       type_names:
         taxon: Taxon
+      numeric_id: numerische ID
     property:
       description:
         ancestor: Ein Taxon welches der Vorfahr eines anderen Taxons ist.
