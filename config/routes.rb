@@ -111,23 +111,6 @@ Rails.application.routes.draw do
 
     get "/gbif_downloads/create" => "gbif_downloads#create"
 
-    # TODO: we decided we could go live without these. Which is good, they are lame:
-    # scope '/hierarchies' do
-    #   get '/1.0/:id' => 'api_hierarchies#index'
-    #   get '/:id' => 'api_hierarchies#index'
-    #   get '/:version' => 'api_hierarchies#index', version: /1\.0/
-    # end
-    # scope '/provider_hierarchies' do
-    #   get '/1.0/:id' => 'api_provider_hierarchies#index'
-    #   get '/:id' => 'api_provider_hierarchies#index'
-    #   get '/:version' => 'api_provider_hierarchies#index', version: /1\.0/
-    # end
-    # scope '/search_by_provider' do
-    #   get '/1.0/:id' => 'api_search_by_provider#index'
-    #   get '/:id' => 'api_search_by_provider#index'
-    #   get '/:version' => 'api_search_by_provider#index', version: /1\.0/
-    # end
-
     scope '/api' do
       id_match = /[-\w\.,]+(?=\.(json|xml))/
       # id_match = /[-\w\.]+/
@@ -177,6 +160,23 @@ Rails.application.routes.draw do
         get '/test' => 'api_reconciliation#test'
         get '/test_extend' => 'api_reconciliation#test_extend'
       end
+
+      # TODO: we decided we could go live without these. Which is good, they are lame:
+      # scope '/hierarchies' do
+      #   get '/1.0/:id' => 'api_hierarchies#index'
+      #   get '/:id' => 'api_hierarchies#index'
+      #   get '/:version' => 'api_hierarchies#index', version: /1\.0/
+      # end
+      # scope '/provider_hierarchies' do
+      #   get '/1.0/:id' => 'api_provider_hierarchies#index'
+      #   get '/:id' => 'api_provider_hierarchies#index'
+      #   get '/:version' => 'api_provider_hierarchies#index', version: /1\.0/
+      # end
+      # scope '/search_by_provider' do
+      #   get '/1.0/:id' => 'api_search_by_provider#index'
+      #   get '/:id' => 'api_search_by_provider#index'
+      #   get '/:version' => 'api_search_by_provider#index', version: /1\.0/
+      # end
     end
 
     # This isn't really a model, so we'll go oldschool:
