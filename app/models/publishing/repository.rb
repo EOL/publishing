@@ -113,4 +113,18 @@ class Publishing::Repository
     @log.log(noko.css('html body h1')&.text)
     @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
   end
+
+  def grab_file(uri, loc)
+    Net::HTTP.start(uri.host, uri.port) do |http|
+      request = Net::HTTP::Get.new uri
+
+      http.request request do |response|
+        open loc, 'w' do |io|
+          response.read_body do |chunk|
+            io.write chunk
+          end
+        end
+      end
+    end
+  end
 end

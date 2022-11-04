@@ -15,13 +15,14 @@ class Publishing
       @log = Publishing::PubLog.new(@resource, use_existing_log: true)
       connect_to_repo
       begin
-        @repo.diffs.each do |diff_filename|
-          @repo.diff_file(diff_filename)
-          # YOU WERE HERE ... what happens when we are served a file?
-          # TODO: parse the name of the klass from the diff_filename
-          @klass = TODO
-          @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
-          if grab_file(diff_filename) # TODO: I don't think this method will work as-is
+        @repo.diffs.each do |diff_uri|
+          # filename will look like publish_[table]_{harvest_at}.diff
+          diff_filename = diff_uri.sub(%r{^.*\/}, '')
+          diff_path = "#{@resource.path}/#{diff_filename}"
+          @repo.grab_file(diff_uri, diff_path)
+          @klass = diff_filename.sub(/^publish_/, '').sub(/_\d+.tsv$/, '')
+          @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.diff")
+          File.open(diff_filename, 'r').each_line do |line|
             # TODO: create new
             # TODO: edit existing
             # TODO: remove deleted
