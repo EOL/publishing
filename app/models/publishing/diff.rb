@@ -22,14 +22,11 @@ class Publishing
           @repo.grab_file(diff_uri, diff_path)
           @klass = diff_filename.sub(/^publish_/, '').sub(/_\d+.tsv$/, '')
           @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.diff")
-          File.open(diff_filename, 'r').each_line do |line|
-            # TODO: create new
-            # TODO: edit existing
-            # TODO: remove deleted
-            # TODO: log affected pages
-            propagate_ids # NOTE: uses @klass
-            @files << @data_file
-          end
+          diff_handler = Publishing::DiffHandler.new(filename: diff_filename, klass: @klass)
+          diff_handler.parse
+          # TODO: create, update, delete, and look for affected pages
+          propagate_ids # NOTE: uses @klass
+          @files << @data_file
           # TODO: Check that the native_nodes haven't been removed on pages affected
           # TODO: fix page icons on affected pages
           # TODO: re-write
