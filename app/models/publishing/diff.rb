@@ -29,6 +29,11 @@ class Publishing
           diff_handler.created.each do |data|
             @klass.create(@klass.column_names.zip(data))
             log_page(data)
+            if @klass == Node
+              # TODO: you need to create pages when ingesting nodes and the page is missing
+            elsif @klass == Medium
+              # TODO: You'll need a media content creator to run on new media...
+            end
           end
           diff_handler.updated_from.each_with_index do |data, i|
             attributes = @klass.column_names.zip(data)
@@ -47,15 +52,14 @@ class Publishing
             raise "Unable to delete, no model found: #{attributes}" if model.nil?
             model.destroy
             log_page(data)
+            if @klass == Node
+              # TODO: Check that the native_nodes haven't been removed on pages affected
+            elsif @klass == Medium
+              # TODO: fix page icons on affected pages
+            end
           end
           propagate_ids # NOTE: uses @klass
           @files << @data_file
-          # TODO: Check that the native_nodes haven't been removed on pages affected
-          # TODO: fix page icons on affected pages
-          # TODO: re-write
-
-          # TODO: you need to create pages when ingesting nodes and the page is missing
-          # TODO: You'll need a media content creator to run on new media...
           # TODO: TraitBank::Denormalizer.update_resource_vernaculars(@resource) on affected pages
         end
         @log.start('restoring vernacular preferences...')
