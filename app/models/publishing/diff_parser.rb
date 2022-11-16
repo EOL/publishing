@@ -13,9 +13,8 @@ class Publishing
   class DiffParser
     attr_reader :updated_from, :updated_to, :created, :deleted
 
-    def initialize(params)
-      @filename = params[:filename]
-      @klass = params[:klass]
+    def initialize(filename)
+      @filename = filename
       @state = nil
       @updated_from = []
       @updated_to = []
@@ -33,7 +32,8 @@ class Publishing
     def parse
       File.open(@filename, 'r').each_line do |line|
         next if state_changed?(line)
-        line_data = line[2..-1]
+        fake_attributes_from_diff_line(line)
+        line_data =
         if @state == :create
           fail_unless_out(line)
           @created << line_data
@@ -56,6 +56,20 @@ class Publishing
         else
           raise "Unhandled state: #{@state}"
         end
+      end
+    end
+
+    def fake_attributes_from_diff_line(line)
+      [nil] + line[2..-1].chomp.split(/\t/).map { |val| clean_tsv_data(val) }
+    end
+
+    def clean_tsv_data(val)
+      if val == '\\N'
+        nil
+      elsif val =~ /^-?\d+$/ # We don't have any floats, so we don't have to worry about this.
+        val.to_i
+      else
+        val
       end
     end
 

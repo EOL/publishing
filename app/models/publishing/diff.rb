@@ -15,16 +15,39 @@ class Publishing
       @log = Publishing::PubLog.new(@resource, use_existing_log: true)
       connect_to_repo
       begin
+        @affected_pages = Set.new
         @repo.diffs.each do |diff_uri|
+          @check_pages = @klass.column_names.include?('page_id') ? @klass.column_names.index('page_id') : false
           # filename will look like publish_[table]_{harvest_at}.diff
           diff_filename = diff_uri.sub(%r{^.*\/}, '')
           diff_path = "#{@resource.path}/#{diff_filename}"
           @repo.grab_file(diff_uri, diff_path)
           @klass = diff_filename.sub(/^publish_/, '').sub(/_\d+.tsv$/, '')
           @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.diff")
-          diff_handler = Publishing::DiffHandler.new(filename: diff_filename, klass: @klass)
+          diff_handler = Publishing::DiffHandler.new(diff_filename)
           diff_handler.parse
-          # TODO: create, update, delete, and look for affected pages
+          diff_handler.created.each do |data|
+            @klass.create(@klass.column_names.zip(data))
+            log_page(data)
+          end
+          diff_handler.updated_from.each_with_index do |data, i|
+            attributes = @klass.column_names.zip(data)
+            to_attributes = @klass.column_names.zip(diff_handler.updated_to[i])
+            attributes.delete('id')
+            to_attributes.delete('id')
+            model = @klass.find_by(attributes)
+            raise "Unable to update, no model found: #{attributes}" if model.nil?
+            model.update!(to_attributes)
+            log_page(data)
+          end
+          diff_handler.deleted.each do |data|
+            attributes = @klass.column_names.zip(data)
+            attributes.delete('id')
+            model = @klass.find_by(attributes)
+            raise "Unable to delete, no model found: #{attributes}" if model.nil?
+            model.destroy
+            log_page(data)
+          end
           propagate_ids # NOTE: uses @klass
           @files << @data_file
           # TODO: Check that the native_nodes haven't been removed on pages affected
@@ -48,6 +71,10 @@ class Publishing
         @log.close
         ImportLog.all_clear!
       end
+    end
+
+    def log_page(data)
+      @affected_pages << data[@check_pages] if @check_pages
     end
   end
 end
