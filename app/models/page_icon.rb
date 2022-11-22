@@ -7,16 +7,21 @@ class PageIcon < ApplicationRecord
 
   class << self
     def fix
-      Page.where(["updated_at > ?", 1.day.ago]).find_each do |page|
+      page_ids = Page.where(["updated_at > ?", 1.day.ago]).pluck(:id)
+      fix_by_page_id(page_ids)
+    end
+
+    def fix_by_page_id(page_ids)
+      Page.where(page_id: page_ids).find_each do |page|
         icon =  if page.page_icons.any?
-                  page.page_icons.last.medium
-                elsif page.media.where(subclass: Medium.subclasses[:image]).any?
-                  page.media.where(subclass: Medium.subclasses[:image]).first
-                elsif page.media.any?
-                  page.media.first
-                else
-                  nil
-                end
+          page.page_icons.last.medium
+        elsif page.media.where(subclass: Medium.subclasses[:image]).any?
+          page.media.where(subclass: Medium.subclasses[:image]).first
+        elsif page.media.any?
+          page.media.first
+        else
+          nil
+        end
         page.update_attribute(:medium_id, icon.id) if icon
       end
     end

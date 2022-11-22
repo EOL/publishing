@@ -15,58 +15,10 @@ class Publishing
       @log = Publishing::PubLog.new(@resource, use_existing_log: true)
       connect_to_repo
       begin
-        @affected_pages = Set.new
-        @repo.diffs.each do |diff_uri|
-          @check_pages = @klass.column_names.include?('page_id') ? @klass.column_names.index('page_id') : false
-          # filename will look like publish_[table]_{harvest_at}.diff
-          diff_filename = diff_uri.sub(%r{^.*\/}, '')
-          diff_path = "#{@resource.path}/#{diff_filename}"
-          @repo.grab_file(diff_uri, diff_path)
-          @klass = diff_filename.sub(/^publish_/, '').sub(/_\d+.tsv$/, '')
-          @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.diff")
-          diff_handler = Publishing::DiffHandler.new(diff_filename)
-          diff_handler.parse
-          diff_handler.created.each do |data|
-            @klass.create(@klass.column_names.zip(data))
-            log_page(data)
-            if @klass == Node
-              # TODO: you need to create pages when ingesting nodes and the page is missing
-            elsif @klass == Medium
-              # TODO: You'll need a media content creator to run on new media...
-            end
-          end
-          diff_handler.updated_from.each_with_index do |data, i|
-            attributes = @klass.column_names.zip(data)
-            to_attributes = @klass.column_names.zip(diff_handler.updated_to[i])
-            attributes.delete('id')
-            to_attributes.delete('id')
-            model = @klass.find_by(attributes)
-            raise "Unable to update, no model found: #{attributes}" if model.nil?
-            model.update!(to_attributes)
-            log_page(data)
-          end
-          diff_handler.deleted.each do |data|
-            attributes = @klass.column_names.zip(data)
-            attributes.delete('id')
-            model = @klass.find_by(attributes)
-            raise "Unable to delete, no model found: #{attributes}" if model.nil?
-            model.destroy
-            log_page(data)
-            if @klass == Node
-              # TODO: Check that the native_nodes haven't been removed on pages affected
-            elsif @klass == Medium
-              # TODO: fix page icons on affected pages
-            end
-          end
-          propagate_ids # NOTE: uses @klass
-          @files << @data_file
-          # TODO: TraitBank::Denormalizer.update_resource_vernaculars(@resource) on affected pages
-        end
-        @log.start('restoring vernacular preferences...')
-        VernacularPreference.restore_for_resource(@resource.id, @log)
-        propagate_reference_ids
+        create_set_variables
+        handle_diffs
+        denormalize_models
         clean_up
-        Publishing::DynamicWorkingHierarchy.update(@resource, @log) if @resource.dwh?
       rescue => e
         clean_up
         @log.fail_on_error(e)
@@ -77,8 +29,87 @@ class Publishing
       end
     end
 
+    def create_set_variables
+      @affected_pages = Set.new
+      @affected_media_pages = Set.new
+      @new_pages = Set.new
+      @new_media = Set.new
+    end
+
+    def handle_diffs
+      @repo.diffs.each do |diff_uri|
+        @check_pages = @klass.column_names.include?('page_id') ? @klass.column_names.index('page_id') : false
+        # filename will look like publish_[table]_{harvest_at}.diff
+        diff_filename = diff_uri.sub(%r{^.*\/}, '')
+        diff_path = "#{@resource.path}/#{diff_filename}"
+        @repo.grab_file(diff_uri, diff_path)
+        @klass = diff_filename.sub(/^publish_/, '').sub(/_\d+.tsv$/, '')
+        @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.diff")
+        diff_handler = Publishing::DiffHandler.new(diff_filename)
+        diff_handler.parse
+        create_models(diff_handler)
+        update_models(diff_handler)
+        delete_models(diff_handler)
+        propagate_ids # NOTE: uses @klass
+        @files << @data_file
+        Page.fix_missing_native_nodes(Page.where(page_id: @affected_pages.to_a))
+        PageIcon.fix_by_page_id(@affected_media_pages.to_a)
+        TraitBank::Denormalizer.update_attributes_by_page_id(@affected_pages.to_a)
+      end
+    end
+
+    def create_models(diff_handler)
+      diff_handler.created.each do |data|
+        attributes = @klass.column_names.zip(data)
+        model = @klass.create(attributes)
+        log_page(attributes)
+        if @klass == Node
+          @new_pages << attributes['page_id'] unless Page.exist?(id: attributes['page_id'])
+        elsif @klass == Medium
+          @new_media << model.id
+        end
+      end
+    end
+
+    def update_models(diff_handler)
+      diff_handler.updated_from.each_with_index do |data, i|
+        attributes = @klass.column_names.zip(data)
+        to_attributes = @klass.column_names.zip(diff_handler.updated_to[i])
+        attributes.delete('id')
+        to_attributes.delete('id')
+        model = @klass.find_by(attributes)
+        raise "Unable to update, no model found: #{attributes}" if model.nil?
+        model.update!(to_attributes)
+        log_page(data)
+      end
+    end
+
+    def delete_models(diff_handler)
+      diff_handler.deleted.each do |data|
+        attributes = @klass.column_names.zip(data)
+        attributes.delete('id')
+        model = @klass.find_by(attributes)
+        raise "Unable to delete, no model found: #{attributes}" if model.nil?
+        model.destroy
+        log_page(data)
+      end
+    end
+
     def log_page(data)
-      @affected_pages << data[@check_pages] if @check_pages
+      return unless @check_pages
+      @affected_pages << data[@check_pages]
+      @affected_media_pages << data[@check_pages] if @klass == Medium
+    end
+
+    def denormalize_models
+      # TODO: create @new_pages
+      # TODO: You'll need a media content creator to run on @new_media
+      @log.start('restoring vernacular preferences...')
+      VernacularPreference.restore_for_resource(@resource.id, @log)
+      propagate_reference_ids
+      return unless @resource.dwh?
+      @log.start('Dynamic Working Hierarchy! Updating...')
+      Publishing::DynamicWorkingHierarchy.update(@resource, @log)
     end
   end
 end
