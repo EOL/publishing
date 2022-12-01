@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Carrot Li
+# Author: HellojoeAoPS
 # Author: Kly
 # Author: Madeleinemcc
 # Author: Sidishandsome
@@ -15,7 +16,7 @@ zh-TW:
   language_name: 繁體中文
   about:
     trait_bank:
-      title: 特質資料庫
+      title: 性狀庫
       body_html: <p>網路生命大百科技術與資料管理團隊參照在網路生命大百科裡的結構化資料來源 — 特質與其它姓名標示資料、種間關係、與我們的本地分類、動態運作階系來作為特質資料庫（TraitBank）。此內容的管理方式與我們的「典型」內容
         — 圖片、影片、聲音、與描述文字相比之下有所差別，這在對於不同的事物裡很有用。</p><p>特質資料庫是比網路生命大百科其它部份還新穎的東西，這最初是由
         Species Pages Group 總監 Cynthia Parr 所構思，並於 2014 年 1 月在網路生命大百科第二版裡上線。從那時開始，結構化資料就一直是我們開發時的首要項目。</p><p>現在，您可以透過結構化資料來<a
@@ -24,7 +25,7 @@ zh-TW:
         href='%{data_services_path}'>資料服務</a>為可用。</p>
   account_already_linked: 您的帳號已連結到網路生命大百科
   account_not_linked: 您的帳號尚未連結到網路生命大百科
-  advanced: 進階
+  advanced: 高級
   are_you_sure_delete_account: 您確定要刪除您自己的網路生命大百科帳號嗎？
   article:
     actions:
@@ -685,6 +686,7 @@ zh-TW:
     q237409: 澤蘭語
     za: 壯語
     zu: 祖魯語
+    Q33219: 班尤馬山語
   layout_sign_in: 登入
   layout_sign_up: 註冊
   layout_sign_out: 登出
@@ -879,6 +881,29 @@ zh-TW:
       r_superphylum: 總門
       r_phylum: 門
       r_subphylum: 亞門
+      r_infraphylum: 下門
+      r_superclass: 總綱
+      r_class: 綱
+      r_subclass: 亞綱
+      r_infraclass: 亞類
+      r_superorder: 總目
+      r_order: 目
+      r_suborder: 亞目
+      r_infraorder: 下目
+      r_superfamily: 總科
+      r_family: 科
+      r_subfamily: 亞科
+      r_infrafamily: 下科
+      r_tribe: 族
+      r_supergenus: 總屬
+      r_genus: 屬
+      r_subgenus: 亞屬
+      r_infragenus: 下屬
+      r_superspecies: 總種
+      r_species: 種
+      r_subspecies: 亞種
+      r_infraspecies: 下種
+      r_form: 表單
   recaptcha: Recaptcha
   recaptcha_error: 請告訴我們你不是機器人。
   reconciliation:

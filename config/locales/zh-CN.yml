@@ -8,6 +8,7 @@
 # Author: Gerongfenh
 # Author: Grace03
 # Author: GuoPC
+# Author: HellojoeAoPS
 # Author: Hmgrmb
 # Author: Hydra
 # Author: Jhammock
@@ -35,16 +36,16 @@ zh-CN:
   language_name: 简体中文
   about:
     trait_bank:
-      title: 特性库
-      body_html: <p>EOL的技术和数据管理团队将EOL的结构化数据资源（性状及其他属性数据、生态相互作用、我们的本地分类、动态工作层级）统称为特性库（TraitBank）。其内容的管理方式与我们的“经典”内容（图像、视频，音频及描述性文本）有所不同，其用途亦不相同。</p><p>特性库比EOL的其他部分更加年轻。构想源于Species
-        Pages Group总监Cynthia Parr，并于2014年1月在EOL v2中上线。从那时起，结构化数据一直是内容开发的首要任务。</p><p>现在，您可以透过结构化数据<a
-        href='%{example_search_path}'>搜索</a>或浏览EOL，或下载, 亦或您在我们新的概览页阅读<a href='%{autogen_page_path}'>自动生成的文本</a>的方式邂逅它。如同其他EOL内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是用<a
+      title: 性状库
+      body_html: <p>网络生命大百科的技术和数据管理团队将网络生命大百科的结构化数据资源（性状及其他属性数据、生态相互作用、我们的本地分类、动态工作层级）统称为特性库（TraitBank）。其内容的管理方式与我们的“经典”内容（图像、视频，音频及描述性文本）有所不同，其用途亦不相同。</p><p>特性库比EOL的其他部分更加年轻。构想源于Species
+        Pages Group总监Cynthia Parr，并于2014年1月在网络生命大百科 v2中上线。从那时起，结构化数据一直是内容开发的首要任务。</p><p>现在，您可以透过结构化数据<a
+        href='%{example_search_path}'>搜索</a>或浏览网络生命大百科，或下载, 亦或您在我们新的概览页阅读<a href='%{autogen_page_path}'>自动生成的文本</a>的方式邂逅它。如同其他网络生命大百科内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是用<a
         href='%{neo4j_url}'>neo4j</a>中的<a href='%{property_graph_url}'>属性图</a>建模的。
         <a href='%{data_services_path}'>数据服务</a>可供使用。</p>
-  account_already_linked: 您的帐号已与EOL链接
-  account_not_linked: 您的帐号没有与EOL链接
+  account_already_linked: 您的帐号已与网络生命大百科链接
+  account_not_linked: 您的帐号没有与网络生命大百科链接
   advanced: 高级
-  are_you_sure_delete_account: 您确定要删除您的EOL帐户吗？
+  are_you_sure_delete_account: 您确定要删除您的网络生命大百科帐户吗？
   article:
     actions:
       collect: 收集
@@ -75,8 +76,8 @@ zh-CN:
       r_genus_html: 该属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_subgenus_html: 该亚属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_infragenus_html: 该下属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_superspecies_html: 该超级物种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_species_html: 该物种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_superspecies_html: 该种团已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_species_html: 该种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_subspecies_html: 该亚种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_infraspecies_html: 该下种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_form_html: 该型已<span class='%{class_str}' id='%{id}'>灭绝</span>。
@@ -84,11 +85,11 @@ zh-CN:
       class='%{class_str}' id='%{object_id}'>氮</span>。
     freshwater_html: 它们与<span class='%{class_str}' id='%{id}'>淡水栖息地有关</span>。
     marine_html: 它们发现于<span class='%{class_str}' id='%{id}'>海洋栖息地</span>。
-    species: '%{name1}是%{name2}的一个物种。'
-    species_in_family: '%{name1}是科%{name_family}中%{name2}的一个物种。'
+    species: '%{name1}是%{name2}的一个种。'
+    species_in_family: '%{name1}是%{name_family}科中%{name2}的一个种。'
     taxonomy:
       family_above:
-        r_superfamily: '%{name1}是%{name2}的一个超科。'
+        r_superfamily: '%{name1}是%{name2}的一个总科。'
         r_domain: '%{name1}是%{name2}的一个域。'
         r_subdomain: '%{name1}是%{name2}的一个亚域。'
         r_infradomain: '%{name1}是%{name2}的一个下域。'
@@ -96,45 +97,45 @@ zh-CN:
         r_kingdom: '%{name1}是%{name2}的一个界。'
         r_subkingdom: '%{name1}是%{name2}的一个亚界。'
         r_infrakingdom: '%{name1}是%{name2}的一个下界。'
-        r_superphylum: '%{name1}是%{name2}的一个超门。'
+        r_superphylum: '%{name1}是%{name2}的一个总门。'
         r_phylum: '%{name1}是%{name2}的一个门。'
         r_subphylum: '%{name1}是%{name2}的一个亚门。'
         r_infraphylum: '%{name1}是%{name2}的一个下门。'
-        r_superclass: '%{name1}是%{name2}的一个超纲。'
+        r_superclass: '%{name1}是%{name2}的一个总纲。'
         r_class: '%{name1}是%{name2}的一个纲。'
         r_subclass: '%{name1}是%{name2}的一个亚纲。'
         r_infraclass: '%{name1}是%{name2}的一个下纲。'
-        r_superorder: '%{name1}是%{name2}的一个超目。'
+        r_superorder: '%{name1}是%{name2}的一个总目。'
         r_order: '%{name1}是%{name2}的一个目。'
         r_suborder: '%{name1}是%{name2}的一个亚目。'
         r_infraorder: '%{name1}是%{name2}的一个下目。'
         r_family: '%{name1}是%{name2}的一个科。'
       below_family:
         with_family:
-          r_subfamily: '%{name1}是科%{name3}中%{name2}的一个亚科。'
-          r_infrafamily: '%{name1}是科%{name3}中%{name2}的一个下科。'
-          r_tribe: '%{name1}是科%{name3}中%{name2}的一个族。'
-          r_supergenus: '%{name1}是科%{name3}中%{name2}的一个超属。'
-          r_genus: '%{name1}是科%{name3}中%{name2}的一个属。'
-          r_subgenus: '%{name1}是科%{name3}中%{name2}的一个亚属。'
-          r_infragenus: '%{name1}是科%{name3}中%{name2}的一个下属。'
-          r_superspecies: '%{name1}是科%{name3}中%{name2}的一个超种。'
-          r_species: '%{name1}是科%{name3}中%{name2}的一个物种。'
-          r_subspecies: '%{name1}是科%{name3}中%{name2}的一个亚种。'
-          r_infraspecies: '%{name1}是科%{name3}中%{name2}的一个下物种。'
-          r_form: '%{name1}是科%{name3}中%{name2}的一个型。'
+          r_subfamily: '%{name1}是%{name3}科中%{name2}的一个亚科。'
+          r_infrafamily: '%{name1}是%{name3}科中%{name2}的一个下科。'
+          r_tribe: '%{name1}是%{name3}科中%{name2}的一个族。'
+          r_supergenus: '%{name1}是%{name3}科中%{name2}的一个总属。'
+          r_genus: '%{name1}是%{name3}科中%{name2}的一个属。'
+          r_subgenus: '%{name1}是%{name3}科中%{name2}的一个亚属。'
+          r_infragenus: '%{name1}是%{name3}科中%{name2}的一个下属。'
+          r_superspecies: '%{name1}是%{name3}科中%{name2}的一个总种。'
+          r_species: '%{name1}是%{name3}科中%{name2}的一个种。'
+          r_subspecies: '%{name1}是%{name3}科中%{name2}的一个亚种。'
+          r_infraspecies: '%{name1}是%{name3}科中%{name2}的一个下种。'
+          r_form: '%{name1}是%{name3}科中%{name2}的一个型。'
         without_family:
           r_subfamily: '%{name1}是%{name2}的一个亚科。'
           r_infrafamily: '%{name1}是%{name2}的一个下科。'
           r_tribe: '%{name1}是%{name2}的一个族。'
-          r_supergenus: '%{name1}是%{name2}的一个超属。'
+          r_supergenus: '%{name1}是%{name2}的一个总属。'
           r_genus: '%{name1}是%{name2}的一个属。'
           r_subgenus: '%{name1}是%{name2}的一个亚属。'
           r_infragenus: '%{name1}是%{name2}的一个下属。'
-          r_superspecies: '%{name1}是%{name2}的一个超种。'
-          r_species: '%{name1}是%{name2}的一个物种。'
+          r_superspecies: '%{name1}是%{name2}的一个总种。'
+          r_species: '%{name1}是%{name2}的一个种。'
           r_subspecies: '%{name1}是%{name2}的一个亚种。'
-          r_infraspecies: '%{name1}是%{name2}的一个下物种。'
+          r_infraspecies: '%{name1}是%{name2}的一个下种。'
           r_form: '%{name1}是%{name2}的一个型。'
   button_create: 创建
   button_add: 添加
@@ -422,6 +423,7 @@ zh-CN:
     hr: 克罗地亚语
     hrv: 克罗地亚语
     cs: 捷克语
+    q32238: 达戈姆巴语；巴尼语
     da: 丹麦语
     q3362072: 迪戈语
     q56466: 丁卡语
@@ -505,6 +507,7 @@ zh-CN:
     q33690: 卡舒布语
     kk: 哈萨克语
     ki: 吉库尤语
+    q33656: 基尔丁萨米语
     q11005332: 金加语
     q11732519: 金恩多语
     rw: 卢旺达
@@ -551,6 +554,7 @@ zh-CN:
     mh: 马绍尔语
     q6786446: 马腾戈语
     q3906614: 平地马里语
+    q13357: 梅安语
     q13358: 梅格莱诺罗马尼亚语
     q13313: 须弥
     q13321: 密克马克语
@@ -701,6 +705,7 @@ zh-CN:
     q237409: 古新西兰语
     za: 壮语
     zu: 祖鲁语
+    Q33219: 班尤马山语
   layout_sign_in: 登录
   layout_sign_up: 注册
   layout_sign_out: 注销
