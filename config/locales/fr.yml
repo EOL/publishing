@@ -1236,8 +1236,9 @@ fr:
         bio: Biographie
       search_suggestion:
         match: chercher la chaîne correspondante
-        page_id: ID de la page sur EdlV vers laquelle rediriger (ou par laquelle filtrer)
-        synonym_of_id: ID (!) de la suggestion de recherche à plutôt utiliser
+        page_id: Identifiant de la page sur EdlV vers laquelle rediriger (ou par laquelle
+          filtrer)
+        synonym_of_id: Identifiant (!) de la suggestion de recherche à plutôt utiliser
         object_term: URI vers laquelle rediriger (ou par laquelle filtrer)
         path: chemin (complet ou relatif) de la redirection
         wkt_string: Chaîne WKT à passer à Effechecka

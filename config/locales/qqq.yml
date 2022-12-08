@@ -24,6 +24,9 @@ qqq:
     notices:
       vernacular: https://www.webton.nl/blog/wat-zijn-breadcrumbs/
   brief_summary:
+    marine_html: Do not translate the two HTML tags <code><nowiki><span class="%{class_str}"
+      id="%{id}"></nowiki></code> and <code><nowiki></span></nowiki></code> surrounding
+      the expression "marine habitat", translate only this expression.
     taxonomy:
       family_above:
         r_superkingdom: "Domain is also named superkingdom. See also: \nhttps://en.wikipedia.org/wiki/Domain_(biology)"
