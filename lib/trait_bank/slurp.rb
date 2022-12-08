@@ -4,7 +4,6 @@ require 'csv'
 # NOTE: Publishing will call .load_resource_from_repo q.v..
 class TraitBank::Slurp
   MAX_CSV_SIZE = 128_000
-  MAX_SKIP_PKS = 1_000
 
   delegate :query, to: TraitBank
 
@@ -287,33 +286,13 @@ class TraitBank::Slurp
     nodes = config[:nodes]
 
     break_up_large_files(filename) do |sub_filename|
-      # check trait validity
-      skip_pks = Set.new
-
-      # XXX: Disabled due to small resources timing out. This may be worth revisiting in the future.
-      # - mvitale
-      #if checks
-      #  @logger.info("Running validity checks for #{sub_filename}")
-
-      #  checks.each do |where_clause, check|
-      #    skip_pks.merge(run_check(sub_filename, where_clause, check))
-      #  end
-
-      #  if skip_pks.length > MAX_SKIP_PKS
-      #    @logger.warn("WARNING: Too many invalid rows (#{skip_pks.length})! Not skipping any. This may result in bad data!")
-      #    skip_pks = Set.new
-      #  end
-      #end
-
       @logger.info("Importing #{MAX_CSV_SIZE} rows from #{sub_filename}")
 
       # build nodes required by all rows
       nodes.each do |node|
         try_again = true
         begin
-          where = skip_pks.any? ?
-            "NOT row.eol_pk IN [#{skip_pks.map { |pk| "'#{pk}'" }.join(', ')}]" :
-            nil
+          where = nil
 
           build_nodes(node, csv_query_head(sub_filename, where))
         rescue => e
@@ -358,10 +337,10 @@ class TraitBank::Slurp
     (1..chunks).each do |chunk|
       if chunk > 1
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
-        wait_time = chunk * 2.minutes
-        wait_time = 30.minutes if wait_time > 30.minutes
-        @logger.info("Waiting #{wait_time / 60} minutes for the last 'chunk' to be added to neo4j...")
-        sleep(wait_time)
+        wait_time = chunk * 2
+        wait_time = 30 if wait_time > 30
+        @logger.info("Waiting #{wait_time} minutes for 'chunk' #{chunk}/#{chunks} to be added to neo4j...")
+        sleep(wait_time.minutes)
       end
       sub_file = sub_file_name(basename, chunk)
       copy_head(filename, sub_file)
@@ -642,35 +621,4 @@ class TraitBank::Slurp
       @logger.info('not removing any traits')
     end
   end
-
-  #def run_check(filename, row_where_clause, check)
-  #  head = csv_check_head(filename, row_where_clause)
-  #  query = <<~CYPHER
-  #    #{head}
-  #    MATCH #{check[:matches].join(", ")}
-  #    #{check[:optional_matches]&.any? ? "OPTIONAL MATCH #{check[:optional_matches].join(", ")}" : ''}
-  #    WHERE #{check[:fail_condition]}
-  #    RETURN DISTINCT #{check[:returns].join(", ")}
-  #  CYPHER
-
-  #  result = ActiveGraph::Base.query(query).to_a
-
-  #  skip_pks = []
-
-  #  if result.any?
-  #    @logger.error(check[:message])
-
-  #    values_to_log = []
-  #    result.each do |row|
-  #      skip_pks << row[:eol_pk]
-  #      values_to_log << [row[:page_id], row[:term_uri]]
-  #    end
-
-  #    @logger.error('[page_id, term_uri] pairs logged above')
-  #    @logger.error("Too many rows to log! This is just a sample.") if values_to_log.length > MAX_SKIP_PKS
-  #    @logger.error(values_to_log[0..MAX_SKIP_PKS].map { |v| "[#{v.join(', ')}]" }.join(', '))
-  #  end
-
-  #  skip_pks
-  #end
 end

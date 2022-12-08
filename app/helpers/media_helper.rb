@@ -15,12 +15,25 @@ module MediaHelper
 
   def generic_medium_name(medium)
     medium.source_pages.any? ?
-      t("medium.untitled.#{medium.subclass}_of", page_name: medium.source_pages.first.name) :
+      t("medium.untitled.#{medium.subclass}_of", page_name: safe_source_page_name(medium)) :
       t("medium.untitled.#{medium.subclass}")
+  end
+
+  def safe_source_page_name(medium)
+    first_page = safe_source_page(medium)
+    first_page.name
+  end
+
+  def safe_source_page(medium)
+    # I'm not going to use a while loop here just because this is kind of time-sensitive; we're loading media!
+    return medium.source_pages.first unless medium.source_pages.first.nil?
+    medium.fix_source_pages
+    medium.source_pages.first
   end
 
   def medium_appears_on(medium)
     appears_on = []
+    medium.fix_source_pages if medium.source_pages.any? { |page| page.nil? }
     source_pages = medium.source_pages
     pages = medium.page_contents.map(&:page).compact.map do |page|
       [page.id, page]

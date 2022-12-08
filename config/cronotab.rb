@@ -20,4 +20,5 @@ Crono.perform(TermNameTranslationDumpJob).every 1.week, on: :wednesday, at: { ho
 Crono.perform(RefreshPredCountsForWordcloudJob).every 1.week, on: :tuesday, at: { hour: 20 }
 Crono.perform(TermStatUpdateJob).every 2.weeks, on: :monday, at: { hour: 20 }
 Crono.perform(PageStatUpdateJob).every 2.weeks, on: :tuesday, at: { hour: 1 }
+Crono.perform(OptimizeTablesJob).every 2.weeks, on: :friday, at: { hour: 20 }
 Crono.perform(UpdateTermNameI18nPropsJob).every 1.month, on: :monday, at: { hour: 12 }
