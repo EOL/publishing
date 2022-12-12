@@ -2,38 +2,71 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alonso Biólogo
+# Author: Alonso Biólogo
+# Author: Aramos1422
 # Author: Aramos1422
 # Author: Avengium
+# Author: Avengium
+# Author: Canaan9801
 # Author: Canaan9801
 # Author: Danniel07
+# Author: Danniel07
+# Author: Destinid10 2
 # Author: Destinid10 2
 # Author: DiegoAmbrocio
+# Author: DiegoAmbrocio
+# Author: Fitoschido
 # Author: Fitoschido
 # Author: Francodiaz7
+# Author: Francodiaz7
+# Author: Gastonsaenz
 # Author: Gastonsaenz
 # Author: Genesis
+# Author: Genesis
+# Author: Geryescalier
 # Author: Geryescalier
 # Author: Ihojose
+# Author: Ihojose
+# Author: Jack30
 # Author: Jack30
 # Author: Jakeukalane
+# Author: Jakeukalane
+# Author: JamesB
 # Author: JamesB
 # Author: Jesusmc
+# Author: Jesusmc
+# Author: Joanmp17
 # Author: Joanmp17
 # Author: Johny Weissmuller Jr
+# Author: Johny Weissmuller Jr
+# Author: Josuert
 # Author: Josuert
 # Author: L3n9u^
+# Author: L3n9u^
+# Author: Madamebiblio
 # Author: Madamebiblio
 # Author: Mnivar
+# Author: Mnivar
+# Author: Ncr
 # Author: Ncr
 # Author: Nipungorantla
+# Author: Nipungorantla
+# Author: Oliviamaule
 # Author: Oliviamaule
 # Author: Optilete
 # Author: Rossnyev
+# Author: Rossnyev
+# Author: Silverie04
 # Author: Silverie04
 # Author: SpikeShroom
+# Author: SpikeShroom
+# Author: Warming Hearth
 # Author: Warming Hearth
 # Author: Whovian Biologist
+# Author: Whovian Biologist
 # Author: Whytheonlyone
+# Author: Whytheonlyone
+# Author: Yel Martinez Seo
 ---
 es:
   language_name: español
@@ -2116,6 +2149,7 @@ es:
         http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: fecha del evento
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: Perennifolio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: bosque perennifolio
+        https://eol(dot)org/schema/terms/everse: dar un giro, desmontar, refutar
         http://eol(dot)org/schema/terms/excavating: Excavador
         http://eol(dot)org/schema/terms/explanate: explicar
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: Expuesto
@@ -2173,6 +2207,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: colorante alimentario
         http://eol(dot)org/schema/terms/ForagingHabitat: hábitat de alimentación
         https://eol(dot)org/schema/terms/foram_feeder: se alimenta de cangrejos
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: forbáceas
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longitud de la extremidad
           anterior
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bosque
@@ -2354,6 +2389,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: hiperparásito de
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: agua hipersalina
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longitud del epicón
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002130: hipolimnion
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: hielo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: capa de hielo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: lámina de hielo
@@ -2388,6 +2424,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000389: humedal intermitente
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: Concha interna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: sedimento intermareal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: zona de intermareas
         http://eol(dot)org/schema/terms/InvasiveRange: invasivo en
         https://eol(dot)org/schema/terms/inverse: inverso
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertido
@@ -2409,6 +2446,7 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: edad
           Jiangshaniense
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: Saltando
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000241: bosque de enebros
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: período
           jurásico
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: Juvenil
@@ -2425,6 +2463,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: Mata
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: edad
           Kimmeridgiense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000410: kipuka
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparásito de
         http://eol(dot)org/schema/terms/squarekilometer: km^2
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: Especie marina conocida
@@ -2437,9 +2476,11 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: Laguna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: Lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: lecho del lago
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000476: entrada del lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: Sedimento de lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000382: Orilla de lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000105: Superficie del lago
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: mar sin salida al océano
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: deslizamiento de tierra
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: edad
@@ -2477,32 +2518,54 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: clase de tamaño de hoja
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: semejante a una hoja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005783: suelo de madera frondosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000544: acequia
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Lectotype: lectotipo
         http://semanticscience(dot)org/resource/SIO_000041: Longitud
         https://eol(dot)org/schema/terms/lens_eyes: ojos de lente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: leptosol
+        http://eol(dot)org/schema/terms/lichenicole: liquenizado
+        http://eol(dot)org/schema/terms/lichenous: liquenoso
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: hábito del ciclo vital
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: esperanza de vida
         http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: Etapa de vida
+        https://eol(dot)org/schema/terms/lift_based_swimming: Elevador para Piscina
+          con Batería
+        http://eol(dot)org/schema/terms/lignotuber: lignotubérculo
+        http://eol(dot)org/schema/terms/lignotuberOrBurl: lignotúber o lobanillo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: litoral de marisma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005766: encalado del suelo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: Caliza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: pavimento de caliza
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineal
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: Medida lineal
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: Lípidos
+        http://eol(dot)org/schema/terms/LittersPerYear: camadas anuales
         http://eol(dot)org/schema/terms/littoralZone: Zona litoral
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: Época
+          de llandovery
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: franco
         http://rs(dot)tdwg(dot)org/dwc/terms/locality: localidad
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: edad
           Lochkoviense
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
         http://eol(dot)org/schema/terms/log10gram: log10 gramos
+        http://eol(dot)org/schema/terms/longPersistentSeedBank: persistente
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lopingian: época
+          lopiana
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000517: flujo perdido
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: baja
         http://eol(dot)org/schema/terms/lowCNRatio: menor a (<23)
+        http://eol(dot)org/schema/terms/lowArctic: ártico bajo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: baja esperanza de vida
+        http://eol(dot)org/schema/terms/lowNitrogenFixation: baja fijación n
         http://eol(dot)org/schema/terms/TemperatureTolerance: tolerancia a bajas temperaturas
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: baja zona de mareas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: baja tolerancia
+        http://eol(dot)org/schema/terms/lowEpifaunal: bajo nivel epifaunal
         http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: límite de confianza
           inferior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: época
+          cretácica inferior
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: edad
           Ludfordiense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: edad

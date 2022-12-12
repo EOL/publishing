@@ -489,6 +489,7 @@ zh-TW:
     kk: 哈薩克語
     ki: 基庫尤語
     q33656: 基爾丁薩米語
+    q33720: 喀喇語
     q11005332: 金加語
     q11732519: Kingindo 語
     rw: 盧安達語
@@ -908,11 +909,35 @@ zh-TW:
   recaptcha_error: 請告訴我們你不是機器人。
   reconciliation:
     id_space:
+      intro: 核對API返回的每個實體標識符是該實體在網路生命大百科上的一般表示的網址路徑部分，這樣，一個給定的id可以被替換為https://eol.org/<id>，以產生其實體的一个有效網址。下面概述了每種類型的標識符的格式。
       headers:
         type_id: ID類型
+        type_name: 類型名稱
+        id_format: ID格式
+      type_names:
+        taxon: 分類單元
+      numeric_id: 數字ID
+    property:
+      description:
+        ancestor: 一個分類單元是另一個分類單元的祖先。
+        conservation_status: 分類單元的保護狀況。
+        extinction_status: 分類單元的滅絕狀況。可能的值是“滅絕”和“現存”
+        rank: 描述分類單元等級的字符串，例如“物種”。未識別的排名不計分。
+      name:
+        ancestor: 祖先
+        conservation_status: 保護狀態
+        extinction_status: 滅絕狀態
+        rank: 等級
+    property_settings:
+      limit:
+        label: 限制
+        help_text: 每行返回值的最大數量（0 表示無限）
     schema_space:
+      intro: 核對 API 服務使用的屬性集合如下所述。
       headers:
+        id: ID
         name: 名稱
+        description: 描述：
   reference_compiled_from: 出自%{links}的參考資料
   reference_compiled_from_article: '%{source}條目標題為「%{name}」'
   register_new_account: 新帳號註冊
@@ -920,6 +945,10 @@ zh-TW:
     actions:
       import_traits: 匯入特質（從典藏庫）
       republish: 重新發佈
+      clean_republish: 乾淨的重新發布
+      diff: 差異
+      republish_confirm: 這將刪除資源的所有內容（特徵除外，它將使用差異）。你確定嗎？！
+      clean_republish_confirm: 這將刪除資源的所有內容，並且不會使用特徵差異。你確定嗎？！
       reindex: 重建索引
       fix_no_names: 修正沒有名稱
       index: 返回到所有資源
@@ -958,6 +987,7 @@ zh-TW:
   scientific_names_header: 學名
   send_me_reset_password_instructions: 寄送給我關於重新設定密碼的說明
   search:
+    blank_q_msg: 您可以使用頁面頂欄搜索 EOL 的內容。
     full_name: '%{vernacular}（%{scientific}）'
     matched_text: 符合%{text}
     flash:
@@ -1153,6 +1183,7 @@ zh-TW:
     users: 使用者
     references: 參考資料
   term_query:
+    invalid_obsolete: 無效/過時
     validations:
       empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選
       empty_filters_error_taxa: 您必須提供一個帶有屬性或值、用於分類搜尋的演化支或篩選
@@ -1164,6 +1195,7 @@ zh-TW:
       pred_uri_blank_obj_clade_error: 目標演化支不能為空
       pred_uri_blank_numeric_error: 不能為空白的數值
       range_invalid_error: 必須 >= 第一個值
+      units_blank_error: 搜索數字時數字的單位不能為空
   terms:
     attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>註釋：</strong>%{comment}
@@ -1180,11 +1212,19 @@ zh-TW:
   traits:
     data_viz:
       about_this_chart: 關於此圖表
-      about_this_chart_tooltip_1d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以從圖表中選擇一個條狀來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在一個以上的條狀中。
-      about_this_chart_tooltip_sankey_2d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何軸上的分類來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在相同軸裡一個以上的分類中。
-      about_this_chart_tooltip_sankey_3+: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何軸上的分類來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在相同軸裡一個以上的分類中。在突出顯示的子集顯示裡，這些多個值的物種將在其它軸上被多次計算。
+      about_this_chart_tooltip_1d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以從圖表中選擇一個類別來縮小您的搜尋結果範圍。另外請注意，任何指定的物種可能會包含在一個以上的類別中。
+      about_this_chart_tooltip_assoc: 這是基於網路生命大百科中可用數據的摘要。可能不完整！您可以將鼠標懸停在分類單元名稱上以突出顯示其關係。綠色鏈接表示懸停的分類單元是關聯的主題；紫色的表示它是對象。較大的搜索按屬或科總結。您可以通過單擊分類單元名稱來縮小範圍。
+      about_this_chart_tooltip_sankey_2d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何坐標軸上的分類來縮小搜尋結果範圍。許多分類是重疊的，一個物種可能包含在同一坐標軸上的多個分類中。
+      about_this_chart_tooltip_sankey_3+: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何坐標軸上的分類來縮小搜尋結果範圍。許多分類是重疊的，任何指定的物種可能會包含在相同軸裡一個以上的分類中。在突出顯示的子集顯示裡，這些多個值的物種將在其它坐標軸上被多次計算。
+      about_this_chart_tooltip_taxon_summary: 這是網路生命大百科中具有與您搜索相匹配的數據的分類類群的摘要。它可能會被截斷以適應顯示尺寸。您可以從圖表中選擇一個類群來查看子類群或縮小搜索結果的範圍。
       other_term_name: 其他%{term_name}
       hist_value_label: 值（%{units}）
+      n_family_records:
+        one: '%{family}科中分類群的一個記錄'
+        other: '%{family}科中分類群的%{count}個記錄'
+      n_family_taxa:
+        one: '%{family}科中的一個分類群'
+        other: '%{family}科中的%{count}個分類群'
       n_other_records:
         one: 1 個其它紀錄
         other: '%{count} 個其它紀錄'
@@ -1196,6 +1236,12 @@ zh-TW:
       page_habitat_header: '%{name}棲息地'
       page_habitat_explanation: 已知有許多%{name}物種存活的環境。請選擇環境來查看%{name}物種清單。
       pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
+      show_n_family_records:
+        one: 點擊查看%{family}科中分類群的1條記錄
+        other: 點擊查看%{family}科中分類群的%{count}條記錄
+      show_n_family_taxa:
+        one: 點擊以查看%{family}科中的一個分類群
+        other: 點擊以查看%{family}科中的%{count}個分類群
       n_obj_records:
         one: 帶有「%{obj_name}」的 1 個紀錄
         other: 帶有「%{obj_name}」的 %{count} 個紀錄
@@ -1215,6 +1261,16 @@ zh-TW:
       show_n_taxa_between:
         one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
         other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
+      show_link:
+        associations_summary: 顯示群叢摘要
+        attribute_summary: 顯示屬性摘要
+        taxon_summary: 顯示分類群摘要
+      taxon_summary:
+        click_to_filter: 點擊過濾
+        click_to_filter_by: 單擊按“%{name}”過濾
+      toggle_text:
+        taxon_summary: 顯示分類群摘要
+        trait_summary: 顯示屬性摘要
     properties:
       citation: 書目引用
       method: 測量方法
@@ -1232,7 +1288,7 @@ zh-TW:
         gte: '%{pred} >= %{num_val} %{units}'
         lifestage: 生命階段：%{value}
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 值：%{obj}
+        obj_only: 具有值：%{obj}
         pred_obj: '%{pred}：%{obj}'
         pred_only: '%{pred}'
         range: '%{pred}在[%{num_val1}, %{num_val2}] %{units}'
@@ -1241,9 +1297,10 @@ zh-TW:
         statistical_method: 統計方法：%{value}
       gbif_search: GBIF 搜尋
       gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 50 筆）
-      result_header_records: 顯示來自 %{page_count} 個分類中 %{total} 個紀錄裡 %{range_begin}
-        - %{range_end} 個帶有
-      result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
+      result_header_records: 顯示%{page_count}個分類群中%{total}條記錄中的%{range_begin}-%{range_end}部分
+      result_header_taxa: 顯示%{total}個分類群中的%{range_begin} - %{range_end}部分
+      result_header_taxa_notaxa: 顯示%{total}個之中的%{range_begin} - %{range_end}
+      result_header_records_notaxa: 顯示%{page_count}頁%{total}條記錄的%{range_begin} - %{range_end}
       new_search: 新搜尋
       show_query: 顯示查詢
       switch_to_list: 切換成列表檢視
@@ -1352,6 +1409,15 @@ zh-TW:
     pagination:
       next: 下一頁
       previous: 上一頁
+    inverse_name:
+      fallback: “%{term_name}”的反義詞
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 被食於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: 有體外寄生物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: 有體內寄生物
+        http://eol(dot)org/schema/terms/HasDispersalVector: 作為傳播載體
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 宿於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: 有重寄生物
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/月'

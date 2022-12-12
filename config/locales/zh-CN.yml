@@ -508,6 +508,7 @@ zh-CN:
     kk: 哈萨克语
     ki: 吉库尤语
     q33656: 基尔丁萨米语
+    q33720: 喀喇语
     q11005332: 金加语
     q11732519: 金恩多语
     rw: 卢旺达
@@ -1196,7 +1197,7 @@ zh-CN:
     users: 用户
     references: 参考文献
   term_query:
-    invalid_obsolete: 无效/作废
+    invalid_obsolete: 无效/过时
     validations:
       empty_filters_error_record: 您必须为记录搜索提供带有属性或值的过滤器
       empty_filters_error_taxa: 您必须为分类群搜索提供具有属性或值的进化枝或过滤器
@@ -1208,7 +1209,7 @@ zh-CN:
       pred_uri_blank_obj_clade_error: 目标进化枝不能为空
       pred_uri_blank_numeric_error: 不能为带有数值的空白
       range_invalid_error: 必须>=第一个值
-      units_blank_error: 数字搜索的单位不能为空
+      units_blank_error: 搜索数字时数字的单位不能为空
   terms:
     attribution_field_html: <strong>属性：</strong><a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>评论：</strong>%{comment}
@@ -1302,7 +1303,7 @@ zh-CN:
         gte: '%{pred} >= %{num_val} %{units}'
         lifestage: '生命阶段: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 值：%{obj}
+        obj_only: 具有值：%{obj}
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred}在[%{num_val1}, %{num_val2}] %{units}'
@@ -1428,7 +1429,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 被食于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: 有体外寄生物
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: 有内寄生物
-        http://eol(dot)org/schema/terms/HasDispersalVector: 作为载体传播
+        http://eol(dot)org/schema/terms/HasDispersalVector: 作为传播载体
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 宿于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: 有重寄生物
         http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 带菌
