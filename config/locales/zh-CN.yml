@@ -15,6 +15,7 @@
 # Author: Jinghong
 # Author: Josephine W.
 # Author: Kly
+# Author: Lantianjialiang
 # Author: Liuxinyu970226
 # Author: Nadine Siak
 # Author: Njzjz
@@ -1197,7 +1198,7 @@ zh-CN:
     users: 用户
     references: 参考文献
   term_query:
-    invalid_obsolete: 无效/过时
+    invalid_obsolete: 无效的/过时的
     validations:
       empty_filters_error_record: 您必须为记录搜索提供带有属性或值的过滤器
       empty_filters_error_taxa: 您必须为分类群搜索提供具有属性或值的进化枝或过滤器
@@ -1432,16 +1433,16 @@ zh-CN:
         http://eol(dot)org/schema/terms/HasDispersalVector: 作为传播载体
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 宿于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: 有重寄生物
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 带菌
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 有传播载体
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: 被杀于
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 被间接寄生于
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: 产卵于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 被盗窃寄生于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: 被产卵于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 被寄生于
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: 有拟寄生物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: 有寄生蜂
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 有病原体
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: 被捕食于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: 被访于
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: 被访花于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: 花被采于
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/月'
@@ -1457,7 +1458,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: 酸性矿排水
         http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: 酸性淡水矿湖
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 酸性土壤
-        http://eol(dot)org/schema/terms/activeForaging: 积极觅食者
+        http://eol(dot)org/schema/terms/activeForaging: 活跃的觅食者
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: 生长盛期
         http://eol(dot)org/schema/terms/adaptiveStrategy: 适应策略
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: 附着
@@ -1466,18 +1467,18 @@ zh-CN:
         https://eol(dot)org/schema/terms/adventive: 外来
         http://eol(dot)org/schema/terms/aerial: 气生
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: 气生
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: 空气生境
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: 空中栖息地
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: 埃隆期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: 气溶胶
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: 收获后再生率
-        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: 毒素
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: 鹅毒素
         http://eol(dot)org/schema/terms/age At Dispersal: 传播年龄
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: 睁眼年龄
         http://eol(dot)org/schema/terms/AgeAtMaturity: 成熟年龄
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: 农区
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: 农业
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: 农业物料
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: 农业土壤
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: 农田
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: 农业梯田
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: 农业废弃物
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: 农业废弃物
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: 阿尔布期
@@ -1987,7 +1988,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000190: 洪泛疏林草原
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000256: 泄洪渠
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002623: 被访花于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002623: 花被采于
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: 水槽
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: 萤石
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002273: 冲积土
@@ -2087,14 +2088,14 @@ zh-CN:
         http://eol(dot)org/schema/terms/hardSubstrateBoring: 硬基钻孔
         https://eol(dot)org/schema/terms/harvested_in: 采收于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002633: 有外寄生物
-        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: 被放卵于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008508: 被产卵于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002635: 有内寄生物
         http://purl(dot)obolibrary(dot)org/obo/RO_0008502: 有附着植物
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 有宿主
         http://purl(dot)obolibrary(dot)org/obo/RO_0002554: 有重寄生物
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002209: 有拟寄生物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002209: 有寄生蜂
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: 有病原体
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002460: 带菌
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002460: 有传播载体
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hauterivian: 欧特里沃期
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: 头部
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: 头到尾骨长度
@@ -3140,7 +3141,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: 维宪期
         http://purl(dot)obolibrary(dot)org/obo/RO_0002619: 被访于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: 访问
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: 访花于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: 采花于
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: 维生素
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010622: 植物园
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000094: 火山岩
