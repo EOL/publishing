@@ -27,7 +27,8 @@
               = render partial: "terms/desc_meta", locals: { term: predicate, search_link: true }
             %div
               - val = trait_display_value(trait, page_is_assoc_obj: predicate.inverse_only?).html_safe
-              - if trait.object_page
+              - can_render_page = predicate.inverse_only? ? trait.page : trait.object_page
+              - if can_render_page
                 - page_id_for_url = predicate.inverse_only? ? trait.page.id : trait.object_page.id
                 - url = page_path(page_id_for_url)
                 = link_to val, url, :class => "sample-trait-val"
