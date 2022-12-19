@@ -72,7 +72,44 @@ nl:
       r_subgenus_html: Dit subgenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
       r_infragenus_html: Dit infragenus is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
       r_superspecies_html: Deze supersoort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_species_html: Deze soort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_subspecies_html: Deze ondersoort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_infraspecies_html: Deze infrasoort is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+      r_form_html: Deze vorm is <span class='%{class_str}' id='%{id}'>uitgestorven</span>.
+    species: '%{name1} is een soort uit %{name2}.'
     species_in_family: '%{name1} is een %{name2} uit de familie %{name_family}.'
+    taxonomy:
+      family_above:
+        r_domain: '%{name1} is een domein van %{name2}.'
+        r_subdomain: '%{name1} is een subdomein van %{name2}.'
+        r_infradomain: '%{name1} is een infradomein van %{name2}.'
+        r_superkingdom: '%{name1} is een superrijk van %{name2}.'
+        r_kingdom: '%{name1} is een rijk uit %{name2}.'
+        r_subkingdom: '%{name1} is een subrijk van %{name2}.'
+        r_infrakingdom: '%{name1} is een infrarijk van %{name2}.'
+        r_superphylum: '%{name1} is een superphylum van %{name2}.'
+        r_phylum: '%{name1} is een phylum van %{name2}.'
+        r_order: '%{name1} is een orde uit %{name2}.'
+        r_suborder: '%{name1} is een suborde van %{name2}.'
+        r_infraorder: '%{name1} is een infraorde van %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} is een onderfamilie van %{name2} in de familie %{name3}.'
+          r_infrafamily: '%{name1} is een infrafamilie van %{name2} in de familie
+            %{name3}.'
+          r_tribe: '%{name1} is een tribe van %{name2} in de familie %{name3}.'
+          r_supergenus: '%{name1} is een supergenus van %{name2} in de familie %{name3}.'
+          r_genus: '%{name1} is een genus van %{name2} in de familie %{name3}.'
+          r_subgenus: '%{name1} is een subgeslacht van %{name2} in de familie %{name3}.'
+          r_infragenus: '%{name1} is een infragenus van %{name2} in de familie %{name3}.'
+          r_superspecies: '%{name1} is een supersoort van %{name2} in de familie %{name3}.'
+          r_species: '%{name1} is een soort van %{name2} in de familie %{name3}.'
+          r_subspecies: '%{name1} is een ondersoort van %{name2} in de familie %{name3}.'
+          r_infraspecies: '%{name1} is een infrasoort van %{name2} in de familie %{name3}.'
+          r_form: '%{name1} is een forma van %{name2} in de familie %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} is een onderfamilie van %{name2}.'
+          r_infrafamily: '%{name1} is een infrafamilie van %{name2}.'
   button_create: maken
   button_add: toevoegen
   cancel: annuleren
@@ -242,6 +279,9 @@ nl:
   data_missing: '(data afwezig, sleutels: %{keys})'
   dear_username_with_comma: Geachte %{username},
   delete_account_button: Verwijder uw account
+  errors:
+    internal_server: Interne serverfout (500)
+    not_found: Pagina niet gevonden (404)
   filter_by_license: vergunning
   filter_by_license_any_item: elke vergunning
   filter_by_medium_subtype: type
@@ -344,6 +384,7 @@ nl:
     q33120: Buryat
     q35037: Businenge Tongo
     q880301: Cajun Frans
+    q2937525: Capiznon
     q35156: Car
     q2591230: Cashinahua
     ca: Catalaans; Valenciaans
@@ -369,11 +410,13 @@ nl:
     hr: Kroatisch
     hrv: Kroatisch
     cs: Tsjechisch
+    q32238: Dagbani
     da: Deens
     q3362072: Digo
     q56466: Dinka
     dv: Divehi; Dhivehi; Maldivian
     q18415595: Dotyali
+    q33013: Duala
     dut: Nederlands;Vlaams
     nl: Nederlands;Vlaams
     dz: Dzongkha
@@ -451,6 +494,8 @@ nl:
     q33690: Kashubian
     kk: Kazakh
     ki: Kikuyu; Gikuyu
+    q33656: Kildin Sami
+    q33720: Kinaray-a
     q11005332: Kinga
     q11732519: Kingindo
     rw: Kinyarwanda
@@ -497,8 +542,10 @@ nl:
     mh: Marshallees
     q6786446: Matengo
     q3906614: Meadow Mari
+    q13357: Meänkieli
     q13358: Megleno Romeens
     q13313: Meru
+    q13321: Mi'kmaq
     q36455: Min Dong
     q13324: Minangkabau
     q13359: Mingrelian
@@ -537,6 +584,7 @@ nl:
     or: Oriya
     om: Oromo
     os: Ossetisch; Ossetisch
+    q715755: Paiwan
     pi: Pali
     pa: Punjabi
     q36403: Pare
@@ -569,6 +617,7 @@ nl:
     sc: sardijns
     q845441: Sassarese Sardijns
     q14549: Schots
+    q716686: Seediq
     sr: Servisch
     q3788739: Shambala
     q56482: Shan
@@ -644,6 +693,7 @@ nl:
     q237409: Zeeuws
     za: Zhuang; Chuang
     zu: Zulu
+    Q33219: Banyumasan
   layout_sign_in: Aanmelden
   layout_sign_up: Inschrijven
   layout_sign_out: Afmelden
@@ -848,8 +898,14 @@ nl:
       r_subkingdom: subrijk
       r_subphylum: onderstam
       r_superclass: superklasse
+      r_class: klasse
+      r_subclass: subklasse
+      r_infraclass: infraklasse
+      r_superorder: superorde
+      r_order: orde
       r_suborder: onderorde
       r_superfamily: superfamilie
+      r_infrafamily: infrafamilie
       r_tribe: tak
       r_genus: geslacht
       r_subgenus: ondergeslacht
@@ -857,6 +913,22 @@ nl:
       r_subspecies: ondersoort
   recaptcha: Recaptcha
   recaptcha_error: Vertel alsjeblieft dat je geen robot bent.
+  reconciliation:
+    id_space:
+      type_names:
+        taxon: Taxon
+    property:
+      name:
+        ancestor: Voorouder
+        conservation_status: staat van instandhouding
+        extinction_status: Uitstervingsstatus
+        rank: Rang
+    property_settings:
+      limit:
+        label: Grens
+    schema_space:
+      headers:
+        name: Naam
   reference_compiled_from: Verwezen door %{links}
   reference_compiled_from_article: '%{source} artikel getiteld "%{name}"'
   register_new_account: Registreren voor een nieuw account
@@ -864,6 +936,7 @@ nl:
     actions:
       import_traits: kenmerken importeren (uit repository)
       republish: publiceren
+      diff: diff
       reindex: reindex
       fix_no_names: fix NO NAMEs
       index: terug naar alle bronnen
@@ -1100,6 +1173,7 @@ nl:
     users: gebruikers
     references: verwijzingen
   term_query:
+    invalid_obsolete: ONGELDIG/VEROUDERD
     validations:
       empty_filters_error_record: u moet een filter voorzien van een eigenschap of
         waarde voor het zoeken naar records
@@ -1190,6 +1264,8 @@ nl:
         one: Klik om %{count} taxon met meetwaarden in [%{min}, %{limit}] %{units}
         other: Klik om %{count} taxa met meetwaarden in [%{min}, %{limit}] %{units}
           te zien
+      show_link:
+        taxon_summary: taxonsamenvatting tonen
     properties:
       citation: bibliografisch citaat
       method: Meetmethode
@@ -1353,6 +1429,7 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasiteerd door
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: wordt geparasiteerd door
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: bezocht door
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: bloemen bezocht door
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/maand'
@@ -1364,6 +1441,8 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadroom
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: eenjarig
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: aquaduct
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: aquatisch
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: waterplant
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: gebied
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bariumsulfaat

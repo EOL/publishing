@@ -11,6 +11,7 @@
 # Author: Wehwei
 # Author: Winston Sung
 # Author: Xiplus
+# Author: 列维劳德
 # Author: 捍粵者
 # Author: 沈澄心
 ---
@@ -997,8 +998,8 @@ zh-TW:
       more_than_one_species: 無法合併%{species}的結果
       more_than_two_terms: 無法合併兩個以上項的結果：%{terms}
     n_articles:
-      one: '%{count} 個條目'
-      other: '%{count} 個條目'
+      one: '%{count} 篇條目'
+      other: '%{count} 篇條目'
     n_collections:
       one: '%{count} 個收藏'
       other: '%{count} 個收藏'
@@ -1022,8 +1023,8 @@ zh-TW:
       one: '%{count} 個影片'
       other: '%{count} 個影片'
     n_terms:
-      one: '%{count} 個項'
-      other: '%{count} 個項'
+      one: '%{count} 項'
+      other: '%{count} 項'
   search_results:
     collection_page_count:
       one: '%{count} 個頁面'
@@ -1080,8 +1081,8 @@ zh-TW:
     collection_title_html: 收藏：<span class='sub'>%{name}</span>
     resource_counts:
       n_articles:
-        one: 1 個條目
-        other: '%{count} 個條目'
+        one: 1 篇條目
+        other: '%{count} 篇條目'
       n_data:
         one: 1 份資料
         other: '%{count} 份資料'
