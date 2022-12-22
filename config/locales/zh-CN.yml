@@ -1518,13 +1518,13 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 一年生
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: 缺氧水
         http://eol(dot)org/schema/terms/ante-isooctadecanoic_acid: 反异十八烷酸
-        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: 反异十四酸
+        http://eol(dot)org/schema/terms/anteisotetradecanoic_acid: 反异十四烷酸
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: 前部
         http://purl(dot)obolibrary(dot)org/obo/PO_0009066: 花药
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: 人为
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002204: 人为污染特征
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010001: 人为环境材料
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: 人为陆生
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: 人为陆地
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: 磷灰盐
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: 联立眼
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: 阿普特期
@@ -1585,12 +1585,12 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: 贝里亚期
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: 两年生
         http://eol(dot)org/schema/terms/BillLength: 喙长
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: 生物沉积物
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: 生物扩散器
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: 生物膜
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: 生物硅
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: 生物源沉积物
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: 生物废弃物
-        http://eol(dot)org/schema/terms/Bioluminescent: 生物性发光
+        http://eol(dot)org/schema/terms/Bioluminescent: 生物发光
         https://eol(dot)org/schema/terms/bipedal_running: 双足奔跑
         https://eol(dot)org/schema/terms/bivalve_feeder: 以双壳纲为食
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 黑色

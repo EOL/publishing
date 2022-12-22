@@ -2566,19 +2566,36 @@ es:
           inferior
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: época
           cretácica inferior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: época
+          del devónico inferior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerJurassic: época
+          del jurásico inferior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerOrdovician: época
+          del ordovícico inferior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: época
+          del triásico inferior
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: edad
           Ludfordiense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: época
+          ludlow
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: edad
           Luteciense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002248: luvisol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000261: lisoclina
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: maar
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: edad
           Maastrichtiense
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: lava máfica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesio
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: Macho
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: proporción de la
           masa corporal macho hembra
         http://eol(dot)org/schema/terms/maleOrUnsexed: Macho o asexual
+        http://eol(dot)org/schema/terms/MaleTenure: tenencia masculina
+        http://eol(dot)org/schema/terms/mammalivore: mamíferoivoro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003074: Producto fabricado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: Marino
         https://eol(dot)org/schema/terms/marine_animals: Animales marinos
