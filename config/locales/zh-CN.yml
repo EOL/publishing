@@ -944,7 +944,7 @@ zh-CN:
         rank: 描述分类群等级的字符串，例如“物种”。未识别的等级不计分。
       name:
         ancestor: 祖先
-        conservation_status: 保护状况
+        conservation_status: 保护状态
         extinction_status: 灭绝状况
         rank: 等级
     property_settings:
@@ -1120,7 +1120,7 @@ zh-CN:
     brief_summary: 小结
     comprehensive_description: 综合描述
     conservation: 保护
-    conservation_status: 保护现状
+    conservation_status: 保护状态
     cyclicity: 周期性
     diagnostic_description: 鉴别性描述
     diseases_and_parasites: 疾病与寄生虫
@@ -1496,7 +1496,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: 高山土
         http://eol(dot)org/schema/terms/alternatingReproduction: 世代交替
         http://eol(dot)org/schema/terms/ambush: 伏击捕食者
-        https://eol(dot)org/schema/terms/ampharetid_feeder: 以双栉虫为食的生物
+        https://eol(dot)org/schema/terms/ampharetid_feeder: 双栉虫摄食者
         http://eol(dot)org/schema/terms/amphibious: 两栖
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: 两栖洄游型
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: 再合支流
@@ -1580,7 +1580,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: 蜂蜡
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: 行为昼夜节律
         http://eol(dot)org/schema/terms/benthic: 底栖
-        https://eol(dot)org/schema/terms/benthic_diatom_feeder: 滤食海底硅藻
+        https://eol(dot)org/schema/terms/benthic_diatom_feeder: 底栖硅藻摄食者
         http://purl(dot)jp/bio/4/id/201306015586596728: 底栖硅藻
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: 贝里亚期
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: 两年生
@@ -1592,7 +1592,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: 生物废弃物
         http://eol(dot)org/schema/terms/Bioluminescent: 生物发光
         https://eol(dot)org/schema/terms/bipedal_running: 双足奔跑
-        https://eol(dot)org/schema/terms/bivalve_feeder: 以双壳纲为食
+        https://eol(dot)org/schema/terms/bivalve_feeder: 双壳纲摄食者
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 黑色
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000511: 覆被沼泽
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: 盲端通风
@@ -1615,7 +1615,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: 半咸水湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: 半咸水池塘
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: 半咸水
-        https://eol(dot)org/schema/terms/brittlestar_feeder: 以海蛇尾为食
+        https://eol(dot)org/schema/terms/brittlestar_feeder: 海蛇尾摄食者
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: 阔叶
         http://eol(dot)org/schema/terms/broadcastSpawner: 释放型产卵
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: 阔叶林
@@ -1696,7 +1696,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: 森诺曼期
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: 新生代
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: 中枢神经系统
-        https://eol(dot)org/schema/terms/cephalopod_feeder: 以头足纲为食
+        https://eol(dot)org/schema/terms/cephalopod_feeder: 头足纲摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: 白垩
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: 白垩土
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: 长兴期
@@ -1709,7 +1709,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: 黑钙土
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: 北非小盐湖
         http://eol(dot)org/schema/terms/ciliary_gliding: 纤毛滑行
-        http://eol(dot)org/schema/terms/ciliary_mucus_feeder: 纤毛-粘液取食者
+        http://eol(dot)org/schema/terms/ciliary_mucus_feeder: 纤毛-粘液摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: 火山渣锥
         http://eol(dot)org/schema/terms/CingulumWidth: 扣带宽
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: 冰斗
@@ -1732,9 +1732,9 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
-        http://eol(dot)org/schema/terms/cnidaria_feeder: 以刺胞动物为食
+        http://eol(dot)org/schema/terms/cnidaria_feeder: 刺胞动物摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 海岸带
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: 沿岸沙丘
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: 沿海沙丘
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: 海口
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: 滨海土地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: 沿海平原
@@ -1756,18 +1756,18 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: 复叶
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: 复眼
         https://eol(dot)org/schema/terms/concave_mirror_eyes: 凹镜眼
-        http://eol(dot)org/schema/terms/cone: 球果
+        http://eol(dot)org/schema/terms/cone: 锥体
         http://eol(dot)org/schema/terms/conePlusHalfSphere-40Percent: 圆锥加半球减去40%
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: 科尼亚克期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: 针叶林地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: 针叶林
         http://eol(dot)org/schema/terms/conservationDependent: 依赖保护
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: 保护管理流程
-        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: 保护现状
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: 保护状态
         http://eol(dot)org/schema/terms/contaminatedHabitat: 受污染栖息地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: 受污染沉积物
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: 受污染土壤
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: 陆边岛
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: 大陆岛
         http://eol(dot)org/schema/terms/copepodid3: 第3桡足幼体期
         http://eol(dot)org/schema/terms/copepodid4: 第4桡足幼体期
         http://eol(dot)org/schema/terms/copepodid5: 第5桡足幼体期
@@ -1782,21 +1782,21 @@ zh-CN:
         https://eol(dot)org/schema/terms/corneal_eyes: 角膜眼
         http://eol(dot)org/schema/terms/corymbose: 伞状花序
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: 化妆品
-        http://eol(dot)org/schema/terms/Cosmopolitan: 世界性
+        http://eol(dot)org/schema/terms/Cosmopolitan: 大都会
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: 棉花种植园
         http://purl(dot)obolibrary(dot)org/obo/PO_0020030: 子叶
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Cotype: 全模标本
         http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: 国家代码
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: 牛棚
-        https://eol(dot)org/schema/terms/crab_feeder: 以螃蟹为食
+        https://eol(dot)org/schema/terms/crab_feeder: 螃蟹摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: 火山口湖
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: 爬行
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: 黄昏行性
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: 白垩纪
-        https://eol(dot)org/schema/terms/crinoid_feeder: 以海百合为食
+        https://eol(dot)org/schema/terms/crinoid_feeder: 海百合摄食者
         http://eol(dot)org/schema/terms/criticallyEndangered: 极度濒危
-        http://eol(dot)org/schema/terms/cruising: 漫游取食者
-        https://eol(dot)org/schema/terms/crustacean_feeder: 以甲壳类动物为食
+        http://eol(dot)org/schema/terms/cruising: 漫游摄食者
+        https://eol(dot)org/schema/terms/crustacean_feeder: 甲壳类动物摄食者
         http://eol(dot)org/schema/terms/crustose: 壳状
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: 成冰纪
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: 低温溶胶
@@ -1812,9 +1812,9 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Darriwilian: 达瑞威尔期
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 天
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: 死亡
-        http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: 残渣
+        http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: 碎片
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: 癸酸
-        https://eol(dot)org/schema/terms/decapod_feeder: 以十足目为食
+        https://eol(dot)org/schema/terms/decapod_feeder: 十足目摄食者
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: 落叶
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: 落叶林
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: 质量下降
@@ -1826,7 +1826,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: 三角洲
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: 密集聚落生物群落
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: 牙齿
-        http://eol(dot)org/schema/terms/depositFeeder: 食底泥动物
+        http://eol(dot)org/schema/terms/depositFeeder: 底泥摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: 洼地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: 沙漠
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: 沙漠和干旱灌丛
@@ -1839,7 +1839,7 @@ zh-CN:
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: 直径
         http://eol(dot)org/schema/terms/diandry: 雄性异配性
         http://eol(dot)org/schema/terms/DiapauseInitiation: 滞育
-        https://eol(dot)org/schema/terms/diatom_feeder: 以硅藻为食
+        https://eol(dot)org/schema/terms/diatom_feeder: 硅藻摄食者
         http://eol(dot)org/schema/terms/dielVerticalMigration: 昼夜垂直迁移
         http://eol(dot)org/schema/terms/DietBreadth: 食谱宽度
         http://eol(dot)org/schema/terms/Diet: 食谱包括
@@ -1855,12 +1855,12 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: 十二碳酸
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: 斗淋
         https://eol(dot)org/schema/terms/domesticated_in: 驯养于
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: 背部
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: 背侧
         https://eol(dot)org/schema/terms/dorsal_fin: 背鳍游动
         https://eol(dot)org/schema/terms/dorsoventral_undulatory: 背腹起伏游动
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: 背腹
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: 向下取食
-        https://eol(dot)org/schema/terms/dracaenoid: 龙血树型
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: 背腹侧
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: 向下输送
+        https://eol(dot)org/schema/terms/dracaenoid: 龙血树素
         http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: 挽畜
         https://eol(dot)org/schema/terms/drag_based_swimming: 拖拽式游动
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: 排水渠
@@ -1883,7 +1883,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000308: 丘间低地
         https://eol(dot)org/schema/terms/duodichogamous: 二重雌雄异型异熟
         http://eol(dot)org/schema/terms/DurationOfIllness: 病程
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: 粉尘
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: 灰尘
         http://eol(dot)org/schema/terms/dwarfMales: 矮雄体
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: 染料
         http://eol(dot)org/schema/terms/dystrophicMontaneFreshwaterLake: 营养不良的山地淡水湖
@@ -1892,12 +1892,12 @@ zh-CN:
         http://eol(dot)org/schema/terms/earlySummer: 初夏
         http://eol(dot)org/schema/terms/Eastern_Arc_mountains: 东部弧形山脉
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 进食
-        http://eol(dot)org/schema/terms/echinoderm_feeder: 以棘皮动物为食
+        http://eol(dot)org/schema/terms/echinoderm_feeder: 棘皮动物摄食者
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: 生态表型
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: 生态系统工程
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: 外寄生于
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: 埃迪卡拉纪
-        https://eol(dot)org/schema/terms/eel_feeder: 以鳗鱼为食
+        https://eol(dot)org/schema/terms/eel_feeder: 鳗鱼摄食者
         http://eol(dot)org/schema/terms/eggDensity: 卵密度
         http://eol(dot)org/schema/terms/EggDiameter: 卵径
         http://eol(dot)org/schema/terms/EggMass: 卵重
@@ -1905,15 +1905,15 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: 蛋（商品）
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: 二十烷酸
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: 艾菲尔期
-        https://eol(dot)org/schema/terms/elasmobranch_feeder: 以软骨鱼为食
+        https://eol(dot)org/schema/terms/elasmobranch_feeder: 软骨鱼摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: 隆起
-        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: 高程
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: 海拔
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: 细长
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: 胚胎期
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: 埃姆斯期
         http://eol(dot)org/schema/terms/endangered: 濒危
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: 内分泌系统
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: 内石栖息地
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000886: 石内栖息地
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: 内寄生于
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000551: 内流盆地
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: 内骨骼
@@ -1926,9 +1926,9 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: 锥体长度
         http://eol(dot)org/schema/terms/epicormicBuds: 上皮芽
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: 表皮
-        http://eol(dot)org/schema/terms/epifauna_feeder: 表生动物消费者
+        http://eol(dot)org/schema/terms/epifauna_feeder: 表生动物摄食者
         http://www(dot)marinespecies(dot)org/traits/Epifaunal: 表栖动物
-        http://eol(dot)org/schema/terms/epihydate: 水合植物
+        http://eol(dot)org/schema/terms/epihydate: 浮叶植物
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: 附着于
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: 偶发
         http://eol(dot)org/schema/terms/epizoochory: 外附传播
@@ -1998,7 +1998,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: 食品添加剂
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: 食品着色剂
         http://eol(dot)org/schema/terms/ForagingHabitat: 觅食生境
-        https://eol(dot)org/schema/terms/foram_feeder: 以有孔虫为食
+        https://eol(dot)org/schema/terms/foram_feeder: 有孔虫摄食者
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: 杂草
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢长
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 森林
@@ -2079,7 +2079,7 @@ zh-CN:
         http://eol(dot)org/schema/terms/HabitatBreadth: 栖息地广度
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/TF_HAB: 生境建设者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: 超深渊带
-        https://eol(dot)org/schema/terms/hagfish_feeder: 以盲鳗为食
+        https://eol(dot)org/schema/terms/hagfish_feeder: 盲鳗摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: 盐性栖息地
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000516: 哈莫克林
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: 悬谷
@@ -2136,7 +2136,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: 侯默期
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: 蜂蜜
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: 水平
-        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: 以鲎为食
+        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: 鲎摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: 医院
         http://purl(dot)obolibrary(dot)org/obo/RO_0002453: 宿于
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: 温泉
@@ -2170,7 +2170,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: 提高质量
         http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: 个体数
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: 印度期
-        http://eol(dot)org/schema/terms/infauna_feeder: 以海底动物为食
+        http://eol(dot)org/schema/terms/infauna_feeder: 海底动物摄食者
         http://www(dot)marinespecies(dot)org/traits/Infaunal: 海底动物
         https://eol(dot)org/schema/terms/infection_effect: 感染作用
         http://eol(dot)org/schema/terms/inguinal: 腹股沟
@@ -2227,7 +2227,7 @@ zh-CN:
         http://eol(dot)org/schema/terms/squarekilometer: km^2
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: 已知海洋物种
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: 空谷期
-        https://eol(dot)org/schema/terms/labile_material_feeder: 以不稳定物质为食
+        https://eol(dot)org/schema/terms/labile_material_feeder: 不稳定物质摄食者
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: 拉丁期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: 潟湖
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 湖泊
@@ -2443,7 +2443,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
-        https://eol(dot)org/schema/terms/mobile_prey_feeder: 移动猎物取食者
+        https://eol(dot)org/schema/terms/mobile_prey_feeder: 移动猎物摄食者
         http://eol(dot)org/schema/terms/ModeOfAction: 作用方式
         http://eol(dot)org/schema/terms/moderateRate: 中
         http://eol(dot)org/schema/terms/moderateLifeSpan: 适度寿命
@@ -2468,7 +2468,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: 山脉
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: 黏液
         https://eol(dot)org/schema/terms/mucus_gliding: 粘液作用的滑行
-        http://eol(dot)org/schema/terms/mucus_net_feeder: 粘液网取食者
+        http://eol(dot)org/schema/terms/mucus_net_feeder: 粘液网摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: 淤泥
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: 泥火山
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: 淤泥土
@@ -2512,7 +2512,7 @@ zh-CN:
         http://eol(dot)org/schema/terms/noPaternalCare: 无父本行为
         http://eol(dot)org/schema/terms/noSocialGroupLiving: 非群居生活
         http://eol(dot)org/schema/terms/activityCycleOther: 夜行/黄昏行性、全天性、黄昏行性或日行/黄昏行性
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: 无选择性沉积物取食者
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: 无选择性沉积物摄食者
         http://eol(dot)org/schema/terms/non-woodyEpipyte: 非木本附生植物
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: 十九烷酸
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: 无
@@ -2664,7 +2664,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PO_0025281: 花粉
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: 被授粉于
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: 授粉于
-        https://eol(dot)org/schema/terms/polychaete_feeder: 以多毛类蠕虫为食
+        https://eol(dot)org/schema/terms/polychaete_feeder: 多毛类蠕虫摄食者
         https://eol(dot)org/schema/terms/polygamodioecious: 单性杂性
         http://eol(dot)org/schema/terms/polyhaline: 多含盐水
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: 多金属结核
@@ -2684,7 +2684,7 @@ zh-CN:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: 布拉格期
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: 北美大草原
         http://eol(dot)org/schema/terms/PrecipitationTolerance: 耐降水量
-        http://eol(dot)org/schema/terms/predatory_suspension_feeder: 悬浮掠食者
+        http://eol(dot)org/schema/terms/predatory_suspension_feeder: 掠食性悬浮摄食者
         http://eol(dot)org/schema/terms/predatorScavenger: 捕食者-清道夫
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: 产前发育期
         http://rs(dot)tdwg(dot)org/dwc/terms/preparations: 制备
@@ -2703,7 +2703,7 @@ zh-CN:
         http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: 奶的蛋白质组成
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: 蛋白质
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: 元古宙
-        http://eol(dot)org/schema/terms/protozoa_feeder: 以原生动物为食
+        http://eol(dot)org/schema/terms/protozoa_feeder: 原生动物摄食者
         http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: 嘌呤
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: 紫色
@@ -2820,7 +2820,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005739: 海面泡沫
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000059: 海草床
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: 海岸
-        https://eol(dot)org/schema/terms/sea_urchin_feeder: 食海胆者
+        https://eol(dot)org/schema/terms/sea_urchin_feeder: 海胆摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000264: 海底山
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001857: 调味品
         http://eol(dot)org/schema/terms/secondaryConsumer: 次级消费者
@@ -2838,7 +2838,7 @@ zh-CN:
         http://eol(dot)org/schema/terms/SeedlingSurvival: 苗木存活率
         http://eol(dot)org/schema/terms/SeedPerPound: 每磅种子数
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: 塞兰特期
-        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: 选择性沉积物取食者
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: 选择性沉积物摄食者
         http://eol(dot)org/schema/terms/self-supportingGrowthForm: 自立植物
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: 半落叶
         http://eol(dot)org/schema/terms/semiInfaunal: 半内栖
@@ -2849,7 +2849,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: 感觉系统
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: 谢尔普霍夫期
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: 塞拉瓦尔期
-        https://eol(dot)org/schema/terms/sessile_prey_feeder: 食固定猎物者
+        https://eol(dot)org/schema/terms/sessile_prey_feeder: 固定猎物摄食者
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: 性别
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: 性变态
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM_YES: 性变态
@@ -2912,7 +2912,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000543: 小球体
         http://purl(dot)obolibrary(dot)org/obo/PO_0025173: 脊状
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: 体刺
-        http://eol(dot)org/schema/terms/sponge_feeder: 食海绵者
+        http://eol(dot)org/schema/terms/sponge_feeder: 海绵摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: 海绵礁
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: 泉水
         https://eol(dot)org/schema/terms/springing: 四足跳跃
@@ -2920,7 +2920,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009029: 雄蕊
         http://eol(dot)org/schema/terms/StandardLength: 标准长度
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: 淀粉
-        https://eol(dot)org/schema/terms/starfish_feeder: 食海星者
+        https://eol(dot)org/schema/terms/starfish_feeder: 海星摄食者
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: 固结纪
         http://purl(dot)obolibrary(dot)org/obo/PO_0009047: 茎
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 茎粗
@@ -2946,7 +2946,7 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000251: 副极地
         http://eol(dot)org/schema/terms/subshrub: 半灌木
         http://eol(dot)org/schema/terms/Attached: 基质附着
-        http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: 食地下沉积物者
+        http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: 地下沉积物摄食者
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000572: 地下
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000050: 潮下岩礁
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: 亚热带
