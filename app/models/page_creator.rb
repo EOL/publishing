@@ -1,6 +1,6 @@
 class PageCreator
-  # NOTE: You probably want to follow this with { Node.where(resource_id: @resource.id).counter_culture_fix_counts } (or
-  # something like it)
+  # NOTE: You probably want to follow this with { Node.counter_culture_fix_counts start: nodes.first.id, finish: nodes.last.id }
+  # (or something like it)
   def self.by_node_pks(node_pks, log, options = {})
     log.log('create_new_pages')
     node_id_by_page = {}

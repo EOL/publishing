@@ -102,7 +102,7 @@ class Publishing
     end
 
     def denormalize_models
-      # TODO: create @new_pages
+      create_new_pages
       # TODO: You'll need a media content creator to run on @new_media
       @log.start('restoring vernacular preferences...')
       VernacularPreference.restore_for_resource(@resource.id, @log)
@@ -110,6 +110,17 @@ class Publishing
       return unless @resource.dwh?
       @log.start('Dynamic Working Hierarchy! Updating...')
       Publishing::DynamicWorkingHierarchy.update(@resource, @log)
+    end
+
+    def create_new_pages
+      @new_pages.each do |page_id|
+        next if Page.exists?(id: page_id)
+        next unless Node.exists?(page_id: page_id)
+        native_nodes = Node.where(page_id: page_id).order(:id)
+        page = Page.create!(id: page_id, native_node_id: native_node.first.id, nodes_count: native_nodes.size)
+        page.reindex
+        Node.counter_culture_fix_counts start: native_nodes.first.id, finish: native_nodes.last.id
+      end
     end
   end
 end
