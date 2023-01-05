@@ -1,0 +1,96 @@
+# Messages for Slovenian (slovenščina)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Eleassar
+---
+sl:
+  devise:
+    confirmations:
+      confirmed: Vaš e-poštni naslov je uspešno potrjen.
+      send_instructions: V nekaj minutah boste prejeli e-poštni naslov z navodili
+        za potrditev e-poštnega naslova.
+      send_paranoid_instructions: Če vaš e-poštni naslov obstaja v naši podatkovni
+        zbirki, boste v nekaj minutah prejeli e-poštni naslov z navodili za potrditev
+        e-poštnega naslova.
+    failure:
+      already_authenticated: Ste že prijavljeni.
+      inactive: Vaš račun še ni aktiviran.
+      invalid: Neveljavni %{authentication_keys} ali geslo.
+      locked: Vaš račun je zaklenjen. Poskusite znova čez eno uro.
+      last_attempt: Na voljo imate še en poskus, preden bo vaš račun zaklenjen.
+      not_found_in_database: Neveljavni %{authentication_keys} ali geslo.
+      recaptcha_error: Prišlo je do spodnje napake s kodo »recaptcha«. Znova vnesite
+        kodo in kliknite pošlji.
+      timeout: Vaša seja je pretekla. Za nadaljevanje se znova prijavite.
+      unauthenticated: Pred nadaljevanjem se morate prijaviti ali registrirati.
+      unconfirmed: Pred nadaljevanjem morate potrditi svoj e-poštni naslov.
+    mailer:
+      confirmation_instructions:
+        action: Potrdi moj račun
+        greeting: Pozdravljeni, %{recipient}!
+        instruction: 'Svoj e-poštni račun lahko potrdite s spodnjo povezavo:'
+        subject: Navodila za potrditev
+      reset_password_instructions:
+        action: Spremeni moje geslo
+        greeting: 'Pozdravljeni, #{recipient}!'
+        instruction: Nekdo je zahteval povezavo za spremembo vašega gesla, kar lahko
+          opravite s spodnjo povezavo.
+        instruction_2: Če tega niste zahtevali vi, to e-pismo prezrite.
+        instruction_3: Vaše geslo se ne bo spremenilo, dokler ne boste dostopali do
+          zgornje povezave in si ustvarili novega.
+        subject: Navodila za ponastavitev gesla
+      unlock_instructions:
+        subject: Navodila za odklenitev
+      password_change:
+        greeting: 'Pozdravljeni, #{recipient}!'
+        message: Pišemo vam, da bi vas obvestili, da je bilo vaše geslo spremenjeno.
+        subject: Geslo spremenjeno
+    passwords:
+      no_token: Do te strani ne morete dostopati drugače kot prek e-pisma za ponastavitev
+        gesla. Če ste prišli iz e-pisma za ponastavitev gesla, zagotovite, da ste
+        uporabili celotni posredovani URL.
+      send_instructions: V nekaj minutah boste prejeli e-pismo z navodili za ponastavitev
+        gesla.
+      send_paranoid_instructions: Če vaš e-poštni naslov obstaja v naši podatkovni
+        zbirki, boste v nekaj minutah na svoj e-poštni naslov prejeli povezavo za
+        obnovitev gesla.
+      updated: Vaše geslo je bilo uspešno spremenjeno. Zdaj ste prijavljeni.
+      updated_not_active: Vaše geslo je bilo uspešno spremenjeno.
+    registrations:
+      destroyed: Nasvidenje! Vaše geslo je bilo uspešno preklicano. Upamo, da se kmalu
+        znova vidimo.
+      signed_up: Pozdravljeni! Uspešno ste se registrirali.
+      signed_up_but_inactive: Uspešno ste se registrirali. Nismo pa vas mogli prijaviti,
+        saj vaš račun še ni aktiviran.
+      signed_up_but_locked: Uspešno ste se registrirali. Nismo pa vas mogli prijaviti,
+        saj je vaš račun zaklenjen.
+      signed_up_but_unconfirmed: Na vaš e-poštni naslov je bilo poslano sporočilo
+        s potrditveno povezavo. Za aktivacijo računa sledite poslani povezavi.
+      update_needs_confirmation: Svoj račun ste uspešno posodobili, vendar moramo
+        preveriti vaš novi e-poštni naslov. Preverite svojo e-pošto in sledite potrditveni
+        povezavi, da potrdite svoj novi e-poštni naslov.
+      updated: Vaš račun je bil uspešno posodobljen.
+    sessions:
+      signed_in: Uspešno ste se prijavili.
+      signed_out: Uspešno ste se odjavili.
+      already_signed_out: Uspšeno ste se odjavili.
+      recaptcha: Napake pri preverjanju »recaptcha«
+      sign_in_remember_me_disabled_for_admins: Administratorji iz varnostnih razlogov
+        ne morejo uporabljati možnosti »zapomni si me«.
+    unlocks:
+      send_instructions: V nekaj minutah boste prejeli e-pismo z navodili, kako odkleniti
+        svoj račun.
+      send_paranoid_instructions: Če vaš račun obstaja, boste v nekaj minutah prejeli
+        e-pismo z navodili, kako ga odkleniti.
+      unlocked: Vaš račun je uspešno odklenjen. Za nadaljevanje se prijavite.
+  errors:
+    messages:
+      already_confirmed: je že potrjen, poskusite se prijaviti
+      confirmation_period_expired: je treba potrditi v %{period}, zahtevajte novega
+      expired: je pretekel, zahtevajte novega
+      not_found: ni najden
+      not_locked: ni bil zaklenjen
+      not_saved:
+        one: 'Shranitev tega %{resource} je preprečila 1 napaka:'
+        other: 'Shranitev tega %{resource} sta preprečili 2 napaki:'
+...

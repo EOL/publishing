@@ -3274,18 +3274,18 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005797: 湖底淤泥
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000125: 海洋沿岸带
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000127: 冷泉
-        http://eol(dot)org/schema/terms/coenobium: 连生体
+        http://eol(dot)org/schema/terms/coenobium: 定形群体
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: 红树林岛
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000338: 枯枝落叶层
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000335: 林下叶层
         http://eol(dot)org/schema/terms/HasDispersalVector: 有扩散载体
-        http://eol(dot)org/schema/terms/mol_cell-1: mol/细胞
+        http://eol(dot)org/schema/terms/mol_cell-1: 摩尔/细胞
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: 晚
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: 香味
         http://eol(dot)org/schema/terms/OptimalGrowthpH: 最佳生长pH
-        http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/细胞/天
+        http://eol(dot)org/schema/terms/mol_cell-1_day-1: 摩尔/细胞/天
         http://eol(dot)org/schema/terms/physiologicalState: 生理状态
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/s
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: 静水
@@ -3299,35 +3299,35 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: 攀缘
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: 等模式标本
         http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: 收集码
-        http://purl(dot)obolibrary(dot)org/obo/BTO_0006391: 蝶状幼体
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0006391: 碟状幼体
         http://eol(dot)org/schema/terms/podocyst: 足囊
-        http://eol(dot)org/schema/terms/microthallus: 微球体
-        http://eol(dot)org/schema/terms/macrothallus: 巨球藻
+        http://eol(dot)org/schema/terms/microthallus: 微叶状体
+        http://eol(dot)org/schema/terms/macrothallus: 大叶状体
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isolectotype: 复选模式标本
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isosyntype: 等合模式标本
         http://eol(dot)org/schema/terms/eudoxid: 合体节
         http://eol(dot)org/schema/terms/originalMaterial: 原始材料
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isoneotype: 等新模式
-        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: 表位型
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: 附加模式标本
         http://eol(dot)org/schema/terms/MuseumOfForestryLycksele: 吕克瑟勒林业博物馆
-        http://eol(dot)org/schema/terms/collection_AGarai: A. Garai收藏
-        http://eol(dot)org/schema/terms/collection_Fwillemse: F. Willemse收藏
-        http://eol(dot)org/schema/terms/collection_GHSchmidt: G. H. Schmidt收藏
-        http://eol(dot)org/schema/terms/collection_Heller: Heller收藏
-        http://eol(dot)org/schema/terms/collection_Singrisch: Singrisch收藏
+        http://eol(dot)org/schema/terms/collection_AGarai: A. Garai 系列
+        http://eol(dot)org/schema/terms/collection_Fwillemse: F. Willemse 系列
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: G. H. Schmidt系列
+        http://eol(dot)org/schema/terms/collection_Heller: Heller系列
+        http://eol(dot)org/schema/terms/collection_Singrisch: Singrisch系列
         http://eol(dot)org/schema/terms/Entomological_Museum_Department_of_Agriculture_Bangkok_Thailand: 泰国曼谷农业部昆虫博物馆
-        http://eol(dot)org/schema/terms/exepitype: 衍生表位型
-        http://eol(dot)org/schema/terms/exholotype: 衍生主模式
-        http://eol(dot)org/schema/terms/exparatype: 衍生副模式
-        http://eol(dot)org/schema/terms/extype: 衍生模式
+        http://eol(dot)org/schema/terms/exepitype: 衍生附加模式标本
+        http://eol(dot)org/schema/terms/exholotype: 衍生正模标本
+        http://eol(dot)org/schema/terms/exparatype: 衍生副模标本
+        http://eol(dot)org/schema/terms/extype: 衍生标本
         http://eol(dot)org/schema/terms/King_Abdulaziz_University: 阿卜杜勒阿齐兹国王大学
         http://eol(dot)org/schema/terms/Löbbecke_Museum_Düsseldorf: 杜塞尔多夫勒贝克博物馆
         http://eol(dot)org/schema/terms/Mus_Rothschild: 罗斯柴尔德博物馆
         http://eol(dot)org/schema/terms/Muséum_d'histoire_naturelle_de_la_Ville_de_Genève: 日内瓦市自然历史博物馆
         http://eol(dot)org/schema/terms/Zoological_Museum_Helsinki: 赫尔辛基动物博物馆
-        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: 副新模式
-        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Plastoneotype: 塑新模式
-        http://eol(dot)org/schema/terms/isoparatype: 同副模式
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: 副新模标本
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Plastoneotype: 拷贝新模标本
+        http://eol(dot)org/schema/terms/isoparatype: 同副模标本
         http://eol(dot)org/schema/terms/prototype: 原型
         http://eol(dot)org/schema/terms/adolescaria: 后囊蚴
         http://eol(dot)org/schema/terms/adultAndJuvenile: 成体与幼体
@@ -3335,29 +3335,29 @@ zh-CN:
         http://eol(dot)org/schema/terms/adultAndNymph: 成虫和若虫
         http://eol(dot)org/schema/terms/adultAndPupa: 成虫和蛹
         http://eol(dot)org/schema/terms/adultAndSubadult: 成体和亚成体
-        http://eol(dot)org/schema/terms/alatoidNymph: 蝶形若虫
+        http://eol(dot)org/schema/terms/alatoidNymph: 翼状若虫
         http://eol(dot)org/schema/terms/apterousNymph: 无翅若虫
-        http://eol(dot)org/schema/terms/chick: 小鸡
+        http://eol(dot)org/schema/terms/chick: 幼鸟
         http://eol(dot)org/schema/terms/copepodid: 桡足幼体
         http://eol(dot)org/schema/terms/femaleFlowers: 雌花
         http://eol(dot)org/schema/terms/floweringAndFruiting: 开花结果
         http://eol(dot)org/schema/terms/immatureAndOvigerous: 未成熟与产卵
-        http://eol(dot)org/schema/terms/in_bud: 发芽
-        http://eol(dot)org/schema/terms/juvenileAndOvigerous: 幼虫和卵生
+        http://eol(dot)org/schema/terms/in_bud: 含苞待放
+        http://eol(dot)org/schema/terms/juvenileAndOvigerous: 幼虫和产卵
         http://eol(dot)org/schema/terms/larvaAndPupa: 幼虫和蛹
         http://eol(dot)org/schema/terms/maleAndHermaphrodite: 雄性和雌雄同体
         http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: 雄雌和雌雄同体
         http://eol(dot)org/schema/terms/maleFlowers: 雄花
         http://eol(dot)org/schema/terms/manca: manca阶段
         http://eol(dot)org/schema/terms/marita: 成年吸虫
-        http://eol(dot)org/schema/terms/metamorph: 变态
-        http://eol(dot)org/schema/terms/miracidium: 纤毛蚴
+        http://eol(dot)org/schema/terms/metamorph: 蜕变
+        http://eol(dot)org/schema/terms/miracidium: 毛蚴
         http://eol(dot)org/schema/terms/morphotype: 态模标本
         http://eol(dot)org/schema/terms/nonBreeding: 非繁殖
         http://eol(dot)org/schema/terms/parthenita: 单性虫
         http://eol(dot)org/schema/terms/plerocercoid: 全尾蚴
         http://eol(dot)org/schema/terms/plerocercus: 实尾蚴
-        http://eol(dot)org/schema/terms/postmetamorph: 后变态
+        http://eol(dot)org/schema/terms/postmetamorph: 蜕变后
         http://eol(dot)org/schema/terms/praniza: 皮囊幼体
         http://eol(dot)org/schema/terms/redia: 雷蚴
         http://eol(dot)org/schema/terms/tetrathyridium: 四盘蚴
@@ -3370,18 +3370,18 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0003670: 微丝期
         http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: 尾蚴
         http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: 孢子囊期
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: 生育能力
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: 能生育的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: 雌雄同体
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: 顶生
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: 终端
         http://purl(dot)obolibrary(dot)org/obo/PO_0007001: 果实早熟阶段
         http://purl(dot)obolibrary(dot)org/obo/PO_0007038: 果实成熟期
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: 开花期
         http://purl(dot)obolibrary(dot)org/obo/PO_0025500: 果实发育期
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: 蛹
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0014856: 囊尾幼虫阶段
-        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: 蟹前期
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: 大眼幼体期
         http://purl(dot)obolibrary(dot)org/obo/WBls_0000708: 尾蚴
-        http://purl(dot)obolibrary(dot)org/obo/WBls_0000716: 后绦幼虫
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000716: 中绦期
         http://purl(dot)obolibrary(dot)org/obo/WBls_0000720: 囊蚴
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: 咸水河口
 ...
