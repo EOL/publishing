@@ -237,6 +237,7 @@ it:
       submit: ricerca
     sort:
       hierarchy: gerarchia
+      position: data aggiunta
       sci_name: nome scientifico, A-Z
       sci_name_rev: nome scientifico, Z-A
       sort_field: annotazione, A-Z
@@ -781,6 +782,7 @@ it:
       r_species: specie
       r_subspecies: sottospecie
       r_infraspecies: infraspecie
+      r_form: modulo
   recaptcha: Recaptcha
   recaptcha_error: Per favore dimostraci di non essere un robot.
   reconciliation:
@@ -817,11 +819,15 @@ it:
   resource_missing: risorsa non trovata
   scientific_name:
     status_title:
-      alternative: Nomi Alternativi
+      accepted: Nomi accettati
+      alternative: Nomi alternativi
+      unusable: Nomi inutilizzabili
       synonym: Sinonimi
   scientific_names_header: Nomi scientifici
   send_me_reset_password_instructions: Inviami le istruzioni per reimpostare la password
   search:
+    blank_q_msg: Puoi cercare i contenuti di EOL utilizzando la barra nella parte
+      superiore della pagina.
     full_name: '%{vernacular} (%{scientific})'
     flash:
       cannot_combine_paths: Impossibile combinare i risultati con %{path}
@@ -978,6 +984,7 @@ it:
         in EOL. Potrebbe essere incompleto! Puoi selezionare una categoria dal grafico
         per restringere i risultati della ricerca. Molte categorie si sovrappongono
         e una specie può essere inclusa in più di una categoria.
+      other_term_name: altro %{term_name}
       hist_value_label: valore (%{units})
       num_records_label: '# di record'
       other: altro
@@ -989,6 +996,7 @@ it:
     properties:
       citation: Citazione bibliografica
       method: Metodo di misurazione
+      sample_size: Dimensione del campione
       scientific_name: Nome scientifico
       source: Fonte
     search_results:
@@ -1003,6 +1011,7 @@ it:
         pred_only: '%{pred}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
         sex: 'sesso: %{value}'
+      gbif_search: Ricerca GBIF
       new_search: nuova ricerca
       switch_to_list: passa alla vista elenco
     search:
@@ -1012,6 +1021,7 @@ it:
           predicate: o seleziona un attributo
     search_form:
       attribute: attributo
+      resource: risorsa
       search: Cerca
       sex: sesso
       show_additional_fields: mostra campi aggiuntivi
