@@ -517,7 +517,6 @@ es:
     lg: Ganda
     ka: Georgiano
     de: Alemán
-    deu: Alemán
     q5575236: Goan Konkani
     q3272630: Gogo
     q2501174: Gorontalo
@@ -743,7 +742,6 @@ es:
     q13238: Udmurto
     ug: Uighur; Uyghur
     uk: Ucraniano
-    ukr: Ucraniano
     none: No especificado
     q13248: Alto sorabo
     ur: Urdu
@@ -1479,7 +1477,6 @@ es:
     created_at: creación
     download_queue: Cola de descarga de datos
     grant_power: Concede acceso a usuarios avanzados
-    revoke_power: Revocar acceso de moderador
     edit_account_details: Edita los detalles de la cuenta
     email: Dirección de correo electrónico
     to_commit_enter_current: Es necesaria la contraseña actual para confirmar los
