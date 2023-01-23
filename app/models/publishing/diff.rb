@@ -32,8 +32,9 @@ class Publishing
     def create_set_variables
       @affected_pages = Set.new
       @affected_media_pages = Set.new
-      @new_pages = Set.new
-      @new_media = Set.new
+      @new_page_ids = Set.new
+      @new_media_ids = Set.new
+      @new_article_ids = Set.new
     end
 
     def handle_diffs
@@ -64,9 +65,11 @@ class Publishing
         model = @klass.create(attributes)
         log_page(attributes)
         if @klass == Node
-          @new_pages << attributes['page_id'] unless Page.exist?(id: attributes['page_id'])
+          @new_page_ids << attributes['page_id'] unless Page.exist?(id: attributes['page_id'])
         elsif @klass == Medium
-          @new_media << model.id
+          @new_media_ids << model.id
+        elsif @klass == Article
+          @new_article_ids << model.id
         end
       end
     end
@@ -103,7 +106,9 @@ class Publishing
 
     def denormalize_models
       create_new_pages
-      # TODO: You'll need a media content creator to run on @new_media
+      content_creator = MediaContentCreator.new(resource, log: @log)
+      content_creator.by_media_ids(@new_media_ids)
+      content_creator.by_media_ids(@new_article_ids)
       @log.start('restoring vernacular preferences...')
       VernacularPreference.restore_for_resource(@resource.id, @log)
       propagate_reference_ids
@@ -113,7 +118,7 @@ class Publishing
     end
 
     def create_new_pages
-      @new_pages.each do |page_id|
+      @new_page_ids.each do |page_id|
         next if Page.exists?(id: page_id)
         next unless Node.exists?(page_id: page_id)
         native_nodes = Node.where(page_id: page_id).order(:id)

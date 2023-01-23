@@ -1,6 +1,8 @@
 class MediaContentCreator
-  def self.by_resource(resource, options = {})
-    self.new(resource, options[:log], start: options[:id]).by_resource(options)
+  class << self
+    def by_resource(resource, options = {})
+      self.new(resource, options[:log], start: options[:id]).by_resource(options)
+    end
   end
 
   def initialize(resource, log = nil, options = {})
@@ -24,30 +26,47 @@ class MediaContentCreator
       @field = "#{@klass.name.underscore.downcase}_id".to_sym
       query = @klass.where(resource: @resource.id).where(clause)
       query = query.where(['id > ?', @options[:start]]) if @options[:start]
-      b_size = 1000 # Default is 1000, I just want to use this for calculation.
-      count = query.count
-      num_batches = (count / b_size.to_f).ceil
-      @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
-      query.find_in_batches(batch_size: b_size).with_index do |batch, number|
-        @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
-        reset_batch
-        learn_ancestry(batch) unless k == Article
-        # TEMP: we're putting images at the bottom now so we count how many images per page...
-        count_images_in(batch)
-        batch.each do |content|
-          add_content(content.page_id, content)
-          add_ancestry_content(content) unless k == Article
-        end
-        # TEMP: we're putting images at the bottom now - push_pages_down
-        import_contents
-        update_naked_pages if k == Medium
-      end
+      add_content_in_batches_for(query)
     end
     fix_counter_culture_counts(clause: clause) unless options[:skip_counts]
     if @options[:start]
       @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
         ' Also, technically, the temp files should be removed.', cat: :warns)
+      end
     end
+  end
+    
+  def add_content_in_batches_for(query)
+    b_size = 1000 # Default is 1000, I just want to use this for calculation.
+    count = query.count
+    num_batches = (count / b_size.to_f).ceil
+    @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
+    query.find_in_batches(batch_size: b_size).with_index do |batch, number|
+      @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
+      reset_batch
+      learn_ancestry(batch) unless @klass == Article
+      # TEMP: we're putting images at the bottom now so we count how many images per page...
+      count_images_in(batch)
+      batch.each do |content|
+        add_content(content.page_id, content)
+        add_ancestry_content(content) unless @klass == Article
+      end
+      # TEMP: we're putting images at the bottom now - push_pages_down
+      import_contents
+      update_naked_pages if @klass == Medium
+    end
+  end
+
+  def by_media_ids(media_ids)
+    @klass = Medium
+    @field = :medium_id
+    add_content_in_batches_for(Medium.where(resource: @resource.id, id: media_ids.to_a))
+  end
+  
+  def by_article_ids(article_ids)
+    @klass = Article
+    @field = :article_id
+    add_content_in_batches_for(Medium.where(resource: @resource.id, id: article_ids.to_a))
   end
 
   def count_images_in(batch)

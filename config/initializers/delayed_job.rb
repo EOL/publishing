@@ -46,7 +46,6 @@ ReindexJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
     Delayed::Worker.logger.info("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
-    # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_missing_page_contents
   end
 
@@ -63,7 +62,6 @@ FixNoNamesJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
     Delayed::Worker.logger.info("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
-    # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_no_names
   end
 
