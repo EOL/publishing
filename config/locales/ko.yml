@@ -4,6 +4,7 @@
 # Author: Codenstory
 # Author: Gomdoli
 # Author: Nuevo Paso
+# Author: Oliviamaule
 # Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 그냥기여자
@@ -11,6 +12,9 @@
 ---
 ko:
   language_name: 영어
+  about:
+    trait_bank:
+      title: TraitBank
   account_already_linked: 계정이 이미 EOL에 연결되어 있습니다
   account_not_linked: 계정이 EOL에 연결되어 있지 않습니다
   advanced: 고급

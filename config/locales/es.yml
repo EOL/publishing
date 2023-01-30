@@ -517,6 +517,7 @@ es:
     lg: Ganda
     ka: Georgiano
     de: Alemán
+    deu: Alemán
     q5575236: Goan Konkani
     q3272630: Gogo
     q2501174: Gorontalo
@@ -742,6 +743,7 @@ es:
     q13238: Udmurto
     ug: Uighur; Uyghur
     uk: Ucraniano
+    ukr: Ucraniano
     none: No especificado
     q13248: Alto sorabo
     ur: Urdu
@@ -2593,6 +2595,8 @@ es:
         http://eol(dot)org/schema/terms/maleOrUnsexed: Macho o asexual
         http://eol(dot)org/schema/terms/MaleTenure: tenencia masculina
         http://eol(dot)org/schema/terms/mammalivore: mamíferoivoro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: bosque de mangles
+        http://eol(dot)org/schema/terms/MantleLength: longitud del manto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003074: Producto fabricado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: Marino
         https://eol(dot)org/schema/terms/marine_animals: Animales marinos
@@ -2601,23 +2605,35 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000108: Esfera de agua fría
           marina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005795: lodo marino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: parque marino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000023: pelágico marino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: Arrecife marino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: Sedimento marino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: nieve marina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: afloramiento marino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000109: esfera de agua caliente
+          marina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: Masa de agua marina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: Pantano
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: masa
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: hábito de crecimiento
+          masivo
         http://eol(dot)org/schema/terms/MatingSystem: sistema de apareamiento
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: maduro/a
+        http://semanticscience(dot)org/resource/SIO_001114: máximo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: pradera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005761: suelo de pradera
         http://semanticscience(dot)org/resource/SIO_001109: media
         http://eol(dot)org/schema/terms/meanAnnualTemperature: temperatura media anual
         http://rs(dot)tdwg(dot)org/dwc/terms/measurementAccuracy: Exactitud de medida
         http://rs(dot)tdwg(dot)org/dwc/terms/measurementDeterminedBy: La medida es
           determinada por
         http://rs(dot)tdwg(dot)org/dwc/terms/measurementMethod: método de medición
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementRemarks: observaciones de
+          medición
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: carne
         http://semanticscience(dot)org/resource/SIO_001110: Mediana
+        https://eol(dot)org/schema/terms/median_paired_fin: propulsión de aletas medianas/pareadas
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: medicinal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: bosque mediterráneo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000878: el bosque mediterráneo,
@@ -2627,7 +2643,13 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: matorral mediterráneo/a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: bosque mediterráneo
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: medio
+        http://eol(dot)org/schema/terms/mediumNitrogenFixation: fijación media n
+        http://eol(dot)org/schema/terms/mediumCNRatio: medio (23 – 59)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medio (normal)
+        https://eol(dot)org/schema/terms/medusoid: medusoide
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000199: lago meromíctico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: mesa
+        http://eol(dot)org/schema/terms/mesohaline: mesohalino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: zona mesopelágica
         http://eol(dot)org/schema/terms/mesotrophicFreshwaterLake: lago mesotrófico
           de agua dulce
@@ -2646,19 +2668,43 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
         https://eol(dot)org/schema/terms/microalgae: microalgas
+        https://eol(dot)org/schema/terms/microbivore: microbívoro
+        http://eol(dot)org/schema/terms/microcarnivore: microcarnívoro
+        http://eol(dot)org/schema/terms/microphytobenthos: microfitobentos
         http://eol(dot)org/schema/terms/midSpring: plena primavera
         http://eol(dot)org/schema/terms/midSummer: pleno verano
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000406: dorsal oceánica
+        http://eol(dot)org/schema/terms/midPersistentSeedBank: medio-persistente
+        http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: Subzona de
+          arbustos enanos del Ártico medio
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: época
+          del devónico medio
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleJurassic: época
+          del jurásico medio
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleOrdovician: época
+          ordovícica media
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: edad
           Pleistoceno medio
+        http://eol(dot)org/schema/terms/MiddleToeLength: longitud del dedo medio
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleTriassic: época
+          triásica media
         http://eol(dot)org/schema/terms/migratory: Migratorio
         http://eol(dot)org/schema/terms/millimeterspermonth: milímetros por mes
         http://eol(dot)org/schema/terms/paleo_megaannum: Hace millones de años
         http://semanticscience(dot)org/resource/SIO_001113: mín
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: manantial mineral
+        https://eol(dot)org/schema/terms/mineralizedSkeletonContains: el esqueleto
+          mineralizado contiene
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: El tejido mineralizado
+          contiene
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: Minerales
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: época
           del mioceno
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: subperíodo
+          de Mississippi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mezclado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: Bosque mixto
+        http://eol(dot)org/schema/terms/mixotrophy: mixotrófico
         http://eol(dot)org/schema/terms/mlO2perhour: ml/hr o2
         http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
@@ -2680,14 +2726,23 @@ es:
         http://eol(dot)org/schema/terms/moderateRate: Moderado
         http://eol(dot)org/schema/terms/moderateLifeSpan: de vida media moderada
         http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m^2/día
+        https://eol(dot)org/schema/terms/mollusk_foot: pie de molusco
+        http://eol(dot)org/schema/terms/monandry: monándrico
+        https://eol(dot)org/schema/terms/monoicous: monoico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: desierto montano
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000435: bosque montano
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: pastizales montanos
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: meses
+        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: tiempo de duplicación
+          de la tasa de mortalidad
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: edad
           Moscoviense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: Montañas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: Paso de montaña
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: moco
+        http://eol(dot)org/schema/terms/mucus_net_feeder: alimentador de red de moco
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: lodo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: volcán de lodo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: suelo lodoso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005793: agua lodosa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: Dique multiuso
@@ -2697,10 +2752,18 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: Sistema musculoesquelético
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003033: abono de hongos
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001386: arrecife de mejillones
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualista con
         http://eol(dot)org/schema/terms/myrmecochory: mirmecocoria
+        http://eol(dot)org/schema/terms/NativeRange: rango nativo incluye
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: puerto natural
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: Reserva natural
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0015170: ojo de nauplio
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: etapa de nauplio
+        http://eol(dot)org/schema/terms/nearThreatened: casi amenazado
+        http://www(dot)marinespecies(dot)org/traits/Nekton: nectónico
+        http://eol(dot)org/schema/terms/nektobenthic: nectobentónico
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: periodo
+          neogenen
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: neonato
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: era
           neoproterozoica
@@ -2728,14 +2791,25 @@ es:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: se alimenta de
           depósitos no selectivos
         http://eol(dot)org/schema/terms/non-woodyEpipyte: epífita no leñosa
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: ácido nonadecanoico
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: ninguna
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: edad Noriense
+        http://eol(dot)org/schema/terms/northernArcticDwarfShrubSubzone: Subzona de
+          arbustos enanos del Ártico medio
         http://eol(dot)org/schema/terms/notMonogamous: no monógamo
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longitud del núcleo
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: ancho del núcleo
         http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
+        http://eol(dot)org/schema/terms/NumberOfHosts: número de huespedes
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: número de registros
+          públicos en negrita
+        http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: composición de
+          nutrientes de la leche
         http://eol(dot)org/schema/terms/nutrient_symbiotroph: simbiotrofo de nutrientes
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: bosque de robles
+        http://eol(dot)org/schema/terms/obligateClimber: escalador obligado
+        http://eol(dot)org/schema/terms/obligateEpiphyte: epífita obligada
+        http://rs(dot)tdwg(dot)org/dwc/terms/occurrenceRemarks: comentarios de ocurrencia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: Isla oceánica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: Zona oceánica
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: edad
