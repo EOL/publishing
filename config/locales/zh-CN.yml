@@ -351,7 +351,7 @@ zh-CN:
   gbif_download:
     created: 已创建GBIF下载任务。检查您的<a href="%{url}">用户个人资料页面</a>以查看其状态
   landing_page:
-    header: 为全世界提供有关地球生命的知识
+    header: 向全世界提供地球生命的知识
     stats_cleared: 统计数据已重新计算。
   language: 语言
   languages:

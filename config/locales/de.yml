@@ -18,6 +18,7 @@
 # Author: FF11
 # Author: Jhammock
 # Author: Jhammock
+# Author: Justman10000
 # Author: Katja
 # Author: Katja
 # Author: Kghbln
@@ -1384,7 +1385,7 @@ de:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: Calabrium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: Kalkschlamm
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: Calcit
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalzium (ungefähr)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: Calciumcarbonat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: Calciumphosphat
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: Calciumsulfat
@@ -1623,7 +1624,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: Maar
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: Maastrichtium
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: Magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: Männlich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: Mangrovensumpf
         http://semanticscience(dot)org/resource/SIO_001114: max.
