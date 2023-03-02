@@ -32,8 +32,7 @@ class Publishing
     def parse
       File.open(@filename, 'r').each_line do |line|
         next if state_changed?(line)
-        fake_attributes_from_diff_line(line)
-        line_data =
+        line_data = fake_attributes_from_diff_line(line)
         if @state == :create
           fail_unless_out(line)
           @created << line_data
