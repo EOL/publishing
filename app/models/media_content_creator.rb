@@ -32,7 +32,6 @@ class MediaContentCreator
     if @options[:start]
       @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
         ' Also, technically, the temp files should be removed.', cat: :warns)
-      end
     end
   end
     
