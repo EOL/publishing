@@ -964,6 +964,10 @@ zh-CN:
     actions:
       import_traits: 导入特性（来自存储库）
       republish: 再版
+      clean_republish: 干净的重新发布
+      diff: 差异
+      republish_confirm: 这将删除资源的所有内容（特征除外，它将使用差异）。你确定吗？！
+      clean_republish_confirm: 这将删除资源的所有内容，并且不会使用特征差异。你确定吗？！
       reindex: 重新索引
       fix_no_names: 修复NO NAMEs
       index: 回到所有资源
