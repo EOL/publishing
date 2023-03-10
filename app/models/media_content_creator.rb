@@ -15,7 +15,7 @@ class MediaContentCreator
     @contents = []
     @naked_pages = {}
     @ancestry = {}
-    @content_count_by_page = {}
+    @position_by_page = {}
   end
 
   def by_resource(options = {})
@@ -70,15 +70,19 @@ class MediaContentCreator
 
   def count_images_in(batch)
     pages = batch.map(&:page_id).compact.uniq
-    pages -= @content_count_by_page.keys
+    pages -= @position_by_page.keys
     # NOTE: the call to #reoder helps avoid "Expression #1 of ORDER BY clause is not in GROUP BY clause and contains
     # nonaggregated column".
     counts = PageContent.where(page_id: pages).group('page_id').reorder('').count
     pages.each do |page_id|
-      # This is a (slow) stop-gap method to find missing icons:
-      @naked_pages[page_id] ||= Page.find(page_id) if counts[page_id].zero?
-      @content_count_by_page[page_id] = counts[page_id] || 0
+      @position_by_page[page_id] = insert_images_after(count) 
     end
+  end
+
+  def insert_images_after(count)
+    return 0 if count.nil?
+    return 0 if count.zero?
+    1 # This will put all new images after the *existing* first image (which should preserve thumbnails).
   end
 
   def learn_ancestry(batch)
@@ -92,10 +96,10 @@ class MediaContentCreator
   end
 
   def add_content(page_id, content, options = {})
-    @content_count_by_page[page_id] ||= -1
-    @content_count_by_page[page_id] += 1
+    @position_by_page[page_id] ||= -1
+    @position_by_page[page_id] += 1
     source = options[:source] || page_id
-    @contents << { page_id: page_id, source_page_id: source, position: @content_count_by_page[page_id],
+    @contents << { page_id: page_id, source_page_id: source, position: @position_by_page[page_id],
                    content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
     if @naked_pages.key?(page_id)
       @naked_pages[page_id].assign_attributes(@field => content.id) if content.image?
@@ -113,7 +117,7 @@ class MediaContentCreator
   def push_pages_down
     @log.log("Pushing contents down...")
     push_pages = {}
-    @content_count_by_page.each do |page_id, count|
+    @position_by_page.each do |page_id, count|
       push_pages[count] ||= []
       push_pages[count] << page_id
     end
