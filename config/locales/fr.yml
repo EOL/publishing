@@ -158,7 +158,7 @@ fr:
         other: '%{count} frères supplémentaires tronqués pour brièveté.'
     richness:
       header: Richesse de la page
-      score: score de richesse
+      score: indice de richesse
       page_contents_count: contenu associé
       missing: La richesse n’a pas encore été calculée pour cette page.
       media_count: média
