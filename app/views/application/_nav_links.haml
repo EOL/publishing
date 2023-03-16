@@ -3,7 +3,7 @@
 %li= link_to(t("nav.discuss"), 'http://discuss.eol.org')
 %li= link_to(t("nav.trait_bank"), main_app.about_trait_bank_path)
 - c_user = current_user rescue nil # There's a problem with Warden::Manager in some contexts
-- if current_user
+- if c_user
   %li= link_to(current_user.username, main_app.user_path(current_user))
   %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
 - else
