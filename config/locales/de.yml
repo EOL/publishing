@@ -16,6 +16,7 @@
 # Author: FF-11
 # Author: FF-11
 # Author: FF11
+# Author: Icke
 # Author: Jhammock
 # Author: Jhammock
 # Author: Justman10000
@@ -112,9 +113,11 @@ de:
         r_superfamily: '%{name1} ist eine Oberfamilie von %{name2}.'
         r_domain: '%{name1} ist eine Domäne von %{name2}.'
         r_subdomain: '%{name1} ist eine Unterdomäne von %{name2}.'
+        r_infradomain: '%{name1} ist eine Infradomäne zu %{name2}.'
         r_superkingdom: '%{name1} ist ein Superreich von %{name2}.'
         r_kingdom: '%{name1} ist ein Reich von %{name2}.'
         r_subkingdom: '%{name1} ist ein Unterreich von %{name2}.'
+        r_infrakingdom: '%{name1} ist ein Infrakingdom zu %{name2}.'
         r_class: '%{name1} ist eine Klasse von %{name2}.'
         r_subclass: '%{name1} ist eine Unterklasse von %{name2}.'
         r_order: '%{name1} ist eine Ordnung von %{name2}.'

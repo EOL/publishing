@@ -7,6 +7,7 @@
 # Author: Beta16
 # Author: ElisaPaglia
 # Author: ElisaPaglia
+# Author: FedeB
 # Author: G313
 # Author: G313
 # Author: IrsY
@@ -791,6 +792,11 @@ it:
         taxon: Taxon
       numeric_id: ID numerico
     property:
+      description:
+        ancestor: Un'unità tassonomica che è un'antenata di un'altra unità tassonomica.
+        conservation_status: Lo stato di conservazione dell'unità tassonomica
+        extinction_status: Lo stato di estinzione dell'unità tassonomica. Valori possibili
+          sono 'estinto' e 'esistente'
       name:
         ancestor: Antenato
         rank: Posizione
@@ -922,11 +928,13 @@ it:
     overview: Panoramica
     physiology_and_cell_biology: Fisiologia e biologia cellulare
     physical_description: Descrizione fisica
+    relevance_to_humans_and_ecosystems: Rilevanza per gli esseri umani e gli ecosistemi
     reproduction: Riproduzione
     risks: Rischi
     size: Dimensione
     taxonomy: Tassonomia
     threats: Minacce
+    trends: Tendenze
     type_information: Tipo di informazione
     wikipedia: Wikipedia
   settings: impostazioni
@@ -1011,6 +1019,7 @@ it:
         pred_only: '%{pred}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
         sex: 'sesso: %{value}'
+        statistical_method: 'metodo statistico: %{value}'
       gbif_search: Ricerca GBIF
       new_search: nuova ricerca
       switch_to_list: passa alla vista elenco
@@ -1021,14 +1030,18 @@ it:
           predicate: o seleziona un attributo
     search_form:
       attribute: attributo
+      hide_additional_fields: nascondi campi aggiuntivi
+      lifestage: fase della vita
       resource: risorsa
       search: Cerca
       sex: sesso
       show_additional_fields: mostra campi aggiuntivi
       statistical_method: metodo statistico
+      this_may_take_a_minute: L'operazione potrebbe richiedere un minuto
       value: valore
   trust:
     trusted: attendibile
+    untrusted: non affidabile
   user:
     created_at: creato
     download_queue: Coda di download dei dati
@@ -1043,6 +1056,8 @@ it:
       links: Collegamenti
     validations:
       age_confirm: devi confermare di avere almeno 13 anni
+      tou_confirm: è necessario confermare di aver letto le Condizioni d'Uso e l'Informativa
+        sulla Privacy
     new_password: Nuova password
     confirm_new_password: Conferma la nuova password
     username: nome utente
@@ -1078,6 +1093,10 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: è mangiato da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ha ectoparassita
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: viene ucciso da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: ha agenti patogeni
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: predato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visitato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: fiori visitati da
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/mese'
@@ -1090,7 +1109,11 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abbondanza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: zona abissale
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: suolo acido
+        http://eol(dot)org/schema/terms/adaptiveStrategy: strategia di adattamento
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adulto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: habitat aereo
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: tasso di ricrescita
+          dopo il raccolto
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuale
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta acquatica
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area

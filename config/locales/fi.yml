@@ -1214,6 +1214,7 @@ fi:
       this_may_take_a_minute: Tämä saattaa kestää hetken
       trait_filter: piirresuodatin
       value: arvo
+      value_eg: 'arvo (esim.: kasvinsyöjä)'
   trophic_web:
     group_descriptions:
       competitor: lajin %{source_name} kilpailija
@@ -1949,6 +1950,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: suo
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Syntype: syntyyppi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: teeplantaasi
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: hampaat
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: Telych-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: lauhkea
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: lauhkea lehtimetsä
@@ -2008,6 +2010,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001305: kasvillistunut alue
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: hyvin suuri
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: hyvin pieni
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: viinitarha
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: Visé-vaihe
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: vierailun kohde
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: vierailee kukissa jotka
