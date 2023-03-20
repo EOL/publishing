@@ -23,7 +23,7 @@
 # Author: Ubibi
 ---
 it:
-  language_name: Italiano
+  language_name: italiano
   about:
     trait_bank:
       title: TraitBank
@@ -709,6 +709,7 @@ it:
     trophic_web:
       globi_credit_html: dati da <a href='%{url}'>GloBI</a>
       predator: Predatore
+      prey: Preda
       reset: reimposta
       trophic_web_about: I diagrammi della rete alimentare EOL si concentrano sui
         rapporti di alimentazione di una specie; mostrano le specie focali insieme
@@ -799,6 +800,8 @@ it:
           sono 'estinto' e 'esistente'
       name:
         ancestor: Antenato
+        conservation_status: Stato di conservazione
+        extinction_status: Stato di estinzione
         rank: Posizione
     property_settings:
       limit:
@@ -948,6 +951,8 @@ it:
     required:
       text: obbligatorio
       mark: '*'
+    error_notification:
+      default_message: 'Si prega di esaminare i seguenti problemi:'
     labels:
       defaults:
         email: Indirizzo email
@@ -998,9 +1003,14 @@ it:
       other: altro
       pie_prompt: passa il mouse su un segmento o un tasto per evidenziarlo
       sankey_node_hover: fai clic per restringere la ricerca a %{term_name}
+      show_link:
+        associations_summary: mostra il riepilogo delle associazioni
+        taxon_summary: mostra il riepilogo dell'unità tassonomica
       taxon_summary:
         click_to_filter: clicca per filtrare
         click_to_filter_by: clicca per filtrare per '%{name}'
+      toggle_text:
+        taxon_summary: mostra il riepilogo dell'unità tassonomica
     properties:
       citation: Citazione bibliografica
       method: Metodo di misurazione
@@ -1023,6 +1033,7 @@ it:
       gbif_search: Ricerca GBIF
       new_search: nuova ricerca
       switch_to_list: passa alla vista elenco
+      switch_to_gallery: passa alla visualizzazione galleria
     search:
       select:
         top_level:
@@ -1039,7 +1050,12 @@ it:
       statistical_method: metodo statistico
       this_may_take_a_minute: L'operazione potrebbe richiedere un minuto
       value: valore
+      value_eg: 'valore (es.: erbivoro)'
+  trophic_web:
+    group_descriptions:
+      competitor: concorrente di %{source_name}
   trust:
+    unreviewed: non esaminato
     trusted: attendibile
     untrusted: non affidabile
   user:
@@ -1092,7 +1108,15 @@ it:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: è mangiato da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ha ectoparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: ha un endoparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: ospite di
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: ha un iperparassita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: ha un vettore
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: viene ucciso da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparassitato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: ha le uova deposte da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassitato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: ha un parassitoide
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: ha agenti patogeni
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: predato da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visitato da
