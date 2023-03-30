@@ -1496,6 +1496,7 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: kryogeenikausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: kryosoli
         http://eol(dot)org/schema/terms/cuneiform: kiilamainen
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: sylinteri
         http://eol(dot)org/schema/terms/dahllite: dahlliitti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: Dania-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: Daping-kausi
