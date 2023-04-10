@@ -75,13 +75,13 @@ class MediaContentCreator
     # nonaggregated column".
     counts = PageContent.where(page_id: pages).group('page_id').reorder('').count
     pages.each do |page_id|
-      @position_by_page[page_id] = insert_images_after(count) 
+      @position_by_page[page_id] = insert_images_after(counts[page_id]) 
     end
   end
 
-  def insert_images_after(count)
-    return 0 if count.nil?
-    return 0 if count.zero?
+  def insert_images_after(img_count)
+    return 0 if img_count.nil?
+    return 0 if img_count.zero?
     1 # This will put all new images after the *existing* first image (which should preserve thumbnails).
   end
 
