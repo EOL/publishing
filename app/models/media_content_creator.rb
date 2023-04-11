@@ -31,14 +31,14 @@ class MediaContentCreator
       query.find_in_batches(batch_size: b_size).with_index do |batch, number|
         @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
         reset_batch
-        learn_ancestry(batch) unless k == Article
+        learn_ancestry(batch) unless @klass == Article
         # TEMP: we're putting images at the bottom now so we count how many images per page...
-        count_images_in(batch)
+        count_media_in(batch)
         batch.each do |content|
           add_content(content.page_id, content)
           add_ancestry_content(content) unless k == Article
         end
-        # TEMP: we're putting images at the bottom now - push_pages_down
+        push_content_down
         import_contents
         update_naked_pages if k == Medium
       end
@@ -50,12 +50,12 @@ class MediaContentCreator
     end
   end
 
-  def count_images_in(batch)
+  def count_media_in(batch)
     pages = batch.map(&:page_id).compact.uniq
     pages -= @position_by_page.keys
     # NOTE: the call to #reoder helps avoid "Expression #1 of ORDER BY clause is not in GROUP BY clause and contains
     # nonaggregated column".
-    counts = PageContent.where(page_id: pages).group('page_id').reorder('').count
+    counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').count
     pages.each do |page_id|
       @position_by_page[page_id] = insert_images_after(counts[page_id]) 
     end
@@ -96,7 +96,7 @@ class MediaContentCreator
     end
   end
 
-  def push_pages_down
+  def push_content_down
     @log.log("Pushing contents down...")
     push_pages = {}
     @position_by_page.each do |page_id, count|
@@ -104,7 +104,7 @@ class MediaContentCreator
       push_pages[count] << page_id
     end
     push_pages.each do |count, pages|
-      PageContent.where(page_id: pages).update_all(['position = position + ?', count])
+      PageContent.where(page_id: pages, content_type: @klass.name).update_all(['position = position + ?', count])
     end
   end
 
@@ -123,10 +123,7 @@ class MediaContentCreator
   end
 
   def fix_counter_culture_counts(options = {})
-    delete = options.key?(:delete) ? options[:delete] : false
     @log.log("Fixing counter-culture counts...")
-    # PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).
-    #   counter_culture_fix_counts
-    @resource.fix_missing_page_contents(options) # Faster.
+    @resource.fix_missing_page_contents(options.merge(delete: false)) # Faster.
   end
 end
