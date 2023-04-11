@@ -68,12 +68,12 @@ class MediaContentCreator
     add_content_in_batches_for(Medium.where(resource: @resource.id, id: article_ids.to_a))
   end
 
-  def count_images_in(batch)
+  def count_media_in(batch)
     pages = batch.map(&:page_id).compact.uniq
     pages -= @position_by_page.keys
     # NOTE: the call to #reoder helps avoid "Expression #1 of ORDER BY clause is not in GROUP BY clause and contains
     # nonaggregated column".
-    counts = PageContent.where(page_id: pages).group('page_id').reorder('').count
+    counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').count
     pages.each do |page_id|
       @position_by_page[page_id] = insert_images_after(counts[page_id]) 
     end
@@ -114,7 +114,7 @@ class MediaContentCreator
     end
   end
 
-  def push_pages_down
+  def push_content_down
     @log.log("Pushing contents down...")
     push_pages = {}
     @position_by_page.each do |page_id, count|
@@ -122,7 +122,7 @@ class MediaContentCreator
       push_pages[count] << page_id
     end
     push_pages.each do |count, pages|
-      PageContent.where(page_id: pages).update_all(['position = position + ?', count])
+      PageContent.where(page_id: pages, content_type: @klass.name).update_all(['position = position + ?', count])
     end
   end
 
@@ -141,10 +141,7 @@ class MediaContentCreator
   end
 
   def fix_counter_culture_counts(options = {})
-    delete = options.key?(:delete) ? options[:delete] : false
     @log.log("Fixing counter-culture counts...")
-    # PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).
-    #   counter_culture_fix_counts
-    @resource.fix_missing_page_contents(options) # Faster.
+    @resource.fix_missing_page_contents(options.merge(delete: false)) # Faster.
   end
 end
