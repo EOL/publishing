@@ -266,6 +266,7 @@ class Resource < ApplicationRecord
   def remove_all_content
     remove_non_trait_content
     remove_trait_content
+    clear_caches
   end
 
   def log_handle
@@ -508,6 +509,11 @@ class Resource < ApplicationRecord
     Rails.cache.fetch("resources/#{id}/media_count") do
       media.count
     end
+  end
+
+  def clear_caches
+    Rails.cache.delete("resources/#{id}/nodes_count")
+    Rails.cache.delete("resources/#{id}/media_count")
   end
 
   def self.autocomplete(query, options = {})
