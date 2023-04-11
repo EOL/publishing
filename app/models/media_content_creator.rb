@@ -104,6 +104,7 @@ class MediaContentCreator
       push_pages[count] << page_id
     end
     push_pages.each do |count, pages|
+      next if count.nil? || count.zero?
       PageContent.where(page_id: pages, content_type: @klass.name).update_all(['position = position + ?', count])
     end
   end
