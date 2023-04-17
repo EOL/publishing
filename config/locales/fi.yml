@@ -1863,7 +1863,11 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautotrofi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: Piacenza-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: kasvin korkeus
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: kasvin elämänmuoto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantaasi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: istutettu metsä
+        http://eol(dot)org/schema/terms/PlantingDensity: istutustiheys
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: ylätasanko
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: pleistoseeni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: Pliensbach-vaihe
@@ -1917,6 +1921,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: suomut
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: tieteellinen nimi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: meri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: meriluola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: merenranta
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: turvallisuus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sedimentti
@@ -2063,6 +2068,7 @@ fi:
         http://eol(dot)org/schema/terms/NonInvasiveRange: alue jossa ei haitallinen
           vieraslaji
         http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
+        http://eol(dot)org/schema/terms/perPound: /paunaa
         http://eol(dot)org/schema/terms/pelagic: pelaginen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: merijää
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000218: musta savuttaja
@@ -2108,6 +2114,7 @@ fi:
         http://eol(dot)org/schema/terms/morphotype: muototyyppi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: nymfi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: itiö
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: takytsoiitti
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: hermafrodiitti
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: kotelo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: murtovesiestuaari
