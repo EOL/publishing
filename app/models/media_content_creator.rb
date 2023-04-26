@@ -11,6 +11,7 @@ class MediaContentCreator
 
   def reset_batch
     @contents = []
+    @all_pages = Set.new
     @naked_pages = {}
     @ancestry = {}
     @position_by_page = {}
@@ -43,7 +44,7 @@ class MediaContentCreator
         update_naked_pages if k == Medium
       end
     end
-    fix_counter_culture_counts(clause: clause) unless options[:skip_counts]
+    update_page_counts unless options[:skip_counts]
     if @options[:start]
       @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
         ' Also, technically, the temp files should be removed.', cat: :warns)
@@ -71,6 +72,7 @@ class MediaContentCreator
     Page.includes(native_node: [:unordered_ancestors, { node_ancestors: :ancestor }])
         .where(id: batch.map(&:page_id))
         .each do |page|
+          @all_pages[page.id] ||= page 
           # NOTE: if we decide to have exemplar articles on pages, page.send(@field).nil? here...
           @naked_pages[page.id] = page if @field == :medium_id && page.medium_id.nil?
           @ancestry[page.id] = page.ancestry_ids
@@ -122,8 +124,15 @@ class MediaContentCreator
     end
   end
 
-  def fix_counter_culture_counts(options = {})
-    @log.log("Fixing counter-culture counts...")
-    @resource.fix_missing_page_contents(options.merge(delete: false)) # Faster.
+  def update_page_counts
+    @log.log("Fixing counts on #{@all_pages.keys.count} pages...")
+    @all_pages.keys.in_groups_of(1200) do |page_ids|
+      counts = PageContent.where(page_id: page_ids, content_type: 'Article').reorder(nil).group(:page_id).count
+      counts.keys.each do |page_id|
+        puts page_id # @all_pages[page_id] ||= Page.find(page_id) # Shouldn't be needed, but juuuuust in case
+        @all_pages[page_id].articles_count = counts[page_id]
+      end
+      Page.import(@all_pages.values, on_duplicate_key_update: [:articles_count])
+    end
   end
 end
