@@ -238,7 +238,11 @@ Rails.application.routes.draw do
       get "/data_integrity_checks/:type/detailed_report" => "data_integrity_checks#detailed_report", as: :data_integrity_checks_detailed_report
     end
 
-    get "/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content", to: redirect("/docs/what-is-eol/citing-eol-and-eol-content")
+    get '/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content', to: redirect('/docs/what-is-eol/citing-eol-and-eol-content')
+    get '/docs/what-is-eol/terms-of-use/community-conditions-and-comment-policy', to: redirect('/docs/what-is-eol/community-conditions-and-comment-policy')
+    get '/docs/what-is-eol/terms-of-use/copyright-and-linking-policy', to: redirect('/docs/what-is-eol/copyright-and-linking-policy')
+    get '/docs/what-is-eol/terms-of-use/privacy-policy', to: redirect('/docs/what-is-eol/privacy-policy')
+    get '/docs/what-is-eol/terms-of-use/terms-of-use-for-eol-application-programming-interfaces', to: redirect('/docs/what-is-eol/terms-of-use-for-eol-application-programming-interfaces')
     scope "docs" do
       get "(/:directory_id)/:id" => "editor_pages#show", as: :editor_page
     end
@@ -449,16 +453,16 @@ Rails.application.routes.draw do
       get 'how_is_eol_managed', to: redirect('/docs/what-is-eol/eol-history')
       get '277', to: redirect('/docs/what-is-eol/eol-history')
       get 'terms_of_use', to: redirect('/docs/what-is-eol/terms-of-use')
-      get 'citing', to: redirect('/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content')
-      get '55', to: redirect('/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content')
-      get 'community_conditions', to: redirect('/docs/what-is-eol/terms-of-use/community-conditions-and-comment-policy')
-      get 'copyright_and_linking', to: redirect('/docs/what-is-eol/terms-of-use/copyright-and-linking-policy')
-      get 'linkstoeol', to: redirect('/docs/what-is-eol/terms-of-use/copyright-and-linking-policy')
-      get '322', to: redirect('/docs/what-is-eol/terms-of-use/copyright-and-linking-policy')
-      get 'eol_licensing_policy', to: redirect('/docs/what-is-eol/terms-of-use/copyright-and-linking-policy')
-      get 'privacy', to: redirect('/docs/what-is-eol/terms-of-use/privacy-policy')
-      get 'api_terms', to: redirect('/docs/what-is-eol/terms-of-use/terms-of-use-for-eol-application-programming-interfaces')
-      get '169', to: redirect('/docs/what-is-eol/terms-of-use/terms-of-use-for-eol-application-programming-interfaces')
+      get 'citing', to: redirect('/docs/what-is-eol/citing-eol-and-eol-content')
+      get '55', to: redirect('/docs/what-is-eol/citing-eol-and-eol-content')
+      get 'community_conditions', to: redirect('/docs/what-is-eol/community-conditions-and-comment-policy')
+      get 'copyright_and_linking', to: redirect('/docs/what-is-eol/copyright-and-linking-policy')
+      get 'linkstoeol', to: redirect('/docs/what-is-eol/copyright-and-linking-policy')
+      get '322', to: redirect('/docs/what-is-eol/copyright-and-linking-policy')
+      get 'eol_licensing_policy', to: redirect('/docs/what-is-eol/copyright-and-linking-policy')
+      get 'privacy', to: redirect('/docs/what-is-eol/privacy-policy')
+      get 'api_terms', to: redirect('/docs/what-is-eol/terms-of-use-for-eol-application-programming-interfaces')
+      get '169', to: redirect('/docs/what-is-eol/terms-of-use-for-eol-application-programming-interfaces')
       get 'sept_5', to: redirect('/docs/what-is-eol/whats-new')
       get 'curators', to: redirect('/docs/what-is-eol/whats-new')
       get 'profile', to: redirect('/docs/what-is-eol/whats-new')
