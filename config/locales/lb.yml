@@ -136,6 +136,7 @@ lb:
     resource_label: Partnersäit
     source: Quell
     view_source_label: Original
+    view_source_link: Originalbild weisen
   delete_account_button: Äre Benotzerkont läschen
   errors:
     not_found: Säit net fonnt (404)

@@ -3098,7 +3098,9 @@ es:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: metamorfosis sexual
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM_YES: metamorfosis sexual
         http://purl(dot)obolibrary(dot)org/obo/GO_0019953: reproducción sexual
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexualmente dimórfico
         http://eol(dot)org/schema/terms/shade: sombra
+        http://eol(dot)org/schema/terms/ShadeTolerance: tolerancia a la sombra
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: edad
           Sheinwoodiense
@@ -3164,8 +3166,11 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: edad
           Telychiense
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: temperatura
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diámetro del talo
+        https://eol(dot)org/schema/terms/thallus_length: longitud del talo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: edad
           Thanetiense
+        http://eol(dot)org/schema/terms/thermalFeature: termal
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tithonian: edad
           Tithoniense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: edad
@@ -3175,6 +3180,9 @@ es:
           Tortoniense
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: edad
           Tournaisiense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: transportación
+        http://eol(dot)org/schema/terms/transverseDivision: división transversal
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezoide
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: árbol
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: edad
           Tremadociense
@@ -3215,6 +3223,8 @@ es:
         http://eol(dot)org/schema/terms/unknown: desconocido
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: edad
           Pleistoceno superior
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: ácido úrico
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: sistema urinario
         http://eol(dot)org/schema/terms/Uses: utilizado para
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: edad
           Valanginiense
