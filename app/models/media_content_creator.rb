@@ -13,7 +13,7 @@ class MediaContentCreator
 
   def reset_batch
     @contents = []
-    @all_pages = Set.new
+    @all_pages = {}
     @naked_pages = {}
     @ancestry = {}
     @position_by_page = {}
