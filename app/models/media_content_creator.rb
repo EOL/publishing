@@ -74,7 +74,7 @@ class MediaContentCreator
         .each do |page|
           @all_pages[page.id] ||= page 
           # NOTE: if we decide to have exemplar articles on pages, page.send(@field).nil? here...
-          @naked_pages[page.id] = page if @field == :medium_id && page.medium_id.nil?
+          @naked_pages[page.id] = page if @klass == Medium && page.medium_id.nil?
           @ancestry[page.id] = page.ancestry_ids
         end
   end
@@ -85,8 +85,9 @@ class MediaContentCreator
     source = options[:source] || page_id
     @contents << { page_id: page_id, source_page_id: source, position: @position_by_page[page_id],
                    content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
-    if @naked_pages.key?(page_id)
-      @naked_pages[page_id].assign_attributes(@field => content.id) if content.image?
+    if @naked_pages.key?(page_id) && content.image?
+      mc = @naked_pages[page_id].media.count # Note this is kind of expensive. :\
+      @naked_pages[page_id].assign_attributes(medium_id: content.id, media_count: mc)
     end
   end
 
@@ -119,7 +120,9 @@ class MediaContentCreator
   end
 
   def update_naked_pages
-    unless @naked_pages.empty?
+    if @naked_pages.empty?
+      @log.log("Zero pages had no images and now have at least one. Skipping adding of icons...")
+    else
       @log.log("updating #{@naked_pages.values.size} pages with icons...")
       Page.import!(@naked_pages.values, on_duplicate_key_update: [@field])
     end
