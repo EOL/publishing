@@ -58,7 +58,7 @@ class MediaContentCreator
     # nonaggregated column".
     counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').count
     pages.each do |page_id|
-      @position_by_page[page_id] = counts[page_id] + 1 # HOLD, SLOW insert_images_after(counts[page_id]) 
+      @position_by_page[page_id] = counts[page_id] || 0 + 1 # HOLD, SLOW insert_images_after(counts[page_id]) 
     end
   end
 
