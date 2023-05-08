@@ -39,7 +39,7 @@ class MediaContentCreator
           add_content(content.page_id, content)
           add_ancestry_content(content) unless k == Article
         end
-        push_content_down
+        # HOLD, slow: push_content_down
         import_contents
         update_naked_pages if k == Medium
       end
@@ -58,7 +58,7 @@ class MediaContentCreator
     # nonaggregated column".
     counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').count
     pages.each do |page_id|
-      @position_by_page[page_id] = insert_images_after(counts[page_id]) 
+      @position_by_page[page_id] = counts[page_id] + 1 # HOLD, SLOW insert_images_after(counts[page_id]) 
     end
   end
 
