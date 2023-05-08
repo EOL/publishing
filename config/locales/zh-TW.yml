@@ -9,6 +9,7 @@
 # Author: StarrySky
 # Author: Taieol
 # Author: Wehwei
+# Author: Weijisun
 # Author: Winston Sung
 # Author: Xiplus
 # Author: 列维劳德
@@ -49,11 +50,11 @@ zh-TW:
       other: 查看全部 %{count} 個結果
   breadcrumbs:
     notices:
-      canonical: 學名會秀出在頁面的麵包屑導航
-      vernacular: 若可用的話，方言名稱會顯示在頁面的麵包屑導航
-    setting_header: 在麵包屑導航的名稱
+      canonical: 學名會顯示在頁面的麵包屑導航
+      vernacular: 若可用的話，方言名稱會顯示在頁面導航
+    setting_header: 在導航的名稱
     types:
-      scientific: 學術
+      scientific: 學術的
       vernacular: 方言
   brief_summary:
     extinction:
@@ -70,7 +71,7 @@ zh-TW:
     freshwater_html: 它們與<span class='%{class_str}' id='%{id}'>淡水棲息地有關</span>。
     marine_html: 它們發現於<span class='%{class_str}' id='%{id}'>海洋棲息地</span>。
     species: '%{name1}是%{name2}的一個物種。'
-    species_in_family: '%{name1}是科%{name_family}中%{name2}的一個物種。'
+    species_in_family: '%{name1}是%{name2}的一個物種在%{name_family}里。'
     taxonomy:
       family_above:
         r_superfamily: '%{name1}是%{name2}的一個超科。'
