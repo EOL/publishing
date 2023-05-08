@@ -27,29 +27,23 @@ class MediaContentCreator
       @field = "#{@klass.name.underscore.downcase}_id".to_sym
       query = @klass.where(resource: @resource.id).where(clause)
       query = query.where(['id > ?', @options[:start]]) if @options[:start]
-      add_content_in_batches_for(query)
-    end
-    update_page_counts unless options[:skip_counts]
-    if @options[:start]
-      @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
-        ' Also, technically, the temp files should be removed.', cat: :warns)
-    end
-  end
-    
-  def add_content_in_batches_for(query)
-    b_size = 1000 # Default is 1000, I just want to use this for calculation.
-    count = query.count
-    num_batches = (count / b_size.to_f).ceil
-    @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
-    query.find_in_batches(batch_size: b_size).with_index do |batch, number|
-      @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
-      reset_batch
-      learn_ancestry(batch) unless @klass == Article
-      # TEMP: we're putting images at the bottom now so we count how many images per page...
-      count_images_in(batch)
-      batch.each do |content|
-        add_content(content.page_id, content)
-        add_ancestry_content(content) unless @klass == Article
+      b_size = 1000 # Default is 1000, I just want to use this for calculation.
+      count = query.count
+      num_batches = (count / b_size.to_f).ceil
+      @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
+      query.find_in_batches(batch_size: b_size).with_index do |batch, number|
+        @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
+        reset_batch
+        learn_ancestry(batch) unless @klass == Article
+        # TEMP: we're putting images at the bottom now so we count how many images per page...
+        count_media_in(batch)
+        batch.each do |content|
+          add_content(content.page_id, content)
+          add_ancestry_content(content) unless k == Article
+        end
+        # HOLD, slow: push_content_down
+        import_contents
+        update_naked_pages if k == Medium
       end
       # TEMP: we're putting images at the bottom now - push_pages_down
       import_contents
@@ -76,7 +70,7 @@ class MediaContentCreator
     # nonaggregated column".
     counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').count
     pages.each do |page_id|
-      @position_by_page[page_id] = insert_images_after(counts[page_id]) 
+      @position_by_page[page_id] = counts[page_id] + 1 # HOLD, SLOW insert_images_after(counts[page_id]) 
     end
   end
 
