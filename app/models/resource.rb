@@ -326,7 +326,7 @@ class Resource < ApplicationRecord
       # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
       # deleted):
       PageIcon.where(["medium_id IN (?)", group]).delete_all if klass == Medium
-      contents = PageContent.where(page_id: page_id, content_type: klass, content_id: group)
+      contents = PageContent.where(source_page_id: page_id, content_type: klass, content_id: group)
       content_count = contents.count
       contents.delete_all
       Page.where(id: page_id).update_all("#{field} = #{field} - #{group.size}, page_contents_count = page_contents_count - #{content_count}")
@@ -384,7 +384,11 @@ class Resource < ApplicationRecord
   # Homegrown #find_in_batches because of custom content_id ranges...
   def count_contents_per_page(klass, delete, options)
     page_counts = {}
-    contents = PageContent.where(content_type: klass.name, resource_id: id)
+    # This query is INSANELY slow without page_id or source_page_id. Do not use this method without it!
+    unless options[:clause] && options[:clause].key?(:page_id) || options[:clause].key?(:source_page_id)
+      raise "FAILED attempt to call count_contents_per_page (or fix_missing_page_contents) without an options[:clause] that includes page ids. The query would be too slow!"
+    end
+    # contents = PageContent.where(content_type: klass.name, resource_id: id)
     contents = contents.where(options[:clause]) if options[:clause]
     first_content_id = klass.where(resource_id: id).first&.id
     last_content_id = klass.where(resource_id: id).last&.id
