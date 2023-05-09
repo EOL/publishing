@@ -36,7 +36,7 @@ class MediaContentCreator
         reset_batch
         learn_ancestry(batch) unless @klass == Article
         # TEMP: we're putting images at the bottom now so we count how many images per page...
-        count_media_in(batch)
+        find_media_position_max_by_page(batch)
         batch.each do |content|
           add_content(content.page_id, content)
           add_ancestry_content(content) unless k == Article
@@ -63,15 +63,21 @@ class MediaContentCreator
     add_content_in_batches_for(Medium.where(resource: @resource.id, id: article_ids.to_a))
   end
 
-  def count_media_in(batch)
+  def find_media_position_max_by_page(batch)
     pages = batch.map(&:page_id).compact.uniq
     pages -= @position_by_page.keys
     # NOTE: the call to #reoder helps avoid "Expression #1 of ORDER BY clause is not in GROUP BY clause and contains
     # nonaggregated column".
     counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').maximum(:position)
     pages.each do |page_id|
-      @position_by_page[page_id] = counts[page_id] || 0 + 1 # HOLD, SLOW insert_images_after(counts[page_id]) 
+      @position_by_page[page_id] = counts[page_id] || 0 # HOLD, SLOW insert_images_after(counts[page_id]) 
     end
+  end
+
+  def find_media_position_max_for_page_id(page_id)
+    pos = PageContent.where(page_id: page_id, content_type: @klass.name).maximum(:position) || 0
+    @position_by_page[page_id] = pos
+    pos
   end
 
   def insert_images_after(img_count)
@@ -92,7 +98,7 @@ class MediaContentCreator
   end
 
   def add_content(page_id, content, options = {})
-    @position_by_page[page_id] ||= -1
+    @position_by_page[page_id] ||= find_media_position_max_for_page_id(page_id)
     @position_by_page[page_id] += 1
     source = options[:source] || page_id
     @contents << { page_id: page_id, source_page_id: source, position: @position_by_page[page_id],
