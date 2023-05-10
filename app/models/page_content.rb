@@ -213,5 +213,30 @@ class PageContent < ApplicationRecord
       STDOUT.flush
       @collection_num += 1
     end
+
+    # Note: this is not meant to be fast, but really, isn't that bad. It takes a few hours to run (Apr 2023)
+    def remove_all_orphans
+      [Medium, Article].each do |klass|
+        puts "=== #{klass.name}"
+        Page.in_batches(of: 32) do |pages|
+          page_ids = pages.pluck(:id)
+          puts "PAGES: #{page_ids[0..3].join(',')}... (#{page_ids.count})\n\n"
+          STDOUT.flush
+          content_ids = PageContent.where(page_id: page_ids, content_type: klass.name).pluck(:content_id)
+          puts "CONTENTS [#{page_ids.first}+]: #{content_ids[0..3].join(',')}... (#{content_ids.count})\n\n"
+          # missing_ids = content_ids - klass.where(id: content_ids).pluck(:id)
+          content_ids.each_slice(10_000) do |content_batch| 
+            STDOUT.flush
+            missing_ids = content_batch - klass.where(id: content_batch).pluck(:id)
+            puts "MISSING (#{content_batch.first}...) [#{page_ids.first}+]: #{missing_ids.size}"
+            # puts "REMOVED: #{PageContent.where(page_id: page_ids, content_id: missing_ids, content_type: klass.name).count}"
+            # puts "FIND: PageContent.where(page_id: page_ids, content_id: #{missing_ids.first}, content_type: '#{klass.name}')"
+            puts "REMOVED [#{page_ids.first}+]: #{PageContent.where(page_id: page_ids, content_id: missing_ids, content_type: klass.name).delete_all}"
+          end
+          puts "+++"
+          STDOUT.flush
+        end
+      end
+    end
   end # of class methods
 end
