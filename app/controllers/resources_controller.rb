@@ -48,6 +48,12 @@ class ResourcesController < ApplicationController
     redirect_to resources_path
   end
 
+  def diff
+    @resource.diff
+    flash[:notice] = "diff for #{@resource.name} will be processed in the background. Watch this page for updates."
+    redirect_to @resource
+  end
+
   def republish
     republish_helper
   end
@@ -88,8 +94,12 @@ class ResourcesController < ApplicationController
 
   private
   def republish_helper
-    @resource.republish
-    flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
+    if @resource.publish_pending?
+      flash[:notice] = "FAILED! #{@resource.name} ALREADY has a publish pending (which has not begun). You don't want duplicates. Watch this page for updates."
+    else
+      @resource.republish
+      flash[:notice] = "#{@resource.name} will be processed in the background. Watch this page for updates."
+    end
     redirect_to @resource
   end
 

@@ -233,10 +233,12 @@ class PageContent < ApplicationRecord
             # puts "FIND: PageContent.where(page_id: page_ids, content_id: #{missing_ids.first}, content_type: '#{klass.name}')"
             puts "REMOVED [#{page_ids.first}+]: #{PageContent.where(page_id: page_ids, content_id: missing_ids, content_type: klass.name).delete_all}"
           end
-          puts "+++"
+          puts "+++ Batch Completed (#{klass})..."
           STDOUT.flush
         end
       end
+      puts "=== Complete."
+      STDOUT.flush
     end
   end # of class methods
 end

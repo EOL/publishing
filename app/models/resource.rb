@@ -200,6 +200,10 @@ class Resource < ApplicationRecord
     end
   end
 
+  def publish_pending?
+    Delayed::Job.where(queue: 'harvest', locked_at: nil).where(%Q{handler LIKE "%resource_id: #{id}\n%"}).any?
+  end
+
   # You would only call this manually, there should be no references to this method in code.
   def publish
     Publishing::Fast.by_resource(self)
@@ -262,7 +266,6 @@ class Resource < ApplicationRecord
   def remove_all_content
     remove_non_trait_content
     remove_trait_content
-    clear_caches
   end
 
   def log_handle
@@ -389,6 +392,7 @@ class Resource < ApplicationRecord
       raise "FAILED attempt to call count_contents_per_page (or fix_missing_page_contents) without an options[:clause] that includes page ids. The query would be too slow!"
     end
     # contents = PageContent.where(content_type: klass.name, resource_id: id)
+    contents = PageContent.where(content_type: klass.name, resource_id: id)
     contents = contents.where(options[:clause]) if options[:clause]
     first_content_id = klass.where(resource_id: id).first&.id
     last_content_id = klass.where(resource_id: id).last&.id
@@ -467,6 +471,10 @@ class Resource < ApplicationRecord
     Node::Mover.by_resource(self)
   end
 
+  def diff
+    Delayed::Job.enqueue(DiffJob.new(id))
+  end
+
   def republish
     Delayed::Job.enqueue(RepublishJob.new(id))
   end
@@ -505,11 +513,6 @@ class Resource < ApplicationRecord
     Rails.cache.fetch("resources/#{id}/media_count") do
       media.count
     end
-  end
-
-  def clear_caches
-    Rails.cache.delete("resources/#{id}/nodes_count")
-    Rails.cache.delete("resources/#{id}/media_count")
   end
 
   def self.autocomplete(query, options = {})

@@ -139,17 +139,6 @@ class Page < ApplicationRecord
       page_healing_log.info("[#{Time.now.in_time_zone.strftime('%F %T')}] #{msg}")
     end
 
-    # TODO: abstract this to allow updates of the other count fields.
-    # NOTE: This isn't as hairy as it looks. Currently (July 2018) takes under 10 minutes.
-    def fix_media_counts
-      pids = PageContent.connection.execute('select DISTINCT(page_id) from page_contents where content_type = "Medium"')
-      pids.each do |page_id|
-        count = PageContent.where(page_id: page_id, content_type: 'Medium').count
-        # NOTE: Skipping loading any models; this just calls the DB, even though it looks weird to "update_all" one row.
-        Page.where(id: page_id).update_all(media_count: count)
-      end
-    end
-
     # NOTE: you prrrrrrobaby want to fix_media_counts before you call this.
     def fix_missing_icons
       fix_zombie_icons
@@ -165,6 +154,11 @@ class Page < ApplicationRecord
         end
       end
       Page.import!(pages, on_duplicate_key_update: [:medium_id]) unless pages.empty?
+    end
+
+    # This is not meant to be fast. ...but it is meant to _run_.
+    def fix_media_counts
+      Page.find_each { |page| page.recount ; puts("#{page.id}: #{page.media_count}") && STDOUT.flush if (page.id % 500).zero? } ; puts "++ Done." ; STDOUT.flush
     end
 
     def fix_zombie_icons
