@@ -94,8 +94,12 @@ class ResourcesController < ApplicationController
 
   private
   def republish_helper
-    @resource.republish
-    flash[:notice] = "#{@resource.name} will be processed in the background. Watch this page for updates."
+    if @resource.publish_pending?
+      flash[:notice] = "FAILED! #{@resource.name} ALREADY has a publish pending (which has not begun). You don't want duplicates. Watch this page for updates."
+    else
+      @resource.republish
+      flash[:notice] = "#{@resource.name} will be processed in the background. Watch this page for updates."
+    end
     redirect_to @resource
   end
 

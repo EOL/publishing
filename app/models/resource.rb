@@ -200,6 +200,10 @@ class Resource < ApplicationRecord
     end
   end
 
+  def publish_pending?
+    Delayed::Job.where(queue: 'harvest', locked_at: nil).where(%Q{handler LIKE "%resource_id: #{id}\n%"}).any?
+  end
+
   # You would only call this manually, there should be no references to this method in code.
   def publish
     Publishing::Fast.by_resource(self)
