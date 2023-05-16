@@ -272,7 +272,7 @@ fr:
     contributor: contributeur
     compiler: compilateur
     creator: créateur
-    editor: éditeur
+    editor: rédacteur
     latitude: latitude
     license: licence
     location: position
@@ -281,7 +281,7 @@ fr:
     original_media_file: fichier de média d’origine
     owner: droit d’auteur
     photographer: photographe
-    publisher: éditeur
+    publisher: éditeur de publication
     project: projet
     provider: fournisseur
     references_header:
