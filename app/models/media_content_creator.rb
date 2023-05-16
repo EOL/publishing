@@ -70,7 +70,9 @@ class MediaContentCreator
     # nonaggregated column".
     counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').maximum(:position)
     pages.each do |page_id|
-      @position_by_page[page_id] = counts[page_id] || 0 # HOLD, SLOW insert_images_after(counts[page_id]) 
+      # This is a (slow) stop-gap method to find missing icons:
+      @naked_pages[page_id] ||= Page.find(page_id) if counts[page_id].zero?
+      @content_count_by_page[page_id] = counts[page_id] || 0
     end
   end
 
@@ -87,9 +89,9 @@ class MediaContentCreator
   end
 
   def learn_ancestry(batch)
-    Page.includes(native_node: [:unordered_ancestors, { node_ancestors: :ancestor }])
-        .where(id: batch.map(&:page_id))
-        .each do |page|
+    Page.includes(native_node: [:unordered_ancestors, { node_ancestors: :ancestor }]).
+        where(id: batch.map(&:page_id)).
+        each do |page|
           @all_pages[page.id] ||= page 
           # NOTE: if we decide to have exemplar articles on pages, page.send(@field).nil? here...
           @naked_pages[page.id] = page if @klass == Medium && page.medium_id.nil?
@@ -141,7 +143,7 @@ class MediaContentCreator
     if @naked_pages.empty?
       @log.log("Zero pages had no images and now have at least one. Skipping adding of icons...")
     else
-      @log.log("updating #{@naked_pages.values.size} pages with icons...")
+      @log.log("updating #{@naked_pages.values.size} pages with icons e.g.: Page.find(#{@naked_pages.values.first.id})")
       Page.import!(@naked_pages.values, on_duplicate_key_update: [@field])
     end
   end
