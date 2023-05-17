@@ -96,9 +96,9 @@ class TraitBank::RecordDownloadWriter
   def initialize(base_filename, search_url)
     @directory_name = base_filename
     @zip_filename = "#{base_filename}.zip"
-    @trait_filename = "data_#{base_filename}.tsv"
+    @trait_filename = "tb_record_#{base_filename}.tsv"
     @trait_path = TraitBank::DataDownload.path.join(@trait_filename)
-    @tmp_trait_filename = "data_#{base_filename}_tmp.tsv"
+    @tmp_trait_filename = @trait_filename.sub('.tsv', '_tmp.tsv') # "tb_record_#{base_filename}_tmp.tsv"
     @tmp_trait_path = TraitBank::DataDownload.path.join(@tmp_trait_filename)
     @glossary_filename = "glossary_#{base_filename}.tsv"
     @glossary = HEADER_GLOSSARY.clone

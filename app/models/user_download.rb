@@ -93,7 +93,7 @@ private
     begin
       Delayed::Worker.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
       self.update(processing_since: Time.current)
-      downloader = TraitBank::DataDownload.new(term_query, count, search_url)
+      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: user_id)
       self.filename = downloader.background_build
       self.status = :completed
     rescue => e
