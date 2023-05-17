@@ -32,13 +32,15 @@ module TraitBank
       end
     end
 
-    def initialize(term_query, count, url)
-      raise TypeError.new("count cannot be nil") if count.nil?
-      @query = term_query
+    def initialize(params) # term_query, count, url, user_id
+      raise TypeError.new("count cannot be nil") if params[:count].nil?
+      @user_id = params[:user_id] || 1
+      @count = params[:count]
+      @query = params[:term_query]
       @options = { per: BATCH_SIZE, meta: true, cache: false }
-      @base_filename = "#{Digest::MD5.hexdigest(@query.as_json.to_s)}_#{Time.now.to_i}"
-      @url = url
-      @count = count
+      nice_time = Time.now.to_formatted_s(:db).gsub(/\s/, '_')
+      @base_filename = "#{Digest::MD5.hexdigest(@query.as_json.to_s)}_#{nice_time}_x#{@count}_u#{@user_id}"
+      @url = params[:url]
     end
 
     def background_build
