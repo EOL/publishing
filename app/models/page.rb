@@ -204,6 +204,12 @@ class Page < ApplicationRecord
       end
     end
 
+    def puts_and_flush(what)
+      puts what
+      STDOUT.flush
+    end
+  end
+
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
@@ -950,10 +956,5 @@ class Page < ApplicationRecord
       preferred_vernacular_strings_for_locale(locale) +
       resource_preferred_vernacular_strings(locale)
     ).map(&:titlecase).uniq
-  end
-
-  def puts_and_flush(what)
-    puts what
-    STDOUT.flush
   end
 end
