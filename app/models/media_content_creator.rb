@@ -126,7 +126,7 @@ class MediaContentCreator
   def import_contents
     # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
     # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-    @log.log("import #{@contents.size} page contents e.g.: PageContent.find_by(page_id:#{@contents.first.page_id},content_type:#{@contents.first.content_type},content_id:#{@contents.first.content_id})")
+    @log.log("import #{@contents.size} page contents e.g.: PageContent.find_by(page_id:#{@contents.first[:page_id]},content_type:#{@contents.first[:content_type]},content_id:#{@contents.first[:content_id]})")
     PageContent.import(@contents, on_duplicate_key_ignore: true)
   end
 
