@@ -59,7 +59,11 @@ class MediaContentCreator
     counts = PageContent.where(page_id: pages, content_type: @klass.name).group('page_id').reorder('').maximum(:position)
     pages.each do |page_id|
       # This is a (slow) stop-gap method to find missing icons:
-      @naked_pages[page_id] ||= Page.find(page_id) if counts[page_id].zero?
+      if !counts.key(page_id)
+        next unless Page.exists?(page_id)
+        counts[page_id] = PageContent.where(page_id: page_id, content_type: @klass.name).maximum(:position) || 0
+      end 
+      @naked_pages[page_id] ||= Page.find(page_id) if counts[page_id]&.zero?
       @content_count_by_page[page_id] = counts[page_id] || 0
     end
   end
