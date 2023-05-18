@@ -139,18 +139,24 @@ class Page < ApplicationRecord
       page_healing_log.info("[#{Time.now.in_time_zone.strftime('%F %T')}] #{msg}")
     end
 
+    # This relies on an accurrate media_count, so you may want to fix those, if they are prone to being wrong.
     def fix_missing_icons
       fix_zombie_icons
-      pages = []
-      Page.where(medium_id: nil).where('media_count > 0').find_each do |page|
+      bad_pages = Page.where(medium_id: nil).where('media_count > 0')
+      total = bad_pages.count
+      puts "Examining #{total} pages..."
+      count = 0
+      bad_pages.find_each do |page|
+        count += 1
         # There's no NICE way to include the media, so this, yes, will make a query for every page. We don't run this
         # method often enough to warrant speeding it up.
         page.recount
-        page.update_attribue :medium_id, page.media.first&.id
+        page.update_attribute :medium_id, page.media.first&.id
+        puts "#{count}/#{total} - #{Time.now.to_formatted_s(:db)}" if (count % 1000).zero?
       end
     end
 
-    # This is not meant to be fast. ...but it is meant to _run_.
+    # This is not meant to be fast. ...but it is meant to _run_. The last time I ran it, it took three days. :S
     def fix_media_counts
       Page.find_each { |page| page.recount ; puts("#{page.id}: #{page.media_count}") && STDOUT.flush if (page.id % 500).zero? } ; puts "++ Done." ; STDOUT.flush
     end
