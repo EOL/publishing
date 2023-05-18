@@ -139,21 +139,15 @@ class Page < ApplicationRecord
       page_healing_log.info("[#{Time.now.in_time_zone.strftime('%F %T')}] #{msg}")
     end
 
-    # NOTE: you prrrrrrobaby want to fix_media_counts before you call this.
     def fix_missing_icons
       fix_zombie_icons
       pages = []
       Page.where(medium_id: nil).where('media_count > 0').find_each do |page|
         # There's no NICE way to include the media, so this, yes, will make a query for every page. We don't run this
         # method often enough to warrant speeding it up.
-        page.medium_id = page.media.first&.id
-        pages << page
-        if pages.size > 999 # FLUSH!
-          Page.import!(pages, on_duplicate_key_update: [:medium_id])
-          pages = []
-        end
+        page.recount
+        page.update_attribue :medium_id, page.media.first&.id
       end
-      Page.import!(pages, on_duplicate_key_update: [:medium_id]) unless pages.empty?
     end
 
     # This is not meant to be fast. ...but it is meant to _run_.
@@ -617,11 +611,13 @@ class Page < ApplicationRecord
 
   # NOTE: if you add caches IN THIS CLASS, then add them here:
   def clear_caches
-    [
+    caches = [
       "/pages/#{id}/glossary",
       "trait_bank/by_page/#{id}",
       "trait_bank/key_data/#{id}/v3/limit_#{KEY_DATA_LIMIT}"
-    ].each do |cache|
+    ]
+    I18n.available_locales.each { |locale| caches << "pages/#{id}/pred_prey_json/#{locale}/5" }
+    caches.each do |cache|
       Rails.cache.delete(cache)
     end
   end
