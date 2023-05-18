@@ -210,8 +210,6 @@ class Page < ApplicationRecord
     end
   end
 
-  end
-
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
   def search_data
