@@ -144,7 +144,7 @@ class Page < ApplicationRecord
       fix_zombie_icons
       bad_pages = Page.where(medium_id: nil).where('media_count > 0')
       total = bad_pages.count
-      puts "Examining #{total} pages..."
+      puts_and_flush("Examining #{total} pages...")
       count = 0
       bad_pages.find_each do |page|
         count += 1
@@ -152,13 +152,13 @@ class Page < ApplicationRecord
         # method often enough to warrant speeding it up.
         page.recount
         page.update_attribute :medium_id, page.media.first&.id
-        puts "#{count}/#{total} - #{Time.now.to_formatted_s(:db)}" if (count % 1000).zero?
+        puts_and_flush("#{count}/#{total} - #{Time.now.to_formatted_s(:db)}") if (count % 1000).zero?
       end
     end
 
     # This is not meant to be fast. ...but it is meant to _run_. The last time I ran it, it took three days. :S
     def fix_media_counts
-      Page.find_each { |page| page.recount ; puts("#{page.id}: #{page.media_count}") && STDOUT.flush if (page.id % 500).zero? } ; puts "++ Done." ; STDOUT.flush
+      Page.find_each { |page| page.recount ; puts_and_flush("#{page.id}: #{page.media_count}") if (page.id % 500).zero? } ; puts_and_flush("++ Done.")
     end
 
     def fix_zombie_icons
@@ -950,5 +950,10 @@ class Page < ApplicationRecord
       preferred_vernacular_strings_for_locale(locale) +
       resource_preferred_vernacular_strings(locale)
     ).map(&:titlecase).uniq
+  end
+
+  def puts_and_flush(what)
+    puts what
+    STDOUT.flush
   end
 end
