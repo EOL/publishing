@@ -190,7 +190,7 @@ cs:
     delete_confirm: jste si jistý?
     destroyed_flash: '%{name} odebrán ze sbírky.'
   collection_association_added_to_collection: Přidáno "%{associated}" do sbírky <a
-    href='<span class="notranslate" translate="no">%{link}'>"%{name}"</a> .
+    href='%{link}'>"%{name}"</a>.
   collection_associations_empty: K této nejsou přidruženy žádné další sbírky. Kliknutím
     na tlačítko „přidružit“ v dalších sbírkách se zde zobrazí.
   collection_associations_title: Přidružené sbírky
@@ -1217,8 +1217,7 @@ cs:
     attribution_field_html: <strong>Attribution:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Komentář:</strong> %{comment}
     definition_field_html: <strong>Definice:</strong> %{definition}
-    source_field_html: <strong>Zdroj:</strong> <a href='<span class="notranslate"
-      translate="no">%{source}'>% {source}</a>
+    source_field_html: <strong>Zdroj:</strong> <a href='%{source}'>%{source}</a>
     record_url: URL záznamu
     scientific_name: vědecký název
     show_all_records: Zobrazit všechny záznamy

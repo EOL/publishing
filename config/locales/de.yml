@@ -33,6 +33,7 @@
 # Author: Lorisobi
 # Author: Schmackes
 # Author: Schmackes
+# Author: Sinuhe20
 # Author: Symposiarch
 # Author: Symposiarch
 # Author: ThisCarthing
@@ -106,6 +107,9 @@ de:
       r_subgenus_html: Diese Untergattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_superspecies_html: Diese Superspezies ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_species_html: Diese Spezies ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_subspecies_html: Diese Unterart ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+    fix_nitrogen_html: Sie <span class='%{class_str}' id='%{predicate_id}'>binden</span>
+      <span class='%{class_str}' id='%{object_id}'>Stickstoff</span>.
     species: '%{name1} ist eine Spezies von %{name2}.'
     species_in_family: '%{name1} ist eine Spezies von %{name2} in der Familie %{name_family}.'
     taxonomy:
@@ -118,14 +122,23 @@ de:
         r_kingdom: '%{name1} ist ein Reich von %{name2}.'
         r_subkingdom: '%{name1} ist ein Unterreich von %{name2}.'
         r_infrakingdom: '%{name1} ist ein Infrakingdom zu %{name2}.'
+        r_superphylum: '%{name1} ist ein Überstamm von %{name2}.'
+        r_phylum: '%{name1} ist ein Stamm von %{name2}.'
+        r_subphylum: '%{name1} ist ein Unterstamm von %{name2}.'
+        r_superclass: '%{name1} ist eine Überklasse von %{name2}.'
         r_class: '%{name1} ist eine Klasse von %{name2}.'
         r_subclass: '%{name1} ist eine Unterklasse von %{name2}.'
+        r_infraclass: '%{name1} ist eine Intraklasse zu %{name2}.'
+        r_superorder: '%{name1} ist eine Überordnung von %{name2}.'
         r_order: '%{name1} ist eine Ordnung von %{name2}.'
         r_suborder: '%{name1} ist eine Unterordnung von %{name2}.'
+        r_infraorder: '%{name1} ist eine Infraordnung von %{name2}.'
         r_family: '%{name1} ist eine Familie von %{name2}.'
       below_family:
         with_family:
           r_subfamily: '%{name1} ist eine Unterfamilie von %{name2} in der Familie
+            %{name3}.'
+          r_infrafamily: '%{name1} ist eine Intrafamilie von %{name2} in der Familie
             %{name3}.'
           r_tribe: '%{name1} ist ein Tribus von %{name2} in der Familie %{name3}.'
           r_form: '%{name1} ist eine Form von %{name2} in der Familie %{name3}.'
