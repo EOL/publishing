@@ -151,7 +151,7 @@ class Page < ApplicationRecord
         # There's no NICE way to include the media, so this, yes, will make a query for every page. We don't run this
         # method often enough to warrant speeding it up.
         page.recount
-        page.update_attribute :medium_id, page.media.first&.id
+        page.update_attribute :medium_id, page.media.images.first&.id
         puts_and_flush("#{count}/#{total} - #{Time.now.to_formatted_s(:db)}") if (count % 1000).zero?
       end
     end
@@ -608,7 +608,7 @@ class Page < ApplicationRecord
       ].include?(v)
       remove_instance_variable(v)
     end
-    medium_id = media.first&.id
+    medium_id ||= media.first&.id
     save # NOTE: this calls "reindex" so no need to do that here.
     # TODO: we should also re-index all of the page_contents by checking direct
     # relationships to this page and its children. (I think this is better than
