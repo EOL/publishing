@@ -2,9 +2,7 @@ class CollectedPagesMediaController < ApplicationController
   layout "application"
 
   def destroy
-    q = CollectedPagesMedium.
-      where(collected_page_id: params[:collected_page_id],
-        medium_id: params[:medium_id])
+    q = CollectedPagesMedium.where(collected_page_id: params[:collected_page_id], medium_id: params[:medium_id])
     @collected_pages_medium = q.first
     page = @collected_pages_medium.collected_page
     authorize page
