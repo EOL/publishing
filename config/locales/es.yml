@@ -45,6 +45,7 @@
 # Author: L3n9u^
 # Author: Madamebiblio
 # Author: Madamebiblio
+# Author: María
 # Author: Mnivar
 # Author: Mnivar
 # Author: Ncr
@@ -2742,6 +2743,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: sabana montana
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: matorral montano
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: meses
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: Páramo
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: tiempo de duplicación
           de la tasa de mortalidad
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: edad
@@ -2757,6 +2759,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: volcán de lodo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: suelo lodoso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005793: agua lodosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000192: marisma
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: Dique multiuso
         http://rs(dot)tdwg(dot)org/dwc/terms/municipality: Municipio
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: músculo
@@ -2866,6 +2869,7 @@ es:
         http://eol(dot)org/schema/terms/OuterEarLength: Longitud exterior de la  oreja
         http://eol(dot)org/schema/terms/outerReef: Arrecife exterior
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: ventilador de lavado
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: aovado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: lago Oxbow
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: edad
           Oxfordiense
@@ -2891,12 +2895,14 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasitado por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002208: parasitoide de
         http://eol(dot)org/schema/terms/paratopotype: paratopotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: paratipo
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: cuidado parental
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado parental
         http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: esqueleto
           particulado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: Pasto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: suelo de pastura
+        http://eol(dot)org/schema/terms/patchReef: manchones arrecifales
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patógeno de
         http://eol(dot)org/schema/terms/pathogen_vector_parasite: parásito vector
           patógeno
