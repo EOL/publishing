@@ -139,10 +139,8 @@ cs:
   classifications:
     children:
       header_html:
-        one: '%{name} zahrnuje <a href="<span class="notranslate" translate="no">%{names_path}">%{count}
-          pdřazený</a> :'
-        other: '%{name} zahrnuje <a href="<span class="notranslate" translate="no">%{names_path}">%{count}
-          podřazených</a> :'
+        one: '%{name} zahrnuje <a href="%{names_path}">%{count} pdřazený</a>:'
+        other: '%{name} zahrnuje <a href="%{names_path}">%{count} podřazených</a>:'
       see_more: Zobrazit více
     hierarchies:
       header: Spravované hierarchie pro %{sci_name}
@@ -176,8 +174,7 @@ cs:
     vlevo.
   collect_select_collection: … Jedna z vašich sbírek
   collect_title: Přidat "%{item}" k...
-  collected_page_added_to_collection: Přidáno %{page} do kolekce <a href='<span class="notranslate"
-    translate="no">%{link}'>%{name}</a>.
+  collected_page_added_to_collection: '!!FUZZ!!Přidáno %{page} do kolekce <a href=''%{link}''>%{name}</a>.'
   collected_page_already_in_collection: To už bylo ve vaší sbírce.
   collected_pages_title: Stránky
   collected_pages_medium:
@@ -197,8 +194,8 @@ cs:
   collection_collected_pages_media_remove: 'Odstranit obrázky ze sbírky (změny se
     projeví okamžitě):'
   collection_created: Vytvořena nová sbírka "%{name}".
-  collection_created_for_association: Přidáno "%{associated}" do nové kolekce <a href='<span
-    class="notranslate" translate="no">%{link}'>"%{name}"</a> .
+  collection_created_for_association: Přidáno "%{associated}" do nové kolekce <a href='%{link}'>"%{name}"</a>
+    .
   collection_user_is_admin: Tento uživatel je správce.
   collection_pages_empty: Tato sbírka neobsahuje žádné stránky. Chcete-li přidat některé
     položky, zkuste kliknout na tlačítko "sbírat" na stránkách druhů.
@@ -779,13 +776,11 @@ cs:
       search: hledat
     overview:
       eol_has_data_for_n_attributes_including_html:
-        one: 'EOL má data pro <a href="%{data_path}">jeden atribut</a> :'
-        other: 'EOL má data pro <a href="<span class="notranslate" translate="no">%{data_path}">%{count}
-          attributů</a>, včetně:'
+        one: 'EOL má data pro <a href="%{data_path}">jeden atribut</a>:'
+        other: 'EOL má data pro <a href="%{data_path}">%{count} attributů</a>, včetně:'
       eol_has_data_for_n_attributes_html:
-        one: EOL má data pro <a href="%{data_path}">jeden atribut</a> .
-        other: EOL má data pro <a href="<span class="notranslate" translate="no">%{data_path}">%{count}
-          attributů</a> .
+        one: EOL má data pro <a href="%{data_path}">jeden atribut</a>.
+        other: EOL má data pro <a href="%{data_path}">%{count} attributů</a>.
     filter_menu:
       show_all: Zobrazit vše
     page_data:

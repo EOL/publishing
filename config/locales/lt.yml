@@ -774,8 +774,7 @@ lt:
       range_invalid_error: turi būti >= primąjai vertei
       units_blank_error: skaitmeninei paieškai vienetų laukas negali būti tuščias
   terms:
-    attribution_field_html: <strong>Priskyrimas:</strong> <a href='<span class="notranslate"
-      translate="no">%{attribution}'>%{attribution}</a>
+    attribution_field_html: <strong>Priskyrimas:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Komentaras:</strong> %{comment}
     definition_field_html: <strong>Apibrėžimas:</strong> %{definition}
     source_field_html: <strong>Šaltinis:</strong> <a href='%{source}'>%{source}</a>
