@@ -294,7 +294,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.0)
-    mini_portile2 (2.7.1)
+    mini_portile2 (2.8.2)
     minitest (5.15.0)
     msgpack (1.4.4)
     multi_json (1.15.0)
@@ -303,8 +303,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (8.4.0)
     nio4r (2.5.7)
-    nokogiri (1.13.1)
-      mini_portile2 (~> 2.7.0)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     oj (3.13.11)
     orm_adapter (0.5.0)
@@ -319,7 +319,7 @@ GEM
     public_suffix (4.0.6)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
-    racc (1.6.0)
+    racc (1.6.2)
     rack (2.2.3)
     rack-contrib (2.3.0)
       rack (~> 2.0)
@@ -551,7 +551,8 @@ DEPENDENCIES
   font-awesome-sass (~> 5.15)
   font-kit-rails (~> 1.2)
   friendly_id (~> 5.4)
-  haml-rails (~> 2.0)
+  haml (~> 5.2.1)
+  haml-rails (~> 2.0.1)
   http (~> 5.0)
   i18n-js (~> 3.9)
   jbuilder (~> 2.11.5)
@@ -567,7 +568,7 @@ DEPENDENCIES
   mysql2 (= 0.5.3)
   neo4j-ruby-driver!
   newrelic_rpm
-  nokogiri (>= 1.13.1)
+  nokogiri (>= 1.13.5)
   oj (~> 3.13)
   pry-rails
   pundit (~> 2.1)
@@ -592,7 +593,7 @@ DEPENDENCIES
   unicorn (~> 6.1)
   unicorn-worker-killer (~> 0.4)
   web-console (~> 3)
-  webpacker (~> 6.x)
+  webpacker (~> 6.0.0.beta)
 
 BUNDLED WITH
-   2.1.4
+   2.4.13

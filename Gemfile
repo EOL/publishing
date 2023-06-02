@@ -15,7 +15,7 @@ gem 'nokogiri', '>= 1.13.5'
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
 # Asset-related gems next:
-gem 'webpacker', '~> 6.x'
+gem 'webpacker', '~> 6.0.0.beta'
 
 # SASS
 # Sass is end-of-life. Update to sassc gem: https://github.com/sass/sassc-ruby#readme
