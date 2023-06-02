@@ -50,4 +50,8 @@ class Article < ApplicationRecord
     return 'ZZZZ' if name.blank?
     name
   end
+
+  def image?
+    false
+  end
 end
