@@ -96,8 +96,8 @@ class MediaContentCreator
     source = options[:source] || page_id
     @contents << { page_id: page_id, source_page_id: source, position: @position_by_page[page_id],
                    content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
-    if @naked_pages.key?(page_id) && content.image? && content.subclass == Medium.subclasses[:image]
-      mc = @naked_pages[page_id].media.count # Note this is kind of expensive. :\
+    if @naked_pages.key?(page_id) && content.image? # Note this checks that it is NOT a map.
+      mc = @naked_pages[page_id].media.count + 1 # Note this is kind of expensive. :\
       @naked_pages[page_id].assign_attributes(medium_id: content.id, media_count: mc)
     end
   end
