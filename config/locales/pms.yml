@@ -990,6 +990,7 @@ pms:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
       clean_republish: dëscancelé l'arpublicassion
+      diff: dif
       republish_confirm: Sòn a dëscancelërà TUT ël contnù associà a l'arsorsa (gavà
         ij trat, ch'a dovrëran na dif). É-lo SIGUR?
       clean_republish_confirm: Sòn a dëscancelërà TUT ël contnù për l'arsorsa e a
@@ -2479,6 +2480,7 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: seuli calcari
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: taja linear
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lìpid
         http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita

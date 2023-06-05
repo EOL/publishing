@@ -761,12 +761,33 @@ sv:
     unresolved_name_prefix: 'Olöst namn:'
   recaptcha: Recaptcha
   recaptcha_error: Berätta oss att du inte är en robot.
+  reconciliation:
+    id_space:
+      headers:
+        type_id: Typ-ID
+        type_name: Typnamn
+        id_format: ID-format
+    property_settings:
+      limit:
+        label: Gräns
+    schema_space:
+      headers:
+        id: ID
+        name: Namn
+        description: Beskrivning
+  reference_compiled_from: Refereras av %{links}
+  register_new_account: Registrera ett nytt konto
   resources:
     actions:
       republish: återpublicera
+      diff: diff
       reindex: omindexera
+      index: tillbaka till alla resurser
       show_all:
         other: visa alla (%{count})
+      show_warns:
+        one: visa varning (%{count})
+        other: visa varningar (%{count})
     headers:
       index: Resurser
     no_events: Ingenting!
@@ -958,16 +979,24 @@ sv:
       range_invalid_error: måste vara >= än första värdet
       units_blank_error: enheter kan vara tomma för en numerisk sökning
   terms:
+    comment_field_html: <strong>Kommentar:</strong> %{comment}
+    definition_field_html: <strong>Definition:</strong> %{definition}
+    source_field_html: <strong>Källa:</strong> <a href='%{source}'>%{source}</a>
     scientific_name: vetenskapligt namn
     source: källa
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definition av "%{data}"
   traits:
     data_viz:
+      hist_value_label: värde (%{units})
       other: andra
+      taxon_summary:
+        click_to_filter: klicka för att filtrera
+        click_to_filter_by: klicka för att filtrera efter "%{name}"
     properties:
       scientific_name: Vetenskapligt namn
       source: Källa
+    search_hdr: Datasökning
     search_results:
       download_tsv: ladda ned tsv
       edit_filters: redigeringsfilter
@@ -985,6 +1014,8 @@ sv:
         för %{page_count} taxa
       result_header_taxa: Visar %{range_begin} - %{range_end} av %{total} taxa
       new_search: ny sökning
+      switch_to_list: byt till listvy
+      switch_to_gallery: byt till gallerivy
     search:
       select:
         top_level:
@@ -1001,7 +1032,9 @@ sv:
       this_may_take_a_minute: Detta kan ta en minut
       value: värde
   trust:
+    unreviewed: ogranskade
     trusted: pålitlig
+    untrusted: inte betrodda
   user:
     created_at: skapades
     edit_account_details: Redigera kontodetaljer
@@ -1018,6 +1051,7 @@ sv:
     validations:
       age_confirm: du måste bekräfta att du är minst 13 år gammal
       tou_confirm: du måste bekräfta att du har läst användarvillkoren och integritetspolicyn
+    list_of_power_users: Lista över avancerade användare
     new_password: Nytt lösenord
     confirm_new_password: Bekräfta nytt lösenord
     username: användarnamn
@@ -1028,6 +1062,12 @@ sv:
     sign_in: Logga in
   vernacular_names_header: Vanliga namn
   vernacular_preferred_by_resource: '%{resource} (föredrar detta namn)'
+  wordcloud_credit_html: generades med <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} av %{n}'
   term:
     actions:
       reindex: omindexera
@@ -1047,6 +1087,8 @@ sv:
       previous: föregående sida
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/månad'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: område
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: asexuell reproduktion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: svart
