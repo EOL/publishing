@@ -6,21 +6,22 @@
 # Author: Giorgos456
 # Author: Marios
 # Author: MuratTheTurkish
+# Author: Nasia geor
 # Author: NikosLikomitros
 # Author: Nikosgranturismogt
 # Author: Norhorn
 # Author: SkarletWitch
 ---
 el:
-  language_name: Ελληνικά
+  language_name: Αγγλικά
   about:
     trait_bank:
       title: Τράπεζα Χαρακτηριστικών
-  account_already_linked: ο λογαριασμός είναι ήδη συνδεδεμένος με το EOL
+  account_already_linked: ο λογαριασμός σας είναι ήδη συνδεδεμένος με το EOL
   account_not_linked: ο λογαριασμός σας δεν είναι συνδεδεμένος με το EOL
   advanced: Προχωρημένο
   are_you_sure_delete_account: Είστε σίγουρος πως θέλετε να διαγράψετε το λογαριασμό
-    EOL σας;
+    σας στο EOL;
   article:
     actions:
       collect: Συλλέξτε
@@ -49,8 +50,8 @@ el:
   button_create: δημιουργήστε
   button_add: Προσθέστε
   cancel: Ακύρωση
-  change_my_password: Αλλαγή Κωδικού πρόσβασης μου
-  change_your_password: Αλλάξτε τον κωδικό πρόσβασης σας
+  change_my_password: Αλλαγή του Κωδικού πρόσβασής μου
+  change_your_password: Αλλάξτε τον κωδικό πρόσβασής σας
   classifications:
     children:
       see_more: Δείτε περισσότερα
@@ -165,6 +166,7 @@ el:
     altitude: Υψόμετρο
     author: Συγγραφέας
     bibliographic_citation: Βιβλιογραφική αναφορά
+    contributor: Συνεισφέρων
     compiler: συντάκτης
     creator: δημιουργός
     editor: συντάκτης
@@ -195,10 +197,14 @@ el:
   content_not_in_any_collection_video: Αυτό το βίντεο δεν εμφανίζεται σε καμία συλλογή.
   data:
     modifier:
+      lifestage_term: Μετρήθηκε η διάρκεια ζωής του οργανισμού
       statistical_method_term: Στατιστική μέθοδος που χρησιμοποιήθηκε για τη μέτρηση.
   data_missing: (λείπουν δεδομένο, κλειδιά:%{keys})
   dear_username_with_comma: Αγαπητέ/ή %{username}
   delete_account_button: Διαγράψτε το λογαριασμό σας.
+  errors:
+    internal_server: Εσωτερικό σφάλμα διακομιστή (500)
+    not_found: Η σελίδα δεν βρέθηκε (404)
   filter_by_license: Άδεια
   filter_by_license_any_item: Οποιαδήποτε άδεια.
   filter_by_medium_subtype: τύπος
@@ -396,7 +402,9 @@ el:
     kr: Κανούρι
     q36121: Καπαμπάγκαν
     q33541: Κάρα Καλπάκ
+    ks: Κασμίρ
     q33690: Κασουβιανά
+    kk: Καζακστάν
     ki: Κικούγιου, Γκικούγιου
     q11732519: Κινγκίντο
     rw: Κινιαρουάντα
@@ -487,6 +495,9 @@ el:
   layout_sign_out: Αποσύνδεση
   literature_and_references_header: Αρθρογραφία και πηγές
   maps:
+    empty: Δεν υπάρχουν διαθέσιμοι χάρτες για αυτήν τη σελίδα.
+    occurrence_caption: Γνωστές εμφανίσεις, συλλεγμένα δείγματα και παρατηρήσεις του
+      %{page_name}. Δείτε αυτό το είδος στο GBIF
     other_maps_title: Μη-διαδραστικοί χάρτες
   medium:
     untitled:
@@ -989,7 +1000,15 @@ el:
         http://eol(dot)org/schema/terms/percentPerMonth: επί τοις εκατό/μήνα
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: αφθονία
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Όξινο χώμα
+        http://eol(dot)org/schema/terms/adaptiveStrategy: προσαρμοστική στρατηγική
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: ενήλικας
+        http://eol(dot)org/schema/terms/aerial: εναέρια
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: εναέρια
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: εναέριος βιότοπος
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: ρυθμός αναγέννησης
+          μετά τη συγκομιδή
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: αγατοξίνες
+        http://eol(dot)org/schema/terms/age At Dispersal: ηλικία κατά τη διασπορά
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: αμφίδρομα
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: ετήσιο
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: απατίτης
@@ -1050,7 +1069,7 @@ el:
         http://eol(dot)org/schema/terms/gramsPerMonth: γραμμάρια/μήνα
         http://eol(dot)org/schema/terms/Present: Η γεωγραφική κατανομή περιλαμβάνει
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: διάρκεια περιόδου κύησης
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: αγροστώδη
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: Γρασίδι
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: λιβάδι
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: πράσινο
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Ενδιαίτημα
@@ -1058,7 +1077,7 @@ el:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: έχει ως παθογόνο
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: σε σχήμα καρδιάς
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: Επταδεκανοϊκό οξύ
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: ποώδες
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: βότανο
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Εξαδεκανοϊκό οξύ
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: μεγάλο προσδόκιμο ζωής
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: υψηλή ανοχή σε

@@ -2951,9 +2951,15 @@ es:
         http://www(dot)marinespecies(dot)org/traits/Plankton: planctónico
         http://eol(dot)org/schema/terms/planktotrophic: planctótrofo
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: altura de planta
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma de vida vegetal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantación
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: bosque sembrado
         http://eol(dot)org/schema/terms/PlantingDensity: densidad de siembra
+        http://eol(dot)org/schema/terms/plastotype: plastotipo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: meseta
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: época
+          del pleistoceno
+        https://eol(dot)org/schema/terms/pleopod: pleópodo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: edad
           Piacenziense
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/s
@@ -2988,11 +2994,20 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: edad
           Priaboniense
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produce
+        http://eol(dot)org/schema/terms/Propagule: propágulo
+        http://eol(dot)org/schema/terms/ProsomeHeight: altura del prosoma
+        http://eol(dot)org/schema/terms/ProsomeLength: longitud del prosoma
+        http://eol(dot)org/schema/terms/ProsomeWidth: anchura del prosoma
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: Área protegida
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composición proteica
+          de la leche
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: proteinas
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: eón
+          proterozoico
         http://eol(dot)org/schema/terms/protozoa_feeder: se alimenta de protozoarios
         http://eol(dot)org/schema/terms/practicalSalinityUnits: Unidades prácticas
           de salinidad
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purinas
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: Morado
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: piramidal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: cantera
@@ -3107,6 +3122,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexualmente dimórfico
         http://eol(dot)org/schema/terms/shade: sombra
         http://eol(dot)org/schema/terms/ShadeTolerance: tolerancia a la sombra
+        http://eol(dot)org/schema/terms/shallowReef: arrecife poco profundo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: edad
           Sheinwoodiense
@@ -3116,6 +3132,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seda
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: edad
           Sinemuriense
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001444: medida única
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000195: sumidero
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: tamaño
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: esqueleto
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: el esqueleto contiene
@@ -3132,6 +3150,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: tierra
         http://eol(dot)org/schema/terms/solitary: solitario
         http://purl(dot)org/dc/terms/source: fuente
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: espinas
         http://eol(dot)org/schema/terms/sponge_feeder: se alimenta de esponjas
         http://purl(dot)obolibrary(dot)org/obo/PO_0009029: estambre
         http://eol(dot)org/schema/terms/StandardLength: longitud estándar

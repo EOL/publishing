@@ -2482,6 +2482,10 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: taja linear
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lìpid
         http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
+        http://eol(dot)org/schema/terms/littoralZone: zòna ëd litoral
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: época
+          ëd llandovery
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: località
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita
         http://eol(dot)org/schema/terms/TemperatureTolerance: toleransa a le temperadure

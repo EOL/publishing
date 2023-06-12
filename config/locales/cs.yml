@@ -174,7 +174,7 @@ cs:
     vlevo.
   collect_select_collection: … Jedna z vašich sbírek
   collect_title: Přidat "%{item}" k...
-  collected_page_added_to_collection: '!!FUZZ!!Přidáno %{page} do kolekce <a href=''%{link}''>%{name}</a>.'
+  collected_page_added_to_collection: Přidáno %{page} do kolekce <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: To už bylo ve vaší sbírce.
   collected_pages_title: Stránky
   collected_pages_medium:
