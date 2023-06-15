@@ -20,7 +20,7 @@ el:
   account_already_linked: ο λογαριασμός σας είναι ήδη συνδεδεμένος με το EOL
   account_not_linked: ο λογαριασμός σας δεν είναι συνδεδεμένος με το EOL
   advanced: Προχωρημένο
-  are_you_sure_delete_account: Είστε σίγουρος πως θέλετε να διαγράψετε το λογαριασμό
+  are_you_sure_delete_account: Είστε σίγουρος πως θέλετε να διαγράψετε τον λογαριασμό
     σας στο EOL;
   article:
     actions:
@@ -50,7 +50,7 @@ el:
   button_create: δημιουργήστε
   button_add: Προσθέστε
   cancel: Ακύρωση
-  change_my_password: Αλλαγή του Κωδικού πρόσβασής μου
+  change_my_password: Αλλαγή του κωδικού πρόσβασής μου
   change_your_password: Αλλάξτε τον κωδικό πρόσβασής σας
   classifications:
     children:
@@ -166,7 +166,7 @@ el:
     altitude: Υψόμετρο
     author: Συγγραφέας
     bibliographic_citation: Βιβλιογραφική αναφορά
-    contributor: Συνεισφέρων
+    contributor: εθελοντής
     compiler: συντάκτης
     creator: δημιουργός
     editor: συντάκτης
@@ -204,7 +204,7 @@ el:
   delete_account_button: Διαγράψτε το λογαριασμό σας.
   errors:
     internal_server: Εσωτερικό σφάλμα διακομιστή (500)
-    not_found: Η σελίδα δεν βρέθηκε (404)
+    not_found: Η σελίδα δε βρέθηκε (404)
   filter_by_license: Άδεια
   filter_by_license_any_item: Οποιαδήποτε άδεια.
   filter_by_medium_subtype: τύπος
@@ -1069,7 +1069,7 @@ el:
         http://eol(dot)org/schema/terms/gramsPerMonth: γραμμάρια/μήνα
         http://eol(dot)org/schema/terms/Present: Η γεωγραφική κατανομή περιλαμβάνει
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: διάρκεια περιόδου κύησης
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: Γρασίδι
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: γρασίδι
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: λιβάδι
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: πράσινο
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Ενδιαίτημα

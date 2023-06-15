@@ -2485,8 +2485,12 @@ pms:
         http://eol(dot)org/schema/terms/littoralZone: zòna ëd litoral
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: época
           ëd llandovery
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: terò
         http://rs(dot)tdwg(dot)org/dwc/terms/locality: località
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: età
+          lochkovian-a
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
+        http://eol(dot)org/schema/terms/log10gram: log10 grama
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita
         http://eol(dot)org/schema/terms/TemperatureTolerance: toleransa a le temperadure
           basse
