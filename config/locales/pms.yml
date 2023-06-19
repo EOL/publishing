@@ -2491,10 +2491,37 @@ pms:
           lochkovian-a
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://eol(dot)org/schema/terms/log10gram: log10 grama
+        http://eol(dot)org/schema/terms/longPersistentSeedBank: a longa përsistensa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lopingian: época
+          lopingian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000517: bial ëspërdù
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: bass
+        http://eol(dot)org/schema/terms/lowCNRatio: bass (<23)
+        http://eol(dot)org/schema/terms/lowArctic: bass àrtich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita
+        http://eol(dot)org/schema/terms/lowNitrogenFixation: fissassion débol ëd l'asòt
         http://eol(dot)org/schema/terms/TemperatureTolerance: toleransa a le temperadure
           basse
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: zòna ëd maré bass
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa toleransa
+        http://eol(dot)org/schema/terms/lowEpifaunal: epifàuna ëd bass livel
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: lìmit anferior ëd confidensa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: época
+          cretassia anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: época
+          devonian-a anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerJurassic: época
+          giuràssica anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerOrdovician: época
+          ordovician-a anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: época
+          triàssica anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: età
+          ludfordian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: época
+          ëd ludlow
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: età
+          lutessian-a
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (Mg)
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: rapòrt ëd massa antra
