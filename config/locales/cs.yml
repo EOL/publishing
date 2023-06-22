@@ -958,6 +958,7 @@ cs:
       import_traits: importovat vlastnosti (z úložiště)
       republish: zveřejnit
       clean_republish: čisté znovu publikovat
+      diff: diff
       republish_confirm: Tím se odstraní VŠECHEN obsah daného zdroje (s výjimkou vlastností,
         které použijí rozdíl). Jste si jisti?!
       clean_republish_confirm: Toto smaže VŠECHEN obsah zdroje a NEBUDE používat rozdíly
@@ -1707,9 +1708,11 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: kampánský
           věk
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: kanál
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: baldachýn
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: kaňon
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: kapitanský
           věk
+        http://eol(dot)org/schema/terms/CapitulumLength: délka kapitulu
         https://eol(dot)org/schema/terms/carangiform: karangiformní
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: krunýř
         http://eol(dot)org/schema/terms/CarapaceLength: délka krunýře

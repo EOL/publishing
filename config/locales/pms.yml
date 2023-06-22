@@ -2522,13 +2522,28 @@ pms:
           ëd ludlow
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: età
           lutessian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002248: seul aluvional
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000261: lisoclin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: maar
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: età
+          maastrichtian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000417: machair
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: lava màfica
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (mg)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: mas-cc
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: rapòrt ëd massa antra
           mas-cc e fumela
-        http://eol(dot)org/schema/terms/MaleTenure: Soen dij mas-cc
-        http://eol(dot)org/schema/terms/MantleLength: Longheur dël mantel
+        http://eol(dot)org/schema/terms/maleOrUnsexed: mas-cc o assessuà
+        http://eol(dot)org/schema/terms/MaleTenure: a ten la posission ëd mas-cc
+        http://eol(dot)org/schema/terms/mammalivore: mamalìvor
+        https://eol(dot)org/schema/terms/manca: manca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: mangròvia
+        http://eol(dot)org/schema/terms/MantleLength: longheur dël mantel
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marengh
+        https://eol(dot)org/schema/terms/marine_animals: animaj marengh
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: fond dël mar
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: abitùdin ëd chërsùa massissa
         http://eol(dot)org/schema/terms/MatingSystem: strategìa d'arprodussion
