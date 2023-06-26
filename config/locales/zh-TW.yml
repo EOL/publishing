@@ -58,7 +58,7 @@ zh-TW:
       vernacular: 方言
   brief_summary:
     extinction:
-      r_genus_html: <span class='%{class_str}' id='%{id}'>已消失</span>。
+      r_genus_html: <span class='%{class_str}' id='%{id}'>已滅絕</span>。
       r_subgenus_html: 該亞屬已<span class='%{class_str}' id='%{id}'>滅絕</span>。
       r_infragenus_html: 該下屬已<span class='%{class_str}' id='%{id}'>滅絕</span>。
       r_superspecies_html: 該超級物種已<span class='%{class_str}' id='%{id}'>滅絕</span>。
@@ -78,7 +78,7 @@ zh-TW:
         r_domain: '%{name1}是%{name2}的一個域。'
         r_subdomain: '%{name1}是%{name2}的一個亞域。'
         r_infradomain: '%{name1}是%{name2}的一個下域。'
-        r_superkingdom: '%{name1}是%{name2}的一個域。'
+        r_superkingdom: '%{name1}是%{name2}的一個超界。'
         r_kingdom: '%{name1}是%{name2}的一個界。'
         r_subkingdom: '%{name1}是%{name2}的一個亞界。'
         r_infrakingdom: '%{name1}是%{name2}的一個下界。'
@@ -105,9 +105,9 @@ zh-TW:
           r_subgenus: '%{name1}是科%{name3}中%{name2}的一個亞屬。'
           r_infragenus: '%{name1}是科%{name3}中%{name2}的一個下屬。'
           r_superspecies: '%{name1}是科%{name3}中%{name2}的一個超種。'
-          r_species: '%{name1}是科%{name3}中%{name2}的一個物種。'
+          r_species: '%{name1}是科%{name3}中%{name2}的一個種。'
           r_subspecies: '%{name1}是科%{name3}中%{name2}的一個亞種。'
-          r_infraspecies: '%{name1}是科%{name3}中%{name2}的一個下物種。'
+          r_infraspecies: '%{name1}是科%{name3}中%{name2}的一個下種。'
           r_form: '%{name1}是科%{name3}中%{name2}的一個型。'
         without_family:
           r_subfamily: '%{name1}是%{name2}的一個亞科。'
@@ -118,9 +118,9 @@ zh-TW:
           r_subgenus: '%{name1}是%{name2}的一個亞屬。'
           r_infragenus: '%{name1}是%{name2}的一個下屬。'
           r_superspecies: '%{name1}是%{name2}的一個超種。'
-          r_species: '%{name1}是%{name2}的一個物種。'
+          r_species: '%{name1}是%{name2}的一個種。'
           r_subspecies: '%{name1}是%{name2}的一個亞種。'
-          r_infraspecies: '%{name1}是%{name2}的一個下物種。'
+          r_infraspecies: '%{name1}是%{name2}的一個下種。'
           r_form: '%{name1}是%{name2}的一個型。'
   button_create: 建立
   button_add: 添加
@@ -154,7 +154,7 @@ zh-TW:
       vernaculars_count: 方言
       scientific_names_count: 學名
       referents_count: 引用
-      species_count: 物種
+      species_count: 種
       updated_at: 上一次更新
   collect_already_in_collection: （已在此）
   collect_already_in_collection_will_add_icon: （添加媒體到「%{page}」）
@@ -301,7 +301,7 @@ zh-TW:
       food_webs: 食物鏈
       glossary: 術語
       help: 說明
-      language_support: 語言支援
+      language_support: 語言支持
       terms_of_use: 使用條款
       the_eol_forum: 網路生命大百科論壇
       what_is_eol: 什麼是網路生命大百科（Encyclopedia of Life、EOL）？
@@ -400,7 +400,7 @@ zh-TW:
     q32979: 喬克托語
     cu: 舊教會斯拉夫語
     cv: 楚瓦什語
-    q37041: 文言文
+    q37041: 繁體中文
     kw: 康瓦爾語
     co: 科西嘉語
     cr: 克里語
@@ -824,7 +824,7 @@ zh-TW:
         r_superspecies: 超種
         r_species: 種
         r_subspecies: 亞種
-        r_infraspecies: 種下
+        r_infraspecies: 下種
         r_form: 型
       reference_taxon_attrib: 來自%{dataset_name}的參考分類單元
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
@@ -834,7 +834,7 @@ zh-TW:
       competitor: 競爭者
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
       predator: 掠食者
-      prey: 捕食
+      prey: 獵物
       reset: 重新設定
       trophic_web_about: 生命大百科食物鏈圖解注重在物種的覓食關係，這會顯示出焦點物種賴以為生所覓食的物種（獵物）、把焦點物種作為食物的物種（掠食者）、以及與焦點物種抓取相同獵物的其牠物種（潛在競爭者）。請點擊來了解更多。
       trophic_web_title_html: Trophic Web <a href='%{about_path}'><sup><span class='a'
@@ -909,7 +909,7 @@ zh-TW:
       r_subspecies: 亞種
       r_infraspecies: 下種
       r_form: 表單
-  recaptcha: Recaptcha
+  recaptcha: 驗證碼
   recaptcha_error: 請告訴我們你不是機器人。
   reconciliation:
     id_space:

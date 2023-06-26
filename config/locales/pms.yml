@@ -2542,9 +2542,22 @@ pms:
         https://eol(dot)org/schema/terms/manca: manca
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: mangròvia
         http://eol(dot)org/schema/terms/MantleLength: longheur dël mantel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003074: prodot manifaturà
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marengh
         https://eol(dot)org/schema/terms/marine_animals: animaj marengh
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: fond dël mar
+        https://eol(dot)org/schema/terms/marine_carnivore: carnìvor marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000108: sfera marenga d'eva
+          frèida
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005795: pàuta marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: parch marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000023: marengh pelàgich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: bariera marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: sediment marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: fiòca marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: arsurgensa marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000109: sfera d'eva càuda marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: massa d'eva marenga
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: abitùdin ëd chërsùa massissa
         http://eol(dot)org/schema/terms/MatingSystem: strategìa d'arprodussion
         http://semanticscience(dot)org/resource/SIO_001114: max

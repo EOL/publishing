@@ -27,6 +27,7 @@
 # Author: Tala Ali
 # Author: Yousif ihsan
 # Author: Yousif ihsan
+# Author: أيوب
 # Author: ديفيد
 # Author: ديفيد
 # Author: علاء
@@ -34,7 +35,7 @@
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
-  language_name: العربية
+  language_name: الإنجليزية
   about:
     trait_bank:
       title: بنك الصفات
@@ -146,7 +147,7 @@ ar:
   collect_no_existing_collections: ليس لديك أي شيء حتى الآن! قم بإنشاء واحدة باستخدام
     النموذج الموجود على اليسار.
   collect_select_collection: '...واحدة من مجموعاتك'
-  collect_title: أضف "%{item}" الى...
+  collect_title: أضف "%{item}" إلى...
   collected_page_added_to_collection: تمت إضافة %{page} إلى المجموعة <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: كان ذلك بالفعل في مجموعتك.
   collected_pages_title: صفحات
