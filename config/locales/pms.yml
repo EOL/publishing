@@ -2558,9 +2558,25 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: arsurgensa marenga
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000109: sfera d'eva càuda marenga
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: massa d'eva marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: mojiss
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: massa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: massiss
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: abitùdin ëd chërsùa massissa
         http://eol(dot)org/schema/terms/MatingSystem: strategìa d'arprodussion
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: madur
         http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: prairìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005761: seul ëd prairìa
+        http://semanticscience(dot)org/resource/SIO_001109: media
+        http://eol(dot)org/schema/terms/meanAnnualTemperature: temperadura anual media
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementAccuracy: precision ëd la
+          mzura
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementDeterminedBy: mzura determinà
+          da
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementMethod: métod dë mzura
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementRemarks: armarche an sla mzura
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: carn
+        http://semanticscience(dot)org/resource/SIO_001110: mesan-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medi (normal)
         http://eol(dot)org/schema/terms/MiddleToeLength: longheur dël dil mesan
         http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
