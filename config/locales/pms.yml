@@ -2577,6 +2577,10 @@ pms:
         http://rs(dot)tdwg(dot)org/dwc/terms/measurementRemarks: armarche an sla mzura
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: carn
         http://semanticscience(dot)org/resource/SIO_001110: mesan-a
+        https://eol(dot)org/schema/terms/median_paired_fin: propulsion për ala mesan-a/a
+          cobia
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: meisinor
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: foresta mediterania
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medi (normal)
         http://eol(dot)org/schema/terms/MiddleToeLength: longheur dël dil mesan
         http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
