@@ -2581,6 +2581,11 @@ pms:
           cobia
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: meisinor
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: foresta mediterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000878: foresta mediterania,
+          bòsch e gërbola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000224: prairìa mediterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000047: biòma marengh mediterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: gërbola mediterania
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medi (normal)
         http://eol(dot)org/schema/terms/MiddleToeLength: longheur dël dil mesan
         http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
