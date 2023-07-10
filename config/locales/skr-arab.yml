@@ -69,9 +69,11 @@ skr-arab:
       position: تریخ شامل تھئی
       sci_name: سائنسی ناں، الف ـ ے
       sci_name_rev: سائنسی ناں، ے ــ الف
+  content_attributions_header: ماخذ معلومات
   content_attributions_labels:
     altitude: بلندی
     author: مصنف
+    bibliographic_citation: کتابیات دا حوالہ
     contributor: ونگارو
     compiler: مرتب
     creator: خالق
@@ -96,6 +98,8 @@ skr-arab:
     view_source_label: اصل
     view_source_link: اصل تصویر ݙیکھو
     view_source_page_link: ماخذ ݙیکھو
+  errors:
+    not_found: ورقہ کائنی لبھا (404)
   filter_by_license: لائیسنس
   filter_by_license_any_item: کوئی لائیسنس
   filter_by_medium_subtype: قسم
@@ -131,6 +135,7 @@ skr-arab:
   language: زبان
   languages:
     ab: ابخیزیان
+    q27683: آچینی
     q27776: ایڈیگے
     aa: آفر
     af: افریقی
@@ -144,6 +149,7 @@ skr-arab:
     hy: آرمینی
     as: آسامی
     q29507: آسٹری
+    q56590: آٹیکامیک
     av: آواری
     ae: آوستان
     ay: عمارہ
@@ -154,10 +160,13 @@ skr-arab:
     q33151: بنجر
     ba: باشکِر
     eu: باسک
+    q29540: باویری
     be: بیلا روسی
     q8836490: بیندے
     bn: بنگالی
     bh: بِہاری زباناں
+    bi: بسلاما
+    nb: بوکمل، ناوریجی، نارویجی بوکمل
     q4941378: بونڈی
     bs: بوسینی
     q33202: بروہی
@@ -251,6 +260,8 @@ skr-arab:
     q33690: کاشوبیان
     kk: قازق
     q11005332: کنگا
+    rw: کنیاروانڈا
+    ky: کِرغِیز؛ کرغیز
     kv: کومی
     kg: کانگو
     ko: کوریائی
@@ -272,6 +283,7 @@ skr-arab:
     q33754: لومبارڈ
     q168446: لو سیکسن
     q13286: ہیٹھلی سربی
+    q3437661: لگورو
     q35787: مسائی
     mk: مقدونی
     q36109: میتھیلی
@@ -283,10 +295,14 @@ skr-arab:
     gv: مانکس
     mi: ماؤری
     mr: میراٹھی
+    mh: مارشلیز
     q6786446: میٹینگو
+    q3906614: میڈو ماری
     q13313: میرو
     q36455: مِن ڈونگ
+    q13324: منانگکاباؤ
     q13359: منگریلینی
+    q13330: مرانڈیز
     q13343: موکشا
     mn: منگولی
     q56426: مراکو عربی
@@ -308,12 +324,17 @@ skr-arab:
     q36738: نوائل
     q3272620: نیکوسا
     q4121131: نیامویزی
+    q7193418: نیاتورو
+    q11128374: نیہا
     q16115145: نائکا
+    oj: اوجیبوا
     or: اُڑیہ
     om: ارومو
+    os: اوسیشین؛ اوسیٹک
     q715755: پائوَن
     pi: پالی
     pa: پنجابی
+    q36403: پارے
     fa: فارسی
     q34024: پیکارڈ
     q15085: پیڈمونٹیز
@@ -334,6 +355,7 @@ skr-arab:
     q718269: سکیزیا
     sm: سامون
     q213434: ساموگیتی
+    q34016: سنڈاوے
     sg: سانگو
     sa: سنسکرت
     q33965: سنتالی
@@ -398,6 +420,7 @@ skr-arab:
     q34279: وارے
     cy: ویلش
     wel: ویلش
+    fy: مغربی فریزین
     wo: وولف
     q34290: وو
     xh: ہوسا
@@ -411,7 +434,19 @@ skr-arab:
   layout_sign_in: سائن ان
   layout_sign_up: سائن اپ
   layout_sign_out: سائن آؤٹ
+  literature_and_references_header: ادب تے حوالے
+  maps:
+    empty: ایں ورقے کیتے کوئی نقشے دستیاب کائنی۔
   medium:
+    untitled:
+      image: عنوان بغیر تصویر
+      image_of: '%{page_name} دی تصویر'
+      video: عنوان بغیر وڈیو
+      video_of: '%{page_name} دی وڈیو'
+      sound: عنوان بغیر تصویر
+      sound_of: '%{page_name} دی اواز'
+      map: عنوان بغیر نقشہ
+      map_of: '%{page_name} دا نقشہ'
     subclasses:
       image: تصویر
       video: وڈیو
@@ -458,6 +493,7 @@ skr-arab:
         r_order: ترتیب
         r_family: ٹٻر
         r_tribe: قبیلہ
+      username_missing: ورتݨ آلا %{user_id}
     trophic_web:
       competitor: مدمقابل
       predator: شکاری
@@ -471,6 +507,9 @@ skr-arab:
       maps: نقشے
       media: میڈیا
       names: ناں
+    iucn_status:
+      ex: ناپید (EX)
+      ew: جنگل وچ ناپید (EX)
   page_titles:
     pages:
       data: '%{page_name} ڈیٹا'
@@ -545,7 +584,9 @@ skr-arab:
     benefits: فائدے
     brief_summary: مختصر خلاصہ
     comprehensive_description: جامع تفصیل
+    distribution: تقسیم
     ecology: ماحولیات
+    genetics: جینیات
     habitat: مسکن
     management: منیجمنٹ
     migration: ہجرت
@@ -596,8 +637,12 @@ skr-arab:
   traits:
     data_viz:
       about_this_chart: ایں چارٹ بارے
+      other_term_name: ٻیا %{term_name}
+      hist_value_label: قدر %{units}
       other: ٻیا
+      page_habitat_header: '%{name} مساکن'
     properties:
+      remarks: ریمارکس
       sample_size: نمونہ سائز
       scientific_name: سائنسی ناں
       source: ماخذ
@@ -610,15 +655,17 @@ skr-arab:
         eq: '%{pred} = %{num_val} %{units}'
         gte: '%{pred} >= %{num_val} %{units}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'قدر: %{obj}'
+        obj_only: 'قدر: %{obj} نال'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
+        range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
         resource: 'وسیلہ: %{value}'
         sex: 'جنس: %{value}'
         statistical_method: 'شماریاتی طریقہ: %{value}'
       new_search: نویں ڳول
       show_query: سوال ݙکھاؤ
     search_form:
+      attribute: وصف
       resource: وسیلہ
       search: ڳولو
       sex: جنس
@@ -655,10 +702,14 @@ skr-arab:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/مہینہ'
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: کثرت
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: تیزابی مٹی
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: ڄوان
         http://eol(dot)org/schema/terms/aerial: ایرئیل
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: ایرئیل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: زراعت
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: زرعی مواد
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: زرعی مٹی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: زرعی چھت
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: زرعی فضلہ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: زرعی فضلہ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: زناوراں دا فضلہ
@@ -666,11 +717,13 @@ skr-arab:
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: اندرلا
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: آبی
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: آبی (حرکت)
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: آبی پودا
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: علاقہ
         http://eol(dot)org/schema/terms/average: اوسط
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: خلیج
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: ساحل سمندر
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: ساحل ریت
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: ݙوسالہ
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: کالا
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: خون
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: نیلا
@@ -679,6 +732,11 @@ skr-arab:
         http://eol(dot)org/schema/terms/browsing: براؤزر
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: عمارت
         http://purl(dot)obolibrary(dot)org/obo/PO_0025356: بلب
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: کیلسائٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: کیلشیم (ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: کیلشیم کاربونیٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: کیلشیم فاسفیٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: کیلشیم سلفیٹ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: نہر
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: غار
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: غار دی کندھ
@@ -693,6 +751,7 @@ skr-arab:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: سم^٣
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: ساحل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: ساحلی ٹبہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: ساحلی زمین
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: ساحلی میدان
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: ساحلی جھاڑی
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: ساحلی پاݨی
@@ -709,6 +768,7 @@ skr-arab:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: درجے
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: ڈیلٹا
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: ݙنداں دا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: صحرا
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: قُطر
         http://eol(dot)org/schema/terms/dryFruit: سُکے میوے
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: سُکا دریا
@@ -718,6 +778,7 @@ skr-arab:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: سکی وادی
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: ٹٻہ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: دھُوڑ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: قسط وار
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000282: ایسکر
         http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: تخمینہ
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: سدا بہار
@@ -759,6 +820,8 @@ skr-arab:
         http://semanticscience(dot)org/resource/SIO_000040: اُچائی
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: لُکاؤ
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: اُچا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: پہاڑی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: پہاڑی سلسلہ
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: ماکھی
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: ہسپتال
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: برف
@@ -774,10 +837,12 @@ skr-arab:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: وݙا
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: وݙی جھیل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: وݙا دریا
+        http://semanticscience(dot)org/resource/SIO_000041: لمباݨ
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: خطی
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: خطی سائز
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: مارش
         http://semanticscience(dot)org/resource/SIO_001114: ودھ و ودھ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: چراگاہ
         http://semanticscience(dot)org/resource/SIO_001109: اوسط
@@ -793,6 +858,7 @@ skr-arab:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
         http://semanticscience(dot)org/resource/SIO_001113: منٹ
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: معدنیات
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: رلے ملے
         http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mm hg
@@ -807,10 +873,16 @@ skr-arab:
         https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/گنٹہ
         http://eol(dot)org/schema/terms/no: کو
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: کوئی وی کائنی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: سمندری جزیرہ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: مالٹی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: بغیچا
         http://eol(dot)org/schema/terms/otherBudSource: ٻیا
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: آکسیجن
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: اونس
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: فیصد
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: شجرکاری
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: سطح مرتفع
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: قطبی
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: قطبی
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: ریلوے
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: ریت

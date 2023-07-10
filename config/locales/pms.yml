@@ -2586,13 +2586,76 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000224: prairìa mediterania
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000047: biòma marengh mediterani
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: gërbola mediterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: bòsch mediterani
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: mesan
+        http://eol(dot)org/schema/terms/mediumNitrogenFixation: fissassion mesan-a
+          ëd l'asòt
+        http://eol(dot)org/schema/terms/mediumCNRatio: mesan-a (23 – 59)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medi (normal)
+        https://eol(dot)org/schema/terms/medusoid: medusòid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000199: lagh meromìtich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: autipian
+        http://eol(dot)org/schema/terms/mesohaline: mesoalin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: zòna mesopelàgica
+        http://eol(dot)org/schema/terms/mesotrophicFreshwaterLake: lagh d'eva dossa
+          mesotròfich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002225: eva mesotròpica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: era
+          mesosòica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: età
+          messinian-a
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: metabòlich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: ròch metamòrfich
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm²
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/di
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m²
+        https://eol(dot)org/schema/terms/microalgae: microalga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000008: tapiss micròbich
+        https://eol(dot)org/schema/terms/microbivore: microbìvor
+        http://eol(dot)org/schema/terms/microcarnivore: microcarnìvor
+        http://eol(dot)org/schema/terms/microphytobenthos: microfitobentos
+        http://eol(dot)org/schema/terms/midSpring: mesa prima
+        http://eol(dot)org/schema/terms/midSummer: mesa istà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000406: crësta medioceànica
+        http://eol(dot)org/schema/terms/midPersistentSeedBank: semipërsistent
+        http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: sot-zòna d'erborin
+          nan ëd l'àrtich mesan
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: época
+          devonian-a mesan-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleJurassic: época
+          giuràssica mesan-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleOrdovician: época
+          ordivician-a mesan-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: età
+          dël pleistocen-e mesan
         http://eol(dot)org/schema/terms/MiddleToeLength: longheur dël dil mesan
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleTriassic: época
+          triàssica mesan-a
+        http://eol(dot)org/schema/terms/migratory: migratòri
         http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
         http://eol(dot)org/schema/terms/paleo_megaannum: un milion d'agn fa
+        http://semanticscience(dot)org/resource/SIO_001113: min
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: sorgiss mineral
+        https://eol(dot)org/schema/terms/mineralizedSkeletonContains: lë schéletr
+          mineralisà a conten
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: ël tëssù mineralisà
           a conten
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: mineraj
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: época
+          miocen-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: sot-perìod
+          mississippian
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mës-cià
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: foresta mës-cia
+        http://eol(dot)org/schema/terms/mixotrophy: mis-ciotròpich
+        http://eol(dot)org/schema/terms/mlO2perhour: ml/hr O₂
+        http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mm hg
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3mèis
         http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4mèis
         http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6mèis
@@ -2601,6 +2664,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/di
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sec
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/ann
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm²
+        http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm²/mg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
+        https://eol(dot)org/schema/terms/mobile_prey_feeder: as nuriss ëd pijàite
+          mòbij
+        http://eol(dot)org/schema/terms/ModeOfAction: manera d'assion
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mèis
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: temp d'ardobiament
           dël tass ëd mortalità

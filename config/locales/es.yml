@@ -231,12 +231,12 @@ es:
   collect_no_existing_collections: ¡Aún no tienes ninguno! Crea uno usando el formulario
     en el lado izquierdo.
   collect_select_collection: '...Una de Sus Colecciones'
-  collect_title: Añadir «%{item}» a…
-  collected_page_added_to_collection: Añadida %{page} a la colección <a href='%{link}'>%{name}</a>
+  collect_title: Añadir "%{item}" a…
+  collected_page_added_to_collection: '%{page} añadida a la colección <a href=''%{link}''>%{name}</a>'
   collected_page_already_in_collection: Eso ya se encontraba en su colección
   collected_pages_title: Páginas
   collected_pages_medium:
-    destroyed_flash: Imagen removida de la págia colectada.
+    destroyed_flash: Imagen removida de la página colectada.
   collection_associations:
     destroyed_flash: '%{name} ya no se encuentra asociado a esta colección.'
   collected_pages:
@@ -244,15 +244,15 @@ es:
     edit_button: editar
     delete_confirm: ¿Está seguro?
     destroyed_flash: '%{name} removido de la colección.'
-  collection_association_added_to_collection: Se añadió «%{associated}» a la colección
-    <a href='%{link}'>«%{name}»</a>.
+  collection_association_added_to_collection: '"%{associated}" añadida a la nueva
+    colección <a href=''%{link}''>"%{name}"</a>'
   collection_associations_empty: No hay otras colecciones asociadas con esta. Puede
     hacer clic en el botón nombrado "asociar" en otras colecciones para que aparezcan
     aquí.
   collection_associations_title: Colecciones asociadas
   collection_collected_pages_media_remove: 'Elimina imágenes de la colección (los
     cambios toman efecto inmediato):'
-  collection_created: Se creó la colección «%{name}».
+  collection_created: Se creó la colección "%{name}".
   collection_created_for_association: Añadida "%{associated}" a la nueva colección
     <a href='%{link}'>"%{name}"</a>
   collection_user_is_admin: Este usuario es un administrador.
@@ -275,7 +275,7 @@ es:
       gallery: galería
     delete_confirm: Esto eliminará toda la colección y NO SE PUEDE deshacer. ¿Estás
       seguro?
-    destroyed: «%{name}» se eliminó permanentemente.
+    destroyed: '"%{name}" se eliminó permanentemente.'
     pages_count:
       one: 1 página
       other: '%{count} páginas'
@@ -303,7 +303,7 @@ es:
       submit: buscar
     sort:
       hierarchy: jerarquía
-      position: fecha de adición
+      position: fecha agregada
       sci_name: nombre científico, A-Z
       sci_name_rev: nombre científico, Z-A
       sort_field: anotación, A-Z
@@ -940,7 +940,7 @@ es:
       classifications: Clasificaciones
       data: datos
       literature_and_references: bibiografía y referencias
-      overview: visión de conjunto
+      overview: Vista general
       maps: mapas
       media: medios
       names: nombres
@@ -1229,7 +1229,7 @@ es:
     morphology: Morfología
     names_and_taxonomy: Nombres y taxonomía
     notes: Notas
-    overview: Visión general
+    overview: Vista general
     physiology_and_cell_biology: Fisiología y biología celular
     physical_description: Descripción física
     relevance_to_humans_and_ecosystems: Relevancia para los seres humanos y los ecosistemas
@@ -1313,7 +1313,7 @@ es:
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
       select_page_above: Elige una página arriba para empezar.
-  data_definition: definición de «%{data}»
+  data_definition: definición de "%{data}"
   traits:
     data_viz:
       about_this_chart: acerca de este gráfico
@@ -1549,7 +1549,7 @@ es:
       comment: 'comentario:'
       sections: 'secciones:'
       is_hidden_from_glossary: 'ocultar del glosario:'
-      is_hidden_from_overview: 'ocultar de la pestaña Visión general:'
+      is_hidden_from_overview: 'ocultar de la pestaña vista general:'
     glossary:
       full_title: Glosario de TODOS los términos de los datos en EOL
       predicate_title: Glosario de los tipos de términos en los datos de EOL
@@ -1753,7 +1753,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: Residuos biológicos
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminiscente
         https://eol(dot)org/schema/terms/bipedal_running: bípedo corriendo
-        https://eol(dot)org/schema/terms/bivalve_feeder: Alimentador bivalvo
+        https://eol(dot)org/schema/terms/bivalve_feeder: se alimenta de bivalvos
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: Negro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000511: pantano de la manta
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_BEV: ventilador ciego
@@ -1918,7 +1918,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
-        http://eol(dot)org/schema/terms/cnidaria_feeder: se alimenta de moco ciliar
+        http://eol(dot)org/schema/terms/cnidaria_feeder: se alimenta de cnidarios
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: Duna costera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: ensenada costera
@@ -1959,7 +1959,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: suelo contaminado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: isla continental
         http://eol(dot)org/schema/terms/copepodid3: copépodo etapa 3
-        http://eol(dot)org/schema/terms/copepodid4: copepodid etapa 4
+        http://eol(dot)org/schema/terms/copepodid4: copépodo etapa 4
         http://eol(dot)org/schema/terms/copepodid5: copépodo etapa 5
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: Arrecife de coral
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: fondo arrecifal
@@ -1987,7 +1987,7 @@ es:
         https://eol(dot)org/schema/terms/crinoid_feeder: se alimenta de crinoideos
         http://eol(dot)org/schema/terms/criticallyEndangered: en peligro crítico
         http://eol(dot)org/schema/terms/cruising: Navegando alimentador
-        https://eol(dot)org/schema/terms/crustacean_feeder: Alimentador de crustáceo
+        https://eol(dot)org/schema/terms/crustacean_feeder: se alimenta de crustáceos
         http://eol(dot)org/schema/terms/crustose: costroso
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: período
           Criogénico
@@ -2113,7 +2113,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: Elevado
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: Elevación
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: elongado
-        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: Etapa de embrión
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: Etapa del embrión
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: edad Emsiense
         http://eol(dot)org/schema/terms/endangered: en peligro de extinción
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: Sistema endocrino
@@ -3158,7 +3158,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: río pequeño
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: campo de nieve
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: social
-        http://eol(dot)org/schema/terms/SocialGroupSize: medida de grupo social
+        http://eol(dot)org/schema/terms/SocialGroupSize: tamaño del grupo social
         http://eol(dot)org/schema/terms/SocialSystem: sistema social
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: tierra
         http://eol(dot)org/schema/terms/solitary: solitario
@@ -3345,15 +3345,15 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tarde
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: fragancia
-        http://eol(dot)org/schema/terms/OptimalGrowthpH: pH optimo para crecimiento
-        http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/cell/dia
+        http://eol(dot)org/schema/terms/OptimalGrowthpH: pH óptimo de crecimiento
+        http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/célula/día
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/s
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: léntico
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monógamo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: radialmente simétrico
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: bilateralmente simétrica
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: poligínico
-        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: poliandroso
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: poliándrico
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: promiscuo
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: escalada
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: isotipo
