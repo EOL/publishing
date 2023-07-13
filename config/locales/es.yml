@@ -137,7 +137,7 @@ es:
       hábitat de agua dulce</span>.
     marine_html: Se encuentran en <span class='%{class_str}' id='%{id}'>el hábitat
       marino</span>.
-    species: '%{name1}es una especie de %{name2}.'
+    species: '%{name1} es una especie de %{name2}.'
     species_in_family: '%{name1} es una especie de %{name2} en la familia %{name_family}.'
     taxonomy:
       family_above:
@@ -152,15 +152,15 @@ es:
         r_superphylum: '%{name1} es un superfilo de %{name2}.'
         r_phylum: '%{name1} es un filo de %{name2}.'
         r_subphylum: '%{name1} es un subfilo de %{name2}.'
-        r_infraphylum: '%{name1} es un infrafilo de  %{name2}.'
+        r_infraphylum: '%{name1} es un infrafilo de %{name2}.'
         r_superclass: '%{name1} es una superclase de %{name2}.'
         r_class: '%{name1} es una clase de %{name2}.'
         r_subclass: '%{name1} es una subclase de %{name2}.'
         r_infraclass: '%{name1} es una infraclase de %{name2}.'
         r_superorder: '%{name1} es un superorden de %{name2}.'
-        r_order: '%{name1} es una orden de %{name2}.'
-        r_suborder: '%{name1} es una suborden de %{name2}.'
-        r_infraorder: '%{name1} es una infraorden de %{name2}.'
+        r_order: '%{name1} es un orden de %{name2}.'
+        r_suborder: '%{name1} es un suborden de %{name2}.'
+        r_infraorder: '%{name1} es un infraorden de %{name2}.'
         r_family: '%{name1} es una familia de %{name2}.'
       below_family:
         with_family:
@@ -176,7 +176,7 @@ es:
           r_species: '%{name1} es una especie de %{name2} en la familia %{name3}.'
           r_subspecies: '%{name1} es una subespecie de %{name2} en la familia %{name3}.'
           r_infraspecies: '%{name1}es una infraespecie de %{name2} en la familia %{name3}.'
-          r_form: '%{name1} es una forma de  %{name2} en la familia %{name3}.'
+          r_form: '%{name1} es una forma de %{name2} en la familia %{name3}.'
         without_family:
           r_subfamily: '%{name1} es una subfamilia de %{name2}.'
           r_infrafamily: '%{name1} es una intrafamilia de %{name2}.'
@@ -211,7 +211,7 @@ es:
       header: Riqueza de la página
       score: puntuación de riqueza
       page_contents_count: contenido asociado
-      missing: La riqueza aun no ha sido calculada para esta página
+      missing: La riqueza aún no ha sido calculada para esta página
       media_count: Medios
       articles_count: artículos
       links_count: enlaces
@@ -287,7 +287,7 @@ es:
         add: '%{user} creó la colección'
         change: '%{user} cambio el %{field} de "%{from}" a "%{to}"'
       content:
-        add: '%{user} añadió el medio %{medium} por la página %{page}'
+        add: '%{user} añadió el medio %{medium} para la página %{page}'
         change: '%{user} cambió el %{field} en medio %{medium} por página %{page}
           de "%{from}" a "%{to}"'
         remove: '%{user} removió el medio %{medium} por página %{page}'
@@ -800,7 +800,7 @@ es:
       sound: sonido
       map_image: mapa
       js_map: mapa interactivo
-  medium_collect_button: compilar medios
+  medium_collect_button: recopilar medios
   medium_description_blank: No se ha proporcionado una descripción para este objeto.
   medium_header_title: 'Título:'
   medium_header_description: 'Descripción:'
@@ -911,7 +911,7 @@ es:
         r_subspecies: Subespecie
         r_infraspecies: Infraespecie
         r_form: Formulario
-      reference_taxon_attrib: Referencia taxon de %{dataset_name}
+      reference_taxon_attrib: Taxón de referencia de %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
@@ -1342,7 +1342,7 @@ es:
         coincidientes de los datos de EOL Estos  pueden acortarse  para  ajustarse
         a la medida de la pantalla. Puede seleccionar un grupo del cuadro para ver
         los subgrupos o para limitar los resultados de búsqueda.
-      other_term_name: otro%{term_name}
+      other_term_name: otro %{term_name}
       hist_value_label: valor (%{units})
       n_family_records:
         one: un registro para taxones en la familia %{family}
@@ -1418,15 +1418,15 @@ es:
       filter_display:
         eq: '%{pred} = %{num_val} %{units}'
         gte: '%{pred} >= %{num_val} %{units}'
-        lifestage: etapa de vida:%{value}
+        lifestage: 'etapa de vida: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: con valor%{obj}
+        obj_only: 'con valor: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} en [%{num_val1}, %{num_val2}] %{units}'
-        resource: recurso%{value}
-        sex: sexo%{value}
-        statistical_method: método estadístico%{value}
+        resource: 'recurso: %{value}'
+        sex: 'sexo: %{value}'
+        statistical_method: 'método estadístico: %{value}'
       gbif_search: Búsqueda GBIF
       gbif_search_hover: encuentre registros de ocurrencia en GBIF para los taxones
         en sus resultados de búsqueda (límite 50)
@@ -1477,7 +1477,7 @@ es:
     untrusted: No confiable
   user:
     batch_page_lookup: Búsqueda de páginas por lotes
-    created_at: creación
+    created_at: creado
     download_queue: Cola de descarga de datos
     grant_power: Concede acceso a usuarios avanzados
     revoke_power: Revocar acceso de moderador

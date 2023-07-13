@@ -2670,9 +2670,25 @@ pms:
         https://eol(dot)org/schema/terms/mobile_prey_feeder: as nuriss ëd pijàite
           mòbij
         http://eol(dot)org/schema/terms/ModeOfAction: manera d'assion
+        http://eol(dot)org/schema/terms/moderateRate: moderà
+        http://eol(dot)org/schema/terms/moderateLifeSpan: durà ëd vita moderà
+        http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m²/jour
+        https://eol(dot)org/schema/terms/mollusk_foot: pe ëd molusch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000432: monadnock
+        http://eol(dot)org/schema/terms/monandry: monàndrich
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000412: monass
+        https://eol(dot)org/schema/terms/monoicous: monòich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: desert ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000435: foresta ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: prairìa ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: savan-a ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: gërbola ëd montagna
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: landa ùmida
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: temp d'ardobiament
           dël tass ëd mortalità
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: età
+          moscovian-a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualìstich con
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
