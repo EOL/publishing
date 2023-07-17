@@ -23,6 +23,7 @@
 # Author: Re demz
 # Author: Rodrigo Pavani
 # Author: Rodrigo Pavani
+# Author: Saturnow
 # Author: TheEduGobi
 # Author: TheEduGobi
 # Author: Trooper57
@@ -494,6 +495,7 @@ pt-BR:
     q35756: Haya
     he: Hebraico
     heb: Hebraico
+    q3129390: Hehe
     hz: Herero
     q35978: Panayano
     hi: Hindi
@@ -510,6 +512,7 @@ pt-BR:
     ie: Interlingue; Occidental
     iu: Inuktitut
     ik: Inupiaq
+    q33595: Iraque
     ga: Irlandês
     it: Italiano
     ita: Italiano
@@ -531,6 +534,10 @@ pt-BR:
     kk: Cazaque
     ki: Quicuio; Gikuyu
     q33656: Lapão de Quildim
+    q33720: |2-
+
+      Antiguidade
+    q11005332: Prevenção
     rw: Quinharuanda
     ky: Quirguiz
     kv: Cômi

@@ -1376,7 +1376,7 @@ es:
       n_taxa_with:
         one: taxón con "%{obj_name}"
         other: '%{count} taxones con "%{obj_name}"'
-      sankey_node_hover: clica para limitar la búsqueda a%{term_name}
+      sankey_node_hover: haga clic para limitar la búsqueda a %{term_name}
       see_n_obj_records:
         one: clica para ver un registro con "%{obj_name}"
         other: clica para ver %{count} registros con "%{obj_name}"
@@ -1398,7 +1398,7 @@ es:
         attribute_summary: mostrar resumen de atributos
         taxon_summary: mostrar resumen del taxón
       taxon_summary:
-        click_to_filter: presione para filtrar
+        click_to_filter: haga clic para filtrar
         click_to_filter_by: Haga clic para filtrar por '%{name}'
       toggle_text:
         taxon_summary: mostrar resumen de taxón
@@ -1848,7 +1848,7 @@ es:
         http://purl(dot)dataone(dot)org/odo/ECSO_00001143: biomasa de carbono
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: período
           carbonífero
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: armazón
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: cadáver
         https://eol(dot)org/schema/terms/carcharhiniform: carcarriniformes
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: edad
           Carniense

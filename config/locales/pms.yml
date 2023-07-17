@@ -2685,10 +2685,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: gërbola ëd montagna
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mèis
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: landa ùmida
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: moren-a
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: temp d'ardobiament
           dël tass ëd mortalità
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: età
           moscovian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: còl ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: caden-a ëd montagne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: pàuta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: volcan ëd pàuta
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualìstich con
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
