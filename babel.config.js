@@ -48,12 +48,6 @@ module.exports = function(api) {
         }
       ],
       [
-        '@babel/plugin-proposal-object-rest-spread',
-        {
-          useBuiltIns: true
-        }
-      ],
-      [
         '@babel/plugin-transform-runtime',
         {
           helpers: false,
