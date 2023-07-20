@@ -254,6 +254,7 @@ They are *not* used in EOL's relational publishing database.
    syntax and semantics are hairy; see RDB documentation for details.
 * `is_hidden_from_overview` property: hidden from the trait overview on a web page
 * `is_hidden_from_glossary` property
+* `exclusive to clade id` property: for measurement terms; records using this term should only be attached to taxa descended from the specified node.
 * `position` property:  an integer assigned only to this term, related to the
   ordering of this `Trait` information in the summary on the web page
 * `trait_row_count` property: a periodically calculated (offline) count of all (:Trait)-[:\<reltype\>]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(term) paths where term is the Term in question. reltype is object\_term for Terms with type = 'value' and predicate for Terms with type in ['measurement', 'association']. This is a statistic used for query optimization. May not be present.
