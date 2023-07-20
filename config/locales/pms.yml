@@ -2693,8 +2693,20 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: montagna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: còl ëd montagna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: caden-a ëd montagne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: mocia
+        https://eol(dot)org/schema/terms/mucus_gliding: sghijament medià da la mocia
+        http://eol(dot)org/schema/terms/mucus_net_feeder: as nuriss con na rej ëd
+          mocia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: pàuta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: volcan ëd pàuta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: teren motos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005793: eva motosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000192: pian-a ëd maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: ciusa multifonsional
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: munissipalità
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: mùscol
+        https://eol(dot)org/schema/terms/muscular_waves: ondulassion muscular
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: sistema muscoloschelétrich
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualìstich con
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt

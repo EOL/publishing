@@ -1299,7 +1299,7 @@ es:
       pred_uri_blank_obj_clade_error: no puede estar en blanco con un clado objetivo
       pred_uri_blank_numeric_error: no puede estar en blanco con un valor numérico
       range_invalid_error: debe ser >= al primer valor
-      units_blank_error: las unidades no se pueden estar en blanco para una  búsqueda
+      units_blank_error: las unidades no pueden estar en blanco para una búsqueda
         numérica
   terms:
     attribution_field_html: <strong>Atribución:</strong> <a href='%{attribution}'>%{attribution}</a>
@@ -1339,9 +1339,9 @@ es:
         de un subconjunto resaltado, estas especies serán contadas varias veces en
         otros ejes.
       about_this_chart_tooltip_taxon_summary: Este es un resumen de los grupos taxonómicos
-        coincidientes de los datos de EOL Estos  pueden acortarse  para  ajustarse
-        a la medida de la pantalla. Puede seleccionar un grupo del cuadro para ver
-        los subgrupos o para limitar los resultados de búsqueda.
+        para los cuales EOL tiene datos que coinciden con su búsqueda. Se puede truncar
+        para ajustarse al tamaño de la pantalla. Puede seleccionar un grupo del gráfico
+        para ver subgrupos o restringir los resultados de la búsqueda.
       other_term_name: otro %{term_name}
       hist_value_label: valor (%{units})
       n_family_records:
@@ -1359,7 +1359,7 @@ es:
       num_records_label: N.º de registros
       other: otro
       page_habitat_header: Hábitats de %{name}
-      page_habitat_explanation: los entornos en los cuales se conoce que muchas %{name}  especies
+      page_habitat_explanation: Los entornos en los cuales se conoce que muchas %{name}  especies
         viven. Selecciona un entorno para ver su lista de verificación de %{name}
         especies.
       pie_prompt: pase el ratón sobre un segmento o clave para resaltarla.
@@ -1510,8 +1510,8 @@ es:
     update: Actualizar
     update_email: Actualizar dirección de correo electrónico
   user_download:
-    created: Su archivo será procesado en segundo plano. Consulte %{url} para ver
-      si se ha completado.
+    created: Su archivo se procesará en segundo plano. Verifique su <a href="%{url}">página
+      de usuario</a> para ver si se ha completado.
     have_pending: Ya tiene una descarga pendiente para esta consulta. Compruebe su
       <a href="%{url}"> página de usuario </a> para ver si se ha completado.
   users:
@@ -1749,7 +1749,7 @@ es:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: biodifusor
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biopelícula
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: sílice biogénica
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: sedimento biológico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: sedimento biogeno
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: Residuos biológicos
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminiscente
         https://eol(dot)org/schema/terms/bipedal_running: bípedo corriendo
@@ -2845,7 +2845,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002223: agua oligotrófica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000193: Olivar
         https://eol(dot)org/schema/terms/omnidirectional: omnidireccional
-        https://eol(dot)org/schema/terms/omnivoreCarnivore: omnívoro-Carnívoro
+        https://eol(dot)org/schema/terms/omnivoreCarnivore: omnívoro-carnívoro
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: comienzo de la fertilidad
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_OEV: ventilador abierto
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperatura óptima
