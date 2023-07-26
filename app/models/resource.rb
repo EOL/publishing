@@ -200,6 +200,11 @@ class Resource < ApplicationRecord
     end
   end
 
+  def recount_pages
+    page_ids = nodes.pluck 'page_id'
+    Page.where(id: page_ids).where('media_count <= 0').find_each {|p| p.recount }
+  end
+
   def publish_pending?
     Delayed::Job.where(queue: 'harvest', locked_at: nil).where(%Q{handler LIKE "%resource_id: #{id}\n%"}).any?
   end
