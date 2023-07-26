@@ -13,6 +13,7 @@ class Medium
                     'Copyright Owner']]
                 puts "start #{Time.now}"
                 STDOUT.flush
+                remove_existing_files
                 subclasses = [Medium.subclasses[:image], Medium.subclasses[:map_image]]
                 # NOTE: this no longer restricts itself to visible or trusated media, but I think that's fine for the use-case.
                 Medium.where('page_id IS NOT NULL').where(subclass: subclasses).includes(:license).find_each do |item|
@@ -29,6 +30,13 @@ class Medium
                 flush_collection unless @collection.empty?
                 zip_collections
                 puts "end #{Time.now}"
+            end
+
+            def remove_existing_files
+                glob = Dir.glob(Rails.public_path.join('data', 'media_manifest_*.csv'))
+                return if glob.empty?
+                puts "removing #{glob.size} files ..."
+                glob.each { |file| File.delete(file) }
             end
 
             def flush_collection
