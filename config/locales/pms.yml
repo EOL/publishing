@@ -2707,8 +2707,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: mùscol
         https://eol(dot)org/schema/terms/muscular_waves: ondulassion muscular
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: sistema muscoloschelétrich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003033: compòst për bolè
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001386: bariera ëd còsse
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualìstich con
+        http://eol(dot)org/schema/terms/myrmecochory: mirmecocorìa
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: pòrt natural
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: arzerva natural
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0015170: euj ëd naupil
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: stadi ëd naupil
+        http://eol(dot)org/schema/terms/nearThreatened: scasi mnassà
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
