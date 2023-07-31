@@ -28,8 +28,11 @@ class Medium
                 end
                 puts "created files #{Time.now} ... now archiving..."
                 flush_collection unless @collection.empty?
-                zip_collections
+                zipfile = zip_collections
+                puts "updating timestamp on OpenData..."
+                update_opendata_timestamp
                 puts "end #{Time.now}"
+                return zipfile
             end
 
             def remove_existing_files
@@ -51,9 +54,17 @@ class Medium
             end
 
             def zip_collections
+                dir = Rails.public_path.join('data')
                 zipfile = Rails.public_path.join('data', 'media_manifest.tgz')
                 File.unlink(zipfile) if File.exist?(zipfile)
-                `tar cvzf #{zipfile} #{Rails.public_path.join('data')}/media_manifest_*.csv`
+                `cd #{dir} && tar cvzf #{zipfile} media_manifest_*.csv`
+                return zipfile
+            end
+
+            def update_opendata_timestamp
+                api_uri = 'https://editors.eol.org/eol_php_code/update_resources/connectors/ckan_api_access.php'
+                ckan_resource_id = 'f80f2949-ea76-4c2f-93db-05c101a2465c'
+                `curl #{api_uri} -d ckan_resource_id=#{ckan_resource_id} -d "file_type=EOL file"`
             end
         end
     end

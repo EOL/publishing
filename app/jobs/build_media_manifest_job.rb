@@ -4,6 +4,8 @@
 # http://eol.org/data/provider_ids.csv.gz
 class BuildMediaManifestJob < ApplicationJob
   def perform
-    Medium::ManifestExporter.export
+    Rails.logger.warn("START ManifestExporter Job")
+    output = Medium::ManifestExporter.export
+    Rails.logger.warn("END ManifestExporter Job. Output to #{output}")
   end
 end
