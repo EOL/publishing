@@ -2717,6 +2717,19 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0015170: euj ëd naupil
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: stadi ëd naupil
         http://eol(dot)org/schema/terms/nearThreatened: scasi mnassà
+        http://www(dot)marinespecies(dot)org/traits/Nekton: netònich
+        http://eol(dot)org/schema/terms/nektobenthic: nectobèntich
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: perìod
+          neogénich
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: nadin
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: era
+          neoproterosòica
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Neotype: neotipo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000032: zòna pelàgica nerìtica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000206: zòna nerìtica
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: sistema nervos
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: maladìe dël sistema
+          nervos
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
