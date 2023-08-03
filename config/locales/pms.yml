@@ -2730,7 +2730,19 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: sistema nervos
         http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: maladìe dël sistema
           nervos
+        http://eol(dot)org/schema/terms/net_carbon_fixation_rate: tass polid ëd fissassion
+          dël carbòni
+        https://eol(dot)org/schema/terms/neuston: neuston
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/hr
+        https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/min
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
+        https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
+        https://eol(dot)org/schema/terms/nmolpergramperhour: nmol/g/hr
+        http://eol(dot)org/schema/terms/no: nò
+        http://eol(dot)org/schema/terms/noHarem: gnun harem
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: gnun soen parental
+        http://eol(dot)org/schema/terms/noPaternalCare: gnun soen patern
+        http://eol(dot)org/schema/terms/noSocialGroupLiving: vivent sensa partìa sossial
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghëssa ëd la nos
