@@ -2743,7 +2743,10 @@ pms:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: gnun soen parental
         http://eol(dot)org/schema/terms/noPaternalCare: gnun soen patern
         http://eol(dot)org/schema/terms/noSocialGroupLiving: vivent sensa partìa sossial
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: as nuriss ëd
+          depòsit nen seletiv
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: gnun
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghëssa ëd la nos
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
