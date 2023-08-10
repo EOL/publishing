@@ -2747,6 +2747,7 @@ pms:
           depòsit nen seletiv
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: gnun
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: età norian-a
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghëssa ëd la nos
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
