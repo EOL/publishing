@@ -2743,19 +2743,28 @@ pms:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: gnun soen parental
         http://eol(dot)org/schema/terms/noPaternalCare: gnun soen patern
         http://eol(dot)org/schema/terms/noSocialGroupLiving: vivent sensa partìa sossial
+        http://eol(dot)org/schema/terms/activityCycleOther: nuité/dl'ambrun, catemeral,
+          dl'ambrun o dël di/dl'ambrun
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: as nuriss ëd
           depòsit nen seletiv
+        http://eol(dot)org/schema/terms/non-woodyEpipyte: epifita nen ëd bòsch
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: gnun
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: età norian-a
+        http://eol(dot)org/schema/terms/northernArcticDwarfShrubSubzone: sot-zòna
+          d'arborin nan ëd l'artich setentrional
+        http://eol(dot)org/schema/terms/notMonogamous: nen monògam
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghëssa ëd la nos
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://eol(dot)org/schema/terms/NumberOfHosts: nùmer d'òspit
         http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: nùmer d'argistrassion
-          pùbliche an BOLD
+          pùbliche an grassèt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000181: nunatak
         http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: composission dij
           nuriment ant ël làit
+        http://eol(dot)org/schema/terms/nutrient_symbiotroph: simbiòtrof an nuriment
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: foresta ëd rol
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: àcid otadecanoid
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
