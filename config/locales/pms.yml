@@ -2765,6 +2765,10 @@ pms:
           nuriment ant ël làit
         http://eol(dot)org/schema/terms/nutrient_symbiotroph: simbiòtrof an nuriment
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: foresta ëd rol
+        http://eol(dot)org/schema/terms/obligateClimber: grimpeur obligatòri
+        http://eol(dot)org/schema/terms/obligateEpiphyte: epifita obligatòri
+        http://rs(dot)tdwg(dot)org/dwc/terms/occurrenceRemarks: armarche ëd l'ocorensa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: zòna batipelàgica osseànica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: àcid otadecanoid
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
