@@ -200,6 +200,7 @@ class Resource < ApplicationRecord
     end
   end
 
+  # Note: you *probably* want to call PageIcon.fix after this.
   def recount_pages
     page_ids = nodes.pluck 'page_id'
     Page.where(id: page_ids).where('media_count <= 0').find_each {|p| p.recount }
