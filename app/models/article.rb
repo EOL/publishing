@@ -54,4 +54,12 @@ class Article < ApplicationRecord
   def image?
     false
   end
+
+  def video?
+    false
+  end
+  
+  def sound?
+    false
+  end
 end
