@@ -544,7 +544,7 @@ private
   end
 
   def setup_habitat_bar_chart
-    return if !@page.native_node.any_landmark? || HABITAT_CHART_BLACKLIST_IDS.include?(@page.id)
+    return if !@page.native_node&.any_landmark? || HABITAT_CHART_BLACKLIST_IDS.include?(@page.id)
 
     query = TermQuery.new({
       clade: @page,

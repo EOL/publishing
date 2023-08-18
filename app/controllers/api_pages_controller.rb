@@ -106,7 +106,7 @@ class ApiPagesController < LegacyApiController
     node = page.safe_native_node
     @return_hash = {
       identifier: page.id,
-      scientificName: node.preferred_scientific_name.verbatim,
+      scientificName: node&.preferred_scientific_name&.verbatim || 'UNKNOWN',
       richness_score: page.page_richness
     }
     if params[:synonyms]
