@@ -202,8 +202,18 @@ class Resource < ApplicationRecord
 
   # Note: you *probably* want to call PageIcon.fix after this.
   def recount_pages
-    page_ids = nodes.pluck 'page_id'
-    Page.where(id: page_ids).where('media_count <= 0').find_each {|p| p.recount }
+    visited_pages = {}
+    total_count = nodes.count
+    puts "## Recounting #{total_count} nodes..."
+    nodes.includes(:page).find_each do |node|
+      page = node.page
+      next if visited_pages.key?(page.id)
+      visited_pages[page.id] = 1
+      num_done = visited_pages.size
+      puts "++ #{page.id} (#{num_done}/#{total_count})" if (num_done % 250).zero?
+      page.recount
+    end
+    puts "++ Done. #{visited_pages.size} pages affected out of #{total_count} possible nodes."
   end
 
   def publish_pending?
