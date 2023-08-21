@@ -2769,7 +2769,17 @@ pms:
         http://eol(dot)org/schema/terms/obligateEpiphyte: epifita obligatòri
         http://rs(dot)tdwg(dot)org/dwc/terms/occurrenceRemarks: armarche ëd l'ocorensa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: zòna batipelàgica osseànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000040: zòna bentopelàgica osseànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000071: front osseànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: ìsola osseànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: zòna osseànica
+        http://eol(dot)org/schema/terms/oceanodromous: osseanòdrom
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001758: ujet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: àcid otadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: piantagion ëd palme
+          da euli
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: età
+          olenekian-a
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
           otimal
