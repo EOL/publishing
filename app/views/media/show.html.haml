@@ -25,6 +25,7 @@
               = "-- (Only click this if you're sure it's wrong!)"
           %ul
             - medium_appears_on(@medium).each do |page|
+              - next if page.nil?
               %li= link_to_page_canonical(page)
           - collections = @medium.collections.compact.sort_by(&:name)
           - if collections.empty?
