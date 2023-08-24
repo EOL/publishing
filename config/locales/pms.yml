@@ -2780,6 +2780,12 @@ pms:
           da euli
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: età
           olenekian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oligocene: época
+          oligocen-a
+        http://eol(dot)org/schema/terms/oligotrophicFreshwaterLake: lagh d'eva dossa
+          oligòtrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002223: eva oligòtrofa
+        https://eol(dot)org/schema/terms/omnidirectional: omnidiressional
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
           otimal
