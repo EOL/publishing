@@ -2785,11 +2785,21 @@ pms:
         http://eol(dot)org/schema/terms/oligotrophicFreshwaterLake: lagh d'eva dossa
           oligòtrof
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002223: eva oligòtrofa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000193: ulivera
         https://eol(dot)org/schema/terms/omnidirectional: omnidiressional
+        https://eol(dot)org/schema/terms/omnivoreCarnivore: onìvor-carnìvor
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_OEV: ventilator a estremità
+          duverta
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
           otimal
+        https://eol(dot)org/schema/terms/optimal_rainfall: pluviometrìa otimal
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: groson
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: vërzé
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ordovician: perìod
+          ordovician
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: sistema d'òrgo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: materia orgànica
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: decorassion
         http://eol(dot)org/schema/terms/OuterEarLength: longheur dl'orija esterna
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
