@@ -2800,8 +2800,17 @@ pms:
           ordovician
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: sistema d'òrgo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: materia orgànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000137: crov ëd materia orgànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: rumenta orgànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002202: sediment contaminà da
+          dle sostanse orgàniche
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientassion
+        http://eol(dot)org/schema/terms/OriginOfToxin: orìgin ëd la tossin-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: decorassion
+        https://eol(dot)org/schema/terms/ostraciiform: ostraciform
+        http://eol(dot)org/schema/terms/otherBudSource: àutr
         http://eol(dot)org/schema/terms/OuterEarLength: longheur dl'orija esterna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: moren-a frontal
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
