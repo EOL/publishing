@@ -2810,7 +2810,10 @@ pms:
         https://eol(dot)org/schema/terms/ostraciiform: ostraciform
         http://eol(dot)org/schema/terms/otherBudSource: àutr
         http://eol(dot)org/schema/terms/OuterEarLength: longheur dl'orija esterna
+        http://eol(dot)org/schema/terms/outerReef: bariera esterior
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: moren-a frontal
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: ovoidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: lagh an arch
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
