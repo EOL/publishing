@@ -2814,7 +2814,13 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: moren-a frontal
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: ovoidal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: lagh an arch
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: diactin-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: età
+          oxfordian-a
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: risera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: seul ëd risera
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parassità da
