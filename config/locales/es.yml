@@ -5,6 +5,7 @@
 # Author: Alonso Biólogo
 # Author: Aramos1422
 # Author: Aramos1422
+# Author: Atzerritik
 # Author: Avengium
 # Author: Avengium
 # Author: Canaan9801
@@ -70,7 +71,7 @@
 # Author: Yel Martinez Seo
 ---
 es:
-  language_name: español
+  language_name: Inglés
   about:
     trait_bank:
       title: TraitBank
@@ -613,7 +614,7 @@ es:
     mt: Maltés
     mlt: Maltés
     gv: Manés
-    mi: maorí
+    mi: Maorí
     mr: Maratí
     mh: Marshalés
     q6786446: Matengo
