@@ -16,6 +16,7 @@
 # Author: Josephine W.
 # Author: Kly
 # Author: Lantianjialiang
+# Author: LittlePaw365
 # Author: Liuxinyu970226
 # Author: Nadine Siak
 # Author: Njzjz
@@ -1212,7 +1213,7 @@ zh-CN:
       invalid_uri: 无效URI
       multi_obj_error: 不能同时具有对象术语和目标进化枝
       pred_uri_blank_obj_clade_error: 目标进化枝不能为空
-      pred_uri_blank_numeric_error: 不能为带有数值的空白
+      pred_uri_blank_numeric_error: 数字值不能为空
       range_invalid_error: 必须>=第一个值
       units_blank_error: 搜索数字时数字的单位不能为空
   terms:
@@ -1238,7 +1239,7 @@ zh-CN:
         在高亮的子集显示中，这些多值物种将在其他坐标轴上多次计数。
       about_this_chart_tooltip_taxon_summary: 这是EOL具有与您搜索相匹配的数据的分类类群的摘要。它可能会被截断以适应显示尺寸。您可以从图表中选择一个类群来查看子类群或缩小搜索结果的范围。
       other_term_name: 其他%{term_name}
-      hist_value_label: 数值 (%{units})
+      hist_value_label: 值（%{units}）
       n_family_records:
         one: '%{family}科中分类群的一个记录'
         other: '%{family}科中分类群的%{count}个记录'
@@ -1423,7 +1424,7 @@ zh-CN:
     glossary:
       full_title: EOL数据的所有术语词汇表
       predicate_title: EOL数据的类别术语表
-      object_term_title: EOL数据的数值术语表
+      object_term_title: EOL数据的值术语表
       units_title: EOL数据的单位术语表
     pagination:
       next: 下一页
