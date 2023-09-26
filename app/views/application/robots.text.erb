@@ -4,5 +4,9 @@ Request-rate: 1/1
 <%= "Disallow: #{pattern}" %>
 <% end %>
 Sitemap: https://eol.org/data/sitemap/sitemap.xml.gz
-User-agent: msnbot
+
+<% @slow_spiders.each do |spider| %>
+User-agent: <%= spider %>
 Crawl-delay: 2
+
+<% end %>

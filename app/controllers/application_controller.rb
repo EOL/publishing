@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   ROBOTS_DISALLOW_PATTERNS = Rails.application.config.x.robots_disallow_patterns
   ROBOTS_DISALLOW_REGEXPS = RobotsUtil.url_patterns_to_regexp(ROBOTS_DISALLOW_PATTERNS)
+  ROBOTS_SLOW_SPIDERS = Rails.application.config.x.robots_slow_spiders
 
   class BadRequestError < TypeError; end
 
@@ -38,8 +39,10 @@ class ApplicationController < ActionController::Base
       format.text do
         if Rails.application.config.x.block_crawlers
           @disallow_patterns = ["/"]
+          @slow_spiders = []
         else
           @disallow_patterns = ROBOTS_DISALLOW_PATTERNS
+          @slow_spiders = ROBOTS_SLOW_SPIDERS
         end
       end
     end

@@ -56,7 +56,19 @@ module EolWebsite
       "/users/",
       "/resources/*/nodes/",
       "/search/",
-      "/pages/*/names"
+      "/pages/*/names",
+      "/assets/"
+    ]
+
+    config.x.robots_slow_spiders = [
+      "msnbot",
+      "Baiduspider",
+      "360Spider",
+      "Yisouspider",
+      "PetalBot",
+      "Bytespider",
+      "Sogou web spider",
+      "Sogou inst spider"
     ]
 
     config.x.geonames_app_id = Rails.application.secrets.geonames_app_id
