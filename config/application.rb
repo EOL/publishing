@@ -57,7 +57,8 @@ module EolWebsite
       "/resources/*/nodes/",
       "/search/",
       "/pages/*/names",
-      "/assets/"
+      "/assets/", # Lots of bots kept downloading pngs.
+      "/*?*" # Lots of arguments to all of the media tabs! Yeesh.
     ]
 
     config.x.robots_slow_spiders = [
