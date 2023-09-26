@@ -57,6 +57,7 @@ module EolWebsite
       "/resources/*/nodes/",
       "/search/",
       "/pages/*/names",
+      "/pages/*/trophic_web",
       "/assets/", # Lots of bots kept downloading pngs.
       "/*?*" # Lots of arguments to all of the media tabs! Yeesh.
     ]
