@@ -406,6 +406,8 @@ private
 
     if is_admin?
       page_media = @page.media.not_maps.includes(:hidden_medium)
+      # Count media early to avoid EXPENSIVE join overhead:
+      @media_count = page_media.count if is_admin?
     else
       page_media = @page.regular_media
     end
@@ -429,7 +431,7 @@ private
       @resource = Resource.find(@resource_id)
     end
 
-    @media_count = media.count
+    @media_count = media.count unless is_admin?
     # Just adding the || 30 in here for safety's sake:
     @media = media.by_page(params[:page]).per(@media_page_size || 30).without_count
   end
