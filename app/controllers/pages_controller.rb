@@ -404,34 +404,33 @@ private
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
 
-    if is_admin?
-      page_media = @page.media.not_maps.includes(:hidden_medium)
+    page_media = if is_admin?
+      @page.media.not_maps.includes(:hidden_medium)
       # Count media early to avoid EXPENSIVE join overhead:
-      @media_count = page_media.count if is_admin?
     else
-      page_media = @page.regular_media
+      @page.regular_media
     end
-
-    media = page_media.includes(:license, :resource, page_contents: {
-      page: %i[native_node preferred_vernaculars] }).references(:page_contents)
 
     if params[:license_group]
       @license_group = LicenseGroup.find_by_key!(params[:license_group])
-      media = media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
+      page_media = page_media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
         "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
         "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
     end
     if params[:subclass]
       @subclass = params[:subclass]
-      media = media.where(subclass: Medium.subclasses[@subclass])
+      page_media = page_media.where(subclass: Medium.subclasses[@subclass])
     end
     if params[:resource_id]
       @resource_id = params[:resource_id].to_i
-      media = media.where(['page_contents.resource_id = ?', @resource_id])
+      page_media = page_media.where(['page_contents.resource_id = ?', @resource_id])
       @resource = Resource.find(@resource_id)
     end
 
-    @media_count = media.count unless is_admin?
+    @media_count = page_media.count
+    media = page_media.includes(:license, :resource, page_contents: {
+      page: %i[native_node preferred_vernaculars] }).references(:page_contents)
+
     # Just adding the || 30 in here for safety's sake:
     @media = media.by_page(params[:page]).per(@media_page_size || 30).without_count
   end
