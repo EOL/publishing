@@ -404,10 +404,15 @@ private
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
 
+    media_counter = PageContent.where(page_id: @page.id, content_type: "Medium").
+                                where.not(content_subclass: Medium.subclasses[:map_image]) ; 1
+    media_counter_key = "media_counter_page_#{@page.id}"
+
     page_media = if is_admin?
       @page.media.not_maps.includes(:hidden_medium)
-      # Count media early to avoid EXPENSIVE join overhead:
+      media_counter_key << "_admin"
     else
+      media_counter = media_counter.where(is_hidden: false) ; 1
       @page.regular_media
     end
 
@@ -416,18 +421,29 @@ private
       page_media = page_media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
         "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
         "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
+      # Duplication here is simpler / clearer. Sorry!
+      media_counter = media_counter.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
+        "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
+        "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
+      media_counter_key << "_license_group_#{params[:license_group]}"
     end
     if params[:subclass]
       @subclass = params[:subclass]
       page_media = page_media.where(subclass: Medium.subclasses[@subclass])
+      media_counter = media_counter.where(content_subclass: Medium.subclasses[@subclass])
+      media_counter_key << "_subclass_#{@subclass}"
     end
     if params[:resource_id]
       @resource_id = params[:resource_id].to_i
       page_media = page_media.where(['page_contents.resource_id = ?', @resource_id])
+      media_counter = media_counter.where(resource_id: @resource_id) ; 1
       @resource = Resource.find(@resource_id)
+      media_counter_key << "_resource_#{@resource_id}"
     end
 
-    @media_count = page_media.count
+    @media_count = Rails.cache.fetch(media_counter_key) {
+      media_counter.count
+    }
     media = page_media.includes(:license, :resource, page_contents: {
       page: %i[native_node preferred_vernaculars] }).references(:page_contents)
 
