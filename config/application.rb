@@ -54,12 +54,13 @@ module EolWebsite
     config.x.robots_disallow_patterns = [
       "/api/",
       "/users/",
-      "/resources/*/nodes/",
+      "/resources/*/nodes",
       "/search/",
+      "/search?*",
       "/pages/*/names",
       "/pages/*/trophic_web",
       "/assets/", # Lots of bots kept downloading pngs.
-      "/*?*" # Lots of arguments to all of the media tabs! Yeesh.
+      "*?*" # Lots of arguments to all of the media tabs! Yeesh.
     ]
 
     config.x.robots_slow_spiders = [
