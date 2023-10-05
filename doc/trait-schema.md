@@ -254,13 +254,13 @@ They are *not* used in EOL's relational publishing database.
    syntax and semantics are hairy; see RDB documentation for details.
 * `is_hidden_from_overview` property: hidden from the trait overview on a web page
 * `is_hidden_from_glossary` property
-* `exclusive_to_clade_id` property: for measurement terms; records using this term should only be attached to taxa descended from the specified node.
 * `position` property:  an integer assigned only to this term, related to the
   ordering of this `Trait` information in the summary on the web page
 * `trait_row_count` property: a periodically calculated (offline) count of all (:Trait)-[:\<reltype\>]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(term) paths where term is the Term in question. reltype is object\_term for Terms with type = 'value' and predicate for Terms with type in ['measurement', 'association']. This is a statistic used for query optimization. May not be present.
 * `distinct_page_count` property: same as above, except it is a count of the distinct pages in (page:Page)-[:trait]->(:Trait)... matches.
 
-
+* `exclusive_to_clade` link: for measurement terms; records using this term should only be attached to taxa descended from the specified node.
+* `incompatible_with_clade` link: for measurement terms; records using this term should not be attached to taxa descended from the specified node.
 * `parent_term` link: the Terms form a hierarchy, this gives the term's parent term
 * `synonym_of` link: a parent Term that this one is equivalent or approximately equivalent to. 
 * `object_for_predicate` link: a periodically-refreshed convenience relationship linking obj and pred terms where there exists (pred:Term)<-[:parent\_term|:synonym\_of\*0..]-(:Term)<-[:predicate]-(:Trait)-[:object\_term]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(obj:Term).
