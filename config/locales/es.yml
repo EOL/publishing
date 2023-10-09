@@ -32,6 +32,7 @@
 # Author: Jack30
 # Author: Jakeukalane
 # Author: Jakeukalane
+# Author: James
 # Author: JamesB
 # Author: JamesB
 # Author: Jesusmc
@@ -2976,6 +2977,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: estanque de agua
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000062: Sitio poblado
         http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: Población
+        http://eol(dot)org/schema/terms/PopulationGroupSize: tamaño del grupo de población
         http://eol(dot)org/schema/terms/population_trend: Tendencia de la población
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posición
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: Bache
