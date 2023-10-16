@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alonso Biólogo
 # Author: Alonso Biólogo
+# Author: Ana Castañon Marroquin
 # Author: Aramos1422
 # Author: Aramos1422
 # Author: Atzerritik
@@ -2746,6 +2747,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: matorral montano
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: meses
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: Páramo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: morrena
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: tiempo de duplicación
           de la tasa de mortalidad
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: edad
@@ -2909,6 +2911,7 @@ es:
         http://eol(dot)org/schema/terms/pathogen_vector_parasite: parásito vector
           patógeno
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000157: corte de turba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005774: suelo de turba
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000189: pantano de turba
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000044: Pantano
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000116: sedimento de guijarros
@@ -2952,6 +2955,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: ojos de alfiler
         http://www(dot)marinespecies(dot)org/traits/Plankton: planctónico
         http://eol(dot)org/schema/terms/planktotrophic: planctótrofo
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma de crecimiento
+          de las plantas
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: altura de planta
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma de vida vegetal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantación
@@ -2962,16 +2967,22 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: época
           del pleistoceno
         https://eol(dot)org/schema/terms/pleopod: pleópodo
+        http://eol(dot)org/schema/terms/pleustophyte: pleustofito
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: edad
           Piacenziense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: época
+          del plioceno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000483: piscina de inmersión
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/s
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: desierto polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000325: poljé
         http://purl(dot)obolibrary(dot)org/obo/PO_0025281: polen
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinizado/a por
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
         https://eol(dot)org/schema/terms/polychaete_feeder: se alimenta de poliquetos
+        https://eol(dot)org/schema/terms/polygamodioecious: poligamodioico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: estanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000512: lecho del estanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: estanque de agua
