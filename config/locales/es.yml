@@ -3041,19 +3041,29 @@ es:
         http://eol(dot)org/schema/terms/reefEdge: borde del arrecife
         http://eol(dot)org/schema/terms/reefSlope: pendiente de arrecife
         http://eol(dot)org/schema/reference/referenceID: referencia
+        https://eol(dot)org/schema/terms/reflecting_superposition_eyes: ojos reflectantes
+          de superposición
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002256: regosol
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: Reproducción
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: Temperatura de reproducción
         http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: Condición reproductiva
+        http://eol(dot)org/schema/terms/ReproductiveSkew: sesgo reproductivo
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: Estrategia reproductiva
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: embalse
         http://purl(dot)obolibrary(dot)org/obo/PO_0025603: Resina
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: Índice respiratorio
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: Sistema respiratorio
+        http://eol(dot)org/schema/terms/RespClip: capacidad de rebrote después de
+          un recorte
         http://eol(dot)org/schema/terms/RespDist: habilidad para germinar de nuevo
           despues de una perturbación
+        http://eol(dot)org/schema/terms/RespFire: capacidad de rebrote después de
+          un incendio
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: edad
           Rhaetiense
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: planta rizomatosa
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: Rizoma
+        http://eol(dot)org/schema/terms/rhizomesOrRoots: rizomas o raíces
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: rizosfera
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: edad
           Rhuddaniense
