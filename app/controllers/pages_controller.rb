@@ -409,8 +409,8 @@ private
     media_counter_key = "media_counter_page_#{@page.id}"
 
     page_media = if is_admin?
-      @page.media.not_maps.includes(:hidden_medium)
       media_counter_key << "_admin"
+      @page.media.not_maps.includes(:hidden_medium)
     else
       media_counter = media_counter.where(is_hidden: false) ; 1
       @page.regular_media
