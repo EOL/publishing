@@ -557,6 +557,7 @@ cs:
     q6786446: Matengo
     q3906614: Louka Mari
     q13357: Meänkieli
+    q13358: Rumunský Megleno
     q13313: Meru
     q13321: Miꞌkmaq
     q36455: Min Dong
@@ -608,10 +609,12 @@ cs:
     qu: Kečuánština
     ro: Rumunština; Moldavština; Moldovan
     rm: rétorománština
+    rn: Rundi
     ru: Ruština
     rus: Ruština
     q26245: Rusínština
     q34299: Jakutština
+    q718269: Sakizaya
     sm: Samoaština
     q34016: Sandawe
     sg: Sango
@@ -635,8 +638,10 @@ cs:
     sl: Slovinština
     so: Somálština
     som: Somálština
+    st: Sotho, Jižní
     es: Španělština; Kastilština
     slv: Španělština
+    q2638144: Sukuma
     su: Sundánština
     sw: Swahilština
     ss: Swati
@@ -653,6 +658,7 @@ cs:
     tha: Thajština
     bo: Tibetština
     ti: Tigrínština
+    q34159: Tok Pisin
     to: Tongština
     q180937: Tosk Albánština
     ts: Tsonga
@@ -813,9 +819,11 @@ cs:
         r_superclass: Nadtřída
         r_class: Třída
         r_subclass: Podtřída
+        r_infraclass: Infratřída
         r_superorder: Nadřád
         r_order: Pořadí
         r_suborder: Podřád
+        r_infraorder: Infrařád
         r_superfamily: Nadčeleď
         r_family: Rodina
         r_subfamily: Podčeleď
@@ -925,6 +933,7 @@ cs:
         id_format: ID Format
       type_names:
         taxon: Taxon
+      numeric_id: číselné ID
     property:
       description:
         ancestor: Taxon, který je předkem jiného taxonu.
@@ -1521,6 +1530,7 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: albánský
           věk
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: zásadité prostředí
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: alkalické ploché
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: alkalické stanoviště
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: zásaditý horký pramen
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: alolektotyp
@@ -1628,6 +1638,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: hráz bobra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: rybník bobrů
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: včelí vosk
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: Cirkadiánní rytmus chování
         http://eol(dot)org/schema/terms/benthic: bentické
         http://purl(dot)jp/bio/4/id/201306015586596728: bentické rozsivky
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: berriasovský
@@ -1663,6 +1674,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: listnatý les
         http://eol(dot)org/schema/terms/bromelicolous: bromélie
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: hnědá
+        http://eol(dot)org/schema/terms/browsing: prohledávač
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: pupen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: budova
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: stavební materiál
