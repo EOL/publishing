@@ -212,7 +212,7 @@ OPTIONAL MATCH (t)-[:contributor]->(contr:Term)
 OPTIONAL MATCH (t)-[:compiler]->(comp:Term)
 OPTIONAL MATCH (t)-[:determined_by]->(detr:Term)
 OPTIONAL MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"reference"})
-RETURN contr.name, comp.name, detr.name, ref.literal
+RETURN t.citation, t.source, contr.name, comp.name, detr.name, ref.literal
 ```
 Where references are present, there may be more than one; to ensure you have them all, you can run an additional query. Multiple contributors, compilers, or determined_by are also possible, but rare. 
 
