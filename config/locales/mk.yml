@@ -60,6 +60,73 @@ mk:
     types:
       scientific: научно
       vernacular: народно
+  brief_summary:
+    extinction:
+      r_genus_html: Овој род е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_subgenus_html: Овој подрод е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_infragenus_html: Овој инфрарод е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_superspecies_html: Овој подвид е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_species_html: Овој вид е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_subspecies_html: Овој подвид е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_infraspecies_html: Овој инфравид е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+      r_form_html: Овој облик е <span class='%{class_str}' id='%{id}'>изумрен</span>.
+    fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>Врзуваат</span>
+      <span class='%{class_str}' id='%{object_id}'>азот</span>.
+    freshwater_html: Поврзанисе со <span class='%{class_str}' id='%{id}'>слатководни
+      живеалишта</span>.
+    marine_html: Се среќаваат во <span class='%{class_str}' id='%{id}'>морски живеалишта</span>.
+    species: '%{name1} е вид на %{name2}.'
+    species_in_family: '%{name1} е вид на %{name2} во семејството %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} е натсемејство на %{name2}.'
+        r_domain: '%{name1} е домен на %{name2}.'
+        r_subdomain: '%{name1} е поддомен на %{name2}.'
+        r_infradomain: '%{name1} е инфрадомен на %{name2}.'
+        r_superkingdom: '%{name1} е натцарство на %{name2}.'
+        r_kingdom: '%{name1} е царство на %{name2}.'
+        r_subkingdom: '%{name1} е потцарство на %{name2}.'
+        r_infrakingdom: '%{name1} е инфрацарство на %{name2}.'
+        r_superphylum: '%{name1} е натколено на %{name2}.'
+        r_phylum: '%{name1} е колено на %{name2}.'
+        r_subphylum: '%{name1} е потколено на %{name2}.'
+        r_infraphylum: '%{name1} е инфраколено на %{name2}.'
+        r_superclass: '%{name1} е наткласа на %{name2}.'
+        r_class: '%{name1} е класа на %{name2}.'
+        r_subclass: '%{name1} е поткласа на %{name2}.'
+        r_infraclass: '%{name1} е инфракласа на %{name2}.'
+        r_superorder: '%{name1} е надред на %{name2}.'
+        r_order: '%{name1} е ред на %{name2}.'
+        r_suborder: '%{name1} е подред на %{name2}.'
+        r_infraorder: '%{name1} е инфраред на %{name2}.'
+        r_family: '%{name1} е семејство на %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} е потсемејство на %{name2} во семејството %{name3}.'
+          r_infrafamily: '%{name1} е инфрасемејство на %{name2} во семејството %{name3}.'
+          r_tribe: '%{name1} е племе на %{name2} во семејството %{name3}.'
+          r_supergenus: '%{name1} е надрод на %{name2} во семејството %{name3}.'
+          r_genus: '%{name1} е род на %{name2} во семејството %{name3}.'
+          r_subgenus: '%{name1} е подред на %{name2} во семејството %{name3}.'
+          r_infragenus: '%{name1} е ифрарод на %{name2} во семејството %{name3}.'
+          r_superspecies: '%{name1} е надвид на %{name2} во семејството %{name3}.'
+          r_species: '%{name1} е вид на %{name2} во семејството %{name3}.'
+          r_subspecies: '%{name1} е подвид на %{name2} во семејството %{name3}.'
+          r_infraspecies: '%{name1} е инфравид на %{name2} во семејството %{name3}.'
+          r_form: '%{name1} е облик на %{name2} во семејството %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} е потсемејство на %{name2}.'
+          r_infrafamily: '%{name1} е инфрасемејство на %{name2}.'
+          r_tribe: '%{name1} е племе на %{name2}.'
+          r_supergenus: '%{name1} е надрод на %{name2}.'
+          r_genus: '%{name1} е род на %{name2}.'
+          r_subgenus: '%{name1} е подрод на %{name2}.'
+          r_infragenus: '%{name1} е инфрарод на %{name2}.'
+          r_superspecies: '%{name1} е надвид на %{name2}.'
+          r_species: '%{name1} е вид на %{name2}.'
+          r_subspecies: '%{name1} е подвид на %{name2}.'
+          r_infraspecies: '%{name1} е инфравид на %{name2}.'
+          r_form: '%{name1} е облик на %{name2}.'
   button_create: создај
   button_add: додај
   cancel: откажи
@@ -186,6 +253,7 @@ mk:
     altitude: надм. висина
     author: автор
     bibliographic_citation: библиографски навод
+    contributor: учесник
     compiler: составувач
     creator: создавач
     editor: уредник
@@ -222,6 +290,9 @@ mk:
   data_missing: '(недостасува податок, клучеви: %{keys})'
   dear_username_with_comma: Почитуван(а) %{username},
   delete_account_button: Избришете ја сметката
+  errors:
+    internal_server: Внатрешна грешка во опслужувачот (500)
+    not_found: Страницата не е пронајдена (404)
   filter_by_license: лиценца
   filter_by_license_any_item: било која
   filter_by_medium_subtype: вид
@@ -324,6 +395,7 @@ mk:
     q33120: бурјатски
     q35037: ндјукански
     q880301: каџунски француски
+    q2937525: капизнонски
     q35156: кар
     q2591230: кашинавски
     ca: каталонски; валенсиски
@@ -349,11 +421,13 @@ mk:
     hr: хрватски
     hrv: хрватски
     cs: чешки
+    q32238: дагомпски
     da: дански
     q3362072: диговски
     q56466: динкански
     dv: малдивски
     q18415595: дотели
+    q33013: дуалски
     dut: холандски; фламански
     nl: холандски; фламански
     dz: ѕонгка
@@ -431,6 +505,8 @@ mk:
     q33690: кашупски
     kk: казашки
     ki: кикујски
+    q33656: килдинсколапонски
+    q33720: карајски
     q11005332: киншки
     q11732519: нгиндски
     rw: руандски
@@ -477,8 +553,10 @@ mk:
     mh: маршалски
     q6786446: матеншки
     q3906614: ливадомариски
+    q13357: мејанкиели
     q13358: мегленовлашки
     q13313: меруански
+    q13321: микмачки
     q36455: источномински
     q13324: минангкабајски
     q13359: мингрелски
@@ -517,6 +595,7 @@ mk:
     or: одиски
     om: оромски
     os: осетски
+    q715755: пајвански
     pi: пали
     pa: пенџапски
     q36403: парски
@@ -549,6 +628,7 @@ mk:
     sc: сардински
     q845441: сасарски сардински
     q14549: шкотски
+    q716686: седички
     sr: српски
     q3788739: шамбалски
     q56482: шански
@@ -624,6 +704,7 @@ mk:
     q237409: зеландски
     za: џуаншки
     zu: зулу
+    Q33219: бањумасански
   layout_sign_in: Најава
   layout_sign_up: Зачленување
   layout_sign_out: Одјава
@@ -820,8 +901,49 @@ mk:
       articles: Статии за %{page_name}
     traits:
       search: Пребарување на одлики
+  rank:
+    name:
+      r_domain: домен
+      r_subdomain: поддомен
+      r_infradomain: инфрадомен
+      r_superkingdom: натцарство
+      r_kingdom: царство
+      r_subkingdom: потцарство
+      r_infrakingdom: инфрацарство
+      r_superphylum: натколено
+      r_phylum: колено
+      r_subphylum: потколено
+      r_infraphylum: инфраколено
+      r_superclass: наткласа
+      r_class: класа
+      r_subclass: поткласа
+      r_infraclass: инфракласа
+      r_superorder: надред
+      r_order: ред
+      r_suborder: подред
+      r_infraorder: инфраред
+      r_superfamily: натсемејство
+      r_family: семејство
+      r_subfamily: потсемејство
+      r_infrafamily: инфрасемејство
+      r_tribe: племе
+      r_supergenus: надрод
+      r_genus: род
+      r_subgenus: подрод
+      r_infragenus: инфрарод
+      r_superspecies: надвид
+      r_species: вид
+      r_subspecies: подвид
+      r_infraspecies: инфравид
+      r_form: облик
   recaptcha: Нагледна проверка
   recaptcha_error: Кажете ни дека не сте робот.
+  reconciliation:
+    schema_space:
+      headers:
+        id: Назнака
+        name: Име
+        description: Опис
   reference_compiled_from: Наведено од %{links}
   reference_compiled_from_article: '%{source} статија со наслов „%{name}“'
   register_new_account: Создајте нова сметка
@@ -829,6 +951,7 @@ mk:
     actions:
       import_traits: увези одлики (од складиште)
       republish: преобјави
+      diff: разл
       reindex: преиндексирај
       fix_no_names: поправи случаи на НЕМА ИМЕ
       index: назад на сите ресурси
@@ -1305,6 +1428,7 @@ mk:
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '% месечно'
+        http://eol(dot)org/schema/terms/percm2: /см^2
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: изобилност
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кисела почва
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: период на активен раст
@@ -1366,13 +1490,18 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: клеточна маса
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: клеточна зафатнина
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: креда
-        http://eol(dot)org/schema/terms/CITES_I: CITES Прилог I
-        http://eol(dot)org/schema/terms/CITES_II: CITES Прилог II
-        http://eol(dot)org/schema/terms/CITES_III: CITES Прилог III
+        http://eol(dot)org/schema/terms/CITES_I: наведува прилог I
+        http://eol(dot)org/schema/terms/CITES_II: наведува прилог II
+        http://eol(dot)org/schema/terms/CITES_III: наведува прилог III
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: спила
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: ползач
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: бројност на леглото/накотот
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: см
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: см^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: см^3
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: крајбрежно
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: навојувачко
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: боја
         http://purl(dot)obolibrary(dot)org/obo/RO_0002441: коменсален со
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: сложено
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: зимзелена шума
@@ -1412,9 +1541,20 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: шумско
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: слатководно
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: плод
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: боја на плодот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: должина на плодот
+        http://eol(dot)org/schema/terms/FruitSeedColor: боја на плодовото семе
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: облик на плодот
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: вид плод
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: ширина на плодот
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: гориво
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000216: фумарола
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000587: мебел
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000021: г
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: г/см^2/ден
         http://eol(dot)org/schema/terms/gramsPercm2PerYear: г/см^2/година
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000084: г/см^3
+        http://eol(dot)org/schema/terms/gramsPerMeterSquared: г/м^2
         http://eol(dot)org/schema/terms/gramsPerMonth: г/месец
         http://eol(dot)org/schema/terms/Present: географската распространетост опфаќа
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: земјољуб
@@ -1436,12 +1576,25 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: палмитинска киселина
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: голем животен век
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: високоиздржливо
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: рид
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: ридски венец
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002453: домаќин на
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: водољуб
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: хидроксилапатит
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: хиперсолена вода
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: должина на хипоконот
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: мраз
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: ледена капа
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: ледена покривка
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000380: леден гребен
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000392: леден јазик
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: санта
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: магматска карпа
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001501: незрел
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: имунолошки систем
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: ударен кратер
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: инчи
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: свивачко ползење
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: покачен квалитет
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: превртено
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: го јаде
@@ -1456,7 +1609,7 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: летвесто
         http://purl(dot)obolibrary(dot)org/obo/TO_0000540: површина на листот
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: боја на листот
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Сложеност на листот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: сложеност на листот
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: лисна морфологија
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: облик на листот
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: опадност на листот
@@ -1471,7 +1624,7 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: мал животен век
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: нискоиздржливо
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: макроалга
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: магнезиум (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: магнезиум (мг)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: морско
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: морско дно
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: живеалиште на масовен
@@ -1483,12 +1636,23 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: средоземна ретка шума
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: средно (нормално)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: метаморфна карта
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: мг
+        http://eol(dot)org/schema/terms/milligramsPercm2: мг/см^2
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: мг/см^2 дневно
+        http://eol(dot)org/schema/terms/milligramspergram: мг/г
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: мг/л
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: мг/м^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: г/м^2
         http://eol(dot)org/schema/terms/millimeterspermonth: милиметри месечно
         http://eol(dot)org/schema/terms/paleo_megaannum: пред милион години
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: минерализираното ткиво
           содржи
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: мешано
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: мешана шума
+        http://eol(dot)org/schema/terms/mlO2perhour: мл/ч o2
+        http://eol(dot)org/schema/terms/millilitersPerMinute: мл/мин
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: мм
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000272: мм hg
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: мм/3 месеци
         http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4 месеци
         http://eol(dot)org/schema/terms/millimetersPerSixMonths: мм/6 месеци
@@ -1497,6 +1661,9 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010005: мм/ден
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: мм/сек
         http://eol(dot)org/schema/terms/millimetersPerYear: мм/година
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: мм^2
+        http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: мм^2/мг
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: ммол/л
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: планинска пустина
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: планински тревишта
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: планинска савана
@@ -1504,16 +1671,26 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: месеци
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: взаемен со
         http://eol(dot)org/schema/terms/NativeRange: матичното живеалиште опфаќа
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: нг/г/час
+        https://eol(dot)org/schema/terms/nanograpperkilgramperminute: нг/кг/мин
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: азотоврзување
+        https://eol(dot)org/schema/terms/nanomolpergram: нмол/г
+        https://eol(dot)org/schema/terms/nmolpergramperhour: нмол/г/ч
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: нондеканска киселина
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: должина на јадрото
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: ширина на јадрото
         http://eol(dot)org/schema/terms/fossilOccPBDB: број на фосилни примероци
+        http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: број на јавни записи
+          во BOLD
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: стеаринска киселина
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: почеток на плодоноста
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: портокалова
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: украсеност
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: кислород
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: унци
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: оризарник
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: оризарничка почва
+        http://eol(dot)org/schema/terms/stingPain: болка на убодот
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: дланчесто
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: паразит на
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: жртва на паразитот
@@ -1554,13 +1731,14 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: салтација
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: грмушно
         http://purl(dot)obolibrary(dot)org/obo/PO_0005848: вторичен ксилем
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: таложно
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: семе
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: семена маса
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: полулистопадно
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: полов диморфизам
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: облик
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: митарност
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Должина на черупката
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: должина на черупката
         http://purl(dot)obolibrary(dot)org/obo/PO_0000037: врв на фиданка
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: грмушка
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: просто
@@ -1568,7 +1746,7 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: скелетна структура
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: бавно
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: мало
-        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: бодликав лист
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: бодликав
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: пречник на стебло
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: складишен орган
         http://eol(dot)org/schema/terms/Attached: придружен потслој
@@ -1620,9 +1798,13 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: тропска савана
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000214: тропска шикара
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: тропска ретка шума
+        http://eol(dot)org/schema/terms/TypeSpecimenRepository: склад на типскиот
+          вид
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: ундецилна киселина
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: мочна киселина
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: ватерит
+        http://eol(dot)org/schema/terms/VegetativeSpreadRate: стапка на вегетативно
+          ширење
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: многу мал
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: вулканска карпа
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: зафатнина
@@ -1636,7 +1818,20 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: години
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: жолта
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: жолтозелено
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µг
+        http://eol(dot)org/schema/terms/µg_cm-2: µг/см^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000017: µм
+        http://eol(dot)org/schema/terms/perMicrometer: µм^(-1)
+        http://eol(dot)org/schema/terms/squareMicrometer: µм^2
+        http://eol(dot)org/schema/terms/cubicMicrometer: µм^3
         http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /клетка /ден
         http://eol(dot)org/schema/terms/µmol_cell-1: µmol/клетка
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/л
+        https://eol(dot)org/schema/terms/micromolpergram: µмол/г
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: µмол/л
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µмол/л
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0016490: слушен систем
+        http://purl(dot)obolibrary(dot)org/obo/GO_0050959: ехолокација
+        http://eol(dot)org/schema/terms/cubicMillimeter: мм^3
+        http://eol(dot)org/schema/terms/perPound: /фунта
+        http://eol(dot)org/schema/terms/mol_m-2_s-1: мол/м^2/с
 ...
