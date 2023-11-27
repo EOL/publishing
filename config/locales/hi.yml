@@ -817,8 +817,47 @@ hi:
     collection_page_count:
       one: '%{count} दिन पहले'
       other: '%{count} दिन पहले'
+    medium_article: लेख
+    medium_image: चित्र
     empty: कोई परिणाम नहीं।
+    field_matches:
+      description: 'विवरण से मेल खाता है:'
+      resource_pk: 'बाहरी आईडी से मेल खाता है:'
+      bio: 'जीवनी से मेल खाता है:'
+      tag_line: 'टैग लाइन से मेल खाता है:'
+      resources:
+        one: 'संसाधन से मेल खाता है:'
+        other: 'संसाधन से मेल खाता है:'
+      synonyms:
+        one: 'समानार्थी से मेल खाता है:'
+        other: 'समानार्थी से मेल खाता है:'
+      vernaculars:
+        one: 'सामान्य नाम से मेल खाता है:'
+        other: 'सामान्य नाम से मेल खाता है:'
+    section_titles:
+      media:
+        one: '%{count} दिन पहले'
+        other: '%{count} दिन पहले'
+      users:
+        one: '%{count} दिन पहले'
+        other: '%{count} दिन पहले'
+    resource_counts:
+      n_data:
+        one: १ रास्ता
+        other: '%{count} रास्तें'
+  search_suggestion:
+    actions:
+      create: एक नया खोज सुझाव बनाएं
+    created: '"%{match}" के लिए खोज सुझाव बनाया गया'
+    destroyed: '"%{match}" के लिए खोज सुझाव नष्ट कर दिया गया'
+    new:
+      header: एक नया खोज सुझाव बनाएं
+    update:
+      header: खोज सुझाव अपडेट करें
+    index:
+      header: सुझाव खोजें
   sections:
+    associations: संघ
     behavior: व्यवहार
     benefits: फ़ायदे
     brief_summary: संक्षिप्त विवरण
@@ -888,18 +927,109 @@ hi:
         page_id: रीडायरेक्ट करने के लिए ईओएल पेज की आईडी (या इसके अनुसार फ़िल्टर करें)
         synonym_of_id: इसके बजाय उपयोग करने के लिए खोज सुझाव की आईडी (!)
         object_term: यूआरआई को रीडायरेक्ट करने के लिए (या इसके अनुसार फ़िल्टर करें)
+        path: पुनर्निर्देशित करने के लिए पथ (या तो पूर्ण या सापेक्ष)।
+        wkt_string: Effechecka को पास करने के लिए WKT स्ट्रिंग
   stats:
+    articles: लेख
     collections: संग्रह
+    data: डेटा रिकॉर्ड
+    media: मीडिया
+    pages: पृष्ठ
+    nodes: नोड्स
+    scientific_names: नाम
+    users: सदस्य
+    references: सन्दर्भ
+  term_query:
+    invalid_obsolete: इनवैलिड / ओब्सॉलेट
+    validations:
+      empty_filters_error_record: आपको रिकॉर्ड खोजों के लिए किसी विशेषता या मान के
+        साथ एक फ़िल्टर प्रदान करना होगा
+      empty_filters_error_taxa: आपको टैक्सा खोजों के लिए किसी विशेषता या मूल्य के
+        साथ एक क्लैड या फ़िल्टर प्रदान करना होगा
+  term_query_filter:
+    validations:
+      blank_error: एक विशेषता या मान निर्दिष्ट करना होगा
+      invalid_uri: अमान्य यूआरआई
+      multi_obj_error: इसमें ऑब्जेक्ट टर्म और टारगेट क्लैड दोनों नहीं हो सकते
+      pred_uri_blank_obj_clade_error: लक्ष्य क्लैड के साथ रिक्त नहीं हो सकता
+      pred_uri_blank_numeric_error: संख्यात्मक मान के साथ रिक्त नहीं हो सकता
+      range_invalid_error: प्रथम मान >= होना चाहिए
+      units_blank_error: संख्यात्मक खोज के लिए इकाइयाँ रिक्त नहीं हो सकतीं
+  terms:
+    source_field_html: <strong>स्रोत:</strong> <a href='<span class="notranslate"
+      translate="no">%{source}'>% {स्रोत}</a>
+    record_url: यूआरएल रिकॉर्ड करें
+    scientific_name: वैज्ञानिक नाम
+    show_all_records: सभी रिकॉर्ड दिखाएँ
+    source: स्रोत
+    uri_field_html: <strong>यूआरआई:</strong> %{uri}
+    index:
+      select_page_above: आरंभ करने के लिए ऊपर एक पृष्ठ चुनें.
   traits:
     data_viz:
+      about_this_chart: इस पटल के बारे में
+      about_this_chart_tooltip_1d: यह ईओएल में उपलब्ध आंकड़ों पर आधारित सारांश है।
+        यह अधूरा हो सकता है! आप अपने खोज परिणामों को सीमित करने के लिए चार्ट से एक
+        श्रेणी का चयन कर सकते हैं। कई श्रेणियां ओवरलैप होती हैं और एक प्रजाति को एक
+        से अधिक श्रेणियों में शामिल किया जा सकता है।
+      about_this_chart_tooltip_assoc: यह ईओएल में उपलब्ध आंकड़ों पर आधारित सारांश
+        है। यह अधूरा हो सकता है! आप किसी टैक्सोन नाम के संबंधों को उजागर करने के लिए
+        उस पर होवर कर सकते हैं। एक हरे रंग का लिंक दर्शाता है कि मंडराया हुआ टैक्सोन
+        एसोसिएशन का विषय है; बैंगनी रंग दर्शाता है कि यह वस्तु है। बड़ी खोजों को जीनस
+        या परिवार द्वारा संक्षेपित किया जाता है। आप टैक्सोन नाम पर क्लिक करके इन्हें
+        सीमित कर सकते हैं।
+      about_this_chart_tooltip_sankey_2d: यह ईओएल में उपलब्ध आंकड़ों पर आधारित सारांश
+        है। यह अधूरा हो सकता है! आप अपने खोज परिणामों को सीमित करने के लिए किसी भी
+        अक्ष पर एक श्रेणी का चयन कर सकते हैं। कई श्रेणियां ओवरलैप होती हैं और एक प्रजाति
+        को एक ही अक्ष में एक से अधिक श्रेणियों में शामिल किया जा सकता है।
+      about_this_chart_tooltip_sankey_3+: यह ईओएल में उपलब्ध आंकड़ों पर आधारित सारांश
+        है। यह अधूरा हो सकता है! आप अपने खोज परिणामों को सीमित करने के लिए किसी भी
+        अक्ष पर एक श्रेणी का चयन कर सकते हैं। कई श्रेणियां ओवरलैप होती हैं और एक प्रजाति
+        को एक ही अक्ष में एक से अधिक श्रेणियों में शामिल किया जा सकता है। हाइलाइट
+        किए गए सबसेट डिस्प्ले में, इन बहु-मूल्य वाली प्रजातियों को अन्य अक्षों में
+        कई बार गिना जाएगा।
+      about_this_chart_tooltip_taxon_summary: यह वर्गीकरण समूहों का सारांश है जिसके
+        लिए ईओएल के पास आपकी खोज से मेल खाने वाला डेटा है। इसे डिस्प्ले आकार में फिट
+        करने के लिए छोटा किया जा सकता है। आप उपसमूहों को देखने या अपने खोज परिणामों
+        को सीमित करने के लिए चार्ट से एक समूह का चयन कर सकते हैं।
+      other_term_name: अन्य %{term_name}
+      num_records_label: '# रिकॉर्ड का'
+      other: अन्य
       page_habitat_header: '%{name} पर्यावास'
+      pie_prompt: हाइलाइट करने के लिए किसी सेगमेंट या कुंजी पर माउस ले जाएँ
     search_results:
       filter_display:
         eq: '%{pred} = %{num_val} %{units}'
         pred_only: '%{pred}'
       switch_to_list: सूची दृश्य पर स्विच करें
       switch_to_gallery: गैलरी दृश्य पर स्विच करें
+    search_form:
+      sex: लिंग
+      show_additional_fields: अतिरिक्त फ़ील्ड दिखाएं
+      statistical_method: सांख्यिकीय विधि
+      target_group: लक्ष्य समूह (जैसे, सैल्मन)
+      taxa_matching_all: टैक्सा सभी फिल्टर से मेल खाता है
+      this_may_take_a_minute: इसमें एक मिनट लग सकता है
+      value: मान
+      value_eg: 'मूल्य (उदाहरण: शाकाहारी)'
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name} का प्रतिस्पर्धी'
+      predator: '%{source_name} पर फ़ीड करता है'
+      prey: '%{source_name} द्वारा खाया गया'
+      source: फोकल प्रजाति
+  trust:
+    unreviewed: समीक्षा न किए गए
+    trusted: भरोसेमंद
+    untrusted: भरोसा नहीं है
   user:
+    batch_page_lookup: बैच पृष्ठ खोज
+    created_at: बनाया गया
+    download_queue: डेटा डाउनलोड कतार
+    grant_power: पावर-उपयोगकर्ता पहुंच प्रदान करें
+    revoke_power: पावर-उपयोगकर्ता पहुंच रद्द करें
+    edit_account_details: खाता विवरण संपादित करें
+    email: ईमेल
     headers:
       links: कड़ियाँ
   term:
