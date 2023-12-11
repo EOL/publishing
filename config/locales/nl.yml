@@ -1149,7 +1149,6 @@ nl:
     "no": Nee
     required:
       text: vereist
-      mark: '*'
     error_notification:
       default_message: 'Bekijk de problemen hieronder:'
     labels:

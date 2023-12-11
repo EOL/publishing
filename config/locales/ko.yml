@@ -484,7 +484,6 @@ ko:
     "no": 아니오
     required:
       text: 필수
-      mark: '*'
     labels:
       defaults:
         email: 이메일

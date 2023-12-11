@@ -1204,7 +1204,6 @@ pms:
     "no": Nò
     required:
       text: obligatòri
-      mark: '*'
     error_notification:
       default_message: 'Për piasì, ch''a contròla ij problema sì-sota:'
     labels:

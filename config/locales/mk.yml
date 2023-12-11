@@ -1159,7 +1159,6 @@ mk:
     "no": Не
     required:
       text: задолжително
-      mark: '*'
     error_notification:
       default_message: 'Погледајте ги долунаведените проблеми:'
     labels:

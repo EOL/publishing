@@ -1078,7 +1078,6 @@ ar:
     "no": لا
     required:
       text: مطلوب
-      mark: '*'
     error_notification:
       default_message: 'يرجى مراجعة المشاكل أدناه:'
     labels:

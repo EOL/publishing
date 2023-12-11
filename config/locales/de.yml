@@ -31,6 +31,7 @@
 # Author: LilFlo3000
 # Author: Lorisobi
 # Author: Lorisobi
+# Author: Max Kleinehelleforth
 # Author: Schmackes
 # Author: Schmackes
 # Author: Sinuhe20
@@ -105,11 +106,18 @@ de:
     extinction:
       r_genus_html: Diese Gattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_subgenus_html: Diese Untergattung ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_infragenus_html: Diese Unterart ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_superspecies_html: Diese Superspezies ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_species_html: Diese Spezies ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
       r_subspecies_html: Diese Unterart ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_infraspecies_html: Diese Unterart ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
+      r_form_html: Diese Unterart ist <span class='%{class_str}' id='%{id}'>ausgestorben</span>.
     fix_nitrogen_html: Sie <span class='%{class_str}' id='%{predicate_id}'>binden</span>
       <span class='%{class_str}' id='%{object_id}'>Stickstoff</span>.
+    freshwater_html: Sie sind mit dem <span class='%{class_str}' id='%{id}'>Süßwasserlebensraum</span>
+      verbunden.
+    marine_html: Sie sind mit dem <span class='%{class_str}' id='%{id}'>marine habitat</span>
+      verbunden.
     species: '%{name1} ist eine Spezies von %{name2}.'
     species_in_family: '%{name1} ist eine Spezies von %{name2} in der Familie %{name_family}.'
     taxonomy:
@@ -125,6 +133,7 @@ de:
         r_superphylum: '%{name1} ist ein Überstamm von %{name2}.'
         r_phylum: '%{name1} ist ein Stamm von %{name2}.'
         r_subphylum: '%{name1} ist ein Unterstamm von %{name2}.'
+        r_infraphylum: '%{name1} ist ein Infraphylum von %{name2}.'
         r_superclass: '%{name1} ist eine Überklasse von %{name2}.'
         r_class: '%{name1} ist eine Klasse von %{name2}.'
         r_subclass: '%{name1} ist eine Unterklasse von %{name2}.'
@@ -141,6 +150,18 @@ de:
           r_infrafamily: '%{name1} ist eine Intrafamilie von %{name2} in der Familie
             %{name3}.'
           r_tribe: '%{name1} ist ein Tribus von %{name2} in der Familie %{name3}.'
+          r_supergenus: '%{name1} ist ein Supergenus von %{name2} in der Familie %{name3}.'
+          r_genus: '%{name1} ist eine Gattung von %{name2} in der Familie %{name3}.'
+          r_subgenus: '%{name1} ist eine Untergattung von %{name2} in der Familie
+            %{name3}.'
+          r_infragenus: '%{name1} ist ein Infragenus von %{name2} in der Familie %{name3}.'
+          r_superspecies: '%{name1} ist eine Superspezies von %{name2} in der Familie
+            %{name3}.'
+          r_species: '%{name1} ist eine Spezies von %{name2} in der Familie %{name3}.'
+          r_subspecies: '%{name1} ist eine Unterspezies von %{name2} in der Familie
+            %{name3}.'
+          r_infraspecies: '%{name1} ist eine Infraspezies von %{name2} in der Familie
+            %{name3}.'
           r_form: '%{name1} ist eine Form von %{name2} in der Familie %{name3}.'
         without_family:
           r_subfamily: '%{name1} ist eine Unterfamilie von %{name2}.'
@@ -162,12 +183,17 @@ de:
   change_your_password: Dein Passwort ändern
   classifications:
     children:
+      header_html:
+        one: '%{name} umfasst <a href="%{names_path}">%{count} Kind</a>:'
+        other: '%{name} umfasst <a href="%{names_path}">%{count} Kinder</a>:'
       see_more: Mehr sehen
     hierarchies:
       header: Kuratierte Hierarchien für %{sci_name}
       see_resource_file: In der <a href='%{href}'>Ressourcendatei</a> gibt es eine
         vollständige Liste.
       this_page: (diese Seite)
+      truncated_siblings:
+        other: Ein=Ein zusätzliches Geschwisterkind, der Kürze halber gekürzt.
     richness:
       header: Reichtum der Seite
       score: Reichtum-Punktzahl
@@ -179,7 +205,9 @@ de:
       maps_count: Karten
       data_count: Daten
       nodes_count: Knoten
+      vernaculars_count: volkstümlich
       scientific_names_count: wissenschaftliche Bezeichnungen
+      referents_count: Referenzen
       species_count: Arten
       updated_at: Zuletzt aktualisiert
   collect_already_in_collection: (ist bereits vorhanden)
@@ -208,6 +236,7 @@ de:
   collection_associations_empty: Keine anderen Sammlungen sind mit dieser verbunden.
     Sie können das "associate" Feld anderer Sammlungen klicken um diese hier erscheinen
     zu lassen.
+  collection_associations_title: Zugehörige Sammlungen
   collection_collected_pages_media_remove: 'Bilder aus der Sammlung entfernen (hat
     sofortige Wirkung):'
   collection_created: Die neue Sammlung "%{name}" wurde erstellt.
@@ -223,6 +252,7 @@ de:
       label: 'Einen Benutzer hinzufügen, der diese Sammlung bearbeiten kann:'
       placeholder: vollständiger Name oder Benutzername
     actions:
+      associate: Verknüpfen
       download_taxa_csv: CSV-Datei mit Taxa herunterladen
       delete: löschen
       edit: bearbeiten
@@ -237,6 +267,9 @@ de:
       one: 1 Seite
       other: '%{count} Seiten'
     log:
+      associated_collection:
+        add: '%{user} hat eine Assoziation zur Sammlung %{associated} hinzugefügt'
+        remove: '%{user} hat die Zuordnung zur Sammlung %{associated} entfernt'
       collection:
         add: '%{user} erstellte die Sammlung'
         change: '%{user} änderte %{field} von "%{from}" zu "%{to}"'
@@ -249,6 +282,9 @@ de:
         add: '%{user} fügte die Seite %{page} hinzu'
         change: '%{user} änderte %{field} auf der Seite %{page} von "%{from}" zu "%{to}"'
         remove: '%{user} löschte die Seite %{page}'
+      user:
+        add: '%{user} hat den Manager %{manager} hinzugefügt'
+        remove: '%{user} hat den Manager %{manager} entfernt'
     search:
       placeholder: In der Sammlung suchen...
       submit: suche
@@ -300,8 +336,10 @@ de:
   content_not_in_any_collection_video: Dieses Video ist in keiner Sammlung zu finden.
   data:
     modifier:
+      sex_term: Lebensabschnitt des Lebewesens gemessen
       lifestage_term: Lebensabschnitt des Lebewesens gemessen
       statistical_method_term: Für Messungen verwendete statistische Methode
+  data_missing: '(Daten fehlen, Schlüsselstellen: %{keys})'
   dear_username_with_comma: Lieber %{username},
   delete_account_button: Dein Benutzerkonto löschen
   errors:
@@ -321,6 +359,7 @@ de:
     eol_info:
       citing_eol: EOL zitieren
       contact_us: Kontaktiere uns
+      data_services: Datendienste
       donate: Spenden
       education: Bildung
       food_webs: Nahrungsketten
@@ -357,6 +396,9 @@ de:
       worms: Würmer
     eol_is_hosted_by: 'EOL ist veranstaltet von:'
   forgot_your_password: Passwort vergessen?
+  gbif_download:
+    created: GBIF-Download-Job erstellt. Überprüfen Sie <a href="%{url}">die Seite
+      Ihres Benutzerprofils</a>, um den Status anzuzeigen
   landing_page:
     header: Globaler Zugang zu Wissen über das Leben auf der Erde
     stats_cleared: Die Statistiken wurden neu berechnet.
@@ -563,6 +605,7 @@ de:
     mh: Marshallesisch
     q6786446: Matengo
     q3906614: Mari (Meadow)
+    q13357: Meänkieli
     q13358: Meglenorumänisch
     q13313: Meru
     q13321: Miꞌkmaq
@@ -604,6 +647,7 @@ de:
     or: Oriya
     om: Oromo
     os: Ossetisch
+    q715755: Paiwan
     pi: Pali
     pa: Punjabi
     q36403: Pare
@@ -636,6 +680,7 @@ de:
     sc: Sardinisch
     q845441: Sassarese; Sardisch
     q14549: Scots
+    q716686: Seediq
     sr: Serbisch
     q3788739: Shambala
     q56482: Shan
@@ -711,12 +756,18 @@ de:
     q237409: Zeelandisch
     za: Zhuang
     zu: Zulu
+    Q33219: Banyumasan
   layout_sign_in: Anmelden
   layout_sign_up: Registrieren
   layout_sign_out: Abmelden
   literature_and_references_header: Literatur und Verweise
   maps:
     empty: Es sind keine Karten für diese Seite verfügbar.
+    occurrence_caption: Bekannte Vorkommen, gesammelte Exemplare und Beobachtungen
+      von %{page_name}. Sehen Sie sich diese Art auf GBIF an
+    occurrence_caption_w_link_html: Bekannte Vorkommen, gesammelte Exemplare und Beobachtungen
+      von %{page_name}. <a href='%{url}'> Sehen Sie sich diese Art auf GBIF an <i
+      class='fa fa-external-link'></i></a>
     other_maps_title: Nicht-interaktive Karten
   medium:
     untitled:
@@ -755,6 +806,8 @@ de:
     discuss: Diskutieren
     education: Bildung
     search:
+      no_results_html: <strong>Keine bestätigten Ergebnisse</strong><br /> Drücken
+        Sie die Eingabetaste, um nicht kuratierte Ergebnisse anzuzeigen
       placeholder: Durchsuche EOL...
     trait_bank: TraitBank
   name_preferred_label: bevorzugt
@@ -775,44 +828,76 @@ de:
         other: '%{count} Kommentare'
       reindex: neuindizieren
     batch_lookup:
+      header: Batch-Seitensuche
       canonical_name: Kanonischer Name
       download_tsv: TSV herunterladen
+      match: Treffer
       new_search: neue Suche
+      page_id: Seitenkennnummer
       page_url: Seiten-URL
       query: Abfrage
       query_cant_be_blank: Die Abfrage darf nicht leer sein
       search: Suche
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL hat Daten für <a href="%{data_path}">ein Attribut</a>:'
+        other: 'EOL hat Daten für <a href="<span class="notranslate" translate="no">%{data_path}">%{count}
+          attributes</a>, einschließlich:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL hat Daten für <a href="%{data_path}">ein Attribut</a>.
+        other: EOL hat Daten für <a href="<span class="notranslate" translate="no">%{data_path}">%{count}
+          attributes</a>.
     filter_menu:
       show_all: Alle anzeigen
     page_data:
+      habitat_wordcloud_tooltip: Unsere Lebensraumaufzeichnungen basieren größtenteils
+        auf Textminen, sodass viele Begriffe mehrfach vorkommen. häufiger vorkommende
+        Lebensraumbegriffe – die in der Wortwolke größer angezeigt werden – sind mit
+        größerer Wahrscheinlichkeit wichtig. Alle Datensätze sind unten aufgeführt.
+      n_hidden_show_all:
+        one: 1 „%{pred_name}“-Datensatz ausgeblendet – alle anzeigen
+        other: '%{count} „%{pred_name}“-Datensätze ausgeblendet – alle anzeigen'
+      n_hidden_show_all_noname:
+        one: 1 Datensatz ausgeblendet – alle anzeigen
+        other: '%{count} ausgeblendete Datensätze – alle anzeigen'
       show_all: Alle anzeigen
     resource_names:
       name_recognized_by: Erkannt von %{by}
       name_recognized_by_w_rank: '%{rank} erkannt von %{by}'
+      name_recognized_by_w_status: '%{status} gemäß %{by}'
       rank:
         r_domain: Domäne
         r_subdomain: Subdomäne
+        r_infradomain: Infradomäne
         r_superkingdom: Über-Reich
         r_kingdom: Königreich
         r_subkingdom: Unterreich
+        r_infrakingdom: Infrakingdom
         r_superphylum: Überstamm
         r_phylum: Stamm
         r_subphylum: Unterstamm
+        r_infraphylum: Infraphylum
         r_superclass: Überklasse
         r_class: Klasse
         r_subclass: Unterklasse
+        r_infraclass: Infraklasse
         r_superorder: Überordnung
         r_order: Ordnung
         r_suborder: Unterordnung
+        r_infraorder: Infrastruktur
         r_superfamily: Überfamilie
         r_family: Familie
         r_subfamily: Unterfamilie
+        r_infrafamily: Infrafamilie
         r_tribe: Stamm
+        r_supergenus: Supergattung
         r_genus: Gattung
         r_subgenus: Untergattung
+        r_infragenus: Infragenus
         r_superspecies: Artenkreis
         r_species: Spezies
         r_subspecies: Unterart
+        r_infraspecies: Infraspezies
         r_form: Form
       reference_taxon_attrib: Referenz-Taxon von %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
@@ -825,6 +910,13 @@ de:
       predator: Raubtier
       prey: Beutetier
       reset: Zurücksetzen
+      trophic_web_about: EOL-Nahrungsnetzdiagramme konzentrieren sich auf die Nahrungsbeziehungen
+        einer Art; Sie zeigen die Schwerpunktart zusammen mit Arten, von denen sie
+        sich ernährt (Beute), Arten, die sich davon ernähren (Raubtiere) und andere
+        Arten, die sich von derselben Beute ernähren (potenzielle Konkurrenten). Klicke,
+        um mehr zu lernen.
+      trophic_web_title_html: Trophäennetz <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: 'Die Caches für diese Seite wurden geleert. Laden Sie diese neu,
         um die neuen Inhalte anzuzeigen. HINWEIS: Aktuell werden die Bilder auf der
@@ -852,6 +944,8 @@ de:
       dd: ungenügende Datengrundlage (DD)
       ne: nicht beurteilt (NE)
       unknown: unbekannt (keine Daten)
+    unresolved_name: Ungelöster Name
+    unresolved_name_prefix: 'Ungelöster Name:'
   page_titles:
     pages:
       data: '%{page_name} Daten'
@@ -865,28 +959,74 @@ de:
     name:
       r_domain: Domäne
       r_subdomain: Subdomäne
+      r_infradomain: Infradomain
+      r_superkingdom: Superkönigreich
+      r_kingdom: Königreich
+      r_subkingdom: Unterreich
+      r_infrakingdom: Infrareich
+      r_superphylum: Überstamm
       r_phylum: Stamm
+      r_subphylum: Unterstamm
+      r_infraphylum: Infraphylum
+      r_superclass: Überklasse
       r_class: Klasse
+      r_subclass: Unterklasse
+      r_infraclass: Infraklasse
+      r_superorder: Überordnung
       r_order: Ordnung
       r_suborder: Unterordnung
+      r_infraorder: Infrastruktur
+      r_superfamily: Überfamilie
       r_family: Familie
+      r_subfamily: Unterfamilie
+      r_infrafamily: Infrafamilie
+      r_tribe: Stamm
+      r_supergenus: Supergattung
       r_genus: Gattung
       r_subgenus: Untergattung
+      r_infragenus: Infragenus
+      r_superspecies: Superspezies
       r_species: Art
+      r_subspecies: Unterart
+      r_infraspecies: Infraspezies
+      r_form: Form
   recaptcha: Recaptcha
   recaptcha_error: Ich bin kein Roboter.
   reconciliation:
     id_space:
+      intro: Jeder von der Reconciliation API zurückgegebene Entitätsbezeichner ist
+        der Pfadteil der URL für die allgemeine Darstellung dieser Entität auf EOL,
+        sodass eine bestimmte ID in https://eol.org/ ersetzt werden kann.<id> um eine
+        gültige URL für seine Entität zu erhalten. Das Format der Bezeichner jedes
+        Typs wird unten beschrieben.
+      headers:
+        type_id: Typ-ID
+        type_name: Modellname
+        id_format: ID-Format
       type_names:
         taxon: Taxon
       numeric_id: numerische ID
     property:
       description:
         ancestor: Ein Taxon welches der Vorfahr eines anderen Taxons ist.
+        conservation_status: Der Erhaltungszustand des Taxons.
+        extinction_status: Der Aussterbestatus des Taxons. Mögliche Werte sind „extinct“
+          und „extant“
+        rank: Eine Zeichenfolge, die den Rang eines Taxons beschreibt, z. B. „Art“.
+          Nicht anerkannte Ränge werden nicht gewertet.
       name:
         ancestor: Vorfahr
+        conservation_status: Erhaltungszustand
+        extinction_status: Aussterbestatus
         rank: Rang
+    property_settings:
+      limit:
+        label: Limit
+        help_text: Maximale Anzahl der pro Zeile zurückzugebenden Werte (0 für keine
+          Begrenzung)
     schema_space:
+      intro: Die Sammlung von Eigenschaften, die vom Reconciliation-API-Dienst verwendet
+        werden, wird unten beschrieben.
       headers:
         id: ID
         name: Name
@@ -897,14 +1037,36 @@ de:
   resources:
     actions:
       import_traits: Merkmale importieren (aus dem Repository)
+      republish: veröffentlichen
+      clean_republish: saubere Neuveröffentlichung
+      diff: Unterschied
+      republish_confirm: Dadurch werden ALLE Inhalte für die Ressource gelöscht (mit
+        Ausnahme von Merkmalen, für die ein Diff verwendet wird). Bist du sicher?!
+      clean_republish_confirm: Dadurch werden ALLE Inhalte für die Ressource gelöscht
+        und es werden KEINE Merkmalsunterschiede verwendet. Bist du sicher?!
+      fix_no_names: KEINE NAMEN reparieren
+      index: zurück zu allen Ressourcen
       show_all:
         other: alle anzeigen (%{count})
       show_warns:
         one: Warnung anzeigen (%{count})
         other: Warnungen anzeigen (%{count})
+      clear_publishing: Klare Sperre
       clear_publishing_confirm: Dies will alle Veröffentlichung fertigstellen und
         kann Probleme verursachen, wenn es verwendet wird während aktiv veröffentlicht
         wird. Sind sie sicher?
+    headers:
+      index: Quellen
+      import_log: Protokoll für %{resource} importieren
+    index:
+      locked_jobs:
+        other: null=keine laufenden Jobs
+      jobs:
+        zero: keine ausstehenden Jobs
+        one: 1 ausstehender Job
+        other: '%{count} ausstehende Jobs'
+      harvest_jobs:
+        other: null=nichts zu veröffentlichen
     no_events: Keine!
   resource_missing: Ressource nicht gefunden
   scientific_name:
@@ -918,10 +1080,14 @@ de:
   send_me_reset_password_instructions: Schicke mir die Anweisungen um das Passwort
     zurückzusetzen
   search:
+    blank_q_msg: Sie können den Inhalt von EOL mithilfe der Leiste oben auf der Seite
+      durchsuchen.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: Stimmt überein mit %{text}
     flash:
       cannot_combine_paths: Die Ergebnisse können nicht mit %{path} kombiniert werden
+      more_than_one_species: Die Ergebnisse können nicht mit %{species} kombiniert
+        werden
       more_than_two_terms: 'Die Ergebnisse können nicht für mehr als zwei Begriffe
         kombiniert werden: %{terms}'
     n_articles:
@@ -956,6 +1122,9 @@ de:
     collection_page_count:
       one: '%{count} Seite'
       other: '%{count} Seiten'
+    collection_page_count_and_users:
+      one: '%{count} Seite; gepflegt von %{users_sentence}'
+      other: '% {count} Seiten; gepflegt von %{users_sentence}'
     collected_media:
       title: 'gesammelte Medien von dieser Seite:'
     medium_article: Artikel
@@ -973,6 +1142,16 @@ de:
       description: 'Stimmt mit der Beschreibung überein:'
       resource_pk: 'Stimmt mit externer ID überein:'
       bio: 'Stimmt mit Biographie überein:'
+      tag_line: 'passt zum Slogan:'
+      resources:
+        one: 'entspricht der Ressource:'
+        other: 'entspricht den Ressourcen:'
+      synonyms:
+        one: 'entspricht dem Synonym:'
+        other: 'entspricht den Synonymen:'
+      vernaculars:
+        one: 'entspricht dem allgemeinen Namen:'
+        other: 'entspricht den allgemeinen Namen:'
     section_titles:
       collections:
         one: '%{count} Sammlung'
@@ -983,6 +1162,12 @@ de:
       pages:
         one: '%{count} EOL Seite (Arten)'
         other: '%{count} EOL Seiten (Arten)'
+      object_terms:
+        one: '%{count} Datensatzwerte (TraitBank)'
+        other: '%{count} Datensatzwerte (TraitBank)'
+      predicates:
+        one: '%{count} Datensatztyp (TraitBank)'
+        other: '%{count} Datensatztyp (TraitBank)'
       users:
         one: '%{count} Benutzer'
         other: '%{count} Benutzer'
@@ -991,6 +1176,9 @@ de:
       n_articles:
         one: 1 ARTIKEL
         other: '%{count} ARTIKEL'
+      n_data:
+        one: 1 DATUM
+        other: '%{count} DATEN'
       n_media:
         one: 1 MEDIUM
         other: '%{count} MEDIEN'
@@ -998,6 +1186,8 @@ de:
   search_suggestion:
     actions:
       create: einen neuen Suchvorschlag erstellen
+    created: Suchvorschlag für „%{match}“ erstellt
+    destroyed: Suchvorschlag für „%{match}“ zerstört
     new:
       header: Suchvorschlag erstellen
     update:
@@ -1005,6 +1195,7 @@ de:
     index:
       header: Suchvorschläge
   sections:
+    associations: Verbände
     behavior: Verhalten
     benefits: Vorteile
     brief_summary: Kurze Zusammenfassung
@@ -1022,6 +1213,7 @@ de:
     genetics: Genetik
     growth: Wachstum
     habitat: Lebensraum
+    identification_resources: Identifikationsressourcen
     life_expectancy: Lebenserwartung
     life_history_and_behavior: Life History und Verhalten
     management: Management
@@ -1033,6 +1225,7 @@ de:
     notes: Anmerkungen
     overview: Übersicht
     physiology_and_cell_biology: Physiologie und Zellbiologie
+    physical_description: Physische Beschreibung
     relevance_to_humans_and_ecosystems: Relevanz für Menschen und Ökosysteme
     reproduction: Reproduktion
     risks: Risiken
@@ -1054,7 +1247,6 @@ de:
     "no": Nein
     required:
       text: erforderlich
-      mark: '*'
     error_notification:
       default_message: 'Bitte überprüfe die Probleme darunter:'
     labels:

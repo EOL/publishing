@@ -455,7 +455,6 @@ pl:
     "no": Nie
     required:
       text: Wymagane
-      mark: '*'
     labels:
       defaults:
         email: E-mail

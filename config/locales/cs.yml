@@ -1173,7 +1173,6 @@ cs:
     "no": Ne
     required:
       text: povinné
-      mark: '*'
     error_notification:
       default_message: 'Prosím prohlédněte si problémy níže:'
     labels:

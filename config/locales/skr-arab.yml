@@ -607,7 +607,6 @@ skr-arab:
     "no": کو
     required:
       text: لوڑ ہے
-      mark: '*'
     labels:
       defaults:
         email: ای میل

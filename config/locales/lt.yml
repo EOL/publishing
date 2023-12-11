@@ -737,7 +737,6 @@ lt:
     "no": Ne
     required:
       text: privalomas
-      mark: '*'
     error_notification:
       default_message: 'Peržiūrėkite toliau pateiktas problemas:'
     labels:

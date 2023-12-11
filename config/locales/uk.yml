@@ -1204,7 +1204,6 @@ uk:
     "no": Ні
     required:
       text: обов'язкове поле
-      mark: '*'
     error_notification:
       default_message: 'Будь ласка, перегляньте наведені нижче проблеми:'
     labels:

@@ -1259,7 +1259,6 @@ es:
     "no": "No"
     required:
       text: obligatorio
-      mark: '*'
     error_notification:
       default_message: 'Por favor revise los problemas a continuación:'
     labels:

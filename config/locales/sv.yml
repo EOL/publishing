@@ -948,7 +948,6 @@ sv:
     "no": Nej
     required:
       text: obligatoriskt
-      mark: '*'
     error_notification:
       default_message: 'Granska problemen nedan:'
     labels:

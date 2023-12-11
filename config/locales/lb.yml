@@ -553,7 +553,6 @@ lb:
     "no": Neen
     required:
       text: obligatoresch
-      mark: '*'
     labels:
       defaults:
         email: E-Mail

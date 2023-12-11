@@ -1223,7 +1223,6 @@ fr:
     "no": Non
     required:
       text: obligatoire
-      mark: '*'
     error_notification:
       default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
     labels:

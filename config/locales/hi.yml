@@ -911,7 +911,6 @@ hi:
     "no": नहीं
     required:
       text: आवश्यक
-      mark: '*'
     error_notification:
       default_message: 'कृपया नीचे दी गई समस्याओं की समीक्षा करें:'
     labels:

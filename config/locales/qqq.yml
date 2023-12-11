@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: Amire80
 # Author: EugeneZelenko
 # Author: Kareyac
 # Author: Optilete
@@ -99,6 +100,8 @@ qqq:
   simple_form:
     "yes": '{{Identical|Yes}}'
     "no": '{{Identical|No}}'
+    required:
+      mark: '{{ignored}}'
     labels:
       defaults:
         email: '{{Identical|Email}}'

@@ -806,7 +806,6 @@ el:
     "no": Όχι
     required:
       text: υποχρεωτικό
-      mark: '*'
     error_notification:
       default_message: 'Παρακαλούμε να κάνετε μία ανασκόπηση των λαθών παρακάτω:'
     labels:
