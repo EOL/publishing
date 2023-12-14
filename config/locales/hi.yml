@@ -16,7 +16,7 @@
 # Author: गोपाल
 ---
 hi:
-  language_name: हिन्दी
+  language_name: अंग्रेज़ी
   about:
     trait_bank:
       title: ट्रेटबैंक
@@ -786,6 +786,11 @@ hi:
     trophic_web:
       predator: परभक्षी
       prey: शिकार
+    flash:
+      reindexed: इस पृष्ठ के लिए कैश साफ़ कर दिए गए हैं। नए मानों को देखने के लिए
+        पुनः लोड करें। ध्यान दें कि, इस समय, यह पृष्ठ पर छवियों को * पुनः अनुक्रमित
+        नहीं करता है। यह सुविधा भविष्य में लागू की जाएगी।
+    native_node_missing_warning: कोई पदानुक्रम जानकारी उपलब्ध नहीं है
     tabs:
       articles: लेख
       classifications: वर्गीकरण
@@ -795,7 +800,97 @@ hi:
       maps: मानचित्र
       media: मीडिया
       names: नाम
+    iucn_status:
+      label: 'आईयूसीएन स्थिति:'
+      ex: विलुप्त (पूर्व)
+      ew: जंगली में विलुप्त (ईडब्ल्यू)
+      cr: गंभीर रूप से लुप्तप्राय (सीआर)
+      en: लुप्तप्राय (एन)
+      vu: असुरक्षित (वीयू)
+      nt: खतरे के करीब (एनटी)
+      lc: कम से कम चिंता (एलसी)
+      dd: डेटा की कमी (डीडी)
+      ne: मूल्यांकन नहीं किया गया (एनई)
+      unknown: अज्ञात (कोई रिकॉर्ड नहीं)
+    unresolved_name: अनसुलझा नाम
+    unresolved_name_prefix: 'अनसुलझा नाम:'
+  page_titles:
+    pages:
+      data: '%{page_name} डेटा'
+      media: '%{page_name} मीडिया'
+      maps: '%{page_name} मानचित्र'
+      names: '%{page_name} नाम'
+      articles: '%{page_name} लेख'
+    traits:
+      search: गुण खोज
+  rank:
+    name:
+      r_domain: डोमेन
+      r_subdomain: उपडोमेन
+      r_infradomain: इन्फ्राडोमेन
+      r_superkingdom: सुपरकिंगडम
+      r_kingdom: साम्राज्य
+      r_subkingdom: उपराज्य
+      r_infrakingdom: इन्फ्राकिंगडोम
+      r_superphylum: सुपरफायलम
+      r_phylum: फैलम
+      r_subphylum: उपफायलम
+      r_infraphylum: इन्फ्राफाइलम
+      r_superclass: सुपरक्लास
+      r_class: वर्ग
+      r_subclass: उपवर्ग
+      r_infraclass: इन्फ्राक्लास
+      r_superorder: सुपर ऑर्डर
+      r_order: क्रम
+      r_suborder: उपक्रम
+      r_infraorder: इन्फ़्राऑर्डर
+      r_superfamily: सुपरफ़ैमिली
+      r_family: परिवार
+      r_subfamily: उपपरिवार
+      r_infrafamily: इन्फ्राफैमिली
+      r_tribe: जनजाति
+      r_supergenus: सुपरजीनस
+      r_genus: वंश
+      r_infragenus: इन्फ्राजेनस
+      r_superspecies: अतिप्रजाति
+      r_species: जाति
+      r_subspecies: उपप्रजाति
+      r_infraspecies: infraspecies
+      r_form: रूप
+  recaptcha: रीकैप्चा
+  recaptcha_error: कृपया हमें बताएं कि आप रोबोट नहीं हैं।
   reconciliation:
+    id_space:
+      intro: रीकॉन्सिलिएशन एपीआई द्वारा लौटाया गया प्रत्येक इकाई पहचानकर्ता ईओएल पर
+        उस इकाई के सामान्य प्रतिनिधित्व के लिए यूआरएल का पथ भाग है, जैसे कि दी गई
+        आईडी को https://eol.org/ में प्रतिस्थापित किया जा सकता है<id> अपनी इकाई के
+        लिए एक वैध यूआरएल प्राप्त करने के लिए। प्रत्येक प्रकार के पहचानकर्ताओं का
+        प्रारूप नीचे दिया गया है।
+      headers:
+        type_id: आईडी टाइप करें
+        type_name: नाम टाइप करें
+        id_format: आईडी प्रारूप
+      type_names:
+        taxon: टैक्सोन
+      numeric_id: संख्यात्मक आईडी
+    property:
+      description:
+        ancestor: एक टैक्सोन जो दूसरे टैक्सोन का पूर्वज है।
+        conservation_status: टैक्सन की संरक्षण स्थिति.
+        extinction_status: टैक्सोन की विलुप्त होने की स्थिति। संभावित मान 'विलुप्त'
+          और 'विद्यमान' हैं
+        rank: एक टैक्सन की रैंक का वर्णन करने वाली एक स्ट्रिंग, उदाहरण के लिए, 'प्रजाति'।
+          गैर-मान्यता प्राप्त रैंक स्कोर नहीं किए जाते हैं.
+      name:
+        ancestor: पूर्वज
+        conservation_status: संरक्षण की स्थिति
+        extinction_status: विलुप्त होने की स्थिति
+        rank: रैंक
+    property_settings:
+      limit:
+        label: सीमा
+        help_text: प्रति पंक्ति वापस करने के लिए मानों की अधिकतम संख्या (0 बिना किसी
+          सीमा के)
     schema_space:
       headers:
         name: नाम
