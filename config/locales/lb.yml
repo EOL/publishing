@@ -679,6 +679,7 @@ lb:
         http://eol(dot)org/schema/terms/BodyShape: Kierperform
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: Kierpertemperatur
         http://eol(dot)org/schema/terms/BodyVolume: Kierpervolume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breet
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brong
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: Koffein
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium (Ca)
