@@ -32,7 +32,7 @@ fi:
         <a href='%{data_services_path}'>Tietopalvelut</a> ovat saatavissa.</p>
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tiliäsi ei ole linkitetty EOL:ään
-  advanced: edistynyt haku
+  advanced: laajennettu haku
   are_you_sure_delete_account: Haluatko varmasti poistaa EOL-tunnuksesi?
   article:
     actions:

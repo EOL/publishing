@@ -1044,6 +1044,7 @@ de:
         Ausnahme von Merkmalen, für die ein Diff verwendet wird). Bist du sicher?!
       clean_republish_confirm: Dadurch werden ALLE Inhalte für die Ressource gelöscht
         und es werden KEINE Merkmalsunterschiede verwendet. Bist du sicher?!
+      reindex: Neuindizieren
       fix_no_names: KEINE NAMEN reparieren
       index: zurück zu allen Ressourcen
       show_all:
@@ -1233,6 +1234,8 @@ de:
     taxonomy: Taxonomie
     threats: Gefahren
     trends: Trends
+    trophic_strategy: Trophäenstrategie
+    type_information: Weitere Informationen
     wikipedia: Wikipedia
   settings: Einstellungen
   show_date: Zeige veröffentlichtes Datum
@@ -1242,6 +1245,7 @@ de:
     Wenn sie Probleme haben, bitte kontaktieren sie uns über %{url}.
 
     Das Enzyklopädie des Lebens Team
+  did_not_receive_confirmation_instructions: Keine Bestätigungsanweisungen erhalten
   simple_form:
     "yes": Ja
     "no": Nein
@@ -1254,8 +1258,18 @@ de:
         email: E-Mail
         password: Passwort
         password_confirmation: Passwortbestätigung
+        remember_me: Angemeldet bleiben
         username: Benutzername
         bio: Bio
+      search_suggestion:
+        match: Suchzeichenfolge zum Abgleichen
+        page_id: ID der EOL-Seite, zu der weitergeleitet werden soll (oder nach der
+          gefiltert werden soll)
+        synonym_of_id: ID (!) des stattdessen zu verwendenden Suchvorschlags
+        object_term: URI, zu dem weitergeleitet werden soll (oder nach dem gefiltert
+          werden soll)
+        path: Pfad (entweder vollständig oder relativ), zu dem umgeleitet werden soll
+        wkt_string: WKT-String zur Übergabe an Effechecka
   stats:
     articles: Artikel
     collections: Sammlungen
@@ -1268,11 +1282,25 @@ de:
     references: Referenzen
   term_query:
     invalid_obsolete: UNGÜLTIG/OBSOLET
+    validations:
+      empty_filters_error_record: Sie müssen einen Filter mit einem Attribut oder
+        Wert für Datensatzsuchen bereitstellen
+      empty_filters_error_taxa: Sie müssen eine Gruppe oder einen Filter mit einem
+        Attribut oder Wert für Taxa-Suchen bereitstellen
   term_query_filter:
     validations:
+      blank_error: Sie müssen ein Attribut oder einen Wert angeben
       invalid_uri: Ungültige URL
+      multi_obj_error: Kann nicht sowohl einen Objektbegriff als auch eine Zielgruppe
+        haben
+      pred_uri_blank_obj_clade_error: Darf bei einer Zielgruppe nicht leer sein
+      pred_uri_blank_numeric_error: Darf bei einem numerischen Wert nicht leer sein
+      range_invalid_error: muss >= zum ersten Wert sein
       units_blank_error: Einheiten können bei einer numerischen Suche nicht leer sein
   terms:
+    attribution_field_html: <strong>Namensnennung:</strong> <a href='<span class="notranslate"
+      translate="no">%{attribution}'>% {attribution}</a>
+    comment_field_html: <strong>Kommentar:</strong> %{comment}
     definition_field_html: <strong>Definition:</strong> %{definition}
     source_field_html: <strong>Quelle:</strong> <a href='%{source}'>%{source}</a>
     record_url: URL des Datensatzes
@@ -1285,6 +1313,7 @@ de:
   data_definition: Definition von "%{data}"
   traits:
     data_viz:
+      about_this_chart: Über dieses Board
       about_this_chart_tooltip_1d: Dies ist eine Zusammenfassung, die auf den in der
         EOL verfügbaren Daten basiert. Diese kann unvollständig sein! Sie können eine
         Kategorie aus der Tabelle auswählen, um Ihre Suchergebnisse einzugrenzen.
@@ -1302,6 +1331,16 @@ de:
         eine Kategorie aus der Tabelle auswählen, um Ihre Suchergebnisse einzugrenzen.
         Viele Kategorien überschneiden sich und eine Art kann in mehr als einer Kategorie
         enthalten sein.
+      about_this_chart_tooltip_sankey_3+: Dies ist eine Zusammenfassung, die auf den
+        in EOL verfügbaren Daten basiert. Es kann unvollständig sein! Sie können auf
+        jeder Achse eine Kategorie auswählen, um Ihre Suchergebnisse einzugrenzen.
+        Viele Kategorien überschneiden sich und eine Art kann in mehr als einer Kategorie
+        auf derselben Achse enthalten sein. In einer hervorgehobenen Teilmengenanzeige
+        werden diese mehrwertigen Arten in anderen Achsen mehrfach gezählt.
+      about_this_chart_tooltip_taxon_summary: Dies ist eine Zusammenfassung der taxonomischen
+        Gruppen, für die EOL Daten hat, die Ihrer Suche entsprechen. Es kann gekürzt
+        werden, um es an die Anzeigegröße anzupassen. Sie können eine Gruppe aus dem
+        Diagramm auswählen, um Untergruppen anzuzeigen oder Ihre Suchergebnisse einzugrenzen.
       other_term_name: andere %{term_name}
       hist_value_label: Wert (%{units})
       n_family_records:
@@ -1319,6 +1358,10 @@ de:
       num_records_label: '# Von Datensätzen'
       other: andere
       page_habitat_header: '%{name} Habitate'
+      page_habitat_explanation: Die Umgebungen, in denen bekanntermaßen viele %{name}-Arten
+        leben. Wählen Sie eine Umgebung aus, um deren %{name}-Arten-Checkliste anzuzeigen.
+      pie_prompt: Bewegen Sie den Mauszeiger über ein Segment oder eine Taste, um
+        es hervorzuheben
       show_n_family_records:
         one: ein Taxon in Familie %{family}
         other: '%{count} Taxa in Familie %{family}'
@@ -1338,9 +1381,26 @@ de:
       see_n_taxa_with:
         one: ein Taxon mit "%{obj_name}" anzeigen
         other: '%{count} Taxa mit "%{obj_name}" anzeigen'
+      show_n_records_between:
+        one: klicken, um %{count} Datensatz mit Messwerten in [%{min}, %{limit}] anzuzeigen
+          %{units}
+        other: klicken, um %{count} Datensätze mit Messwerten in [%{min} anzuzeigen
+          }, %{limit}] %{units}
+      show_n_taxa_between:
+        one: klicken Sie, um %{count} Taxa mit Messwerten in [%{min}, %{limit}] anzeigen
+          zu lassen %{units}
+        other: klicken Sie, um %{count} Taxa mit Messwerten in [%{min} anzeigen zu
+          lassen, %{limit}] %{units}
+      show_link:
+        associations_summary: Zusammenfassung der Assoziationen anzeigen
+        attribute_summary: Attributzusammenfassung anzeigen
+        taxon_summary: Taxon-Zusammenfassung anzeigen
       taxon_summary:
         click_to_filter: filtern
         click_to_filter_by: Klicke zum Filtern nach ‚%{name}‘
+      toggle_text:
+        taxon_summary: Taxon-Zusammenfassung anzeigen
+        trait_summary: Attributzusammenfassung anzeigen
     properties:
       citation: Bibliographisches Zitat
       method: Messverfahren
@@ -1362,9 +1422,12 @@ de:
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'Ressource: %{value}'
         sex: 'Geschlecht: %{value}'
         statistical_method: 'Statistische Methode: %{value}'
       gbif_search: GBIF-Suche
+      gbif_search_hover: Suchen Sie in GBIF nach Vorkommensdatensätzen für die Taxa
+        in Ihren Suchergebnissen (maximal 50).
       result_header_records: Zeige %{range_begin} - %{range_end} von %{total} Einträgen
         für %{page_count} Taxa
       result_header_taxa: Zeige %{range_begin} - %{range_end} von %{total} Taxa
@@ -1377,6 +1440,7 @@ de:
       switch_to_gallery: zur Galerieansicht
     search:
       select:
+        child_term: Wählen Sie einen untergeordneten Begriff aus (optional)
         top_level:
           object_term: oder einen Wert auswählen
           predicate: oder ein Merkmal auswählen
@@ -1386,18 +1450,30 @@ de:
       clade_filter_placeholder: 'Gruppe (z.B.: Bären)(optional)'
       hide_additional_fields: Zusätzliche Felder verbergen
       lifestage: Lebensphase
+      records_matching_all: Datensätze für Taxa, die ALLEN Filtern entsprechen
+      resource: Ressourcen
       search: Suchen
       sex: Geschlecht
       show_additional_fields: Zusätzliche Felder anzeigen
       statistical_method: Statistische Methode
+      target_group: Zielgruppe (z. B. Lachs)
+      taxa_matching_all: Taxa, die ALLEN Filtern entsprechen
       this_may_take_a_minute: Dies dauert ca. eine Minute
+      trait_filter: Filter bearbeiten
       value: Wert
+      value_eg: Wert (z. B. Pflanzenfresser)
   trophic_web:
     group_descriptions:
       competitor: Konkurrent von %{source_name}
+      predator: ernährt sich von %{source_name}
+      prey: Gefressen von %{source_name}
+      source: Schwerpunktarten
   trust:
     unreviewed: ungeprüft
+    trusted: Vertrauenswürdig
+    untrusted: nicht vertrauenswürdig
   user:
+    batch_page_lookup: Batch-Seitensuche
     created_at: erstellt
     download_queue: Warteschlange des Daten-Downloads
     grant_power: Power-User Zugriff gewähren
@@ -1426,6 +1502,7 @@ de:
     showing_n_power_users:
       one: Einen Power-user auflisten
       other: '%{count} Power-User auflisten'
+    trait_bank_cypher_form: Chiffrierformular für die Merkmalsbank
     username: Benutzername
     update: Aktualisierung
     update_email: E-Mail-Adresse aktualisieren
@@ -1449,6 +1526,7 @@ de:
       einigen Problemen mit den gemeinsamen Login-Prozessen.
     sign_in: Anmelden
   vernacular_names_header: Gebräuchliche Namen
+  vernacular_preferred_by_resource: '%{resource} (bevorzugt diesen Namen)'
   wordcloud_credit_html: Erstellt mit <a href='%{url}'>jQCloud</a>
   i18n_js:
     traits:
@@ -1460,13 +1538,16 @@ de:
       reindex: Neuindizieren
       sort: sortieren nach
     edit:
+      header: '%{uri} wird bearbeitet'
       submit: Speichern
     fields:
       name: 'Name:'
       definition: Definition
+      attribution: 'Namensnennung:'
       comment: 'Kommentar:'
       sections: 'Abschnitte:'
       is_hidden_from_glossary: 'Im Glossar verbergen:'
+      is_hidden_from_overview: 'Aus der Registerkarte „Übersicht“ ausblenden:'
     pagination:
       next: nächste Seite
       previous: vorherige Seite
