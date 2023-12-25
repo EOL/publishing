@@ -1379,14 +1379,14 @@ nl:
   users:
     account_migration_header: Als u zich voor 15 november 2018 geregistreerd hebt
       bij EOL.
-    account_migration_notice: Uw accountgegevens, inclusief gebruikersnaam, bijbehorend
-      e-mailadres, profielbeschrijving en eigen verzamelingen  zijn geïmporteerd in
-      het nieuwe EOL. Uw gebruikersnaam is nog steeds uw weergavenaam op de site,
-      maar u moet nu inloggen met uw e-mailadres. We konden uw wachtwoord om veiligheidsredenen
-      niet migreren; Sorry voor het ongemak. U kunt het opnieuw instellen via 'Wachtwoord
-      vergeten'. Als u zich alleen hebt aangemeld via een externe provider - Google,
-      Twitter of FaceBook -, dan nog even geduld; we zijn enkele problemen aan het
-      oplossen met de gedeelde inlogprocessen.
+    account_migration_notice: Uw accountgegevens, waaronder uw gebruikersnaam, het
+      bijbehorende e-mailadres, uw profielbeschrijving en uw eigen verzamelingen,
+      zijn geïmporteerd in de nieuwe EOL. Uw gebruikersnaam blijft uw weergavenaam
+      op de site, maar u moet zich vanaf nu aanmelden met uw e-mailadres. We konden
+      uw wachtwoord om veiligheidsredenen niet overzetten; excuses voor het ongemak.
+      U kunt het opnieuw instellen via ‘Wachtwoord vergeten’. Als u zich alleen hebt
+      aangemeld via een externe provider (Google, Twitter of Facebook), dan nog even
+      geduld; we zijn enkele problemen aan het oplossen met de gedeelde aanmeldprocessen.
     sign_in: Aanmelden
   vernacular_names_header: Soortnaam
   vernacular_preferred_by_resource: '%{resource} (prefers this name)'
