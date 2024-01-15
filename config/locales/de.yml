@@ -9,6 +9,7 @@
 # Author: Bergrübe
 # Author: Brettchenweber
 # Author: Brettchenweber
+# Author: Caro
 # Author: DraconicDark
 # Author: DraconicDark
 # Author: Elliot
@@ -1548,18 +1549,33 @@ de:
       sections: 'Abschnitte:'
       is_hidden_from_glossary: 'Im Glossar verbergen:'
       is_hidden_from_overview: 'Aus der Registerkarte „Übersicht“ ausblenden:'
+    glossary:
+      full_title: Glossar aller Begriffe für Daten zu EOL
+      predicate_title: Glossar der Typbegriffe für Daten zu EOL
+      object_term_title: Glossar der Wertbegriffe für Daten zu EOL
+      units_title: Glossar aller Begriffe für Daten zu EOL
     pagination:
       next: nächste Seite
       previous: vorherige Seite
     inverse_name:
+      fallback: Umkehrung von „%{term_name}“
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ist Beute von
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: hat Ektoparasiten
         http://purl(dot)obolibrary(dot)org/obo/RO_0002634: hat Endoparasiten
+        http://eol(dot)org/schema/terms/HasDispersalVector: Ausbreitungsvektor für
         http://purl(dot)obolibrary(dot)org/obo/RO_0002454: Wirt von
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: hat Hyperparasiten
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: hat Vektor
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: wird getötet von
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasitisiert durch
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: hat Eier gelegt von
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitiert von
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: hat Parasitoid
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: hat Erreger
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: wird erbeutet von
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: besucht von
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: Blumen besucht von
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/Monat'
@@ -1570,30 +1586,62 @@ de:
           des Bewegungsapparates
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: Fülle
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: Abyssal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: abyssalpelagische Zone
         http://eol(dot)org/schema/terms/acicular: nadelförmig
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: Thermalquelle
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: Säureminenabfluss
+        http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: saurer Süßwasser-Bergbausee
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: saurer Boden
+        http://eol(dot)org/schema/terms/activeForaging: aktiver Sammler
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: aktive Wachstumsphase
+        http://eol(dot)org/schema/terms/adaptiveStrategy: adaptive Strategie
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: Klebstoff
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: Lehmboden
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: Erwachsener
+        https://eol(dot)org/schema/terms/adventive: Adventiv in
+        http://eol(dot)org/schema/terms/aerial: Luft
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: Luft
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: Luftlebensraum
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: Aeronium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: Aerosol
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: Nachwuchsrate nach
+          der Ernte
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: Agatoxine
+        http://eol(dot)org/schema/terms/age At Dispersal: Alter bei der Ausbreitung
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: Alter beim Öffnen der Augen
+        http://eol(dot)org/schema/terms/AgeAtMaturity: Alter bei der Reife
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: landwirtschaftlich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: landwirtschaftliches
           Material
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: landwirtschaftlicher
+          Boden
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: landwirtschaftliche
           Terrasse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: landwirtschaftliche
           Abfälle
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: landwirtschaftliche
+          Abfälle
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: Albium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: alkalisches Milieu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: alkalisch flach
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: alkalischer Lebensraum
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: alkalische heiße Quelle
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: Allolectotyp
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: Alloneotyp
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: Allotyp
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: Schwemmfächer
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: Schwemmebene
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: Schwemmland
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: Alpengletscher
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alpiner Boden
+        http://eol(dot)org/schema/terms/alternatingReproduction: Generationswechsel
         http://eol(dot)org/schema/terms/ambush: Lauerjäger
+        https://eol(dot)org/schema/terms/ampharetid_feeder: Ampharetidenfresser
         http://eol(dot)org/schema/terms/amphibious: amphibisch
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidrom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: Anabranch
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: katadrom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: anaerober Schlamm
         https://eol(dot)org/schema/terms/anal_fin: Afterflossen-Schwimmen
         https://eol(dot)org/schema/terms/andromonoecious: After- und Rückenflossen-Schwimmen
         http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: Dichte des Tierbestands
