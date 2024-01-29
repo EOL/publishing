@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: 3bbo
 # Author: 3bbo
+# Author: Ahmed Alyamoor
 # Author: Amira.88
 # Author: Amira.88
 # Author: Asma
@@ -90,6 +91,11 @@ ar:
       r_superspecies_html: هذا فوق النوع (superspecies) <span class='%{class_str}'
         id='%{id}'>منقرض</span>.
       r_species_html: هذا نوع (species) <span class='%{class_str}' id='%{id}'>منقرض</span>.
+      r_subspecies_html: هذا النويع <span class='%{class_str}' id='%{id}'> منقرض </span>.
+    freshwater_html: وهي مرتبطة بمواطن <span class='%{class_str}' id='%{id}'> المياه
+      العذبة </span>.
+    marine_html: يتم العثور عليها في <span class='%{class_str}' id='%{id}'>المواطن
+      البحرية</span>.
     species: '%{name1} هو نوع «species» من %{name2}.'
     species_in_family: '%{name1} هو نوع «species» من %{name2} في فصيلة الـ%{name_family}.'
     taxonomy:
