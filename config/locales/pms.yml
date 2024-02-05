@@ -2820,10 +2820,17 @@ pms:
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: risera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: seul ëd risera
+        http://eol(dot)org/schema/terms/stingPain: dolor da pontura
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: era
           paleoarchean-a
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleocene: época
           paleocen-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleogene: perìod
+          paleogen
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoproterozoic: era
+          paleoproterosòica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: era
+          palesòica
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parassità da
