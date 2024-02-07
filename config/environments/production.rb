@@ -8,7 +8,10 @@ Rails.application.configure do
     ActiveRecord::Base.logger.level = Logger::INFO
   end
 
-  config.cache_classes = true
+  config.cache_classes = false # We want them reloaded when they change:
+  config.reload_classes_only_on_change = true
+  # And we want polling to see when they change (this works better for docker)
+  config.file_watcher = ActiveSupport::FileUpdateChecker
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true

@@ -508,7 +508,7 @@ private
       "articles.name IS NULL",
       "articles.name"
     ]
-    @articles = @articles.unscope(:order).order(orders.join(", "))
+    @articles = @articles.unscope(:order).order(Arel.sql(orders.join(", ")))
     @all_locale_code = ALL_LOCALE_CODE
   end
 

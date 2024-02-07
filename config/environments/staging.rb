@@ -1,7 +1,10 @@
 Rails.application.configure do
   config.lograge.enabled = true
   config.lograge.ignore_actions = ['PagesController#ping', 'ApiPingController#index', 'HomePageController#index']
-  config.cache_classes = true
+  config.cache_classes = false # We want them reloaded when they change:
+  config.reload_classes_only_on_change = true
+  # And we want polling to see when they change (this works better for docker)
+  config.file_watcher = ActiveSupport::FileUpdateChecker
   cache_addr = Rails.application.secrets.cache_url
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL", compress: true }
   config.eager_load = true
