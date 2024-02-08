@@ -60,7 +60,7 @@ module EolWebsite
       "/collected_pages/",
       "/pages/*/names",
       "/pages/*/data/",
-      "/pages/*/trophic_web"
+      "/pages/*/trophic_web",
       "*?*" # Lots of arguments to all of the media tabs! Yeesh.
     ]
     config.i18n.available_locales.each do |locale|
