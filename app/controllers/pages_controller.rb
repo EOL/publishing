@@ -448,7 +448,8 @@ private
       page: %i[native_node preferred_vernaculars] }).references(:page_contents)
 
     # Just adding the || 30 in here for safety's sake:
-    @media = media.by_page(params[:page]).per(@media_page_size || 30).without_count
+    @on_page = params[:page]
+    @media = media.by_page(@on_page).per(@media_page_size || 30).without_count
   end
 
   def get_articles
