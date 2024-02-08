@@ -59,20 +59,18 @@ module EolWebsite
       "/search?*",
       "/collected_pages/",
       "/pages/*/names",
-      "/pages/*/trophic_web",
-      "/assets/", # Lots of bots kept downloading pngs.
+      "/pages/*/data/",
+      "/pages/*/trophic_web"
       "*?*" # Lots of arguments to all of the media tabs! Yeesh.
     ]
     config.i18n.available_locales.each do |locale|
       config.x.robots_disallow_patterns += [
         "/#{locale}/users/",
         "/#{locale}/resources/*/nodes",
-        "/#{locale}/search/",
-        "/#{locale}/search?*",
         "/#{locale}/collected_pages/",
         "/#{locale}/pages/*/names",
-        "/#{locale}/pages/*/trophic_web",
-        "/#{locale}/assets/", # Lots of bots kept downloading pngs.
+        "/#{locale}/pages/*/data/",
+        "/#{locale}/pages/*/trophic_web"
       ]
     end
 
