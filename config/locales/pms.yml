@@ -2832,6 +2832,8 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: era
           palesòica
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
+        https://eol(dot)org/schema/terms/palmeiral: palmé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: giassé soterani
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parassità da
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
