@@ -3,6 +3,7 @@ rm -f /app/tmp/*.pid tmp/*.sock
 rm -rf tmp/cache/assets
 touch /tmp/supervisor.sock
 chmod 777 /tmp/supervisor.sock
+gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
 bundle update
 bundle update eol_terms
 yarn upgrade > /app/log/assets.log 2>&1
