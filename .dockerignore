@@ -3,3 +3,4 @@
 log/*
 !log/.keep
 app/assets
+docker/.env
