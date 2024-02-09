@@ -4,3 +4,4 @@ log/*
 !log/.keep
 app/assets
 docker/.env
+docker/resources/newrelic-infra.conf
