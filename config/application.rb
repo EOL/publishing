@@ -103,10 +103,11 @@ module EolWebsite
     config.x.autocomplete_i18n_enabled = true
     config.active_job.queue_adapter = :sidekiq
 
+    # HOLD: this won't work until we break up the d-c file to web server/rails:
     # Docker expects all logs to go to STDOUT:
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    # logger = ActiveSupport::Logger.new(STDOUT)
+    # logger.formatter = config.log_formatter
+    # config.logger = ActiveSupport::TaggedLogging.new(logger)
 
     # neo4j log
     config.neo4j.logger = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', 'traitbank.log')))

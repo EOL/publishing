@@ -1,1 +1,5 @@
 .dockerignore
+.git
+log/*
+!log/.keep
+app/assets
