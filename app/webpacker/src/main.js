@@ -1,4 +1,4 @@
-import { Routes } from './routes.js.erb'
+import routes from './routes.js.erb'
 
 if (!window.EOL) {
   window.EOL = {};
