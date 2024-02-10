@@ -42,6 +42,7 @@ RUN apt-get update -q && \
     apt-get install -qq -y cmake
 
 RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && \
-    cd seabolt && ./make_debug.sh && cd build && cpack && cd / && \
+    cd seabolt && ./make_debug.sh && cd build && cpack
+RUN cd / && \
     tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-10.tar.gz && \
     cp -rf seabolt-1.7.4-dev-Linux-debian-10/* .
