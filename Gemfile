@@ -92,6 +92,8 @@ gem 'pry-rails' # NOT specifying a version for this; latest is best.
 gem 'pundit', '~> 2.1'
 # Turing test:
 gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
+# required for Searchkick, but we may move from memcached to use this instead:
+gem 'redis', '~> 5.1'
 # Zip file support ; NOTE: this is almost up to version 3.0, and then it will have some interface changes that we need
 # to switch to. Read https://github.com/rubyzip/rubyzip when the time comes!
 gem 'rubyzip', '~> 2.3'
