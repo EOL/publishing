@@ -1,0 +1,15 @@
+#!/bin/bash
+cd /app
+OLDUNICORN=`cat tmp/unicorn.pid`
+rake log:clear
+/etc/init.d/nginx reload
+sleep 15
+kill -s USR2 $OLDUNICORN
+sleep 10
+kill -s WINCH $OLDUNICORN
+sleep 90
+kill -s QUIT $OLDUNICORN
+for i in {1..$WORKER_PROCESSES}
+do
+  curl localhost:3000
+done
