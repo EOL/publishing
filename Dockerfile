@@ -1,6 +1,6 @@
-FROM encoflife/eol_seabolt_rails:latest
+FROM encoflife/eol_seabolt_rails:2024.10.02
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2021-10-28"
+LABEL last_full_rebuild="2024-02-10"
 
 WORKDIR /app
 
