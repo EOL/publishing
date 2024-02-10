@@ -1,4 +1,5 @@
 FROM ruby:2.7.8
+# Note that ruby version is based off of debian 11.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 LABEL last_full_rebuild="2024-02-10"
 
@@ -45,5 +46,5 @@ RUN apt-get update -q && \
 RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && \
     cd seabolt && ./make_debug.sh && cd build && cpack
 RUN cd / && \
-    tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-10.tar.gz && \
-    cp -rf seabolt-1.7.4-dev-Linux-debian-10/* .
+    tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-11.tar.gz && \
+    cp -rf seabolt-1.7.4-dev-Linux-debian-11/* .
