@@ -2834,10 +2834,31 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
         https://eol(dot)org/schema/terms/palmeiral: palmé
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: giassé soterani
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: paralectotipo
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parassità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: parassitòid ëd
+        http://eol(dot)org/schema/terms/paratopotype: paratipotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: paratipo
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: soen parental
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
+        http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: schéletr
+          particolar (nen sòlid)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: pastura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: teren da pastura
+        http://eol(dot)org/schema/terms/patchReef: bariera indipendenta
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patògen ëd
+        http://eol(dot)org/schema/terms/pathogen_vector_parasite: parassita vetor
+          patògen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000157: taj ëd torba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005774: seul ëd torba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000189: mojiss ëd torba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000044: torbera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000116: sediment ëd giàira
+        https://eol(dot)org/schema/terms/pectoral_oscillation: sbalansament d'ala
+          petoral
+        https://eol(dot)org/schema/terms/pectoral_fins: nov d'ala petoral
+        https://eol(dot)org/schema/terms/pectoral_undulation: sbalansament d'ala petoral
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: àcid pentadecanoid
         http://eol(dot)org/schema/terms/perAcre: për acr
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: përsent
