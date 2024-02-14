@@ -1,7 +1,7 @@
 FROM ruby:2.7.8
 # Note that ruby version is based off of debian 11.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2024-02-10 19:12"
+LABEL last_full_rebuild="2024-02-14"
 
 WORKDIR /app
 
