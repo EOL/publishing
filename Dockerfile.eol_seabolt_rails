@@ -1,7 +1,7 @@
 FROM ruby:3.0.6
 # Note that ruby version is based off of debian 11.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2024-02-14 14:30"
+LABEL last_full_rebuild="2024-02-14 19:30"
 
 WORKDIR /app
 
@@ -34,7 +34,7 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
-RUN gem install bundler:2.4.13
+RUN gem install bundler:2.5.6
 RUN bundle config set without 'test development staging'
 RUN bundle install --jobs 10 --retry 5
 # Skipping this for now. The secrets file does not work during a `docker-compose build`. :\
