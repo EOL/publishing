@@ -1,4 +1,4 @@
-FROM encoflife/eol_seabolt_rails:2024.02.10
+FROM encoflife/eol_seabolt_rails:2024.02.14.01
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 LABEL last_full_rebuild="2024-02-10"
 
