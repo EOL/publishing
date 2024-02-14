@@ -1,4 +1,4 @@
-FROM ruby:3.0.6
+FROM ruby:3.1.4
 # Note that ruby version is based off of debian 11.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 LABEL last_full_rebuild="2024-02-14 19:30"
