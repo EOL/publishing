@@ -990,6 +990,7 @@ pms:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
       clean_republish: dëscancelé l'arpublicassion
+      diff: dif
       republish_confirm: Sòn a dëscancelërà TUT ël contnù associà a l'arsorsa (gavà
         ij trat, ch'a dovrëran na dif). É-lo SIGUR?
       clean_republish_confirm: Sòn a dëscancelërà TUT ël contnù për l'arsorsa e a
@@ -1203,7 +1204,6 @@ pms:
     "no": Nò
     required:
       text: obligatòri
-      mark: '*'
     error_notification:
       default_message: 'Për piasì, ch''a contròla ij problema sì-sota:'
     labels:
@@ -2479,30 +2479,182 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000422: seuli calcari
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: taja linear
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lìpid
         http://eol(dot)org/schema/terms/LittersPerYear: portà a l'ann
+        http://eol(dot)org/schema/terms/littoralZone: zòna ëd litoral
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: época
+          ëd llandovery
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: terò
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: località
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: età
+          lochkovian-a
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
+        http://eol(dot)org/schema/terms/log10gram: log10 grama
+        http://eol(dot)org/schema/terms/longPersistentSeedBank: a longa përsistensa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lopingian: época
+          lopingian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000517: bial ëspërdù
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: bass
+        http://eol(dot)org/schema/terms/lowCNRatio: bass (<23)
+        http://eol(dot)org/schema/terms/lowArctic: bass àrtich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita
+        http://eol(dot)org/schema/terms/lowNitrogenFixation: fissassion débol ëd l'asòt
         http://eol(dot)org/schema/terms/TemperatureTolerance: toleransa a le temperadure
           basse
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: zòna ëd maré bass
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa toleransa
+        http://eol(dot)org/schema/terms/lowEpifaunal: epifàuna ëd bass livel
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: lìmit anferior ëd confidensa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: época
+          cretassia anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: época
+          devonian-a anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerJurassic: época
+          giuràssica anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerOrdovician: época
+          ordovician-a anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: época
+          triàssica anferiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: età
+          ludfordian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: época
+          ëd ludlow
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: età
+          lutessian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002248: seul aluvional
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000261: lisoclin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: maar
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: età
+          maastrichtian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000417: machair
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: lava màfica
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (mg)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: mas-cc
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: rapòrt ëd massa antra
           mas-cc e fumela
-        http://eol(dot)org/schema/terms/MaleTenure: Soen dij mas-cc
-        http://eol(dot)org/schema/terms/MantleLength: Longheur dël mantel
+        http://eol(dot)org/schema/terms/maleOrUnsexed: mas-cc o assessuà
+        http://eol(dot)org/schema/terms/MaleTenure: a ten la posission ëd mas-cc
+        http://eol(dot)org/schema/terms/mammalivore: mamalìvor
+        https://eol(dot)org/schema/terms/manca: manca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: mangròvia
+        http://eol(dot)org/schema/terms/MantleLength: longheur dël mantel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003074: prodot manifaturà
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marengh
+        https://eol(dot)org/schema/terms/marine_animals: animaj marengh
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: fond dël mar
+        https://eol(dot)org/schema/terms/marine_carnivore: carnìvor marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000108: sfera marenga d'eva
+          frèida
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005795: pàuta marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: parch marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000023: marengh pelàgich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: bariera marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: sediment marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: fiòca marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: arsurgensa marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000109: sfera d'eva càuda marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: massa d'eva marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: mojiss
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: massa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: massiss
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: abitùdin ëd chërsùa massissa
         http://eol(dot)org/schema/terms/MatingSystem: strategìa d'arprodussion
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: madur
         http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: prairìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005761: seul ëd prairìa
+        http://semanticscience(dot)org/resource/SIO_001109: media
+        http://eol(dot)org/schema/terms/meanAnnualTemperature: temperadura anual media
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementAccuracy: precision ëd la
+          mzura
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementDeterminedBy: mzura determinà
+          da
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementMethod: métod dë mzura
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementRemarks: armarche an sla mzura
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: carn
+        http://semanticscience(dot)org/resource/SIO_001110: mesan-a
+        https://eol(dot)org/schema/terms/median_paired_fin: propulsion për ala mesan-a/a
+          cobia
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: meisinor
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: foresta mediterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000878: foresta mediterania,
+          bòsch e gërbola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000224: prairìa mediterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000047: biòma marengh mediterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000217: gërbola mediterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000208: bòsch mediterani
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: mesan
+        http://eol(dot)org/schema/terms/mediumNitrogenFixation: fissassion mesan-a
+          ëd l'asòt
+        http://eol(dot)org/schema/terms/mediumCNRatio: mesan-a (23 – 59)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medi (normal)
+        https://eol(dot)org/schema/terms/medusoid: medusòid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000199: lagh meromìtich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: autipian
+        http://eol(dot)org/schema/terms/mesohaline: mesoalin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: zòna mesopelàgica
+        http://eol(dot)org/schema/terms/mesotrophicFreshwaterLake: lagh d'eva dossa
+          mesotròfich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002225: eva mesotròpica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: era
+          mesosòica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: età
+          messinian-a
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: metabòlich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: ròch metamòrfich
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm²
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/di
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m²
+        https://eol(dot)org/schema/terms/microalgae: microalga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000008: tapiss micròbich
+        https://eol(dot)org/schema/terms/microbivore: microbìvor
+        http://eol(dot)org/schema/terms/microcarnivore: microcarnìvor
+        http://eol(dot)org/schema/terms/microphytobenthos: microfitobentos
+        http://eol(dot)org/schema/terms/midSpring: mesa prima
+        http://eol(dot)org/schema/terms/midSummer: mesa istà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000406: crësta medioceànica
+        http://eol(dot)org/schema/terms/midPersistentSeedBank: semipërsistent
+        http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: sot-zòna d'erborin
+          nan ëd l'àrtich mesan
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: época
+          devonian-a mesan-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleJurassic: época
+          giuràssica mesan-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleOrdovician: época
+          ordivician-a mesan-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: età
+          dël pleistocen-e mesan
         http://eol(dot)org/schema/terms/MiddleToeLength: longheur dël dil mesan
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleTriassic: época
+          triàssica mesan-a
+        http://eol(dot)org/schema/terms/migratory: migratòri
         http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
         http://eol(dot)org/schema/terms/paleo_megaannum: un milion d'agn fa
+        http://semanticscience(dot)org/resource/SIO_001113: min
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000125: sorgiss mineral
+        https://eol(dot)org/schema/terms/mineralizedSkeletonContains: lë schéletr
+          mineralisà a conten
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: ël tëssù mineralisà
           a conten
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: mineraj
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Miocene: época
+          miocen-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mississippian: sot-perìod
+          mississippian
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mës-cià
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: foresta mës-cia
+        http://eol(dot)org/schema/terms/mixotrophy: mis-ciotròpich
+        http://eol(dot)org/schema/terms/mlO2perhour: ml/hr O₂
+        http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mm hg
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3mèis
         http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4mèis
         http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6mèis
@@ -2511,34 +2663,202 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/di
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sec
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/ann
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm²
+        http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm²/mg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
+        https://eol(dot)org/schema/terms/mobile_prey_feeder: as nuriss ëd pijàite
+          mòbij
+        http://eol(dot)org/schema/terms/ModeOfAction: manera d'assion
+        http://eol(dot)org/schema/terms/moderateRate: moderà
+        http://eol(dot)org/schema/terms/moderateLifeSpan: durà ëd vita moderà
+        http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m²/jour
+        https://eol(dot)org/schema/terms/mollusk_foot: pe ëd molusch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000432: monadnock
+        http://eol(dot)org/schema/terms/monandry: monàndrich
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000412: monass
+        https://eol(dot)org/schema/terms/monoicous: monòich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: desert ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000435: foresta ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000194: prairìa ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000223: savan-a ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000216: gërbola ëd montagna
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: landa ùmida
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: moren-a
         http://eol(dot)org/schema/terms/MortalityRateDoublingTime: temp d'ardobiament
           dël tass ëd mortalità
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: età
+          moscovian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: còl ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: caden-a ëd montagne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: mocia
+        https://eol(dot)org/schema/terms/mucus_gliding: sghijament medià da la mocia
+        http://eol(dot)org/schema/terms/mucus_net_feeder: as nuriss con na rej ëd
+          mocia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: pàuta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: volcan ëd pàuta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: teren motos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005793: eva motosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000192: pian-a ëd maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000553: ciusa multifonsional
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: munissipalità
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: mùscol
+        https://eol(dot)org/schema/terms/muscular_waves: ondulassion muscular
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: sistema muscoloschelétrich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003033: compòst për bolè
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001386: bariera ëd còsse
         http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualìstich con
+        http://eol(dot)org/schema/terms/myrmecochory: mirmecocorìa
         http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: pòrt natural
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: arzerva natural
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0015170: euj ëd naupil
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: stadi ëd naupil
+        http://eol(dot)org/schema/terms/nearThreatened: scasi mnassà
+        http://www(dot)marinespecies(dot)org/traits/Nekton: netònich
+        http://eol(dot)org/schema/terms/nektobenthic: nectobèntich
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: perìod
+          neogénich
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: nadin
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neoproterozoic: era
+          neoproterosòica
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Neotype: neotipo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000032: zòna pelàgica nerìtica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000206: zòna nerìtica
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: sistema nervos
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: maladìe dël sistema
+          nervos
+        http://eol(dot)org/schema/terms/net_carbon_fixation_rate: tass polid ëd fissassion
+          dël carbòni
+        https://eol(dot)org/schema/terms/neuston: neuston
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/hr
+        https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/min
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
+        https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
+        https://eol(dot)org/schema/terms/nmolpergramperhour: nmol/g/hr
+        http://eol(dot)org/schema/terms/no: nò
+        http://eol(dot)org/schema/terms/noHarem: gnun harem
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_NO: gnun soen parental
+        http://eol(dot)org/schema/terms/noPaternalCare: gnun soen patern
+        http://eol(dot)org/schema/terms/noSocialGroupLiving: vivent sensa partìa sossial
+        http://eol(dot)org/schema/terms/activityCycleOther: nuité/dl'ambrun, catemeral,
+          dl'ambrun o dël di/dl'ambrun
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: as nuriss ëd
+          depòsit nen seletiv
+        http://eol(dot)org/schema/terms/non-woodyEpipyte: epifita nen ëd bòsch
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: gnun
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: età norian-a
+        http://eol(dot)org/schema/terms/northernArcticDwarfShrubSubzone: sot-zòna
+          d'arborin nan ëd l'artich setentrional
+        http://eol(dot)org/schema/terms/notMonogamous: nen monògam
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghëssa ëd la nos
         http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
         http://eol(dot)org/schema/terms/NumberOfHosts: nùmer d'òspit
         http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: nùmer d'argistrassion
-          pùbliche an BOLD
+          pùbliche an grassèt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000181: nunatak
         http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: composission dij
           nuriment ant ël làit
+        http://eol(dot)org/schema/terms/nutrient_symbiotroph: simbiòtrof an nuriment
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: foresta ëd rol
+        http://eol(dot)org/schema/terms/obligateClimber: grimpeur obligatòri
+        http://eol(dot)org/schema/terms/obligateEpiphyte: epifita obligatòri
+        http://rs(dot)tdwg(dot)org/dwc/terms/occurrenceRemarks: armarche ëd l'ocorensa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: zòna batipelàgica osseànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000040: zòna bentopelàgica osseànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000071: front osseànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: ìsola osseànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: zòna osseànica
+        http://eol(dot)org/schema/terms/oceanodromous: osseanòdrom
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001758: ujet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: àcid otadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: piantagion ëd palme
+          da euli
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: età
+          olenekian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oligocene: época
+          oligocen-a
+        http://eol(dot)org/schema/terms/oligotrophicFreshwaterLake: lagh d'eva dossa
+          oligòtrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002223: eva oligòtrofa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000193: ulivera
+        https://eol(dot)org/schema/terms/omnidirectional: omnidiressional
+        https://eol(dot)org/schema/terms/omnivoreCarnivore: onìvor-carnìvor
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_OEV: ventilator a estremità
+          duverta
         http://eol(dot)org/schema/terms/OptimalGrowthTemperature: temperadura ëd chërsùa
           otimal
+        https://eol(dot)org/schema/terms/optimal_rainfall: pluviometrìa otimal
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: groson
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: vërzé
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ordovician: perìod
+          ordovician
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: sistema d'òrgo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: materia orgànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000137: crov ëd materia orgànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: rumenta orgànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002202: sediment contaminà da
+          dle sostanse orgàniche
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientassion
+        http://eol(dot)org/schema/terms/OriginOfToxin: orìgin ëd la tossin-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: decorassion
+        https://eol(dot)org/schema/terms/ostraciiform: ostraciform
+        http://eol(dot)org/schema/terms/otherBudSource: àutr
         http://eol(dot)org/schema/terms/OuterEarLength: longheur dl'orija esterna
+        http://eol(dot)org/schema/terms/outerReef: bariera esterior
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: moren-a frontal
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: ovoidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: lagh an arch
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: diactin-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: età
+          oxfordian-a
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000297: risera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005740: seul ëd risera
+        http://eol(dot)org/schema/terms/stingPain: dolor da pontura
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoarchean: era
+          paleoarchean-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleocene: época
+          paleocen-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleogene: perìod
+          paleogen
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleoproterozoic: era
+          paleoproterosòica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: era
+          palesòica
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
+        https://eol(dot)org/schema/terms/palmeiral: palmé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: giassé soterani
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: paralectotipo
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parassità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: parassitòid ëd
+        http://eol(dot)org/schema/terms/paratopotype: paratipotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: paratipo
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: soen parental
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
+        http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: schéletr
+          particolar (nen sòlid)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: pastura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: teren da pastura
+        http://eol(dot)org/schema/terms/patchReef: bariera indipendenta
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patògen ëd
+        http://eol(dot)org/schema/terms/pathogen_vector_parasite: parassita vetor
+          patògen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000157: taj ëd torba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005774: seul ëd torba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000189: mojiss ëd torba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000044: torbera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000116: sediment ëd giàira
+        https://eol(dot)org/schema/terms/pectoral_oscillation: sbalansament d'ala
+          petoral
+        https://eol(dot)org/schema/terms/pectoral_fins: nov d'ala petoral
+        https://eol(dot)org/schema/terms/pectoral_undulation: sbalansament d'ala petoral
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: àcid pentadecanoid
         http://eol(dot)org/schema/terms/perAcre: për acr
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: përsent

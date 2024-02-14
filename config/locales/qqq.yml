@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: Amire80
 # Author: EugeneZelenko
 # Author: Kareyac
 # Author: Optilete
@@ -11,6 +12,7 @@
 # Author: Umlaut
 # Author: Verdy p
 # Author: Xyb
+# Author: YuriNikolai
 ---
 qqq:
   language_name: |-
@@ -23,6 +25,9 @@ qqq:
     notices:
       vernacular: https://www.webton.nl/blog/wat-zijn-breadcrumbs/
   brief_summary:
+    marine_html: Do not translate the two HTML tags <code><nowiki><span class="%{class_str}"
+      id="%{id}"></nowiki></code> and <code><nowiki></span></nowiki></code> surrounding
+      the expression "marine habitat", translate only this expression.
     taxonomy:
       family_above:
         r_superkingdom: "Domain is also named superkingdom. See also: \nhttps://en.wikipedia.org/wiki/Domain_(biology)"
@@ -79,6 +84,12 @@ qqq:
       headers:
         name: '{{identical|Name}}'
         description: '{{identical|Description}}'
+  resources:
+    actions:
+      diff: '''diff'' is a common computer-science shorthand for ''find the differences.''
+        Since this text is for a small button, it would be best to try and use an
+        abbreviation in your language as well; otherwise using ''diff'' verbatim may
+        be appropriate.'
   search:
     full_name: '{{Optional}}'
   sections:
@@ -89,6 +100,8 @@ qqq:
   simple_form:
     "yes": '{{Identical|Yes}}'
     "no": '{{Identical|No}}'
+    required:
+      mark: '{{ignored}}'
     labels:
       defaults:
         email: '{{Identical|Email}}'
@@ -289,6 +302,8 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: Capable of the biological
           process in which new individuals are produced by either a single cell or
           a group of cells, in the absence of any sexual process.
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: 'Geochronologic
+          stage of the Permian, see also: https://en.wikipedia.org/wiki/Asselian'
         http://eol(dot)org/schema/terms/atLeastShortPersistentSeedBank: Of seed bank
           longevity.  Seed bank longevity is > 1 and at least <= 5 yr (could be longer
           but it is unknown).

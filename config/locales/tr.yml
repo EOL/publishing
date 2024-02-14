@@ -2,18 +2,31 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Agaafd
+# Author: Agaafd
 # Author: ArdaDemirel
+# Author: ArdaDemirel
+# Author: BaRaN6161 TURK
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
 # Author: Hedda
+# Author: Hedda
+# Author: Joseph
 # Author: Joseph
 # Author: Melissadilara
+# Author: Melissadilara
+# Author: Mim.saitkilic
 # Author: Mim.saitkilic
 # Author: MuratTheTurkish
+# Author: MuratTheTurkish
+# Author: SaldırganSincap
 # Author: SaldırganSincap
 # Author: Stonecy
+# Author: Stonecy
+# Author: Sucsuzz
 # Author: Sucsuzz
 # Author: SwornToTranslate29
+# Author: SwornToTranslate29
+# Author: ToprakM
 # Author: ToprakM
 ---
 tr:
@@ -45,7 +58,7 @@ tr:
     actions:
       collect: topla
     header:
-      blank: (Bu makalenin gövdesi yoktur.)
+      blank: (Bu makalenin gövdesi yok.)
       body: Gövde
       language: 'dil: %{language}'
       title: Başlık
@@ -53,11 +66,11 @@ tr:
     name:
       missing: Başlıksız
   article_from_partner: '%{partner} tarafından sağlandı'
-  article_duplicate: bu madde ayrıca "%{section}" içinde gösterilmiştir
+  article_duplicate: bu makale aynı zamanda "%{section}" bölümünde de gösteriliyor
   autocomplete:
     see_all:
       one: diğer sonuçları görüntüle
-      other: '%{count} tüm sonuçları görüntüle '
+      other: 'tüm %{count} sonucu görüntüle '
   breadcrumbs:
     notices:
       canonical: Bilimsel isimler artık sayfa kırıntılarında gösterilecek
@@ -69,36 +82,43 @@ tr:
       vernacular: yerel
   brief_summary:
     extinction:
-      r_genus_html: Bu cins <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_subgenus_html: Bu altcins <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_infragenus_html: Bu infracins <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_superspecies_html: Bu üsttür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_species_html: Bu tür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_subspecies_html: Bu alttür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_infraspecies_html: Bu infratür <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
-      r_form_html: Bu form <span class='%{class_str}' id='%{id}'>tükenmiş</span>.
+      r_genus_html: Bu cinsin <span class='%{class_str}' id='%{id}'>nesli tükenmiştir</span>.
+      r_subgenus_html: Bu alt cinsin <span class='%{class_str}' id='%{id}'>nesli tükenmiştir</span>.
+      r_infragenus_html: Bu infracinsin <span class='%{class_str}' id='%{id}'>soyu
+        tükenmiştir</span>.
+      r_superspecies_html: Bu süper türün <span class='%{class_str}' id='%{id}'>nesli
+        tükenmiştir</span>.
+      r_species_html: Bu türün <span class='%{class_str}' id='%{id}'>nesli tükenmiştir</span>.
+      r_subspecies_html: Bu alt türün <span class='%{class_str}' id='%{id}'>nesli
+        tükenmiştir</span>.
+      r_infraspecies_html: Bu infra türün <span class='%{class_str}' id='%{id}'>nesli
+        tükenmiştir</span>.
+      r_form_html: Bu formun <span class='%{class_str}' id='%{id}'>nesli tükenmiştir</span>.
     fix_nitrogen_html: <span class='%{class_str}' id='%{object_id}'>Nitrojeni</span>
-      <span class='%{class_str}' id='%{predicate_id}'>düzenlerler</span>.
+      <span class='%{class_str}' id='%{predicate_id}'>düzenler</span>.
     freshwater_html: <span class='%{class_str}' id='%{id}'>Tatlısu habitatı</span>
-      ile bağlantılılar.
-    species: '%{name1}, %{name2} türüdür.'
-    species_in_family: '%{name1}, %{name_family} familyasına bağlı olan %{name2} türüdür.'
+      ile bağlantılıdır.
+    marine_html: <span class='%{class_str}' id='%{id}'>Deniz habitatlarında</span>
+      bulunur.
+    species: '%{name1}, bir %{name2} türüdür.'
+    species_in_family: '%{name1}, %{name_family} familyasına bağlı olan bir %{name2}
+      türüdür.'
     taxonomy:
       family_above:
-        r_superfamily: '%{name1}, %{name2} üstfamilyasıdır.'
+        r_superfamily: '%{name1}, %{name2} üst familyasıdır.'
         r_domain: '%{name1}, %{name2} altında bir âlemdir.'
-        r_subdomain: '%{name1}, %{name2} altında bir altâlemdir.'
-        r_infradomain: '%{name1}, %{name2} altında bir infraâlemdir.'
-        r_superkingdom: '%{name1}, %{name2} altında bir üstâlemdir.'
+        r_subdomain: '%{name1}, %{name2} altında bir alt âlemdir.'
+        r_infradomain: '%{name1}, %{name2} altında bir infra âlemdir.'
+        r_superkingdom: '%{name1}, %{name2} altında bir üst âlemdir.'
         r_kingdom: '%{name1}, %{name2} altında bir âlemdir.'
-        r_subkingdom: '%{name1}, %{name2} altında bir altâlemdir.'
-        r_infrakingdom: '%{name1}, %{name2} altında bir infraâlemdir.'
-        r_superphylum: '%{name1}, %{name2} altında bir üstşubedir.'
+        r_subkingdom: '%{name1}, %{name2} altında bir alt âlemdir.'
+        r_infrakingdom: '%{name1}, %{name2} altında bir infra âlemdir.'
+        r_superphylum: '%{name1}, %{name2} altında bir üst şubedir.'
         r_phylum: '%{name1}, %{name2} altında bir şubedir.'
-        r_subphylum: '%{name1}, %{name2} altında bir altşubedir.'
-        r_infraphylum: '%{name1}, %{name2} altında bir infraşubedir.'
-        r_superclass: '%{name1}, %{name2} üstsınıftır.'
-        r_class: '%{name1}, %{name2} altında bir sınıftır.'
+        r_subphylum: '%{name1}, %{name2} altında bir alt şubedir.'
+        r_infraphylum: '%{name1}, %{name2} altında bir infra şubedir.'
+        r_superclass: '%{name1}, %{name2} üst sınıfıdır.'
+        r_class: '%{name1}, bir %{name2} sınıfıdır.'
         r_subclass: '%{name1}, %{name2} altında bir altsınıftır.'
         r_infraclass: '%{name1}, %{name2} altında bir infrasınıftır.'
         r_superorder: '%{name1}, %{name2} altında bir üsttakımdır.'
@@ -157,7 +177,7 @@ tr:
       page_contents_count: ilişkili içerik
       missing: Bu sayfa için zenginlik henüz hesaplanmamıştır.
       media_count: medya
-      articles_count: maddeler
+      articles_count: makaleler
       links_count: bağlantılar
       maps_count: haritalar
       data_count: veri
@@ -314,10 +334,10 @@ tr:
     filter_by_provider: sağlayıcıya göre filtrele
   footer:
     eol_info:
-      citing_eol: Atıf EOL
-      contact_us: Bize Ulaşın
+      citing_eol: EOL'e Atıf
+      contact_us: İletişim
       data_services: Veri Servisleri
-      donate: Bağış yap
+      donate: Bağış
       education: Eğitim
       food_webs: Yiyecek Ağları
       glossary: Sözlük
@@ -325,8 +345,8 @@ tr:
       language_support: Dil Desteği
       terms_of_use: Kullanım Şartları
       the_eol_forum: EOL Forumu
-      what_is_eol: EOL nedir?
-      whats_new: Neler Yeni?
+      what_is_eol: EOL Nedir?
+      whats_new: Yenilikler
     discover:
       algae: Alg
       amphibians: Amfibiler
@@ -341,8 +361,8 @@ tr:
       insects: Haşarat
       invertebrates: Omurgasızlar
       mammals: Memeliler
-      molds: Kalıplar
-      mushrooms: Mantarlar
+      molds: Küf Mantarları
+      mushrooms: Şapkalı Mantarlar
       mollusks: Yumuşakçalar
       plants: Bitkiler
       protists: Protistler
@@ -351,7 +371,7 @@ tr:
       trees: Ağaçlar
       viruses: Virüsler
       worms: Solucanlar
-    eol_is_hosted_by: 'EOL ev sahibi yapan:'
+    eol_is_hosted_by: 'Barındıran:'
   forgot_your_password: Parolanızı mı unuttunuz?
   gbif_download:
     created: GBIF indirme işi oluşturuldu. Durumunu görüntülemek için <a href="%{url}">kullanıcı
@@ -404,6 +424,7 @@ tr:
     q33120: Buryatça
     q35037: Ndyuka dili
     q880301: Louisiana Fransızca
+    q2937525: Capiznon
     q35156: Car dili
     q2591230: Kashinawa dili
     ca: Katalanca; Valensiyaca
@@ -429,11 +450,13 @@ tr:
     hr: Hırvatça
     hrv: Hırvatça
     cs: Çekçe
+    q32238: Dagbani
     da: Danca
     q3362072: Digo dili
     q56466: Dinka dili
     dv: Maldivce
     q18415595: Doteli
+    q33013: Duala
     dut: Felemenkçe
     nl: Felemenkçe; Flemish
     dz: Dzongkha
@@ -511,6 +534,8 @@ tr:
     q33690: Kaşupça
     kk: Kazakça
     ki: Kikuyu
+    q33656: Kildin Sami
+    q33720: Kinaray-a
     q11005332: Kinga
     q11732519: Ngindo dili
     rw: Ruandaca
@@ -557,8 +582,10 @@ tr:
     mh: Marshall Adaları dili
     q6786446: Matengo dili
     q3906614: Ova Marice
+    q13357: Meänkieli
     q13358: Megleno Rumence
     q13313: Meru
+    q13321: Miꞌkmaq
     q36455: Doğu Min Çincesi
     q13324: Minangkabau dili
     q13359: Megrelce
@@ -597,6 +624,7 @@ tr:
     or: Oriya Dili
     om: Oromca
     os: Osetçe
+    q715755: Paiwan
     pi: Pali
     pa: Pencapça
     q36403: Asu
@@ -629,6 +657,7 @@ tr:
     sc: Sarduca
     q845441: Sassari Sarduca
     q14549: İskoçça
+    q716686: Seediq
     sr: Sırpça
     q3788739: Shambala
     q56482: Şanca
@@ -704,6 +733,7 @@ tr:
     q237409: Zelandaca
     za: Zhuangca
     zu: Zuluca
+    Q33219: Banyumasan
   layout_sign_in: Oturum Aç
   layout_sign_up: Kaydol
   layout_sign_out: Oturumu Kapat
@@ -867,7 +897,7 @@ tr:
         unutmayın. Bu özellik ileriki bir tarihte uygulanacaktır.
     native_node_missing_warning: hiyerarşi bilgisi yok
     tabs:
-      articles: maddeler
+      articles: makaleler
       classifications: sınıflandırmalar
       data: veri
       literature_and_references: edebiyat ve referanslar
@@ -895,7 +925,7 @@ tr:
       media: '%{page_name} medyası'
       maps: '%{page_name} haritaları'
       names: '%{page_name} isimleri'
-      articles: '%{page_name} maddeleri'
+      articles: '%{page_name} makaleleri'
     traits:
       search: Özellik arama
   rank:
@@ -947,6 +977,7 @@ tr:
     property:
       description:
         ancestor: Başka bir taksonun atası olan takson.
+        conservation_status: Taksonun korunma durumu.
         rank: Bir taksonun derecesini açıklayan bir dizi, ör. "tür". Tanınmayan dereceler
           puanlanmaz.
       name:
@@ -954,13 +985,16 @@ tr:
         conservation_status: Koruma durumu
         extinction_status: Tükenmişlik durumu
         rank: Sıra
+    property_settings:
+      limit:
+        label: Sınır
     schema_space:
       headers:
         id: Kimlik
         name: Ad
         description: Açıklama
   reference_compiled_from: '%{links} tarafından yönlendirildi'
-  reference_compiled_from_article: '"%{name}" başlıklı %{source} madde'
+  reference_compiled_from_article: '"%{name}" başlıklı %{source} makalesi'
   register_new_account: Yeni hesap için kaydolun
   resources:
     actions:
@@ -1011,9 +1045,7 @@ tr:
       cannot_combine_paths: Sonuçlar %{path} ile birleştirilemiyor
       more_than_one_species: '%{species} için sonuçlar birleştirilemiyor'
       more_than_two_terms: 'Sonuçlar ikiden fazla terim için birleştirilemiyor: %{terms}'
-    n_articles:
-      one: '%{count} madde'
-      other: '%{count} madde'
+    n_articles: '{{PLURAL|one=%{count} makale}'
     n_collections:
       one: '%{count} koleksiyon'
       other: '%{count} koleksiyon'
@@ -1048,12 +1080,12 @@ tr:
       other: '%{count} sayfa; sağlayan %{users_sentence}'
     collected_media:
       title: 'bu sayfadan toplanan medya:'
-    medium_article: Madde
+    medium_article: Makale
     medium_image: Resim
     medium_map: Harita
     medium_sound: Ses
     medium_video: Video
-    medium_title_article_html: 'Madde: <span class=''sub''>%{title}</span>'
+    medium_title_article_html: 'Makale: <span class=''sub''>%{title}</span>'
     medium_title_image_html: 'Resim: <span class=''sub''>%{title}</span>'
     medium_title_map_html: 'Harita: <span class=''sub''>%{title}</span>'
     medium_title_sound_html: 'Ses: <span class=''sub''>%{title}</span>'
@@ -1095,8 +1127,8 @@ tr:
     collection_title_html: 'Koleksiyon: <span class=''sub''>%{name}</span>'
     resource_counts:
       n_articles:
-        one: 1 MADDE
-        other: '%{count} MADDE'
+        one: 1 MAKALE
+        other: '%{count} MAKALE'
       n_data:
         one: 1 SIFIR NOKTASI
         other: '%{count} VERİ'
@@ -1171,7 +1203,6 @@ tr:
     "no": Hayır
     required:
       text: gerekli
-      mark: '*'
     error_notification:
       default_message: 'Lütfen aşağıdaki sorunları inceleyin:'
     labels:
@@ -1190,7 +1221,7 @@ tr:
         path: yönlendirme yolu (dolu veya göreli)
         wkt_string: Effechecka'ya iletilecek WKT dizesi
   stats:
-    articles: maddeler
+    articles: makaleler
     collections: koleksiyonlar
     data: veri kayıtları
     media: medya
@@ -1499,7 +1530,7 @@ tr:
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: göz açmada yaş
         http://eol(dot)org/schema/terms/AgeAtMaturity: olgunluk yaşı
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: tarımsal
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: zirai madde
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: tarımsal malzeme
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: tarımsal toprak
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: tarım terası
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: tarımsal atık
@@ -1565,6 +1596,7 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: alan
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000429: arete
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: kurak
+        https://eol(dot)org/schema/terms/arm: kol
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: kol artı disk uzunluğu
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: artinskiyen
           çağı
@@ -1620,6 +1652,7 @@ tr:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: biyo-difüzör
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biyofilm
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: biyojenik silika
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: biyojen tortu
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: yaşamsal atık
         http://eol(dot)org/schema/terms/Bioluminescent: biyolüminesan
         https://eol(dot)org/schema/terms/bipedal_running: iki ayaklı koşu

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Fitoschido
 # Author: Xuacu
+# Author: YoaR
 ---
 ast:
   language_name: Asturianu
@@ -36,7 +37,7 @@ ast:
       vernacular: vernacular
   button_create: crear
   button_add: amestar
-  cancel: encaboxar
+  cancel: zarrar
   change_my_password: Camudar la mio contraseña
   change_your_password: Camuda la contraseña
   classifications:

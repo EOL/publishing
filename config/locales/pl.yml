@@ -7,6 +7,7 @@
 # Author: Krzyz23
 # Author: Mkazberuk
 # Author: Msz2001
+# Author: Narazeni
 # Author: Rainbow P
 # Author: Rzuwig
 # Author: WaldiSt
@@ -237,6 +238,7 @@ pl:
     lb: Luksemburski
     mk: Macedoński
     mlt: Maltański
+    q13359: Megrelski
     "no": Norweski
     nno: Norweski
     nob: Norweski
@@ -453,7 +455,6 @@ pl:
     "no": Nie
     required:
       text: Wymagane
-      mark: '*'
     labels:
       defaults:
         email: E-mail

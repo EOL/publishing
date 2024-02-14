@@ -1,0 +1,934 @@
+# Messages for Saraiki (Arabic script) (سرائیکی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Saraiki
+---
+skr-arab:
+  language_name: سرائیکی
+  about:
+    trait_bank:
+      title: ٹریٹ بینک
+  advanced: ودھائے
+  article:
+    actions:
+      collect: کٹھا کرو
+    header:
+      body: باڈی
+      language: 'زبان: %{language}'
+      title: عنوان
+      untitled: عنوان ٻاجھ
+    name:
+      missing: عنوان ٻاجھ
+  breadcrumbs:
+    types:
+      scientific: سائنسی
+      vernacular: دیسی
+  button_create: بݨاؤ
+  button_add: شامل کرو
+  cancel: منسوخ
+  change_my_password: میݙا پاس ورڈ تبدیل کرو
+  change_your_password: آپݨاں پاسورڈ تبدیل کرو
+  classifications:
+    children:
+      see_more: ٻئے ݙیکھو
+    hierarchies:
+      this_page: (ایہ ورقہ)
+    richness:
+      media_count: میڈیا
+      articles_count: مضمون
+      links_count: لنک
+      maps_count: نقشے
+      data_count: مواد
+      nodes_count: نوڈاں
+      vernaculars_count: دیسی
+      scientific_names_count: سائنسی ناں
+      referents_count: حوالے
+      updated_at: چھیکڑی اپ ڈیٹ تھیا
+  collect_new_collection_title: ۔۔۔ہک نواں مجموعہ
+  collected_pages_title: ورقے
+  collected_pages:
+    delete_button: مٹاؤ
+    edit_button: لکھو
+    delete_confirm: بھلا تہاکوں پک ہے؟
+  collection_user_is_admin: ایہ ورتݨ آلا ایڈمن ہے۔
+  collection:
+    admins:
+      placeholder: پورا ناں یا ورتݨ ناں
+    actions:
+      associate: ایسوسی ایٹ
+      delete: مٹاؤ
+      edit: لکھو
+      sort: چھانٹی کرو
+    collection_type:
+      normal: عام
+      gallery: گیلری
+    search:
+      submit: ڳولو
+    sort:
+      hierarchy: درجہ بندی
+      position: تریخ شامل تھئی
+      sci_name: سائنسی ناں، الف ـ ے
+      sci_name_rev: سائنسی ناں، ے ــ الف
+  content_attributions_header: ماخذ معلومات
+  content_attributions_labels:
+    altitude: بلندی
+    author: مصنف
+    bibliographic_citation: کتابیات دا حوالہ
+    contributor: ونگارو
+    compiler: مرتب
+    creator: خالق
+    editor: ایڈیٹر
+    latitude: عرض البلد
+    license: لائیسنس
+    location: محل وقوع
+    location_verbatim: لفظی
+    longitude: طول البلد
+    original_media_file: اصلی میڈیا فائل
+    owner: نقل حقوق
+    photographer: فوٹو گرافر
+    publisher: ناشر
+    project: منصوبہ
+    provider: میہا کار
+    references_header:
+      other: ہک=حوالہ
+    resource_label: بھائیوال سائٹ
+    resource_pk: '(آئی ڈی: %{key})'
+    rights_statement: حقوق دا بیان
+    source: ماخذ
+    view_source_label: اصل
+    view_source_link: اصل تصویر ݙیکھو
+    view_source_page_link: ماخذ ݙیکھو
+  errors:
+    not_found: ورقہ کائنی لبھا (404)
+  filter_by_license: لائیسنس
+  filter_by_license_any_item: کوئی لائیسنس
+  filter_by_medium_subtype: قسم
+  filter_by_medium_any_item: کوئی قسم
+  filter_by_resource: میہا کار
+  filter_by_resource_any_item: کوئی میہا کار
+  footer:
+    eol_info:
+      contact_us: ساکوں ملو
+      donate: عطیہ
+      education: تعلیم
+      food_webs: خوراک ویباں
+      glossary: فرہنگ
+      help: مدد
+      language_support: زبان سہارا
+      terms_of_use: ورتݨ شرطاں
+      whats_new: نواں کیا ہے؟
+    discover:
+      algae: الجی
+      amphibians: ایمفیبیئنز
+      animals: جانور
+      bacteria: بکٹیریا
+      birds: پکھُو
+      fishes: مچھیاں
+      fungi: فنجائی
+      insects: کیڑے
+      mammals: میمل
+      plants: پودے
+      spiders: ݙان٘ور
+      trees: درخت
+      viruses: وائرس
+      worms: کیڑے
+  language: زبان
+  languages:
+    ab: ابخیزیان
+    q27683: آچینی
+    q27776: ایڈیگے
+    aa: آفر
+    af: افریقی
+    ak: آکان
+    alb: البانی
+    sq: البانی
+    q131339: المانی
+    am: امہارہ
+    ar: عربی
+    an: آرگونی
+    hy: آرمینی
+    as: آسامی
+    q29507: آسٹری
+    q56590: آٹیکامیک
+    av: آواری
+    ae: آوستان
+    ay: عمارہ
+    q9292: آزربائیجانی
+    az: آزربائیجانی
+    q33070: بالنی
+    bm: بمبرا
+    q33151: بنجر
+    ba: باشکِر
+    eu: باسک
+    q29540: باویری
+    be: بیلا روسی
+    q8836490: بیندے
+    bn: بنگالی
+    bh: بِہاری زباناں
+    bi: بسلاما
+    nb: بوکمل، ناوریجی، نارویجی بوکمل
+    q4941378: بونڈی
+    bs: بوسینی
+    q33202: بروہی
+    q750553: برازیلی پرتگیزی
+    br: بریٹن
+    bg: بلغاری
+    my: برمی
+    q33120: بریات
+    q35156: کار
+    q2591230: کیشیناہوا
+    ca: کیٹالن؛ ویلنسی
+    q33239: سیبوانو
+    khm: وسطی خمیر
+    km: وسطی خمیر
+    ch: چمورو
+    q33281: چاواکانو
+    ce: چیچن
+    q33388: چیروکی
+    q33265: سیانے
+    zh: چینی
+    chi: چینی
+    cu: پراݨا چرچ سلاوینی
+    cv: چواش
+    q37041: کلاسیکی چینی
+    kw: کورنی
+    co: کورسیکن
+    cr: کری
+    q33357: کریمین تاتار
+    hr: کروشین
+    hrv: کروشین
+    cs: چیک
+    q32238: دگیانی
+    da: ڈنمارکی
+    q3362072: ݙیگو
+    q56466: ڈنکا
+    q33013: دوالا
+    dz: زونگکھا
+    dzo: زونگکھا
+    en: انگریزی
+    q29952: ایرزیا
+    eo: اسپرانٹو
+    et: اسٹونی
+    est: اسٹونی
+    ee: ایو
+    fo: فیروزی
+    fj: فجی
+    fi: فینی
+    fin: فینی
+    q667747: فِپا
+    fr: فرانسیسی
+    fra: فرانسیسی
+    ff: فلاہ
+    gl: گیلکین
+    q33475: گن چینی
+    lg: گانڈا
+    ka: جارجینی
+    de: جرمنی
+    deu: جرمنی
+    q3272630: گوگو
+    gre: یونانی
+    gn: گورانی
+    gu: گجراتی
+    q33303: حیدہ
+    ha: ہوسا
+    q35756: حیا
+    he: عبرانی
+    heb: عبرانی
+    q3129390: ہیے
+    hz: ہیرو
+    hi: ہندی
+    ho: ہیری موٹو
+    hu: ہنگری
+    is: آئی لینڈی
+    ice: آئی لینڈی
+    ig: اگبو
+    q35936: ایلوکانو
+    id: انڈونیشیائی
+    q33509: انگُش
+    ga: آئرِش
+    it: اطالوی
+    ita: اطالوی
+    ja: جاپانی
+    jp: جاپانی
+    jv: جاوی
+    q35475: کابے
+    q35853: کبائل
+    kn: کناڈا
+    kr: کنوری
+    q33541: کارا ـ کالپک
+    ks: کشمیری
+    q33690: کاشوبیان
+    kk: قازق
+    q11005332: کنگا
+    rw: کنیاروانڈا
+    ky: کِرغِیز؛ کرغیز
+    kv: کومی
+    kg: کانگو
+    ko: کوریائی
+    kor: کوریائی
+    ku: کردی
+    q36206: لک
+    lo: لاوسی
+    lao: لاوسی
+    la: لاطینی
+    lv: لاٹوی
+    q1160372: لاز
+    q31746: لیزگی
+    q36106: لیگری
+    ln: لنگالا
+    lt: لیتھونی
+    lit: لیتھونی
+    q33698: لیو
+    q36584: لیوی
+    q33754: لومبارڈ
+    q168446: لو سیکسن
+    q13286: ہیٹھلی سربی
+    q3437661: لگورو
+    q35787: مسائی
+    mk: مقدونی
+    q36109: میتھیلی
+    mg: مالاگاسی
+    ms: مالی
+    ml: ملیالم
+    mt: مالٹی
+    mlt: مالٹی
+    gv: مانکس
+    mi: ماؤری
+    mr: میراٹھی
+    mh: مارشلیز
+    q6786446: میٹینگو
+    q3906614: میڈو ماری
+    q13313: میرو
+    q36455: مِن ڈونگ
+    q13324: منانگکاباؤ
+    q13359: منگریلینی
+    q13330: مرانڈیز
+    q13343: موکشا
+    mn: منگولی
+    q56426: مراکو عربی
+    q6944725: مویرا
+    q13300: نہوٹل
+    q3508074: نئی
+    na: نَورو
+    q33845: نیپولٹن
+    ne: نیپالی
+    q7022366: نگینڈو
+    q28224: شمالی فریسیئن
+    q19933293: شمالی لُری
+    se: شمالی سامی
+    "no": ناروی
+    nno: ناروی
+    nob: ناروی
+    nor: ناروی
+    nn: ناروے نینورسک؛ نینورسک، نارویجی
+    q36738: نوائل
+    q3272620: نیکوسا
+    q4121131: نیامویزی
+    q7193418: نیاتورو
+    q11128374: نیہا
+    q16115145: نائکا
+    oj: اوجیبوا
+    or: اُڑیہ
+    om: ارومو
+    os: اوسیشین؛ اوسیٹک
+    q715755: پائوَن
+    pi: پالی
+    pa: پنجابی
+    q36403: پارے
+    fa: فارسی
+    q34024: پیکارڈ
+    q15085: پیڈمونٹیز
+    q2429648: پوگورو
+    pl: پولش
+    pol: پولش
+    q36748: پونٹک
+    pt: پرتگیزی
+    ps: پشتو
+    qu: کیچوا
+    q584983: رانگی
+    rm: رومانی
+    rn: رونڈی
+    ru: روسی
+    rus: روسی
+    q26245: روسن
+    q34299: ساکھا
+    q718269: سکیزیا
+    sm: سامون
+    q213434: ساموگیتی
+    q34016: سنڈاوے
+    sg: سانگو
+    sa: سنسکرت
+    q33965: سنتالی
+    sc: سردینی
+    q14549: سکاٹ
+    sr: سربی
+    q3788739: شمبلہ
+    q56482: شان
+    sn: شونا
+    q34004: شونا
+    q33973: سسلینی
+    sd: سندھی
+    si: سنہالی
+    sk: سلووک
+    slk: سلووک
+    sl: سلووینی
+    so: صومالی
+    som: صومالی
+    st: سوٹھو، جنوبی
+    es: سپینی؛ کسٹالینی
+    slv: سپینی
+    q2638144: سوکوما
+    su: سندانی
+    sw: سواحلی
+    ss: سواتی
+    sv: سویڈنی
+    swe: سویڈنی
+    tl: ٹیگ لاگ
+    ty: تاہیتی
+    tg: تاجک
+    q34318: ٹائلش
+    ta: تامل
+    tt: تاتار
+    te: تلگو
+    th: تھائی
+    tha: تھائی
+    bo: تبتی
+    ti: ٹِگرینیا
+    q34159: ٹوک پیسِن
+    to: ٹونگن
+    q180937: ٹوسک البانی
+    ts: سونگا
+    tn: سوانا
+    q34251: تولو
+    q34138: ٹمبوکا
+    q56240: تیونسی عربی
+    tr: ترکی
+    tur: ترکی
+    q36730: ترکی، عثمانی
+    tk: ترکمانی
+    tw: ٹوی
+    q13238: ادمورت
+    uk: یوکرائنی
+    ukr: یوکرائنی
+    q13248: اُتلی سربی
+    ur: اردو
+    uz: ازبک
+    ve: وینڈا
+    vi: ویتنامی
+    q32858: ووٹک
+    wa: والُون
+    q34279: وارے
+    cy: ویلش
+    wel: ویلش
+    fy: مغربی فریزین
+    wo: وولف
+    q34290: وو
+    xh: ہوسا
+    yi: یِدیش
+    yo: یورُبا
+    q10199: ذاذاکی
+    q237409: زی لینڈی
+    za: زوانگ؛ چوانگ
+    zu: زولو
+    Q33219: بنیوماسن
+  layout_sign_in: سائن ان
+  layout_sign_up: سائن اپ
+  layout_sign_out: سائن آؤٹ
+  literature_and_references_header: ادب تے حوالے
+  maps:
+    empty: ایں ورقے کیتے کوئی نقشے دستیاب کائنی۔
+  medium:
+    untitled:
+      image: عنوان بغیر تصویر
+      image_of: '%{page_name} دی تصویر'
+      video: عنوان بغیر وڈیو
+      video_of: '%{page_name} دی وڈیو'
+      sound: عنوان بغیر تصویر
+      sound_of: '%{page_name} دی اواز'
+      map: عنوان بغیر نقشہ
+      map_of: '%{page_name} دا نقشہ'
+    subclasses:
+      image: تصویر
+      video: وڈیو
+      sound: آواز
+      map_image: نقشہ
+  medium_header_title: 'عنوان:'
+  medium_header_description: 'تفصیل:'
+  names:
+    prefer: ترجیح
+  nav:
+    about: تعارف
+    discuss: بحث کرو
+    education: تعلیم
+    trait_bank: ٹریٹ بینک
+  name_preferred_label: ترجیحی
+  pages:
+    actions:
+      collect: کٹھا کرو
+    batch_lookup:
+      match: میچ
+      new_search: نویں ڳول
+      page_id: ورقے دی آئی ڈی
+      page_url: ورقہ یوآرایل
+      query: سوال
+      search: ڳولو
+    filter_menu:
+      show_all: سب ݙکھاؤ
+    page_data:
+      show_all: سب ݙکھاؤ
+    resource_names:
+      rank:
+        r_domain: ڈومین
+        r_subdomain: سب ڈومین
+        r_infradomain: انفرا ڈومین
+        r_superkingdom: سپر کنگڈم
+        r_kingdom: بادشاہت
+        r_phylum: فائیلم
+        r_subphylum: سب فائیلم
+        r_infraphylum: انفرافائیلم
+        r_superclass: سپر کلاس
+        r_class: جماعت
+        r_infraclass: انفرا کلاس
+        r_superorder: سپر آرڈر
+        r_order: ترتیب
+        r_family: ٹٻر
+        r_tribe: قبیلہ
+      username_missing: ورتݨ آلا %{user_id}
+    trophic_web:
+      competitor: مدمقابل
+      predator: شکاری
+      prey: شکار
+    tabs:
+      articles: مضمون
+      classifications: جماعت بندی
+      data: مواد
+      literature_and_references: ادب تے حوالے
+      overview: اُتلی نظر
+      maps: نقشے
+      media: میڈیا
+      names: ناں
+    iucn_status:
+      ex: ناپید (EX)
+      ew: جنگل وچ ناپید (EX)
+  page_titles:
+    pages:
+      data: '%{page_name} ڈیٹا'
+      media: '%{page_name} میڈیا'
+      maps: '%{page_name} نقشے'
+      names: '%{page_name} ناں'
+      articles: '%{page_name} مضامین'
+  rank:
+    name:
+      r_domain: ڈومین
+      r_subdomain: سب ڈومین
+      r_kingdom: بادشاہت
+      r_superphylum: سپرفائیلم
+      r_phylum: فائیلم
+      r_subphylum: سب فائیلم
+      r_infraphylum: انفرافائیلم
+      r_superclass: سپر جماعت
+      r_class: جماعت
+      r_superorder: سپر آرڈر
+      r_infraorder: انفرا آرڈر
+      r_family: خاندان
+      r_tribe: قبیلہ
+  reconciliation:
+    id_space:
+      headers:
+        type_id: قسم آئی ڈی
+        type_name: قسم ناں
+        id_format: آئی ڈی بݨاوت
+      type_names:
+        taxon: ٹیکسون
+      numeric_id: عددی آئی ڈی
+    property:
+      name:
+        rank: مرتبہ
+    property_settings:
+      limit:
+        label: حد
+    schema_space:
+      headers:
+        id: آئی ڈی
+        name: ناں
+        description: تفصیل
+  resources:
+    actions:
+      diff: فرق
+    headers:
+      index: وسائل
+    no_events: کوئی وی کائنی!
+  resource_missing: وسیلہ کائنی لبھا
+  scientific_name:
+    status_title:
+      accepted: قبول تھئے ناں
+      alternative: متبادل ناں
+      preferred: ترجیحی ناں
+      synonym: ہم معانی
+  scientific_names_header: سائنسی ناں
+  search_results:
+    medium_article: مضمون
+    medium_image: تصویر
+    medium_map: نقشہ
+    medium_sound: آواز
+    medium_video: وڈیو
+    medium_title_article_html: 'مضمون: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'تصویر: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'نقشہ: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'آڈیو: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'وڈیو: <span class=''sub''>%{title}</span>'
+    empty: کوئی نتیجہ کائنی۔
+  sections:
+    associations: ایسوسی ایشنز
+    behavior: کردار
+    benefits: فائدے
+    brief_summary: مختصر خلاصہ
+    comprehensive_description: جامع تفصیل
+    distribution: تقسیم
+    ecology: ماحولیات
+    genetics: جینیات
+    habitat: مسکن
+    management: منیجمنٹ
+    migration: ہجرت
+    molecular_biology: مالیکیولر بیالوجی
+    notes: نوٹ
+    overview: اُتلی نظر
+    risks: خدشے
+    size: سائز
+    taxonomy: درجہ بندی
+    threats: خطرے
+    trends: رجحان
+    wikipedia: وکیپیڈیا
+  settings: ترتیباں
+  sign_in: سائن ان
+  sign_up: سائن اپ
+  simple_form:
+    "yes": جیا
+    "no": کو
+    required:
+      text: لوڑ ہے
+    labels:
+      defaults:
+        email: ای میل
+        password: پاس ورڈ
+        password_confirmation: پاس ورڈ تصدیق
+        remember_me: میکوں یاد رکھو
+        username: ورتݨ آلا ناں
+        bio: بائیو
+  stats:
+    articles: مضمون
+    collections: مجموعے
+    media: میڈیا
+    pages: ورقے
+    nodes: نوڈاں
+    scientific_names: ناں
+    users: ورتݨ آلے
+    references: حوالے
+  term_query:
+    invalid_obsolete: غلط/ متروک
+  term_query_filter:
+    validations:
+      invalid_uri: غلط یوآرایل
+  terms:
+    scientific_name: سائنسی ناں
+    show_all_records: سارے ریکارڈ ݙیکھاؤ
+    source: ماخذ
+  traits:
+    data_viz:
+      about_this_chart: ایں چارٹ بارے
+      other_term_name: ٻیا %{term_name}
+      hist_value_label: قدر %{units}
+      other: ٻیا
+      page_habitat_header: '%{name} مساکن'
+    properties:
+      remarks: ریمارکس
+      sample_size: نمونہ سائز
+      scientific_name: سائنسی ناں
+      source: ماخذ
+    search_hdr: ڈیٹا ڳولݨ
+    search_results:
+      clade: 'کلیڈ: %{clade}'
+      download_tsv: ڈاؤن لوڈ ٹی ایس وی
+      edit_filters: چھاݨے تبدیل کرو
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'قدر: %{obj} نال'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'وسیلہ: %{value}'
+        sex: 'جنس: %{value}'
+        statistical_method: 'شماریاتی طریقہ: %{value}'
+      new_search: نویں ڳول
+      show_query: سوال ݙکھاؤ
+    search_form:
+      attribute: وصف
+      resource: وسیلہ
+      search: ڳولو
+      sex: جنس
+      value: قدر
+  user:
+    created_at: بݨ ڳیا
+    download_queue: ڈیٹا ڈاؤن لوڈ قطار
+    email: ای میل
+    headers:
+      collections: مجموعے
+      downloads: ڈاؤن لوڈ
+      links: لنک
+    new_password: نواں پاس ورڈ
+    confirm_new_password: نویں پاس ورڈ دی تصدیق کرو
+    username: ورتݨ آلا ناں
+    update: اپ ݙیٹ
+    update_email: ای میل اپ ڈیٹ کرو
+  users:
+    sign_in: سائن ان
+  vernacular_names_header: عام ناں
+  term:
+    edit:
+      submit: بچاؤ
+    fields:
+      name: 'ناں:'
+      definition: 'تعریف:'
+      comment: 'تبصرہ:'
+      sections: 'حصے:'
+    pagination:
+      next: اڳلا ورقہ
+      previous: پچھلا ورقہ
+    name:
+      by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/مہینہ'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: کثرت
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: تیزابی مٹی
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: ڄوان
+        http://eol(dot)org/schema/terms/aerial: ایرئیل
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: ایرئیل
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: زراعت
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: زرعی مواد
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: زرعی مٹی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: زرعی چھت
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: زرعی فضلہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: زرعی فضلہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: زناوراں دا فضلہ
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: سالانہ
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: اندرلا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: آبی
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: آبی (حرکت)
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: آبی پودا
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: علاقہ
+        http://eol(dot)org/schema/terms/average: اوسط
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: خلیج
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: ساحل سمندر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: ساحل ریت
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: ݙوسالہ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: کالا
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: خون
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: نیلا
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: وسیع
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: بھورا
+        http://eol(dot)org/schema/terms/browsing: براؤزر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: عمارت
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: بلب
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: کیلسائٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: کیلشیم (ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: کیلشیم کاربونیٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: کیلشیم فاسفیٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: کیلشیم سلفیٹ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: نہر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: غار
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: غار دی کندھ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: چاک
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: چاک مٹی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: چینل
+        http://purl(dot)org/dc/terms/bibliographicCitation: حوالہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: شَہر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: چٹان
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: سم
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: سم^٢
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: سم^٣
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: ساحل
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: ساحلی ٹبہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: ساحلی زمین
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: ساحلی میدان
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: ساحلی جھاڑی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: ساحلی پاݨی
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: رنگ
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: ابلاغ
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: مرکب
+        http://eol(dot)org/schema/terms/cone: مخروط
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: ملک دا کوڈ
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: سلنڈر
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: ڈیری
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: ݙیہاڑے
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: مُردہ
+        http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: ملبہ
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: درجے
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: ڈیلٹا
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: ݙنداں دا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: صحرا
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: قُطر
+        http://eol(dot)org/schema/terms/dryFruit: سُکے میوے
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000018: سُکا دریا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010163: سکا دریا وادی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: سکی زمین
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: سکی نہر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: سکی وادی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: ٹٻہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: دھُوڑ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: قسط وار
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000282: ایسکر
+        http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: تخمینہ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: سدا بہار
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: سدا بہار جنگل
+        http://eol(dot)org/schema/terms/explanate: وضاحت
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: بے نقاب
+        http://www(dot)marinespecies(dot)org/traits/ExternalTube: باہرلی ٹیوب
+        http://eol(dot)org/schema/terms/extinct: باپید
+        http://eol(dot)org/schema/terms/extinctInTheWild: جنگل وچ ناپید
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: اکھیں
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: کھیت
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: تکھا
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: کھمبھ
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: فٹ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: تریمت
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: پرواز
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: جنگل
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: تازہ پاݨی
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: پھل
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: پھل رنگ
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: پھل لمبائی
+        http://eol(dot)org/schema/terms/FruitSeedColor: پھل یا بیج رنگ
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: پھل شکل
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: پھل قسم
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: پھل چوڑائی
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: ٻالݨ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000587: فرنیچر
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: گھاہ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: بجری
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000548: بجری میدان
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000473: بجری ٹویا
+        http://eol(dot)org/schema/terms/grayGreen: سرمئی ساوا
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: ساوا
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: مسکن
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: بندرگاہ
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: سر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: ہیتھ
+        http://semanticscience(dot)org/resource/SIO_000040: اُچائی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: لُکاؤ
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: اُچا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: پہاڑی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: پہاڑی سلسلہ
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: ماکھی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: ہسپتال
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: برف
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: آئس برگ
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: انچ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: جزیرہ
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: کیلون
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/سال
+        http://eol(dot)org/schema/terms/squarekilometer: km^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: جھیل
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: وݙا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: وݙی جھیل
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: وݙا دریا
+        http://semanticscience(dot)org/resource/SIO_000041: لمباݨ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: خطی
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: خطی سائز
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: مارش
+        http://semanticscience(dot)org/resource/SIO_001114: ودھ و ودھ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: چراگاہ
+        http://semanticscience(dot)org/resource/SIO_001109: اوسط
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: گوشت
+        http://semanticscience(dot)org/resource/SIO_001110: وسطانیہ
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: درمیانہ
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm^2
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/ݙینہ
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
+        http://semanticscience(dot)org/resource/SIO_001113: منٹ
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: معدنیات
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: رلے ملے
+        http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mm hg
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/٣ مہینے
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/٤مہینے
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/٦مہینے
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/٧ مہینے
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/٨مہینے
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/ݙینہ
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: مہینے
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: مور
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/گنٹہ
+        http://eol(dot)org/schema/terms/no: کو
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: کوئی وی کائنی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: سمندری جزیرہ
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: مالٹی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: بغیچا
+        http://eol(dot)org/schema/terms/otherBudSource: ٻیا
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: آکسیجن
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: اونس
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: فیصد
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: شجرکاری
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: سطح مرتفع
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: قطبی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: قطبی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: ریلوے
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: ریت
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: ساحل سمندر
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: بیج
+        http://rs(dot)tdwg(dot)org/dwc/terms/sex: جنس
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: شکل
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: جھاڑی
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: ریشم
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: سادہ
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000047: سادہ اکھیں
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: سائز
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: جِلد
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: مَٹھا
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: چھوٹا
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: چھوٹی جھیل
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: چھوٹا دریا
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: سماجی
+        http://purl(dot)org/dc/terms/source: ماخذ
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: ݙند
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000508: چھڄا
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: موٹائی
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: درخت
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Type: قسم
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#typeOfType: قسم دی قسم
+        http://eol(dot)org/schema/terms/unknown: نامعلوم
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: وادی
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54166: متغیر
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000031: وادی
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: بگّا
+        http://semanticscience(dot)org/resource/SIO_000042: چوڑائی
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: لکڑ
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: سال
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: پیلا
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: پیلا ساوا
+        http://eol(dot)org/schema/terms/yes: جیا
+        http://eol(dot)org/schema/terms/microatmosphere: µatm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
+        http://eol(dot)org/schema/terms/µg_cm-2: µg/cm^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000017: µm
+        http://eol(dot)org/schema/terms/perMicrometer: µm^(-1)
+        http://eol(dot)org/schema/terms/squareMicrometer: µm^2
+        http://eol(dot)org/schema/terms/cubicMicrometer: µm^3
+        http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
+        http://eol(dot)org/schema/terms/perPound: /lb
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
+        http://eol(dot)org/schema/terms/mol_cell-1: mol/cell
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: ٹرمینل
+...

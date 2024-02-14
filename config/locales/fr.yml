@@ -158,7 +158,7 @@ fr:
         other: '%{count} frères supplémentaires tronqués pour brièveté.'
     richness:
       header: Richesse de la page
-      score: score de richesse
+      score: indice de richesse
       page_contents_count: contenu associé
       missing: La richesse n’a pas encore été calculée pour cette page.
       media_count: média
@@ -264,7 +264,7 @@ fr:
   complete_registration: Veuillez poursuivre votre inscription
   content_appears_on: 'Inclus dans les pages suivantes :'
   content_collected_in: 'Mis en vedette dans les collections suivantes :'
-  content_attributions_header: Informations de provenance
+  content_attributions_header: Informations sur la provenance
   content_attributions_labels:
     altitude: altitude
     author: auteur
@@ -272,7 +272,7 @@ fr:
     contributor: contributeur
     compiler: compilateur
     creator: créateur
-    editor: éditeur
+    editor: rédacteur
     latitude: latitude
     license: licence
     location: position
@@ -281,7 +281,7 @@ fr:
     original_media_file: fichier de média d’origine
     owner: droit d’auteur
     photographer: photographe
-    publisher: éditeur
+    publisher: éditeur de publication
     project: projet
     provider: fournisseur
     references_header:
@@ -797,7 +797,7 @@ fr:
       download_tsv: Télécharger au format TSV
       match: correspondance
       new_search: nouvelle recherche
-      page_id: ID de page
+      page_id: identifiant de page
       page_url: URL de la page
       query: requête
       query_cant_be_blank: la requête ne peut être vide
@@ -1002,6 +1002,7 @@ fr:
       import_traits: importer des traits (du dépôt)
       republish: publier
       clean_republish: nettoyer la republication
+      diff: diff
       republish_confirm: Ceci va supprimer TOUT le contenu associé à la ressource
         (hormis les traits, qui utiliseront un diff). En êtes-vous SÛR(E) ?
       clean_republish_confirm: Ceci va supprimer TOUS le contenu associé à la ressource
@@ -1075,7 +1076,7 @@ fr:
       one: '%{count} son'
       other: '%{count} sons'
     n_taxon_pages:
-      one: '%{count} page de taxon'
+      one: une page de taxon
       other: '%{count} pages de taxon'
     n_users:
       one: '%{count} utilisateur'
@@ -1222,7 +1223,6 @@ fr:
     "no": Non
     required:
       text: obligatoire
-      mark: '*'
     error_notification:
       default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
     labels:
@@ -1235,8 +1235,9 @@ fr:
         bio: Biographie
       search_suggestion:
         match: chercher la chaîne correspondante
-        page_id: ID de la page sur EdlV vers laquelle rediriger (ou par laquelle filtrer)
-        synonym_of_id: ID (!) de la suggestion de recherche à plutôt utiliser
+        page_id: Identifiant de la page sur EdlV vers laquelle rediriger (ou par laquelle
+          filtrer)
+        synonym_of_id: Identifiant (!) de la suggestion de recherche à plutôt utiliser
         object_term: URI vers laquelle rediriger (ou par laquelle filtrer)
         path: chemin (complet ou relatif) de la redirection
         wkt_string: Chaîne WKT à passer à Effechecka
@@ -1338,10 +1339,10 @@ fr:
         one: cliquer pour voir un taxon de la famille %{family}
         other: cliquer pour voir %{count} taxons de la famille %{family}
       n_obj_records:
-        one: un enregistrement avec « %{obj_name} »
+        one: '%{count} enregistrement avec « %{obj_name} »'
         other: '%{count} enregistrements avec « %{obj_name} »'
       n_taxa_with:
-        one: un taxon avec « %{obj_name} »
+        one: '%{count} taxon avec « %{obj_name} »'
         other: '%{count} taxons avec « %{obj_name} »'
       sankey_node_hover: Cliquer pour restreindre la recherche à %{term_name}
       see_n_obj_records:
@@ -2347,7 +2348,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002063: fuite d’hydrocarbures
         http://eol(dot)org/schema/terms/hydrochory: hydrochorie
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: réservoir hydroélectrique
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: bassin de retenue hydroélectrique
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
         http://www(dot)marinespecies(dot)org/traits/Hydrostatic: squelette hydrostatique
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000134: fluide hydrothermal
@@ -2402,7 +2403,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canal d’irrigation
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000470: barrage d’irrigation
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000139: fossé d’irrigation
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: réservoir d’irrigation
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000450: bassin de retenue d’irrigation
         http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: est un
           composant de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: est mangé par
@@ -2517,7 +2518,7 @@ fr:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: époque
           de llandovery
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: terreau
-        http://rs(dot)tdwg(dot)org/dwc/terms/locality: localité
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: lieu-dit
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: âge
           lochkovien
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
@@ -3048,7 +3049,7 @@ fr:
         http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: condition reproductive
         http://eol(dot)org/schema/terms/ReproductiveSkew: biais reproductif
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: stratégie reproductive
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: réservoir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: bassin de retenue
         http://purl(dot)obolibrary(dot)org/obo/PO_0025603: résine
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: rythme respiratoire
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: système respiratoire

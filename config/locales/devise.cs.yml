@@ -1,0 +1,97 @@
+# Messages for Czech (čeština)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Spotter
+# Author: Spotter
+---
+cs:
+  devise:
+    confirmations:
+      confirmed: Vaše e-mailová adresa byla úspěšně potvrzena.
+      send_instructions: Během několika minut obdržíte e-mail s pokyny, jak potvrdit
+        svou e-mailovou adresu.
+      send_paranoid_instructions: Pokud vaše e-mailová adresa v naší databázi existuje,
+        během několika minut obdržíte e-mail s pokyny, jak potvrdit svou e-mailovou
+        adresu.
+    failure:
+      already_authenticated: Již jste přihlášeni.
+      inactive: Váš účet ještě není aktivován.
+      invalid: Neplatné %{authentication_keys} nebo heslo.
+      locked: Váš účet je uzamčen, zkuste to prosím znovu za hodinu
+      last_attempt: Máte ještě jeden pokus, než bude váš účet uzamčen.
+      not_found_in_database: Neplatné %{authentication_keys} nebo heslo.
+      recaptcha_error: Došlo k chybě s kódem recaptcha níže. Zadejte kód znovu a klikněte
+        na Odeslat.
+      timeout: Vaše relace vypršela. Chcete-li pokračovat, znovu se přihlaste.
+      unauthenticated: Než budete pokračovat, musíte se přihlásit nebo zaregistrovat.
+      unconfirmed: Než budete pokračovat, musíte potvrdit svou e-mailovou adresu.
+    mailer:
+      confirmation_instructions:
+        action: Potvrďte svůj účet
+        greeting: Vítejte %{recipient}!
+        instruction: 'E-mail svého účtu můžete potvrdit pomocí odkazu níže:'
+        subject: Pokyny pro potvrzení
+      reset_password_instructions:
+        action: Změnit mé heslo
+        greeting: 'Dobrý den, #{recipient}!'
+        instruction: Někdo si vyžádal odkaz na změnu vašeho hesla a můžete to udělat
+          pomocí odkazu níže.
+        instruction_2: Pokud jste o to nepožádali, ignorujte prosím tento e-mail.
+        instruction_3: Vaše heslo se nezmění, dokud nevstoupíte na výše uvedený odkaz
+          a nevytvoříte si nové.
+        subject: Pokyny k resetování hesla
+      unlock_instructions:
+        subject: Odemknout pokyny
+      password_change:
+        greeting: 'Dobrý den, #{recipient}!'
+        message: Obracíme se na vás, abychom vás informovali, že vaše heslo bylo změněno.
+        subject: Heslo změněno
+    passwords:
+      no_token: Na tuto stránku se nemůžete dostat, aniž byste přišli z e-mailu pro
+        obnovení hesla. Pokud přicházíte z e-mailu pro obnovení hesla, ujistěte se,
+        že jste použili celou poskytnutou adresu URL.
+      send_instructions: Během několika minut obdržíte e-mail s pokyny, jak obnovit
+        heslo.
+      send_paranoid_instructions: Pokud vaše e-mailová adresa existuje v naší databázi,
+        během několika minut na vaši e-mailovou adresu obdržíte odkaz pro obnovení
+        hesla.
+      updated: Vaše heslo bylo úspěšně změněno. Nyní jste přihlášeni.
+      updated_not_active: Vaše heslo bylo úspěšně změněno.
+    registrations:
+      destroyed: Sbohem! Váš účet byl úspěšně zrušen. Doufáme, že se brzy zase uvidíme.
+      signed_up: Vítejte! Úspěšně jste se zaregistrovali.
+      signed_up_but_inactive: Úspěšně jste se zaregistrovali. Nepodařilo se nám vás
+        však přihlásit, protože váš účet ještě není aktivován.
+      signed_up_but_locked: Úspěšně jste se zaregistrovali. Nepodařilo se nám vás
+        však přihlásit, protože váš účet je uzamčen.
+      signed_up_but_unconfirmed: Na vaši e-mailovou adresu byla odeslána zpráva s
+        potvrzovacím odkazem. Kliknutím na odkaz aktivujte svůj účet.
+      update_needs_confirmation: Úspěšně jste aktualizovali svůj účet, ale potřebujeme
+        ověřit vaši novou e-mailovou adresu. Zkontrolujte prosím svůj e-mail a kliknutím
+        na potvrzovací odkaz potvrďte svou novou e-mailovou adresu.
+      updated: Váš účet byl úspěšně aktualizován.
+    sessions:
+      signed_in: Úspěšně přihlášen.
+      signed_out: Úspěšně odhlášen.
+      already_signed_out: Úspěšně odhlášeno.
+      recaptcha: Chyby ověření recaptcha
+      sign_in_remember_me_disabled_for_admins: Z bezpečnostních důvodů nemohou správci
+        používat funkci zapamatovat si mě.
+    unlocks:
+      send_instructions: Během několika minut obdržíte e-mail s pokyny, jak svůj účet
+        odemknout.
+      send_paranoid_instructions: Pokud váš účet existuje, během několika minut obdržíte
+        e-mail s pokyny, jak jej odemknout.
+      unlocked: Váš účet byl úspěšně odemčen. Chcete-li pokračovat, přihlaste se.
+  errors:
+    messages:
+      already_confirmed: již bylo potvrzeno, zkuste se prosím přihlásit
+      confirmation_period_expired: musí být potvrzeno do %{period}, vyžádejte si prosím
+        nový
+      expired: vypršelo, požádejte o nový.
+      not_found: nenalezeno
+      not_locked: nebyl uzamčen
+      not_saved:
+        one: '1 chyba zakázala uložení tohoto %{resource}:'
+        other: '%{count} chyb zakázalo uložení tohoto %{resource}:'
+...

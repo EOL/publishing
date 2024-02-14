@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Eric Luth (WMSE)
 # Author: Pyscowicz
 # Author: Sabelöga
 # Author: WikiPhoenix
@@ -37,6 +38,36 @@ sv:
     setting_header: namn i brödsmulenavigering
     types:
       scientific: vetenskaplig
+  brief_summary:
+    extinction:
+      r_genus_html: Detta släkte är <span class='%{class_str}' id='%{id}'>utdött</span>
+        .
+      r_subgenus_html: Detta undersläkte är <span class='%{class_str}' id='%{id}'>utdött</span>
+        .
+      r_superspecies_html: Denna superart är <span class='%{class_str}' id='%{id}'>utdöd</span>
+        .
+      r_species_html: Denna art är <span class='%{class_str}' id='%{id}'>utdöd</span>
+        .
+      r_subspecies_html: Denna underart är <span class='%{class_str}' id='%{id}'>utdöd</span>
+        .
+    freshwater_html: De är förknippade med <span class='%{class_str}' id='%{id}'>sötvattenmiljöer</span>
+      .
+    marine_html: De finns i <span class='%{class_str}' id='%{id}'>marina livsmiljöer</span>
+      .
+    species: '%{name1} är en art av %{name2}.'
+    taxonomy:
+      family_above:
+        r_class: '%{name1} är en klass av %{name2}.'
+        r_family: '%{name1} är en familj av %{name2}.'
+      below_family:
+        with_family:
+          r_genus: '%{name1} är ett släkte av %{name2} i familjen %{name3}.'
+          r_species: '%{name1} är en art av %{name2} i familjen %{name3}.'
+          r_subspecies: '%{name1} är en underart av %{name2} i familjen %{name3}.'
+        without_family:
+          r_genus: '%{name1} är ett släkte av %{name2}.'
+          r_species: '%{name1} är en art av %{name2}.'
+          r_subspecies: '%{name1} är en underart av %{name2}.'
   button_create: skapa
   button_add: lägg till
   cancel: avbryt
@@ -149,10 +180,12 @@ sv:
   collection_unauthorized_edit: Ägaranvändare kan endast redigera denna samling.
   complete_registration: Fortsätt din registrering
   content_appears_on: 'Inkluderas på följande sidor:'
+  content_collected_in: 'Visas i följande samlingar:'
   content_attributions_header: Källinformation
   content_attributions_labels:
     altitude: altitud
     author: författare
+    contributor: bidragsgivare
     creator: skapare
     editor: redigerare
     latitude: latitud
@@ -178,9 +211,15 @@ sv:
   content_not_in_any_collection_image: Denna bild finns inte i några samlingar.
   content_not_in_any_collection_sound: Detta ljud finns inte i några samlingar.
   content_not_in_any_collection_video: Denna video finns inte i några samlingar.
+  data:
+    modifier:
+      statistical_method_term: Statistisk metod som används för mätning
   data_missing: '(data saknas, nycklar: %{keys})'
   dear_username_with_comma: Kära %{username},
   delete_account_button: Radera ditt konto
+  errors:
+    internal_server: Internt serverfel (500)
+    not_found: Sidan hittades inte (404)
   filter_by_license: licens
   filter_by_license_any_item: alla licenser
   filter_by_medium_subtype: typ
@@ -304,11 +343,13 @@ sv:
     hr: Kroatien
     hrv: Kroatiska
     cs: Tjeckiska
+    q32238: Dagbani
     da: Danska
     q3362072: Digo
     q56466: Dinka
     dv: Divehi; maldiviska
     q18415595: Dotyali
+    q33013: Duala
     dut: Nederländska; Flamländska
     nl: Nederländska; flamländska
     dz: Dzongkha
@@ -319,6 +360,7 @@ sv:
     eo: Esperanto
     et: Estniska
     est: Estniska
+    ee: Ewe
     fo: Färöiska
     fj: Fijianska
     fi: Finska
@@ -385,6 +427,7 @@ sv:
     q33690: Kasjubiska
     kk: Kazakiska
     ki: Kikuyu; gikuyu
+    q33720: Kinaray-a
     q11005332: Kinga
     q11732519: Kingindo
     rw: Kinyarwanda
@@ -471,6 +514,7 @@ sv:
     or: Oriya
     om: Oromo
     os: Ossetiska
+    q715755: Paiwan
     pi: Pali
     pa: Punjabi
     q36403: Pare
@@ -596,6 +640,8 @@ sv:
       video: video
       sound: ljud
       map_image: karta
+      js_map: interaktiv karta
+  medium_description_blank: Det finns ingen beskrivning för detta objekt.
   medium_header_title: 'Titel:'
   medium_header_description: 'Beskrivning:'
   names:
@@ -613,6 +659,7 @@ sv:
     search:
       placeholder: Sök i EOL...
   name_preferred_label: föredragen
+  page_icon_created: Flyttade bilden "%{name}" till toppen.
   page_title: Encyclopedia of Life
   page_title_search: 'Sök: %{query}'
   pages:
@@ -638,8 +685,13 @@ sv:
     filter_menu:
       show_all: visa alla
     page_data:
+      habitat_wordcloud_tooltip: Våra livsmiljöregister är till stor del textminerade,
+        så många termer finns flera gånger; mer vanligt förekommande habitattermer
+        – visas större i ordmolnet – är mer sannolikt viktiga. Alla poster listas
+        nedan.
       show_all: visa alla
     resource_names:
+      name_recognized_by: Erkänd av %{by}
       rank:
         r_domain: Domän
         r_subdomain: Underdomän
@@ -709,12 +761,33 @@ sv:
     unresolved_name_prefix: 'Olöst namn:'
   recaptcha: Recaptcha
   recaptcha_error: Berätta oss att du inte är en robot.
+  reconciliation:
+    id_space:
+      headers:
+        type_id: Typ-ID
+        type_name: Typnamn
+        id_format: ID-format
+    property_settings:
+      limit:
+        label: Gräns
+    schema_space:
+      headers:
+        id: ID
+        name: Namn
+        description: Beskrivning
+  reference_compiled_from: Refereras av %{links}
+  register_new_account: Registrera ett nytt konto
   resources:
     actions:
       republish: återpublicera
+      diff: diff
       reindex: omindexera
+      index: tillbaka till alla resurser
       show_all:
         other: visa alla (%{count})
+      show_warns:
+        one: visa varning (%{count})
+        other: visa varningar (%{count})
     headers:
       index: Resurser
     no_events: Ingenting!
@@ -875,7 +948,6 @@ sv:
     "no": Nej
     required:
       text: obligatoriskt
-      mark: '*'
     error_notification:
       default_message: 'Granska problemen nedan:'
     labels:
@@ -906,16 +978,24 @@ sv:
       range_invalid_error: måste vara >= än första värdet
       units_blank_error: enheter kan vara tomma för en numerisk sökning
   terms:
+    comment_field_html: <strong>Kommentar:</strong> %{comment}
+    definition_field_html: <strong>Definition:</strong> %{definition}
+    source_field_html: <strong>Källa:</strong> <a href='%{source}'>%{source}</a>
     scientific_name: vetenskapligt namn
     source: källa
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definition av "%{data}"
   traits:
     data_viz:
+      hist_value_label: värde (%{units})
       other: andra
+      taxon_summary:
+        click_to_filter: klicka för att filtrera
+        click_to_filter_by: klicka för att filtrera efter "%{name}"
     properties:
       scientific_name: Vetenskapligt namn
       source: Källa
+    search_hdr: Datasökning
     search_results:
       download_tsv: ladda ned tsv
       edit_filters: redigeringsfilter
@@ -933,6 +1013,8 @@ sv:
         för %{page_count} taxa
       result_header_taxa: Visar %{range_begin} - %{range_end} av %{total} taxa
       new_search: ny sökning
+      switch_to_list: byt till listvy
+      switch_to_gallery: byt till gallerivy
     search:
       select:
         top_level:
@@ -949,7 +1031,9 @@ sv:
       this_may_take_a_minute: Detta kan ta en minut
       value: värde
   trust:
+    unreviewed: ogranskade
     trusted: pålitlig
+    untrusted: inte betrodda
   user:
     created_at: skapades
     edit_account_details: Redigera kontodetaljer
@@ -966,6 +1050,7 @@ sv:
     validations:
       age_confirm: du måste bekräfta att du är minst 13 år gammal
       tou_confirm: du måste bekräfta att du har läst användarvillkoren och integritetspolicyn
+    list_of_power_users: Lista över avancerade användare
     new_password: Nytt lösenord
     confirm_new_password: Bekräfta nytt lösenord
     username: användarnamn
@@ -976,6 +1061,12 @@ sv:
     sign_in: Logga in
   vernacular_names_header: Vanliga namn
   vernacular_preferred_by_resource: '%{resource} (föredrar detta namn)'
+  wordcloud_credit_html: generades med <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} av %{n}'
   term:
     actions:
       reindex: omindexera
@@ -995,6 +1086,8 @@ sv:
       previous: föregående sida
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/månad'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: område
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: asexuell reproduktion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: svart

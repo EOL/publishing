@@ -32,7 +32,7 @@ fi:
         <a href='%{data_services_path}'>Tietopalvelut</a> ovat saatavissa.</p>
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tiliäsi ei ole linkitetty EOL:ään
-  advanced: edistynyt haku
+  advanced: laajennettu haku
   are_you_sure_delete_account: Haluatko varmasti poistaa EOL-tunnuksesi?
   article:
     actions:
@@ -1120,7 +1120,6 @@ fi:
     "no": Ei
     required:
       text: pakollinen
-      mark: '*'
     error_notification:
       default_message: 'Tarkista alla olevat ongelmat:'
     labels:
@@ -1214,6 +1213,7 @@ fi:
       this_may_take_a_minute: Tämä saattaa kestää hetken
       trait_filter: piirresuodatin
       value: arvo
+      value_eg: 'arvo (esim.: kasvinsyöjä)'
   trophic_web:
     group_descriptions:
       competitor: lajin %{source_name} kilpailija
@@ -1495,6 +1495,7 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: kryogeenikausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: kryosoli
         http://eol(dot)org/schema/terms/cuneiform: kiilamainen
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: sylinteri
         http://eol(dot)org/schema/terms/dahllite: dahlliitti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: Dania-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: Daping-kausi
@@ -1861,7 +1862,11 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautotrofi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: Piacenza-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: kasvin korkeus
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: kasvin elämänmuoto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: plantaasi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: istutettu metsä
+        http://eol(dot)org/schema/terms/PlantingDensity: istutustiheys
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: ylätasanko
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: pleistoseeni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: Pliensbach-vaihe
@@ -1915,6 +1920,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: suomut
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: tieteellinen nimi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: meri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: meriluola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: merenranta
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: turvallisuus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sedimentti
@@ -1949,6 +1955,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: suo
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Syntype: syntyyppi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: teeplantaasi
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: hampaat
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: Telych-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: lauhkea
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: lauhkea lehtimetsä
@@ -2008,6 +2015,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001305: kasvillistunut alue
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: hyvin suuri
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: hyvin pieni
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: viinitarha
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: Visé-vaihe
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: vierailun kohde
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: vierailee kukissa jotka
@@ -2059,6 +2067,7 @@ fi:
         http://eol(dot)org/schema/terms/NonInvasiveRange: alue jossa ei haitallinen
           vieraslaji
         http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
+        http://eol(dot)org/schema/terms/perPound: /paunaa
         http://eol(dot)org/schema/terms/pelagic: pelaginen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: merijää
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000218: musta savuttaja
@@ -2104,6 +2113,7 @@ fi:
         http://eol(dot)org/schema/terms/morphotype: muototyyppi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: nymfi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: itiö
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: takytsoiitti
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: hermafrodiitti
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: kotelo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: murtovesiestuaari

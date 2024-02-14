@@ -1,0 +1,37 @@
+# Messages for Luxembourgish (Lëtzebuergesch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Volvox
+---
+lb:
+  devise:
+    confirmations:
+      confirmed: Är E-Mail-Adress gouf erfollegräich validéiert.
+    failure:
+      inactive: Äre Benotzerkont ass nach net aktivéiert.
+      locked: Äre Benotzerkont ass gespaart, probéiert wgl. an enger Stonn nach eng
+        Kéier
+      last_attempt: Dir hutt nach ee Versuch, ier Äre Benotzerkont gespaart gëtt.
+      unconfirmed: Dir musst Är E-Mail-Adress confirméieren, ier Dir weiderfuere kënnt.
+    mailer:
+      confirmation_instructions:
+        action: Benotzerkont confirméieren
+        greeting: Wëllkomm %{recipient}!
+        instruction: 'Dir kënnt d''E-Mail-Adress vun Ärem Benotzerkont iwwer de Link
+          ënne confirméieren:'
+      reset_password_instructions:
+        action: Passwuert änneren
+        greeting: 'Moie(n) #{recipient}!'
+        instruction_3: Äert Passwuert ännert sech net, soulaang Dir net ënnert dem
+          Link uewen een neit ugitt.
+      password_change:
+        greeting: 'Moie(n) #{recipient}!'
+        message: Mir kontaktéieren Iech fir Iech matzedeelen, datt Äert Passwuert
+          geännert gouf.
+        subject: Passwuert geännert
+    passwords:
+      updated_not_active: Äert Passwuert gouf erfollegräich geännert.
+  errors:
+    messages:
+      not_found: net fonnt
+...

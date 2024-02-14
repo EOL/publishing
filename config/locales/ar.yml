@@ -2,20 +2,37 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 3bbo
+# Author: 3bbo
+# Author: Ahmed Alyamoor
+# Author: Amira.88
 # Author: Amira.88
 # Author: Asma
+# Author: Asma
+# Author: BAB ZAA
+# Author: BAB ZAA
+# Author: HitomiAkane
 # Author: HitomiAkane
 # Author: Jhammock
 # Author: Meno25
+# Author: Meno25
+# Author: Michel Bakni
 # Author: Michel Bakni
 # Author: NEHAOUA
+# Author: NEHAOUA
+# Author: Nora
 # Author: Nora
 # Author: Optilete
 # Author: Passant
+# Author: Passant
+# Author: Tala Ali
 # Author: Tala Ali
 # Author: Yousif ihsan
+# Author: Yousif ihsan
+# Author: أيوب
+# Author: ديفيد
 # Author: ديفيد
 # Author: علاء
+# Author: محمد أحمد عبد الفتاح
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
@@ -61,12 +78,39 @@ ar:
       other: الاطلاع على جميع الـ%{count} نتائج
   breadcrumbs:
     notices:
-      canonical: سيتم الآن عرض الأسماء العلمية في فتات الصفحات
-      vernacular: سيتم الآن عرض الأسماء العلمية في فتات الصفحات عندما تتوفر
-    setting_header: الاسماء في فتات الصفحة
+      canonical: سيتم الآن عرض الأسماء العلمية في صفحة التنقلات
+      vernacular: سيتم الآن عرض الأسماء العلمية في صفحة التنقلات عندما تتوفر
+    setting_header: الأسماء في صفحات التنقل
     types:
-      scientific: علمي
+      scientific: علمية
       vernacular: عامية
+  brief_summary:
+    extinction:
+      r_genus_html: هذا الجنس <span class='%{class_str}' id='%{id}'>منقرض</span>.
+      r_subgenus_html: هذا جُنيس<span class='%{class_str}' id='%{id}'>منقرض</span>.
+      r_superspecies_html: هذا فوق النوع (superspecies) <span class='%{class_str}'
+        id='%{id}'>منقرض</span>.
+      r_species_html: هذا نوع (species) <span class='%{class_str}' id='%{id}'>منقرض</span>.
+      r_subspecies_html: هذا النويع <span class='%{class_str}' id='%{id}'> منقرض </span>.
+    freshwater_html: وهي مرتبطة بمواطن <span class='%{class_str}' id='%{id}'> المياه
+      العذبة </span>.
+    marine_html: يتم العثور عليها في <span class='%{class_str}' id='%{id}'>المواطن
+      البحرية</span>.
+    species: '%{name1} هو نوع «species» من %{name2}.'
+    species_in_family: '%{name1} هو نوع «species» من %{name2} في فصيلة الـ%{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} هي فصيلة عليا «superfamily» من %{name2}.'
+        r_domain: '%{name1} هو نطاق «domain» من %{name2}.'
+        r_kingdom: '%{name1} هي مملكة «kingdom» من %{name2}.'
+        r_class: '%{name1} هي طائفة «class» من %{name2}.'
+        r_order: '%{name1} هي رُتبة «order» من %{name2}.'
+        r_family: '%{name1} هي فَصيلة «family» من %{name2}.'
+      below_family:
+        with_family:
+          r_genus: '%{name1} هو جنس «genus» من %{name2} في فصيلة الـ%{name3}.'
+          r_species: '%{name1} هو نوع «species» من %{name2} في فصيلة الـ%{name3}.'
+          r_subspecies: '%{name1} هو نُويع «subspecies» من %{name2} في فصيلة الـ%{name3}.'
   button_create: إنشاء
   button_add: إضافة
   cancel: إلغاء
@@ -75,22 +119,22 @@ ar:
   classifications:
     children:
       header_html:
-        one: '%{name} يشمل <a href="%{names_path}">%{count} طفل</a>:'
-        other: '%{name} يشمل <a href="%{names_path}">%{count} أطفال</a>:'
+        one: 'ي(ت)ضم %{name} <a href="%{names_path}">%{count} فروع</a>:'
+        other: 'ي(ت)ضم %{name} ي(ت)ضم <a href="%{names_path}">%{count} فرعا</a>:'
       see_more: شاهد المزيد
     hierarchies:
-      header: التسلسل الهرمي المنسق %{sci_name}
-      see_resource_file: انظر <a href='%{href}'>ملف المورد</a> للحصول على قائمة كاملة.
+      header: التسلسل الهرمي المختار لـ %{sci_name}
+      see_resource_file: انظر <a href='%{href}'>ملف المصدر</a> للحصول على قائمة كاملة.
       this_page: (هذه الصفحة)
       truncated_siblings:
         one: قريب واحد إضافي مقطوع للإيجاز.
         other: '%{count} أقرباء إضافيين مقطوعين للإيجاز.'
     richness:
-      header: ثراء الصفحة
-      score: درجة الثراء
+      header: غنى الصفحة
+      score: درجة الغنى
       page_contents_count: المحتوى المرتبط
       missing: لم يتم احتساب الثراء لهذه الصفحة.
-      media_count: وسائل الإعلام
+      media_count: وسائط
       articles_count: مقالات
       links_count: وصلات
       maps_count: خرائط
@@ -102,14 +146,14 @@ ar:
       species_count: نوع
       updated_at: آخر تحديث
   collect_already_in_collection: (انها بالفعل هنا)
-  collect_already_in_collection_will_add_icon: اضف وسائل الأعلام الى %{page}
+  collect_already_in_collection_will_add_icon: (أضف وسائط الى "%{page}")
   collect_icon_title: اضف "%{item} من %{page}" الى...
   collect_new_collection: اسم مجموعة جديد
-  collect_new_collection_title: '...مجموعة جديدة'
-  collect_no_existing_collections: ليس لديك أي بعد!  إنشاء واحد باستخدام النموذج على
-    اليسار.
+  collect_new_collection_title: مجموعة جديدة...
+  collect_no_existing_collections: ليس لديك أي شيء حتى الآن! قم بإنشاء واحدة باستخدام
+    النموذج الموجود على اليسار.
   collect_select_collection: '...واحدة من مجموعاتك'
-  collect_title: اضف "%{item}" الى...
+  collect_title: أضف "%{item}" إلى...
   collected_page_added_to_collection: تمت إضافة %{page} إلى المجموعة <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: كان ذلك بالفعل في مجموعتك.
   collected_pages_title: صفحات
@@ -231,6 +275,9 @@ ar:
   data_missing: '(البيانات مفقودة ، المفاتيح: %{keys})'
   dear_username_with_comma: عزيزي %{username}،
   delete_account_button: حذف حسابك
+  errors:
+    internal_server: خطأ خادم داخلي (500)
+    not_found: صفحة غير موجودة (404)
   filter_by_license: الترخيص
   filter_by_license_any_item: أي ترخيص
   filter_by_medium_subtype: النوع
@@ -251,7 +298,7 @@ ar:
       food_webs: الشبكات الغذائية
       glossary: المعجم
       help: مساعدة
-      language_support: Taal Support
+      language_support: دعم اللغة
       terms_of_use: شروط الاستخدام
       the_eol_forum: منتدى موسوعة الحياة
       what_is_eol: ما هي موسوعة الحياة؟
@@ -259,7 +306,7 @@ ar:
     discover:
       algae: الطحالب
       amphibians: البرمائيات
-      animals: حيوانات
+      animals: الحيوانات
       archaea: البكتيريا القديمة
       bacteria: البكتيريا
       birds: الطيور
@@ -280,7 +327,7 @@ ar:
       trees: الأشجار
       viruses: الفيروسات
       worms: الديدان
-    eol_is_hosted_by: '  موسوعة الحياة يتم استضافتها من قبل:'
+    eol_is_hosted_by: 'موسوعة الحياة يتم استضافتها من قبل:'
   forgot_your_password: هل نسيت كلمة السر؟
   landing_page:
     header: الوصول العالمي إلى المعرفة حول الحياة على الأرض
@@ -288,7 +335,7 @@ ar:
   language: 'اللغة:'
   languages:
     ab: الأبخازية
-    q27683: Acehnese
+    q27683: الأتشيهية
     q27776: الأديغية
     aa: العفارية
     af: الأفريكانية
@@ -308,12 +355,12 @@ ar:
     ay: الأيمرية
     q9292: الأذرية
     az: الأذرية
-    q33070: شعب البالي
+    q33070: البالية
     bm: البمبرية
     q33151: شعب بنجار
     ba: الباشكيرية
     eu: الباسكية
-    q29540: باڤارية
+    q29540: البافارية
     be: البيلاروسية
     q8836490: بيندي
     bn: البنغالية
@@ -646,7 +693,7 @@ ar:
       sound: صوت
       map_image: خريطة
       js_map: الخريطة التفاعلية
-  medium_collect_button: جمع وسائل الإعلام
+  medium_collect_button: جمع الوسائط
   medium_description_blank: لا يوجد وصف مقدم لهذا الكائن.
   medium_header_title: 'العنوان:'
   medium_header_description: 'الوصف:'
@@ -655,7 +702,8 @@ ar:
       one: إخفاء لغة واحدة
       other: إخفاء %{count} لغات
     prefer: تفضل
-    preferred_in_language_for_page: '%{name} هي الآن %{language} العامية المفضل لـ%{page}'
+    preferred_in_language_for_page: '%{name} هو الآن الاسم المفضل باللغة %{language}
+      العامية لـ %{page}'
     show_more_langs:
       one: إظهار لغة واحدة أخرى
       other: إظهار %{count} لغات
@@ -666,7 +714,7 @@ ar:
     search:
       no_results_html: <strong>لا توجد نتائج مؤكدة</strong><br /> اضغط على Enter للاطلاع
         على نتائج غير دقيقة
-      placeholder: '...البحث في موسوعة الحياة'
+      placeholder: البحث في موسوعة الحياة...
     trait_bank: بنك الصفات
   name_preferred_label: المفضل
   page_icon_counts:
@@ -751,7 +799,7 @@ ar:
         r_form: شكل
       reference_taxon_attrib: مرجع الأصنوفة من %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
       username_missing: المستخدم %{user_id}
     trophic_web:
@@ -786,8 +834,8 @@ ar:
       dd: نقص فى البيانات (DD)
       ne: غير مقيم
       unknown: غير معروف (لا يوجد سجل)
-    unresolved_name: اسم غير محلول
-    unresolved_name_prefix: 'الاسم غير المحلول:'
+    unresolved_name: اسم غير محسوم
+    unresolved_name_prefix: 'الاسم غير المحسوم:'
   page_titles:
     pages:
       data: بيانات %{page_name}
@@ -830,6 +878,7 @@ ar:
     actions:
       import_traits: استيراد السمات (من المستودع)
       republish: إعادة النشر
+      diff: فرق
       reindex: إعادة الفهرسة
       fix_no_names: عدم إصلاح أية أسماء
       index: العودة إلى جميع الموارد
@@ -911,7 +960,7 @@ ar:
       one: '%{count} صفحة، تمت صيانته بواسطة %{users_sentence}'
       other: '%{count} صفحات، تمت صيانته بواسطة %{users_sentence}'
     collected_media:
-      title: 'الوسائط المجمععة من هذه الصفحة:'
+      title: 'الوسائط المجمعة من هذه الصفحة:'
     medium_article: مقالة
     medium_image: صورة
     medium_map: خريطة
@@ -925,7 +974,7 @@ ar:
     empty: لا نتائج.
     field_matches:
       description: يطابق الوصف
-      resource_pk: مطابق للتعريف الخارجى
+      resource_pk: 'يطابق المعرف الخارجي:'
       bio: 'يطابق السيرة الذاتية:'
       tag_line: 'يطابق سطر الوسم:'
       resources:
@@ -987,7 +1036,7 @@ ar:
     comprehensive_description: وصف شامل
     conservation: محمية طبيعية
     conservation_status: حالة الحفظ
-    cyclicity: دوروية
+    cyclicity: دورية
     diagnostic_description: وصف تشخيصي
     diseases_and_parasites: الأمراض والطفيليات
     dispersal: تشتيت
@@ -1035,7 +1084,6 @@ ar:
     "no": لا
     required:
       text: مطلوب
-      mark: '*'
     error_notification:
       default_message: 'يرجى مراجعة المشاكل أدناه:'
     labels:
@@ -1047,7 +1095,7 @@ ar:
         username: اسم المستخدم
         bio: 'السيرة الذاتية:'
       search_suggestion:
-        match: سلسلة البحث لمطابقتها
+        match: نص البحث لمطابقتها
         page_id: معرف صفحة موسوعة الحياة لإعادة التوجيه إليها (أو التصفية حسبها)
         synonym_of_id: معرف (!) اقتراح البحث لاستخدامه بدلا من ذلك
         object_term: مسار لإعادة التوجيه إليه (أو التصفية حسبه)
@@ -1145,7 +1193,7 @@ ar:
       clade_filter_placeholder: 'مجموعة (مثال: دببة) (اختياري)'
       hide_additional_fields: إخفاء الحقول الإضافية
       lifestage: مرحلة الحياة
-      records_matching_all: سجلات تصنيف تطابق جميع الملفات
+      records_matching_all: سجلات الأصنوفات تطابق جميع المرشحات
       resource: المرجع
       search: بحث
       sex: الجنس

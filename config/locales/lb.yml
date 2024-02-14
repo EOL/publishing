@@ -1,0 +1,959 @@
+# Messages for Luxembourgish (Lëtzebuergesch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Les Meloures
+# Author: Robby
+# Author: Volvox
+---
+lb:
+  language_name: Englesch
+  about:
+    trait_bank:
+      title: TraitBank
+  account_already_linked: Äre Benotzerkont ass scho mat EOL verbonnen
+  account_not_linked: Äre Benotzerkont ass net mat EOL verbonnen
+  advanced: erweidert
+  are_you_sure_delete_account: Sidd Dir sécher, datt Dir Ären EOL-Benotzerkont läsche
+    wëllt?
+  article:
+    actions:
+      collect: sammelen
+    header:
+      language: 'Sprooch: %{language}'
+      title: Titel
+      untitled: Ouni Titel
+    name:
+      missing: Ouni Titel
+  breadcrumbs:
+    types:
+      scientific: wëssenschaftlech
+  brief_summary:
+    extinction:
+      r_genus_html: Dës Gattung ass <span class='%{class_str}' id='%{id}'>ausgestuerwen</span>.
+      r_subgenus_html: Dës Ënnergattung ass <span class='%{class_str}' id='%{id}'>ausgestuerwen</span>.
+      r_species_html: Dës Aart ass <span class='%{class_str}' id='%{id}'>ausgestuerwen</span>.
+      r_subspecies_html: Dës Ënneraart ass <span class='%{class_str}' id='%{id}'>ausgestuerwen</span>.
+      r_form_html: Dës Form ass <span class='%{class_str}' id='%{id}'>ausgestuerwen</span>.
+    marine_html: Si ginn am <span class='%{class_str}' id='%{id}'>marine Liewensraum</span>
+      fonnt.
+    species: '%{name1} ass eng Aart vu(n) %{name2}.'
+    species_in_family: '%{name1} ass eng Aart vu(n) %{name2} an der Famill %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} ass eng Iwwerfamill vu(n) %{name2}.'
+        r_domain: '%{name1} ass eng Domän vu(n) %{name2}.'
+        r_subdomain: '%{name1} ass eng Ënnerdomain vu(n) %{name2}.'
+        r_kingdom: '%{name1} ass e Räich vu(n) %{name2}.'
+        r_subkingdom: '%{name1} ass en Ënnerräich vu(n) %{name2}.'
+        r_phylum: '%{name1} ass e Stamm vu(n) %{name2}.'
+        r_subphylum: '%{name1} ass en Ënnerstamm vu(n) %{name2}.'
+        r_class: '%{name1} ass eng Klass vu(n) %{name2}.'
+        r_subclass: '% {name1} ass eng Ënnerklass vu(n) %{name2}.'
+        r_infraclass: '%{name1} ass eng Ënnerklass vu(n) %{name2}.'
+        r_order: '%{name1} ass eng Uerdnung vu(n) %{name2}.'
+        r_suborder: '%{name1} ass eng Ënneruerdnung vu(n) %{name2}.'
+        r_family: '% {name1} ass eng Famill vu(n) %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} ass eng Ënnerfamill vu(n) %{name2} an der Famill
+            %{name3}.'
+          r_tribe: '%{name1} ass en Tribus vu(n) %{name2} an der Famill %{name3}.'
+          r_genus: '%{name1} ass eng Gattung vu(n) %{name2} an der Famill %{name3}.'
+          r_subgenus: '%{name1} ass eng Ënnergattung vu(n) %{name2} an der Famill
+            %{name3}.'
+          r_species: '%{name1} ass eng Aart vu(n) %{name2} an der Famill %{name3}.'
+          r_subspecies: '%{name1} ass eng Ënneraart vu(n) %{name2} an der Famill %{name3}.'
+          r_form: '%{name1} ass eng Form vu(n) %{name2} an der Famill %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} ass eng Ënnerfamill vu(n) %{name2}.'
+          r_tribe: '%{name1} ass en Tribus vu(n) %{name2}.'
+          r_genus: '%{name1} ass eng Gattung vu(n) %{name2}.'
+          r_subgenus: '%{name1} ass eng Ënnergattung vu(n) %{name2}.'
+          r_species: '% {name1} ass eng Aart vu(n) %{name2}.'
+          r_subspecies: '%{name1} ass eng Ënneraart vu(n) %{name2}.'
+          r_form: '%{name1} ass eng Form vu(n) %{name2}.'
+  button_add: derbäisetzen
+  cancel: ofbriechen
+  change_my_password: Mäi Passwuert änneren
+  change_your_password: Ännert Äert Passwuert
+  classifications:
+    children:
+      see_more: méi gesinn
+    hierarchies:
+      this_page: (dës Säit)
+    richness:
+      media_count: Medien
+      articles_count: Artikelen
+      links_count: Linken
+      maps_count: Kaarten
+      data_count: Donnéeën
+      nodes_count: Kniet
+      scientific_names_count: wëssenschaftlech Nimm
+      species_count: Aarten
+      updated_at: lescht Aktualiséierung
+  collect_already_in_collection: (ass schonn hei)
+  collected_pages_title: Säiten
+  collected_pages:
+    delete_button: läschen
+    edit_button: änneren
+    delete_confirm: sidd Dir sécher?
+  collection_user_is_admin: Dëse Benotzer ass en Admin.
+  collection:
+    admins:
+      placeholder: vollstännegen Numm oder Benotzernumm
+    actions:
+      delete: läschen
+      edit: änneren
+      sort: zortéieren
+    collection_type:
+      normal: normal
+      gallery: Galerie
+    destroyed: '"%{name}" gouf dauerhaft geläscht.'
+    pages_count:
+      one: 1 Säit
+      other: '%{count} Säiten'
+    search:
+      submit: sichen
+    sort:
+      hierarchy: Hierarchie
+      position: Datum derbäigesat
+      sci_name: wëssenschaftlechen Numm, A-Z
+      sci_name_rev: wëssenschaftlechen Numm, Z-A
+      sort_field: Annotatioun, A-Z
+      sort_field_rev: Annotatioun, Z-A
+  content_attributions_header: Quell vun der Informatioun
+  content_attributions_labels:
+    altitude: Héicht
+    author: Auteur
+    editor: Editeur
+    license: Lizenz
+    location: Plaz
+    photographer: Fotograf
+    project: Projet
+    references_header:
+      one: Referenz
+      other: Referenzen
+    resource_label: Partnersäit
+    source: Quell
+    view_source_label: Original
+    view_source_link: Originalbild weisen
+  delete_account_button: Äre Benotzerkont läschen
+  errors:
+    not_found: Säit net fonnt (404)
+  filter_by_license: Lizenz
+  filter_by_medium_subtype: Typ
+  filters:
+    filter_by_language: Filter no der Sprooch
+  footer:
+    eol_info:
+      contact_us: Kontaktéiert Eis
+      donate: Maacht en Don
+      education: Formatioun
+      glossary: Glossaire
+      help: Hëllef
+      language_support: Sproochënnerstëtzung
+      the_eol_forum: Den EOL-Forum
+      what_is_eol: Wat ass EOL?
+      whats_new: Wat gëtt et Neies?
+    discover:
+      algae: Algen
+      amphibians: Amphibien
+      animals: Déieren
+      archaea: Archaeën
+      bacteria: Bakterien
+      birds: Vullen
+      crustaceans: Crustacéen
+      fishes: Fësch
+      flowering_plants: Bléieplanzen
+      fungi: Pilzen
+      insects: Insekten
+      mammals: Mamendéieren
+      mushrooms: Champignonen
+      mollusks: Weechdéieren
+      plants: Planzen
+      protists: Protisten
+      reptiles: Reptilien
+      spiders: Spannen
+      trees: Beem
+      viruses: Viren
+      worms: Wierm
+  forgot_your_password: Hutt Dir Äert Passwuert vergiess?
+  language: Sprooch
+  languages:
+    alb: Albanesch
+    sq: Albanesch
+    q131339: Alemannesch
+    ar: Arabesch
+    hy: Armeenesch
+    q9292: Aserbaidjanesch
+    az: Aserbaidschanesch
+    eu: Baskesch
+    q29540: Bayresch
+    be: Belarussesch
+    bs: Bosnesch
+    br: Bretonesch
+    bg: Bulgaresch
+    zh: Chineesesch
+    chi: Chineesesch
+    co: Korsesch
+    hr: Kroatesch
+    hrv: Kroatesch
+    cs: Tschechesch
+    da: Dänesch
+    dut: Hollännesch; Flämesch
+    en: Englesch
+    eo: Esperanto
+    et: Estnesch
+    est: Estesch
+    fi: Finnesch
+    fin: Finnesch
+    fr: Franséisch
+    fra: Franséisch
+    gd: Schottesch-Gälesch
+    ka: Georgesch
+    de: Däitsch
+    deu: Däitsch
+    gre: Griichesch
+    he: Hebräesch
+    heb: Hebräesch
+    hi: Hindi
+    hu: Ungaresch
+    is: Islännesch
+    ice: Islännesch
+    id: Indonesesch
+    ia: Interlingua (International Auxiliary Language Association)
+    iu: Inuktitut
+    ga: Iresch
+    it: Italieenesch
+    ita: Italieenesch
+    ja: Japanesch
+    jp: Japanesch
+    kk: Kasachesch
+    ko: Koreanesch
+    kor: Koreanesch
+    ku: Kurdesch
+    la: Latäin
+    lv: Lettesch
+    q36106: Liguresch
+    li: Limburgesch
+    lt: Litauesch
+    lit: Litauesch
+    q33754: Lombardesch
+    q13286: Nidder-Sorbesch
+    lb: Lëtzebuergesch
+    mk: Mazedonesch
+    mt: Malteesesch
+    mlt: Maltesesch
+    q13321: Mi’kmaq
+    mn: Mongolesch
+    q33845: Neapolitanesch
+    "no": Norwegesch
+    nno: Norwegesch
+    nob: Norwegesch
+    nor: Norwegesch
+    pl: Polnesch
+    pol: Polnesch
+    pt: Portugisesch
+    qu: Quechua
+    ru: Russesch
+    rus: Russesch
+    sm: Samoanesch
+    sa: Sanskrit
+    sc: Sardesch
+    q14549: Schottesch
+    sr: Serbesch
+    q33973: Sizilianesch
+    sk: Slowakesch
+    slk: Slowakesch
+    sl: Sloweenesch
+    so: Somalesch
+    som: Somalesch
+    slv: Spuenesch
+    sv: Schweedesch
+    swe: Schweedesch
+    th: Thailännesch
+    tha: Thailännesch
+    q34159: Tok Pisin
+    tr: Tierkesch
+    tur: Tierkesch
+    tk: Turkmeenesch
+    uk: Ukrainesch
+    ukr: Ukrainesch
+    none: Net uginn
+    uz: Usbeekesch
+    vi: Vietnamesesch
+    vo: Volapük
+    wa: Wallounesch
+    cy: Walisesch
+    wel: Walisesch
+    xh: Xhosa
+    zu: Zulu
+  layout_sign_in: Umellen
+  literature_and_references_header: Literatur a Referenzen
+  maps:
+    empty: Fir dës Säit si keng Kaarte verfügbar.
+    other_maps_title: Net-interaktiv Kaarten
+  medium:
+    untitled:
+      image: Bild ouni Titel
+      image_of: Bild vu(n) %{page_name}
+      video: Video ouni Titel
+      video_of: Video vu(n) %{page_name}
+      sound: Toun ouni Titel
+      sound_of: Toun vu(n) %{page_name}
+      map: Kaart ouni Titel
+      map_of: Kaart vu(n) %{page_name}
+      js_map: Interaktiv Kaart ouni Titel
+      js_map_of: Interaktiv Kaart vu(n) %{page_name}
+    subclasses:
+      image: Bild
+      video: Video
+      sound: Toun
+      map_image: Kaart
+      js_map: interaktiv Kaart
+  medium_collect_button: Medie sammelen
+  medium_header_title: 'Titel:'
+  medium_header_description: 'Beschreiwung:'
+  names:
+    hide_langs:
+      one: eng Sprooch verstoppen
+      other: '%{count} Sprooche verstoppen'
+    show_more_langs:
+      one: eng Sprooch méi weisen
+      other: '%{count} Sprooche méi weisen'
+  nav:
+    about: Iwwer
+    discuss: Diskutéieren
+    search:
+      placeholder: EOL duerchsichen...
+    trait_bank: TraitBank
+  page_icon_counts:
+    header:
+      one: Bescht Bild fir d'Säit
+      other: Bescht Bild fir d'Säiten
+  page_title: Enzyklopedie vum Liewen
+  pages:
+    actions:
+      collect: sammelen
+      comment:
+        zero: Bemierkung
+        one: '%{count} Bemierkung'
+        other: '%{count} Bemierkungen'
+    batch_lookup:
+      download_tsv: TSV eroflueden
+      new_search: nei Sich
+      query: Ufro
+      search: sichen
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL huet Donnéeë fir <a href="%{data_path}">een Attribut</a>:'
+        other: 'EOL huet Donnéeë fir <a href="%{data_path}">%{count} Attributer</a>,
+          dorënner:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL huet Donnéeë fir <a href="%{data_path}"> een Attribut</a>.
+        other: EOL huet Donnéeë fir <a href="%{data_path}">%{count} Attributer</a>.
+    filter_menu:
+      show_all: all weisen
+    page_data:
+      show_all: all weisen
+    resource_names:
+      name_recognized_by: Erkannt vum %{by}
+      rank:
+        r_domain: Domän
+        r_subdomain: Ënnerdomän
+        r_superkingdom: Iwwerräich
+        r_kingdom: Räich
+        r_subkingdom: Ënnerräich
+        r_superphylum: Iwwerstamm
+        r_phylum: Stamm
+        r_subphylum: Ënnerstamm
+        r_superclass: Iwwerklass
+        r_class: Klass
+        r_subclass: Ënnerklass
+        r_superorder: Iwweruerdnung
+        r_order: Uerdnung
+        r_suborder: Ënneruerdnung
+        r_superfamily: Iwwerfamill
+        r_family: Famill
+        r_subfamily: Ënnerfamill
+        r_tribe: Tribus
+        r_genus: Gattung
+        r_subgenus: Ënnergattung
+        r_species: Aart
+        r_subspecies: Ënneraart
+        r_form: Form
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
+      username_missing: Benotzer %{user_id}
+    trophic_web:
+      competitor: Konkurrent
+      globi_credit_html: Donnéeë vu <a href='%{url}'>GloBI</a>
+      reset: zrécksetzen
+    native_node_missing_warning: keng Hierarchiedonnéeë verfügbar
+    tabs:
+      articles: Artikelen
+      classifications: Klassifikatiounen
+      data: Donnéeën
+      literature_and_references: Literatur & Referenzen
+      overview: Iwwersiicht
+      maps: Kaarten
+      media: Medien
+      names: Nimm
+    iucn_status:
+      label: 'IUCN-Status:'
+      ex: ausgestuerwen (EX)
+      en: a Gefor (EN)
+      ne: net bewäert (NE)
+      unknown: onbekannt (keng Donnéeën)
+  page_titles:
+    pages:
+      data: '%{page_name} Donnéeën'
+      media: '%{page_name} Medien'
+      maps: '%{page_name} Kaarten'
+      names: '%{page_name} Nimm'
+      articles: '%{page_name} Artikelen'
+  rank:
+    name:
+      r_domain: Domän
+      r_subdomain: Ënnerdomän
+      r_kingdom: Räich
+      r_subkingdom: Ënnerräich
+      r_superphylum: Iwwerstamm
+      r_phylum: Stamm
+      r_subphylum: Ënnerstamm
+      r_superclass: Iwwerklass
+      r_class: Klass
+      r_subclass: Ënnerklass
+      r_superorder: Iwweruerdnung
+      r_order: Uerdnung
+      r_suborder: Ënneruerdnung
+      r_superfamily: Iwwerfamill
+      r_family: Famill
+      r_subfamily: Ënnerfamill
+      r_tribe: Tribus
+      r_genus: Gattung
+      r_subgenus: Ënnergattung
+      r_species: Aart
+      r_subspecies: Ënneraart
+      r_form: Form
+  recaptcha: Recaptcha
+  recaptcha_error: Sot eis wgl., datt Dir kee Roboter sidd.
+  reconciliation:
+    id_space:
+      headers:
+        id_format: ID-Format
+      type_names:
+        taxon: Taxon
+      numeric_id: numeresch ID
+    schema_space:
+      headers:
+        id: ID
+        name: Numm
+        description: Beschreiwung
+  resources:
+    headers:
+      index: Ressourcen
+    no_events: Keng!
+  resource_missing: Ressource net fonnt
+  scientific_name:
+    status_title:
+      accepted: Akzeptéiert Nimm
+      alternative: Alternativ Nimm
+      synonym: Synonymmen
+  scientific_names_header: Wëssenschaftlech Nimm
+  search:
+    n_articles:
+      one: '%{count} Artikel'
+      other: '%{count} Artikelen'
+    n_images:
+      one: '%{count} Bild'
+      other: '%{count} Biller'
+    n_results:
+      zero: Kee Resultat
+      one: '%{count} Resultat'
+      other: '%{count} Resultater'
+    n_sounds:
+      one: '%{count} Toun'
+      other: '%{count} Téin'
+    n_taxon_pages:
+      one: '%{count} Taxon-Säit'
+      other: '%{count} Taxon-Säiten'
+    n_users:
+      one: '%{count} Benotzer'
+      other: '%{count} Benotzer'
+    n_videos:
+      one: '%{count} Video'
+      other: '%{count} Videoen'
+    n_terms:
+      one: '%{count} Begrëff'
+      other: '%{count} Begrëffer'
+  search_results:
+    collection_page_count:
+      one: '%{count} Säit'
+      other: '%{count} Säiten'
+    collected_media:
+      title: 'gesammelt Medie vun dëser Säit:'
+    medium_article: Artikel
+    medium_image: Bild
+    medium_map: Kaart
+    medium_sound: Toun
+    medium_video: Video
+    medium_title_article_html: 'Artikel: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Bild: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Kaart: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Audio: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
+    empty: Keng Resultater.
+    field_matches:
+      description: 'passt op d''Beschreiwung:'
+    section_titles:
+      users:
+        one: '%{count} Benotzer'
+        other: '%{count} Benotzer'
+    resource_counts:
+      n_articles:
+        one: 1 ARTIKEL
+        other: '%{count} ARTIKELEN'
+    user_title_html: 'Benotzer: <span class=''sub''>%{name}</span>'
+  sections:
+    behavior: Verhalen
+    benefits: Virdeeler
+    brief_summary: Kuerze Resumé
+    diagnostic_description: Diagnostesch Beschreiwung
+    diseases_and_parasites: Krankheeten a Parasitten
+    distribution: Verbreedung
+    ecology: Ekologie
+    evolution_and_systematics: Evolutioun a Systematik
+    general_ecology: Allgemeng Ekologie
+    genetics: Genetik
+    growth: Wuesstum
+    habitat: Liewensraum
+    life_expectancy: Liewenserwaardung
+    management: Gestioun
+    migration: Migratioun
+    molecular_biology: Molekular-Biologie
+    molecular_biology_and_genetics: Molekular-Biologie a Genetik
+    morphology: Morphologie
+    names_and_taxonomy: Nimm an Taxonomie
+    notes: Notizen
+    overview: Iwwersiicht
+    physiology_and_cell_biology: Physiologie an Zellbiologie
+    physical_description: Physesch Beschreiwung
+    relevance_to_humans_and_ecosystems: Bedeitung fir d'Mënschen an Ekosystemer
+    reproduction: Reproduktioun
+    risks: Risiken
+    size: Gréisst
+    taxonomy: Taxonomie
+    wikipedia: Wikipedia
+  settings: Astellungen
+  sign_in: Aloggen
+  simple_form:
+    "yes": Jo
+    "no": Neen
+    required:
+      text: obligatoresch
+    labels:
+      defaults:
+        email: E-Mail
+        password: Passwuert
+        password_confirmation: Confirmatioun vum Passwuert
+        remember_me: Astellunge verhalen
+        username: Benotzernumm
+  stats:
+    articles: Artikelen
+    collections: Sammlungen
+    media: Medien
+    pages: Säiten
+    nodes: Kniet
+    scientific_names: Nimm
+    users: Benotzer
+    references: Referenzen
+  terms:
+    definition_field_html: <strong>Definitioun:</strong> %{definition}
+    source_field_html: <strong>Quell:</strong> <a href='%{source}'>%{source}</a>
+    scientific_name: wëssenschaftlechen Numm
+    uri_field_html: <strong>URI:</strong> %{uri}
+  data_definition: Definitioun vu(n) "%{data}"
+  traits:
+    data_viz:
+      about_this_chart: iwwer dës Grafik
+      other_term_name: aner %{term_name}
+      hist_value_label: Wäert (%{units})
+      other: anerer
+      taxon_summary:
+        click_to_filter: Klickt fir ze Filteren
+        click_to_filter_by: klickt fir no '%{name}' ze filteren
+    properties:
+      remarks: Bemierkungen
+      scientific_name: Wëssenschaftlechen Numm
+      source: Quell
+    search_results:
+      edit_filters: Filteren änneren
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'mam Wäert: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} an [%{num_val1}, %{num_val2}] %{units}'
+        sex: 'Geschlecht: %{value}'
+        statistical_method: 'statistesch Method: %{value}'
+      gbif_search: GBIF-Sich
+      new_search: nei Sich
+    search_form:
+      search: Sichen
+      sex: Geschlecht
+      statistical_method: statistesch Method
+      this_may_take_a_minute: Dat kann eng Minutt daueren
+      value: Wäert
+  trust:
+    unreviewed: net nogekuckt
+  user:
+    edit_account_details: Detailer vum Benotzerkont änneren
+    email: E-Mail
+    form_labels:
+      age_confirm: Ech hu mindestens 13 Joer
+    headers:
+      bio: Kuerz-Biographie
+      links: Linken
+    validations:
+      age_confirm: Dir musst confirméieren datt Dir mindestens 13 Joer al sidd
+    new_password: Neit Passwuert
+    confirm_new_password: Neit Passwuert confirméieren
+    username: Benotzernumm
+    update: Aktualiséieren
+    update_email: E-Mail aktualiséieren
+  users:
+    sign_in: Aloggen
+  vernacular_names_header: Allgemeng Nimm
+  term:
+    actions:
+      sort: zortéieren no
+    edit:
+      submit: Späicheren
+    fields:
+      name: 'Numm:'
+      definition: Definitioun
+      comment: 'Bemierkung:'
+      sections: 'Abschnitter:'
+    pagination:
+      next: nächst Säit
+      previous: vireg Säit
+    name:
+      by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/Mount'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: sauere Buedem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: Aerosol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: landwirtschaftlech
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: landwirtschaftlecht Material
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: landwirtschaftleche
+          Buedem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alpine Gletscher
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alpine Buedem
+        http://eol(dot)org/schema/terms/amphibious: amphibesch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: anthropogen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: Beräich
+        https://eol(dot)org/schema/terms/arm: Aarm
+        http://eol(dot)org/schema/terms/average: Duerchschnëtt
+        https://eol(dot)org/schema/terms/bamboo_forest: Bambusbësch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: Bannaneplantage
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Bariumsulfat
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: Schuel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: Basalt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: Bucht
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: Plage
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: Biberdamm
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: Beiewuess
+        http://eol(dot)org/schema/terms/BillLength: Schniewellängt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: Biofilm
+        http://eol(dot)org/schema/terms/Bioluminescent: biolumineszent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: schwaarz
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: Blutt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: Kierperflëssegkeet
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Kierperlängt
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Kierpermass
+        http://eol(dot)org/schema/terms/BodyShape: Kierperform
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: Kierpertemperatur
+        http://eol(dot)org/schema/terms/BodyVolume: Kierpervolume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brong
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: Koffein
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: Kalziumkarbonat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: Kalziumphosphat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: Kalziumsulfat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: Canyon
+        http://eol(dot)org/schema/terms/CellDepth: Zelldéift
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: Zellduerchmiesser
+        http://eol(dot)org/schema/terms/CellLength: Zelllängt
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: Zellmass
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000055: Zellgréisst
+        http://eol(dot)org/schema/terms/CellSurfaceArea: Zelluewerfläch
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: Zellvolume
+        http://eol(dot)org/schema/terms/CellWidth: Zellbreet
+        http://www(dot)marinespecies(dot)org/traits/NonSolidCement: Zement
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: Stad
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: Kokosnossplantage
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: Kaffisplantage
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: Faarf
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: Kommunikatioun
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: Kompost
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: kontaminéierte Buedem
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: Kosmetik
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: Kottengsplantage
+        http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: Lännercode
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: Kraterséi
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: Zylinder
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: Deeg
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: dout
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: reduzéiert Qualitéit
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: Grad
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: Grad Celsius
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: Wüüst
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: Wüüstesand
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: Duerchmiesser
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: Verdauungsapparat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: Stëbs
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: Faarf
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ësst
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: ëmmergréng
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: ëmmergrénge Bësch
+        http://eol(dot)org/schema/terms/extinct: ausgestuerwen
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: Aen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: séier
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: Fieder
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: weiblech
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009566: Befruchtung
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: Fjord
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: Fluch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: Bësch
+        http://eol(dot)org/schema/terms/forestEdge: Bëschrand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: Bëschbuedem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: Séisswaasser
+        https://eol(dot)org/schema/terms/freshwater_animals: Séisswaasserdéieren
+        http://eol(dot)org/schema/terms/fructose: Fruktos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000587: Miwwelen
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/Dag
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/Joer
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm^3
+        http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m^2
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/Mount
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: Gaardebuedem
+        http://eol(dot)org/schema/terms/genotype: Genotyp
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: Gletscherséi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: Gletscherdall
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: Gletscher
+        http://eol(dot)org/schema/terms/grayGreen: gro-gréng
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: gréng
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: Kapp
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: häerzfërmeg
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: Hecken
+        http://semanticscience(dot)org/resource/SIO_000040: Héicht
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: héich
+        http://eol(dot)org/schema/terms/highCNRatio: héich (>59)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: héich Toleranz
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: Hunneg
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: horizontal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: Klinik
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: Äis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: Äisbierg
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: Immunsystem
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: Zoll/Inchen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: erhéicht Qualitéit
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: Instrument
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: Insel
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: Kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/Joer
+        http://eol(dot)org/schema/terms/squarekilometer: km^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: Séi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grouss
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: grousse Séi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: grousse Floss
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
+        http://semanticscience(dot)org/resource/SIO_000041: Längt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: Liewenserwaardung
+        http://rs(dot)tdwg(dot)org/dwc/terms/locality: Plaz
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: niddreg
+        http://eol(dot)org/schema/terms/lowCNRatio: niddreg (<23)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: niddreg Liewenserwaardung
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: Magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: männlech
+        http://semanticscience(dot)org/resource/SIO_001109: Duerchschnëtt
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementAccuracy: Miessgenauegkeet
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementMethod: Miessmethod
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: Fleesch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: Mediterrane Bësch
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
+        http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm^2
+        http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/Dag
+        http://eol(dot)org/schema/terms/milligramspergram: mg/g
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
+        https://eol(dot)org/schema/terms/microalgae: Mikroalgen
+        http://eol(dot)org/schema/terms/millimeterspermonth: Millimeter pro Mount
+        http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/Dag
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/Joer
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
+        http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
+        http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m^2/Dag
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: Méint
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: Bierg
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: Bulli
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: Gemeng
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: Muskel
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: Nervesystem
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: Krankheete vum
+          Nervesystem
+        https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/Stonn
+        https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/min
+        https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
+        http://eol(dot)org/schema/terms/no: neen
+        http://eol(dot)org/schema/terms/noHarem: keen Harem
+        http://eol(dot)org/schema/terms/notMonogamous: net monogam
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: Ufank vun der Fruchtbarkeet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: Orientéierung
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: Sauerstoff
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: Parasit vun
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasitéiert vun
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: Prozent
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: Polarwüüst
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025281: Pollen
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: Populatioun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: Positioun
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: Proteinzesummesetzung
+          vu Mëllech
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: Proteinnen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: mof
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: Verhältnis
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rout
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005790: roude Buedem
+        http://eol(dot)org/schema/reference/referenceID: Referenz
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: Reproduktioun
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: Reproduktiounstemperatur
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: Reproduktiounsstrategie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: Räisfeld
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Floss
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: Flossbett
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: Flossinsel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: Fiels
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: Wuerzelen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: Sand
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000172: Sandwüüst
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: Mier
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: Sediment
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Som
+        http://rs(dot)tdwg(dot)org/dwc/terms/sex: Geschlecht
+        http://eol(dot)org/schema/terms/shade: Schiet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: Form
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: Seid
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: einfach
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: Gréisst
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: Skelett
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: Skelettstruktur
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: Haut
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lues
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: kleng
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: klenge Séi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: klenge Floss
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: Schnéifeld
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: sozial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: Buedem
+        http://purl(dot)org/dc/terms/source: Quell
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropesch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: subtropesch Wüüst
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000159: Zockerplantage
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: Sumpf
+        http://purl(dot)obolibrary(dot)org/obo/GO_0036268: Schwammen
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: Schwanzlängt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: Téiplantage
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: Zänn
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: Temperatur
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestresch
+        http://eol(dot)org/schema/terms/terrestrialPlant: terrestresch Planz
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: Déckt
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: Tonnen
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Bam
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: tropesch Wüüst
+        http://eol(dot)org/schema/terms/TropicalOcean: tropeschen Ozean
+        http://eol(dot)org/schema/terms/tropicalOrSubtropical: tropesch oder subtropesch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005778: tropesche Buedem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: Tundra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: Tunnel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: ënnerierdesche Séi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: ënnerierdesche Floss
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: ënnerierdescht Waasser
+        http://eol(dot)org/schema/terms/unknown: onbekannt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: Dall
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: ganz grouss
+        http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: ganz kleng
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: Wéngert
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: besicht
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: Vitaminnen
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000094: vulkanesch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000246: vulkanesche Krater
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005785: vulkanesche Buedem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: Vulkan
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: Volume
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: Goen
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: Waasserdéift
+        http://eol(dot)org/schema/terms/SeawaterTemperature: Waassertemperatur
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000040: Waasserfall
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: wäiss
+        http://eol(dot)org/schema/terms/whiteGrey: wäiss-gro
+        http://semanticscience(dot)org/resource/SIO_000042: Breet
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: Joren
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giel
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: giel-gréng
+        http://eol(dot)org/schema/terms/yes: jo
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
+        http://eol(dot)org/schema/terms/µg_cm-2: µg/cm^2
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000017: µm
+        http://eol(dot)org/schema/terms/perMicrometer: µm^(-1)
+        http://eol(dot)org/schema/terms/squareMicrometer: µm^2
+        http://eol(dot)org/schema/terms/cubicMicrometer: µm^3
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /Zell /Dag
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/Zell
+        https://eol(dot)org/schema/terms/micromolpergram: µmol/g
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: µmol/l
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000165: Mond
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0006860: Schwammblos
+        http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: Zell
+        http://eol(dot)org/schema/terms/Colonial: kolonial
+        http://eol(dot)org/schema/terms/monogamous: monogam
+        http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: Mieräis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000198: äisbedeckte Séi
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
+        http://eol(dot)org/schema/terms/mol_cell-1: mol/Zell
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: spéit
+        http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/Zell/Dag
+        http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/s
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monogam
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: radialsymmetresch
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: bilateralsymmetresch
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: fruchtbar
+...

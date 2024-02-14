@@ -717,7 +717,6 @@ diq:
     "no": Nê
     required:
       text: lazım
-      mark: '*'
     labels:
       defaults:
         email: Eposta

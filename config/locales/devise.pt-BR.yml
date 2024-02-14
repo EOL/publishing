@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
+# Author: Felipe L. Ewald
 ---
 pt-BR:
   devise:
@@ -93,4 +94,7 @@ pt-BR:
       expired: expirou, solicite um novo
       not_found: Não encontrado
       not_locked: não estava trancado
+      not_saved:
+        one: '1 erro impediu que %{resource} fosse salvo:'
+        other: '%{count} erros impediram que %{resource} fosse salvo:'
 ...

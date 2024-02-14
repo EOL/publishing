@@ -1,9 +1,11 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: AquAFox
 # Author: Codenstory
 # Author: Gomdoli
 # Author: Nuevo Paso
+# Author: Oliviamaule
 # Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 그냥기여자
@@ -11,6 +13,9 @@
 ---
 ko:
   language_name: 영어
+  about:
+    trait_bank:
+      title: TraitBank
   account_already_linked: 계정이 이미 EOL에 연결되어 있습니다
   account_not_linked: 계정이 EOL에 연결되어 있지 않습니다
   advanced: 고급
@@ -25,6 +30,18 @@ ko:
     name:
       missing: 제목 없음
   article_from_partner: '%{partner} 제공'
+  breadcrumbs:
+    types:
+      scientific: 학명
+      vernacular: 향명 및 속명
+  brief_summary:
+    extinction:
+      r_genus_html: 이 속은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
+      r_subgenus_html: 이 아속은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
+        .
+      r_species_html: 이 종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
+      r_subspecies_html: 이 아종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
+        .
   button_create: 만들기
   button_add: 추가
   cancel: 취소
@@ -41,7 +58,10 @@ ko:
       links_count: 링크
       maps_count: 지도
       data_count: 데이터
+      vernaculars_count: 향명 및 속명
       scientific_names_count: 학명
+      species_count: 종
+      updated_at: 최근 업데이트
   collect_already_in_collection: (이미 있습니다)
   collect_already_in_collection_will_add_icon: (미디어를 "%{page}"에 추가)
   collect_new_collection: 새 모음집 이름
@@ -122,6 +142,7 @@ ko:
       data_services: 데이터 서비스
       donate: 기부
       education: 교육
+      food_webs: 먹이사슬
       glossary: 용어집
       help: 도움말
       language_support: 언어 지원
@@ -130,19 +151,29 @@ ko:
       what_is_eol: EOL은 무엇입니까?
       whats_new: 새로운 소식
     discover:
+      algae: 조류
       amphibians: 양서류
       animals: 동물
+      archaea: 고세균
       bacteria: 박테리아
       birds: 새
+      crustaceans: 갑각류
       fishes: 어류
+      flowering_plants: 꽃식물
+      fungi: 진균류
       insects: 곤충
       invertebrates: 무척추동물
       mammals: 포유류
+      molds: 곰팡이류
       mushrooms: 버섯
+      mollusks: 연체류
       plants: 식물
+      protists: 원생생물
+      reptiles: 파충류
       spiders: 거미
       trees: 나무
       viruses: 바이러스
+      worms: 회충류
     eol_is_hosted_by: 'EOL 호스팅:'
   forgot_your_password: 비밀번호를 잊으셨나요?
   gbif_download:
@@ -163,7 +194,16 @@ ko:
     an: 아라곤어
     hy: 아르메니아어
     as: 아삼어
+    q29507: 아스투리아스어
+    q56590: 아티카메쿠어
+    av: 아바르어
+    ae: 아베스타어
+    ay: 아이마라어
+    q9292: 아제르바이잔어
     az: 아제르바이잔어
+    q33070: 발리어
+    bm: 밤바라어
+    q33151: 반자르어
     bs: 보스니아어
     q750553: 브라질 포르투갈어
     bg: 불가리아어
@@ -227,8 +267,8 @@ ko:
     th: 태국어
     tha: 태국어
     to: 통가어
-    tr: 터키어
-    tur: 터키어
+    tr: 튀르키예어
+    tur: 튀르키예어
     uk: 우크라이나어
     ukr: 우크라이나어
     none: 지정되지 않음
@@ -444,7 +484,6 @@ ko:
     "no": 아니오
     required:
       text: 필수
-      mark: '*'
     labels:
       defaults:
         email: 이메일

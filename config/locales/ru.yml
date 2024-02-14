@@ -39,6 +39,7 @@
 # Author: YuliaVo
 # Author: Марио
 # Author: Марио
+# Author: Умар
 ---
 ru:
   language_name: английский
@@ -205,8 +206,6 @@ ru:
     %{page}.
   collected_page_already_in_collection: Это уже было в вашей коллекции.
   collected_pages_title: Страницы
-  collected_pages_medium:
-    destroyed_flash: Изображение удалено с собранной страницы.
   collection_associations:
     destroyed_flash: '%{name} больше не находится в этой коллекции.'
   collected_pages:
@@ -707,7 +706,7 @@ ru:
     q13238: Удмуртский
     ug: Уйгурский
     uk: Украинский
-    ukr: Украиский язык
+    ukr: Украинский язык
     none: Не уточнено
     q13248: Верхнелужицкий язык
     ur: Урду
@@ -978,6 +977,7 @@ ru:
   resources:
     actions:
       republish: переиздать
+      diff: разн.
       index: вернуться ко всем ресурсам
     headers:
       index: Ресурсы

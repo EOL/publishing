@@ -1,0 +1,96 @@
+# Messages for Lithuanian (lietuvių)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nokeoo
+# Author: Tomasdd
+---
+lt:
+  devise:
+    confirmations:
+      confirmed: Jūsų el. pašto adresas sėkmingai patvirtintas.
+      send_instructions: Po kelių minučių gausite el. laišką su instrukcijomis, kaip
+        patvirtinti el. pašto adresą.
+      send_paranoid_instructions: Jei jūsų el. pašto adresas yra mūsų duomenų bazėje,
+        po kelių minučių gausite el. laišką su instrukcijomis, kaip patvirtinti savo
+        el. pašto adresą.
+    failure:
+      already_authenticated: Jau esate prisijungę.
+      inactive: Jūsų paskyra dar neaktyvuota.
+      invalid: Neteisingas %{authentication_keys} arba slaptažodis.
+      locked: Jūsų paskyra užrakinta. Bandykite dar kartą po valandos
+      last_attempt: Turite dar vieną bandymą, po tp paskyra bus užrakinta.
+      not_found_in_database: Neteisingas %{authentication_keys} arba slaptažodis.
+      recaptcha_error: Įvyko klaida su žemiau esančiu recaptcha kodu. Dar kartą įveskite
+        kodą ir spustelėkite pateikti.
+      timeout: Jūsų sesija baigėsi. Jei norite tęsti, prisijunkite dar kartą.
+      unauthenticated: Prieš tęsdami turite prisijungti arba užsiregistruoti.
+      unconfirmed: Prieš tęsdami turite patvirtinti savo el. pašto adresą.
+    mailer:
+      confirmation_instructions:
+        action: Patvirtinti mano paskyrą
+        greeting: Sveiki atvykę, %{recipient}!
+        instruction: 'Savo paskyros el. paštą galite patvirtinti naudodami toliau
+          pateiktą nuorodą:'
+        subject: Patvirtinimo instrukcijos
+      reset_password_instructions:
+        action: Keisti mano slaptažodį
+        greeting: 'Sveiki, #{recipient}!'
+        instruction: Kažkas paprašė nuorodos, kad galėtumėte pakeisti slaptažodį,
+          ir tai galite padaryti naudodami toliau pateiktą nuorodą.
+        instruction_2: Jei to neprašėte, nekreipkite dėmesio į šį el. laišką.
+        instruction_3: Jūsų slaptažodis nepasikeis, kol nepaspausite aukščiau esančios
+          nuorodos ir nesukursite naujo.
+        subject: Slaptažodžio nustatymo iš naujo instrukcija
+      unlock_instructions:
+        subject: Atrakinimo instrukcijos
+      password_change:
+        greeting: 'Sveiki, #{recipient}!'
+        message: Mes susisiekiame su jumis norėdami pranešti, kad jūsų slaptažodis
+          buvo pakeistas.
+        subject: Slaptažodis pakeistas
+    passwords:
+      no_token: Negalite pasiekti šio puslapio negavęs slaptažodžio nustatymo iš naujo
+        el. laiško. Jei gavote slaptažodžio nustatymo iš naujo el. laišką, įsitikinkite,
+        kad naudojote visą pateiktą URL.
+      send_instructions: Po kelių minučių gausite el. laišką su instrukcijomis, kaip
+        iš naujo nustatyti slaptažodį.
+      send_paranoid_instructions: Jei jūsų el. pašto adresas yra mūsų duomenų bazėje,
+        po kelių minučių į savo el. pašto adresą gausite slaptažodžio atkūrimo nuorodą.
+      updated: Jūsų slaptažodis buvo sėkmingai pakeistas. Dabar esate prisijungę.
+      updated_not_active: Jūsų slaptažodis buvo sėkmingai pakeistas.
+    registrations:
+      destroyed: Viso! Jūsų paskyra buvo sėkmingai atšaukta. Tikimės, kad netrukus
+        vėl susitiksime.
+      signed_up: Sveiki! Jūs sėkmingai užsiregistravote.
+      signed_up_but_inactive: Jūs sėkmingai užsiregistravote. Tačiau negalėjome jūsų
+        prijungti, nes jūsų paskyra dar neaktyvuota.
+      signed_up_but_locked: Jūs sėkmingai užsiregistravote. Tačiau negalėjome jūsų
+        prijungti, nes jūsų paskyra užrakinta.
+      signed_up_but_unconfirmed: Jūsų el. pašto adresu išsiųstas pranešimas su patvirtinimo
+        nuoroda. Norėdami suaktyvinti paskyrą, spustelėkite nuorodą.
+      update_needs_confirmation: Sėkmingai atnaujinote paskyrą, bet turime patvirtinti
+        jūsų naują el. pašto adresą. Patikrinkite savo el. paštą ir spustelėkite patvirtinimo
+        nuorodą, kad patvirtintumėte savo naują el. pašto adresą.
+      updated: Jūsų paskyra sėkmingai atnaujinta.
+    sessions:
+      signed_in: Sėkmingai prisijungta.
+      signed_out: Sėkmingai atsijungta.
+      already_signed_out: Sėkmingai atsijungta.
+      recaptcha: Recaptcha patvirtinimo klaidos
+      sign_in_remember_me_disabled_for_admins: Saugumo sumetimais administratoriai
+        negali naudoti „prisiminti mane“ funkcijos.
+    unlocks:
+      send_instructions: Po kelių minučių gausite el. laišką su instrukcijomis, kaip
+        atrakinti paskyrą.
+      send_paranoid_instructions: Jei jūsų paskyra egzistuoja, per kelias minutes
+        gausite el. laišką su instrukcijomis, kaip ją atrakinti.
+      unlocked: Jūsų paskyra buvo sėkmingai atrakinta. Jei norite tęsti, prisijunkite.
+  errors:
+    messages:
+      already_confirmed: jau buvo patvirtinta, pabandykite prisijungti
+      confirmation_period_expired: turi būti patvirtintas per %{period}, paprašykite
+        iš naujo
+      expired: pasibaigė, prašykite iš naujo
+      not_found: nerasta
+      not_locked: nebuvo užrakintas
+...

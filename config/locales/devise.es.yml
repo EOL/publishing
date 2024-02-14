@@ -4,6 +4,7 @@
 # Author: Alonso Biólogo
 # Author: Fitoschido
 # Author: Johny Weissmuller Jr
+# Author: Whovian Biologist
 ---
 es:
   devise:
@@ -53,7 +54,7 @@ es:
     passwords:
       no_token: No puede acceder a esta página sin venir de un correo electrónico
         de restablecimiento de contraseña. Si viene de un correo electrónico de restablecimiento
-        de contraseña, asegúrese de haber utilizado la URL completa proporcionada.
+        de contraseña, por favor asegúrese de haber utilizado la URL completa proporcionada.
       send_instructions: Recibirá un correo electrónico con instrucciones sobre cómo
         restablecer su contraseña en unos minutos.
       send_paranoid_instructions: Si su dirección de correo electrónico existe en

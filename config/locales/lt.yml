@@ -1,0 +1,1043 @@
+# Messages for Lithuanian (lietuvių)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nokeoo
+# Author: Tomasdd
+---
+lt:
+  language_name: Anglų
+  about:
+    trait_bank:
+      title: TraitBank
+  account_already_linked: jūsų paskyra jau susieta su EOL
+  account_not_linked: jūsų paskyra nesusieta su EOL
+  advanced: išplėstinis
+  are_you_sure_delete_account: Ar tikrai norite ištrinti savo EOL paskyrą?
+  article:
+    actions:
+      collect: rinkti
+    header:
+      blank: (Šis straipsnis neturi turinio.)
+      body: Tekstas
+      language: 'kalba: %{language}'
+      title: Pavadinimas
+      untitled: Be pavadinimo
+    name:
+      missing: Be pavadinimo
+  article_from_partner: pateikė %{partner}
+  article_duplicate: šis straipsnis taip pat rodomas „%{section}“
+  breadcrumbs:
+    types:
+      scientific: mokslinis
+      vernacular: liaudiškas
+  brief_summary:
+    extinction:
+      r_genus_html: Ši gentis yra <span class='%{class_str}' id='%{id}'>išnykusi</span>.
+      r_subgenus_html: Ši pogentė yra <span class='%{class_str}' id='%{id}'>išnykusi</span>.
+      r_superspecies_html: Ši super-rūšis yra <span class='%{class_str}' id='%{id}'>išnykusi</span>.
+      r_species_html: Ši rūšis yra <span class='%{class_str}' id='%{id}'>išnykusi</span>.
+      r_subspecies_html: Šis porūšis yra <span class='%{class_str}' id='%{id}'>išnykęs</span>.
+      r_form_html: Ši forma yra <span class='%{class_str}' id='%{id}'>išnykusi</span>.
+    freshwater_html: Jie siejami su <span class='%{class_str}' id='%{id}'>gėlo vandens
+      buveine</span>.
+    marine_html: Jie randami <span class='%{class_str}' id='%{id}'>jūrinėse buveinėse</span>.
+    species: '%{name1} yra %{name2} rūšis.'
+    species_in_family: '%{name1} yra %{name2} rūšis, priklausanti %{name_family} šeimai.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} yra %{name2} super-šeima.'
+        r_domain: '%{name1} yra %{name2} domenas.'
+        r_subdomain: '%{name1} yra %{name2} padomenis.'
+        r_superkingdom: '%{name1} yra %{name2} super-karalystė.'
+        r_kingdom: '%{name1} yra %{name2} karalystė.'
+        r_subkingdom: '%{name1} yra %{name2} po-karalystė.'
+        r_superphylum: '%{name1} yra %{name2} super-tipas.'
+        r_phylum: '%{name1} yra %{name2} tipas.'
+        r_subphylum: '%{name1} yra %{name2} potipis.'
+        r_superclass: '%{name1} yra %{name2} super-klasė.'
+        r_class: '%{name1} yra %{name2} klasė.'
+        r_subclass: '%{name1} yra %{name2} poklasis.'
+        r_superorder: '%{name1} yra %{name2} super-būrys.'
+        r_order: '%{name1} yra %{name2} būrys.'
+        r_suborder: '%{name1} yra %{name2} po-būris.'
+        r_family: '%{name1} yra %{name2} šeima.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} yra %{name2} pošeimis %{name3} šeimoje.'
+          r_tribe: '%{name1} yra %{name2} gentis %{name3} šeimoje.'
+          r_supergenus: '%{name1} yra %{name2} super-gentis %{name3} šeimoje.'
+          r_genus: '%{name1} yra %{name2} gentis %{name3} šeimoje.'
+          r_subgenus: '%{name1} yra %{name2} pogentis %{name3} šeimoje.'
+          r_superspecies: '%{name1} yra %{name2} super-rūšis %{name3} šeimoje.'
+          r_species: '%{name1} yra %{name2} rūšis iš %{name3} šeimos.'
+          r_subspecies: '%{name1} yra %{name2} porūšis %{name3} šeimoje.'
+          r_form: '%{name1} yra %{name2} forma šeimoje %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} yra %{name2} pošeimis.'
+          r_tribe: '%{name1} yra %{name2} gentis.'
+          r_supergenus: '%{name1} yra %{name2} super-gentis.'
+          r_genus: '%{name1} yra %{name2} gentis.'
+          r_subgenus: '%{name1} yra %{name2} pogentis.'
+          r_superspecies: '%{name1} yra %{name2} super-rūšis.'
+          r_species: '%{name1} yra %{name2} rūšis.'
+          r_subspecies: '%{name1} yra %{name2} porūšis.'
+          r_form: '%{name1} yra %{name2} forma.'
+  button_create: sukurti
+  button_add: pridėti
+  cancel: atšaukti
+  change_my_password: Keisti mano slaptažodį
+  change_your_password: Keisti slaptažodį
+  classifications:
+    children:
+      see_more: Žiūrėti daugiau
+    hierarchies:
+      see_resource_file: Dėl pilno sąrašo žiūrėkite <a href='%{href}'>šaltinio failą</a>.
+      this_page: (šis puslapis)
+    richness:
+      header: Puslapio turtingumas
+      score: turtingumo balas
+      page_contents_count: susijęs turinys
+      missing: Šio puslapio turtingumas dar neapskaičiuotas.
+      media_count: medija
+      articles_count: straipsniai
+      links_count: nuorodos
+      maps_count: žemėlapiai
+      data_count: duomenys
+      scientific_names_count: moksliniai pavadinimai
+      species_count: rūšys
+      updated_at: Paskutinį kartą atnaujinta
+  collect_already_in_collection: (jau čia)
+  collect_already_in_collection_will_add_icon: (pridėti mediją prie „%{page}“)
+  collect_icon_title: Pridėti „%{item}“ iš „%{page}“ puslapio į…
+  collect_new_collection: Naujas Kolekcijos Pavadinimas
+  collect_new_collection_title: '...nauja kolekciją'
+  collect_no_existing_collections: Jūs dar neturite! Sukurkite naudodami formą kairėje.
+  collect_select_collection: …Viena iš jūsų kolekcijų
+  collect_title: Pridėti „%{item}“ prie…
+  collected_page_added_to_collection: '%{page} pridėta prie kolekcijos <a href=''%{link}''>%{name}</a>.'
+  collected_page_already_in_collection: Tai jau buvo jūsų kolekcijoje.
+  collected_pages_title: Puslapiai
+  collection_associations:
+    destroyed_flash: '%{name} nebėra susietas su šia kolekcija.'
+  collected_pages:
+    delete_button: ištrinti
+    edit_button: redaguoti
+    delete_confirm: ar tikrai?
+    destroyed_flash: '%{name} pašalintas iš kolekcijos.'
+  collection_association_added_to_collection: „%{associated}“ pridėta prie kolekcijos
+    <a href='%{link}'>"%{name}"</a>.
+  collection_associations_title: Susietos kolekcijos
+  collection_collected_pages_media_remove: 'Pašalinti vaizdus iš kolekcijos (pakeitimai
+    įsigalioja iškart):'
+  collection_created: Sukurta nauja kolekcija „%{name}“.
+  collection_created_for_association: „%{associated}“ pridėtas prie naujos kolekcijos
+    <a href='%{link}'>"%{name}"</a>.
+  collection_user_is_admin: Šis vartotojas yra administratorius.
+  collection:
+    admins:
+      header: Naudotojai, galintys redaguoti šią kolekciją (pakeitimai įsigalioja
+        iškart)
+      label: 'Pridėkite naudotoją, kuris gali redaguoti šią kolekciją:'
+      placeholder: pilnas vardas arba naudotojo vardas
+    actions:
+      delete: ištrinti
+      edit: redaguoti
+      sort: rūšiuoti
+    collection_type:
+      normal: normalus
+      gallery: galerija
+    delete_confirm: Taip bus pašalinta visa kolekcija ir šio veiksmo NEGALIMA anuliuoti.
+      Ar esate tikri?
+    destroyed: „%{name}“ buvo ištrintas visam laikui.
+    log:
+      associated_collection:
+        add: '%{user} pridėjo asociaciją prie kolekcijos %{associated}'
+        remove: '%{user} pašalino asociaciją su kolekcija %{associated}'
+      collection:
+        add: '%{user} sukūrė kolekciją'
+        change: '%{user} pakeitė %{field} iš „%{from}“ į „%{to}“'
+      page:
+        add: '%{user} pridėjo puslapį %{page}'
+        change: '%{user} pakeitė %{field} puslapyje %{page} iš „%{from}“ į „%{to}“'
+        remove: '%{user} pašalino puslapį %{page}'
+      user:
+        add: '%{user} pridėjo valdytoją %{manager}'
+        remove: '%{user} pašalino valdytoją %{manager}'
+    search:
+      placeholder: Ieškoti kolekcijoje…
+      submit: ieškoti
+    sort:
+      hierarchy: hierarchija
+      position: data pridėta
+      sci_name: mokslinis pavadinimas, A-Z
+      sci_name_rev: mokslinis pavadinimas, Z-A
+      sort_field: anotacija, A-Z
+      sort_field_rev: anotacija, Z-A
+    updated: Kolekcija atnaujinta.
+  collection_unauthorized_edit: Tik naudotojas savininkas gali redaguoti šią kolekciją.
+  complete_registration: Prašome tęsti registraciją
+  content_appears_on: 'Įtraukta į šiuos puslapius:'
+  content_collected_in: 'Pateikta šiose kolekcijose:'
+  content_attributions_header: Šaltinio informacija
+  content_attributions_labels:
+    altitude: aukštis
+    author: autorius
+    bibliographic_citation: bibliografinė citata
+    creator: kūrėjas
+    editor: redaktorius
+    latitude: platuma
+    license: licencija
+    location: vieta
+    longitude: ilguma
+    original_media_file: originalus medijos failas
+    owner: autorių teisės
+    photographer: fotografas
+    publisher: leidėjas
+    project: projektas
+    provider: teikėjas
+    resource_label: partnerio svetainė
+    resource_pk: '(id: %{key})'
+    rights_statement: teisių pareiškimas
+    source: šaltinis
+    spatial_location: erdvinis
+    view_source_label: originalus
+    view_source_link: žiūrėti originalų paveikslėlį
+    view_source_page_link: apsilankyti šaltinyje
+  content_not_in_any_collection_image: Šis paveikslėlis nėra jokiose kolekcijose.
+  content_not_in_any_collection_sound: Šis garsas nėra jokiose kolekcijose.
+  content_not_in_any_collection_video: Šis vaizdo įrašas nėra jokiose kolekcijose.
+  data_missing: '(trūksta duomenų, raktai: %{keys})'
+  dear_username_with_comma: Gerb. %{username},
+  delete_account_button: Ištrinti savo paskyrą
+  errors:
+    internal_server: Vidinė serverio klaida (500)
+    not_found: Puslapis nerastas (404)
+  filter_by_license: licencija
+  filter_by_license_any_item: bet kokia licencija
+  filter_by_medium_subtype: tipas
+  filter_by_medium_any_item: bet koks tipas
+  filter_by_resource: teikėjas
+  filter_by_resource_any_item: bet koks teikėjas
+  filters:
+    filter_by_language: filtruoti pagal kalbą
+    filter_by_provider: filtruoti pagal teikėją
+  footer:
+    eol_info:
+      citing_eol: EOL citavimas
+      contact_us: Susisiekite su mumis
+      data_services: Duomenų paslaugos
+      donate: Aukoti
+      education: Švietimas
+      food_webs: Maisto tinklai
+      glossary: Žodynėlis
+      help: Pagalba
+      language_support: Kalbos palaikymas
+      terms_of_use: Naudojimosi sąlygos
+      the_eol_forum: EOL forumas
+      what_is_eol: Kas yra EOL?
+      whats_new: Kas naujo?
+    discover:
+      algae: Dumbliai
+      amphibians: Varliagyviai
+      animals: Gyvūnai
+      archaea: Archėja
+      bacteria: Bakterijos
+      birds: Paukščiai
+      crustaceans: Vėžiagyviai
+      fishes: Žuvys
+      flowering_plants: Žydintys augalai
+      fungi: Grybai
+      insects: Vabzdžiai
+      invertebrates: Bestuburiai
+      mammals: Žinduoliai
+      mushrooms: Grybai
+      mollusks: Moliuskai
+      plants: Augalai
+      protists: Protistai
+      reptiles: Ropliai
+      spiders: Vorai
+      trees: Medžiai
+      viruses: Virusai
+      worms: Kirmėlės
+    eol_is_hosted_by: 'EOL priegloba:'
+  forgot_your_password: Pamiršote savo slaptažodį?
+  gbif_download:
+    created: GBIF atsisiuntimo užduotis sukurta. Patikrinkite savo <a href="%{url}">naudotojo
+      profilio puslapį</a>, kad pamatytumėte jos būseną
+  landing_page:
+    header: Pasaulinė prieiga prie žinių apie gyvybę Žemėje
+    stats_cleared: Statistika buvo perskaičiuota.
+  language: Kalba
+  languages:
+    ab: Abchazų
+    q27683: Ačehų
+    q27776: Adygų
+    aa: Afarų
+    af: Afrikanų
+    ak: Akanų
+    alb: Albanų
+    sq: Albanų
+    q131339: Alemanų
+    am: Amharų
+    ar: Arabų
+    an: Aragoniečių
+    hy: Armėnų
+    as: Asamiečių
+    q29507: Astūrų
+    q56590: Atikamekų
+    av: Avarų
+    ae: Avestos
+    ay: Aimarų
+    q9292: Azerų
+    az: Azerų
+    q33070: Baliečių
+    bm: Bambarų
+    q33151: Bandžarų
+    ba: Baškirų
+    eu: Baskų
+    q29540: Bavarų
+    be: Baltarusių
+    bn: Bengalų
+    bh: Biharų kalbos
+    bi: Bislamų
+    nb: Bukmolas, Norvegų; Norvegų Bukmolas
+    q4941378: Bondei
+    bs: Bosnių
+    q33202: Brahujų
+    q750553: Brazilijos portugalų
+    br: Bretonų
+    bg: Bulgarų
+    my: Mjanmų
+    q33120: Buriatų
+    q33239: Sebuanų
+    khm: Centrinė khmerų
+    km: Centrinė khmerų
+    ch: Čamorų
+    ce: Čečėnų
+    q33388: Čerokių
+    q33265: Šajenų
+    ny: Čičėva; čęvų; činiandža
+    zh: Kinų
+    chi: Kinų
+    cu: Senoji bažnytinė slavų
+    cv: Čiuvašų
+    q37041: Klasikinė kinų
+    kw: Kornų
+    co: Korsikiečių
+    cr: Kri
+    q33357: Krymo totorių
+    hr: Kroatų
+    hrv: Kroatų
+    cs: Čekų
+    q32238: Dagbanių
+    da: Danų
+    q56466: Dinkų
+    dv: Divehi; Dhivehi; Maldyvų
+    q18415595: Dotelų
+    q33013: Dualų
+    dut: Olandų; flamandų
+    nl: Olandų; flamandų
+    dz: Botijų
+    dzo: Botijų
+    q4126517: Rytų Kanados inuktitutas
+    en: Anglų
+    eo: Esperanto
+    et: Estų
+    est: Estų
+    fo: Farerų
+    fi: Suomių
+    fin: Suomių
+    fr: Prancūzų
+    fra: Prancūzų
+    gl: Galisų
+    q33475: Gan kinų
+    ka: Kartvelų
+    de: Vokiečių
+    deu: Vokiečių
+    el: Moderni graikų (nuo 1453 m.)
+    gre: Graikų
+    he: Hebrajų
+    heb: Hebrajų
+    hu: Vengrų
+    is: Islandų
+    ice: Islandų
+    ga: Airių
+    it: Italų
+    ita: Italų
+    ja: Japonų
+    jp: Japonų
+    jv: Javiečių
+    kk: Kazachų
+    ko: Korėjiečių
+    kor: Korėjiečių
+    ku: Kurdų
+    la: Lotynų
+    lv: Latvių
+    lt: Lietuvių
+    lit: Lietuvių
+    mt: Maltiečių
+    mlt: Maltiečių
+    q33845: Neapoliečių
+    ne: Nepaliečių
+    "no": Norvegų
+    nno: Norvegų
+    nob: Norvegų
+    nor: Norvegų
+    pi: Pali
+    fa: Persų
+    pl: Lenkų
+    pol: Lenkų
+    pt: Portugalų
+    ru: Rusų
+    rus: Rusų
+    sa: Sanskritas
+    q14549: Škotų
+    sr: Serbų
+    sk: Slovakų
+    slk: Slovakų
+    sl: Slovėnų
+    slv: Ispanų
+    sv: Švedų
+    swe: Švedų
+    tg: Tadžikų
+    tt: Totorių
+    th: Tajų
+    tha: Tajų
+    q34251: Tulų
+    tr: Turkų
+    tur: Turkų
+    q36730: Turkų, osmanų
+    tk: Turkmėnų
+    uk: Ukrainiečių
+    ukr: Ukrainiečių
+    none: Nenurodyta
+    ur: Urdu
+    uz: Uzbekų
+    vi: Vietnamiečių
+    cy: Valų
+    wel: Valų
+    yi: Jidiš
+    zu: Zulu
+  layout_sign_in: Prisijungti
+  layout_sign_up: Užsiregistruoti
+  layout_sign_out: Atsijungti
+  literature_and_references_header: Literatūra ir nuorodos
+  maps:
+    empty: Šiam puslapiui nėra žemėlapių
+    other_maps_title: Neinteraktyvūs žemėlapiai
+  medium:
+    untitled:
+      image: Vaizdas be pavadinimo
+      image_of: '%{page_name} vaizdas'
+      video: Vaizdo įrašas be pavadinimo
+      video_of: '%{page_name} vaizdo įrašas'
+      sound: Garsas be pavadinimo
+      sound_of: '%{page_name} garsas'
+      map: Žemėlapis be pavadinimo
+      map_of: '%{page_name} žemėlapis'
+      js_map: Interaktyvus žemėlapis be pavadinimo
+      js_map_of: Interaktyvus %{page_name} žemėlapis
+    subclasses:
+      image: paveikslėlis
+      video: vaizdo įrašas
+      sound: garsas
+      map_image: žemėlapis
+      js_map: interaktyvus žemėlapis
+  medium_description_blank: Šio objekto aprašymas nepateiktas.
+  medium_header_title: 'Pavadinimas:'
+  medium_header_description: 'Aprašymas:'
+  nav:
+    about: Apie
+    discuss: Aptarti
+    education: Švietimas
+    search:
+      no_results_html: <strong>Nėra patvirtintų rezultatų</strong><br /> Paspauskite
+        Enter, kad pamatytumėte nekuruotus rezultatus
+      placeholder: Ieškoti EOL...
+  name_preferred_label: pageidaujama
+  page_icon_created: Vaizdas „%{name}“ perkeltas į viršų.
+  page_title: Gyvybės enciklopedija
+  page_title_search: 'Ieškoti: %{query}'
+  page_vernaculars_empty: Nėra bendrų pavadinimų, susijusių su šiuo taksonu.
+  pages:
+    actions:
+      reindex: perindeksuoti
+    batch_lookup:
+      canonical_name: kanoninis pavadinimas
+      download_tsv: atsisiųsti TSV
+      new_search: nauja paieška
+      page_id: puslapio ID
+      page_url: puslapio URL
+      query: užklausa
+      query_cant_be_blank: užklausa negali būti tuščia
+      search: paieška
+    filter_menu:
+      show_all: rodyti viską
+    page_data:
+      show_all: rodyti viską
+    resource_names:
+      name_recognized_by: Atpažino %{by}
+      name_recognized_by_w_rank: '%{rank} atpažino %{by}'
+      name_recognized_by_w_status: '%{status} pagal %{by}'
+      rank:
+        r_domain: Domenas
+        r_subdomain: Subdomenas
+        r_superkingdom: Super-karalystė
+        r_kingdom: Karalystė
+        r_subkingdom: Po-karalystė
+        r_superphylum: Super-tipas
+        r_phylum: Tipas
+        r_subphylum: Potipis
+        r_superclass: Super-klasė
+        r_class: Klasė
+        r_subclass: Poklasis
+        r_superorder: Super-būrys
+        r_order: Būrys
+        r_suborder: Po-būrys
+        r_superfamily: Super-šeima
+        r_family: Šeima
+        r_subfamily: Po-šeima
+        r_tribe: Gentis
+        r_supergenus: Super-gentis
+        r_genus: Gentis
+        r_subgenus: Po-gentis
+        r_superspecies: Super-rūšis
+        r_species: Rūšis
+        r_subspecies: Porūšis
+        r_form: Forma
+      reference_taxon_attrib: Nurodyti taksoną iš %{dataset_name}
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
+      username_missing: naudotojas %{user_id}
+    trophic_web:
+      competitor: Konkurentas
+      globi_credit_html: duomenis iš <a href='%{url}'>„GloBI“</a>
+      predator: Plėšrūnas
+      prey: Grobis
+      reset: atstatyti
+    flash:
+      reindexed: Šio puslapio talpyklos išvalytos. Įkelkite iš naujo, kad pamatytumėte
+        naujas reikšmes. PASTABA, kad šiuo metu puslapyje esantys vaizdai *nėra* IŠ
+        naujo indeksuojami. Ši funkcija bus įdiegta ateityje.
+    native_node_missing_warning: hierarchijos informacijos nėra
+    tabs:
+      articles: straipsniai
+      classifications: klasifikacijos
+      data: duomenys
+      literature_and_references: literatūra ir nuorodos
+      overview: apžvalga
+      maps: žemėlapiai
+      media: medija
+      names: pavadinimai
+    iucn_status:
+      label: 'IUCN būsena:'
+      ex: išnykęs (EX)
+      ew: išnykęs gamtoje (EW)
+      cr: kritiškai nykstantis (CR)
+      en: nykstantis (EN)
+      vu: pažeidžiamas (VU)
+      nt: beveik pažeidžiamas (NT)
+      lc: keliantis mažiausiai susirūpinimo (LC)
+      dd: duomenų trūkumas (DD)
+      ne: neįvertinta (NE)
+      unknown: nežinoma (nėra įrašo)
+    unresolved_name: Neišspręstas pavadinimas
+    unresolved_name_prefix: 'Neišspręstas pavadinimas:'
+  page_titles:
+    pages:
+      data: '%{page_name} duomenys'
+      media: '%{page_name} medija'
+      maps: '%{page_name} žemėlapiai'
+      names: '%{page_name} vardai'
+      articles: '%{page_name} straipsniai'
+    traits:
+      search: Bruožų paieška
+  rank:
+    name:
+      r_domain: domenas
+      r_subdomain: Sub-domenas
+      r_superkingdom: super-karalystė
+      r_kingdom: karalystė
+      r_subkingdom: po-karalystė
+      r_superphylum: super-tipas
+      r_phylum: tipas
+      r_subphylum: potipis
+      r_superclass: super-klasė
+      r_class: klasė
+      r_subclass: poklasis
+      r_superorder: super-būrys
+      r_order: būrys
+      r_suborder: po-būrys
+      r_superfamily: super-šeima
+      r_family: šeima
+      r_subfamily: po-šeima
+      r_tribe: gentis
+      r_supergenus: super-gentis
+      r_genus: gentis
+      r_subgenus: po-gentis
+      r_superspecies: super-rūšis
+      r_species: rūšis
+      r_subspecies: porūšis
+      r_form: forma
+  recaptcha: Recaptcha
+  recaptcha_error: Pasakykite mums, kad nesate robotas.
+  reconciliation:
+    id_space:
+      headers:
+        type_id: Tipo ID
+        type_name: Tipo pavadinimas
+        id_format: ID formatas
+      type_names:
+        taxon: Taksonas
+      numeric_id: skaitinis ID
+    property:
+      description:
+        ancestor: Taksonas, kuris yra kito taksono protėvis.
+        conservation_status: Taksono apsaugos būklė.
+        extinction_status: Taksono išnykimo būklė. Galimos reikšmės yra „išnykęs“
+          ir „išlikęs“
+      name:
+        ancestor: Protėvis
+        conservation_status: Apsaugos būklė
+        extinction_status: Išnykimo būsena
+        rank: Reitingas
+    property_settings:
+      limit:
+        label: Limitas
+        help_text: Didžiausias grąžintinų reikšmių skaičius eilutėje (0, jei neribojama)
+    schema_space:
+      intro: Toliau aprašytas ypatybių rinkinys, kurį naudoja Reconciliation API paslauga.
+      headers:
+        id: ID
+        name: Pavadinimas
+        description: Aprašymas
+  reference_compiled_from: Nurodo %{links}
+  reference_compiled_from_article: '%{source} straipsnis pavadinimu „%{name}“'
+  register_new_account: Registruokitės naujai paskyrai
+  resources:
+    actions:
+      import_traits: importuoti bruožus (iš saugyklos)
+      republish: pakartotinai paskelbti
+      clean_republish: švarus pakartotinis paskelbimas
+      diff: skirt
+      republish_confirm: Tai ištrins VISĄ ištekliaus turinį (išskyrus bruožus, kuriems
+        bus naudojamas skirtumas). Ar esate TIKRI?!
+      clean_republish_confirm: Tai ištrins VISĄ ištekliaus turinį ir nenaudotos bruožų
+        skirtumo. Ar esate TIKRI?!
+      reindex: perindeksuoti
+      index: grįžti prie visų išteklių
+      clear_publishing_confirm: Tai „baigs“ visą publikavimą ir gali sukelti problemų,
+        jei bus naudojama aktyviai publikuojant. Ar esate tikri?
+    headers:
+      index: Ištekliai
+      import_log: Importuoti %{resource} Žurnalą
+    no_events: Nėra!
+  resource_missing: išteklius nerastas
+  scientific_name:
+    status_title:
+      accepted: Priimti pavadinimai
+      alternative: Alternatyvūs pavadinimai
+      preferred: Pageidaujami pavadinimai
+      unusable: Netinkami pavadinimai
+      synonym: Sinonimai
+  scientific_names_header: Moksliniai pavadinimai
+  send_me_reset_password_instructions: Atsiųskite man slaptažodžio nustatymo iš naujo
+    instrukcijas
+  search:
+    blank_q_msg: EOL turinio galite ieškoti naudodami puslapio viršuje esančią juostą.
+    matched_text: Atitiko %{text}
+    flash:
+      cannot_combine_paths: Nepavyko sujungti rezultatų su %{path}
+      more_than_one_species: Nepavyko sujungti %{species} rezultatų
+      more_than_two_terms: 'Nepavyko sujungti daugiau nei dviejų terminų rezultatų:
+        %{terms}'
+  search_results:
+    collected_media:
+      title: 'surinkta medija iš šio puslapio:'
+    medium_article: Straipsnis
+    medium_image: Paveikslėlis
+    medium_map: Žemėlapis
+    medium_sound: Garsas
+    medium_video: Vaizdo įrašas
+    medium_title_article_html: 'Straipsnis: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Paveiksėlis: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Žemėlapis: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Garsas: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Vaizdo įrašas: <span class=''sub''>%{title}</span>'
+    empty: Nėra rezultatų.
+    field_matches:
+      description: 'atitinka aprašymą:'
+      resource_pk: 'atitinka išorinį ID:'
+      bio: 'atitinka biografiją:'
+      tag_line: 'atitinka žymų eilutę:'
+    collection_title_html: 'Kolekcija: <span class=''sub''>%{name}</span>'
+    user_title_html: 'Naudotojas: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: sukurti naują paieškos pasiūlymą
+    created: Sukurtas „%{match}“ paieškos pasiūlymas
+    destroyed: Sunaikintas „%{match}“ paieškos pasiūlymas
+    new:
+      header: Sukurti paieškos pasiūlymą
+    update:
+      header: Atnaujinti paieškos pasiūlymą
+    index:
+      header: Paieškos pasiūlymai
+  sections:
+    associations: Asociacijos
+    behavior: Elgesys
+    benefits: Privalumai
+    brief_summary: Trumpa santrauka
+    comprehensive_description: Išsamus aprašymas
+    conservation: Išsaugojimas
+    conservation_status: Apsaugos būklė
+    cyclicity: Cikliškumas
+    diagnostic_description: Diagnostinis aprašymas
+    diseases_and_parasites: Ligos ir parazitai
+    ecology: Ekologija
+    evolution_and_systematics: Evoliucija ir sistematika
+    general_ecology: Bendroji ekologija
+    genetics: Genetika
+    growth: Augimas
+    habitat: Buveinė
+    identification_resources: Identifikavimo ištekliai
+    life_expectancy: Gyvenimo trukmė
+    management: Valdymas
+    migration: Migracija
+    molecular_biology: Molekulinė biologija
+    molecular_biology_and_genetics: Molekulinė biologija ir genetika
+    morphology: Morfologija
+    names_and_taxonomy: Pavadinimai ir taksonomija
+    notes: Pastabos
+    overview: Apžvalga
+    physiology_and_cell_biology: Fiziologija ir ląstelių biologija
+    physical_description: Fizinis aprašymas
+    relevance_to_humans_and_ecosystems: Aktualumas žmonėms ir ekosistemoms
+    reproduction: Reprodukcija
+    risks: Rizikos
+    size: Dydis
+    taxonomy: Taksonomija
+    threats: Grėsmės
+    trends: Tendencijos
+    trophic_strategy: Trofinė strategija
+    type_information: Tipo informacija
+    wikipedia: Vikipedija
+  settings: nustatymai
+  show_date: Rodyti paskelbimo datą
+  sign_in: Prisijungti
+  sign_up: Registruotis
+  signature_with_contact_us_link: |-
+    Jei kyla problemų, susisiekite su mumis adresu %{url}.
+
+    Gyvybės enciklopedijos komanda
+  did_not_receive_confirmation_instructions: Negauta patvirtinimo instrukcijų
+  simple_form:
+    "yes": Taip
+    "no": Ne
+    required:
+      text: privalomas
+    error_notification:
+      default_message: 'Peržiūrėkite toliau pateiktas problemas:'
+    labels:
+      defaults:
+        email: El. paštas
+        password: Slaptažodis
+        password_confirmation: Slaptažodžio patvirtinimas
+        remember_me: Prisiminti mane
+        username: Vartotojo vardas
+        bio: Biografija
+      search_suggestion:
+        page_id: EOL puslapio ID, į kurį norite peradresuoti (arba pagal jį filtruoti)
+        synonym_of_id: paieškos pasiūlymo ID (!), kuris turėtų būti naudojamas
+        object_term: URI, į kurį reikia peradresuoti (arba filtruoti pagal)
+  stats:
+    articles: straipsniai
+    collections: kolekcijos
+    data: duomenų įrašai
+    media: medija
+    pages: puslapiai
+    scientific_names: pavadinimai
+    users: vartotojai
+    references: nuorodos
+  term_query:
+    invalid_obsolete: NEGALIOJANTIS/PASENĘS
+    validations:
+      empty_filters_error_record: įrašų paieškoms turite pateikti filtrą su atributu
+        arba reikšmę
+  term_query_filter:
+    validations:
+      blank_error: turite nurodyti atributą arba reikšmę
+      invalid_uri: neteisingas URI
+      pred_uri_blank_numeric_error: negali būti tuščias su skaitine verte
+      range_invalid_error: turi būti >= primąjai vertei
+      units_blank_error: skaitmeninei paieškai vienetų laukas negali būti tuščias
+  terms:
+    attribution_field_html: <strong>Priskyrimas:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Komentaras:</strong> %{comment}
+    definition_field_html: <strong>Apibrėžimas:</strong> %{definition}
+    source_field_html: <strong>Šaltinis:</strong> <a href='%{source}'>%{source}</a>
+    record_url: įrašo URL
+    scientific_name: mokslinis pavadinimas
+    show_all_records: rodyti visus įrašus
+    source: šaltinis
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Norėdami pradėti, pasirinkite aukščiau esantį puslapį.
+  data_definition: „%{data}“ apibrėžimas
+  traits:
+    data_viz:
+      about_this_chart: apie šią diagramą
+      about_this_chart_tooltip_1d: Tai santrauka, pagrįsta EOL turimais duomenimis.
+        Ji gali būti neišsami! Norėdami susiaurinti paieškos rezultatus, diagramoje
+        galite pasirinkti kategoriją. Daugelis kategorijų sutampa ir rūšis gali būti
+        įtraukta į daugiau nei vieną kategoriją.
+      about_this_chart_tooltip_assoc: Tai santrauka, pagrįsta EOL turimais duomenimis.
+        Ji gali būti neišsami! Galite užvesti pelės žymeklį virš taksono pavadinimo,
+        kad paryškintumėte jo ryšius. Žalia nuoroda reiškia, kad pasirinktas taksonas
+        yra asociacijos objektas; violetinė reiškia, kad tai yra objektas. Didesnės
+        paieškos apibendrinamos pagal gentį ar šeimą. Galite juos susiaurinti spustelėdami
+        taksono pavadinimą.
+      about_this_chart_tooltip_sankey_2d: Tai santrauka, pagrįsta EOL turimais duomenimis.
+        Ji gali būti neišsami! Norėdami susiaurinti paieškos rezultatus, galite pasirinkti
+        kategoriją bet kurioje ašyje. Daugelis kategorijų sutampa ir rūšis gali būti
+        įtraukta į daugiau nei vieną kategoriją.
+      about_this_chart_tooltip_sankey_3+: Tai santrauka, pagrįsta EOL turimais duomenimis.
+        Ji gali būti neišsami! Galite pasirinkti kategoriją bet kurioje ašyje, kad
+        susiaurintumėte paieškos rezultatus. Daugelis kategorijų persidengia ir rūšis
+        gali būti įtraukta į daugiau nei vieną kategoriją toje pačioje ašyje. Paryškintame
+        pogrupio ekrane šios kelių reikšmių rūšys bus skaičiuojamos kelis kartus kitose
+        ašyse.
+      about_this_chart_tooltip_taxon_summary: Tai taksonominių grupių, kurių EOL turi
+        jūsų paiešką atitinkančių duomenų, suvestinė. Ji gali būti sutrumpinta, kad
+        atitiktų ekrano dydį. Norėdami peržiūrėti pogrupius arba susiaurinti paieškos
+        rezultatus, diagramoje galite pasirinkti grupę.
+      other_term_name: kita %{term_name}
+      hist_value_label: reikšmė (%{units})
+      num_records_label: '# įrašų'
+      other: kita
+      page_habitat_header: '%{name} Buveinės'
+      page_habitat_explanation: Aplinka, kurioje gyvena daug %{name} rūšių. Pasirinkite
+        aplinką, kad pamatytumėte jos %{name} rūšių kontrolinį sąrašą.
+      pie_prompt: užveskite pelės žymeklį ant segmento arba klavišo, kad paryškintumėte
+      sankey_node_hover: spustelėkite norėdami susiaurinti paiešką iki %{term_name}
+      show_link:
+        associations_summary: rodyti asociacijų santrauką
+        attribute_summary: rodyti atributų santrauką
+        taxon_summary: rodyti taksono santrauką
+      taxon_summary:
+        click_to_filter: spustelėkite norėdami filtruoti
+        click_to_filter_by: spustelėkite norėdami filtruoti pagal '%{name}'
+      toggle_text:
+        taxon_summary: rodyti taksono santrauką
+        trait_summary: rodyti atributų santrauką
+    properties:
+      citation: Bibliografinė citata
+      method: Matavimo metodas
+      remarks: Pastabos
+      sample_size: Imtis
+      scientific_name: Mokslinis pavadinimas
+      source: Šaltinis
+    search_hdr: Duomenų paieška
+    search_results:
+      download_tsv: atsisiųsti tsv
+      edit_filters: redaguoti filtrus
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'su reikšme: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'išteklius: %{value}'
+        sex: 'lytis: %{value}'
+        statistical_method: 'statistinis metodas: %{value}'
+      gbif_search: GBIF paieška
+      result_header_taxa_notaxa: Rodoma %{range_begin} - %{range_end} iš %{total}
+      result_header_records_notaxa: Rodoma %{range_begin} - %{range_end} iš %{total}
+        %{page_count} įrašų
+      new_search: nauja paieška
+      show_query: rodyti užklausą
+      switch_to_list: perjungti į sąrašo rodinį
+      switch_to_gallery: perjungti į galerijos rodinį
+    search:
+      select:
+        top_level:
+          object_term: arba pasirinkite reikšmę
+          predicate: arba pasirinkite atributą
+    search_form:
+      attribute: atributas
+      clade_filter_placeholder: 'grupė (pvz.: lokiai) (neprivaloma)'
+      hide_additional_fields: slėpti papildomus laukus
+      resource: išteklius
+      search: Ieškoti
+      sex: lytis
+      show_additional_fields: rodyti papildomus laukus
+      statistical_method: statistinis metodas
+      target_group: tikslinė grupė (pvz., lašiša)
+      this_may_take_a_minute: Tai gali užtrukti
+      trait_filter: bruožų filtras
+      value: reikšmė
+      value_eg: 'reikšmė (pvz.: žolėdis)'
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name} konkurentas'
+      predator: maitinasi %{source_name}
+      prey: valgo %{source_name}
+  trust:
+    unreviewed: neperžiūrėtas
+    trusted: patikima
+    untrusted: nepatikima
+  user:
+    created_at: sukurta
+    download_queue: Duomenų atsisiuntimo eilė
+    edit_account_details: Redaguoti paskyros informaciją
+    email: El. paštas
+    to_commit_enter_current: Norėdami atlikti pakeitimus, įveskite savo dabartinį
+      slaptažodį
+    form_labels:
+      age_confirm: Man ne mažiau kaip 13 metų
+      tou_confirm_html: Aš perskaičiau <a href='%{tou_path}'>Naudojimo sąlygas</a>
+        ir <a href='%{privacy_path}'>Privatumo politiką</a>
+    headers:
+      bio: Trumpa biografija
+      collections: Kolekcijos
+      downloads: Atsisiuntimai
+      links: Nuorodos
+    validations:
+      age_confirm: turite patvirtinti, kad esate bent 13 metų amžiaus
+      tou_confirm: turite patvirtinti, kad perskaitėte Naudojimo sąlygas ir Privatumo
+        politiką
+    new_password: Naujas slaptažodis
+    confirm_new_password: Patvirtinkite naują slaptažodį
+    username: naudotojo vardas
+    update: Atnaujinti
+    update_email: Atnaujinti el. pašto adresą
+  user_download:
+    created: Jūsų failas bus apdorojamas fone. Patikrinkite savo <a href="%{url}">naudotojo
+      puslapį</a>, kad pamatytumėte, ar jis baigtas.
+    have_pending: Jau turite laukiantį šios užklausos atsisiuntimą. Patikrinkite savo
+      <a href="%{url}">naudotojo puslapį</a>, kad pamatytumėte, ar jis baigtas.
+  users:
+    account_migration_header: 'Jei užsiregistravote EOL iki 2018 m. lapkričio 15 d.:'
+    account_migration_notice: Jūsų paskyros informacija, įskaitant naudotojo vardą,
+      susietą el. pašto adresą, profilio aprašą ir priklausančias kolekcijas, buvo
+      importuota į naują EOL. Jūsų naudotojo vardas vis dar yra jūsų rodomas vardas
+      svetainėje, bet dabar turite prisijungti naudodami savo el. pašto adresą. Saugumo
+      sumetimais negalėjome perkelti jūsų slaptažodžio; atsiprašome už nepatogumus.
+      Galėsite jį iš naujo nustatyti naudodami pamiršto slaptažodžio procesą. Jei
+      prisijungėte tik naudodamiesi trečiosios šalies teikėju – Google, Twitter ar
+      Facebook – luktelėlikte; sprendžiame kai kurias bendro prisijungimo procesų
+      problemas.
+    sign_in: Prisijungti
+  vernacular_preferred_by_resource: '%{resource} (preferencija šiam pavadinimui)'
+  wordcloud_credit_html: sugeneruota naudojant <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} iš %{n}'
+  term:
+    actions:
+      reindex: perindeksuoti
+      sort: rūšiuoti pagal
+    edit:
+      header: Redaguojama %{uri}
+      submit: Išsaugoti
+    fields:
+      name: 'pavadinimas:'
+      definition: 'apibrėžimas:'
+      attribution: 'priskyrimas:'
+      comment: 'komentaras:'
+      sections: 'skyriai:'
+      is_hidden_from_glossary: 'paslėpti iš žodyno:'
+      is_hidden_from_overview: 'slėpti apžvalgos skirtuke:'
+    glossary:
+      full_title: VISŲ EOL duomenų terminų žodynėlis
+      predicate_title: EOL duomenų apie tipus terminų žodynas
+      object_term_title: EOL duomenų apie reikšmių terminų žodynas
+      units_title: EOL duomenų apie vienetų terminus žodynas
+    pagination:
+      next: kitas puslapis
+      previous: ankstesnis puslapis
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: valgo
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: turi ektoparazitą
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: turi endoparazitą
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: turi hiperparazitą
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: kiaušinius deda
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parazituoja
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: turi parazitoidų
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: turi patogeną
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: lankomas
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: lankomos gėlės
+    name:
+      by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mėn'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: nenormalus buveinės
+          pasirinkimas
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: nenormalus judėjimo elgesys
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: gausa
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: rūgštus dirvožemis
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: aktyvaus augimo laikotarpis
+        http://eol(dot)org/schema/terms/adaptiveStrategy: adaptacinė strategija
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: suaugęs
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerozolis
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: ataugimo greitis
+          po derliaus nuėmimo
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: atsimerkimo amžius
+        http://eol(dot)org/schema/terms/AgeAtMaturity: amžius brandos metu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agrikultūrinis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: agrikultūrinė medžiaga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: agrikultūrinis dirvožemis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: agrikultūrinė terasa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: agrikultūrinės atliekos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: agrikultūrinės atliekos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: šarminė aplinka
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: šarminė buveinė
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: šarminis karštasis šaltinis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alpinis dirvožemis
+        http://eol(dot)org/schema/terms/amphibious: amfibija
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: gyvūnų buveinė
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: gyvūno kraikas
+        http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: gyvūnų populiacijos
+          tankis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: gyvulinės atliekos
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: metinis
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatitas
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: vandens augalas
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: plotas
+        https://eol(dot)org/schema/terms/arm: ranka
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atolas
+        http://eol(dot)org/schema/terms/average: vidutinis
+        https://eol(dot)org/schema/terms/bamboo_forest: bambukų miškas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: bananų plantacija
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: bario sulfatas
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: žievė
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: bazaltas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: paplūdimys
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: bebrų tvenkinys
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: bičių vaškas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: biologinės atliekos
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: juoda
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: kraujas
+        http://eol(dot)org/schema/terms/BloomPeriod: žydėjimo laikotarpis
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: mėlyna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: kūno skystis
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: kūno ertmė
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kūno ilgis
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: kūno masė
+        http://eol(dot)org/schema/terms/BodyShape: kūno forma
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: kūno temperatūra
+        http://eol(dot)org/schema/terms/BodyVolume: kūno tūris
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: kūno plotis
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: ruda
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: pumpuras
+        http://eol(dot)org/schema/terms/BudSource: pumpuro šaltinis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: pastatas
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: statybinė medžiaga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: sudegintas dirvožemis
+...
