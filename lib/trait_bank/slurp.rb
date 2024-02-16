@@ -623,7 +623,7 @@ class TraitBank::Slurp
     if @diff_metadata.remove_all_traits?
       @logger.info('removing all traits')
 
-      TraitBank::Admin.remove_all_traits_for_resource(@resource)
+      @resource.remove_trait_content
     elsif @diff_metadata.removed_traits_file.present?
       @logger.info('removing traits specified in diff file')
 
