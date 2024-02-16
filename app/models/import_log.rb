@@ -79,6 +79,12 @@ class ImportLog < ApplicationRecord
     log('Complete', cat: :ends)
   end
 
+  def fail(error)
+    log("Manual failure called, process must have died.", cat: :errors)
+    update_attribute(:failed_at, Time.now)
+    update_attribute(:status, error[0..250])
+  end
+
   def fail_on_error(e)
     if e.backtrace
       e.backtrace.reverse.each_with_index do |trace, i|
@@ -94,8 +100,6 @@ class ImportLog < ApplicationRecord
         log(trace, cat: :errors)
       end
     end
-    log(e.message.gsub(/#<(\w+):0x[0-9a-f]+>/, '\\1'), cat: :errors) # I don't need the memory information for models
-    update_attribute(:failed_at, Time.now)
-    update_attribute(:status, e.message[0..250])
+    fail(e.message.gsub(/#<(\w+):0x[0-9a-f]+>/, '\\1')) # I don't need the memory information for models
   end
 end
