@@ -30,6 +30,7 @@
 # Author: TsuyaMarisa
 # Author: VulpesVulpes825
 # Author: Xiaomingyan
+# Author: Xin Xuan Xu Liu
 # Author: Xyb
 # Author: 列维劳德
 # Author: 沈澄心
@@ -60,18 +61,18 @@ zh-CN:
     name:
       missing: 无标题
   article_from_partner: 由%{partner}提供
-  article_duplicate: 本文同时显示在“%{section}”
+  article_duplicate: 本文同样显示在“%{section}”
   autocomplete:
     see_all:
       one: 见其他结果
       other: 见所有%{count}个结果
   breadcrumbs:
     notices:
-      canonical: 学名将显示在页面导览中
+      canonical: 学名将显示在网站栏目中
       vernacular: 俗名现在将显示在页面导览中（如果有的话）
     setting_header: 导览中的名字
     types:
-      scientific: 学名
+      scientific: 科学的
       vernacular: 俗名
   brief_summary:
     extinction:

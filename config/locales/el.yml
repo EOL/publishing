@@ -1,6 +1,7 @@
 # Messages for Greek (Ελληνικά)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Adriendelucca
 # Author: Babispan
 # Author: Geraki
 # Author: Giorgos456
@@ -13,7 +14,7 @@
 # Author: SkarletWitch
 ---
 el:
-  language_name: Αγγλικά
+  language_name: Ελληνικά
   about:
     trait_bank:
       title: Τράπεζα Χαρακτηριστικών

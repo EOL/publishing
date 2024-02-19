@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AOla333
+# Author: Adriendelucca
 # Author: Chrumps
 # Author: Kareyac
 # Author: Krzyz23
@@ -13,7 +14,7 @@
 # Author: WaldiSt
 ---
 pl:
-  language_name: Angielski
+  language_name: Polski
   about:
     trait_bank:
       title: TraitBank

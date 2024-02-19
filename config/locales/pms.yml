@@ -2,7 +2,6 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Borichèt
-# Author: Borichèt
 ---
 pms:
   language_name: Piemontèis
@@ -2859,13 +2858,35 @@ pms:
           petoral
         https://eol(dot)org/schema/terms/pectoral_fins: nov d'ala petoral
         https://eol(dot)org/schema/terms/pectoral_undulation: sbalansament d'ala petoral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: zòna pelàgica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pennsylvanian: sot-perìod
+          pennsylvanian
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: àcid pentadecanoid
         http://eol(dot)org/schema/terms/perAcre: për acr
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: përsent
+        https://eol(dot)org/schema/terms/pereiopod: perejòpod
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: arzistent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000205: sorgiss përmanenta
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: era permian-a
+        http://eol(dot)org/schema/terms/persistentSeedBank: përsistent
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: antiparassitari
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        http://eol(dot)org/schema/terms/phagocytosis: as nuriss për fagocitòsi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: eon
+          fanerosòich
+        http://eol(dot)org/schema/terms/phenologicalSeason: stagion fenològica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000209: zòna fòtica
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fòto-autòtrof
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fòto-eteròtrof
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001060: célula fotoressetiva
+        http://eol(dot)org/schema/terms/photosymbiotroph: fotosimbiòtrof
+        http://eol(dot)org/schema/terms/photosyntheticPathway: sënté fotosintétich
         http://purl(dot)obolibrary(dot)org/obo/TO_0001015: tass ëd fòto-sìntesi
+        http://eol(dot)org/schema/terms/photosyntheticStem: gamba fotosintética
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000329: zòna freàtica
+        http://eol(dot)org/schema/terms/phytoplanktivore: fitoplanctìvor
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: età
+          piasensian-a
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Foreste ùmide
           ëd Pindaré
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla

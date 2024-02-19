@@ -1,12 +1,13 @@
 # Messages for Luxembourgish (Lëtzebuergesch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Adriendelucca
 # Author: Les Meloures
 # Author: Robby
 # Author: Volvox
 ---
 lb:
-  language_name: Englesch
+  language_name: Lëtzebuergesch
   about:
     trait_bank:
       title: TraitBank
