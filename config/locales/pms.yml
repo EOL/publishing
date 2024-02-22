@@ -2889,6 +2889,8 @@ pms:
           piasensian-a
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Foreste ùmide
           ëd Pindaré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: euj a përtus ëd gucia
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla
           pianta
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: autëssa dla pianta

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 3bbo
+# Author: Adriendelucca
 # Author: Ahmed Alyamoor
 # Author: Amira.88
 # Author: Asma
@@ -22,7 +23,7 @@
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
-  language_name: الإنجليزية
+  language_name: العربية
   about:
     trait_bank:
       title: بنك الصفات
