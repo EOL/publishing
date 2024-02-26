@@ -104,11 +104,6 @@ import '../src/traits/data_viz'
           datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           remote: {
-            // url: Routes.terms_meta_object_terms_path({
-            //   query: 'QUERY',
-            //   meta_predicate: $(this).data('metaPredicate'),
-            //   format: 'json'
-            // }),
             url: '/' +
               (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
               '/terms/meta_object_terms.json?' + new URLSearchParams({
@@ -144,10 +139,6 @@ import '../src/traits/data_viz'
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        // url: Routes.trait_search_predicate_typeahead_path({
-        //   query: 'QUERY',
-        //   format: 'json'
-        // }),
         url: '/' +
           (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
           'terms/trait_search_predicates.json?' + new URLSearchParams({
@@ -169,11 +160,6 @@ import '../src/traits/data_viz'
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-          // url: Routes.terms_object_terms_for_predicate_path({
-          //   query: 'QUERY',
-          //   predicate_id: $(this).data('predicateId'),
-          //   format: 'json'
-          // }),
           url: '/' +
             (document.documentElement.lang === I18n.defaultLocale ? '' : document.documentElement.lang + '/') +
             'terms/object_terms_for_predicate.json?' + new URLSearchParams({
