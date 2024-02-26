@@ -129,6 +129,7 @@ services:
       - RAILS_ENV
       - WORKER_PROCESSES
       - ELASTICSEARCH_URL=elasticsearch:9200
+      - NODE_OPTIONS=--openssl-legacy-provider npm run start
     sysctls:
       - net.core.somaxconn=1024
     volumes:
