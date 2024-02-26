@@ -2887,10 +2887,13 @@ pms:
         http://eol(dot)org/schema/terms/phytoplanktivore: fitoplanctìvor
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: età
           piasensian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: mòlo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: porsil
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Foreste ùmide
           ëd Pindaré
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: euj a përtus ëd gucia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000244: foresta ëd pin e zenèiver
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla
           pianta
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: autëssa dla pianta
