@@ -1,5 +1,3 @@
-import routes from './routes.js.erb'
-
 if (!window.EOL) {
   window.EOL = {};
 
