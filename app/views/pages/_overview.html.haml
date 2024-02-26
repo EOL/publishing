@@ -39,6 +39,7 @@
                 .sample-trait-val= val
 
     - if @page.occurrence_map?
+      = stylesheet_link_tag "leaflet", media: "all"
       .map-contain-overview-section
         = render partial: "json_map", locals: { extra_class: "map-contain-overview" }
 
