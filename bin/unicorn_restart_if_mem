@@ -1,8 +1,9 @@
 #!/bin/bash
 FREEMEM=$(free | grep Mem | awk '{print $4;}')
+timestamp=$(date +"%Y-%m-%d %T")
 if ((FREEMEM <= 10000000))
 then
-  echo "Insufficient memory remaining, forking..."
+  echo "$timestamp Insufficient memory remaining, forking..."
   /app/bin/unicorn_restart
 else
   echo "Memory looks acceptable, aborting."
