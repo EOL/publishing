@@ -1,16 +1,17 @@
 #!/bin/bash
+
 cd /app
-OLDUNICORN=`cat tmp/unicorn.pid`
+oldunicorn=`cat tmp/unicorn.pid`
 rake log:clear
 /etc/init.d/nginx reload
 # Signals the process to fork and load the new codebase (with its own workers):
-kill -s USR2 $OLDUNICORN
+kill -s USR2 $oldunicorn
 sleep 10
 # Signals the new process to un-fork and become its own process:
-kill -s WINCH $OLDUNICORN
+kill -s WINCH $oldunicorn
 sleep 90
 # Signals the old process to quit, since it's now old:
-kill -s QUIT $OLDUNICORN
+kill -s QUIT $oldunicorn
 for (( i=1; i<=$WORKER_PROCESSES; i++ ))
 do
   curl localhost:3000
