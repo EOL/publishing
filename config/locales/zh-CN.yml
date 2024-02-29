@@ -197,8 +197,8 @@ zh-CN:
   collection_association_added_to_collection: “%{associated}”已添加到收集<a href='%{link}'>"%{name}"</a>。
   collection_associations_empty: 没有其他收集与此相关联。您可以点击其他收集上的“关联”按钮以将它们显示在此处。
   collection_associations_title: 相关收集
-  collection_collected_pages_media_remove: 从收集中删除图像（更改立即生效）：
-  collection_created: 已创建新的收集"%{name}"。
+  collection_collected_pages_media_remove: 从收藏中删除图像（更改即刻生效）：
+  collection_created: 已创建新的收藏"%{name}"。
   collection_created_for_association: 已将 "%{associated}" 加入新收集 <a href='%{link}'>"%{name}"</a>。
   collection_user_is_admin: 此用户是管理员。
   collection_pages_empty: 此收集尚未包含页面。可点击物种页的“收集”按钮添加一些项目。
