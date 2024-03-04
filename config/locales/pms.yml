@@ -2901,9 +2901,20 @@ pms:
           pianta
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: autëssa dla pianta
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma ëd vita dla pianta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: piantagion
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: foresta piantà
         http://eol(dot)org/schema/terms/PlantingDensity: densità ëd piantassion
         http://eol(dot)org/schema/terms/plastotype: plastotipo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: autipian
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: época
+          pleistocen-a
+        https://eol(dot)org/schema/terms/pleopod: pleòpod
+        http://eol(dot)org/schema/terms/pleustophyte: pleustofita
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: età
+          pliensbachian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: época
+          pliocen-a
+        https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m²/s
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinisà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: a polinisa
         http://eol(dot)org/schema/terms/PopulationGroupSize: taja ëd na partìa ëd
