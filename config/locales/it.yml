@@ -8,6 +8,7 @@
 # Author: G313
 # Author: IrsY
 # Author: JackLantern
+# Author: LametinoWiki
 # Author: Lorem Ipsum
 # Author: R.caredda1
 # Author: Toa
@@ -533,6 +534,8 @@ it:
     mi: Maori
     mr: Marathi
     mh: Marshallese
+    q13358: Meglenorumeno
+    q13359: Mingrelio
     q13330: Mirandese
     mn: Mongolo
     q56426: Arabo marocchino
@@ -550,13 +553,16 @@ it:
     q28602: Aramaico ufficiale
     pa: Punjabi
     fa: Persiano
+    q34024: Piccardo
     q15085: Piemontese
     pl: Polacco
     pol: Polacco
     pt: Portoghese
+    ro: Rumeno; Moldavo
     rm: Romancio
     ru: Russo
     rus: Russo
+    q213434: Samogitico
     sa: Sanscrito
     sc: Sardo
     q845441: Sardo sassarese
@@ -576,10 +582,13 @@ it:
     sv: Svedese
     swe: Svedese
     ty: Tahitiano
+    tg: Tagico
     ta: Tamil
+    tt: Tartaro
     th: Thailandese
     tha: Thailandese
     bo: Tibetano
+    ti: Tigrino
     to: Tongano
     q34251: Tulu
     q56240: Arabo tunisino
@@ -590,6 +599,8 @@ it:
     ukr: Ucraino
     none: Non specificato
     vi: Vietnamita
+    cy: Gallese
+    wel: Gallese
     q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
     yo: Yoruba

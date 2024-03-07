@@ -2915,6 +2915,8 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: época
           pliocen-a
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinisà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: a polinisa
         http://eol(dot)org/schema/terms/PopulationGroupSize: taja ëd na partìa ëd
