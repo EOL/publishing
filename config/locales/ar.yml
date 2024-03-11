@@ -1463,7 +1463,7 @@ ar:
       by_uri:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/ شهر'
         http://eol(dot)org/schema/terms/percm2: لكل سنتيمتر مربع
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: العصر
           الأليني
         https://eol(dot)org/schema/terms/abnormal_habitat_choice: اختيار غير طبيعي
           للموئل
@@ -1487,7 +1487,7 @@ ar:
         http://eol(dot)org/schema/terms/aerial: هوائي
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: حركة هوائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: الموائل الهوائية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: العصر
           الإروني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: الأهباء الجوية (أيروسول)
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: معدل النمو بعد الحصاد
@@ -1500,7 +1500,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: المصطبات الزراعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: المخلفات الزراعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: المخلفات الزراعية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: العصر
           الألبي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: البيئة القلوية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: المسطحات القلوية
@@ -1536,7 +1536,7 @@ ar:
         http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: كثافة عدد سكان
           الحيوانات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: فضلات الحيوانات
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Anisian: العصر
           الأنيسي
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: حُولي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: المياه ناقصة الأكسجين
@@ -1550,7 +1550,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000219: اليابسة بشرية الإنشاء
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: الأباتيت
         http://purl(dot)obolibrary(dot)org/obo/IDOMAL_0002229: عيون تراكمية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aptian: العصر
           الأبتي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: القنوات المائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: مائي
@@ -1558,7 +1558,7 @@ ar:
         http://eol(dot)org/schema/terms/aquatic: متكيف مع الماء
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: نبات مائي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: طبقة المياه الجوفية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aquitanian: العصر
           الأكويتاني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: التربة الصالحة للزراعة
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: أراجونيت
@@ -1571,10 +1571,10 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: قاحلة
         https://eol(dot)org/schema/terms/arm: ذراع
         http://eol(dot)org/schema/terms/ArmPlusDiscLength: طول  الذراع زائد القرص
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Artinskian: العصر
           الأرتينسكي
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: التكاثر اللاجنسي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: العصر
           الأسيلي
         http://eol(dot)org/schema/terms/atLeastShortPersistentSeedBank: على الأقل
           قصير الاستدامة
@@ -1584,7 +1584,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: المياه الراكدة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000127: الأراضي المنجرفة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002872: تفل قصب السكر
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bajocian: العصر
           الباجوسي
         http://eol(dot)org/schema/terms/ballistichory: انتشار بالنثر الافجاري
         https://eol(dot)org/schema/terms/bamboo_forest: غابات الخيزران
@@ -1592,16 +1592,16 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000167: الحواجز
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: كبريتات الباريوم
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: القلف
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: العصر
           الباريمي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bartonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bartonian: العصر
           البارتوني
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: معدل الاستقلاب
           الأساسي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: بازلت
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bashkirian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bashkirian: العصر
           الباشكري
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: العصر
           الباثوني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000026: النطاق القاعي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000211: النطاق اللُجي الغوري
@@ -1617,7 +1617,7 @@ ar:
         http://eol(dot)org/schema/terms/benthic: قاعي
         https://eol(dot)org/schema/terms/benthic_diatom_feeder: مقتات بالمشطورات القاعية
         http://purl(dot)jp/bio/4/id/201306015586596728: المشطورات القاعية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: العصر
           البرياسي
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: ثنائي الحول
         http://eol(dot)org/schema/terms/BillLength: طول المنقار
@@ -1663,7 +1663,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: مبنى
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: مواد بناء
         http://purl(dot)obolibrary(dot)org/obo/PO_0025356: بصلة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: العصر
           البروديغالي
         http://eol(dot)org/schema/terms/burl: نامية جذعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: التربة المحروقة
@@ -1674,7 +1674,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: بوت (ميسا)
         http://eol(dot)org/schema/terms/caespitose: متكاثفة
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: كافيين
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: العصر
           الكالابري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000567: الجون الصخري (كالانكي)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000046: الرزغة الكيلسية
@@ -1687,7 +1687,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: ثنائي هيدرات كبريتات الكالسيوم
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: هيدرات كبريتات الكالسيوم
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: فوهة بركانية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Callovian: العصر
           الكالوفي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002235: التربة المتغيرة (كامبيسول)
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: العصر
@@ -1696,21 +1696,21 @@ ar:
           الكمبري النسق 2
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianSeries3: فترة
           الكمبري النسق 3
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage10: العصر
           الكمبري المرحلة 10
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage3: العصر
           الكمبري المرحلة 3
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage4: العصر
           الكمبري المرحلة 4
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/CambrianStage5: العصر
           الكمبري المرحلة 5
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Campanian: العصر
           الكامباني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: قناة
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: قصب
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001242: الظُّلّة النباتية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: الخوانق
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: العصر
           الكابتاني
         http://eol(dot)org/schema/terms/CapitulumLength: طول الرؤيس
         https://eol(dot)org/schema/terms/carangiform: شيمي الشكل
@@ -1721,7 +1721,7 @@ ar:
           الكربونية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: الجثة
         https://eol(dot)org/schema/terms/carcharhiniform: قرش أرضي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: العصر
           الكارني
         http://eol(dot)org/schema/terms/carnivorous_scavenger: قمام لاحم
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: غضروف
@@ -1741,7 +1741,7 @@ ar:
         http://eol(dot)org/schema/terms/CellWidth: عرض الخلية
         https://eol(dot)org/schema/terms/cell_sucker: المِمَص الخلوي
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: أسمنت
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenomanian: العصر
           السينوماني
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: حقبة
           الحياة الحديثة
@@ -1749,11 +1749,11 @@ ar:
         https://eol(dot)org/schema/terms/cephalopod_feeder: مقتات برأسيات الأرجل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: الطباشير
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: التربة الطباشيرية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: العصر
           الشانغسنغي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: القناة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000301: شابارال
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Chattian: العصر
           الخاتي
         http://eol(dot)org/schema/terms/ChelaWidth: عرض الملقط
         http://eol(dot)org/schema/terms/chemosymbiotroph: متكافل الاغتذاء كيميائيا
@@ -1769,6 +1769,9 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: فترة
           السِسورالي
         http://purl(dot)org/dc/terms/bibliographicCitation: الاقتباس
+        http://eol(dot)org/schema/terms/CITES_I: ملحق سايتس i
+        http://eol(dot)org/schema/terms/CITES_II: ملحق سايتس ii
+        http://eol(dot)org/schema/terms/CITES_III: ملحق سايتس iii
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: مدينة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: الصلصال
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: رواسب الطين
@@ -1806,7 +1809,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: عيون مركبة
         https://eol(dot)org/schema/terms/concave_mirror_eyes: عيون المرآة المقعرة
         http://eol(dot)org/schema/terms/cone: مخروط
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: العصر
           الكونياكي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: الأحراج الصنوبرية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: الغابات الصنوبرية
@@ -1817,6 +1820,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: الرواسب الملوثة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: التربة الملوثة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000221: الجزر القارية
+        http://eol(dot)org/schema/terms/copepodid3: الطور المجدافي الثالث
+        http://eol(dot)org/schema/terms/copepodid4: الطور المجدافي الرابع
+        http://eol(dot)org/schema/terms/copepodid5: الطور المجدافي الخامس
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: الشعاب المرجانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000145: الشعاب الخلفية للشعاب
           المرجانية
@@ -1827,6 +1833,7 @@ ar:
           المرجانية
         https://eol(dot)org/schema/terms/coral_sand: الرمال المرجانية
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000232: كوراليت
+        http://eol(dot)org/schema/terms/coralliteWidth: عرض المرجانة
         https://eol(dot)org/schema/terms/corneal_eyes: عيون قرنية
         http://eol(dot)org/schema/terms/corymbose: عنقودي التكوين
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: مستحضرات التجميل
@@ -1855,11 +1862,11 @@ ar:
         http://eol(dot)org/schema/terms/dahllite: داليت
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: ألبان
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: أودية دامبو
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: العصر
           الداني
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Dapingian: العصر
           الدابنغي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Darriwilian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Darriwilian: العصر
           الداريولي
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: يوما
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: ميت
@@ -1917,7 +1924,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000140: سواقي التصريف
         http://eol(dot)org/schema/terms/droughtSemiDeciduous: نبات شبه نفضي جفافي
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: تحمل الجفاف
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Drumian: العصر
           الدرومي
         http://eol(dot)org/schema/terms/bodyMassDry: وزن الجسم الجاف
         http://eol(dot)org/schema/terms/dry_forest: الغابات الجافة
@@ -1957,7 +1964,7 @@ ar:
         http://eol(dot)org/schema/terms/eggStage: طور البيض
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03420194: البيض (سلعة)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: حمض الإيكوسانويك
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: العصر
           الإفلي
         https://eol(dot)org/schema/terms/elasmobranch_feeder: مقتات بصفيحيات الخياشيم
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: المرتفعات
@@ -1965,7 +1972,7 @@ ar:
           سطح البحر)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: متطاول
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: مرحلة الجنين
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Emsian: العصر
           الإمسي
         http://eol(dot)org/schema/terms/endangered: مهدد بالانقراض
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: جھاز الغدد الصماء
@@ -1984,8 +1991,8 @@ ar:
           للطاحن السفلي
         http://eol(dot)org/schema/terms/epicormicBuds: براعم عرضية
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: البشرة
-        http://eol(dot)org/schema/terms/epifauna_feeder: مقتات بالحيوانات الخارجية
-        http://www(dot)marinespecies(dot)org/traits/Epifaunal: الحيوانات الخارجية
+        http://eol(dot)org/schema/terms/epifauna_feeder: مقتات بالحيوانات الفوقية
+        http://www(dot)marinespecies(dot)org/traits/Epifaunal: الحيوانات الفوقية
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: يتعلق بنبات
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: عرضي
         http://eol(dot)org/schema/terms/epizoochory: انتشار بالنقل الحيواني الخارجي
@@ -2011,7 +2018,7 @@ ar:
         http://eol(dot)org/schema/terms/facultativeClimber: متسلق اختياري
         http://eol(dot)org/schema/terms/facultativeEpiphyte: نبات عالق اختياري
         http://eol(dot)org/schema/terms/facultativeParasite: متطفل اختياري
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Famennian: العصر
           الفاميني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: المزرعة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: تربة المزرعة
@@ -2036,7 +2043,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: المضايق البحرية
         http://eol(dot)org/schema/terms/fleshyFruit: ثمرة غضة
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: الطيران
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: العصر
           الفلوي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: المروج الفيضية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: السهول الفيضية
@@ -2061,9 +2068,9 @@ ar:
         http://eol(dot)org/schema/terms/forestEdge: حافة الغابة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002261: تربة الغابات
         http://eol(dot)org/schema/terms/ForkLength: طول الأشواك
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: الحين
-          الفورتون
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Frasnian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: العصر
+          الفورتوني
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Frasnian: العصر
           الفراسني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: المياه العذبة
         https://eol(dot)org/schema/terms/freshwater_animals: حيوانات المياه العذبة
@@ -2097,7 +2104,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C79641: تضخم
         http://purl(dot)obolibrary(dot)org/obo/PO_0025340: نبات عروسي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: تربة الحدائق
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: العصر
           الجيلاسي
         http://eol(dot)org/schema/terms/GenerationTime: الزمن الجيلي
         http://eol(dot)org/schema/terms/genotype: نمط الجنس
@@ -2107,7 +2114,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: نبات أرضي
         http://eol(dot)org/schema/terms/geothermal: الحرارة الأرضية
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: مدة فترة الحمل
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Givetian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Givetian: العصر
           الغيفتي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: البحيرات الجليدية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: الأودية الجليدية
@@ -2115,7 +2122,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: الانزلاق
         'http://purl(dot)obolibrary(dot)org/obo/NBO_0000369 ': الانزلاق
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: صمغ
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: العصر
           الغورستي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000290: الأخاديد
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000117: الرواسب الحُبيبية
@@ -2134,12 +2141,12 @@ ar:
           الغوادالوبي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000265: الأنضاد الجبلية البحرية
           (جايوت)
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guzhangian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guzhangian: العصر
           الغوزانجي
         https://eol(dot)org/schema/terms/gynomonoecious: وحيد المسكن خنثي وأنثوي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: العصر
           الغزيلي
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: الموائل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: الموطن
         http://eol(dot)org/schema/terms/HabitatBreadth: اتساع الموائل
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/TF_HAB: باني موائل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000028: نطاق القاع العميق
@@ -2159,7 +2166,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002209: لديه طفيلي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: لديه مسببات الأمراض
         http://purl(dot)obolibrary(dot)org/obo/RO_0002460: لديه ناقل
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hauterivian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hauterivian: العصر
           الهاتريفي
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: رأس
         http://eol(dot)org/schema/terms/HeadtoCoccyxLength: طول الرأس إلى العصعص
@@ -2176,7 +2183,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: عشب
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000099: راعي عاشب
         http://eol(dot)org/schema/terms/herpetivore: آكل زواحف وبرمائيات
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hettangian: العصر
           الهتانجي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: حمض هيكساكوسانويك
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: حمض هيكساديكانويك
@@ -2191,13 +2198,13 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: التلال
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: سلاسل التلال
         http://eol(dot)org/schema/terms/HindTarsusLength: طول الرسغ الخلفي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: العصر
           الهيرنانتي
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Holocene: فترة
           الهولوسيني
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: نمط أوحد
         http://eol(dot)org/schema/terms/HomeRange: مدى السكن
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: العصر
           الهوميري
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: العسل
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: أفقي
@@ -2235,10 +2242,10 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: التمدد الحركي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: زيادة الجودة
         http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: العد الفردي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: العصر
           السندي
-        http://eol(dot)org/schema/terms/infauna_feeder: مقتات بالحيوانات الداخلية
-        http://www(dot)marinespecies(dot)org/traits/Infaunal: الحيوانات الداخلية
+        http://eol(dot)org/schema/terms/infauna_feeder: مقتات بالحيوانات القاعية
+        http://www(dot)marinespecies(dot)org/traits/Infaunal: الحيوانات القاعية
         https://eol(dot)org/schema/terms/infection_effect: تأثير العدوى
         http://eol(dot)org/schema/terms/inguinal: المغبن
         http://eol(dot)org/schema/terms/InitialMortalityRate: معدل الوفيات الأولي
@@ -2247,8 +2254,7 @@ ar:
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: أداة
         http://eol(dot)org/schema/terms/InterBirthInterval: الفاصل الزمني بين الولادات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000527: الأراضي بين النهرين
-        http://eol(dot)org/schema/terms/intermediateEpifaunal: الحيوانات الخارجية
-          المتوسطة
+        http://eol(dot)org/schema/terms/intermediateEpifaunal: الحيوانات الفوقية المتوسطة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: البحيرات المتقطعة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000504: البرك المتقطعة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: البحيرات الملحية المتقطعة
@@ -2273,8 +2279,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: حمض الأيزوهيكساديكانويك
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: حمض الأيزوتراديكانويك
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0026310: مجوهرات
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: الحين
-          الجيانغشان
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jiangshanian: العصر
+          الجيانغشاني
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: القفز
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000241: أحراج العرعر
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: العصر
@@ -2282,9 +2288,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001190: يافع
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000175: كارست
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00012411: كهوف الكارست
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: العصر
           الكاسيموفي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: العصر
           الكاتي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000058: غابات القُحلات
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: كلفن
@@ -2293,17 +2299,17 @@ ar:
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: كيلوغرام/
           متر مربع/ سنة
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: يقتل
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: العصر
           الكيمريدجي
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: متطفل سارق من
         http://eol(dot)org/schema/terms/squarekilometer: كيلومتر مربع
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: الأنواع البحرية
           المعروفة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: العصر
           الكونغوري
         https://eol(dot)org/schema/terms/labile_material_feeder: مقتات بالمواد غير
           الثابتة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: العصر
           اللاديني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: البحيرات الشاطئة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: البحيرات
@@ -2315,7 +2321,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: ذو طبقات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: البحار المغلقة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000520: الانهيارات الأرضية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Langhian: العصر
           اللانغي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: كبير
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: البحيرات الكبيرة
@@ -2355,6 +2361,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: فترة العمر
         http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: مرحلة الحياة
         https://eol(dot)org/schema/terms/lift_based_swimming: السباحة بقوة الدفع
+        http://eol(dot)org/schema/terms/lignotuber: الدرنة الخشبية
+        http://eol(dot)org/schema/terms/lignotuberOrBurl: الدرنة الخشبية أم النامية
+          الجذعية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000453: مصبات الأنهار (ليمان)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005766: التربة الجيرية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: الأحجار الجيرية
@@ -2367,7 +2376,7 @@ ar:
           اللاندوفري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: التربة الخصبة
         http://rs(dot)tdwg(dot)org/dwc/terms/locality: موقع
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: العصر
           اللوكوفي
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: التحرك
         http://eol(dot)org/schema/terms/longPersistentSeedBank: طويل الأمد
@@ -2381,7 +2390,7 @@ ar:
         http://eol(dot)org/schema/terms/TemperatureTolerance: تحمل درجات حرارة منخفضة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: مناطق الجَزر
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: تحمل منخفض
-        http://eol(dot)org/schema/terms/lowEpifaunal: الحيوانات الخارجية المنخفضة
+        http://eol(dot)org/schema/terms/lowEpifaunal: الحيوانات الفوقية المنخفضة
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: فترة
           الطباشيري الأدنى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: فترة
@@ -2392,15 +2401,15 @@ ar:
           الأوردوفيشي الأدنى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerTriassic: فترة
           الثلاثي الأدنى
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludfordian: العصر
           اللودفوردي
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: فترة اللودلو
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: العصر
           اللوتيتي
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: متر
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: متر مربع
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: البحيرات البركانية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: العصر
           الماسترخي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: الحمم المافية
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: المغنيسيوم(mg)
@@ -2471,7 +2480,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002225: المياه متوسطة التغذية
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: حقبة
           الحياة الوسطى
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: العصر
           المسيني
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: استقلابي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: الصخور المتحولة
@@ -2498,7 +2507,7 @@ ar:
           الجوراسي الأوسط
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleOrdovician: فترة
           الأوردوفيشي الأوسط
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddlePleistocene: العصر
           البليستوسيني الأوسط
         http://eol(dot)org/schema/terms/MiddleToeLength: طول إصبع القدم الأوسط
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleTriassic: فترة
@@ -2554,7 +2563,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: شهرا
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: المستنقعات (مور)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: الركام
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: العصر
           الموسكوفي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: الجبال
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: الممرات الجبلية
@@ -2614,7 +2623,7 @@ ar:
         http://eol(dot)org/schema/terms/non-woodyEpipyte: نبات عالق غير خشبي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: حمض النوناديكانويك
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: لا شيء
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: العصر
           النوري
         http://eol(dot)org/schema/terms/notMonogamous: ليست وحيدة التزاوج
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: طول النواة
@@ -2641,7 +2650,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001758: عُيَيْنة
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: حمض الأوكتاديكانويك
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: مزارع نخيل الزيت
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Olenekian: العصر
           الأولنكي
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oligocene: فترة
           الأوليغوسيني
@@ -2675,7 +2684,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: مروحة الجرافة الجليدية
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: بيضوي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: بحيرات أوكسبو
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: العصر
           الأكسفوردي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: الأكسجين
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: أوقية
@@ -2745,7 +2754,7 @@ ar:
         http://eol(dot)org/schema/terms/photosyntheticStem: ساق التمثيل الضوئي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000329: منطقة باطن الأرض
         http://eol(dot)org/schema/terms/phytoplanktivore: آكل عوالق نباتية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: العصر
           البياشنزي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: رصيف بحري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: زريبة الخنازير
@@ -2769,7 +2778,7 @@ ar:
           البليستوسيني
         https://eol(dot)org/schema/terms/pleopod: أرجل العوم
         http://eol(dot)org/schema/terms/pleustophyte: نبات عائم
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: العصر
           البلنسباخي
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: فترة
           البليوسيني
@@ -2800,7 +2809,7 @@ ar:
           الحريق
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: النحور
         http://purl(dot)obolibrary(dot)org/obo/UO_0000170: جزء في المليار
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: العصر
           البراجي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: السهوب
         http://eol(dot)org/schema/terms/PrecipitationTolerance: تحمل هطول الأمطار
@@ -2812,14 +2821,14 @@ ar:
         http://rs(dot)tdwg(dot)org/dwc/terms/preparations: الإجراءات
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: يُفترس بواسطة
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: يتغذى على
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: العصر
           البريابوني
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: فترة
           البريدولي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: منبطح
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: ينتج
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: البحيرات قبل المجلدية
-        http://eol(dot)org/schema/terms/Propagule: نام مستقل
+        http://eol(dot)org/schema/terms/Propagule: وحدة التكاثر
         http://eol(dot)org/schema/terms/ProsomeHeight: ارتفاع السدادة
         http://eol(dot)org/schema/terms/ProsomeLength: طول السدادة
         http://eol(dot)org/schema/terms/ProsomeWidth: عرض السدادة
@@ -2867,13 +2876,13 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: معدل التنفس
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: الجهاز التنفسي
         http://eol(dot)org/schema/terms/RespFire: القدرة على إعادة الإشطاء بعد الحريق
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: العصر
           الرهتي
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: نبات جذمور
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: الجذمور
         http://eol(dot)org/schema/terms/rhizomesOrRoots: الجذمور أو الجذور
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: محيط الجذور
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: العصر
           الروداني
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: العصر
           الرياسي
@@ -2891,7 +2900,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: الجُزر النهرية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: مصبات الأنهار
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: أودية الأنهار
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: العصر
           الرودي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: الصخور
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: الانهيارات الصخرية
@@ -2906,10 +2915,10 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: الجذور
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: مزارع المطاط
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: الجري
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: العصر
           الروبيلي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000151: السبخة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: العصر
           الساكماري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000055: برك استخراج الملح
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000019: البحيرات الملحية
@@ -2923,14 +2932,14 @@ ar:
         http://rs(dot)tdwg(dot)org/dwc/terms/samplingProtocol: بروتوكول أخذ العينات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: الرمال
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000028: مَقالع الرمال
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: العصر
           الساندبي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: الشواطئ الرملية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000172: الصحاري الرملية
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SUBST_SM: الطين الرملي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000118: الرواسب الرملية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002229: التربة الرملية
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: العصر
           السانتوني
         http://purl(dot)obolibrary(dot)org/obo/PO_0025538: العصارة
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001597: شجيرة (شتلة)
@@ -2967,20 +2976,21 @@ ar:
         http://eol(dot)org/schema/terms/SeedSpreadRate: معدل انتشار البذور
         http://eol(dot)org/schema/terms/SeedlingSurvival: بقاء الشتلات
         http://eol(dot)org/schema/terms/SeedPerPound: بذور لكل رطل
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: العصر
           السيلاندي
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: مقتات بالرواسب
           الانتقائية
         http://eol(dot)org/schema/terms/self-supportingGrowthForm: الدعم الذاتي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: نبات شبه نفضي
+        http://eol(dot)org/schema/terms/semiInfaunal: الحيوانات شبه القاعية
         http://eol(dot)org/schema/terms/semi-woody: شبه خشبي
         http://eol(dot)org/schema/terms/semifossorial: شبه حفاري
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: الحساسية
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: حسي
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: الجهاز الحسي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: العصر
           السربوخوفي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: العصر
           السيرافالي
         https://eol(dot)org/schema/terms/sessile_prey_feeder: مقتات بالفرائس المستقرة
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: الجنس
@@ -2990,12 +3000,12 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: ثنائي الشكل جنسيا
         http://eol(dot)org/schema/terms/shade: يظلل
         http://eol(dot)org/schema/terms/ShadeTolerance: تحمل الظل
-        http://eol(dot)org/schema/terms/shallowInfaunal: الحيوانات الداخلية الضحلة
+        http://eol(dot)org/schema/terms/shallowInfaunal: الحيوانات القاعية الضحلة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_03000034: الرواسب البحرية الضحلة
         http://eol(dot)org/schema/terms/shallowReef: الشعاب الضحلة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: شكل
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: قابلية التساقط
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: العصر
           الشينوودي
         http://eol(dot)org/schema/terms/ShellHeightBivalve: ارتفاع الصدفة، الصدفتين
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: طول الصدفة
@@ -3015,7 +3025,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000047: عيون بسيطة
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000050: عيون بسيطة مع عدسات
           متعددة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: العصر
           السنموري
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001444: قياس منفرد
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000195: الهبوط الأرضي
@@ -3130,7 +3140,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: مزارع الشاي
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: عدد الحلمات
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: الأسنان
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: العصر
           التليشي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: معتدلة المناخ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: الغابات المعتدلة ذات
@@ -3164,7 +3174,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: حمض التيتراديكانويك
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: قطر المشرة
         https://eol(dot)org/schema/terms/thallus_length: طول المشرة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: العصر
           الثانتي
         http://eol(dot)org/schema/terms/thermalFeature: حراري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002269: المنحذرات الحرارية
@@ -3178,17 +3188,17 @@ ar:
           والجزر
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000456: الأنهار الجليدية الساحلية
         https://eol(dot)org/schema/terms/tissue_contains: تحتوي الأنسجة على
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tithonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tithonian: العصر
           التيثوني
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: العصر
           التورسي
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: طن
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Topotype: نمط مواطن
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: العصر
           التورتوني
         http://eol(dot)org/schema/terms/TotalSpeciesSurveyed: مجموع الأنواع التي شملتها
           الدراسة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: العصر
           التورنايسي
         http://eol(dot)org/schema/terms/trailing: جاري (زاحف)
         http://eol(dot)org/schema/terms/transientSeedBank: بذور آنية
@@ -3197,7 +3207,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: شبه منحرف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003982: الأحجار الجيرية
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: شجرة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: العصر
           التريمادوشي
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000599: ثلاثي الشعاع
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: العصر
@@ -3240,7 +3250,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: الأنفاق
         http://eol(dot)org/schema/terms/turbidWater: المياه العكرة
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C74723: العكارة
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: العصر
           التوروني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000370: براكين تويا
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Type: النمط
@@ -3276,17 +3286,17 @@ ar:
           الجوراسي الأعلى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperOrdovician: فترة
           الأوردوفيشي الأعلى
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: العصر
           البليستوسيني الأعلى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: فترة
           الثلاثي الأعلى
-        http://eol(dot)org/schema/terms/upperEpifaunal: الحيوانات الخارجية العلوية
+        http://eol(dot)org/schema/terms/upperEpifaunal: الحيوانات الفوقية العلوية
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_UC: الناقل التصاعدي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000005: صاعد
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: حمض اليوريك
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: الجهاز البولي
         http://eol(dot)org/schema/terms/Uses: يستعمل من أجل
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: العصر
           الفالانجيني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: الأودية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000458: الأنهار الجليدية الوادية
@@ -3305,7 +3315,7 @@ ar:
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: صغير جدا
         https://eol(dot)org/schema/terms/vestigial_eyes: عيون أثرية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: حقول العنب
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: العصر
           الفيزي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002619: تزورها
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: تزور
@@ -3360,9 +3370,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: الأحراج
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001240: ظُلّة الأحراج
         http://eol(dot)org/schema/terms/woodyEpipyte: نبات عالق خشبي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: العصر
           الووردي
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: العصر
           الوشابنغي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000218: الشجيرات الجُفافية
         http://eol(dot)org/schema/terms/yearRound: على مدار العام
@@ -3370,9 +3380,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: أصفر
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: أخضر أصفر
         http://eol(dot)org/schema/terms/yes: نعم
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: العصر
           الأبريسيني
-        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: الحين
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: العصر
           الزانكلي
         http://eol(dot)org/schema/terms/zoochory: انتشار بالحيوانات
         http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: نمط تغذية العوالق
@@ -3409,6 +3419,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: خلية
         http://purl(dot)obolibrary(dot)org/obo/PO_0020049: وُريقة
         http://eol(dot)org/schema/terms/algal_filament: خيوط الطحالب
+        http://eol(dot)org/schema/terms/activelyMobile: يتحرك بنشاط
         http://eol(dot)org/schema/terms/Colonial: استعماري
         http://eol(dot)org/schema/terms/NonInvasiveRange: غير غازي لـ
         http://eol(dot)org/schema/terms/Territorial: الإقليمية
@@ -3537,6 +3548,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: مرحلة الإزهار
         http://purl(dot)obolibrary(dot)org/obo/PO_0025500: مرحلة نمو الثمار
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: خادرة
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000720: خليفة ذانبة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: مصبات الأنهار قليلة
           الملوحة
 ...
