@@ -2920,9 +2920,15 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: desert polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000325: polje
         http://purl(dot)obolibrary(dot)org/obo/PO_0025281: póer dle fior
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinisà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: a polinisa
+        https://eol(dot)org/schema/terms/polychaete_feeder: as nuriss ëd polichet
+        https://eol(dot)org/schema/terms/polygamodioecious: poligamodiòich
+        http://eol(dot)org/schema/terms/polyhaline: polialin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: gròtola polimetàlica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: baciass
         http://eol(dot)org/schema/terms/PopulationGroupSize: taja ëd na partìa ëd
           popolassion
         http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: emergensa ëd chërsùe
