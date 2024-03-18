@@ -129,18 +129,18 @@ module TraitBank
           task = removal_tasks[stage].merge(log: log, size: size)
           if count_query_results(task).zero?
             # We have already finished this stage, move on to the next.
-            enqueue_trait_removal_stage(resource.id, STAGES[index+1])
+            enqueue_next_trait_removal_stage(resource.id, index)
           else 
             # Take a chunk out of this stage:
             remove_batch_with_query(task)
             if count_query_results(task).zero?
               # This stage is done, move on to the next task:
-              enqueue_trait_removal_stage(resource.id, STAGES[index+1])
+              enqueue_next_trait_removal_stage(resource.id, index)
             else
               # There's more to do for this stage, engqueue it to continue:
               # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
               # were too big or small:
-              enqueue_trait_removal_stage(resource.id, stage, task[:size])
+              enqueue_trait_removal_stage(resource.id, index, task[:size])
             end
           end
         end
