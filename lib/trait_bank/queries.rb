@@ -14,7 +14,7 @@ module TraitBank
       end
 
       def count_by_resource(id)
-        Rails.cache.fetch("trait_bank/count_by_resource/#{id}") do
+        Rails.cache.fetch("trait_bank/count_by_resource/#{id}", expires_in: 15.minutes) do
           count_traits_by_resource_nocache(id)
         end
       end
@@ -38,7 +38,7 @@ module TraitBank
       end
 
       def count_by_resource_and_page(resource_id, page_id)
-        Rails.cache.fetch("trait_bank/count_by_resource/#{resource_id}/pages/#{page_id}") do
+        Rails.cache.fetch("trait_bank/count_by_resource/#{resource_id}/pages/#{page_id}", expires_in: 1.day) do
           res = TraitBank.query(
             "MATCH (res:Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[#{TRAIT_RELS}]-(page:Page { page_id: #{page_id} }) "\
             "USING INDEX res:Resource(resource_id) USING INDEX page:Page(page_id) "\
