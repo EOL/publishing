@@ -29,7 +29,7 @@ end
 RemoveTraitContentJob = Struct.new(:resource_id, :stage, :size) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource #{resource.log_string}")
     TraitBank::Admin.remove_by_resource(resource, stage, size)
   end
 
