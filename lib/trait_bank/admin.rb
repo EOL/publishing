@@ -111,9 +111,11 @@ module TraitBank
         index = STAGES.index(stage)
         raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove_by_resource, exiting." if index.nil?
 
-        if stage == 'begin'
+        # handle beginning with log:
+        if index.zero?
           log.log("Removing trait content for #{resource.log_string}...")
-          stage = STAGES[1]
+          index += 1
+          stage = STAGES[index]
         end
 
         if stage == 'end'
@@ -237,7 +239,7 @@ module TraitBank
           end
           count += options[:size]
           if count >= count_before
-            count = count_by_query(name, q)
+            count = count_by_query(name, options[:q])
             break unless count.positive?
             if count >= 2 * count_before
               raise "I have been attempting to delete #{name} data for twice as long as expected. "\
