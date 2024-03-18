@@ -217,26 +217,9 @@ module TraitBank
         )
       end
 
-      def remove_batch_with_query(options = {})
-        name = options[:name]
-        q = invert_quotes(options[:q])
-        delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
-        size = options[:size] || 64
-        log = options[:log]
-        time_before = Time.now
-        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
-        TraitBank::Logger.log("--TB_DEL: #{apoc}")
-        TraitBank.query(apoc)
-        time_delta = Time.now - time_before
-        TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
-        # Note this is changing the ACTUAL options hash. You will GET BACK this value (via that hash)
-        options[:size] *= 2 if time_delta < 15 and options[:size] <= 8192
-        options[:size] /= 2 if time_delta > 30
-        return size
-      end
-
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
+        delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
         count_before = count_before_query(options)
         return if count_before.nil? || ! count_before.positive?
         name = options[:name]
@@ -265,6 +248,23 @@ module TraitBank
         end
       end
 
+      def remove_batch_with_query(options = {})
+        name = options[:name]
+        q = invert_quotes(options[:q])
+        size = options[:size] || 64
+        log = options[:log]
+        time_before = Time.now
+        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+        TraitBank::Logger.log("--TB_DEL: #{apoc}")
+        TraitBank.query(apoc)
+        time_delta = Time.now - time_before
+        TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
+        # Note this is changing the ACTUAL options hash. You will GET BACK this value (via that hash)
+        options[:size] *= 2 if time_delta < 15 and options[:size] <= 8192
+        options[:size] /= 2 if time_delta > 30
+        return size
+      end
+      
       def count_before_query(options)
         name = options[:name]
         q = invert_quotes(options[:q])
