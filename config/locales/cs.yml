@@ -7,12 +7,13 @@
 # Author: Jachym
 # Author: Juandev
 # Author: Matěj Suchánek
+# Author: Mormegil
 # Author: Setnicka
 # Author: Spotter
 # Author: Watt
 ---
 cs:
-  language_name: Čeština
+  language_name: čeština
   about:
     trait_bank:
       title: TraitBank

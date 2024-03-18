@@ -2914,17 +2914,38 @@ pms:
           pliensbachian-a
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: época
           pliocen-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000483: bassin da cascada
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002257: podzol
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: desert polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000325: polje
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025281: póer dle fior
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinisà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: a polinisa
+        https://eol(dot)org/schema/terms/polychaete_feeder: as nuriss ëd polichet
+        https://eol(dot)org/schema/terms/polygamodioecious: poligamodiòich
+        http://eol(dot)org/schema/terms/polyhaline: polialin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: gròtola polimetàlica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000484: polinia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: baciass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000512: let ëd baciass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: eva ëd baciass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000062: pòst abità
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: popolassion
         http://eol(dot)org/schema/terms/PopulationGroupSize: taja ëd na partìa ëd
           popolassion
+        http://eol(dot)org/schema/terms/population_trend: tendensa ëd popolassion
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posission
         http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: emergensa ëd chërsùe
           apress un feu
         http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: dzorvivensa dle
           piantin-e apress un feu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: tampa
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppMd
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: età pragian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: prairìa
         http://eol(dot)org/schema/terms/PrecipitationTolerance: toleransa a le pressipitassion
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durà dël dësvlup
           prenatal
