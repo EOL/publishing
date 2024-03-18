@@ -143,21 +143,25 @@ module TraitBank
         else
           task = removal_tasks[stage].merge(log: log, size: size)
           if count_before_query(task).zero?
-            Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stages[index+1], 64))
-            break
-          end
-          remove_batch_with_query(task)
-          if count_before_query(task).zero?
-            Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stages[index+1], 64))
-          else # MORE TO DO!
-            # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it were too big or small:
-            Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stage, task[:size]))
+            enqueue_next_task(resource.id, stages[index+1])
+          else 
+            remove_batch_with_query(task)
+            if count_before_query(task).zero?
+              enqueue_next_task(resource.id, stages[index+1])
+            else # MORE TO DO!
+              # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it were too big or small:
+              Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stage, task[:size]))
+            end
           end
         end
 
         return 0 if remove_by_resource_complete?(resource, log)
         log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retring...")
         Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stages[1], 64))
+      end
+
+      def enqueue_next_task(resource_id, stage)
+        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, 64))
       end
 
       # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "norma" delete
