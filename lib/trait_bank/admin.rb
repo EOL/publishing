@@ -92,7 +92,9 @@ module TraitBank
       end
 
       def end_trait_content_removal_background_jobs(resource, log)
-        log.log("There is no (remaining) trait content for #{resource.log_string}, job complete.")
+        msg = "There is no (remaining) trait content for #{resource.log_string}, job complete."
+        log.log(msg)
+        Delayed::Worker.logger.info(msg)
         resource.complete
       end
 
@@ -124,6 +126,7 @@ module TraitBank
           enqueue_trait_removal_stage(resource.id, 1)
         elsif stage == 'prune_metadata'
           prune_metadata_with_too_many_relationships(resource.id)
+          enqueue_next_trait_removal_stage(resource.id, index)
         else
           # We're in one of the "normal" stages...
           task = removal_tasks[stage].merge(log: log, size: size)
