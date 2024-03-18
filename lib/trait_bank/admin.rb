@@ -224,6 +224,9 @@ module TraitBank
         TraitBank.query(apoc)
         time_delta = Time.now - time_before
         TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
+        # Note this is changing the ACTUAL options hash. You will GET BACK this value (via that hash)
+        options[:size] *= 2 if time_delta < 15 and options[:size] <= 8192
+        options[:size] /= 2 if time_delta > 30
         return size
       end
 
@@ -253,8 +256,6 @@ module TraitBank
                     "Started with #{count_before} entries, now there are #{count}. Aborting."
             end
           end
-          options[:size] *= 2 if time_delta < 15 and options[:size] <= 8192
-          options[:size] /= 2 if time_delta > 30
           sleep(delay)
         end
       end
