@@ -26,6 +26,22 @@ RepublishJob = Struct.new(:resource_id) do
   end
 end
 
+RemoveTraitContentJob = Struct.new(:resource_id, :stage, :size) do
+  def perform
+    resource = Resource.find(resource_id)
+    Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    TraitBank::Admin.remove_by_resource(resource, stage, size)
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
 ReindexJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)

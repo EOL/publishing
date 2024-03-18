@@ -229,6 +229,10 @@ class Resource < ApplicationRecord
     import_logs.last.running
   end
 
+  def complete
+    import_logs.running.each { |log| log.complete }
+  end
+
   def unlock
     import_logs.running.update_all(failed_at: Time.now)
   end
@@ -269,19 +273,17 @@ class Resource < ApplicationRecord
     TraitBank::Admin.remove_non_trait_content_for_resource(self)
   end
 
-  def remove_trait_content
-    count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
-    if count.zero?
-      log("No graph nodes, skipping.")
-    else
-      log("Removing #{count} graph nodes")
-      TraitBank::Admin.remove_by_resource(self, log_handle)
-    end
+  def background_remove_trait_content
+    Delayed::Job.enqueue(RemoveTraitContentJob.new(id, 'begin', 0))
   end
 
   def remove_all_content
     remove_non_trait_content
-    remove_trait_content
+    background_remove_trait_content
+  end
+
+  def log_string
+    "[#{name}](https://eol.org/resources/#{id})"
   end
 
   def log_handle
