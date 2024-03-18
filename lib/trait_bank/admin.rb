@@ -3,6 +3,7 @@ module TraitBank
 
     # NOTE: these are STRINGS, not symbols:
     STAGES = %w{begin prune_metadata meta_traits metadata inferred_traits traits vernaculars end}
+    DEFAULT_REMOVAL_BATCH_SIZE = 64
 
     class << self
       def setup
@@ -113,8 +114,7 @@ module TraitBank
         index = STAGES.index(stage)
         raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove_by_resource, exiting." if index.nil?
 
-        # handle beginning with log:
-        if index.zero?
+        if stage == 'begin'
           log.log("Removing trait content for #{resource.log_string}...")
           index += 1
           stage = STAGES[index]
@@ -129,7 +129,7 @@ module TraitBank
           enqueue_next_trait_removal_stage(resource.id, index)
         else
           # We're in one of the "normal" stages...
-          task = removal_tasks[stage].merge(log: log, size: size)
+          task = removal_tasks[stage].merge(log: log, size: size || DEFAULT_REMOVAL_BATCH_SIZE)
           if count_query_results(task).zero?
             # We have already finished this stage, move on to the next.
             enqueue_next_trait_removal_stage(resource.id, index)
@@ -178,7 +178,8 @@ module TraitBank
         enqueue_trait_removal_stage(resource_id, index + 1, size)
       end
 
-      def enqueue_trait_removal_stage(resource_id, index, size = 64)
+      def enqueue_trait_removal_stage(resource_id, index, size = nil)
+        size ||= DEFAULT_REMOVAL_BATCH_SIZE
         stage = STAGES[index]
         Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
         Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size))
@@ -236,7 +237,7 @@ module TraitBank
         count_before = count_query_results(options)
         return if count_before.nil? || ! count_before.positive?
         name = options[:name]
-        options[:size] ||= 64
+        options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
         count = 0
         log = options[:log]
         loop do
@@ -264,10 +265,10 @@ module TraitBank
       def remove_batch_with_query(options = {})
         name = options[:name]
         q = invert_quotes(options[:q])
-        size = options[:size] || 64
+        options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
         log = options[:log]
         time_before = Time.now
-        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
         TraitBank::Logger.log("--TB_DEL: #{apoc}")
         TraitBank.query(apoc)
         time_delta = Time.now - time_before
