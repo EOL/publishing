@@ -1,5 +1,9 @@
 module TraitBank
   module Admin
+
+    # NOTE: these are STRINGS, not symbols:
+    STAGES = %w{begin prune_metadata meta_traits metadata inferred_traits traits vernaculars end}
+
     class << self
       def setup
         create_indexes
@@ -103,9 +107,42 @@ module TraitBank
         log = resource.log_handle
         return 0 if remove_by_resource_complete?(resource, log)
         
-        # NOTE: these are STRINGS, not symbols:
-        stages = %w{begin prune_metadata meta_traits metadata inferred_traits traits vernaculars end}
-        removal_tasks = {
+        removal_tasks = build_removal_tasks(resource)
+        index = STAGES.index(stage)
+        raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove_by_resource, exiting." if index.nil?
+
+        if stage == 'begin'
+          log.log("Removing trait content for #{resource.log_string}...")
+          stage = STAGES[1]
+        end
+
+        if stage == 'end'
+          end_trait_content_removal_background_jobs(resource, log)
+        elsif stage == 'prune_metadata'
+          prune_metadata_with_too_many_relationships(resource.id)
+        else
+          task = removal_tasks[stage].merge(log: log, size: size)
+          if count_before_query(task).zero?
+            enqueue_trait_removal_stage(resource.id, STAGES[index+1])
+          else 
+            remove_batch_with_query(task)
+            if count_before_query(task).zero?
+              enqueue_trait_removal_stage(resource.id, STAGES[index+1])
+            else # MORE TO DO!
+              # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
+              # were too big or small:
+              enqueue_trait_removal_stage(resource.id, stage, task[:size])
+            end
+          end
+        end
+
+        return 0 if remove_by_resource_complete?(resource, log)
+        log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retring...")
+        enqueue_trait_removal_stage(resource.id, STAGES[1])
+      end
+
+      def build_removal_tasks(resource)
+        {
           'meta_traits' => {
             name: :meta,
             q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
@@ -126,39 +163,7 @@ module TraitBank
             name: :vernacular,
             q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
           }
-        } 
-
-        index = stages.index(stage)
-        raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove_by_resource, exiting." if index.nil?
-
-        if stage == 'begin'
-          log.log("Removing trait content for #{resource.log_string}...")
-          stage = stages[1]
-        end
-
-        if stage == 'end'
-          end_trait_content_removal_background_jobs(resource, log)
-        elsif stage == 'prune_metadata'
-          prune_metadata_with_too_many_relationships(resource.id)
-        else
-          task = removal_tasks[stage].merge(log: log, size: size)
-          if count_before_query(task).zero?
-            enqueue_trait_removal_stage(resource.id, stages[index+1])
-          else 
-            remove_batch_with_query(task)
-            if count_before_query(task).zero?
-              enqueue_trait_removal_stage(resource.id, stages[index+1])
-            else # MORE TO DO!
-              # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
-              # were too big or small:
-              enqueue_trait_removal_stage(resource.id, stage, task[:size])
-            end
-          end
-        end
-
-        return 0 if remove_by_resource_complete?(resource, log)
-        log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retring...")
-        enqueue_trait_removal_stage(resource.id, stages[1])
+        }
       end
 
       def enqueue_trait_removal_stage(resource_id, stage, size = 64)
