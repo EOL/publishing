@@ -276,7 +276,7 @@ module TraitBank
         # Note this is changing the ACTUAL options hash. You will GET BACK this value (via that hash)
         options[:size] *= 2 if time_delta < 15 and options[:size] <= 8192
         options[:size] /= 2 if time_delta > 30
-        return size
+        return options[:size]
       end
       
       def count_query_results(options)
