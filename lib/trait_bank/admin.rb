@@ -143,30 +143,32 @@ module TraitBank
         else
           task = removal_tasks[stage].merge(log: log, size: size)
           if count_before_query(task).zero?
-            enqueue_next_task(resource.id, stages[index+1])
+            enqueue_trait_removal_stage(resource.id, stages[index+1])
           else 
             remove_batch_with_query(task)
             if count_before_query(task).zero?
-              enqueue_next_task(resource.id, stages[index+1])
+              enqueue_trait_removal_stage(resource.id, stages[index+1])
             else # MORE TO DO!
-              # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it were too big or small:
-              Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stage, task[:size]))
+              # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
+              # were too big or small:
+              enqueue_trait_removal_stage(resource.id, stage, task[:size])
             end
           end
         end
 
         return 0 if remove_by_resource_complete?(resource, log)
         log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retring...")
-        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource.id, stages[1], 64))
+        enqueue_trait_removal_stage(resource.id, stages[1])
       end
 
-      def enqueue_next_task(resource_id, stage)
-        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, 64))
+      def enqueue_trait_removal_stage(resource_id, stage, size = 64)
+        Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
+        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size))
       end
 
-      # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "norma" delete
-      # process takes AGES. To avoid this, we find them beforehand and remove those relationships one metadata node at a time,
-      # which is less process-intensive.
+      # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "normal"
+      # delete process takes AGES. To avoid this, we find them beforehand and remove those relationships one metadata node
+      # at a time, which is less process-intensive.
       def prune_metadata_with_too_many_relationships(resource_id)
         resource_id = resource_id.to_i
         results = TraitBank.query(%Q{
