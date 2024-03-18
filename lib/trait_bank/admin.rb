@@ -117,30 +117,33 @@ module TraitBank
           index += 1
           stage = STAGES[index]
         end
-
+        
         if stage == 'end'
-          end_trait_content_removal_background_jobs(resource, log)
+          return end_trait_content_removal_background_jobs(resource, log) if remove_by_resource_complete?(resource, log)
+          log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
+          enqueue_trait_removal_stage(resource.id, 1)
         elsif stage == 'prune_metadata'
           prune_metadata_with_too_many_relationships(resource.id)
         else
+          # We're in one of the "normal" stages...
           task = removal_tasks[stage].merge(log: log, size: size)
-          if count_before_query(task).zero?
+          if count_query_results(task).zero?
+            # We have already finished this stage, move on to the next.
             enqueue_trait_removal_stage(resource.id, STAGES[index+1])
           else 
+            # Take a chunk out of this stage:
             remove_batch_with_query(task)
-            if count_before_query(task).zero?
+            if count_query_results(task).zero?
+              # This stage is done, move on to the next task:
               enqueue_trait_removal_stage(resource.id, STAGES[index+1])
-            else # MORE TO DO!
+            else
+              # There's more to do for this stage, engqueue it to continue:
               # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
               # were too big or small:
               enqueue_trait_removal_stage(resource.id, stage, task[:size])
             end
           end
         end
-
-        return 0 if remove_by_resource_complete?(resource, log)
-        log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retring...")
-        enqueue_trait_removal_stage(resource.id, STAGES[1])
       end
 
       def build_removal_tasks(resource)
@@ -168,7 +171,12 @@ module TraitBank
         }
       end
 
-      def enqueue_trait_removal_stage(resource_id, stage, size = 64)
+      def enqueue_next_trait_removal_stage(resource_id, index, size = nil)
+        enqueue_trait_removal_stage(resource_id, index + 1, size)
+      end
+
+      def enqueue_trait_removal_stage(resource_id, index, size = 64)
+        stage = STAGES[index]
         Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
         Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size))
       end
@@ -222,7 +230,7 @@ module TraitBank
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
         delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
-        count_before = count_before_query(options)
+        count_before = count_query_results(options)
         return if count_before.nil? || ! count_before.positive?
         name = options[:name]
         options[:size] ||= 64
@@ -267,7 +275,7 @@ module TraitBank
         return size
       end
       
-      def count_before_query(options)
+      def count_query_results(options)
         name = options[:name]
         q = invert_quotes(options[:q])
         count_by_query(name, q)
