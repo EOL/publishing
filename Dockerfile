@@ -13,6 +13,7 @@ COPY . /app
 
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.email '$EOL_GITHUB_EMAIL'"]
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.name '$EOL_GITHUB_USER'"]
+SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global pull.rebase false"]
 
 EXPOSE 3000
 
