@@ -89,7 +89,7 @@ gem 'pundit', '~> 2.1'
 gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
 # Zip file support ; NOTE: this is almost up to version 3.0, and then it will have some interface changes that we need
 # to switch to. Read https://github.com/rubyzip/rubyzip when the time comes!
-gem 'redis', '~> 5.1'
+gem 'redis', '~> 5.0'
 gem 'rubyzip', '~> 2.3'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 4.5' # Needs to stay in sync (ish) with the elasticsearch gem.
