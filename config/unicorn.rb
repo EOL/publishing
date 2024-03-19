@@ -11,7 +11,7 @@ stderr_path "#{app_dir}/log/unicorn.stderr.log"
 
 worker_processes ENV['WORKER_PROCESSES'].to_i
 # listen "#{app_dir}/tmp/unicorn.sock", :backlog => 1024
-listen "128.0.0.1:3001", :backlog => 1024
+listen "128.0.0.1:3001"
 timeout 905 # Setting this HIGHER than unicorn, so that we don't reap processes unless we have to.
 
 preload_app true
