@@ -314,7 +314,6 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     netrc (0.11.0)
-    newrelic_rpm (9.5.0)
     nio4r (2.5.9)
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
@@ -586,7 +585,6 @@ DEPENDENCIES
   mimemagic (= 0.4.3)
   mysql2 (= 0.5.3)
   neo4j-ruby-driver!
-  newrelic_rpm
   nokogiri (>= 1.13.5)
   oj (~> 3.13)
   pry-rails

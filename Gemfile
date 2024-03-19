@@ -1,4 +1,3 @@
-source 'https://rubygems.org'
 
 # The REALLY basic stuff stays at the top:
 
@@ -80,8 +79,6 @@ gem 'haml-rails', '~> 2.0.1'
 gem 'http', '~> 5.0'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
-# Site monitoring for staging and production:
-gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
 gem 'oj', '~> 3.13'
 # Debugging:
