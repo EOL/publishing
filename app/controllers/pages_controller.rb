@@ -413,7 +413,7 @@ private
       @page.media.not_maps.includes(:hidden_medium)
     else
       media_counter = media_counter.where(is_hidden: false) ; 1
-      @page.regular_media ; 1
+      @page.regular_media
     end
 
     if params[:license_group]
