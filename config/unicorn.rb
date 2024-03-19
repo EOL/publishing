@@ -2,7 +2,7 @@ app_dir = "/app"
 
 working_directory app_dir
 
-pid "#{app_dir}/tmp/unicorn.pid"
+pid "#{app_dir}/tmp/pids/unicorn.pid"
 
 stderr_path "#{app_dir}/log/unicorn.stderr.log"
 # STDOUT turns out to be pretty useless: it just prints "{:join=>", ", :open=>"(", :close=>")"}" over and over. :|
