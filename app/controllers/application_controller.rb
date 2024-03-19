@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
   public
 
   # Authorization:
-  include Pundit
+  include Pundit::Authorization
   # TODO: we may want to use :null_session when for the API, when we set that up.
   protect_from_forgery with: :exception
   def logged_in?

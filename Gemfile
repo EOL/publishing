@@ -79,6 +79,8 @@ gem 'haml-rails', '~> 2.0.1'
 gem 'http', '~> 5.0'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
+# This should help stop some of the warnings you'll see in the logs/console:
+gem 'net-http'
 # Speed up JSON, including for ElasticSearch:
 gem 'oj', '~> 3.13'
 # Debugging:
