@@ -10,6 +10,6 @@ fi
 trap "rm -f ${LOCKFILE}; exit" INT TERM EXIT
 echo $$ > ${LOCKFILE}
 
-nohup rails r "ImportLog.all_clear! ; worker = Delayed::Worker.new(queues: ['harvest']).start ; worker.name_prefix = 'harvest ' ; worker.start " > log/harvest.log 2>&1 &
+nohup bundle exec rails r "ImportLog.all_clear! ; worker = Delayed::Worker.new(queues: ['harvest']).start ; worker.name_prefix = 'harvest ' ; worker.start " > log/harvest.log 2>&1 &
 
 rm -f ${LOCKFILE}

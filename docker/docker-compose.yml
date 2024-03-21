@@ -189,7 +189,7 @@ services:
     image: publishing
     container_name: pub_worker
     restart: always
-    command: bundle exec rails r "worker = Delayed::Worker.new(queues: ['harvest']); worker.name_prefix = 'harvest'; worker.start"
+    command: /app/bin/work
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
@@ -209,7 +209,7 @@ services:
     image: publishing
     container_name: pub_data_worker
     restart: always
-    command: bundle exec rails r "worker = Delayed::Worker.new(queues: ['download']); worker.name_prefix = 'download'; worker.start"
+    command: /app/bin/work_data
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
@@ -229,7 +229,7 @@ services:
     image: publishing
     container_name: pub_integrity_worker
     restart: always
-    command: bundle exec rails r "worker = Delayed::Worker.new(queues: ['data_integrity']); worker.name_prefix = 'data_integrity'; worker.start"
+    command: /app/bin/work_integrity
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
