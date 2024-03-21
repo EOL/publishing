@@ -1,0 +1,30 @@
+* text=auto
+
+*.rb text eol=LF
+*.yml text eol=LF
+
+*.conf text eol=LF
+*.css text eol=LF
+*.csv text eol=LF
+*.env text eol=LF
+*.erb text eol=LF
+*.haml text eol=LF
+*.html text eol=LF
+*.js text eol=LF
+*.json text eol=LF
+*.postgresql text eol=LF
+*.properties text eol=LF
+*.py text eol=LF
+*.rake text eol=LF
+*.rspec text eol=LF
+*.sass text eol=LF
+*.scss text eol=LF
+*.sh text eol=LF
+*.tsv text eol=LF
+*.txt text eol=LF
+*.xml text eol=LF
+
+*.png binary
+*.jpg binary
+*.tags binary
+*.gif binary
