@@ -122,7 +122,6 @@ services:
   app:
     build: ..
     image: publishing
-    container_name: app
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
