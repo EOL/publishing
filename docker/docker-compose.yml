@@ -143,18 +143,9 @@ services:
       - memcached
       - elasticsearch
     ports:
-       - "9393"
+      - "9393"
     networks:
       - publishing_network
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ../config/nginx-sites.conf:/etc/nginx/nginx-sites.conf:ro
-    ports:
-      - "3000:3000"
-    depends_on:
-      - app
   pub_jobs:
     build: ..
     image: publishing
@@ -175,6 +166,16 @@ services:
       - app
     networks:
       - publishing_network
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../config/nginx-sites.conf:/etc/nginx/nginx-sites.conf:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
 networks:
   publishing_network:
     driver: bridge
