@@ -7,6 +7,10 @@ WORKDIR /app
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
 RUN ln -s /tmp /app/tmp
+ENV BUNDLE_PATH /gems
+RUN yarn install
+RUN bundle install
+RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
@@ -15,8 +19,6 @@ SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.name '$EOL_GITHUB_USER'"]
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global pull.rebase false"]
 
-EXPOSE 9393
-
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
-
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+EXPOSE 9393
