@@ -130,7 +130,6 @@ services:
       - NODE_OPTIONS=--openssl-legacy-provider npm run start
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
-      - ../config/supervisord_publishing.conf:/etc/supervisord.conf
       - /data/publishing_web:/app/public/data
       - /data/publishing_web_log:/app/log
       - /data/publishing_web_private:/app/data
@@ -155,7 +154,6 @@ services:
       - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
-      - ../config/supervisord_jobs.conf:/etc/supervisord.conf
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data

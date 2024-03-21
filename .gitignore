@@ -16,8 +16,6 @@ log/*gz
 tmp
 !tmp/cache/
 .sass-cache/
-supervisord.log
-supervisord.pid
 
 # Ignore guard (which is an auto-tester):
 Guardfile
