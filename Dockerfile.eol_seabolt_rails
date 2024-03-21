@@ -7,7 +7,7 @@ WORKDIR /app
 
 RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
-    apache2-utils procps supervisor vim nginx logrotate msmtp gnupg && \
+    apache2-utils procps supervisor vim logrotate msmtp gnupg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir /etc/ssmtp
@@ -21,9 +21,6 @@ RUN apt-get update -q && \
     npm install -g --no-fund yarn && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
-COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Set up mail (for user notifications, which are rare but critical)
 # root is the person who gets all mail for userids < 1000
