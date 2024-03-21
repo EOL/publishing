@@ -10,8 +10,8 @@ ENV NODE_OPTIONS '--openssl-legacy-provider npm run start'
 RUN yarn install
 RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
 RUN bundle install
-RUN /app/bin/webpack
-RUN rails assets:precompile
+RUN bundle exec bin/webpack
+RUN bundle exec rails assets:precompile
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
