@@ -15,6 +15,8 @@ SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.name '$EOL_GITHUB_USER'"]
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global pull.rebase false"]
 
+EXPOSE 9393
+
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
