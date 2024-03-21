@@ -69,21 +69,21 @@ zh-CN:
   breadcrumbs:
     notices:
       canonical: 学名将显示在网站栏目中
-      vernacular: 俗名现在将显示在页面导览中（如果有的话）
+      vernacular: 俗名现在将显示在网站栏目中（如果有的话）
     setting_header: 导览中的名字
     types:
       scientific: 科学的
       vernacular: 俗名
   brief_summary:
     extinction:
-      r_genus_html: 该属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_subgenus_html: 该亚属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_genus_html: 该类属于<span class='%{class_str}' id='%{id}'>extinct</span>。
+      r_subgenus_html: 该亚属是<span class='%{class_str}' id='%{id}'>extinct</span>。
       r_infragenus_html: 该下属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_superspecies_html: 该种团已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_species_html: 该种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_subspecies_html: 该亚种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_superspecies_html: 该品种是<span class='%{class_str}' id='%{id}'>extinct</span>。
+      r_species_html: 该品种是<span class='%{class_str}' id='%{id}'>extinct</span>。
+      r_subspecies_html: 该亚种是<span class='%{class_str}' id='%{id}'>extinct</span>。
       r_infraspecies_html: 该下种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_form_html: 该型已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_form_html: 该类已<span class='%{class_str}' id='%{id}'>extinct</span>。
     fix_nitrogen_html: 它们<span class='%{class_str}' id='%{predicate_id}'>固</span><span
       class='%{class_str}' id='%{object_id}'>氮</span>。
     freshwater_html: 它们与<span class='%{class_str}' id='%{id}'>淡水栖息地有关</span>。
@@ -174,19 +174,19 @@ zh-CN:
       referents_count: 参考文献
       species_count: 物种
       updated_at: 最后更新
-  collect_already_in_collection: （这已在此）
+  collect_already_in_collection: （已在此）
   collect_already_in_collection_will_add_icon: （向“%{page}”添加媒体）
   collect_icon_title: 从“%{page}”页面添加“%{item}”到...
-  collect_new_collection: 新收集名称
-  collect_new_collection_title: '...一个新的收集'
+  collect_new_collection: 新收藏名称
+  collect_new_collection_title: '...一个新的收藏'
   collect_no_existing_collections: 您还没有任何内容！用左边的表格创建您的内容。
-  collect_select_collection: '...您的收集之一'
+  collect_select_collection: '...您的收藏之一'
   collect_title: 添加%{item}到...
-  collected_page_added_to_collection: 添加%{page}到收集<a href='%{link}'>%{name}</a>。
-  collected_page_already_in_collection: 这已在您的收集中。
+  collected_page_added_to_collection: 添加%{page}到收藏<a href='%{link}'>%{name}</a>。
+  collected_page_already_in_collection: 这已在您的收藏中。
   collected_pages_title: 页面
   collected_pages_medium:
-    destroyed_flash: 图像已从收集页中删除。
+    destroyed_flash: 图像已从收藏夹中删除。
   collection_associations:
     destroyed_flash: '%{name}不再与此收集关联。'
   collected_pages:
@@ -194,18 +194,18 @@ zh-CN:
     edit_button: 编辑
     delete_confirm: 您确定吗？
     destroyed_flash: '%{name}已从收集中删除。'
-  collection_association_added_to_collection: “%{associated}”已添加到收集<a href='%{link}'>"%{name}"</a>。
-  collection_associations_empty: 没有其他收集与此相关联。您可以点击其他收集上的“关联”按钮以将它们显示在此处。
-  collection_associations_title: 相关收集
+  collection_association_added_to_collection: 把“%{associated}”添加到收藏<a href='%{link}'>"%{name}"</a>。
+  collection_associations_empty: 没有其他收藏与该收藏相关联。您可以点击其他收藏上的“关联”按钮让它们显示在这里。
+  collection_associations_title: 关联收藏
   collection_collected_pages_media_remove: 从收藏中删除图像（更改即刻生效）：
   collection_created: 已创建新的收藏"%{name}"。
-  collection_created_for_association: 已将 "%{associated}" 加入新收集 <a href='%{link}'>"%{name}"</a>。
-  collection_user_is_admin: 此用户是管理员。
-  collection_pages_empty: 此收集尚未包含页面。可点击物种页的“收集”按钮添加一些项目。
+  collection_created_for_association: 把 "%{associated}" 加入新收藏 <a href='%{link}'>"%{name}"</a>。
+  collection_user_is_admin: 该用户是管理员。
+  collection_pages_empty: 该收藏尚未包含任何页面。在生物物种页面点击“收藏”按钮来添加一些项目。
   collection:
     admins:
-      header: 可编辑此收集的用户（更改立即生效）
-      label: 添加可编辑此收集的用户：
+      header: 可编辑此收藏的用户（更改即刻生效）
+      label: 添加一个可编辑此收藏的用户：
       placeholder: 全名或用户名
     actions:
       associate: 关联
@@ -216,7 +216,7 @@ zh-CN:
     collection_type:
       normal: 标准
       gallery: 图库
-    delete_confirm: 这将删除整个收集，且无法撤消。您确定吗？
+    delete_confirm: 这将删除整个收藏，且无法撤消。您确定吗？
     destroyed: '"%{name}"已被永久删除。'
     pages_count:
       one: 1页

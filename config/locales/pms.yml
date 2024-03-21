@@ -2949,8 +2949,11 @@ pms:
         http://eol(dot)org/schema/terms/PrecipitationTolerance: toleransa a le pressipitassion
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durà dël dësvlup
           prenatal
+        http://rs(dot)tdwg(dot)org/dwc/terms/preparations: preparassion
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: a l'é la pijàita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: as taca a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: età
+          priabonian-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: sensa rèis
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: a produv
         http://eol(dot)org/schema/terms/Propagule: propàgol
