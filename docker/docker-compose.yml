@@ -147,7 +147,7 @@ services:
   pub_sidekiq:
     build: ..
     image: publishing
-    container_name: pub_jobs
+    container_name: pub_sidekiq
     restart: always
     command: bundle exec sidekiq
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
@@ -167,7 +167,7 @@ services:
   pub_crono:
     build: ..
     image: publishing
-    container_name: pub_jobs
+    container_name: pub_crono
     restart: always
     command: bundle exec crono
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
