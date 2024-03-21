@@ -120,10 +120,10 @@ services:
       - 6379:6379
     networks:
       - publishing_network
-  pub_web:
+  app:
     build: ..
     image: publishing
-    container_name: pub_web
+    container_name: app
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
@@ -143,9 +143,18 @@ services:
       - memcached
       - elasticsearch
     ports:
-       - 3000:3000
+       - "9393"
     networks:
       - publishing_network
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../config/nginx-sites.conf:/etc/nginx/nginx-sites.conf:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
   pub_jobs:
     build: ..
     image: publishing
@@ -155,7 +164,7 @@ services:
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://localhost:6379
-    volumes: # NOTE: YES, it shares the data volumes with production, so you can download the files that were processed here.
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_jobs.conf:/etc/supervisord.conf
       - /data/publishing_web:/app/public/data
@@ -163,11 +172,7 @@ services:
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_jobs:/tmp
     depends_on:
-      - mysql
-      - neo4j
-      - memcached
-      - elasticsearch
-      - redis
+      - app
     networks:
       - publishing_network
 networks:

@@ -9,7 +9,8 @@ stderr_path "#{app_dir}/log/unicorn.stderr.log"
 # NOTE: the default, if missing, is /dev/null ...which we want in this case.
 # stdout_path "#{app_dir}/log/unicorn.stdout.log"
 
-worker_processes ENV['WORKER_PROCESSES'].to_i
+# Going to try "scale" from docker instead:
+# worker_processes ENV['WORKER_PROCESSES'].to_i
 # listen "#{app_dir}/tmp/unicorn.sock", :backlog => 1024
 listen 9393
 timeout 905 # Setting this HIGHER than unicorn, so that we don't reap processes unless we have to.
