@@ -123,6 +123,7 @@ services:
     build: ..
     image: publishing
     restart: always
+    command: bundle exec rails s -p 9393 -b '0.0.0.0'
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - WORKER_PROCESSES
@@ -143,11 +144,92 @@ services:
       - "9393"
     networks:
       - publishing_network
-  pub_jobs:
+  pub_sidekiq:
     build: ..
     image: publishing
     container_name: pub_jobs
     restart: always
+    command: bundle exec sidekiq
+    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+      - RAILS_ENV
+      - ELASTICSEARCH_URL=elasticsearch:9200
+      - EOL_REDIS=redis://redis:6379
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - ./resources/secrets.yml:/app/config/secrets.yml
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_web_private:/app/data
+      - /eol/tmp/publishing_jobs:/tmp
+    depends_on:
+      - app
+    networks:
+      - publishing_network
+  pub_crono:
+    build: ..
+    image: publishing
+    container_name: pub_jobs
+    restart: always
+    command: bundle exec crono
+    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+      - RAILS_ENV
+      - ELASTICSEARCH_URL=elasticsearch:9200
+      - EOL_REDIS=redis://redis:6379
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - ./resources/secrets.yml:/app/config/secrets.yml
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_web_private:/app/data
+      - /eol/tmp/publishing_jobs:/tmp
+    depends_on:
+      - app
+    networks:
+      - publishing_network
+  pub_worker:
+    build: ..
+    image: publishing
+    container_name: pub_worker
+    restart: always
+    command: bundle exec rails r "worker = Delayed::Worker.new(queues: ['harvest']); worker.name_prefix = 'harvest'; worker.start"
+    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+      - RAILS_ENV
+      - ELASTICSEARCH_URL=elasticsearch:9200
+      - EOL_REDIS=redis://redis:6379
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - ./resources/secrets.yml:/app/config/secrets.yml
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_web_private:/app/data
+      - /eol/tmp/publishing_jobs:/tmp
+    depends_on:
+      - app
+    networks:
+      - publishing_network
+  pub_data_worker:
+    build: ..
+    image: publishing
+    container_name: pub_data_worker
+    restart: always
+    command: bundle exec rails r "worker = Delayed::Worker.new(queues: ['download']); worker.name_prefix = 'download'; worker.start"
+    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+      - RAILS_ENV
+      - ELASTICSEARCH_URL=elasticsearch:9200
+      - EOL_REDIS=redis://redis:6379
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - ./resources/secrets.yml:/app/config/secrets.yml
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_web_private:/app/data
+      - /eol/tmp/publishing_jobs:/tmp
+    depends_on:
+      - app
+    networks:
+      - publishing_network
+  pub_integrity_worker:
+    build: ..
+    image: publishing
+    container_name: pub_integrity_worker
+    restart: always
+    command: bundle exec rails r "worker = Delayed::Worker.new(queues: ['data_integrity']); worker.name_prefix = 'data_integrity'; worker.start"
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200

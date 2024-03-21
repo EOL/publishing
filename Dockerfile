@@ -21,5 +21,4 @@ SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global pull.rebase false"]
 
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
-CMD ["rails", "s"]
 EXPOSE 9393
