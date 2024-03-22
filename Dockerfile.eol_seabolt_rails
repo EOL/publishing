@@ -36,8 +36,6 @@ ENV BUNDLE_PATH /gems
 RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
 RUN bundle config set without 'test development staging'
 RUN bundle install --jobs 10 --retry 5
-# Skipping this for now. The secrets file does not work during a `docker-compose build`. :\
-# RUN cd app && rake assets:precompile
 
 RUN apt-get update -q && \
     apt-get install -qq -y cmake

@@ -10,6 +10,10 @@ COPY . /app
 RUN ln -s /tmp /app/tmp
 ENV NODE_OPTIONS '--openssl-legacy-provider npm run start'
 ENV NODE_ENV production
+# Stop using "default" gem versions, like uri:
+RUN bundle clean --force
+# Make sure we're using all the versions currently identified in the lockfile:
+RUN bundle update
 RUN yarn install
 RUN bundle exec bin/webpack
 RUN bundle exec rails assets:precompile
