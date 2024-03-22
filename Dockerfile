@@ -4,6 +4,9 @@ LABEL last_full_rebuild="2024-03-21"
 
 WORKDIR /app
 
+# This seems redundant, but if we don't do this, we can't build this container with NEW code:
+COPY . /app
+
 RUN ln -s /tmp /app/tmp
 ENV NODE_OPTIONS '--openssl-legacy-provider npm run start'
 ENV NODE_ENV production
