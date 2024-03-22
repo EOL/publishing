@@ -15,7 +15,7 @@ ENV BUNDLE_PATH /gems
 
 RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
 RUN bundle config set without 'test development staging'
-RUN bundle install --jobs 10 --retry 1 --clean
+RUN bundle install --jobs 10 --retry 1
 
 RUN yarn install
 RUN bin/webpack
