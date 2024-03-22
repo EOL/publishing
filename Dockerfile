@@ -6,6 +6,7 @@ WORKDIR /app
 
 RUN ln -s /tmp /app/tmp
 ENV NODE_OPTIONS '--openssl-legacy-provider npm run start'
+ENV NODE_ENV production
 RUN yarn install
 RUN bundle exec bin/webpack
 RUN bundle exec rails assets:precompile
