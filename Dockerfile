@@ -15,10 +15,10 @@ ENV BUNDLE_PATH /gems
 
 RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
 RUN bundle config set without 'test development staging'
-RUN bundle install --jobs 10 --retry 5 --deployment --clean
+RUN bundle install --jobs 10 --retry 1 --clean
 
 RUN yarn install
-RUN bundle exec bin/webpack
+RUN bin/webpack
 RUN bundle exec rails assets:precompile
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
