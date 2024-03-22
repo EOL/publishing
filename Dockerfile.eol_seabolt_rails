@@ -31,12 +31,6 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
-ENV BUNDLE_PATH /gems
-
-RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
-RUN bundle config set without 'test development staging'
-RUN bundle install --jobs 10 --retry 5
-
 RUN apt-get update -q && \
     apt-get install -qq -y cmake
 

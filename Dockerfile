@@ -1,4 +1,4 @@
-FROM encoflife/eol_seabolt_rails:2024.03.21.02
+FROM encoflife/eol_seabolt_rails:2024.03.22.01
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 LABEL last_full_rebuild="2024-03-21"
 
@@ -10,10 +10,13 @@ COPY . /app
 RUN ln -s /tmp /app/tmp
 ENV NODE_OPTIONS '--openssl-legacy-provider npm run start'
 ENV NODE_ENV production
-# Stop using "default" gem versions, like uri:
-RUN bundle clean --force
-# Make sure we're using all the versions currently identified in the lockfile:
-RUN bundle update
+
+ENV BUNDLE_PATH /gems
+
+RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`
+RUN bundle config set without 'test development staging'
+RUN bundle install --jobs 10 --retry 5 --deployment --clean
+
 RUN yarn install
 RUN bundle exec bin/webpack
 RUN bundle exec rails assets:precompile
