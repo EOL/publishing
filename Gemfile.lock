@@ -3,7 +3,7 @@ GIT
   revision: 19c6632e67307edc1ef8e48637f6f8c93f9fde9b
   branch: main
   specs:
-    eol_terms (0.9.77)
+    eol_terms (0.9.80)
       yaml
 
 GIT
@@ -519,7 +519,7 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    uri (0.10.3)
+    uri (0.10.0.2)
     uri_template (0.7.0)
     warden (1.2.9)
       rack (>= 2.0.9)
