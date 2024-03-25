@@ -38,7 +38,7 @@ module EolWebsite
     config.data_glossary_page_size = 250
 
     # Our credentials are environment-specific (for now; Rails 6 fixes this):
-    config.creds = Rails.configuration.creds[Rails.env.to_sym]
+    config.creds = Rails.application.credentials[Rails.env.to_sym]
 
     # For activenode/ruby-neo4j-driver gems, not neography
     config.neo4j.driver.url = Rails.configuration.creds.neo4j_driver_url
