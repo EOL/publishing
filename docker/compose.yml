@@ -126,6 +126,7 @@ services:
     command: bundle exec rails s -p 9393 -b '0.0.0.0'
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - WORKER_PROCESSES
       - ELASTICSEARCH_URL=elasticsearch:9200
       - NODE_OPTIONS=--openssl-legacy-provider npm run start
@@ -152,6 +153,7 @@ services:
     command: bundle exec sidekiq
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -172,6 +174,7 @@ services:
     command: bundle exec crono
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -192,6 +195,7 @@ services:
     command: /app/bin/work
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -212,6 +216,7 @@ services:
     command: /app/bin/work_data
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -232,6 +237,7 @@ services:
     command: /app/bin/work_integrity
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - ELASTICSEARCH_URL=elasticsearch:9200
       - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
