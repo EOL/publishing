@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/EOL/eol_terms.git
-  revision: 19c6632e67307edc1ef8e48637f6f8c93f9fde9b
+  revision: 4f14652e768f742d9ae63415e9d92c73900fdfdc
   branch: main
   specs:
     eol_terms (0.9.80)
@@ -536,7 +536,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    yaml (0.2.1)
+    yaml (0.3.0)
     yard (0.9.34)
     zeitwerk (2.6.12)
 
