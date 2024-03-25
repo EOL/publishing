@@ -38,9 +38,9 @@ module EolWebsite
     config.data_glossary_page_size = 250
 
     # For activenode/ruby-neo4j-driver gems, not neography
-    config.neo4j.driver.url = Rails.application.secrets.neo4j_driver_url
-    config.neo4j.driver.username = Rails.application.secrets.neo4j_user
-    config.neo4j.driver.password = Rails.application.secrets.neo4j_password
+    config.neo4j.driver.url = Rails.application.credentials.neo4j_driver_url
+    config.neo4j.driver.username = Rails.application.credentials.neo4j_user
+    config.neo4j.driver.password = Rails.application.credentials.neo4j_password
     config.neo4j.driver.encryption = false
 
     # Search for classes in the lib directory
@@ -48,7 +48,7 @@ module EolWebsite
     config.eager_load_paths += %W(#{config.root}/lib) # NOTE: make sure this stays the same as autoload_paths!
 
     # set x-robots-tag header to noindex for all requests
-    config.x.block_crawlers = Rails.application.secrets.block_crawlers || false
+    config.x.block_crawlers = Rails.application.credentials.block_crawlers || false
 
     # disallowed prefixes for robots.txt and X-Robots-Tag header
     config.x.robots_disallow_patterns = [
@@ -85,7 +85,7 @@ module EolWebsite
       "Sogou inst spider"
     ]
 
-    config.x.geonames_app_id = Rails.application.secrets.geonames_app_id
+    config.x.geonames_app_id = Rails.application.credentials.geonames_app_id
 
     # scaffold config
     config.generators do |g|
@@ -95,9 +95,9 @@ module EolWebsite
     end
 
     config.active_storage.service = :local
-    Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host[:name]
+    Rails.application.routes.default_url_options[:host] = Rails.application.credentials.host[:name]
 
-    config.x.gbif_credentials = Rails.application.secrets.gbif_credentials
+    config.x.gbif_credentials = Rails.application.credentials.gbif_credentials
 
     # point autocomplete to localized fields
     config.x.autocomplete_i18n_enabled = true

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   class BadRequestError < TypeError; end
 
   # For demo, we're using Basic Auth:
-  if Rails.application.secrets.user_id
+  if Rails.application.credentials.user_id
     before_action :authenticate
   end
 
@@ -76,8 +76,8 @@ class ApplicationController < ActionController::Base
   protected
     def authenticate
       authenticate_or_request_with_http_basic do |username, password|
-        username == Rails.application.secrets.user_id &&
-        password == Rails.application.secrets.password
+        username == Rails.application.credentials.user_id &&
+        password == Rails.application.credentials.password
       end
     end
 

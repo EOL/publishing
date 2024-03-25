@@ -8,6 +8,7 @@ WORKDIR /app
 COPY . /app
 
 RUN ln -s /tmp /app/tmp
+# This removes a problem with asset compiling (SSL within node):
 ENV NODE_OPTIONS '--openssl-legacy-provider npm run start'
 ENV NODE_ENV production
 
