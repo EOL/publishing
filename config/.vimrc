@@ -1,2 +1,2 @@
-# OMG this drives me CRAAAAAZY:
-set mouse-=a
+" OMG this drives me CRAAAAAZY:
+sut mouse-=a
