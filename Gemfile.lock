@@ -519,7 +519,7 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    uri (0.10.)
+    uri (0.10.3)
     uri_template (0.7.0)
     warden (1.2.9)
       rack (>= 2.0.9)
