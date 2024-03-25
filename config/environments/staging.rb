@@ -5,7 +5,7 @@ Rails.application.configure do
   config.reload_classes_only_on_change = true
   # And we want polling to see when they change (this works better for docker)
   config.file_watcher = ActiveSupport::FileUpdateChecker
-  cache_addr = Rails.configuration.creds.cache_url
+  cache_addr = Rails.configuration.creds[:cache_url]
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL", compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
@@ -33,5 +33,5 @@ end
 # sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
 Rails.configuration.repository_url = Rails.configuration.creds.repository[:url]
 Rails.configuration.eol_web_url = Rails.configuration.creds.host[:url]
-Rails.configuration.x.image_path = Rails.configuration.creds.image_path
-Rails.configuration.traitbank_url = Rails.configuration.creds.traitbank_url
+Rails.configuration.x.image_path = Rails.configuration.creds[:image_path]
+Rails.configuration.traitbank_url = Rails.configuration.creds[:traitbank_url]
