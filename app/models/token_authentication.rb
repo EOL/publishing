@@ -4,10 +4,10 @@ require 'jwt'
 
 class TokenAuthentication
   def self.encode(payload)
-    JWT.encode(payload, Rails.application.credentials.json_web_token_secret)
+    JWT.encode(payload, Rails.configuration.creds.json_web_token_secret)
   end
 
   def self.decode(token)
-    JWT.decode(token, Rails.application.credentials.json_web_token_secret)
+    JWT.decode(token, Rails.configuration.creds.json_web_token_secret)
   end
 end

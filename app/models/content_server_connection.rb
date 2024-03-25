@@ -5,7 +5,7 @@ class ContentServerConnection
 
   def initialize(resource, log = nil)
     @resource = resource
-    repo_url = Rails.application.credentials.repository[:url]
+    repo_url = Rails.configuration.creds.repository[:url]
     @repo_site = URI(repo_url)
     @log = log # Okay if it's nil.
     @unacceptable_codes = 300
@@ -42,7 +42,7 @@ class ContentServerConnection
 
   def file_for_url(url)
     # Need to get the _harvester_session cookie or this will not work:
-    uri = URI.parse(Rails.application.credentials.repository[:url] + '/')
+    uri = URI.parse(Rails.configuration.creds.repository[:url] + '/')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     log_info("Connecting to #{uri} ...")
