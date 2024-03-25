@@ -98,9 +98,9 @@ module EolWebsite
     end
 
     config.active_storage.service = :local
-    app_host_name = Rails.configuration.creds.host &&
-      Rails.configuration.creds.host.key?(:name) ?
-      Rails.configuration.creds.host[:name] :
+    app_host_name = Rails.configuration.creds[:host] &&
+      Rails.configuration.creds[:host].key?(:name) ?
+      Rails.configuration.creds[:host][:name] :
       'localhost:3001'
     Rails.application.routes.default_url_options[:host] = app_host_name 
 

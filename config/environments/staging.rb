@@ -10,10 +10,10 @@ Rails.application.configure do
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
-  config.action_mailer.default_url_options = Rails.configuration.creds.host.symbolize_keys
+  config.action_mailer.default_url_options = Rails.configuration.creds[:host].symbolize_keys
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = Rails.configuration.creds.smtp.symbolize_keys
+  config.action_mailer.smtp_settings = Rails.configuration.creds[:smtp].symbolize_keys
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
   
@@ -31,7 +31,7 @@ end
 
 # NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
 # sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
-Rails.configuration.repository_url = Rails.configuration.creds.repository[:url]
-Rails.configuration.eol_web_url = Rails.configuration.creds.host[:url]
+Rails.configuration.repository_url = Rails.configuration.creds[:repository][:url]
+Rails.configuration.eol_web_url = Rails.configuration.creds[:host][:url]
 Rails.configuration.x.image_path = Rails.configuration.creds[:image_path]
 Rails.configuration.traitbank_url = Rails.configuration.creds[:traitbank_url]

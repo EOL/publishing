@@ -7,9 +7,9 @@ common: &common
   reconnect: true
   pool: 40
   local_infile: true
-  username: <%= Rails.configuration.creds.db[:username] %>
-  password: <%= Rails.configuration.creds.db[:password] %>
-  database: <%= Rails.configuration.creds.db[:name] %>
+  username: <%= Rails.configuration.creds[:db][:username] %>
+  password: <%= Rails.configuration.creds[:db][:password] %>
+  database: <%= Rails.configuration.creds[:db][:name] %>
 
 # common settings for any development databases
 development:
@@ -22,10 +22,10 @@ test: &test
 
 staging:
   <<: *common
-  host: <%= Rails.configuration.creds.db[:host] %>
-  port: <%= Rails.configuration.creds.db[:port] %>
+  host: <%= Rails.configuration.creds[:db][:host] %>
+  port: <%= Rails.configuration.creds[:db][:port] %>
 
 production:
   <<: *common
-  host: <%= Rails.configuration.creds.db[:host] %>
-  port: <%= Rails.configuration.creds.db[:port] %>
+  host: <%= Rails.configuration.creds[:db][:host] %>
+  port: <%= Rails.configuration.creds[:db][:port] %>
