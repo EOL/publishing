@@ -95,7 +95,11 @@ module EolWebsite
     end
 
     config.active_storage.service = :local
-    Rails.application.routes.default_url_options[:host] = Rails.application.credentials.host[:name]
+    app_host_name = Rails.application.credentials.host &&
+      Rails.application.credentials.host.key?(:name) ?
+      Rails.application.credentials.host[:name] :
+      'localhost:3001'
+    Rails.application.routes.default_url_options[:host] = app_host_name 
 
     config.x.gbif_credentials = Rails.application.credentials.gbif_credentials
 
