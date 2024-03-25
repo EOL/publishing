@@ -6,6 +6,7 @@
 # Author: Carrot Li
 # Author: Colathewikian
 # Author: Gerongfenh
+# Author: Googology
 # Author: Grace03
 # Author: GuoPC
 # Author: HellojoeAoPS
@@ -199,9 +200,9 @@ zh-CN:
   collection_associations_title: 关联收藏
   collection_collected_pages_media_remove: 从收藏中删除图像（更改即刻生效）：
   collection_created: 已创建新的收藏"%{name}"。
-  collection_created_for_association: 把 "%{associated}" 加入新收藏 <a href='%{link}'>"%{name}"</a>。
+  collection_created_for_association: 把 "%{associated}" 加入到新收藏 <a href='%{link}'>"%{name}"</a>。
   collection_user_is_admin: 该用户是管理员。
-  collection_pages_empty: 该收藏尚未包含任何页面。在生物物种页面点击“收藏”按钮来添加一些项目。
+  collection_pages_empty: 该收藏尚未包含任何页面。在物种页面点击“收藏”按钮来添加一些项目。
   collection:
     admins:
       header: 可编辑此收藏的用户（更改即刻生效）
@@ -262,14 +263,14 @@ zh-CN:
     contributor: 贡献者
     compiler: 汇编者
     creator: 创作者
-    editor: 编辑
+    editor: 编辑者
     latitude: 纬度
     license: 许可协议
     location: 位置
     location_verbatim: 原始
     longitude: 经度
     original_media_file: 原始媒体文件
-    owner: 版权所有
+    owner: 版权
     photographer: 摄影师
     publisher: 出版者
     project: 项目
@@ -277,7 +278,7 @@ zh-CN:
     references_header:
       one: 参考文献
       other: 参考文献
-    resource_label: 合作方网站
+    resource_label: 合作网站
     resource_pk: '（id: %{key})'
     rights_statement: 权利声明
     source: 来源
