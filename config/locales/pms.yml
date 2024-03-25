@@ -2954,14 +2954,19 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: as taca a
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: età
           priabonian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: época
+          ëd Pridoli
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: sensa rèis
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: a produv
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: lagh proglassial
         http://eol(dot)org/schema/terms/Propagule: propàgol
         http://eol(dot)org/schema/terms/ProsomeHeight: autëssa dël prosòma
         http://eol(dot)org/schema/terms/ProsomeLength: longheur dël prosòma
         http://eol(dot)org/schema/terms/ProsomeWidth: larghëssa dël prosòma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: zòna protegiùa
         http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composission protèica
           dël làit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: protein-e
         http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purin-e
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: porpra
