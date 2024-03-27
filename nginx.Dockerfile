@@ -5,4 +5,5 @@ WORKDIR $RAILS_ROOT
 RUN mkdir log
 COPY ./public public/
 STOPSIGNAL SIGTERM
+EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;" ]

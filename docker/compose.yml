@@ -152,5 +152,7 @@ services:
     volumes:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
       - /data/publishing_nginx_log:/var/log/nginx
+    ports:
+      - "80:80"
     depends_on:
       - app
