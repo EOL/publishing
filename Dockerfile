@@ -19,8 +19,8 @@ RUN bundle config set without 'test development staging'
 RUN bundle install --jobs 10 --retry 1
 
 RUN yarn install
-RUN bin/webpack
-RUN bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 bin/webpack
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
