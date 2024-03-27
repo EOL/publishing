@@ -1,6 +1,4 @@
 x-app: &default-app
-  build:
-    context: ..
   image: publishing
   restart: always
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
@@ -103,6 +101,8 @@ services:
       - publishing_network
   app:
     <<: *default-app
+    build:
+      context: ..
     command: bundle exec rails s -p 9393 -b '0.0.0.0'
     volumes:
       - /data/publishing_web:/app/public/data
