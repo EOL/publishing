@@ -1,4 +1,4 @@
-host = Redis.new(host: 'localhost:6379')
+host = Redis.new(host: 'redis:6379')
 begin
   host.ping
   Searchkick.redis = ConnectionPool.new { host }

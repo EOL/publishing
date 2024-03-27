@@ -10,6 +10,7 @@ x-app: &default-app
     - mysql
     - neo4j
     - memcached
+    - redis
     - elasticsearch
   networks:
     - publishing_network
