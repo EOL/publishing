@@ -4,6 +4,8 @@ source "https://rubygems.org"
 gem 'rails', '5.2.6.3'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
+# Use puma as the web host
+gem 'puma'
 
 # TEMP: Fixes a licensing issue with Rails:
 gem 'mimemagic', '0.4.3'
@@ -25,10 +27,6 @@ gem 'jbuilder', '~> 2.11.5'
 gem 'jquery-rails', '~> 4.4'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
-
-# Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
-# anyway.
-gem 'unicorn', '~> 6.1'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
