@@ -147,7 +147,7 @@ services:
   nginx:
     build:
       context: ..
-      dockerfile: ./Dockerfile.nginx
+      dockerfile: ./nginx.Dockerfile
     container_name: nginx
     volumes:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
