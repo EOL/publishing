@@ -1,3 +1,20 @@
+x-app: &default-app
+  build:
+    context: ..
+  image: publishing
+  restart: always
+  environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+    - RAILS_ENV
+    - RAILS_MASTER_KEY
+    - ELASTICSEARCH_URL=elasticsearch:9200
+    - NODE_OPTIONS=--openssl-legacy-provider npm run start
+  depends_on:
+    - mysql
+    - neo4j
+    - memcached
+    - elasticsearch
+  networks:
+    - publishing_network
 
 services:
   elasticsearch:
@@ -85,133 +102,63 @@ services:
     networks:
       - publishing_network
   app:
-    build: ..
-    image: publishing
-    restart: always
+    <<: *default-app
     command: bundle exec rails s -p 9393 -b '0.0.0.0'
-    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-      - RAILS_ENV
-      - RAILS_MASTER_KEY
-      - WORKER_PROCESSES
-      - ELASTICSEARCH_URL=elasticsearch:9200
-      - NODE_OPTIONS=--openssl-legacy-provider npm run start
     volumes:
       - /data/publishing_web:/app/public/data
       - /data/publishing_web_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing:/tmp
-    depends_on:
-      - mysql
-      - neo4j
-      - memcached
-      - elasticsearch
     ports:
       - "9393"
-    networks:
-      - publishing_network
   pub_sidekiq:
-    build: ..
-    image: publishing
+    <<: *default-app
     container_name: pub_sidekiq
-    restart: always
     command: bundle exec sidekiq
-    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-      - RAILS_ENV
-      - RAILS_MASTER_KEY
-      - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_jobs:/tmp
-    depends_on:
-      - app
-    networks:
-      - publishing_network
   pub_crono:
-    build: ..
-    image: publishing
+    <<: *default-app
     container_name: pub_crono
-    restart: always
     command: bundle exec crono
-    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-      - RAILS_ENV
-      - RAILS_MASTER_KEY
-      - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_jobs:/tmp
-    depends_on:
-      - app
-    networks:
-      - publishing_network
   pub_worker:
-    build: ..
-    image: publishing
+    <<: *default-app
     container_name: pub_worker
-    restart: always
     command: /app/bin/work
-    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-      - RAILS_ENV
-      - RAILS_MASTER_KEY
-      - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_jobs:/tmp
-    depends_on:
-      - app
-    networks:
-      - publishing_network
   pub_data_worker:
-    build: ..
-    image: publishing
+    <<: *default-app
     container_name: pub_data_worker
-    restart: always
     command: /app/bin/work_data
-    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-      - RAILS_ENV
-      - RAILS_MASTER_KEY
-      - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_jobs:/tmp
-    depends_on:
-      - app
-    networks:
-      - publishing_network
   pub_integrity_worker:
-    build: ..
-    image: publishing
+    <<: *default-app
     container_name: pub_integrity_worker
-    restart: always
     command: /app/bin/work_integrity
-    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-      - RAILS_ENV
-      - RAILS_MASTER_KEY
-      - ELASTICSEARCH_URL=elasticsearch:9200
-      - EOL_REDIS=redis://redis:6379
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_jobs_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_jobs:/tmp
-    depends_on:
-      - app
-    networks:
-      - publishing_network
   nginx:
     build:
-      context: .
+      context: ..
       dockerfile: ./Dockerfile.nginx
     container_name: nginx
     volumes:
