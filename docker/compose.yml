@@ -152,7 +152,5 @@ services:
     volumes:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
       - /data/publishing_nginx_log:/var/log/nginx
-    ports:
-      - "8000:8000"
     depends_on:
       - app
