@@ -62,8 +62,7 @@ services:
       - /data/neo4j/logs:/logs
       - /data/neo4j/plugins:/plugins
       - /data/neo4j/exports:/exports
-      - ./resources/templates/neo4j.conf:/conf/neo4j.conf
-      - ./resources/templates/apoc.conf:/conf/apoc.conf
+      - ./templates/neo4j.conf:/conf/neo4j.conf
     ports:
       - 7473:7473
       - 7474:7474
@@ -92,14 +91,14 @@ services:
     <<: *default-app
     build:
       context: ..
-    command: bundle exec rails s -p 9393 -b '0.0.0.0'
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - /data/publishing_web:/app/public/data
       - /data/publishing_web_log:/app/log
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing:/tmp
     ports:
-      - "9393"
+      - "3000"
   pub_sidekiq:
     <<: *default-app
     container_name: pub_sidekiq
@@ -154,6 +153,6 @@ services:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
       - /data/publishing_nginx_log:/var/log/nginx
     ports:
-      - "3000:3000"
+      - "8000:8000"
     depends_on:
       - app
