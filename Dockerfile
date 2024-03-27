@@ -20,8 +20,9 @@ RUN bundle install --jobs 10 --retry 1
 
 RUN yarn install
 ARG rails_secret_key
-RUN RAILS_MASTER_KEY=${rails_secret_key} bin/webpack
-RUN RAILS_MASTER_KEY=${rails_secret_key} bundle exec rails assets:precompile
+ARG rails_env
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bin/webpack
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bundle exec rails assets:precompile
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
