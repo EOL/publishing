@@ -104,47 +104,47 @@ services:
     <<: *default-app
     container_name: pub_sidekiq
     command: bundle exec sidekiq
-    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+    volumes:
       - /data/publishing_web:/app/public/data
-      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_sidekiq_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_jobs:/tmp
+      - /eol/tmp/publishing_sidekiq:/tmp
   pub_crono:
     <<: *default-app
     container_name: pub_crono
     command: bundle exec crono
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
-      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_crono_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_jobs:/tmp
+      - /eol/tmp/publishing_crono:/tmp
   pub_worker:
     <<: *default-app
     container_name: pub_worker
     command: /app/bin/work
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
-      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_worker_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_jobs:/tmp
+      - /eol/tmp/publishing_worker:/tmp
   pub_data_worker:
     <<: *default-app
     container_name: pub_data_worker
     command: /app/bin/work_data
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
-      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_data_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_jobs:/tmp
+      - /eol/tmp/publishing_data:/tmp
   pub_integrity_worker:
     <<: *default-app
     container_name: pub_integrity_worker
     command: /app/bin/work_integrity
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
-      - /data/publishing_jobs_log:/app/log
+      - /data/publishing_integrity_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_jobs:/tmp
+      - /eol/tmp/publishing_integrity:/tmp
   nginx:
     build:
       context: ..
