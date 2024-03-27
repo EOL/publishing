@@ -97,7 +97,7 @@ gem 'rubyzip', '~> 2.3'
 gem 'searchkick', '~> 4.5' # Needs to stay in sync (ish) with the elasticsearch gem.
 gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
-gem 'sidekiq'
+gem 'sidekiq', '~> 6.5'
 # Simplify Forms:
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
