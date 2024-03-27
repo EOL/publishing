@@ -12,8 +12,6 @@ x-app: &default-app
     - memcached
     - redis
     - elasticsearch
-  networks:
-    - publishing_network
 
 services:
   elasticsearch:
@@ -34,8 +32,6 @@ services:
       - /data/publishing_elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
-    networks:
-      - publishing_network
   memcached:
     image: memcached
     container_name: publishing_memcached
@@ -43,8 +39,6 @@ services:
     environment:
       - TZ=America/New_York
     command: memcached -m 4096m
-    networks:
-      - publishing_network
   neo4j:
     image: neo4j:4.2.3
     container_name: neo4j
@@ -70,8 +64,6 @@ services:
       - /data/neo4j/exports:/exports
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
       - ./resources/templates/apoc.conf:/conf/apoc.conf
-    networks:
-      - publishing_network
     ports:
       - 7473:7473
       - 7474:7474
@@ -90,16 +82,12 @@ services:
        - /u/data/eol_publishing_mysql_ENV:/var/lib/mysql
        - /u/data/eol_publishing_mysql_ENV_temp:/tmp
        - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
-    networks:
-      - publishing_network
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     image: redis:6.0
     container_name: redis
     restart: always
     ports:
       - 6379:6379
-    networks:
-      - publishing_network
   app:
     <<: *default-app
     build:
@@ -169,6 +157,3 @@ services:
       - "3000:3000"
     depends_on:
       - app
-networks:
-  publishing_network:
-    driver: bridge
