@@ -4,6 +4,5 @@ ENV RAILS_ROOT /app
 WORKDIR $RAILS_ROOT
 RUN mkdir log
 COPY ./public public/
-EXPOSE 8000
 STOPSIGNAL SIGTERM
 CMD [ "nginx", "-g", "daemon off;" ]
