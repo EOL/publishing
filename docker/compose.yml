@@ -1,3 +1,4 @@
+
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
@@ -17,42 +18,6 @@ services:
       - /data/publishing_elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
-    networks:
-      - publishing_network
-  elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
-    container_name: publishing_elasticsearch2
-    environment:
-      - cluster.name=eol-search-${RAILS_ENV}
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - "discovery.zen.ping.unicast.hosts=[publishing_elasticsearch,publishing_elasticsearch3]"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /data/publishing_elasticsearch2/data:/var/data/elasticsearch
-      - /data/publishing_elasticsearch2/log:/var/log/elasticsearch
-    networks:
-      - publishing_network
-  elasticsearch3:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
-    container_name: publishing_elasticsearch3
-    environment:
-      - cluster.name=eol-search-${RAILS_ENV}
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - "discovery.zen.ping.unicast.hosts=[publishing_elasticsearch,publishing_elasticsearch2]"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /data/publishing_elasticsearch3/data:/var/data/elasticsearch
-      - /data/publishing_elasticsearch3/log:/var/log/elasticsearch
     networks:
       - publishing_network
   memcached:
