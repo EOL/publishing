@@ -21,6 +21,10 @@ RUN bundle install --jobs 10 --retry 1
 RUN yarn install
 ARG rails_secret_key
 ARG rails_env
+# You will want to build using a command like this:
+# export $(grep -v '^#' .env | xargs) && dc build \
+#   --build-arg rails_secret_key=$RAILS_MASTER_KEY \
+#   --build-arg rails_env=$RAILS_ENV
 RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bin/webpack
 RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bundle exec rails assets:precompile
 
