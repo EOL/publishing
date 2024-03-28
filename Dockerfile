@@ -39,9 +39,14 @@ WORKDIR /app
 COPY --chown=ruby:ruby bin/ ./bin
 RUN chmod 0755 bin/*
 
+ARG rails_secret_key
 ARG rails_env
-ENV RAILS_ENV="${RAILS_ENV}" \
-  PATH="${PATH}:/home/ruby/.local/bin"
+# You will want to build using a command like this:
+# export $(grep -v '^#' .env | xargs) && dc build \
+#   --build-arg rails_secret_key=$RAILS_MASTER_KEY \
+#   --build-arg rails_env=$RAILS_ENV
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bin/webpack \ 
+  && RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bundle exec rails assets:precompile
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
