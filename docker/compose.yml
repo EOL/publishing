@@ -13,6 +13,42 @@ x-app: &default-app
     - memcached
     - redis
     - elasticsearch
+  deploy:
+    resources:
+      limits:
+        cpus: '1'
+        memory: 2G
+    restart_policy:
+      condition: on-failure
+      delay: 16s
+      max_attempts: 3
+      window: 240s
+
+x-worker: &default-worker
+  image: publishing
+  restart: always
+  environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+    - RAILS_ENV
+    - RAILS_MASTER_KEY
+    - ELASTICSEARCH_URL=elasticsearch:9200
+    - REDIS_URL=redis://redis:6379
+    - NODE_OPTIONS=--openssl-legacy-provider npm run start
+  depends_on:
+    - mysql
+    - neo4j
+    - memcached
+    - redis
+    - elasticsearch
+  deploy:
+    resources:
+      limits:
+        cpus: '0.5'
+        memory: 1G
+    restart_policy:
+      condition: on-failure
+      delay: 8s
+      max_attempts: 3
+      window: 120s
 
 x-default-deploy: &default-deploy
   deploy:
@@ -25,18 +61,6 @@ x-default-deploy: &default-deploy
       delay: 8s
       max_attempts: 3
       window: 120s
-
-x-app-deploy: &app-deploy
-  deploy:
-    resources:
-      limits:
-        cpus: '1'
-        memory: 2G
-    restart_policy:
-      condition: on-failure
-      delay: 16s
-      max_attempts: 3
-      window: 240s
 
 services:
   elasticsearch:
@@ -119,7 +143,6 @@ services:
       - 6379:6379
   app:
     <<: *default-app
-    <<: *app-deploy
     build:
       context: ..
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
@@ -133,8 +156,7 @@ services:
     deploy:
       replicas: 6
   pub_sidekiq:
-    <<: *default-app
-    <<: *default-deploy
+    <<: *default-worker
     container_name: pub_sidekiq
     command: bundle exec sidekiq
     volumes:
@@ -143,8 +165,7 @@ services:
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_sidekiq:/tmp
   pub_crono:
-    <<: *default-app
-    <<: *default-deploy
+    <<: *default-worker
     container_name: pub_crono
     command: bundle exec crono
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -153,8 +174,7 @@ services:
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_crono:/tmp
   pub_worker:
-    <<: *default-app
-    <<: *app-deploy
+    <<: *default-worker
     container_name: pub_worker
     command: /app/bin/work
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -163,8 +183,7 @@ services:
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_worker:/tmp
   pub_data_worker:
-    <<: *default-app
-    <<: *default-deploy
+    <<: *default-worker
     container_name: pub_data_worker
     command: /app/bin/work_data
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -173,8 +192,7 @@ services:
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_data:/tmp
   pub_integrity_worker:
-    <<: *default-app
-    <<: *default-deploy
+    <<: *default-worker
     container_name: pub_integrity_worker
     command: /app/bin/work_integrity
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
