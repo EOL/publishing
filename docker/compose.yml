@@ -14,8 +14,33 @@ x-app: &default-app
     - redis
     - elasticsearch
 
+x-default-deploy: &default-deploy
+  deploy:
+    resources:
+      limits:
+        cpus: '0.5'
+        memory: 1G
+    restart_policy:
+      condition: on-failure
+      delay: 8s
+      max_attempts: 3
+      window: 120s
+
+x-app-deploy: &app-deploy
+  deploy:
+    resources:
+      limits:
+        cpus: '1'
+        memory: 2G
+    restart_policy:
+      condition: on-failure
+      delay: 16s
+      max_attempts: 3
+      window: 240s
+
 services:
   elasticsearch:
+    <<: *default-deploy
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: publishing_elasticsearch
     restart: always
@@ -34,6 +59,7 @@ services:
     ports:
       - 9200:9200
   memcached:
+    <<: *default-deploy
     image: memcached
     container_name: publishing_memcached
     restart: always
@@ -41,6 +67,7 @@ services:
       - TZ=America/New_York
     command: memcached -m 4096m
   neo4j:
+    <<: *default-deploy
     image: neo4j:4.2.3
     container_name: neo4j
     restart: always
@@ -69,6 +96,7 @@ services:
       - 7474:7474
       - 7687:7687
   mysql:
+    <<: *default-deploy
     image: mysql:5.7.31
     container_name: eol_publishing_mysql_ENV
     restart: always
@@ -83,6 +111,7 @@ services:
        - /u/data/eol_publishing_mysql_ENV_temp:/tmp
        - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
+    <<: *default-deploy
     image: redis:6.0
     container_name: redis
     restart: always
@@ -90,6 +119,7 @@ services:
       - 6379:6379
   app:
     <<: *default-app
+    <<: *app-delpoy
     build:
       context: ..
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
@@ -100,8 +130,11 @@ services:
       - /eol/tmp/publishing:/tmp
     ports:
       - "3000"
+    deploy:
+      replicas: 6
   pub_sidekiq:
     <<: *default-app
+    <<: *default-deploy
     container_name: pub_sidekiq
     command: bundle exec sidekiq
     volumes:
@@ -111,6 +144,7 @@ services:
       - /eol/tmp/publishing_sidekiq:/tmp
   pub_crono:
     <<: *default-app
+    <<: *default-deploy
     container_name: pub_crono
     command: bundle exec crono
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -120,6 +154,7 @@ services:
       - /eol/tmp/publishing_crono:/tmp
   pub_worker:
     <<: *default-app
+    <<: *app-deploy
     container_name: pub_worker
     command: /app/bin/work
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -129,6 +164,7 @@ services:
       - /eol/tmp/publishing_worker:/tmp
   pub_data_worker:
     <<: *default-app
+    <<: *default-deploy
     container_name: pub_data_worker
     command: /app/bin/work_data
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -138,6 +174,7 @@ services:
       - /eol/tmp/publishing_data:/tmp
   pub_integrity_worker:
     <<: *default-app
+    <<: *default-deploy
     container_name: pub_integrity_worker
     command: /app/bin/work_integrity
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
@@ -146,6 +183,7 @@ services:
       - /data/publishing_web_private:/app/data
       - /eol/tmp/publishing_integrity:/tmp
   nginx:
+    <<: *default-deploy
     build:
       context: ..
       dockerfile: ./nginx.Dockerfile
