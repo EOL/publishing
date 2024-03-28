@@ -43,6 +43,10 @@ RUN chmod 0755 bin/*
 ARG rails_secret_key
 ARG rails_env
 
+ENV NODE_OPTIONS="--openssl-legacy-provider npm run start" \
+  NODE_ENV="production" \
+  BUNDLE_PATH="/gems"
+
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
 COPY --from=assets /usr/local/bundle /usr/local/bundle
@@ -52,6 +56,10 @@ COPY --from=assets /app/public/packs /app/public/packs
 COPY --from=assets /app/Gemfile /app/Gemfile.lock /app/.
 # Just to save me a few grey hairs:
 COPY config/.vimrc /root/.vimrc
+
+RUN bundle config set without 'test development staging' \
+  && bundle install --jobs 10 --retry 1 \
+  && bundle config set --global path /gems \
 
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.email '$EOL_GITHUB_EMAIL'"]
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.name '$EOL_GITHUB_USER'"]
