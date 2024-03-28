@@ -5,6 +5,7 @@ x-app: &default-app
     - RAILS_ENV
     - RAILS_MASTER_KEY
     - ELASTICSEARCH_URL=elasticsearch:9200
+    - REDIS_URL=redis://redis:6379
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
