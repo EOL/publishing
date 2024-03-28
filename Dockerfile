@@ -59,7 +59,7 @@ COPY config/.vimrc /root/.vimrc
 
 RUN bundle config set without 'test development staging' \
   && bundle install --jobs 10 --retry 1 \
-  && bundle config set --global path /gems \
+  && bundle config set --global path /gems
 
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.email '$EOL_GITHUB_EMAIL'"]
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.name '$EOL_GITHUB_USER'"]
