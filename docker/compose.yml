@@ -132,7 +132,6 @@ services:
       - MYSQL_PASSWORD=SomethingSuperSecureHereToo
     volumes:
        - /u/data/eol_publishing_mysql_ENV:/var/lib/mysql
-       - /u/data/eol_publishing_mysql_ENV_temp:/tmp
        - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     <<: *default-deploy
@@ -152,7 +151,6 @@ services:
       - /data/publishing_web_packs:/app/public/packs
       - /data/publishing_web_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing:/tmp
     ports:
       - "3000"
     deploy:
@@ -165,7 +163,6 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_sidekiq_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_sidekiq:/tmp
   pub_crono:
     <<: *default-worker
     container_name: pub_crono
@@ -174,7 +171,6 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_crono_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_crono:/tmp
   pub_worker:
     <<: *default-worker
     container_name: pub_worker
@@ -183,7 +179,6 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_worker_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_worker:/tmp
   pub_data_worker:
     <<: *default-worker
     container_name: pub_data_worker
@@ -192,7 +187,6 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_data_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_data:/tmp
   pub_integrity_worker:
     <<: *default-worker
     container_name: pub_integrity_worker
@@ -201,7 +195,6 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_integrity_log:/app/log
       - /data/publishing_web_private:/app/data
-      - /eol/tmp/publishing_integrity:/tmp
   nginx:
     <<: *default-deploy
     build:
