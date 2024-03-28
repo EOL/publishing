@@ -2947,6 +2947,8 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: età pragian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: prairìa
         http://eol(dot)org/schema/terms/PrecipitationTolerance: toleransa a le pressipitassion
+        http://eol(dot)org/schema/terms/predatory_suspension_feeder: as nuriss coma
+          ravass ëd sospension
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durà dël dësvlup
           prenatal
         http://rs(dot)tdwg(dot)org/dwc/terms/preparations: preparassion
@@ -2967,6 +2969,9 @@ pms:
         http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composission protèica
           dël làit
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: protein-e
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: época
+          proterosòica
+        http://eol(dot)org/schema/terms/protozoa_feeder: as nuriss ëd protozòo
         http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purin-e
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: porpra
