@@ -45,8 +45,8 @@ ARG rails_env
 # export $(grep -v '^#' .env | xargs) && dc build \
 #   --build-arg rails_secret_key=$RAILS_MASTER_KEY \
 #   --build-arg rails_env=$RAILS_ENV
-RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bin/webpack \ 
-  && bundle exec rails assets:precompile
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bin/webpack
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bundle exec rails assets:precompile
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
 COPY . /app
