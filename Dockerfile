@@ -16,6 +16,7 @@ ENV NODE_OPTIONS="--openssl-legacy-provider npm run start" \
 RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'` \
   && bundle config set without 'test development staging' \
   && bundle install --jobs 10 --retry 1 \
+  && bundle config set --global path /gems \
   && yarn install
 
 ARG rails_secret_key
@@ -48,6 +49,7 @@ COPY --from=assets /usr/local/bundle /usr/local/bundle
 COPY --from=assets /gems /gems
 COPY --from=assets /app/public/assets /app/public/assets
 COPY --from=assets /app/public/packs /app/public/packs
+COPY --from=assets /app/Gemfile /app/Gemfile.lock /app/.
 # Just to save me a few grey hairs:
 COPY config/.vimrc /root/.vimrc
 
