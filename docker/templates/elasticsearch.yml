@@ -10,3 +10,7 @@ bootstrap.memory_lock: true
 cluster.name: eol-search-${RAILS_ENV}
 network.host: "_local_,_site_"
 network.publish_host: "_local_"
+cluster.routing.allocation.disk.threshold_enabled: true
+cluster.routing.allocation.disk.watermark.flood_stage: 5gb
+cluster.routing.allocation.disk.watermark.low: 30gb
+cluster.routing.allocation.disk.watermark.high: 20gb
