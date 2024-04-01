@@ -2949,6 +2949,8 @@ pms:
         http://eol(dot)org/schema/terms/PrecipitationTolerance: toleransa a le pressipitassion
         http://eol(dot)org/schema/terms/predatory_suspension_feeder: as nuriss coma
           ravass ëd sospension
+        http://eol(dot)org/schema/terms/predatorScavenger: ravass ch'a mangia dle
+          carògne
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durà dël dësvlup
           prenatal
         http://rs(dot)tdwg(dot)org/dwc/terms/preparations: preparassion
@@ -2972,9 +2974,15 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: época
           proterosòica
         http://eol(dot)org/schema/terms/protozoa_feeder: as nuriss ëd protozòo
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: psu
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purin-e
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: porpra
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: piramidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: gava
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Quaternary: perìod
+          quaternari
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: sediment radioativ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: ferovìa
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: rapòrt
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: ross
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion

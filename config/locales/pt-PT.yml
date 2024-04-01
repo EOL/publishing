@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Emma Franzen
 # Author: EnaldoSS
+# Author: GoEThe
 # Author: Hamilton Abreu
 # Author: Mansil
 # Author: Mansil alfalb
@@ -10,6 +11,9 @@
 ---
 pt-PT:
   language_name: Português (Portugal)
+  about:
+    trait_bank:
+      title: Banco de características
   account_already_linked: a sua conta já está associada com EOL
   account_not_linked: a sua conta não está associada com EOL
   advanced: avançado
@@ -32,15 +36,83 @@ pt-PT:
       one: ver outros resultados
       other: ver todos os %{count} resultados
   breadcrumbs:
+    notices:
+      canonical: Nnomes científicos serão agora  mostrados na trilha de navegação
+        da página
+      vernacular: Nomes vernaculares serão agora mostrados nas trilhas de navegação
+        da página, quando disponíveis
+    setting_header: nomes no trilho de navegação
     types:
       scientific: cientifico
+      vernacular: vernáculo
   brief_summary:
+    extinction:
+      r_genus_html: Este género está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_subgenus_html: Este subgénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_infragenus_html: Este infragénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_superspecies_html: Esta superespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_species_html: Esta espécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_subspecies_html: Esta subespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_infraspecies_html: Esta infraespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
+    fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>correção</span>
+      <span class='%{class_str}' id='%{object_id}'>nitrogênio</span>.
+    freshwater_html: Eles estão associados a <span class='%{class_str}' id='%{id}'>habitat
+      de água doce</span>.
+    marine_html: Eles são encontrados em <span class='%{class_str}' id='%{id}'>habitat
+      marinho</span>.
     species: '%{name1} é uma espécie de %{name2}.'
     species_in_family: '%{name1} é uma espécie de %{name2} na família %{name_family}.'
     taxonomy:
       family_above:
         r_superfamily: '%{name1} é uma superfamília de %{name2}.'
         r_domain: '%{name1} é um domínio de %{name2}.'
+        r_subdomain: '%{name1} é um subdomínio de %{name2}.'
+        r_infradomain: '%{name1} é uma infradomínio de %{name2}.'
+        r_superkingdom: '%{name1} é um super-reino de %{name2}.'
+        r_kingdom: '%{name1} é um reino de %{name2}.'
+        r_subkingdom: '%{name1} é um sub-reino de %{name2}.'
+        r_infrakingdom: '%{name1} é um infra-reino de %{name2}.'
+        r_superphylum: '%{name1} é um super-filo de %{name2}.'
+        r_phylum: '%{name1} é um filo de %{name2}.'
+        r_subphylum: '%{name1} é um subfilo de %{name2}.'
+        r_infraphylum: '%{name1} é um infrafilo de %{name2}.'
+        r_superclass: '%{name1} é uma superclasse de %{name2}.'
+        r_class: '%{name1} é uma classe de %{name2}.'
+        r_subclass: '%{name1} é uma subclasse de %{name2}.'
+        r_infraclass: '%{name1} é uma infraclasse de %{name2}.'
+        r_superorder: '%{name1} é uma superordem de %{name2}.'
+        r_order: '%{name1} é uma ordem de %{name2}.'
+        r_suborder: '%{name1} é uma subordem de %{name2}.'
+        r_infraorder: '%{name1} é uma infraordem de %{name2}.'
+        r_family: '%{name1} é uma família de %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} é uma subfamília de %{name2} na família %{name3}.'
+          r_infrafamily: '%{name1} é uma infrafamília de %{name2} na família %{name3}.'
+          r_tribe: '%{name1} é uma tribo de %{name2} na família %{name3}.'
+          r_supergenus: '%{name1} é um supergénero de %{name2} na família %{name3}.'
+          r_genus: '%{name1} é um género de %{name2} na família %{name3}.'
+          r_subgenus: '%{name1} é um subgénero de %{name2} na família %{name3}.'
+          r_infragenus: '%{name1} é um infragénero de %{name2} na família %{name3}.'
+          r_superspecies: '%{name1} é uma superespécie de %{name2} na família %{name3}.'
+          r_species: '%{name1} é uma espécie de %{name2} na família %{name3}.'
+          r_subspecies: '%{name1} é uma subespécie de %{name2} na família %{name3}.'
+          r_infraspecies: '%{name1} é uma infraespécie de %{name2} na família %{name3}.'
+          r_form: '%{name1} é uma forma de %{name2} na família %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} é uma subfamília de %{name2}.'
+          r_infrafamily: '%{name1} é uma infrafamília de %{name2}.'
+          r_tribe: '%{name1} é uma tribo de %{name2}.'
+          r_supergenus: '%{name1} é um supergénero de %{name2}.'
+          r_genus: '%{name1} é um género de %{name2}.'
+          r_subgenus: '%{name1} é um subgénero de %{name2}.'
+          r_infragenus: '%{name1} é um infragénero de %{name2}.'
+          r_superspecies: '%{name1} é uma superespécie de %{name2}.'
+          r_species: '%{name1} é uma espécie de %{name2}.'
+          r_subspecies: '%{name1} é uma subespécie de %{name2}.'
+          r_infraspecies: '%{name1} é uma infraespécie de %{name2}.'
+          r_form: '%{name1} é uma forma de %{name2}.'
   button_create: criar
   button_add: adicionar
   cancel: cancelar
@@ -48,11 +120,21 @@ pt-PT:
   change_your_password: Altere a sua palavra-passe
   classifications:
     children:
+      header_html:
+        one: '%{name} inclui <a href="%{names_path}">%{count} filho</a>:'
+        other: '%{name} inclui <a href="%{names_path}">%{count} filhos</a>:'
       see_more: ver mais
     hierarchies:
       header: Hierarquias selecionadas para %{sci_name}
+      see_resource_file: Veja o <a href='%{href}'>arquivo de recurso</a> para uma
+        lista completa.
       this_page: (esta página)
+      truncated_siblings:
+        one: Um irmão adicional truncado para abreviar.
+        other: '%{count} irmãos adicionais truncados para abreviar.'
     richness:
+      header: Riqueza da página
+      score: pontuação de riqueza
       page_contents_count: conteúdo associado
       media_count: multimédia
       articles_count: artigos
