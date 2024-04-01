@@ -23,6 +23,11 @@ x-app: &default-app
       delay: 16s
       max_attempts: 3
       window: 240s
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
 
 x-worker: &default-worker
   image: publishing
@@ -49,6 +54,11 @@ x-worker: &default-worker
       delay: 8s
       max_attempts: 3
       window: 120s
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
 
 x-default-deploy: &default-deploy
   deploy:
@@ -61,6 +71,11 @@ x-default-deploy: &default-deploy
       delay: 8s
       max_attempts: 3
       window: 120s
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
 
 services:
   elasticsearch:
@@ -91,6 +106,11 @@ services:
       - /data/publishing_elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
+    logging:
+      driver: "local"
+      options:
+        max-file: "3"
+        max-size: "5m"
   memcached:
     <<: *default-deploy
     image: memcached
