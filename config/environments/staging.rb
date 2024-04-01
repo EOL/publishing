@@ -6,7 +6,7 @@ Rails.application.configure do
   # And we want polling to see when they change (this works better for docker)
   config.file_watcher = ActiveSupport::FileUpdateChecker
   cache_addr = Rails.configuration.creds[:cache_url]
-  config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL", compress: true }
+  config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL_stage", compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
@@ -23,10 +23,9 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
 
-  config.after_initialize do
-    ActiveRecord::Base.logger = Rails.logger.clone
-    ActiveRecord::Base.logger.level = Logger::INFO
-  end
+  logger           = Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger    = ActiveSupport::TaggedLogging.new(logger)
 end
 
 # NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes

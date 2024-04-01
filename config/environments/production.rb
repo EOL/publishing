@@ -27,7 +27,7 @@ Rails.application.configure do
   config.lograge.ignore_actions = ['PagesController#ping', 'ApiPingController#index', 'HomePageController#index']
 
   cache_addr = Rails.configuration.creds[:cache_url]
-  config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL", compress: true }
+  config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL_prod", compress: true }
 
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = Rails.configuration.creds[:host].symbolize_keys
