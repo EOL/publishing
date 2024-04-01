@@ -21,7 +21,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   config.log_level = :warn
-  config.log_tags = [ :request_id ]
+  config.log_tags = [ :subdomain, :uuid ]
   config.log_formatter = ::Logger::Formatter.new
   config.lograge.enabled = true
   config.lograge.ignore_actions = ['PagesController#ping', 'ApiPingController#index', 'HomePageController#index']
@@ -38,11 +38,9 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
   config.active_record.dump_schema_after_migration = false
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
+  logger           = Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger    = ActiveSupport::TaggedLogging.new(logger)
 end
 
 Rails.configuration.repository_url = Rails.configuration.creds[:repository][:url]
