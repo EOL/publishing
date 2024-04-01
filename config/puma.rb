@@ -1,4 +1,7 @@
-workers Integer(ENV['WEB_CONCURRENCY'] || 2)
+bind "tcp://0.0.0.0:#{ENV.fetch('PORT') { '3000' }}"
+environment ENV.fetch('RAILS_ENV') { 'production' }
+
+workers Integer(ENV['WEB_CONCURRENCY'] || 4)
 threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
 threads threads_count, threads_count
 

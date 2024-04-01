@@ -181,7 +181,7 @@ services:
   pub_worker:
     <<: *default-worker
     container_name: pub_worker
-    command: /app/bin/work
+    command: bundle exec rails r "Publishing.work('harvest')"
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_worker_log:/app/log
@@ -189,7 +189,7 @@ services:
   pub_data_worker:
     <<: *default-worker
     container_name: pub_data_worker
-    command: /app/bin/work_data
+    command: bundle exec rails r "Publishing.work('download')"
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_data_log:/app/log
@@ -197,7 +197,7 @@ services:
   pub_integrity_worker:
     <<: *default-worker
     container_name: pub_integrity_worker
-    command: /app/bin/work_integrity
+    command: bundle exec rails r "Publishing.work('data_integrity')"
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_integrity_log:/app/log

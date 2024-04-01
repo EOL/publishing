@@ -2,6 +2,15 @@ class Publishing
   attr_accessor :log, :run, :last_run_at
   attr_reader :pub_log
 
+  class << self
+    def work(queue)
+      ImportLog.all_clear! if queue == 'harvest'
+      worker = Delayed::Worker.new(queues: ['harvest'])
+      worker.name_prefix = queue + ' '
+      worker.start
+    end
+  end
+
   def initialize(options)
     @pub_log = Publishing::PubLog.new(nil)
     @log = nil
