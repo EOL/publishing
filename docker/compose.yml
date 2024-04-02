@@ -16,7 +16,7 @@ x-app: &default-app
   deploy:
     resources:
       limits:
-        cpus: 1
+        cpus: 2
         # This seems REALLY high, but, yeah, this is how much it needs. Alas.
         memory: 8G
     restart_policy:
