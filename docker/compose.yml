@@ -16,18 +16,19 @@ x-app: &default-app
   deploy:
     resources:
       limits:
-        cpus: '1'
-        memory: 2G
+        cpus: 1
+        # 1526M is 1.5g, but the value should be an integer:
+        memory: 1536m
     restart_policy:
       condition: on-failure
       delay: 16s
       max_attempts: 3
       window: 240s
   logging:
-    driver: "local"
+    driver: local
     options:
-      max-file: "3"
-      max-size: "5m"
+      max-file: 3
+      max-size: 5m
 
 x-worker: &default-worker
   image: publishing
