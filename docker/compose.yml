@@ -17,8 +17,8 @@ x-app: &default-app
     resources:
       limits:
         cpus: 1
-        # 1526M is 1.5g, but the value should be an integer:
-        memory: 1536m
+        # This seems REALLY high, but, yeah, this is how much it needs. Alas.
+        memory: 8G
     restart_policy:
       condition: on-failure
       delay: 16s
