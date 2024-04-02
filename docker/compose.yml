@@ -49,7 +49,7 @@ x-worker: &default-worker
     resources:
       limits:
         cpus: '0.5'
-        memory: 1G
+        memory: 8G
     restart_policy:
       condition: on-failure
       delay: 8s
@@ -233,7 +233,6 @@ services:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
       - /data/publishing_nginx_log:/var/log/nginx
       - /data/publishing_web:/app/public/data:ro
-      - /data/eol-maps/current:/app/public/maps:ro
     ports:
       - "80:80"
     depends_on:
