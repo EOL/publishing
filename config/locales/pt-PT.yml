@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: B3rnas
 # Author: Emma Franzen
 # Author: EnaldoSS
 # Author: GoEThe
@@ -37,8 +38,8 @@ pt-PT:
       other: ver todos os %{count} resultados
   breadcrumbs:
     notices:
-      canonical: Nnomes científicos serão agora  mostrados na trilha de navegação
-        da página
+      canonical: Nomes científicos serão agora mostrados na trilha de navegação da
+        página
       vernacular: Nomes vernaculares serão agora mostrados nas trilhas de navegação
         da página, quando disponíveis
     setting_header: nomes no trilho de navegação
@@ -53,13 +54,13 @@ pt-PT:
       r_superspecies_html: Esta superespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_species_html: Esta espécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_subspecies_html: Esta subespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
-      r_infraspecies_html: Esta infraespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_infraspecies_html: Esta infra-espécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
     fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>correção</span>
       <span class='%{class_str}' id='%{object_id}'>nitrogênio</span>.
-    freshwater_html: Eles estão associados a <span class='%{class_str}' id='%{id}'>habitat
+    freshwater_html: Eles estão associados ao <span class='%{class_str}' id='%{id}'>habitat
       de água doce</span>.
-    marine_html: Eles são encontrados em <span class='%{class_str}' id='%{id}'>habitat
+    marine_html: Eles são encontrados no <span class='%{class_str}' id='%{id}'>habitat
       marinho</span>.
     species: '%{name1} é uma espécie de %{name2}.'
     species_in_family: '%{name1} é uma espécie de %{name2} na família %{name_family}.'
@@ -98,7 +99,7 @@ pt-PT:
           r_superspecies: '%{name1} é uma superespécie de %{name2} na família %{name3}.'
           r_species: '%{name1} é uma espécie de %{name2} na família %{name3}.'
           r_subspecies: '%{name1} é uma subespécie de %{name2} na família %{name3}.'
-          r_infraspecies: '%{name1} é uma infraespécie de %{name2} na família %{name3}.'
+          r_infraspecies: '%{name1} é uma infra-espécie de %{name2} na família %{name3}.'
           r_form: '%{name1} é uma forma de %{name2} na família %{name3}.'
         without_family:
           r_subfamily: '%{name1} é uma subfamília de %{name2}.'
@@ -111,7 +112,7 @@ pt-PT:
           r_superspecies: '%{name1} é uma superespécie de %{name2}.'
           r_species: '%{name1} é uma espécie de %{name2}.'
           r_subspecies: '%{name1} é uma subespécie de %{name2}.'
-          r_infraspecies: '%{name1} é uma infraespécie de %{name2}.'
+          r_infraspecies: '%{name1} é uma infra-espécie de %{name2}.'
           r_form: '%{name1} é uma forma de %{name2}.'
   button_create: criar
   button_add: adicionar
@@ -130,8 +131,8 @@ pt-PT:
         lista completa.
       this_page: (esta página)
       truncated_siblings:
-        one: Um irmão adicional truncado para abreviar.
-        other: '%{count} irmãos adicionais truncados para abreviar.'
+        one: Um irmão adicional truncado por razões de brevidade.
+        other: '%{count} irmãos adicionais truncados por razões de brevidade.'
     richness:
       header: Riqueza da página
       score: pontuação de riqueza
