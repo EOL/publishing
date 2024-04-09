@@ -24,6 +24,7 @@ x-app: &default-app
       delay: 16s
       max_attempts: 3
       window: 240s
+  profiles: ["app"]
   logging:
     driver: local
     options:
@@ -55,6 +56,7 @@ x-worker: &default-worker
       delay: 8s
       max_attempts: 3
       window: 120s
+  profiles: ["worker"]
   logging:
     driver: "local"
     options:
@@ -107,6 +109,7 @@ services:
       - /data/publishing_elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
+    profiles: ["search"]
     logging:
       driver: "local"
       options:
@@ -120,8 +123,10 @@ services:
     environment:
       - TZ=America/New_York
     command: memcached -m 4096m
+    profiles: ["cache"]
   neo4j:
     <<: *default-deploy
+    profiles: ["graph"]
     image: neo4j:4.2.3
     container_name: neo4j
     restart: always
@@ -160,11 +165,13 @@ services:
       - MYSQL_DATABASE=eol_web_ENV
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=SomethingSuperSecureHereToo
+    profiles: ["sql"]
     volumes:
        - /u/data/eol_publishing_mysql_ENV:/var/lib/mysql
        - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     <<: *default-deploy
+    profiles: ["redis"]
     image: redis:6.0
     container_name: redis
     restart: always
@@ -225,6 +232,7 @@ services:
       - /data/publishing_web_private:/app/data
   nginx:
     <<: *default-deploy
+    profiles: ["load"]
     build:
       context: ..
       dockerfile: ./nginx.Dockerfile
