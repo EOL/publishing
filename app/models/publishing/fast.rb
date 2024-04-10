@@ -42,8 +42,7 @@ class Publishing
     def initialize(resource, log = nil)
       @start_at = Time.now
       @resource = resource
-      # NOTE: this is likely to get overridden once we create a new log, but nice to have in case we need it:
-      @log = log # Okay if it's nil.
+      @log = log || @resource.log_handle
       @repo = @resource.repo
       @files = []
       @can_clean_up = true
