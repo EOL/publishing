@@ -43,7 +43,6 @@ class Publishing
       @start_at = Time.now
       @resource = resource
       @log = log || @resource.log_handle
-      @repo = @resource.repo
       @files = []
       @can_clean_up = true
     end
@@ -61,8 +60,8 @@ class Publishing
       end
       begin
         plural = @klass.table_name
-        unless @repo.exists?("#{plural}.tsv")
-          raise("#{@repo.file_url("#{plural}.tsv")} does not exist! "\
+        unless @resource.repo.exists?("#{plural}.tsv")
+          raise("#{@resource.repo.file_url("#{plural}.tsv")} does not exist! "\
                 "Are you sure the resource has successfully finished harvesting?")
         end
         @log.start("Updating attributes: #{fields.join(', ')} (#{positions.join(', ')}) for #{plural}")
@@ -142,8 +141,8 @@ class Publishing
         @log.warn('All existing content has been destroyed for the resource.')
       end
       begin
-        unless @repo.exists?('nodes.tsv')
-          raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
+        unless @resource.repo.exists?('nodes.tsv')
+          raise("#{@resource.repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
         end
         @relationships.each_key { |klass| import_and_prop_ids(klass) }
         @log.start('restoring vernacular preferences...')
@@ -239,7 +238,7 @@ class Publishing
 
     def grab_file(name)
       @log.start("#grab_file #{name}")
-      if repo_file = @repo.file(name)
+      if repo_file = @resource.repo.file(name)
         open(@data_file, 'wb') { |file| file.write(repo_file) }
       else
         return false
