@@ -106,9 +106,12 @@ module TraitBank
         return true
       end
 
-      def remove_by_resource(resource, stage, size)
+      def remove_by_resource(resource, stage, size, republish)
         log = resource.log_handle
-        return 0 if remove_by_resource_complete?(resource, log)
+        if remove_by_resource_complete?(resource, log)
+          republish(resource) if republish
+          return 0
+        end
         
         removal_tasks = build_removal_tasks(resource)
         index = STAGES.index(stage)
@@ -121,9 +124,14 @@ module TraitBank
         end
         
         if stage == 'end'
-          return end_trait_content_removal_background_jobs(resource, log) if remove_by_resource_complete?(resource, log)
-          log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
-          enqueue_trait_removal_stage(resource.id, 1)
+          if remove_by_resource_complete?(resource, log)
+            end_trait_content_removal_background_jobs(resource, log)
+            republish(resource) if republish
+            return 0
+          else
+            log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
+            enqueue_trait_removal_stage(resource.id, 1)
+          end
         elsif stage == 'prune_metadata'
           prune_metadata_with_too_many_relationships(resource.id)
           enqueue_next_trait_removal_stage(resource.id, index)
@@ -147,6 +155,10 @@ module TraitBank
             end
           end
         end
+      end
+
+      def republish(resource)
+        Delayed::Job.enqueue(RepublishJob.new(resource.id))
       end
 
       def build_removal_tasks(resource)
@@ -182,7 +194,7 @@ module TraitBank
         size ||= DEFAULT_REMOVAL_BATCH_SIZE
         stage = STAGES[index]
         Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
-        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size))
+        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size, false))
       end
 
       # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "normal"

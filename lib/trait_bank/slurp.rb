@@ -17,8 +17,6 @@ class TraitBank::Slurp
   # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
   # NOTE: this is the method called by Publishing::Fast
   def load_resource_from_repo
-    repo = ContentServerConnection.new(@resource, @logger)
-
     @diff_metadata = repo.trait_diff_metadata
 
     ResourceNode.create_if_missing(
@@ -41,8 +39,7 @@ class TraitBank::Slurp
 
   # TraitBank::Slurp.new(res).load_resource_metadata_from_repo # ...and wait.
   #def load_resource_metadata_from_repo
-  #  repo = ContentServerConnection.new(@resource)
-  #  repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
+  #  @resource.repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
   #  config = load_csv_config
   #  metadata = config.keys.last
   #  load_csv(metadata, config[metadata])
@@ -52,9 +49,8 @@ class TraitBank::Slurp
   #end
 
   def heal_traits
-    repo = ContentServerConnection.new(@resource)
-    repo.copy_file(@resource.traits_file, 'traits.tsv')
-    repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
+    @resource.repo.copy_file(@resource.traits_file, 'traits.tsv')
+    @resource.repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
     heal_traits_by_type("traits_#{@resource.id}.csv", :Trait)
     heal_traits_by_type("meta_traits_#{@resource.id}.csv", :MetaTrait)
     post_load_cleanup
@@ -620,11 +616,7 @@ class TraitBank::Slurp
   end
 
   def remove_traits
-    if @diff_metadata.remove_all_traits?
-      @logger.info('removing all traits')
-
-      @resource.remove_trait_content
-    elsif @diff_metadata.removed_traits_file.present?
+    if @diff_metadata.removed_traits_file.present?
       @logger.info('removing traits specified in diff file')
 
       count = 0

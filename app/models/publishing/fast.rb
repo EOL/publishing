@@ -45,13 +45,9 @@ class Publishing
       @resource = resource
       # NOTE: this is likely to get overridden once we create a new log, but nice to have in case we need it:
       @log = log # Okay if it's nil.
-      @repo = create_server_connection
+      @repo = @resource.repo
       @files = []
       @can_clean_up = true
-    end
-
-    def create_server_connection
-      ContentServerConnection.new(@resource, @log)
     end
 
     # NOTE: this does NOT work for traits. Don't try. You'll need to make a different method for that.
