@@ -17,7 +17,7 @@ class TraitBank::Slurp
   # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
   # NOTE: this is the method called by Publishing::Fast
   def load_resource_from_repo
-    @diff_metadata = repo.trait_diff_metadata
+    @diff_metadata = @resource.repo.trait_diff_metadata
 
     ResourceNode.create_if_missing(
       @resource.id,
