@@ -290,6 +290,10 @@ class Resource < ApplicationRecord
     "[#{name}](https://eol.org/resources/#{id})"
   end
 
+  def new_log
+    @log = Publishing::PubLog.new(self, use_existing_log: false)
+  end
+
   def log_handle
     @log ||= Publishing::PubLog.new(self, use_existing_log: true)
   end
@@ -500,7 +504,7 @@ class Resource < ApplicationRecord
   def republish
     @diff_metadata = repo.trait_diff_metadata
     if @diff_metadata.remove_all_traits?
-      log_handle.info('removing all traits')
+      new_log.info('removing all traits')
 
       background_remove_trait_content(republish: true)
     else

@@ -28,7 +28,6 @@ class Publishing
     end
 
     def load_local_file(klass, file)
-      new_log
       set_relationships
       @klass = klass
       @data_file = file
@@ -61,7 +60,6 @@ class Publishing
         # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
         positions << @klass.column_names.index(field.to_s) - 1
       end
-      new_log
       begin
         plural = @klass.table_name
         unless @repo.exists?("#{plural}.tsv")
@@ -132,7 +130,6 @@ class Publishing
     def by_resource
       set_relationships
       abort_if_already_running
-      new_log
       unless @resource.nodes.count.zero?
         begin
           @resource.remove_non_trait_content
@@ -185,7 +182,6 @@ class Publishing
     def traits_by_resource
       abort_if_already_running
       @log = Publishing::PubLog.new(@resource, use_existing_log: true)
-      @repo = create_server_connection
       @can_clean_up = true
       begin
         publish_traits_with_cleanup
@@ -216,12 +212,6 @@ class Publishing
         @resource.log("ABORTED: #{info}")
         raise(info)
       end
-    end
-
-    def new_log
-      @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
-      @repo = create_server_connection
-      @log
     end
 
     def import_and_prop_ids(klass)
