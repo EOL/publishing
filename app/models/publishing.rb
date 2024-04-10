@@ -5,7 +5,7 @@ class Publishing
   class << self
     def work(queue)
       ImportLog.all_clear! if queue == 'harvest'
-      worker = Delayed::Worker.new(queues: ['harvest'])
+      worker = Delayed::Worker.new(queues: [queue])
       worker.name_prefix = queue + ' '
       worker.start
     end
