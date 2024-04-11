@@ -305,7 +305,7 @@ class TraitBank::Slurp
 
       # build nodes required by all rows
       nodes.each do |node|
-        try_again = true
+        retries = 3
         begin
           where = skip_pks.any? ?
             "NOT row.eol_pk IN [#{skip_pks.map { |pk| "'#{pk}'" }.join(', ')}]" :
@@ -313,11 +313,13 @@ class TraitBank::Slurp
 
           build_nodes(node, csv_query_head(sub_filename, where))
         rescue => e
-          if try_again
-            try_again = false
+          unless retries.zero?
             @logger.warn(e.message)
-            @logger.warn("FAILED on build_nodes query (#{node.label}), will "\
-                         "re-try once...")
+            @logger.warn("FAILED on build_nodes query (#{node.label}), will re-try #{retries} times after 5 minute pause "\
+            "(the site may be too busy to serve the CSV to Neo4j)...")
+            retries -= 1
+            sleep(5.minutes)
+            @logger.warn("...re-trying.")
             retry
           end
         end
