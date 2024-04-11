@@ -33,14 +33,14 @@ class ContentServerConnection
   end
 
   def copy_file_for_remote_url(local_path, remote_url)
-    open(local_path, 'wb') { |f| f.write(file_for_url(remote_url)) }
+    open(local_path, 'wb') { |f| f.write(contents_from_url(remote_url)) }
   end
 
   def file(name)
-    file_for_url(file_url(name))
+    contents_from_url(file_url(name))
   end
 
-  def file_for_url(url)
+  def contents_from_url(url)
     # Need to get the _harvester_session cookie or this will not work:
     uri = URI.parse(Rails.configuration.creds[:repository][:url] + '/')
     http = Net::HTTP.new(uri.host, uri.port)
@@ -55,13 +55,43 @@ class ContentServerConnection
       log_warn("MISSING #{@repo_site}#{url} [#{response.code}] (#{response.size} bytes); skipping")
       return false
     elsif response.body.size < response.content_length - 1
-      log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length}")
-      return false
+      log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length} from #{@repo_site}#{url}")
+      return wget_file(url)
     end
     # NOTE: neo4j cannot properly handle all cases of meta-quoted double quotes ("") so we change them here
     # to backslashed quotes (\"). This is not the greatest place to do it, as we've obfuscated the transofmration,
     # but it would be less efficient elsewhere.
-    response.body.gsub(/\\\n/, "\n").gsub(/\\N/, '').gsub(/""/, '\\"')
+    fix_neo4j_illegal_quotes(response.body)
+  end
+
+  def wget_file(url)
+    log_warn('USING wget TO RETRIEVE FULL FILE...')
+    timestamp = Time.now.to_i
+    local_file = Rails.root.join('tmp', "#{@resource.abbr}_tmp_#{timestamp}_#{File.basename(url)}")
+    log_file = Rails.root.join('tmp', "#{@resource.abbr}_tmp_#{timestamp}.log")
+    `wget -c -r -O #{local_file} -o #{log_file} #{url}`
+    log_wget_response(log_file)
+    read_wget_output_to_string(local_file)
+  end
+
+  def log_wget_response(log_file)
+    File.readlines(log_file).reject {|l| l =~ / .......... /}.reject {|l| l == "\n" }.each do |line|
+      log_info(line)
+    end
+    File.unlink(log_file)
+  end
+
+  def read_wget_output_to_string(local_file)
+    contents = File.readlines(local_file)
+    contents.each do |line|
+      line = fix_neo4j_illegal_quotes(line)
+    end
+    File.unlink(local_file)
+    contents.join
+  end
+
+  def fix_neo4j_illegal_quotes(string)
+    string.gsub(/\\\n/, "\n").gsub(/\\N/, '').gsub(/""/, '\\"')
   end
 
   def trait_diff_metadata
