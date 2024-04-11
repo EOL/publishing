@@ -3001,9 +3001,16 @@ pms:
           arfletenta
         https://eol(dot)org/schema/terms/refracting_superposition_eyes: euj an dzor-esposission
           refrataria
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_REG: rigenerator
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002256: seul ëd regh
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
-        http://eol(dot)org/schema/terms/ReproductiveSkew: Deviassion arprodutiva
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: temperadura d'arprodussion
+        http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: condission arprodutiva
+        http://eol(dot)org/schema/terms/ReproductiveSkew: deviassion arprodutiva
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: strategìa arprodutiva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: serbator
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: ritm respiratòri
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: sistema respiratòri
         http://eol(dot)org/schema/terms/RespClip: capassità ëd chërse ancor apress
           ël taj
         http://eol(dot)org/schema/terms/RespDist: capassità ëd chërse ancor apress
