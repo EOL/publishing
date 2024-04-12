@@ -124,6 +124,8 @@ services:
       - TZ=America/New_York
     command: memcached -m 4096m
     profiles: ["cache"]
+    ports:
+      - 11211:11211
   neo4j:
     <<: *default-deploy
     profiles: ["graph"]
