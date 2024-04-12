@@ -4,8 +4,8 @@ x-app: &default-app
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV
     - RAILS_MASTER_KEY
-    - ELASTICSEARCH_URL=elasticsearch:9200
-    - REDIS_HOST=redis
+    - ELASTICSEARCH_URL
+    - REDIS_HOST
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
@@ -37,8 +37,8 @@ x-worker: &default-worker
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV
     - RAILS_MASTER_KEY
-    - ELASTICSEARCH_URL=elasticsearch:9200
-    - REDIS_HOST=redis
+    - ELASTICSEARCH_URL
+    - REDIS_HOST
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
