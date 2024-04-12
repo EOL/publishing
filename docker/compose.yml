@@ -156,8 +156,8 @@ services:
       - 7687:7687
   mysql:
     <<: *default-deploy
-    image: mysql:5.7.31
-    container_name: eol_publishing_mysql_ENV
+    image: mysql:8
+    container_name: eol_publishing_mysql_${RAILS_ENV}
     restart: always
     environment:
       - TZ=America/New_York
@@ -167,8 +167,11 @@ services:
       - MYSQL_PASSWORD=SomethingSuperSecureHereToo
     profiles: ["sql"]
     volumes:
-       - /u/data/eol_publishing_mysql_ENV:/var/lib/mysql
-       - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
+      - /u/data/eol_publishing_mysql_${RAILS_ENV}:/var/lib/mysql
+      - /u/data/eol_publishing_mysql_${RAILS_ENV}_temp:/tmp
+      - /u/data/eol_publishing_mysql_${RAILS_ENV}_conf:/etc/mysql/conf.d/
+    ports:
+      - 3306:3306
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     <<: *default-deploy
     profiles: ["redis"]
