@@ -155,7 +155,21 @@ services:
       - 7474:7474
       - 7687:7687
   mysql:
-    <<: *default-deploy
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 16G
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+    logging:
+      driver: "local"
+      options:
+        max-file: "3"
+        max-size: "5m"
     image: mysql:8
     container_name: eol_publishing_mysql_${RAILS_ENV}
     restart: always
