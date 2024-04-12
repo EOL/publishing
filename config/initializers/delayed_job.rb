@@ -26,6 +26,22 @@ RepublishJob = Struct.new(:resource_id) do
   end
 end
 
+RepublishTraitsJob = Struct.new(:resource_id) do
+  def perform
+    resource = Resource.find(resource_id)
+    Delayed::Worker.logger.info("Re-publishing TRAITS ONLY for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Publishing::Fast.traits_by_resource(resource)
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
 RemoveTraitContentJob = Struct.new(:resource_id, :stage, :size, :republish) do
   def perform
     resource = Resource.find(resource_id)
