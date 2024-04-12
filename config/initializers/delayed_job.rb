@@ -30,7 +30,7 @@ RepublishTraitsJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
     Delayed::Worker.logger.info("Re-publishing TRAITS ONLY for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
-    Publishing::Fast.traits_by_resource(resource)
+    resource.republish_traits
   end
 
   def queue_name

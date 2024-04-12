@@ -514,12 +514,17 @@ class Resource < ApplicationRecord
 
   # Meant to be called manually:
   def republish_traits
+    raise "You MUST remove traits manually, first" unless trait_count.zero?
     Publishing::Fast.traits_by_resource(self)
+  end
+
+  def background_republish_traits
+    Delayed::Job.enqueue(RepublishJob.new(id))
   end
 
   # Note this does NOT include metadata!
   def trait_count
-    TraitBank::Admin.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
+    TraitBank.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
   end
 
   def file_dir
