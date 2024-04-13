@@ -304,7 +304,7 @@ class TraitBank::Slurp
       yield filename
     else
       num_chunks = (line_count / MAX_CSV_SIZE.to_f).ceil
-      @logger.warn("Found #{line_count} rows, will break up into #{MAX_CSV_SIZE}")
+      @logger.warn("Found #{line_count} rows, will break up into #{num_chunks} of #{MAX_CSV_SIZE}")
       break_up_large_file(filename, line_count) do |sub_filename, chunk|
         yield sub_filename
       end
@@ -324,7 +324,7 @@ class TraitBank::Slurp
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
         wait_time = chunk * 2.minutes
         wait_time = 30.minutes if wait_time > 30.minutes
-        @logger.info("Waiting #{wait_time / 60} minutes for the last 'chunk' to be added to neo4j...")
+        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j...")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
