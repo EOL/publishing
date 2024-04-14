@@ -324,7 +324,9 @@ class TraitBank::Slurp
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
         wait_time = chunk * 2.minutes
         wait_time = 30.minutes if wait_time > 30.minutes
-        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j...")
+        node_count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(@resource.id)
+        trait_count = TraitBank::Queries.count_traits_by_resource_nocache(@resource.id)
+        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j. Nodes: #{node_count}; Traits: #{trait_count}")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
