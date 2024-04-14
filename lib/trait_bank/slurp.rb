@@ -296,6 +296,7 @@ class TraitBank::Slurp
         load_csv_where(clause, filename: sub_filename, nodes: nodes, config: where_config)
       end
     end
+    log_node_count
   end
 
   def break_up_large_files(filename)
@@ -324,9 +325,8 @@ class TraitBank::Slurp
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
         wait_time = chunk * 2.minutes
         wait_time = 30.minutes if wait_time > 30.minutes
-        node_count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(@resource.id)
-        trait_count = TraitBank::Queries.count_traits_by_resource_nocache(@resource.id)
-        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j. Nodes: #{node_count}; Traits: #{trait_count}")
+        log_node_count
+        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j.")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
@@ -342,6 +342,12 @@ class TraitBank::Slurp
       yield(sub_file, chunks + 1)
       File.unlink("#{resource_file_dir}/#{sub_file}")
     end
+  end
+
+  def log_node_count
+    node_count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(@resource.id)
+    trait_count = TraitBank::Queries.count_traits_by_resource_nocache(@resource.id)
+    @logger.info("Nodes: #{node_count}; Traits: #{trait_count}")
   end
 
   def size_of_file(filename)
