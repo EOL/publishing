@@ -273,13 +273,13 @@ class Resource < ApplicationRecord
     TraitBank::Admin.remove_non_trait_content_for_resource(self)
   end
 
-  def background_remove_trait_content(options = {})
-    Delayed::Job.enqueue(RemoveTraitContentJob.new(id, 'begin', 0, options[:republish]))
+  def background_remove_trait_content(republish)
+    Delayed::Job.enqueue(RemoveTraitContentJob.new(id, 'begin', 0, republish))
   end
 
   def remove_all_content
     remove_non_trait_content
-    background_remove_trait_content
+    background_remove_trait_content(false)
   end
 
   def repo
@@ -501,12 +501,12 @@ class Resource < ApplicationRecord
     Delayed::Job.enqueue(DiffJob.new(id))
   end
 
-  def republish
+  def background_republish
     @diff_metadata = repo.trait_diff_metadata
     if @diff_metadata.remove_all_traits?
       new_log.info('removing all traits')
 
-      background_remove_trait_content(republish: true)
+      background_remove_trait_content(true)
     else
       Delayed::Job.enqueue(RepublishJob.new(id))
     end

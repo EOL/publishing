@@ -14,7 +14,7 @@ RepublishJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
     Delayed::Worker.logger.info("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
-    Publishing::Fast.by_resource(resource)
+    resource.publish
   end
 
   def queue_name

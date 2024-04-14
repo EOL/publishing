@@ -80,18 +80,20 @@ class ImportLog < ApplicationRecord
   end
 
   def fail(error)
-    log("Manual failure called, process must have died.", cat: :errors)
+    msg = error[0..250]
+    log("Manual failure called, process must have died. (#{msg})", cat: :errors)
     update_attribute(:failed_at, Time.now)
-    update_attribute(:status, error[0..250])
+    update_attribute(:status, msg)
   end
 
   def fail_on_error(e)
     if e.backtrace
       e.backtrace.reverse.each_with_index do |trace, i|
         break if trace =~ /\/bundler/
-        break if i > 9 # Too much info, man!
         if i > 2
           # TODO: Add other filters here...
+          next if trace =~ /bin\/rails/
+          next if trace =~ /kernel_require.rb/
           next unless trace =~ /publishing/
         end
         trace.gsub!(/^.*\/gems\//, 'gem:') # Remove ruby version stuff...
