@@ -89,17 +89,17 @@ class ImportLog < ApplicationRecord
   def fail_on_error(e)
     if e.backtrace
       e.backtrace.reverse.each_with_index do |trace, i|
-        break if trace =~ /\/bundler/
+        break if trace =~ /\/bundler/ || trace =~ /bin\/rails/
+        skip = false # `next` doesn't seem to work here for some reason (?)
         if i > 2
-          # TODO: Add other filters here...
-          next if trace =~ /bin\/rails/
-          next if trace =~ /kernel_require.rb/
-          next unless trace =~ /publishing/
+          skip = true if trace =~ /kernel_require\.rb/
         end
-        trace.gsub!(/^.*\/gems\//, 'gem:') # Remove ruby version stuff...
-        trace.gsub!(/^.*\/ruby\//, 'ruby:') # Remove ruby version stuff...
-        trace.gsub!(/^.*\/publishing\//, './') # Remove website path..
-        log(trace, cat: :errors)
+        unless skip
+          trace.gsub!(/^.*\/gems\//, 'gem:') # Remove ruby version stuff...
+          trace.gsub!(/^.*\/ruby\//, 'ruby:') # Remove ruby version stuff...
+          trace.gsub!(/^.*\/publishing\//, './') # Remove website path..
+          log(trace, cat: :errors)
+        end
       end
     end
     fail(e.message.gsub(/#<(\w+):0x[0-9a-f]+>/, '\\1')) # I don't need the memory information for models
