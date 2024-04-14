@@ -278,7 +278,7 @@ class TraitBank::Slurp
       nodes.each do |node|
         retries = 3
         begin
-          build_nodes(node, csv_query_head(sub_filename, where))
+          build_nodes(node, csv_query_head(sub_filename, wheres))
         rescue => e
           unless retries.zero?
             @logger.warn(e.message)
