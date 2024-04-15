@@ -13,7 +13,7 @@ Delayed::Worker.raise_signal_exceptions = :term # unlock jobs on SIGTERM so that
 RepublishJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Delayed::Worker.logger.warn("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     resource.publish
   end
 
@@ -29,7 +29,7 @@ end
 RepublishTraitsJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Re-publishing TRAITS ONLY for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Delayed::Worker.logger.warn("Re-publishing TRAITS ONLY for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     resource.republish_traits
   end
 
@@ -45,8 +45,8 @@ end
 RemoveTraitContentJob = Struct.new(:resource_id, :stage, :size, :republish) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource #{resource.log_string}")
-    Delayed::Worker.logger.info("...will #{republish ? '' : 'NOT'} republish when complete (#{republish})")
+    Delayed::Worker.logger.warn("Removing TraitBank data (stage: #{stage}) for resource #{resource.log_string}")
+    Delayed::Worker.logger.warn("...will #{republish ? '' : 'NOT'} republish when complete (#{republish})")
     TraitBank::Admin.remove_by_resource(resource, stage, size, republish)
   end
 
@@ -62,7 +62,7 @@ end
 ReindexJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Delayed::Worker.logger.warn("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_missing_page_contents
   end
@@ -79,7 +79,7 @@ end
 FixNoNamesJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Delayed::Worker.logger.warn("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_no_names
   end
