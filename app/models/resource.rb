@@ -505,7 +505,7 @@ class Resource < ApplicationRecord
     @diff_metadata = repo.trait_diff_metadata
     if @diff_metadata.remove_all_traits?
       new_log.info('Harvesting server requests removal of all traits')
-
+      new_log.pause
       background_remove_trait_content(true)
     else
       Delayed::Job.enqueue(RepublishJob.new(id))

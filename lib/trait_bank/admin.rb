@@ -158,9 +158,11 @@ module TraitBank
             end
           end
         end
+        log.pause
       end
 
       def republish(resource)
+        resource.log_handle.pause
         Delayed::Job.enqueue(RepublishJob.new(resource.id))
       end
 

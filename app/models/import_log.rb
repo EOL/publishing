@@ -5,6 +5,8 @@ class ImportLog < ApplicationRecord
   scope :successful, -> { where("completed_at IS NOT NULL") }
   scope :running, -> { where("completed_at IS NULL AND failed_at IS NULL") }
 
+  PAUSE_STATUS = 'paused'
+
   class << self
     def all_clear!
       now = Time.now
@@ -18,7 +20,7 @@ class ImportLog < ApplicationRecord
       if ImportRun.where(completed_at: nil).any?
         return("A Publishing run appears to be active. #{undo}")
       end
-      logging = ImportLog.where(completed_at: nil, failed_at: nil).includes(:resource)
+      logging = ImportLog.where(completed_at: nil, failed_at: nil).where("status <> '#{PAUSE_STATUS}'").includes(:resource)
       if logging.any?
         info = "Currently publishing: "
         info += logging.map do |log|
@@ -84,6 +86,10 @@ class ImportLog < ApplicationRecord
     log("Manual failure called, process must have died. (#{msg})", cat: :errors)
     update_attribute(:failed_at, Time.now)
     update_attribute(:status, msg)
+  end
+
+  def pause
+    update_attribute(:status, PAUSE_STATUS)
   end
 
   def fail_on_error(e)

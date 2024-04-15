@@ -21,6 +21,11 @@ class Publishing::PubLog
     log(what.to_s, cat: :starts)
   end
 
+  def pause
+    @resource.import_logs.last&.pause
+    log("...pausing for next background job...", cat: :ends)
+  end
+
   def end(what)
     log(what.to_s, cat: :ends)
   end
