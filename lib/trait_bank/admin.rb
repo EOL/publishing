@@ -101,7 +101,7 @@ module TraitBank
       def end_trait_content_removal_background_jobs(resource, log)
         msg = "There is no (remaining) trait content for #{resource.log_string}, job complete."
         log.log(msg)
-        Delayed::Worker.logger.info(msg)
+        Rails.logger.warn(msg)
         resource.complete
       end
 
@@ -198,7 +198,7 @@ module TraitBank
       def enqueue_trait_removal_stage(resource_id, index, size = nil)
         size ||= DEFAULT_REMOVAL_BATCH_SIZE
         stage = STAGES[index]
-        Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
+        Rails.logger.warn("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
         Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size, false))
       end
 

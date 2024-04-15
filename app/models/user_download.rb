@@ -91,24 +91,24 @@ class UserDownload < ApplicationRecord
 private
   def background_build
     begin
-      Delayed::Worker.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
+      Rails.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
       self.update(processing_since: Time.current)
       downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: user_id)
       self.filename = downloader.background_build
       self.status = :completed
     rescue => e
-      Delayed::Worker.logger.error("!! ERROR in background_build for User Download #{id}")
+      Rails.logger.error("!! ERROR in background_build for User Download #{id}")
       Rails.logger.error("!! ERROR in background_build for User Download #{id}")
       Rails.logger.error("!! #{e.message}")
-      Delayed::Worker.logger.error("!! #{e.message}")
+      Rails.logger.error("!! #{e.message}")
       Rails.logger.error("!! #{e.backtrace.join('->')}")
-      Delayed::Worker.logger.error("!! #{e.backtrace.join('->')}")
+      Rails.logger.error("!! #{e.backtrace.join('->')}")
       mark_as_failed(e.message, e.backtrace.join("\n"))
       raise e
     ensure
       self.completed_at = Time.now
       save! # NOTE: this could fail and we lose everything.
-      Delayed::Worker.logger.warn("End background build of #{count} rows for #{term_query} -> #{search_url}")
+      Rails.logger.warn("End background build of #{count} rows for #{term_query} -> #{search_url}")
     end
   end
   handle_asynchronously :background_build, :queue => "download"
