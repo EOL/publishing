@@ -176,6 +176,7 @@ class Publishing
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
         @log.close
         ImportLog.all_clear!
+        Rails.cache.delete("trait_bank/count_by_resource/#{@resource.id}")
       end
     end
 
@@ -193,6 +194,7 @@ class Publishing
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
         @log.close
         ImportLog.all_clear!
+        Rails.cache.delete("trait_bank/count_by_resource/#{@resource.id}")
       end
     end
 

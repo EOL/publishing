@@ -524,7 +524,7 @@ class Resource < ApplicationRecord
 
   # Note this does NOT include metadata!
   def trait_count
-    TraitBank.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
+    TraitBank::Queries.count_by_resource(id)
   end
 
   def file_dir

@@ -14,7 +14,7 @@ module TraitBank
       end
 
       def count_by_resource(id)
-        Rails.cache.fetch("trait_bank/count_by_resource/#{id}", expires_in: 15.minutes) do
+        Rails.cache.fetch("trait_bank/count_by_resource/#{id}", expires_in: 1.hour) do
           count_traits_by_resource_nocache(id)
         end
       end
