@@ -34,7 +34,16 @@ module TraitBank
           "USING INDEX res:Resource(resource_id) "\
           "WITH count(trait) as count "\
           "RETURN count")
-        res["data"] ? res["data"].first.first : false
+        get_count(res)
+      end
+
+      def count_metadata_by_resource_nocache(id)
+        res = TraitBank.query(
+          "MATCH (res:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)-[:metadata]->(meta:MetaData) "\
+          "USING INDEX res:Resource(resource_id) "\
+          "WITH count(meta) as count "\
+          "RETURN count")
+        get_count(res)
       end
 
       def count_by_resource_and_page(resource_id, page_id)
@@ -44,7 +53,7 @@ module TraitBank
             "USING INDEX res:Resource(resource_id) USING INDEX page:Page(page_id) "\
             "WITH count(trait) as count "\
             "RETURN count")
-          res["data"] ? res["data"].first.first : false
+          get_count(res)
         end
       end
 
@@ -54,7 +63,7 @@ module TraitBank
             "MATCH (trait:Trait)<-[#{TRAIT_RELS}]-(page:Page { page_id: #{page_id} }) "\
             "WITH count(trait) as count "\
             "RETURN count")
-          res["data"] ? res["data"].first.first : false
+          get_count(res)
         end
       end
 
@@ -75,7 +84,7 @@ module TraitBank
             "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
             "WITH count(distinct(term.uri)) AS count "\
             "RETURN count")
-          res["data"] ? res["data"].first.first : false
+          get_count(res)
         end
       end
 
@@ -129,6 +138,10 @@ module TraitBank
             trait.target_scientific_name, object_term.uri, trait.literal, trait.measurement, units.uri,
             trait.normal_measurement, normal_units.uri, resource.resource_id
         })
+      end
+
+      def get_count(res)
+        res["data"] ? res["data"].first.first : false
       end
 
       # each argument is expected to be an Array of strings

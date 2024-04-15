@@ -347,7 +347,8 @@ class TraitBank::Slurp
   def log_node_count
     node_count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(@resource.id)
     trait_count = TraitBank::Queries.count_traits_by_resource_nocache(@resource.id)
-    @logger.info("Nodes: #{node_count}; Traits: #{trait_count}")
+    meta_count = TraitBank::Queries.count_metadata_by_resource_nocache(@resource.id)
+    @logger.info("Nodes: #{node_count}; Traits: #{trait_count}; MetaData: #{meta_count}")
   end
 
   def size_of_file(filename)
