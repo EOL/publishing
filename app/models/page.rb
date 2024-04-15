@@ -42,7 +42,7 @@ class Page < ApplicationRecord
   has_many :page_icons, inverse_of: :page
   has_one :dh_node, -> { dh }, class_name: "Node"
 
-  has_many :page_contents, -> { visible.not_untrusted.order(:position) }
+  has_many :page_contents, -> { visible.is_not_untrusted.order(:position) }
   has_many :articles, through: :page_contents, source: :content, source_type: "Article"
   has_many :media, through: :page_contents, source: :content, source_type: "Medium"
   has_many :regular_media, -> { regular }, through: :page_contents, source: :content, source_type: "Medium"
