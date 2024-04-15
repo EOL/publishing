@@ -258,7 +258,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    kgio (2.11.4)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -328,6 +327,8 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.3)
+    puma (6.4.2)
+      nio4r (~> 2.0)
     pundit (2.3.1)
       activesupport (>= 3.0.0)
     racc (1.7.3)
@@ -367,7 +368,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rainbow (3.1.1)
-    raindrops (0.20.1)
     rake (13.1.0)
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
@@ -452,11 +452,10 @@ GEM
     semantic_range (3.0.0)
     set (1.0.3)
     sexp_processor (4.17.0)
-    sidekiq (7.2.2)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.19.0)
+    sidekiq (6.5.5)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.5.0)
     simple_form (5.2.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -516,9 +515,6 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (1.8.0)
-    unicorn (6.1.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     uri (0.10.0.2)
     uri_template (0.7.0)
     warden (1.2.9)
@@ -589,6 +585,7 @@ DEPENDENCIES
   nokogiri (>= 1.13.5)
   oj (~> 3.13)
   pry-rails
+  puma
   pundit (~> 2.1)
   rack-cors
   rails (= 5.2.6.3)
@@ -601,7 +598,7 @@ DEPENDENCIES
   rubyzip (~> 2.3)
   sass-rails
   searchkick (~> 4.5)
-  sidekiq
+  sidekiq (~> 6.5)
   simple_form (~> 5.1)
   simplecov (~> 0)
   sitemap_generator (~> 6.2)
@@ -609,7 +606,6 @@ DEPENDENCIES
   spring (~> 2)
   typhoeus (~> 1.4)
   uglifier (~> 4.2)
-  unicorn (~> 6.1)
   web-console (~> 3)
   webpacker (~> 6.0.0.beta)
 
