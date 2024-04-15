@@ -92,6 +92,12 @@ module TraitBank
         TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
       end
 
+      def remove_by_resource_complete?(resource, log)
+        count = count_remaining_graph_nodes(resource.id)
+        return false unless count.zero?
+        return true
+      end
+      
       def end_trait_content_removal_background_jobs(resource, log)
         msg = "There is no (remaining) trait content for #{resource.log_string}, job complete."
         log.log(msg)
@@ -99,17 +105,14 @@ module TraitBank
         resource.complete
       end
 
-      def remove_by_resource_complete?(resource, log)
-        count = count_remaining_graph_nodes(resource.id)
-        return false unless count.zero?
-        end_trait_content_removal_background_jobs(resource, log)
-        return true
-      end
-
       def remove_by_resource(resource, stage, size, republish)
         log = resource.log_handle
         if remove_by_resource_complete?(resource, log)
-          republish(resource) if republish
+          if republish
+            republish(resource)
+          else
+            end_trait_content_removal_background_jobs(resource, log)
+          end
           return 0
         end
         
