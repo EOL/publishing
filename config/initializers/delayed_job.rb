@@ -46,7 +46,7 @@ RemoveTraitContentJob = Struct.new(:resource_id, :stage, :size, :republish) do
   def perform
     resource = Resource.find(resource_id)
     Delayed::Worker.logger.info("Removing TraitBank data (stage: #{stage}) for resource #{resource.log_string}")
-    Delayed::Worker.logger.info("...will republish when complete") if republish
+    Delayed::Worker.logger.info("...will #{republish ? '' : 'NOT'} republish when complete (#{republish})")
     TraitBank::Admin.remove_by_resource(resource, stage, size, republish)
   end
 
