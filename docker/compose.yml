@@ -6,6 +6,7 @@ x-app: &default-app
     - RAILS_MASTER_KEY
     - ELASTICSEARCH_URL
     - REDIS_HOST
+    - CACHE_URL
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
@@ -39,6 +40,7 @@ x-worker: &default-worker
     - RAILS_MASTER_KEY
     - ELASTICSEARCH_URL
     - REDIS_HOST
+    - CACHE_URL
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
