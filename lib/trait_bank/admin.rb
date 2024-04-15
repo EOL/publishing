@@ -105,10 +105,10 @@ module TraitBank
         resource.complete
       end
 
-      def remove_by_resource(resource, stage, size, republish)
+      def remove_by_resource(resource, stage, size, should_republish)
         log = resource.log_handle
         if remove_by_resource_complete?(resource, log)
-          if republish
+          if should_republish
             republish(resource)
           else
             end_trait_content_removal_background_jobs(resource, log)
@@ -129,7 +129,7 @@ module TraitBank
         if stage == 'end'
           if remove_by_resource_complete?(resource, log)
             end_trait_content_removal_background_jobs(resource, log)
-            republish(resource) if republish
+            republish(resource) if should_republish
             return 0
           else
             log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
