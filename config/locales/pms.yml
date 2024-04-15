@@ -3009,6 +3009,7 @@ pms:
         http://eol(dot)org/schema/terms/ReproductiveSkew: deviassion arprodutiva
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: strategìa arprodutiva
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: serbator
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: resna
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: ritm respiratòri
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: sistema respiratòri
         http://eol(dot)org/schema/terms/RespClip: capassità ëd chërse ancor apress
@@ -3017,8 +3018,21 @@ pms:
           dle përturbassion
         http://eol(dot)org/schema/terms/RespFire: capassità ëd chërse torna apress
           un feu
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: età
+          ressian-a
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: risòma
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: risòma
+        http://eol(dot)org/schema/terms/rhizomesOrRoots: risòma o rèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: risosfera
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: età
+          rudanian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: perìod
+          ritassian
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000418: ria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: risera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000283: crësta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000148: torent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: brass mòrt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fium
         http://eol(dot)org/schema/terms/RNAtoDNAratio: rapòrt ARN:ADN
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profondeur ëd l'anreisament
