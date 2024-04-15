@@ -6,6 +6,7 @@ class ImportLog < ApplicationRecord
   scope :running, -> { where("completed_at IS NULL AND failed_at IS NULL") }
 
   PAUSE_STATUS = 'paused'
+  LIMIT = 65_000
 
   class << self
     def all_clear!
@@ -39,13 +40,15 @@ class ImportLog < ApplicationRecord
   def log(body, options = nil)
     options ||= {}
     cat = options[:cat] || :starts
+    called_by = caller[1].sub(%r{.*/}, '')
+    body = "#{called_by}> #{body}"
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
     end
   end
 
   def log_update(body)
-    raise "Updates limited to 65,500 characters" if body.size > 65_500
+    body = body[0..LIMIT] if body.size > LIMIT
     options ||= {}
     last_event = ImportEvent.where(import_log: self).last
     if last_event.updates?
@@ -58,9 +61,9 @@ class ImportLog < ApplicationRecord
 
   def chop_into_text_chunks(str)
     chunks = []
-    while str.size > 65_500
-      chunks << str[0..65_500]
-      str = str[65_500..-1]
+    while str.size > LIMIT
+      chunks << str[0..LIMIT]
+      str = str[LIMIT..-1]
     end
     chunks << str
     chunks
