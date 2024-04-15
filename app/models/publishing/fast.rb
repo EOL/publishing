@@ -51,6 +51,7 @@ class Publishing
     def update_attributes(klass, fields)
       require 'csv'
       abort_if_already_running
+      @log.running
       @klass = klass
       fields = Array(fields)
       positions = []
@@ -128,6 +129,7 @@ class Publishing
     def by_resource
       set_relationships
       abort_if_already_running
+      @log.running
       unless @resource.nodes.count.zero?
         begin
           @resource.remove_non_trait_content
@@ -180,6 +182,7 @@ class Publishing
     def traits_by_resource
       abort_if_already_running
       @log = Publishing::PubLog.new(@resource, use_existing_log: true)
+      @log.running
       @can_clean_up = true
       begin
         publish_traits_with_cleanup

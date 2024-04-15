@@ -65,9 +65,9 @@ class ImportLog < ApplicationRecord
   end
 
   def running
-    update_attribute(:completed_at, nil)
-    update_attribute(:failed_at, nil)
-    update_attribute(:status, 'currently running')
+    update_attribute(:completed_at, nil) unless completed_at.nil?
+    update_attribute(:failed_at, nil) unless failed_at.nil?
+    update_attribute(:status, 'currently running') unless status == 'currently running'
     resource.touch # Ensure that we see the resource as having changed
     log('Running', cat: :starts)
   end

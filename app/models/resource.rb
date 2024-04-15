@@ -504,7 +504,7 @@ class Resource < ApplicationRecord
   def background_republish
     @diff_metadata = repo.trait_diff_metadata
     if @diff_metadata.remove_all_traits?
-      new_log.info('removing all traits')
+      new_log.info('Harvesting server requests removal of all traits')
 
       background_remove_trait_content(true)
     else
