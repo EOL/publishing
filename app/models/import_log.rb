@@ -40,8 +40,20 @@ class ImportLog < ApplicationRecord
   def log(body, options = nil)
     options ||= {}
     cat = options[:cat] || :starts
-    called_by = caller[1].sub(%r{.*/}, '')
-    body = "#{called_by}> #{body}"
+    call_level = 0
+    call_stack = caller
+    stack_size = call_stack.size
+    called_by = 'import_log.rb:' # Dummy, just to get started, sorry.
+    while called_by =~ /(pry_instance|(import|pub)_log).rb:/
+      call_level += 1
+      called_by = call_stack[call_level].sub(%r{.*/}, '')
+    end
+    parent_caller = called_by
+    while parent_caller.sub(/:.*$/, '') == called_by.sub(/:.*$/, '') && call_level < stack_size
+      call_level += 1
+      parent_caller = call_stack[call_level].sub(%r{.*/}, '')
+    end
+    body = "#{parent_caller}> #{called_by}> #{body}"
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
     end
