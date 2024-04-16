@@ -69,7 +69,9 @@ class ContentServerConnection
     timestamp = Time.now.to_i
     local_file = Rails.root.join('tmp', "#{@resource.abbr}_tmp_#{timestamp}_#{File.basename(url)}")
     log_file = Rails.root.join('tmp', "#{@resource.abbr}_tmp_#{timestamp}.log")
-    `wget -c -r -O #{local_file} -o #{log_file} #{url}`
+    `wget -c -r -O #{local_file} -o #{log_file} #{@repo_site}#{url}`
+    second_timestamp = Time.now.to_i
+    log_warn("Took #{second_timestamp - timestamp} seconds.")
     log_wget_response(log_file)
     read_wget_output_to_string(local_file)
   end
