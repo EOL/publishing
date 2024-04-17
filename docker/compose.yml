@@ -1,5 +1,4 @@
 x-app: &default-app
-  image: publishing
   restart: always
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV
@@ -30,7 +29,8 @@ x-app: &default-app
       max-size: 5m
 
 x-worker: &default-worker
-  image: publishing
+  build:
+    context: ..
   restart: always
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV
