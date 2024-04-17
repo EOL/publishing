@@ -61,8 +61,8 @@ x-worker: &default-worker
       max-size: "5m"
 
 x-default-deploy: &default-deploy
-  cpus: '0.5'
-  mem_limit: 1G
+  cpus: '1'
+  mem_limit: 16G
   deploy:
     restart_policy:
       condition: on-failure
