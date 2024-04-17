@@ -14,12 +14,9 @@ x-app: &default-app
     - memcached
     - redis
     - elasticsearch
+  cpus: 2
+  mem_limit: 8G
   deploy:
-    resources:
-      limits:
-        cpus: 2
-        # This seems REALLY high, but, yeah, this is how much it needs. Alas.
-        memory: 8G
     restart_policy:
       condition: on-failure
       delay: 16s
@@ -48,11 +45,9 @@ x-worker: &default-worker
     - memcached
     - redis
     - elasticsearch
+  cpus: '0.5'
+  mem_limit: 8G
   deploy:
-    resources:
-      limits:
-        cpus: '0.5'
-        memory: 8G
     restart_policy:
       condition: on-failure
       delay: 8s
@@ -66,11 +61,9 @@ x-worker: &default-worker
       max-size: "5m"
 
 x-default-deploy: &default-deploy
+  cpus: '0.5'
+  mem_limit: 1G
   deploy:
-    resources:
-      limits:
-        cpus: '0.5'
-        memory: 1G
     restart_policy:
       condition: on-failure
       delay: 8s
@@ -84,11 +77,9 @@ x-default-deploy: &default-deploy
 
 services:
   elasticsearch:
+    cpus: '1'
+    mem_limit: '4.5G'
     deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: '4.5G'
       restart_policy:
         condition: on-failure
         delay: 8s
@@ -159,11 +150,9 @@ services:
       - 7474:7474
       - 7687:7687
   mysql:
+    cpus: 2
+    mem_limit: 16G
     deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 16G
       restart_policy:
         condition: on-failure
         delay: 8s
