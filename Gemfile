@@ -5,7 +5,7 @@ gem 'rails', '5.2.6.3'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 # Use puma as the web host
-gem 'puma'
+gem 'puma', '~> 6.4'
 
 # TEMP: Fixes a licensing issue with Rails:
 gem 'mimemagic', '0.4.3'
