@@ -9,6 +9,9 @@ Rails.application.configure do
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL_stage", compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
+
+  config.action_dispatch.default_headers.merge!({ 'X-Frame-Options' => 'ALLOWALL' })
+
   config.action_controller.perform_caching = true
   config.action_mailer.default_url_options = Rails.configuration.creds[:host].symbolize_keys
   config.action_mailer.raise_delivery_errors = false

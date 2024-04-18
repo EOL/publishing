@@ -29,6 +29,8 @@ Rails.application.configure do
   cache_addr = ENV.fetch('CACHE_URL') { 'memcached' }
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL_prod", compress: true }
 
+  config.action_dispatch.default_headers.merge!({ 'X-Frame-Options' => 'ALLOWALL' })
+  
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = Rails.configuration.creds[:host].symbolize_keys
   config.action_mailer.raise_delivery_errors = false
