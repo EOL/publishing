@@ -22,15 +22,16 @@
       - @selected_predicates.each do |p|
         - name = p.name
         - group_data = @grouped_data[p]
-        - traits = group_data.traits
-        - trait_count_for_group = group_data.count
-        - if !@filtered_by_predicate
-          .data-section-head
-            %div
-            %h3= name
-            .data-section-head-more
-              - if @selected_predicate.nil? && trait_count_for_group.present? && @traits_per_group < trait_count_for_group
-                = link_to(t(".n_hidden_show_all_noname", count: trait_count_for_group - @traits_per_group), page_data_path(page_id: @page.id, predicate_id: p.id))
-        - traits.each do |trait|
-          = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => true, :page_is_assoc_obj => p.inverse_only? }
+        - if group_data
+          - traits = group_data.traits
+          - trait_count_for_group = group_data.count
+          - if !@filtered_by_predicate
+            .data-section-head
+              %div
+              %h3= name
+              .data-section-head-more
+                - if @selected_predicate.nil? && trait_count_for_group.present? && @traits_per_group < trait_count_for_group
+                  = link_to(t(".n_hidden_show_all_noname", count: trait_count_for_group - @traits_per_group), page_data_path(page_id: @page.id, predicate_id: p.id))
+          - traits.each do |trait|
+            = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => true, :page_is_assoc_obj => p.inverse_only? }
 
