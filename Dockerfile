@@ -9,14 +9,14 @@ COPY . /app
 
 RUN ln -s /tmp /app/tmp
 # This removes a problem with asset compiling (SSL within node):
-ENV NODE_OPTIONS="--openssl-legacy-provider npm run start" \
-    NODE_ENV="production" \
+ENV NODE_OPTIONS="--openssl-legacy-provider npm run start"\
+    NODE_ENV="production"\
     BUNDLE_PATH="/gems"
 
-RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'` \
-  && bundle config set without 'test development staging' \
-  && bundle install --jobs 10 --retry 1 \
-  && bundle config set --global path /gems \
+RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`\
+  && bundle config set without 'test development staging' 
+  && bundle install --jobs 10 --retry 1\
+  && bundle config set --global path /gems\
   && yarn install
 
 ARG rails_secret_key
@@ -26,12 +26,17 @@ ARG rails_env
 # --build-arg rails_env=$RAILS_ENV --build-arg traitbank_url=$TRAITBANK_URL \
 # --build-arg neo4j_driver_url=$NEO4J_DRIVER_URL --build-arg neo4j_user=$NEO4J_USER \
 # --build-arg neo4j_password=$NEO4J_PASSWORD 
-RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} \
-  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url} \
-  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password} \ 
-  && RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} \
-  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url} \
-  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password} \
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
+  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
+  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
+  && echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD"
+
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
+  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
+  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
+  && RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
+  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
+  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\
   bundle exec rails assets:precompile
 
 CMD ["bash"]
@@ -49,8 +54,8 @@ RUN chmod 0755 bin/*
 ARG rails_secret_key
 ARG rails_env
 
-ENV NODE_OPTIONS="--openssl-legacy-provider npm run start" \
-  NODE_ENV="production" \
+ENV NODE_OPTIONS="--openssl-legacy-provider npm run start"\
+  NODE_ENV="production"\
   BUNDLE_PATH="/gems"
 
 # Copying the directory again in case we locally updated the code (but don't have to rebuild seabolt!)
@@ -63,8 +68,8 @@ COPY --from=assets /app/Gemfile /app/Gemfile.lock /app/.
 # Just to save me a few grey hairs:
 COPY config/.vimrc /root/.vimrc
 
-RUN bundle config set without 'test development staging' \
-  && bundle install --jobs 10 --retry 1 \
+RUN bundle config set without 'test development staging'\
+  && bundle install --jobs 10 --retry 1\
   && bundle config set --global path /gems
 
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && git config --global user.email '$EOL_GITHUB_EMAIL'"]
