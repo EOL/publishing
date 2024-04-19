@@ -4,17 +4,17 @@ LABEL last_full_rebuild="2024-03-21"
 
 WORKDIR /app
 
+# This seems redundant, but if we don't do this, we can't build this container with NEW code:
+COPY . /app
+
 RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
-  && echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD" > foo.txt
+  echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD" > /app/foo.txt
 
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && echo $RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD"]
 ENTRYPOINT ["/bin/bash"]
 # RUN sleep 300
-
-# # This seems redundant, but if we don't do this, we can't build this container with NEW code:
-# COPY . /app
 
 # RUN ln -s /tmp /app/tmp
 # # This removes a problem with asset compiling (SSL within node):
