@@ -70,7 +70,6 @@ x-worker: &default-worker
 
 x-default-deploy: &default-deploy
   cpus: '1'
-  mem_limit: 16G
   deploy:
     restart_policy:
       condition: on-failure
@@ -118,6 +117,7 @@ services:
         max-size: "5m"
   memcached:
     <<: *default-deploy
+    mem_limit: 16G
     image: memcached
     container_name: publishing_memcached
     restart: always
@@ -129,6 +129,8 @@ services:
       - 11211:11211
   neo4j:
     <<: *default-deploy
+    # Yes, this really needs a ton of memory to function. It will run out quickly. You may want to _increase_ this:
+    mem_limit: 48G
     profiles: ["graph"]
     image: neo4j:4.2.3
     container_name: neo4j
@@ -189,6 +191,7 @@ services:
       - 3306:3306
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     <<: *default-deploy
+    mem_limit: 4G
     profiles: ["redis"]
     image: redis:6.0
     container_name: redis
@@ -250,6 +253,7 @@ services:
       - /u/data/publishing_web_private:/app/data
   nginx:
     <<: *default-deploy
+    mem_limit: 4G
     profiles: ["load"]
     build:
       context: ..
