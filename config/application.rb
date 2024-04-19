@@ -47,9 +47,9 @@ module EolWebsite
     config.traitbank_url = ENV.fetch('TRAITBANK_URL') { "http://neo4j_username:password_here@neo4j:7474" }
 
     # For activenode/ruby-neo4j-driver gems, not neography
-    config.neo4j.driver.url = Rails.configuration.creds[:neo4j_driver_url]
-    config.neo4j.driver.username = Rails.configuration.creds[:neo4j_user]
-    config.neo4j.driver.password = Rails.configuration.creds[:neo4j_password]
+    config.neo4j.driver.url = ENV.fetch('NEO4J_DRIVER_URL') { "bolt://neo4j:7687" }
+    config.neo4j.driver.username = ENV.fetch('NEO4J_USER') { "neo4j_username" }
+    config.neo4j.driver.password = ENV.fetch('NEO4J_PASSWORD') { "password_here" }
     config.neo4j.driver.encryption = false
 
     # Search for classes in the lib directory

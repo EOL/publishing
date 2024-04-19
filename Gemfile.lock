@@ -585,7 +585,7 @@ DEPENDENCIES
   nokogiri (>= 1.13.5)
   oj (~> 3.13)
   pry-rails
-  puma
+  puma (~> 6.4)
   pundit (~> 2.1)
   rack-cors
   rails (= 5.2.6.3)
