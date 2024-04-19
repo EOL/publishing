@@ -65,8 +65,4 @@ Rails.application.configure do
 
   config.x.resource_authority = 'https://beta.eol.org'
 
-  Rails.configuration.repository_url = Rails.configuration.creds[:repository][:url]
-  Rails.configuration.eol_web_url = Rails.configuration.creds[:host][:url]
-  Rails.configuration.x.image_path = Rails.configuration.creds[:image_path]
-  Rails.configuration.traitbank_url = Rails.configuration.creds[:traitbank_url]
 end

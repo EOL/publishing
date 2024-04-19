@@ -40,6 +40,12 @@ module EolWebsite
     # Our credentials are environment-specific (for now; Rails 6 fixes this):
     config.creds = Rails.application.credentials[Rails.env.to_sym]
 
+    
+    config.repository_url = Rails.configuration.creds[:repository][:url]
+    config.eol_web_url = Rails.configuration.creds[:host][:url]
+    config.x.image_path = Rails.configuration.creds[:image_path]
+    config.traitbank_url = ENV.fetch('TRAITBANK_URL') { "http://neo4j_username:password_here@neo4j:7474" }
+
     # For activenode/ruby-neo4j-driver gems, not neography
     config.neo4j.driver.url = Rails.configuration.creds[:neo4j_driver_url]
     config.neo4j.driver.username = Rails.configuration.creds[:neo4j_user]

@@ -1,11 +1,11 @@
 x-app: &default-app
   restart: always
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
-    - RAILS_ENV
-    - RAILS_MASTER_KEY
-    - ELASTICSEARCH_URL
-    - REDIS_HOST
-    - CACHE_URL
+    - RAILS_ENV=${RAILS_ENV}
+    - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+    - REDIS_HOST=${REDIS_HOST}
+    - CACHE_URL=${CACHE_URL}
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql

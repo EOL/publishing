@@ -43,10 +43,6 @@ Rails.application.configure do
   logger           = Logger.new(STDOUT)
   logger.formatter = config.log_formatter
   config.logger    = ActiveSupport::TaggedLogging.new(logger)
-end
 
-Rails.configuration.repository_url = Rails.configuration.creds[:repository][:url]
-Rails.configuration.eol_web_url = Rails.configuration.creds[:host][:url]
-Rails.configuration.x.image_path = Rails.configuration.creds[:image_path]
-Rails.configuration.traitbank_url = Rails.configuration.creds[:traitbank_url]
-Rails.configuration.git_version = `cd #{Rails.root} && git rev-parse HEAD`
+  config.git_version = `cd #{Rails.root} && git rev-parse HEAD`
+end

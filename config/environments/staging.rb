@@ -31,9 +31,3 @@ Rails.application.configure do
   config.logger    = ActiveSupport::TaggedLogging.new(logger)
 end
 
-# NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
-# sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
-Rails.configuration.repository_url = Rails.configuration.creds[:repository][:url]
-Rails.configuration.eol_web_url = Rails.configuration.creds[:host][:url]
-Rails.configuration.x.image_path = Rails.configuration.creds[:image_path]
-Rails.configuration.traitbank_url = Rails.configuration.creds[:traitbank_url]
