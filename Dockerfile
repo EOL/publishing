@@ -50,9 +50,6 @@ WORKDIR /app
 COPY --chown=ruby:ruby bin/ ./bin
 RUN chmod 0755 bin/*
 
-ARG rails_secret_key
-ARG rails_env
-
 ENV NODE_OPTIONS="--openssl-legacy-provider npm run start"\
   NODE_ENV="production"\
   BUNDLE_PATH="/gems"
