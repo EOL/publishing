@@ -2,13 +2,14 @@ FROM encoflife/eol_seabolt_rails:2024.03.22.01 AS assets
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 LABEL last_full_rebuild="2024-03-21"
 
+WORKDIR /app
+
 RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
-  && echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD"
+  && echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD" > foo.text
+RUN cat foo.txt
 RUN sleep 300
-
-WORKDIR /app
 
 # This seems redundant, but if we don't do this, we can't build this container with NEW code:
 COPY . /app
