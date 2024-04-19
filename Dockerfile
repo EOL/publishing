@@ -22,11 +22,17 @@ RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'` \
 ARG rails_secret_key
 ARG rails_env
 # You will want to build using a command like this:
-# export $(grep -v '^#' .env | xargs) && dc build \
-#   --build-arg rails_secret_key=$RAILS_MASTER_KEY \
-#   --build-arg rails_env=$RAILS_ENV
-RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bin/webpack \ 
-  && RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} bundle exec rails assets:precompile
+# export $(grep -v '^#' .env | xargs) && dc build --build-arg rails_secret_key=$RAILS_MASTER_KEY \
+# --build-arg rails_env=$RAILS_ENV --build-arg traitbank_url=$TRAITBANK_URL \
+# --build-arg neo4j_driver_url=$NEO4J_DRIVER_URL --build-arg neo4j_user=$NEO4J_USER \
+# --build-arg neo4j_password=$NEO4J_PASSWORD 
+RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} \
+  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url} \
+  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password} \ 
+  && RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env} \
+  TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url} \
+  NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password} \
+  bundle exec rails assets:precompile
 
 CMD ["bash"]
 
