@@ -10,7 +10,7 @@ RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   && echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD" > foo.txt
 
 SHELL ["/bin/bash", "-c" , "source /app/docker/.env && echo $RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD"]
-ENTRYPOINT ["cat foo.txt"]
+ENTRYPOINT ["/bin/bash"]
 # RUN sleep 300
 
 # # This seems redundant, but if we don't do this, we can't build this container with NEW code:
