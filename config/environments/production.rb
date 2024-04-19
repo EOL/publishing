@@ -26,7 +26,7 @@ Rails.application.configure do
   config.lograge.enabled = true
   config.lograge.ignore_actions = ['PagesController#ping', 'ApiPingController#index', 'HomePageController#index']
 
-  cache_addr = ENV.fetch('CACHE_URL') { 'memcached' }
+  cache_addr = ENV.fetch('CACHE_URL') { 'memcached:11211' }
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL_prod", compress: true }
 
   config.action_dispatch.default_headers.merge!({ 'X-Frame-Options' => 'ALLOWALL' })

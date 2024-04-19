@@ -5,7 +5,7 @@ Rails.application.configure do
   config.reload_classes_only_on_change = true
   # And we want polling to see when they change (this works better for docker)
   config.file_watcher = ActiveSupport::FileUpdateChecker
-  cache_addr = Rails.configuration.creds[:cache_url]
+  cache_addr = ENV.fetch('CACHE_URL') { 'memcached:11211' }
   config.cache_store = :mem_cache_store, cache_addr, { namespace: "EOL_stage", compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
