@@ -1,6 +1,5 @@
 FROM encoflife/eol_seabolt_rails:2024.03.22.01 AS assets
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2024-03-21"
 
 WORKDIR /app
 
