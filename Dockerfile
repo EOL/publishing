@@ -6,7 +6,7 @@ RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
   && echo "$RAILS_ENV $TRAITBANK_URL $NEO4J_DRIVER_URL $NEO4J_USER $NEO4J_PASSWORD"\
-  && sleep(300)
+  && sleep 300
 
 WORKDIR /app
 
