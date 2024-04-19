@@ -6,6 +6,10 @@ x-app: &default-app
     - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
     - REDIS_HOST=${REDIS_HOST}
     - CACHE_URL=${CACHE_URL}
+    - TRAITBANK_URL=${TRAITBANK_URL}
+    - NEO4J_DRIVER_URL=${NEO4J_DRIVER_URL}
+    - NEO4J_USER=${NEO4J_USER}
+    - NEO4J_PASSWORD=${NEO4J_PASSWORD}
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
@@ -38,6 +42,10 @@ x-worker: &default-worker
     - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
     - REDIS_HOST=${REDIS_HOST}
     - CACHE_URL=${CACHE_URL}
+    - TRAITBANK_URL=${TRAITBANK_URL}
+    - NEO4J_DRIVER_URL=${NEO4J_DRIVER_URL}
+    - NEO4J_USER=${NEO4J_USER}
+    - NEO4J_PASSWORD=${NEO4J_PASSWORD}
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
