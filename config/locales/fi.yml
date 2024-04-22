@@ -14,18 +14,18 @@ fi:
   about:
     trait_bank:
       title: TraitBank
-      body_html: <p>EOlin tekniikan ja datanhallinnan tiimi tarkoittaa EOLin rakenteisen
+      body_html: <p>EOL:n tekniikan ja datanhallinnan tiimi tarkoittaa EOL:n rakenteisen
         datan resursseja - dataa eliöiden piirteistä ja muista ominaisuuksista, ekologisista
         vuorovaikutuksista, omasta luokittelustamme - jotka yhdessä muodostavat TraitBankin
         (Piirrepankki). Tätä sisältöä hallinnoidaan jokseenkin eri tavalla kuin "klassista"
         sisältöämme - kuvia, videoita, audiomateriaalia ja kuvailevaa tekstiä - ja
         siitä on hyötyä monella tapaa.</p><p>TraitBank on uudempi kuin muu EOL; sen
         suunnitteli alun perin Species Pages Group -ryhmän johtaja Cynthia Parr, ja
-        sai alkunsa EOLin 2. versiossa tammikuussa 2014. Siitä lähtien rakenteinen
+        sai alkunsa EOL:n 2. versiossa tammikuussa 2014. Siitä lähtien rakenteinen
         data on ollut tärkein sisällönkehityksen kohteemme.</p><p>Nyt voit <a href='%{example_search_path}'>etsiä</a>
-        tai selata EOLia rakenteisen datan mukaan tai ladata tämän datan. Saatat myös
-        kohdata sen uudella yleiskatsaus-välilehdellämme <a href='%{autogen_page_path}'>autogeneroidun
-        tekstin</a> muodossa. Kuten muukin EOLin sisältö, se on uudelleenkäytettävissä,
+        tai selata EOL:ää rakenteisen datan mukaan tai ladata tämän datan. Saatat
+        myös kohdata sen uudella yleiskatsaus-välilehdellämme <a href='%{autogen_page_path}'>autogeneroidun
+        tekstin</a> muodossa. Kuten muukin EOL:n sisältö, se on uudelleenkäytettävissä,
         ja sen mukana on yksityiskohtaiset attribuutiotiedot, jotta voit mahdollisesti
         käyttäessäsi sitä omissa projekteissasi mainita sen.</p><p>Tämä data on mallinnettu
         <a href='%{property_graph_url}'>ominaisuuskaavioksi</a> <a href='%{neo4j_url}'>neo4j:ssä</a>.
@@ -1179,6 +1179,7 @@ fi:
       toggle_text:
         taxon_summary: näytä taksoniyhteenveto
     properties:
+      citation: Bibliografinen lainaus
       scientific_name: Tieteellinen nimi
       source: Lähde
     search_hdr: Tiedon haku
@@ -1199,6 +1200,11 @@ fi:
       show_query: näytä kysely
       switch_to_list: vaihda luettelonäkymään
       switch_to_gallery: vaihda gallerianäkymään
+    search:
+      select:
+        top_level:
+          object_term: tai valitse arvo
+          predicate: tai valitse määrite
     search_form:
       attribute_eg: määrite (esim. trofiataso)
       clade_filter_placeholder: ryhmä (esim. karhut) (valinnainen)
@@ -2115,6 +2121,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: itiö
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: takytsoiitti
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: hermafrodiitti
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007616: kukintavaihe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: kotelo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: murtovesiestuaari
 ...
