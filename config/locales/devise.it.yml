@@ -1,0 +1,48 @@
+# Messages for Italian (italiano)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+# Author: Beta16
+# Author: Champ0999
+# Author: Toa
+---
+it:
+  devise:
+    confirmations:
+      confirmed: L'indirizzo email è stato confermato correttamente.
+      send_instructions: Riceverai una email con istruzioni su come confermare il
+        tuo indirizzo di posta elettronica entro alcuni minuti.
+    failure:
+      already_authenticated: Hai già effettuato l'accesso.
+      inactive: Il tuo account non è ancora attivo.
+      locked: La tua utenza è bloccata, riprova tra un'ora
+      last_attempt: Hai ancora un tentativo prima che il tuo account venga bloccato.
+      recaptcha_error: Si è verificato un errore con il codice recaptcha. Inserisci
+        nuovamente il codice e premi invia.
+      timeout: La sessione è scaduta. Accedi nuovamente per continuare.
+      unauthenticated: È necessario accedere o registrarsi per continuare.
+      unconfirmed: È necessario confermare il tuo indirizzo email prima di continuare.
+    mailer:
+      confirmation_instructions:
+        action: Conferma il mio account
+        greeting: Benvenuta/o %{recipient}!
+        instruction: 'Puoi confermare il tuo indirizzo email tramite il seguente link:'
+      reset_password_instructions:
+        action: Cambia password
+        greeting: 'Ciao #{recipient}!'
+        subject: Istruzioni per reimpostare la password
+      password_change:
+        greeting: 'Ciao #{recipient}!'
+        message: Ti contattiamo per comunicarti che la tua password è stata modificata.
+        subject: Password modificata
+    passwords:
+      updated_not_active: La tua password è stata cambiata con successo.
+    registrations:
+      update_needs_confirmation: Hai aggiornato il tuo account con successo, ma dobbiamo
+        verificare il tuo nuovo indirizzo email. Controlla la tua posta e clicca sul
+        link di conferma per confermare il tuo nuovo indirizzo email.
+      updated: Il tuo account è stato aggiornato con successo.
+  errors:
+    messages:
+      not_found: non trovato
+...
