@@ -40,7 +40,6 @@ module EolWebsite
     # Our credentials are environment-specific (for now; Rails 6 fixes this):
     config.creds = Rails.application.credentials[Rails.env.to_sym]
 
-    
     config.repository_url = Rails.configuration.creds[:repository][:url]
     config.eol_web_url = Rails.configuration.creds[:host][:url]
     config.x.image_path = Rails.configuration.creds[:image_path]
