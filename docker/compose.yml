@@ -17,7 +17,7 @@ x-app: &default-app
     - memcached
     - redis
     - elasticsearch
-  cpus: 2
+  cpus: 1
   mem_limit: 8G
   deploy:
     restart_policy:
