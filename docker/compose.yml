@@ -210,7 +210,7 @@ services:
     ports:
       - "3000"
     deploy:
-      replicas: 12
+      replicas: 24
   pub_sidekiq:
     <<: *default-worker
     container_name: pub_sidekiq
