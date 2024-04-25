@@ -28,11 +28,14 @@
       = @resource.description
 
   - if @resource.import_logs.empty?
-    %p This resource has not been imported yet.
+    %p No import logs to show.
   - else
     %p
-      Last published
-      = l(@resource.last_published_at, format: '%Y-%m-%d %H:%M:%S')
+      - if @resource.last_published_at.nil?
+        This resource has not been successfully published, yet.
+      - else
+        Last published
+        =l(@resource.last_published_at, format: '%Y-%m-%d %H:%M:%S')
     %h2 Content
     %p
       %ul.uk-subnav
