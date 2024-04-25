@@ -24,6 +24,7 @@ ARG traitbank_url
 ARG neo4j_driver_url
 ARG neo4j_user
 ARG neo4j_password
+
 # You will want to build using a command like this:
 # export $(grep -v '^#' .env | xargs) && dc build --build-arg rails_secret_key=$RAILS_MASTER_KEY \
 # --build-arg rails_env=$RAILS_ENV --build-arg traitbank_url=$TRAITBANK_URL \
