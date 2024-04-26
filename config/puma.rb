@@ -1,8 +1,8 @@
 bind "tcp://0.0.0.0:#{ENV.fetch('PORT') { '3000' }}"
 environment ENV.fetch('RAILS_ENV') { 'production' }
 
-workers Integer(ENV.fetch('WEB_WORKERS') { 1 })
-threads_count = Integer(ENV.fetch('WEB_THREADS') { 3 })
+workers Integer(ENV.fetch('WEB_WORKERS') { 3 })
+threads_count = Integer(ENV.fetch('WEB_THREADS') { 5 })
 threads threads_count, threads_count
 
 preload_app!

@@ -17,9 +17,11 @@ x-app: &default-app
     - memcached
     - redis
     - elasticsearch
-  cpus: 2
-  mem_limit: 8G
   deploy:
+    resources:
+      limits:
+        cpus: '2.00'
+        memory: 8G
     restart_policy:
       condition: on-failure
       delay: 16s
@@ -53,9 +55,11 @@ x-worker: &default-worker
     - memcached
     - redis
     - elasticsearch
-  cpus: '0.5'
-  mem_limit: 8G
   deploy:
+    resources:
+      limits:
+        cpus: '0.50'
+        memory: 8G
     restart_policy:
       condition: on-failure
       delay: 8s
@@ -69,13 +73,6 @@ x-worker: &default-worker
       max-size: "5m"
 
 x-default-deploy: &default-deploy
-  cpus: '1'
-  deploy:
-    restart_policy:
-      condition: on-failure
-      delay: 8s
-      max_attempts: 3
-      window: 120s
   logging:
     driver: "local"
     options:
@@ -84,9 +81,11 @@ x-default-deploy: &default-deploy
 
 services:
   elasticsearch:
-    cpus: '1'
-    mem_limit: '4.5G'
     deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 5G
       restart_policy:
         condition: on-failure
         delay: 8s
@@ -117,7 +116,16 @@ services:
         max-size: "5m"
   memcached:
     <<: *default-deploy
-    mem_limit: 16G
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 16G
     image: memcached
     container_name: publishing_memcached
     restart: always
@@ -129,8 +137,17 @@ services:
       - 11211:11211
   neo4j:
     <<: *default-deploy
-    # Yes, this really needs a ton of memory to function. It will run out quickly. You may want to _increase_ this:
-    mem_limit: 48G
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '4.00'
+          # Yes, this really needs a ton of memory to function. It will run out quickly. You may want to _increase_ this:
+          memory: 48G
     profiles: ["graph"]
     image: neo4j:4.2.3
     container_name: neo4j
@@ -160,9 +177,11 @@ services:
       - 7474:7474
       - 7687:7687
   mysql:
-    cpus: 2
-    mem_limit: 16G
     deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 16G
       restart_policy:
         condition: on-failure
         delay: 8s
@@ -190,8 +209,17 @@ services:
     ports:
       - 3306:3306
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
-    <<: *default-deploy
-    mem_limit: 4G
+    <<: 
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 4G
     profiles: ["redis"]
     image: redis:6.0
     container_name: redis
@@ -210,7 +238,7 @@ services:
     ports:
       - "3000"
     deploy:
-      replicas: 24
+      replicas: 18
   pub_sidekiq:
     <<: *default-worker
     container_name: pub_sidekiq
@@ -253,7 +281,16 @@ services:
       - /u/data/publishing_web_private:/app/data
   nginx:
     <<: *default-deploy
-    mem_limit: 4G
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 4G
     profiles: ["load"]
     build:
       context: ..
