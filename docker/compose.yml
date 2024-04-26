@@ -59,7 +59,7 @@ x-worker: &default-worker
   deploy:
     resources:
       limits:
-        cpus: '0.50'
+        cpus: '1.00'
         memory: 8G
     restart_policy:
       condition: on-failure
@@ -210,7 +210,7 @@ services:
     ports:
       - 3306:3306
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
-    <<: 
+    <<: *default-deploy
     deploy:
       restart_policy:
         condition: on-failure
