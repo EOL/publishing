@@ -18,6 +18,7 @@ x-app: &default-app
     - redis
     - elasticsearch
   deploy:
+    replicas: 12
     resources:
       limits:
         cpus: '2.00'
@@ -237,8 +238,6 @@ services:
       - /data/publishing_web_private:/app/data
     ports:
       - "3000"
-    deploy:
-      replicas: 18
   pub_sidekiq:
     <<: *default-worker
     container_name: pub_sidekiq
