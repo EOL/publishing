@@ -23,14 +23,15 @@ class UserDownload < ApplicationRecord
     where("(created_at >= ? AND status != ?) OR status = ?", EXPIRATION_TIME.ago, UserDownload.statuses[:completed], UserDownload.statuses[:completed])
   end
 
-  EXPIRATION_TIME = 30.days
+  EXPIRATION_TIME = 90.days
   VERSION = 1 # IMPORTANT: Increment this when making changes where you don't want older downloads to be reused
 
   class << self
-    # TODO: this should be set up in a regular task.
     def self.expire_old
-      where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
-        update_all(expired_at: Time.now)
+      where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).each do |dl|
+        dl.update(expired_at: Time.now)
+        dl.delete_file if dl.file_exists?
+      end
     end
 
     # ADMIN method (not called in code) to clear out jobs both in the DB and in Delayed::Job
@@ -88,6 +89,23 @@ class UserDownload < ApplicationRecord
     self.processing_since.present?
   end
 
+  def file_exists?
+    return false if filename.blank?
+    path = TraitBank::DataDownload.path.join(filename)
+    File.exist?(path)
+  end
+
+  def delete_file
+    if self.completed? && !self.filename.blank? && self.original?
+      path = TraitBank::DataDownload.path.join(self.filename)
+      begin
+        File.delete(path)
+      rescue => e
+        Rails.logger.error("Failed to delete user download file #{path}", e)
+      end
+    end
+  end
+
 private
   def background_build
     begin
@@ -112,15 +130,4 @@ private
     end
   end
   handle_asynchronously :background_build, :queue => "download"
-
-  def delete_file
-    if self.completed? && !self.filename.blank? && self.original?
-      path = TraitBank::DataDownload.path.join(self.filename)
-      begin
-        File.delete(path)
-      rescue => e
-        Rails.logger.error("Failed to delete user download file #{path}", e)
-      end
-    end
-  end
 end
