@@ -203,6 +203,7 @@ services:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=SomethingSuperSecureHereToo
     profiles: ["sql"]
+    # Note that MySQL does NOT use mounts in /data ... because that's NFS, and we don't want to be slowed down by it.
     volumes:
       - /u/data/eol_publishing_mysql_${RAILS_ENV}:/var/lib/mysql
       - /u/data/eol_publishing_mysql_${RAILS_ENV}_temp:/tmp
@@ -243,41 +244,41 @@ services:
     container_name: pub_sidekiq
     command: bundle exec sidekiq
     volumes:
-      - /u/data/publishing_web:/app/public/data
-      - /u/data/publishing_sidekiq_log:/app/log
-      - /u/data/publishing_web_private:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_sidekiq_log:/app/log
+      - /data/publishing_web_private:/app/data
   pub_crono:
     <<: *default-worker
     container_name: pub_crono
     command: bundle exec crono
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
-      - /u/data/publishing_web:/app/public/data
-      - /u/data/publishing_crono_log:/app/log
-      - /u/data/publishing_web_private:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_crono_log:/app/log
+      - /data/publishing_web_private:/app/data
   pub_worker:
     <<: *default-worker
     container_name: pub_worker
     command: bundle exec rails r "Publishing.work('harvest')"
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
-      - /u/data/publishing_web:/app/public/data
-      - /u/data/publishing_worker_log:/app/log
-      - /u/data/publishing_web_private:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_worker_log:/app/log
+      - /data/publishing_web_private:/app/data
   pub_data_worker:
     <<: *default-worker
     container_name: pub_data_worker
     command: bundle exec rails r "Publishing.work('download')"
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
-      - /u/data/publishing_web:/app/public/data
-      - /u/data/publishing_data_log:/app/log
-      - /u/data/publishing_web_private:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_data_log:/app/log
+      - /data/publishing_web_private:/app/data
   pub_integrity_worker:
     <<: *default-worker
     container_name: pub_integrity_worker
     command: bundle exec rails r "Publishing.work('data_integrity')"
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
-      - /u/data/publishing_web:/app/public/data
-      - /u/data/publishing_integrity_log:/app/log
-      - /u/data/publishing_web_private:/app/data
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_integrity_log:/app/log
+      - /data/publishing_web_private:/app/data
   nginx:
     <<: *default-deploy
     deploy:
