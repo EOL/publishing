@@ -121,9 +121,9 @@ module TraitBank
         raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove_by_resource, exiting." if index.nil?
 
         if stage == 'begin'
-          log.log("Removing trait content for #{resource.log_string}...")
           index += 1
           stage = STAGES[index]
+          log.log("Removing trait content for #{resource.log_string}, continuing to stage #{index}: #{stage}")
         end
         
         if stage == 'end'
@@ -136,7 +136,7 @@ module TraitBank
             enqueue_trait_removal_stage(resource.id, 1)
           end
         elsif stage == 'prune_metadata'
-          prune_metadata_with_too_many_relationships(resource.id)
+          prune_metadata_with_too_many_relationships(resource.id, log)
           enqueue_next_trait_removal_stage(resource.id, index)
         else
           # We're in one of the "normal" stages...
@@ -205,9 +205,10 @@ module TraitBank
       # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "normal"
       # delete process takes AGES. To avoid this, we find them beforehand and remove those relationships one metadata node
       # at a time, which is less process-intensive.
-      def prune_metadata_with_too_many_relationships(resource_id)
+      def prune_metadata_with_too_many_relationships(resource_id, log)
+        log.log("Pruning metadata...")
         resource_id = resource_id.to_i
-        results = TraitBank.query(%Q{
+        query = %Q{
           MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource_id} })
           WITH DISTINCT meta
           MATCH (meta)-[r]-()
@@ -215,8 +216,14 @@ module TraitBank
           RETURN meta.eol_pk, rel_count
           ORDER BY rel_count DESC
           LIMIT 20
-        }) # This can take a few seconds...
-        return nil unless results.has_key?('data') # Something went really wrong.
+        }
+        # This can take a few seconds...
+        results = TraitBank.query(query)
+        unless results.has_key?('data') # Something went really wrong.
+          log.log("WARNING: metadata relationship query had no 'data' key: #{query}")
+          log.log("Response keys: #{results.keys}")
+          return nil
+        end
         removed = 0
         while results['data']&.first&.last && results['data'].first.last > 20_000 do
           result = results['data'].shift
@@ -225,6 +232,7 @@ module TraitBank
           remove_metadata_relationships(eol_pk, rel_count)
           removed += rel_count
         end
+        log.log("...removed approximately #{removed} metadata relationships.")
         return removed
       end
 
