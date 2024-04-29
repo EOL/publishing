@@ -535,9 +535,14 @@ it:
     mi: Maori
     mr: Marathi
     mh: Marshallese
+    q13357: Meänkieli
     q13358: Meglenorumeno
+    q13321: Miꞌkmaq
+    q36455: Min Dong
+    q13324: Minangkabau
     q13359: Mingrelio
     q13330: Mirandese
+    q13343: Moksha
     mn: Mongolo
     q56426: Arabo marocchino
     q13300: Nahuatl
@@ -554,29 +559,46 @@ it:
     nob: Norvegese
     nor: Norvegese
     q36738: Novial
+    q4121131: Nyamwezi
     oc: Occitano (post 1500)
     q28602: Aramaico ufficiale
+    oj: Ojibwe
+    or: Oriya
+    om: Oromo
     os: Osseto
+    q715755: Paiwan
+    pi: Pāli
     pa: Punjabi
     fa: Persiano
+    q23014: Tedesco palatino
     q34024: Piccardo
     q15085: Piemontese
     pl: Polacco
     pol: Polacco
+    q36748: Pontico
     pt: Portoghese
     ps: Pashtu; Pashto
     qu: Quechua
     ro: Rumeno; Moldavo
     rm: Romancio
+    rn: Kirundi
     ru: Russo
     rus: Russo
+    q26245: Russino
+    q34299: Sacha
     sm: Samoano
     q213434: Samogitico
+    q34016: Sandawe
+    sg: Sango
     sa: Sanscrito
+    q33965: Santali
     sc: Sardo
     q845441: Sardo sassarese
     q14549: Scozzese
+    q716686: Seediq
     sr: Serbo
+    sn: Shona
+    q34004: Shona
     q33973: Siciliano
     sd: Sindhi
     si: Singalese
@@ -588,6 +610,7 @@ it:
     st: Sotho del sud
     es: Spagnolo; Castigliano
     slv: Spagnolo
+    q2638144: Sukuma
     su: Sundanese
     sw: Swahili
     ss: Swati
@@ -596,26 +619,48 @@ it:
     tl: Tagalog
     ty: Tahitiano
     tg: Tagico
+    q34318: Taliscio
     ta: Tamil
     tt: Tartaro
+    te: Telugu
     th: Thailandese
     tha: Thailandese
     bo: Tibetano
     ti: Tigrino
+    q34159: Tok pisin
     to: Tongano
+    q180937: Albanese tosco
+    ts: Tsonga
+    tn: Tswana
     q34251: Tulu
+    q34138: Tumbuka
     q56240: Arabo tunisino
     tr: Turco
     tur: Turco
     q36730: Turco, ottomano
+    tk: Turkmeno
+    tw: Twi
+    q13238: Udmurto
     uk: Ucraino
     ukr: Ucraino
     none: Non specificato
+    q13248: Alto sorabo
+    ur: Urdu
+    uz: Uzbeco
+    ve: Venda
+    q32747: Vepso
     vi: Vietnamita
+    vo: Volapük
+    q32858: Votico
+    wa: Vallone
+    q34279: Waray
     cy: Gallese
     wel: Gallese
     q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
+    wo: Wolof
+    q34290: Wu
+    xh: Xhosa
     yi: Yiddish
     yo: Yoruba
     q237409: Zelandese
@@ -1608,6 +1653,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: risaia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fiume
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: valle fluviale
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapporto rna:dna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: roccia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: deserto roccioso
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: radici
@@ -1627,6 +1673,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: sensoriale
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: sesso
         http://purl(dot)obolibrary(dot)org/obo/GO_0019953: riproduzione sessuale
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sessualmente dimorfico
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: arbusto
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seta
@@ -1646,6 +1693,7 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009029: stame
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: amido
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropicale
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: lunghezza della coda
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: denti
         http://eol(dot)org/schema/terms/TemperateOcean: oceano temperato
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: temperatura
