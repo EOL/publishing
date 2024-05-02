@@ -1300,6 +1300,8 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: canale
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: canne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: canyon
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: età
+          capitaniana
         https://eol(dot)org/schema/terms/carangiform: carangiforme
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: carapace
         http://eol(dot)org/schema/terms/CarapaceLength: lunghezza del carapace
@@ -1532,6 +1534,8 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: zona mesopelagica
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: era
           mesozoica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: età
+          messiniana
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: metabolico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: roccia metamorfica
         http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg

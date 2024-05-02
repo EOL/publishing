@@ -3049,6 +3049,10 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000440: balma dë spiuvent
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: desert rocos
         http://eol(dot)org/schema/terms/rockyGrassland: prairìa rocosa
+        https://eol(dot)org/schema/terms/rockyVegetated: sporgensa rocosa con vegetassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005799: sabia rocosa
+        http://eol(dot)org/schema/terms/rootCrown: coron-a dla rèis
+        http://eol(dot)org/schema/terms/root_feeder: as nuriss ëd rèis
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profondeur ëd l'anreisament
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rèis
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: corsa
