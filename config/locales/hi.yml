@@ -42,6 +42,10 @@ hi:
       missing: अनामांकित
   article_from_partner: '%{partner} द्वारा प्रदान किया गया'
   article_duplicate: यह लेख "%{section}" में भी दिखाया गया है
+  autocomplete:
+    see_all:
+      one: अन्य परिणाम देखें
+      other: सभी %{count} परिणाम देखें
   breadcrumbs:
     notices:
       canonical: वैज्ञानिक नाम अब पेज ब्रेडक्रंब में दिखाए जाएंगे
@@ -116,6 +120,7 @@ hi:
           r_subspecies: '%{name1}, %{name3} परिवार में %{name2} की एक प्रजाति है।'
           r_infraspecies: '%{name1}, %{name3} परिवार में %{name2} का एक इन्फ़्राजेनस
             है।'
+          r_form: '%{name1}, %{name3} परिवार में %{name2} की एक प्रजाति है।'
         without_family:
           r_subfamily: '%{name1}, %{name2} का एक उपपरिवार है।'
           r_infrafamily: '%{name1}, %{name2} का एक इन्फ़्राफ़ैमिली है।'
@@ -127,6 +132,7 @@ hi:
           r_superspecies: '%{name1}, %{name2} की एक सुपरप्रजाति है।'
           r_species: '%{name1}, %{name2} की एक प्रजाति है।'
           r_subspecies: '%{name1}, %{name2} की एक उप-प्रजाति है।'
+          r_infraspecies: '%{name1}, %{name2} की एक उप-प्रजाति है।'
           r_form: '%{name1}, %{name2} का एक रूप है।'
   button_create: बनाएँ
   button_add: जोड़ें
@@ -140,6 +146,9 @@ hi:
       header: '%{sci_name} के लिए क्यूरेटेड पदानुक्रम'
       see_resource_file: पूरी सूची के लिए <a href='%{href}'>संसाधन फ़ाइल</a> देखें.
       this_page: (यह पृष्ठ)
+      truncated_siblings:
+        one: संक्षिप्तता के लिए एक अतिरिक्त भाई-बहन को छोटा किया गया है।
+        other: '%{count} अतिरिक्त भाई-बहनों को संक्षिप्तता के लिए छोटा किया गया है।'
     richness:
       header: पृष्ठ समृद्धि
       score: समृद्धि स्कोर
@@ -157,11 +166,13 @@ hi:
       species_count: जाति
       updated_at: आखरी अपडेट
   collect_already_in_collection: (यह पहले से ही यहाँ है)
+  collect_already_in_collection_will_add_icon: ("%{page}" में मीडिया जोड़ें)
   collect_new_collection: नये संग्रह का नाम
   collect_new_collection_title: '...एक नया संग्रह'
   collect_no_existing_collections: आपके पास अभी तक कोई नहीं है! बाईं ओर दिए गए फ़ॉर्म
     का उपयोग करके एक बनाएं.
   collect_select_collection: '...आपके संग्रहों में से एक'
+  collect_title: '"%{item}" को इसमें जोड़ें…'
   collected_page_already_in_collection: वह आपके संग्रह में पहले से ही था.
   collected_pages_title: पृष्ठ
   collected_pages_medium:
@@ -172,6 +183,7 @@ hi:
     delete_button: हटाएँ
     edit_button: संपादित करें
     delete_confirm: क्या आप निश्चित है?
+    destroyed_flash: '%{name} को संग्रह से हटा दिया गया.'
   collection_associations_empty: इसके साथ कोई अन्य संग्रह संबद्ध नहीं है। आप अन्य
     संग्रहों को यहां प्रदर्शित करने के लिए उन पर "सहयोगी" बटन पर क्लिक कर सकते हैं।
   collection_associations_title: संबंधित संग्रह
@@ -208,6 +220,9 @@ hi:
       content:
         add: '%{user} ने पृष्ठ %{page} के लिए माध्यम %{medium} जोड़ा'
         remove: '%{user} ने पृष्ठ %{page} के लिए माध्यम %{medium} को हटा दिया'
+      page:
+        add: '%{user} ने पृष्ठ %{page} जोड़ा'
+        remove: '%{user} ने पृष्ठ हटा दिया %{page}'
       user:
         add: '%{user} ने मैनेजर जोड़ा %{manager}'
         remove: '%{user} ने मैनेजर को हटा दिया %{manager}'
@@ -267,6 +282,7 @@ hi:
       sex_term: जीव का लिंग नापा
       lifestage_term: जीव का जीवन स्तर नापा गया
       statistical_method_term: नाप के लिए उपयोग की जाने वाले सांख्यिकीय विधि
+  dear_username_with_comma: प्रिय %{username},
   delete_account_button: अपना खाता हटाएँ
   errors:
     internal_server: आंतरिक सर्वर त्रुटि (500)
@@ -718,6 +734,11 @@ hi:
   medium_header_description: 'विवरण:'
   names:
     prefer: पसंद
+    preferred_in_language_for_page: '%{name} अब %{page} के लिए पसंदीदा %{language}
+      स्थानीय भाषा है'
+    show_more_langs:
+      one: एक और भाषा दिखाएं
+      other: '%{count} और भाषाएं दिखाएं'
   nav:
     about: विवरण
     discuss: चर्चा करें
@@ -739,6 +760,7 @@ hi:
       reindex: अनुक्रमणः
     batch_lookup:
       header: बैच पृष्ठ खोज
+      canonical_name: वैधानिक नाम
       download_tsv: टीएसवी डाउनलोड करें
       match: मिलान
       new_search: नई खोज
@@ -756,6 +778,8 @@ hi:
         है। सभी रिकॉर्ड नीचे सूचीबद्ध हैं.
       show_all: सभी दिखाएं
     resource_names:
+      name_recognized_by: '%{by} द्वारा मान्यता प्राप्त'
+      name_recognized_by_w_rank: '%{rank} को %{by} द्वारा मान्यता दी गई'
       rank:
         r_domain: डोमेन
         r_subdomain: उपडोमेन
@@ -784,9 +808,22 @@ hi:
         r_supergenus: सुपरजीनस
         r_genus: जाति
         r_subgenus: उपजाति
+        r_infragenus: इन्फ्राजेनस
+        r_superspecies: सुपर प्रजाति
+        r_species: जाति
+        r_subspecies: उपप्रजाति
+        r_infraspecies: इन्फ्रास्पेशिस
+        r_form: फॉर्म
+      username_missing: उपयोगकर्ता %{user_id}
     trophic_web:
+      competitor: प्रतियोगी
       predator: परभक्षी
       prey: शिकार
+      reset: रिसेट
+      trophic_web_about: ईओएल खाद्य वेब आरेख एक प्रजाति के भोजन संबंधों पर ध्यान केंद्रित
+        करते हैं-वे प्रजातियों के साथ फोकल प्रजातियों को दिखाते हैं जो इसे खाते हैं
+        (शिकारी) प्रजातियां जो इसे खाते है (शिकारी) और अन्य प्रजातियां जो एक ही शिकार
+        पर फ़ीड करती हैं (संभावित प्रतियोगी) । अधिक जानने के लिए क्लिक करें।
     flash:
       reindexed: इस पृष्ठ के लिए कैश साफ़ कर दिए गए हैं। नए मानों को देखने के लिए
         पुनः लोड करें। ध्यान दें कि, इस समय, यह पृष्ठ पर छवियों को * पुनः अनुक्रमित
@@ -893,17 +930,53 @@ hi:
         help_text: प्रति पंक्ति वापस करने के लिए मानों की अधिकतम संख्या (0 बिना किसी
           सीमा के)
     schema_space:
+      intro: सुलह एपीआई सेवा द्वारा उपयोग किए जाने वाले गुणों का संग्रह नीचे वर्णित
+        है।
       headers:
+        id: आईडी
         name: नाम
+        description: विवरण
+  reference_compiled_from: '%{links} द्वारा संदर्भित'
+  reference_compiled_from_article: '%{source} लेख का शीर्षक "%{name}"'
+  register_new_account: नए खाते के लिए पंजीकरण करें
+  resources:
+    actions:
+      import_traits: गुण आयात करें (रिपोजिटरी से)
+      republish: पुनः प्रकाशित
+      clean_republish: स्वच्छ पुनर्प्रकाशन
+      diff: अंतर
+      republish_confirm: यह संसाधन के लिए सभी सामग्री को हटा देगा (लक्षणों को छोड़कर,
+        जो एक विसंगति का उपयोग करेगा। क्या आप निश्चित हैं?!
+      clean_republish_confirm: यह संसाधन के लिए सभी सामग्री को हटा देगा और विशेषता
+        अंतर का उपयोग नहीं करेगा। क्या आप निश्चित हैं?!
+      reindex: अनुक्रमणः
+      fix_no_names: कोई नाम ठीक न करें
+      index: सभी संसाधनों पर वापस जाएँ
+      show_all:
+        other: सभी दिखाएँ (%{count})
+      clear_publishing: ताला साफ़ करें
+      clear_publishing_confirm: इससे सभी प्रकाशन 'खत्म' हो जाएंगे, और सक्रिय प्रकाशन
+        के दौरान इसका उपयोग करने पर समस्याएँ पैदा हो सकती हैं। क्या आप निश्चित हैं?
+    headers:
+      index: संसाधन
+      import_log: '%{resource} के लिए लॉग आयात करें'
+    no_events: कोई नहीं
+  resource_missing: संसाधन नही मिला
   scientific_name:
     status_title:
+      accepted: स्वीकृत नाम
+      alternative: वैकल्पिक नाम
+      preferred: पसंदीदा नाम
+      unusable: अनुपयोगी नाम
       synonym: पर्यायवाची
   scientific_names_header: वैज्ञानिक नाम
   send_me_reset_password_instructions: मुझे पासवर्ड रीसेट निर्देश भेजें
   search:
     blank_q_msg: आप पृष्ठ के शीर्ष पर बार का उपयोग करके ईओएल की सामग्री खोज सकते हैं।
+    matched_text: '%{text} से मेल खाता है'
     flash:
       cannot_combine_paths: परिणामों को %{path} के साथ संयोजित करने में असमर्थ
+      more_than_one_species: '%{species} के लिए परिणाम संयोजित करने में असमर्थ'
       more_than_two_terms: 'दो से अधिक पदों के लिए परिणाम संयोजित करने में असमर्थ:
         %{terms}'
     n_taxon_pages:
@@ -913,8 +986,16 @@ hi:
     collection_page_count:
       one: '%{count} दिन पहले'
       other: '%{count} दिन पहले'
+    collected_media:
+      title: 'इस पृष्ठ से एकत्रित मीडिया:'
     medium_article: लेख
     medium_image: चित्र
+    medium_map: मानचित्र
+    medium_sound: ध्वनि
+    medium_video: विडियो
+    medium_title_image_html: 'छवि: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'मानचित्र: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'ऑडियो: <span class=''sub''>%{title}</span>'
     empty: कोई परिणाम नहीं।
     field_matches:
       description: 'विवरण से मेल खाता है:'
@@ -931,12 +1012,16 @@ hi:
         one: 'सामान्य नाम से मेल खाता है:'
         other: 'सामान्य नाम से मेल खाता है:'
     section_titles:
+      collections:
+        one: '%{count} संग्रह'
+        other: '%{count} संग्रह'
       media:
         one: '%{count} दिन पहले'
         other: '%{count} दिन पहले'
       users:
         one: '%{count} दिन पहले'
         other: '%{count} दिन पहले'
+    collection_title_html: 'संग्रह: <span class=''sub''>%{name}</span>'
     resource_counts:
       n_data:
         one: १ रास्ता
@@ -992,6 +1077,7 @@ hi:
     threats: धमकियां
     trends: रुझान
     trophic_strategy: ट्रॉफिक रणनीति
+    type_information: जानकारी टाइप करें
     wikipedia: विकिपीडिया
   settings: सेटिंग्स
   show_date: प्रकाशित तिथि दिखाएँ
@@ -1060,6 +1146,7 @@ hi:
     uri_field_html: <strong>यूआरआई:</strong> %{uri}
     index:
       select_page_above: आरंभ करने के लिए ऊपर एक पृष्ठ चुनें.
+  data_definition: '"%{data}" की परिभाषा'
   traits:
     data_viz:
       about_this_chart: इस पटल के बारे में
@@ -1091,6 +1178,8 @@ hi:
       num_records_label: '# रिकॉर्ड का'
       other: अन्य
       page_habitat_header: '%{name} पर्यावास'
+      page_habitat_explanation: वे वातावरण जिनमें कई %{name} प्रजातियाँ रहती हैं।
+        किसी वातावरण का चयन करके उसकी %{name} प्रजातियों की चेकलिस्ट देखें।
       pie_prompt: हाइलाइट करने के लिए किसी सेगमेंट या कुंजी पर माउस ले जाएँ
     search_results:
       filter_display:
