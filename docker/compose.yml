@@ -106,55 +106,55 @@ x-es: &default-es
     - elastic
 
 services:
-  es01:
+  elastic01:
     <<: *default-es
-    container_name: es01
+    container_name: elastic01
     ports:
       - 9200:9200
     environment:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - node.name=es01
+      - node.name=elastic01
       - node.master=true
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - "discovery.zen.minimum_master_nodes=1"
       - cluster.name=eol-search-staging
-      # - cluster.initial_master_nodes=es01,es02,es03
+      # - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
     volumes:
-      - /data/pub_es01/data:/usr/share/elasticsearch/data
-  es02:
+      - /data/publishing/elastic01/data:/usr/share/elasticsearch/data
+  elastic02:
     <<: *default-es
-    container_name: es02
+    container_name: elastic02
     environment:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - node.name=es02
+      - node.name=elastic02
       - node.master=false
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
-      #ES7: - cluster.initial_master_nodes=es01,es02,es03
+      #ES7: - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
       # Remove this one when you go up to ES 7:
-      - "discovery.zen.ping.unicast.hosts=es01"
+      - "discovery.zen.ping.unicast.hosts=elastic01"
     volumes:
-      - /data/pub_es02/data:/usr/share/elasticsearch/data
-  es03:
+      - /data/publishing/elastic02/data:/usr/share/elasticsearch/data
+  elastic03:
     <<: *default-es
-    container_name: es03
+    container_name: elastic03
     environment:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - node.name=es03
+      - node.name=elastic03
       - node.master=false
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
-      #ES7: - cluster.initial_master_nodes=es01,es02,es03
+      #ES7: - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
       # Remove this one when you go up to ES 7:
-      - "discovery.zen.ping.unicast.hosts=es01"
+      - "discovery.zen.ping.unicast.hosts=elastic01"
     volumes:
-      - /data/pub_es03/data:/usr/share/elasticsearch/data
+      - /data/publishing/elastic03/data:/usr/share/elasticsearch/data
   memcached:
     <<: *default-deploy
     deploy:
