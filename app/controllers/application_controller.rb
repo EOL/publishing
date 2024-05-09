@@ -113,7 +113,13 @@ class ApplicationController < ActionController::Base
     end
 
     def breadcrumb_type
-      if current_user && !current_user.breadcrumb_type.blank?
+      has_breadcrumb = 
+        begin 
+          current_user && !current_user.breadcrumb_type.blank?
+        rescue => e # Shoot, the error doesn't give a class.
+          false
+        end
+      if has_breadcrumb
         current_user.breadcrumb_type
       else
         session[:breadcrumb_type] || BreadcrumbType.default

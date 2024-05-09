@@ -57,7 +57,7 @@ gem 'dalli', '~> 2.7'
 gem 'delayed_job', '~> 4.1'
 gem 'delayed_job_active_record', '~> 4.1'
 # Devise handles authentication and some authorization:
-gem 'devise', '~> 4.8'
+gem 'devise', '~> 4.9'
 gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
 # Discourse handles comments and chat:
