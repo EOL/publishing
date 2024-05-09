@@ -82,7 +82,7 @@ x-default-deploy: &default-deploy
       max-size: "5m"
 
 x-es: &default-es
-  image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
+  image: docker.elastic.co/elasticsearch/elasticsearch:8.13
   deploy:
     resources:
       limits:
@@ -124,7 +124,7 @@ services:
       - cluster.routing.allocation.disk.watermark.low=50gb
       - cluster.routing.allocation.disk.watermark.high=1gb
       - cluster.routing.allocation.disk.watermark.flood_stage=500mb
-      # - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
     volumes:
       - /data/publishing/elastic01/data:/usr/share/elasticsearch/data
@@ -138,10 +138,8 @@ services:
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
-      #ES7: - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
-      # Remove this one when you go up to ES 7:
-      - "discovery.zen.ping.unicast.hosts=elastic01"
     volumes:
       - /data/publishing/elastic02/data:/usr/share/elasticsearch/data
   elastic03:
@@ -154,10 +152,8 @@ services:
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
-      #ES7: - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
-      # Remove this one when you go up to ES 7:
-      - "discovery.zen.ping.unicast.hosts=elastic01"
     volumes:
       - /data/publishing/elastic03/data:/usr/share/elasticsearch/data
   memcached:
