@@ -10,6 +10,7 @@ x-app: &default-app
     - NEO4J_DRIVER_URL=${NEO4J_DRIVER_URL}
     - NEO4J_USER=${NEO4J_USER}
     - NEO4J_PASSWORD=${NEO4J_PASSWORD}
+    - SCOUT_APM_KEY=${SCOUT_APM_KEY}
     - NODE_OPTIONS=--openssl-legacy-provider npm run start
   depends_on:
     - mysql
