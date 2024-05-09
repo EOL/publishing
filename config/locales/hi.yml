@@ -96,7 +96,7 @@ hi:
         r_infraphylum: '%{name1}, %{name2} का एक इन्फ्राफाइलम है।'
         r_superclass: '%{name1}, %{name2} का एक सुपरक्लास है।'
         r_class: '%{name1}, %{name2} का एक वर्ग है।'
-        r_subclass: '%{name1}, %{name2} का उपवर्ग है।'
+        r_subcategory: '%{name1}, %{name2} का उपवर्ग है।'
         r_infraclass: '%{name1}, %{name2} का एक इन्फ्राक्लास है।'
         r_superorder: '%{name1}, %{name2} का सुपरऑर्डर है।'
         r_order: '%{name1}, %{name2} का एक क्रम है।'
@@ -722,7 +722,7 @@ hi:
       map_of: '%{page_name} का मानचित्र'
       js_map: शीर्षकहीन इंटरैक्टिव मानचित्र
       js_map_of: '%{page_name} का इंटरैक्टिव मानचित्र'
-    subclasses:
+    subcategories:
       image: छवि
       video: वीडियो
       sound: ध्वनि
@@ -794,7 +794,7 @@ hi:
         r_infraphylum: इन्फ्राफाइलम
         r_superclass: सुपरक्लास
         r_class: वर्ग
-        r_subclass: उपवर्ग
+        r_subcategory: उपवर्ग
         r_infraclass: इन्फ्राक्लास
         r_superorder: सुपर ऑर्डर
         r_order: क्रम
@@ -876,7 +876,7 @@ hi:
       r_infraphylum: इन्फ्राफाइलम
       r_superclass: सुपरक्लास
       r_class: वर्ग
-      r_subclass: उपवर्ग
+      r_subcategory: उपवर्ग
       r_infraclass: इन्फ्राक्लास
       r_superorder: सुपर ऑर्डर
       r_order: क्रम

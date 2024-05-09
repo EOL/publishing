@@ -5,12 +5,12 @@
         %ul.uk-subnav.uk-subnav-pill
           %li
             = link_to(t(:filter_by_medium_any_item),
-              page_media_path(page_id: @page.id, subclass: nil, license: @license, resource_id: @resource_id),
-              remote: true, class: "item#{ @subclass.nil? ? " uk-active" : ""}")
-          - Medium.subclasses.each do |sc_name, sc_id|
+              page_media_path(page_id: @page.id, subcategory: nil, license: @license, resource_id: @resource_id),
+              remote: true, class: "item#{ @subcategory.nil? ? " uk-active" : ""}")
+          - Medium.subcategories.each do |sc_name, sc_id|
             - next if sc_name == "js_map"
-            %li= link_to(t("medium.subclasses.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subclass: sc_id, resource_id: @resource_id),
-              remote: true, class: "item#{ sc_id == @subclass ? " uk-active" : ""}")
+            %li= link_to(t("medium.subcategories.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subcategory: sc_id, resource_id: @resource_id),
+              remote: true, class: "item#{ sc_id == @subcategory ? " uk-active" : ""}")
 
     -#
       .ui.menu.uk-text-small{ class: "uk-visible@m js-media-menus" }
@@ -24,29 +24,29 @@
           %i.dropdown.icon
           .menu
             = link_to(t(:filter_by_license_any_item),
-              page_media_path(page_id: @page.id, license: nil, subclass: @subclass, resource_id: @resource_id),
+              page_media_path(page_id: @page.id, license: nil, subcategory: @subcategory, resource_id: @resource_id),
                 data: { type: 'html' }, class: "item#{ @license_group.nil? ? " active" : ""}")
             -#
               - License.types.each do |lic|
             - @license_groups.sort { |a, b| a.label.downcase <=> b.label.downcase }.each do |grp|
-              = link_to(grp.label, page_media_path(page_id: @page.id, license_group: grp.key, subclass: @subclass, resource_id: @resource_id),
+              = link_to(grp.label, page_media_path(page_id: @page.id, license_group: grp.key, subcategory: @subcategory, resource_id: @resource_id),
                 data: { type: 'html' }, class: "item#{ grp == @license_group ? " active" : ""}")
-      - if @subclasses && @subclasses.length > 1
+      - if @subcategories && @subcategories.length > 1
         .ui.dropdown.item
-          - if @subclass
-            %b= t("medium.subclasses.#{@subclass}")
+          - if @subcategory
+            %b= t("medium.subcategories.#{@subcategory}")
           - else
             = t(:filter_by_medium_subtype)
           %i.dropdown.icon
           .menu
             = link_to(t(:filter_by_medium_any_item),
-              page_media_path(page_id: @page.id, subclass: nil, license: @license, resource_id: @resource_id),
-              data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
+              page_media_path(page_id: @page.id, subcategory: nil, license: @license, resource_id: @resource_id),
+              data: { type: 'html' }, class: "item#{ @subcategory.nil? ? " active" : ""}")
             -#
-              - Medium.subclasses.each do |sc_name, sc_id|
-            - @subclasses.each do |sc|
-              = link_to(t("medium.subclasses.#{sc}"), page_media_path(page_id: @page.id, license: @license, subclass: sc, resource_id: @resource_id),
-                data: { type: 'html' }, class: "item#{ sc == @subclass ? " active" : ""}")
+              - Medium.subcategories.each do |sc_name, sc_id|
+            - @subcategories.each do |sc|
+              = link_to(t("medium.subcategories.#{sc}"), page_media_path(page_id: @page.id, license: @license, subcategory: sc, resource_id: @resource_id),
+                data: { type: 'html' }, class: "item#{ sc == @subcategory ? " active" : ""}")
       - if @resources && @resources.length > 1
         .ui.dropdown.item
           - if @resource
@@ -56,10 +56,10 @@
           %i.dropdown.icon
           .menu.uk-height-medium.uk-overflow-auto
             = link_to(t(:filter_by_resource_any_item),
-              page_media_path(page_id: @page.id, subclass: @subclass, license_group: @license_group&.key, resource_id: nil),
+              page_media_path(page_id: @page.id, subcategory: @subcategory, license_group: @license_group&.key, resource_id: nil),
                 data: { type: 'html' }, class: "item#{ @resource.nil? ? " active" : ""}")
             - @resources.each do |resource|
-              = link_to(resource.name, page_media_path(page_id: @page.id, license_group: @license_group&.key, subclass: @subclass, resource_id: resource.id),
+              = link_to(resource.name, page_media_path(page_id: @page.id, license_group: @license_group&.key, subcategory: @subcategory, resource_id: resource.id),
                 data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
   - total_pages = (@media_count.to_f / @media_page_size).ceil
   %div{ class: "uk-visible@m" }

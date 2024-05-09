@@ -92,7 +92,7 @@ cs:
         r_subphylum: '%{name1} je podkmen %{name2}.'
         r_superclass: '%{name1} je nadtřídou %{name2}.'
         r_class: '%{name1} je třída %{name2}.'
-        r_subclass: '%{name1} je podtřídou %{name2}.'
+        r_subcategory: '%{name1} je podtřídou %{name2}.'
         r_infraclass: '%{name1} je infratřída %{name2}.'
         r_superorder: '%{name1} je nadřád %{name2}.'
         r_order: '%{name1} je řád %{name2}.'
@@ -718,7 +718,7 @@ cs:
       map_of: Mapa stránky %{page_name}
       js_map: Nepojmenovaná interaktivní mapa
       js_map_of: Interaktivní mapa stránky %{page_name}
-    subclasses:
+    subcategories:
       image: Obrázek
       video: video
       sound: Zvuk
@@ -813,7 +813,7 @@ cs:
         r_subphylum: Podčeleď
         r_superclass: Nadtřída
         r_class: Třída
-        r_subclass: Podtřída
+        r_subcategory: Podtřída
         r_infraclass: Infratřída
         r_superorder: Nadřád
         r_order: Pořadí
@@ -897,7 +897,7 @@ cs:
       r_subphylum: podčeleď
       r_superclass: nadtřída
       r_class: třída
-      r_subclass: podtřída
+      r_subcategory: podtřída
       r_infraclass: infratřída
       r_superorder: nadřád
       r_order: řád

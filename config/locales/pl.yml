@@ -284,7 +284,7 @@ pl:
       map_of: mapa z %{page_name}
       js_map: Interaktywna mapa bez tytułu
       js_map_of: Interaktywna mapa z %{page_name}
-    subclasses:
+    subcategories:
       image: obraz
       video: wideo
       sound: dźwięk

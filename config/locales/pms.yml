@@ -89,7 +89,7 @@ pms:
         r_infraphylum: '%{name1} a l''é n''infra-branch ëd %{name2}.'
         r_superclass: '%{name1} a l''é na sùper-classa ëd %{name2}.'
         r_class: '%{name1} a l''é na classa ëd %{name2}.'
-        r_subclass: '%{name1} a l''é na sot-classa ëd %{name2}.'
+        r_subcategory: '%{name1} a l''é na sot-classa ëd %{name2}.'
         r_infraclass: '%{name1} a l''é n''infra-classa ëd %{name2}.'
         r_superorder: '%{name1} a l''é un sùper-órdin ëd %{name2}.'
         r_order: '%{name1} a l''é n''órdin ëd %{name2}.'
@@ -733,7 +733,7 @@ pms:
       map_of: Carta ëd %{page_name}
       js_map: Carta antërativa sensa tìtol
       js_map_of: Carta antërativa ëd %{page_name}
-    subclasses:
+    subcategories:
       image: plancia
       video: filmà
       sound: son
@@ -830,7 +830,7 @@ pms:
         r_infraphylum: Infra-ramificassion
         r_superclass: Sùper-classa
         r_class: Classa
-        r_subclass: Sot-classa
+        r_subcategory: Sot-classa
         r_infraclass: Infra-classa
         r_superorder: Sùper-órdin
         r_order: Órdin
@@ -921,7 +921,7 @@ pms:
       r_infraphylum: infra-ramificassion
       r_superclass: sùper-classa
       r_class: classa
-      r_subclass: sot-classa
+      r_subcategory: sot-classa
       r_infraclass: infra-classa
       r_superorder: sùper-órdin
       r_order: órdin

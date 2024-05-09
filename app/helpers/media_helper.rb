@@ -5,7 +5,7 @@ module MediaHelper
   end
 
   def medium_not_in_collection_text(medium)
-    t("content_not_in_any_collection_#{medium.subclass}")
+    t("content_not_in_any_collection_#{medium.subcategory}")
   end
 
   def medium_name_html(medium)
@@ -15,8 +15,8 @@ module MediaHelper
 
   def generic_medium_name(medium)
     medium.source_pages.any? ?
-      t("medium.untitled.#{medium.subclass}_of", page_name: medium.source_pages.first.name) :
-      t("medium.untitled.#{medium.subclass}")
+      t("medium.untitled.#{medium.subcategory}_of", page_name: medium.source_pages.first.name) :
+      t("medium.untitled.#{medium.subcategory}")
   end
 
   def medium_appears_on(medium)

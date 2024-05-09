@@ -219,8 +219,8 @@ class PagesController < ApplicationController
     @media_page_size = 18
     @media = @page.maps.by_page(params[:page]).per(@media_page_size)
     @media_count = @media.length
-    @subclass = "map"
-    @subclass_id = Medium.subclasses[:map_image]
+    @subcategory = "map"
+    @subcategory_id = Medium.subcategories[:map_image]
     @gbif_node = Resource.gbif ? @page.nodes.where(resource: Resource.gbif)&.first : nil
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
@@ -388,9 +388,9 @@ private
     if @page.media_count > 1000
       # Too many. Just use ALL of them for filtering:
       @license_groups = LicenseGroup.all
-      @subclasses = Medium.regular_subclass_keys
+      @subcategories = Medium.regular_subcategory_keys
       # List of resources, as of Jul 2018 (query takes about 32 seconds), that HAVE images, i.e.:
-      # a = Medium.where(subclass: 0).select('resource_id').uniq('resource_id').pluck(:resource_id).sort
+      # a = Medium.where(subcategory: 0).select('resource_id').uniq('resource_id').pluck(:resource_id).sort
       # a.delete(0) ; puts a.join(',')
       resource_ids = [2,4,8,9,10,11,12,14,46,53,181,395,410,416,417,418,420,459,461,462,463,464,465,468,469,470,474,475,
         481,486,493,494,495,496,507,508]
@@ -400,12 +400,12 @@ private
         .joins(:licenses)
         .where('licenses.id': @page.regular_media.pluck(:license_id).uniq)
         .distinct
-      @subclasses = @page.regular_media.pluck(:subclass).uniq
+      @subcategories = @page.regular_media.pluck(:subcategory).uniq
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
 
     media_counter = PageContent.where(page_id: @page.id, content_type: "Medium").
-                                where.not(content_subclass: Medium.subclasses[:map_image]) ; 1
+                                where.not(content_subcategory: Medium.subcategories[:map_image]) ; 1
     media_counter_key = "media_counter_page_#{@page.id}"
 
     page_media = if is_admin?
@@ -428,11 +428,11 @@ private
         where("license_groups.id": @license_group.all_ids_for_filter)
       media_counter_key << "_license_group_#{params[:license_group]}"
     end
-    if params[:subclass]
-      @subclass = params[:subclass]
-      page_media = page_media.where(subclass: Medium.subclasses[@subclass])
-      media_counter = media_counter.where(content_subclass: Medium.subclasses[@subclass])
-      media_counter_key << "_subclass_#{@subclass}"
+    if params[:subcategory]
+      @subcategory = params[:subcategory]
+      page_media = page_media.where(subcategory: Medium.subcategories[@subcategory])
+      media_counter = media_counter.where(content_subcategory: Medium.subcategories[@subcategory])
+      media_counter_key << "_subcategory_#{@subcategory}"
     end
     if params[:resource_id]
       @resource_id = params[:resource_id].to_i

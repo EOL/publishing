@@ -96,7 +96,7 @@ uk:
         r_infraphylum: '%{name1} є інфрафілом %{name2}.'
         r_superclass: '%{name1} є надкласом %{name2}.'
         r_class: '%{name1} є класом %{name2}.'
-        r_subclass: '%{name1} є підкласом %{name2}.'
+        r_subcategory: '%{name1} є підкласом %{name2}.'
         r_infraclass: '%{name1} є інфракласом %{name2}.'
         r_superorder: '%{name1} є вищим замовником %{name2}.'
         r_order: '%{name1} є наказом %{name2}.'
@@ -733,7 +733,7 @@ uk:
       map_of: Мапа %{page_name}
       js_map: Інтерактивна мапа без назви
       js_map_of: Інтерактивна мапа %{page_name}
-    subclasses:
+    subcategories:
       image: зображення
       video: відео
       sound: звук
@@ -829,7 +829,7 @@ uk:
         r_infraphylum: Інфрафілум
         r_superclass: Суперклас
         r_class: Клас
-        r_subclass: Підклас
+        r_subcategory: Підклас
         r_infraclass: Інфраклас
         r_superorder: Нарядник
         r_order: Порядок
@@ -919,7 +919,7 @@ uk:
       r_infraphylum: інфрафілум
       r_superclass: суперклас
       r_class: клас
-      r_subclass: підклас
+      r_subcategory: підклас
       r_infraclass: інфраклас
       r_superorder: надрядник
       r_order: порядок

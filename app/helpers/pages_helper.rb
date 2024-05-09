@@ -196,7 +196,7 @@ module PagesHelper
     filterable && (
       (@license_groups && @license_groups.length > 1) ||
       (@resources && @resources.length > 1) ||
-      (@subclasses && @subclasses.length > 1)
+      (@subcategories && @subcategories.length > 1)
     )
   end
 

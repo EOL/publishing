@@ -88,7 +88,7 @@ zh-TW:
         r_infraphylum: '%{name1}是%{name2}的一個下門。'
         r_superclass: '%{name1}是%{name2}的一個超綱。'
         r_class: '%{name1}是%{name2}的一個綱。'
-        r_subclass: '%{name1}是%{name2}的一個亞綱。'
+        r_subcategory: '%{name1}是%{name2}的一個亞綱。'
         r_infraclass: '%{name1}是%{name2}的一個下綱。'
         r_superorder: '%{name1}是%{name2}的一個超目。'
         r_order: '%{name1}是%{name2}的一個目。'
@@ -714,7 +714,7 @@ zh-TW:
       map_of: '%{page_name}的地圖'
       js_map: 無標題互動地圖
       js_map_of: '%{page_name}的互動地圖'
-    subclasses:
+    subcategories:
       image: 圖片
       video: 影片
       sound: 聲音
@@ -806,7 +806,7 @@ zh-TW:
         r_infraphylum: 下門
         r_superclass: 總綱
         r_class: 綱
-        r_subclass: 亞綱
+        r_subcategory: 亞綱
         r_infraclass: 下綱
         r_superorder: 總目
         r_order: 目
@@ -889,7 +889,7 @@ zh-TW:
       r_infraphylum: 下門
       r_superclass: 總綱
       r_class: 綱
-      r_subclass: 亞綱
+      r_subcategory: 亞綱
       r_infraclass: 亞類
       r_superorder: 總目
       r_order: 目

@@ -512,7 +512,7 @@ el:
       map_of: χάρτης του %{page_name}
       js_map: διαδραστικός χάρτης χωρίς τίτλο
       js_map_of: διαδραστικός χάρτης του %{page_name}
-    subclasses:
+    subcategories:
       image: Εικόνα
       video: Βίντεο
       sound: ήχος
@@ -570,7 +570,7 @@ el:
         r_infraphylum: ανθυποφύλο
         r_superclass: Υπερομοταξία
         r_class: Κλάση
-        r_subclass: Υπομοταξία
+        r_subcategory: Υπομοταξία
         r_infraclass: Ανθυπομοταξία
         r_superorder: Υπερτάξη
         r_order: τάξη

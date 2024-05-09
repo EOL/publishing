@@ -23,7 +23,7 @@ module SearchHelper
         first_instance.class.name.sub('SearchDecorator', '').downcase
       else
         if first_instance.class == Medium
-          first_instance.subclass
+          first_instance.subcategory
         else
           first_instance.class.name.downcase
         end

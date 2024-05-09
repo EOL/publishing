@@ -723,7 +723,7 @@ nl:
       map_of: Kaart van %{page_name}
       js_map: Ongetitelde interactieve kaart
       js_map_of: Interactieve kaart van %{page_name}
-    subclasses:
+    subcategories:
       image: Afbeelding
       video: video
       sound: geluid
@@ -820,7 +820,7 @@ nl:
         r_infraphylum: Infrastam
         r_superclass: Superklasse
         r_class: Klasse
-        r_subclass: Subklasse
+        r_subcategory: Subklasse
         r_infraclass: Infraklasse
         r_superorder: Superorde
         r_order: Orde
@@ -905,7 +905,7 @@ nl:
       r_subphylum: onderstam
       r_superclass: superklasse
       r_class: klasse
-      r_subclass: subklasse
+      r_subcategory: subklasse
       r_infraclass: infraklasse
       r_superorder: superorde
       r_order: orde

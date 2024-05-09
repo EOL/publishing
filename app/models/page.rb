@@ -491,7 +491,7 @@ class Page < ApplicationRecord
   end
 
   def maps
-    media.where(subclass: Medium.subclasses[:map_image])
+    media.where(subcategory: Medium.subcategories[:map_image])
   end
 
   def map_count

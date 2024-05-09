@@ -14,9 +14,9 @@ class Medium
                 puts "start #{Time.now}"
                 STDOUT.flush
                 remove_existing_files
-                subclasses = [Medium.subclasses[:image], Medium.subclasses[:map_image]]
+                subcategories = [Medium.subcategories[:image], Medium.subcategories[:map_image]]
                 # NOTE: this no longer restricts itself to visible or trusated media, but I think that's fine for the use-case.
-                Medium.where('page_id IS NOT NULL').where(subclass: subclasses).includes(:license).find_each do |item|
+                Medium.where('page_id IS NOT NULL').where(subcategory: subcategories).includes(:license).find_each do |item|
                     begin
                         @collection << [item.id, item.page_id, item.source_url, item.original_size_url, item.license&.name, item&.owner]
                     rescue => e

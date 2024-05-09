@@ -15,14 +15,14 @@ class Medium < ApplicationRecord
   has_one :hidden_medium
 
   # NOTE: these enums MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
-  enum subclass: %i[image video sound map_image js_map]
+  enum subcategory: %i[image video sound map_image js_map]
   enum format: %i[jpg youtube flash vimeo mp3 ogg wav mp4 ogv mov svg webm]
 
-  scope :images, -> { where(subclass: subclasses[:image]) }
-  scope :maps, -> { where(subclass: subclasses[:map_image]) }
-  scope :videos, -> { where(subclass: subclasses[:video]) }
-  scope :sounds, -> { where(subclass: subclasses[:sound]) }
-  scope :not_maps, -> { where.not(subclass: subclasses[:map_image]) }
+  scope :images, -> { where(subcategory: subcategories[:image]) }
+  scope :maps, -> { where(subcategory: subcategories[:map_image]) }
+  scope :videos, -> { where(subcategory: subcategories[:video]) }
+  scope :sounds, -> { where(subcategory: subcategories[:sound]) }
+  scope :not_maps, -> { where.not(subcategory: subcategories[:map_image]) }
   scope :regular, -> { not_maps.joins("LEFT JOIN hidden_media ON hidden_media.medium_id = media.id").where("hidden_media.id IS NULL") }
 
   # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
@@ -71,7 +71,7 @@ class Medium < ApplicationRecord
           medium = medium.first
           unless row[:subtype].blank?
             # The ONLY value we have in there (as of this writing) is "map"
-            medium.subclass = :map_image
+            medium.subcategory = :map_image
           end
           medium.attributions.delete_all
           agents.each do |agent|
@@ -110,8 +110,8 @@ class Medium < ApplicationRecord
       end
     end
 
-    def regular_subclass_keys
-      self.subclasses.keys.reject do |k|
+    def regular_subcategory_keys
+      self.subcategories.keys.reject do |k|
         k == "map" || k == "js_map"
       end.sort
     end
@@ -213,7 +213,7 @@ class Medium < ApplicationRecord
 
   def extra_search_data
     {
-      :subclass => subclass
+      :subcategory => subcategory
     }
   end
 
@@ -270,6 +270,6 @@ class Medium < ApplicationRecord
 
   private
     def check_is_image
-      raise "method may only be called when Medium subclass is image or map" unless image? || map_image?
+      raise "method may only be called when Medium subcategory is image or map" unless image? || map_image?
     end
 end

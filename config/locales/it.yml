@@ -99,7 +99,7 @@ it:
         r_infraphylum: '%{name1} è un infraphylum di %{name2}.'
         r_superclass: '%{name1} è una superclasse di %{name2}.'
         r_class: '%{name1} è una classe di %{name2}.'
-        r_subclass: '%{name1} è una sottoclasse di %{name2}.'
+        r_subcategory: '%{name1} è una sottoclasse di %{name2}.'
         r_infraclass: '%{name1} è un''infraclasse di %{name2}.'
         r_superorder: '%{name1} è un superordine di %{name2}.'
         r_order: '%{name1} è un ordine di %{name2}.'
@@ -684,7 +684,7 @@ it:
       map_of: Mappa di %{page_name}
       js_map: Mappa interattiva senza titolo
       js_map_of: Mappa interattiva di %{page_name}
-    subclasses:
+    subcategories:
       image: immagine
       video: video
       sound: suono
@@ -744,7 +744,7 @@ it:
         r_infraphylum: Infraphylum
         r_superclass: Superclasse
         r_class: Classe
-        r_subclass: Sottoclasse
+        r_subcategory: Sottoclasse
         r_infraclass: Infraclasse
         r_superorder: Superordine
         r_order: Ordine
@@ -827,7 +827,7 @@ it:
       r_infraphylum: infraphylum
       r_superclass: superclasse
       r_class: classe
-      r_subclass: sottoclasse
+      r_subcategory: sottoclasse
       r_infraclass: infraclasse
       r_superorder: superordine
       r_order: ordine
