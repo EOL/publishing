@@ -68,8 +68,8 @@ gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
 # ElasticSearch via SearchKick:
-gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
-gem 'searchkick', '~> 4.5' # Needs to stay in sync (ish) with the elasticsearch gem.
+gem 'elasticsearch', '~> 8.8' # Needs to stay in sync with the version of ES that we're using
+gem 'searchkick', '~> 5.3' # Needs to stay in sync (ish) with the elasticsearch gem.
 # url slug support
 gem 'friendly_id', '~> 5.4'
 # Icons
