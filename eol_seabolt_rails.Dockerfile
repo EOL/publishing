@@ -1,5 +1,5 @@
-FROM ruby:3.1.4
-# Note that ruby version is based off of debian 12.
+FROM ruby:3.3.1-bullseye
+# Note that this ruby version is based off of debian 11, rather than 12, because Seabolt fails on 12.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -36,5 +36,5 @@ RUN apt-get update -q && \
 RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && \
     cd seabolt && ./make_debug.sh && cd build && cpack
 RUN cd / && \
-    tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-12.tar.gz && \
-    cp -rf seabolt-1.7.4-dev-Linux-debian-12/* .
+    tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-11.tar.gz && \
+    cp -rf seabolt-1.7.4-dev-Linux-debian-11/* .
