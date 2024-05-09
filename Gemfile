@@ -6,6 +6,7 @@ gem 'rails', '6.1.7.7'
 gem 'base64' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'bigdecimal' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'mutex_m' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
+gem 'csv' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 # Use puma as the web host
