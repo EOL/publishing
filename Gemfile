@@ -39,6 +39,9 @@ gem 'kaminari', '~> 1.2.2'
 # ...and with a comment above each gem (or block of related gems) explaining what it's for. Let's keep this
 # maintainable!
 
+# OGM (object graph mapper for Neo4J). Added for use with searchkick.
+gem 'activegraph', '~> 10.1' # NOTE: there's at least a version 11, but I am scared of it.
+gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.3'
 # Acts As List simplifies ordered lists of models:
@@ -64,6 +67,11 @@ gem 'devise-encryptable', '~> 0.2'
 gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
+# ElasticSearch via SearchKick:
+gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
+gem 'searchkick', '~> 4.5' # Needs to stay in sync (ish) with the elasticsearch gem.
+# url slug support
+gem 'friendly_id', '~> 5.4'
 # Icons
 gem 'font-awesome-sass', '~> 5.15'
 # This is used to locally have a copy of Open Sans. IF YOU STOP USING OPEN SANS (note the space), YOU SHOULD REMOVE THIS GEM!
@@ -75,6 +83,10 @@ gem 'haml', '~> 5.2.1'
 gem 'haml-rails', '~> 2.0.1'
 # HTTP client
 gem 'http', '~> 5.0'
+# translations in JS
+gem 'i18n-js', '~> 3.9' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
+# JSON schema-based validation
+gem 'json_schemer', '~> 0.2'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
 # This should help stop some of the warnings you'll see in the logs/console:
@@ -85,15 +97,14 @@ gem 'oj', '~> 3.13'
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
 gem 'pundit', '~> 2.1'
+# CORS middleware
+gem 'rack-cors'
 # Turing test:
 gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
 # Zip file support ; NOTE: this is almost up to version 3.0, and then it will have some interface changes that we need
 # to switch to. Read https://github.com/rubyzip/rubyzip when the time comes!
 gem 'redis', '~> 5.0'
 gem 'rubyzip', '~> 2.3'
-# ElasticSearch via SearchKick:
-gem 'searchkick', '~> 4.5' # Needs to stay in sync (ish) with the elasticsearch gem.
-gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
 gem 'sidekiq', '~> 6.5'
 # Simplify Forms:
@@ -103,27 +114,10 @@ gem 'sidekiq', '~> 6.5'
 gem 'simple_form', '~> 5.1'
 gem 'client_side_validations', '~> 18.1'
 gem 'client_side_validations-simple_form', '~> 13'
-# Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
-gem 'typhoeus', '~> 1.4'
-
-# OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'activegraph', '~> 10.1' # NOTE: there's at least a version 11, but I am scared of it.
-gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
-
 #Sitemap
 gem 'sitemap_generator', '~> 6.2'
-
-# url slug support
-gem 'friendly_id', '~> 5.4'
-
-# translations in JS
-gem 'i18n-js', '~> 3.9' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
-
-# CORS middleware
-gem 'rack-cors'
-
-# JSON schema-based validation
-gem 'json_schemer', '~> 0.2'
+# Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
+gem 'typhoeus', '~> 1.4'
 
 group :development, :test do
   gem 'active_record_query_trace', '~> 1'
