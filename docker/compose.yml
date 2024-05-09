@@ -82,7 +82,7 @@ x-default-deploy: &default-deploy
       max-size: "5m"
 
 x-es: &default-es
-  image: docker.elastic.co/elasticsearch/elasticsearch:8.13
+  image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
   deploy:
     resources:
       limits:
