@@ -7,7 +7,7 @@
   - filter_hdr_val_key = ".result_header_#{@query.record? ? 'records' : 'taxa'}"
   - if @query.clade && I18n.locale == I18n.default_locale
     - filter_hdr_val_key += "_notaxa"
-  %h2.filter-hdr= t(filter_hdr_val_key, hdr_opts)
+  %h2.filter-hdr= t(filter_hdr_val_key, **hdr_opts)
   %ul.show-filters
     - if @query.clade
       %li.show-filter.show-filter-clade= I18n.locale == :en ? "#{@query.clade.native_node&.canonical_form}" : t(".clade", clade: @query.clade.native_node&.canonical_form)
