@@ -36,9 +36,10 @@ class TermNode
   autocompletes "autocomplete_name"
 
   @text_search_fields = %w[name]
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields, merge_mappings: true, mappings: {
-    properties: autocomplete_searchkick_properties
-  }
+  # TODO: searchkick no longer works on non-AR models...
+  # searchkick word_start: @text_search_fields, text_start: @text_search_fields, merge_mappings: true, mappings: {
+  #   properties: autocomplete_searchkick_properties
+  # }
 
   OBJ_TERM_TYPE = "value"
 
