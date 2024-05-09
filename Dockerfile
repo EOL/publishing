@@ -13,7 +13,6 @@ ENV NODE_OPTIONS="--openssl-legacy-provider npm run start"\
     BUNDLE_PATH="/gems"
 
 RUN gem install `grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | sed 's/^\s\+/bundler:/'`\
-  && gem update --system\
   && bundle config set without 'test development staging'\
   && bundle install --jobs 10 --retry 1\
   && bundle config set --global path /gems\
@@ -65,7 +64,7 @@ COPY --from=assets /app/Gemfile /app/Gemfile.lock /app/.
 # Just to save me a few grey hairs:
 COPY config/.vimrc /root/.vimrc
 
-RUN bundle config set without 'test development staging'\
+RUN gem update --system\
   && bundle install --jobs 10 --retry 1\
   && bundle config set --global path /gems
 
