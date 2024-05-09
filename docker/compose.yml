@@ -116,7 +116,6 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - node.name=elastic01
-      - node.master=true
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
@@ -133,7 +132,6 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - node.name=elastic02
-      - node.master=false
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
@@ -147,7 +145,6 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - node.name=elastic03
-      - node.master=false
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
       - cluster.name=eol-search-staging
