@@ -515,13 +515,9 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (1.8.0)
-<<<<<<< HEAD
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-=======
-    uri (0.10.0.2)
->>>>>>> main
     uri_template (0.7.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -596,11 +592,7 @@ DEPENDENCIES
   rack-cors
   rails (= 5.2.6.3)
   recaptcha (~> 5.8)
-<<<<<<< HEAD
-  redis (~> 4.8)
-=======
   redis (~> 5.0)
->>>>>>> main
   rspec-rails (~> 4.1.0)
   rubocop (= 0.93.1)
   rubocop-performance (= 1.9.2)
@@ -616,16 +608,9 @@ DEPENDENCIES
   spring (~> 2)
   typhoeus (~> 1.4)
   uglifier (~> 4.2)
-<<<<<<< HEAD
   unicorn (~> 6.1)
-=======
->>>>>>> main
   web-console (~> 3)
   webpacker (~> 6.0.0.beta)
 
 BUNDLED WITH
-<<<<<<< HEAD
    2.5.6
-=======
-   2.4.13
->>>>>>> main
