@@ -77,15 +77,15 @@ zh-CN:
       vernacular: 俗名
   brief_summary:
     extinction:
-      r_genus_html: 该类属于<span class='%{class_str}' id='%{id}'>extinct</span>。
-      r_subgenus_html: 该亚属是<span class='%{class_str}' id='%{id}'>extinct</span>。
+      r_genus_html: 该属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_subgenus_html: 该亚属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_infragenus_html: 该下属已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_superspecies_html: 该品种是<span class='%{class_str}' id='%{id}'>extinct</span>。
-      r_species_html: 该品种是<span class='%{class_str}' id='%{id}'>extinct</span>。
-      r_subspecies_html: 该亚种是<span class='%{class_str}' id='%{id}'>extinct</span>。
+      r_superspecies_html: 该超种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_species_html: 该物种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+      r_subspecies_html: 该亚种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
       r_infraspecies_html: 该下种已<span class='%{class_str}' id='%{id}'>灭绝</span>。
-      r_form_html: 该类已<span class='%{class_str}' id='%{id}'>extinct</span>。
-    fix_nitrogen_html: 它们<span class='%{class_str}' id='%{predicate_id}'>固</span><span
+      r_form_html: 该变型已<span class='%{class_str}' id='%{id}'>灭绝</span>。
+    fix_nitrogen_html: 它们能<span class='%{class_str}' id='%{predicate_id}'>固</span><span
       class='%{class_str}' id='%{object_id}'>氮</span>。
     freshwater_html: 它们与<span class='%{class_str}' id='%{id}'>淡水栖息地有关</span>。
     marine_html: 它们发现于<span class='%{class_str}' id='%{id}'>海洋栖息地</span>。
@@ -97,7 +97,7 @@ zh-CN:
         r_domain: '%{name1}是%{name2}的一个域。'
         r_subdomain: '%{name1}是%{name2}的一个亚域。'
         r_infradomain: '%{name1}是%{name2}的一个下域。'
-        r_superkingdom: '%{name1}是%{name2}的一个域。'
+        r_superkingdom: '%{name1}是%{name2}的一个超界。'
         r_kingdom: '%{name1}是%{name2}的一个界。'
         r_subkingdom: '%{name1}是%{name2}的一个亚界。'
         r_infrakingdom: '%{name1}是%{name2}的一个下界。'
@@ -123,11 +123,11 @@ zh-CN:
           r_genus: '%{name1}是%{name3}科中%{name2}的一个属。'
           r_subgenus: '%{name1}是%{name3}科中%{name2}的一个亚属。'
           r_infragenus: '%{name1}是%{name3}科中%{name2}的一个下属。'
-          r_superspecies: '%{name1}是%{name3}科中%{name2}的一个总种。'
+          r_superspecies: '%{name1}是%{name3}科中%{name2}的一个超种。'
           r_species: '%{name1}是%{name3}科中%{name2}的一个种。'
           r_subspecies: '%{name1}是%{name3}科中%{name2}的一个亚种。'
           r_infraspecies: '%{name1}是%{name3}科中%{name2}的一个下种。'
-          r_form: '%{name1}是%{name3}科中%{name2}的一个型。'
+          r_form: '%{name1}是%{name3}科中%{name2}的一个变型。'
         without_family:
           r_subfamily: '%{name1}是%{name2}的一个亚科。'
           r_infrafamily: '%{name1}是%{name2}的一个下科。'
@@ -136,11 +136,11 @@ zh-CN:
           r_genus: '%{name1}是%{name2}的一个属。'
           r_subgenus: '%{name1}是%{name2}的一个亚属。'
           r_infragenus: '%{name1}是%{name2}的一个下属。'
-          r_superspecies: '%{name1}是%{name2}的一个总种。'
+          r_superspecies: '%{name1}是%{name2}的一个超种。'
           r_species: '%{name1}是%{name2}的一个种。'
           r_subspecies: '%{name1}是%{name2}的一个亚种。'
           r_infraspecies: '%{name1}是%{name2}的一个下种。'
-          r_form: '%{name1}是%{name2}的一个型。'
+          r_form: '%{name1}是%{name2}的一个变型。'
   button_create: 创建
   button_add: 添加
   cancel: 取消

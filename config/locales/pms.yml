@@ -3056,12 +3056,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000164: gròtola ëd rèis
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profondeur ëd l'anreisament
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: piantagion ëd goma
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: corsa
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: età
           rupelian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000151: sabkha
         http://eol(dot)org/schema/terms/sacSpawner: arprodutor an sach
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: età
           sakmarian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005775: seul contaminà da la
+          sal
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: toleransa a la sal
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: sàut
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson
