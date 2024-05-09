@@ -13,8 +13,41 @@ Delayed::Worker.raise_signal_exceptions = :term # unlock jobs on SIGTERM so that
 RepublishJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
-    Publishing::Fast.by_resource(resource)
+    Rails.logger.warn("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    resource.publish
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
+RepublishTraitsJob = Struct.new(:resource_id) do
+  def perform
+    resource = Resource.find(resource_id)
+    Rails.logger.warn("Re-publishing TRAITS ONLY for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    resource.republish_traits
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
+RemoveTraitContentJob = Struct.new(:resource_id, :stage, :size, :republish) do
+  def perform
+    resource = Resource.find(resource_id)
+    Rails.logger.warn("Removing TraitBank data (stage: #{stage}) for resource #{resource.log_string}")
+    Rails.logger.warn("...will #{republish ? '' : 'NOT'} republish when complete (#{republish})")
+    TraitBank::Admin.remove_by_resource(resource, stage, size, republish)
   end
 
   def queue_name
@@ -29,7 +62,7 @@ end
 ReindexJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Rails.logger.warn("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_missing_page_contents
   end
@@ -46,7 +79,7 @@ end
 FixNoNamesJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Delayed::Worker.logger.info("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Rails.logger.warn("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_no_names
   end

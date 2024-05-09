@@ -1,9 +1,0 @@
-#!/bin/bash
-FREEMEM=$(free | grep Mem | awk '{print $4;}')
-if ((FREEMEM <= 10000000))
-then
-  echo "Insufficient memory remaining, forking..."
-  /app/bin/unicorn_restart
-else
-  echo "Memory looks acceptable, aborting."
-fi

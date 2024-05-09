@@ -69,7 +69,7 @@ sl:
       update_needs_confirmation: Svoj račun ste uspešno posodobili, vendar moramo
         preveriti vaš novi e-poštni naslov. Preverite svojo e-pošto in sledite potrditveni
         povezavi, da potrdite svoj novi e-poštni naslov.
-      updated: Vaš račun je bil uspešno posodobljen.
+      updated: Vaš račun je uspešno posodobljen.
     sessions:
       signed_in: Uspešno ste se prijavili.
       signed_out: Uspešno ste se odjavili.

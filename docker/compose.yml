@@ -1,0 +1,351 @@
+x-app: &default-app
+  restart: always
+  environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+    - RAILS_ENV=${RAILS_ENV}
+    - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+    - REDIS_HOST=${REDIS_HOST}
+    - CACHE_URL=${CACHE_URL}
+    - TRAITBANK_URL=${TRAITBANK_URL}
+    - NEO4J_DRIVER_URL=${NEO4J_DRIVER_URL}
+    - NEO4J_USER=${NEO4J_USER}
+    - NEO4J_PASSWORD=${NEO4J_PASSWORD}
+    - SCOUT_APM_KEY=${SCOUT_APM_KEY}
+    - NODE_OPTIONS=--openssl-legacy-provider npm run start
+  depends_on:
+    - mysql
+    - neo4j
+    - memcached
+    - redis
+    - elastic01
+  deploy:
+    replicas: 6
+    resources:
+      limits:
+        cpus: '2.00'
+        memory: 6G
+    restart_policy:
+      condition: on-failure
+      delay: 16s
+      max_attempts: 3
+      window: 240s
+  profiles: ["app"]
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 5m
+
+x-worker: &default-worker
+  build:
+    context: ..
+  restart: always
+  environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+    - RAILS_ENV=${RAILS_ENV}
+    - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+    - REDIS_HOST=${REDIS_HOST}
+    - CACHE_URL=${CACHE_URL}
+    - TRAITBANK_URL=${TRAITBANK_URL}
+    - NEO4J_DRIVER_URL=${NEO4J_DRIVER_URL}
+    - NEO4J_USER=${NEO4J_USER}
+    - NEO4J_PASSWORD=${NEO4J_PASSWORD}
+    - NODE_OPTIONS=--openssl-legacy-provider npm run start
+  depends_on:
+    - mysql
+    - neo4j
+    - memcached
+    - redis
+    - elastic01
+  deploy:
+    resources:
+      limits:
+        cpus: '1.00'
+        memory: 8G
+    restart_policy:
+      condition: on-failure
+      delay: 8s
+      max_attempts: 3
+      window: 120s
+  profiles: ["worker"]
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
+
+x-default-deploy: &default-deploy
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
+
+x-es: &default-es
+  image: docker.elastic.co/elasticsearch/elasticsearch:8.13
+  deploy:
+    resources:
+      limits:
+        cpus: '1'
+        memory: '4.5G'
+    restart_policy:
+      condition: on-failure
+      delay: 8s
+      max_attempts: 3
+      window: 120s
+  restart: always
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
+  networks:
+    - elastic
+  profiles: ["search"]
+
+services:
+  elastic01:
+    <<: *default-es
+    container_name: elastic01
+    ports:
+      - 9200:9200
+    environment:
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - node.name=elastic01
+      - node.master=true
+      - bootstrap.memory_lock=true
+      - network.host=0.0.0.0
+      - "discovery.zen.minimum_master_nodes=1"
+      - cluster.name=eol-search-staging
+      - cluster.routing.allocation.disk.watermark.low=50gb
+      - cluster.routing.allocation.disk.watermark.high=1gb
+      - cluster.routing.allocation.disk.watermark.flood_stage=500mb
+      - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - xpack.security.enabled=false
+    volumes:
+      - /data/publishing/elastic01/data:/usr/share/elasticsearch/data
+  elastic02:
+    <<: *default-es
+    container_name: elastic02
+    environment:
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - node.name=elastic02
+      - node.master=false
+      - bootstrap.memory_lock=true
+      - network.host=0.0.0.0
+      - cluster.name=eol-search-staging
+      - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - xpack.security.enabled=false
+    volumes:
+      - /data/publishing/elastic02/data:/usr/share/elasticsearch/data
+  elastic03:
+    <<: *default-es
+    container_name: elastic03
+    environment:
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - node.name=elastic03
+      - node.master=false
+      - bootstrap.memory_lock=true
+      - network.host=0.0.0.0
+      - cluster.name=eol-search-staging
+      - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - xpack.security.enabled=false
+    volumes:
+      - /data/publishing/elastic03/data:/usr/share/elasticsearch/data
+  memcached:
+    <<: *default-deploy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 16G
+    image: memcached
+    container_name: publishing_memcached
+    restart: always
+    environment:
+      - TZ=America/New_York
+    command: memcached -m 4096m
+    profiles: ["cache"]
+    ports:
+      - 11211:11211
+  neo4j:
+    <<: *default-deploy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '4.00'
+          # Yes, this really needs a ton of memory to function. It will run out quickly. You may want to _increase_ this:
+          memory: 48G
+    profiles: ["graph"]
+    image: neo4j:4.2.3
+    container_name: neo4j
+    restart: always
+    # NOTE: environment variables OVERRIDE the values in the config file!
+    # Results are then applied to an artificial copy of the config in
+    # $HOME/conf/neo4j.conf, which can be VERY confusing. Be aware.
+    environment:
+      - TZ=America/New_York
+      - NEO4J_AUTH=neo4j/SomePasswordHere
+      - NEO4J_dbms_memory_pagecache_size=34G
+      - NEO4J_dbms_memory_heap_max__size=31500m
+      - NEO4J_dbms_memory_heap_initial__size=31500m
+      - NEO4J_cypher_query__max__allocations_size=4G
+      - NEO4J_dbms_transaction_timeout=85s
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_dbms_directories_import=/exports
+      - NEO4J_apoc_export_file_enabled=true
+    volumes:
+      - /data/neo4j/data:/data
+      - /data/neo4j/logs:/logs
+      - /data/neo4j/plugins:/plugins
+      - /data/neo4j/exports:/exports
+      - ./templates/neo4j.conf:/conf/neo4j.conf
+    ports:
+      - 7473:7473
+      - 7474:7474
+      - 7687:7687
+  mysql:
+    deploy:
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 16G
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+    logging:
+      driver: "local"
+      options:
+        max-file: "3"
+        max-size: "5m"
+    image: mysql:8
+    container_name: eol_publishing_mysql_${RAILS_ENV}
+    restart: always
+    environment:
+      - TZ=America/New_York
+      - MYSQL_ROOT_PASSWORD=SomethingReallySecure
+      - MYSQL_DATABASE=eol_web_ENV
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=SomethingSuperSecureHereToo
+    profiles: ["sql"]
+    # Note that MySQL does NOT use mounts in /data ... because that's NFS, and we don't want to be slowed down by it.
+    volumes:
+      - /u/data/eol_publishing_mysql_${RAILS_ENV}:/var/lib/mysql
+      - /u/data/eol_publishing_mysql_${RAILS_ENV}_temp:/tmp
+      - /u/data/eol_publishing_mysql_${RAILS_ENV}_conf:/etc/mysql/conf.d/
+    ports:
+      - 3306:3306
+  redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
+    <<: *default-deploy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 4G
+    profiles: ["redis"]
+    image: redis:6.0
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+  app:
+    <<: *default-app
+    build:
+      context: ..
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_web_log:/app/log
+      - /data/publishing_web_private:/app/data
+    ports:
+      - "3000"
+  pub_sidekiq:
+    <<: *default-worker
+    container_name: pub_sidekiq
+    command: bundle exec sidekiq
+    volumes:
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_sidekiq_log:/app/log
+      - /data/publishing_web_private:/app/data
+  pub_crono:
+    <<: *default-worker
+    container_name: pub_crono
+    command: bundle exec crono
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_crono_log:/app/log
+      - /data/publishing_web_private:/app/data
+  pub_worker:
+    <<: *default-worker
+    container_name: pub_worker
+    command: bundle exec rails r "Publishing.work('harvest')"
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_worker_log:/app/log
+      - /data/publishing_web_private:/app/data
+  pub_data_worker:
+    <<: *default-worker
+    container_name: pub_data_worker
+    command: bundle exec rails r "Publishing.work('download')"
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_data_log:/app/log
+      - /data/publishing_web_private:/app/data
+  pub_integrity_worker:
+    <<: *default-worker
+    container_name: pub_integrity_worker
+    command: bundle exec rails r "Publishing.work('data_integrity')"
+    volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
+      - /data/publishing_web:/app/public/data
+      - /data/publishing_integrity_log:/app/log
+      - /data/publishing_web_private:/app/data
+  nginx:
+    <<: *default-deploy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 4G
+    profiles: ["load"]
+    build:
+      context: ..
+      dockerfile: ./nginx.Dockerfile
+    container_name: nginx
+    volumes:
+      - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /data/publishing_nginx_log:/var/log/nginx
+      - /data/publishing_web:/app/public/data:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+networks:
+  elastic:
+    driver: bridge

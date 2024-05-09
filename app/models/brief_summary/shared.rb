@@ -6,8 +6,8 @@ class BriefSummary
 
     Result = Struct.new(:sentence, :terms)
 
-    # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
-    # lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
+    # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended_landmark"=>3, "full"=>4} For P.
+    # lotor, there's no "full", the "extended_landmark" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
     # believes this is usually a Class, but for different types of life, different ranks may make more sense.
 
     def add_sentence(options = {})

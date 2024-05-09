@@ -3,7 +3,7 @@ class ImportLogsController < ApplicationController
     @log = ImportLog.find(params[:id])
     @resource = @log.resource
     @events = @log.import_events.order("id DESC")
-    @events = @events.warns if params[:warns]
+    @events = @events.warnings if params[:warns]
     @events = @events.by_page(params[:page]).per(50)
   end
 end

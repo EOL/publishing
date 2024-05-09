@@ -5,6 +5,9 @@ class ImportLog < ApplicationRecord
   scope :successful, -> { where("completed_at IS NOT NULL") }
   scope :running, -> { where("completed_at IS NULL AND failed_at IS NULL") }
 
+  PAUSE_STATUS = 'paused'
+  LIMIT = 65_000
+
   class << self
     def all_clear!
       now = Time.now
@@ -18,7 +21,7 @@ class ImportLog < ApplicationRecord
       if ImportRun.where(completed_at: nil).any?
         return("A Publishing run appears to be active. #{undo}")
       end
-      logging = ImportLog.where(completed_at: nil, failed_at: nil).includes(:resource)
+      logging = ImportLog.where(completed_at: nil, failed_at: nil).where("status <> '#{PAUSE_STATUS}'").includes(:resource)
       if logging.any?
         info = "Currently publishing: "
         info += logging.map do |log|
@@ -37,13 +40,27 @@ class ImportLog < ApplicationRecord
   def log(body, options = nil)
     options ||= {}
     cat = options[:cat] || :starts
+    call_level = 0
+    call_stack = caller
+    stack_size = call_stack.size
+    called_by = 'import_log.rb:' # Dummy, just to get started, sorry.
+    while called_by =~ /(pry_instance|(import|pub)_log).rb:/
+      call_level += 1
+      called_by = call_stack[call_level].sub(%r{.*/}, '')
+    end
+    parent_caller = called_by
+    while parent_caller.sub(/:.*$/, '') == called_by.sub(/:.*$/, '') && call_level < stack_size
+      call_level += 1
+      parent_caller = call_stack[call_level].sub(%r{.*/}, '')
+    end
+    body = "#{parent_caller}> #{called_by}> #{body}"
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
     end
   end
 
   def log_update(body)
-    raise "Updates limited to 65,500 characters" if body.size > 65_500
+    body = body[0..LIMIT] if body.size > LIMIT
     options ||= {}
     last_event = ImportEvent.where(import_log: self).last
     if last_event.updates?
@@ -56,18 +73,18 @@ class ImportLog < ApplicationRecord
 
   def chop_into_text_chunks(str)
     chunks = []
-    while str.size > 65_500
-      chunks << str[0..65_500]
-      str = str[65_500..-1]
+    while str.size > LIMIT
+      chunks << str[0..LIMIT]
+      str = str[LIMIT..-1]
     end
     chunks << str
     chunks
   end
 
   def running
-    update_attribute(:completed_at, nil)
-    update_attribute(:failed_at, nil)
-    update_attribute(:status, 'currently running')
+    update_attribute(:completed_at, nil) unless completed_at.nil?
+    update_attribute(:failed_at, nil) unless failed_at.nil?
+    update_attribute(:status, 'currently running') unless status == 'currently running'
     resource.touch # Ensure that we see the resource as having changed
     log('Running', cat: :starts)
   end
@@ -79,23 +96,33 @@ class ImportLog < ApplicationRecord
     log('Complete', cat: :ends)
   end
 
+  def fail(error)
+    msg = error[0..250]
+    log("Manual failure called, process must have died. (#{msg})", cat: :errors)
+    update_attribute(:failed_at, Time.now)
+    update_attribute(:status, msg)
+  end
+
+  def pause
+    update_attribute(:status, PAUSE_STATUS)
+  end
+
   def fail_on_error(e)
     if e.backtrace
       e.backtrace.reverse.each_with_index do |trace, i|
-        break if trace =~ /\/bundler/
-        break if i > 9 # Too much info, man!
+        break if trace =~ /\/bundler/ || trace =~ /bin\/rails/
+        skip = false # `next` doesn't seem to work here for some reason (?)
         if i > 2
-          # TODO: Add other filters here...
-          next unless trace =~ /publishing/
+          skip = true if trace =~ /kernel_require\.rb/
         end
-        trace.gsub!(/^.*\/gems\//, 'gem:') # Remove ruby version stuff...
-        trace.gsub!(/^.*\/ruby\//, 'ruby:') # Remove ruby version stuff...
-        trace.gsub!(/^.*\/publishing\//, './') # Remove website path..
-        log(trace, cat: :errors)
+        unless skip
+          trace.gsub!(/^.*\/gems\//, 'gem:') # Remove ruby version stuff...
+          trace.gsub!(/^.*\/ruby\//, 'ruby:') # Remove ruby version stuff...
+          trace.gsub!(/^.*\/publishing\//, './') # Remove website path..
+          log(trace, cat: :errors)
+        end
       end
     end
-    log(e.message.gsub(/#<(\w+):0x[0-9a-f]+>/, '\\1'), cat: :errors) # I don't need the memory information for models
-    update_attribute(:failed_at, Time.now)
-    update_attribute(:status, e.message[0..250])
+    fail(e.message.gsub(/#<(\w+):0x[0-9a-f]+>/, '\\1')) # I don't need the memory information for models
   end
 end

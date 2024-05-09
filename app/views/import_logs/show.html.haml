@@ -21,7 +21,7 @@
 %h2= "Events (most recent first):"
 - unless params[:warns]
   .ui.button
-    = link_to(t("resources.actions.show_warns", count: @log.import_events.warns.count), resource_import_log_path(@resource, @log, warns: true))
+    = link_to(t("resources.actions.show_warns", count: @log.import_events.warnings.count), resource_import_log_path(@resource, @log, warns: true))
 - else
   .ui.button
     = link_to(t("resources.actions.show_all", count: @log.import_events.count), resource_import_log_path(@resource, @log))

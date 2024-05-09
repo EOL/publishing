@@ -1,5 +1,5 @@
 class Util::I18nUtil
-  RTL_LOCALES = Set.new([:ar]) # todo: move to config
+  RTL_LOCALES ||= Set.new([:ar]) # todo: move to config
 
   class << self
     def rtl?

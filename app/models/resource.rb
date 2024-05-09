@@ -229,6 +229,10 @@ class Resource < ApplicationRecord
     import_logs.last.running
   end
 
+  def complete
+    import_logs.running.each { |log| log.complete }
+  end
+
   def unlock
     import_logs.running.update_all(failed_at: Time.now)
   end
@@ -269,19 +273,25 @@ class Resource < ApplicationRecord
     TraitBank::Admin.remove_non_trait_content_for_resource(self)
   end
 
-  def remove_trait_content
-    count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
-    if count.zero?
-      log("No graph nodes, skipping.")
-    else
-      log("Removing #{count} graph nodes")
-      TraitBank::Admin.remove_by_resource(self, log_handle)
-    end
+  def background_remove_trait_content(republish)
+    Delayed::Job.enqueue(RemoveTraitContentJob.new(id, 'begin', 0, republish))
   end
 
   def remove_all_content
     remove_non_trait_content
-    remove_trait_content
+    background_remove_trait_content(false)
+  end
+
+  def repo
+    @repo ||= ContentServerConnection.new(self, log_handle)
+  end
+
+  def log_string
+    "[#{name}](https://eol.org/resources/#{id})"
+  end
+
+  def new_log
+    @log = Publishing::PubLog.new(self, use_existing_log: false)
   end
 
   def log_handle
@@ -491,18 +501,31 @@ class Resource < ApplicationRecord
     Delayed::Job.enqueue(DiffJob.new(id))
   end
 
-  def republish
-    Delayed::Job.enqueue(RepublishJob.new(id))
+  def background_republish
+    @diff_metadata = repo.trait_diff_metadata
+    if @diff_metadata.remove_all_traits?
+      new_log.info('Harvesting server requests removal of all traits')
+      new_log.pause
+      update!(last_published_at: nil)
+      background_remove_trait_content(true)
+    else
+      Delayed::Job.enqueue(RepublishJob.new(id))
+    end
   end
 
   # Meant to be called manually:
   def republish_traits
+    raise "You MUST remove traits manually, first" unless trait_count.zero?
     Publishing::Fast.traits_by_resource(self)
+  end
+
+  def background_republish_traits
+    Delayed::Job.enqueue(RepublishJob.new(id))
   end
 
   # Note this does NOT include metadata!
   def trait_count
-    TraitBank::Admin.query(%{MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{id} }) RETURN COUNT(trait)})['data'].first.first
+    TraitBank::Queries.count_by_resource(id)
   end
 
   def file_dir

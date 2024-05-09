@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   class BadRequestError < TypeError; end
 
   # For demo, we're using Basic Auth:
-  if Rails.application.secrets.user_id
+  if Rails.configuration.creds[:user_id]
     before_action :authenticate
   end
 
@@ -76,8 +76,8 @@ class ApplicationController < ActionController::Base
   protected
     def authenticate
       authenticate_or_request_with_http_basic do |username, password|
-        username == Rails.application.secrets.user_id &&
-        password == Rails.application.secrets.password
+        username == Rails.configuration.creds[:user_id] &&
+        password == Rails.configuration.creds[:password]
       end
     end
 
@@ -113,7 +113,13 @@ class ApplicationController < ActionController::Base
     end
 
     def breadcrumb_type
-      if current_user && !current_user.breadcrumb_type.blank?
+      has_breadcrumb = 
+        begin 
+          current_user && !current_user.breadcrumb_type.blank?
+        rescue => e # Shoot, the error doesn't give a class.
+          false
+        end
+      if has_breadcrumb
         current_user.breadcrumb_type
       else
         session[:breadcrumb_type] || BreadcrumbType.default
@@ -124,7 +130,7 @@ class ApplicationController < ActionController::Base
   public
 
   # Authorization:
-  include Pundit
+  include Pundit::Authorization
   # TODO: we may want to use :null_session when for the API, when we set that up.
   protect_from_forgery with: :exception
   def logged_in?

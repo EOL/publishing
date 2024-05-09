@@ -52,15 +52,15 @@ module TraitBank
                  raise TypeError.new("unsupported result type: #{@query.result_type}")
                end
 
-      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
+      Rails.logger.warn("beginning data download query for #{@query.to_s}")
 
       TraitBank::Search.batch_term_search(@query, @options, @count) do |batch|
         writer.write_batch(batch)
       end
 
-      Delayed::Worker.logger.info("finished queries, finalizing")
+      Rails.logger.warn("finished queries, finalizing")
       filename = writer.finalize
-      Delayed::Worker.logger.info("finished data download")
+      Rails.logger.warn("finished data download")
 
       filename
     end

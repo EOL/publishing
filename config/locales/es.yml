@@ -1,79 +1,48 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
-# Author: Alonso Biólogo
+# Author: Adriendelucca
 # Author: Alonso Biólogo
 # Author: Ana Castañon Marroquin
 # Author: Aramos1422
-# Author: Aramos1422
 # Author: Atzerritik
 # Author: Avengium
-# Author: Avengium
-# Author: Canaan9801
 # Author: Canaan9801
 # Author: Danniel07
-# Author: Danniel07
-# Author: Destinid10 2
 # Author: Destinid10 2
 # Author: DiegoAmbrocio
-# Author: DiegoAmbrocio
-# Author: Fitoschido
 # Author: Fitoschido
 # Author: Francodiaz7
-# Author: Francodiaz7
-# Author: Gastonsaenz
 # Author: Gastonsaenz
 # Author: Genesis
-# Author: Genesis
-# Author: Geryescalier
 # Author: Geryescalier
 # Author: Ihojose
-# Author: Ihojose
 # Author: Jack30
-# Author: Jack30
-# Author: Jakeukalane
 # Author: Jakeukalane
 # Author: James
 # Author: JamesB
-# Author: JamesB
-# Author: Jesusmc
 # Author: Jesusmc
 # Author: Joanmp17
-# Author: Joanmp17
-# Author: Johny Weissmuller Jr
 # Author: Johny Weissmuller Jr
 # Author: Josuert
-# Author: Josuert
 # Author: L3n9u^
-# Author: L3n9u^
-# Author: Madamebiblio
 # Author: Madamebiblio
 # Author: María
 # Author: Mnivar
-# Author: Mnivar
-# Author: Ncr
 # Author: Ncr
 # Author: Nipungorantla
-# Author: Nipungorantla
-# Author: Oliviamaule
 # Author: Oliviamaule
 # Author: Optilete
 # Author: Rossnyev
-# Author: Rossnyev
-# Author: Silverie04
 # Author: Silverie04
 # Author: SpikeShroom
-# Author: SpikeShroom
-# Author: Warming Hearth
 # Author: Warming Hearth
 # Author: Whovian Biologist
-# Author: Whovian Biologist
-# Author: Whytheonlyone
 # Author: Whytheonlyone
 # Author: Yel Martinez Seo
 ---
 es:
-  language_name: Inglés
+  language_name: Español
   about:
     trait_bank:
       title: TraitBank

@@ -28,7 +28,6 @@ class Publishing
     end
 
     def load_local_file(klass, file)
-      new_log
       set_relationships
       @klass = klass
       @data_file = file
@@ -43,21 +42,16 @@ class Publishing
     def initialize(resource, log = nil)
       @start_at = Time.now
       @resource = resource
-      # NOTE: this is likely to get overridden once we create a new log, but nice to have in case we need it:
-      @log = log # Okay if it's nil.
-      @repo = create_server_connection
+      @log = log || @resource.log_handle
       @files = []
       @can_clean_up = true
-    end
-
-    def create_server_connection
-      ContentServerConnection.new(@resource, @log)
     end
 
     # NOTE: this does NOT work for traits. Don't try. You'll need to make a different method for that.
     def update_attributes(klass, fields)
       require 'csv'
       abort_if_already_running
+      @log.start("Publishing::Fast.update_attributes for #{klass} (#{fields.join(', ')}) ")
       @klass = klass
       fields = Array(fields)
       positions = []
@@ -65,11 +59,10 @@ class Publishing
         # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
         positions << @klass.column_names.index(field.to_s) - 1
       end
-      new_log
       begin
         plural = @klass.table_name
-        unless @repo.exists?("#{plural}.tsv")
-          raise("#{@repo.file_url("#{plural}.tsv")} does not exist! "\
+        unless @resource.repo.exists?("#{plural}.tsv")
+          raise("#{@resource.repo.file_url("#{plural}.tsv")} does not exist! "\
                 "Are you sure the resource has successfully finished harvesting?")
         end
         @log.start("Updating attributes: #{fields.join(', ')} (#{positions.join(', ')}) for #{plural}")
@@ -136,7 +129,7 @@ class Publishing
     def by_resource
       set_relationships
       abort_if_already_running
-      new_log
+      @log.start('Publishing::Fast.by_resource')
       unless @resource.nodes.count.zero?
         begin
           @resource.remove_non_trait_content
@@ -150,8 +143,8 @@ class Publishing
         @log.warn('All existing content has been destroyed for the resource.')
       end
       begin
-        unless @repo.exists?('nodes.tsv')
-          raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
+        unless @resource.repo.exists?('nodes.tsv')
+          raise("#{@resource.repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
         end
         @relationships.each_key { |klass| import_and_prop_ids(klass) }
         @log.start('restoring vernacular preferences...')
@@ -183,13 +176,14 @@ class Publishing
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
         @log.close
         ImportLog.all_clear!
+        Rails.cache.delete("trait_bank/count_by_resource/#{@resource.id}")
       end
     end
 
     def traits_by_resource
       abort_if_already_running
       @log = Publishing::PubLog.new(@resource, use_existing_log: true)
-      @repo = create_server_connection
+      @log.start('Publishing::Fast.traits_by_resource')
       @can_clean_up = true
       begin
         publish_traits_with_cleanup
@@ -200,6 +194,7 @@ class Publishing
         @log.end("TOTAL TIME: #{Time.delta_str(@start_at)}")
         @log.close
         ImportLog.all_clear!
+        Rails.cache.delete("trait_bank/count_by_resource/#{@resource.id}")
       end
     end
 
@@ -220,12 +215,6 @@ class Publishing
         @resource.log("ABORTED: #{info}")
         raise(info)
       end
-    end
-
-    def new_log
-      @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
-      @repo = create_server_connection
-      @log
     end
 
     def import_and_prop_ids(klass)
@@ -254,7 +243,7 @@ class Publishing
 
     def grab_file(name)
       @log.start("#grab_file #{name}")
-      if repo_file = @repo.file(name)
+      if repo_file = @resource.repo.file(name)
         open(@data_file, 'wb') { |file| file.write(repo_file) }
       else
         return false

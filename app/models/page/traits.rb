@@ -141,15 +141,15 @@ class Page
     end
 
     def extract_term_arg_ids(term_arg)
-      term_arg.is_a?(Array) ?
-        term_arg.map { |t| t.id } :
+      if term_arg.is_a?(Array)
+        term_arg.map { |t| extract_term_arg_ids(t) }
+      elsif term_arg.nil?
+        nil
+      elsif term_arg.respond_to?(:id)
         term_arg.id
-    end
-
-    def extract_term_arg_ids_array(term_arg)
-      term_arg.is_a?(Array) ?
-        term_arg.map { |t| t.id } :
-        [term_arg.id]
+      else
+        nil
+      end
     end
 
     def pluck_pks(result)

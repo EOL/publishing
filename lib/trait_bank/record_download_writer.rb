@@ -151,9 +151,9 @@ class TraitBank::RecordDownloadWriter
   def write_batch(hashes)
     CSV.open(@tmp_trait_path, "ab", col_sep: "\t") do |csv|
       hashes.in_groups_of(10_000, false) do |batch|
-        Delayed::Worker.logger.info("writing batch of 10k records")
+        Rails.logger.warn("writing batch of 10k records")
 
-        Delayed::Worker.logger.info("begin page query")
+        Rails.logger.warn("begin page query")
 
         pages = Page.where(id: page_ids(batch))
           .includes(
@@ -167,12 +167,12 @@ class TraitBank::RecordDownloadWriter
           )
           .map { |p| [p.id, p] }.to_h
 
-        Delayed::Worker.logger.info("end page query, begin associations query")
+        Rails.logger.warn("end page query, begin associations query")
 
         associations = Page.with_scientific_name.where(id: association_ids(batch))
           .map { |p| [p.id, p] }.to_h
 
-        Delayed::Worker.logger.info("end associations query, begin trait processing")
+        Rails.logger.warn("end associations query, begin trait processing")
 
         batch.each do |trait|
           t1 = Time.now
@@ -206,17 +206,17 @@ class TraitBank::RecordDownloadWriter
           t2 = Time.now
           delta = t2 - t1
 
-          Delayed::Worker.logger.info("Trait #{trait[:eol_pk]} took #{delta}s  to process!") if (t2 - t1 > 0.25)
+          Rails.logger.warn("Trait #{trait[:eol_pk]} took #{delta}s  to process!") if (t2 - t1 > 0.25)
         end
 
-        Delayed::Worker.logger.info("finished writing batch")
+        Rails.logger.warn("finished writing batch")
       end
     end
   end
 
   def finalize
-    Delayed::Worker.logger.info("RecordDownloadWriter#finalize -- BEGIN")
-    Delayed::Worker.logger.info("copying temp TSV file #{@tmp_trait_path} to #{@trait_path} and adding header row")
+    Rails.logger.warn("RecordDownloadWriter#finalize -- BEGIN")
+    Rails.logger.warn("copying temp TSV file #{@tmp_trait_path} to #{@trait_path} and adding header row")
     CSV.open(@trait_path, "wb", col_sep: "\t") do |dest|
       dest << start_cols.keys + (@predicate_uris.collect { |uri| @glossary[uri][:label] })
       CSV.foreach(@tmp_trait_path, "rb", col_sep: "\t") do |row|
@@ -224,18 +224,18 @@ class TraitBank::RecordDownloadWriter
       end
     end
 
-    Delayed::Worker.logger.info("deleting temp TSV file #{@tmp_trait_path}")
+    Rails.logger.warn("deleting temp TSV file #{@tmp_trait_path}")
     File.delete(@tmp_trait_path)
 
     write_glossary
     write_zip
 
-    Delayed::Worker.logger.info("RecordDownloadWriter#finalize -- END")
+    Rails.logger.warn("RecordDownloadWriter#finalize -- END")
     @zip_filename
   end
 
   def write_glossary
-    Delayed::Worker.logger.info("Writing glossary")
+    Rails.logger.warn("Writing glossary")
     CSV.open(TraitBank::DataDownload.path.join(@glossary_filename), "wb", :col_sep => "\t") do |csv|
       csv << ["Glossary"]
       csv << ["Label", "URI", "Definition"]
@@ -301,7 +301,7 @@ class TraitBank::RecordDownloadWriter
   end
 
   def write_zip
-    Delayed::Worker.logger.info("Writing zipfile #{@zip_filename}")
+    Rails.logger.warn("Writing zipfile #{@zip_filename}")
     Zip::File.open(TraitBank::DataDownload.path.join(@zip_filename), Zip::File::CREATE) do |zipfile|
       zipfile.mkdir(@directory_name)
       zipfile.add("#{@directory_name}/#{@trait_filename}", @trait_path)

@@ -1,5 +1,10 @@
 module TraitBank
   module Admin
+
+    # NOTE: these are STRINGS, not symbols:
+    STAGES = %w{begin prune_metadata meta_traits metadata inferred_traits traits vernaculars end}
+    DEFAULT_REMOVAL_BATCH_SIZE = 64
+
     class << self
       def setup
         create_indexes
@@ -69,23 +74,6 @@ module TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
-      def remove_all_traits_for_resource(resource)
-        remove_most_metadata_relationships(resource.id)
-        remove_with_query(
-          name: :meta,
-          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        remove_with_query(
-          name: :rel,
-          q: "()-[rel:inferred_trait]-(:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        remove_with_query(
-          name: :trait,
-          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        Rails.cache.clear # Sorry, this is easiest. :|
-      end
-
       def remove_non_trait_content_for_resource(resource)
         # 'external' metadata
         remove_with_query(
@@ -100,39 +88,127 @@ module TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
-      def remove_by_resource(resource, log = nil)
-        log ||= resource.log_handle
-        remove_most_metadata_relationships(resource.id)
-        remove_with_query(
-          name: :meta,
-          log: log,
-          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        remove_with_query(
-          name: :meta,
-          log: log,
-          q: "(meta:MetaData)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        remove_with_query(
-          name: :rel,
-          log: log,
-          q: "()-[rel:inferred_trait]-(:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        remove_with_query(
-          name: :trait,
-          log: log,
-          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
-        remove_with_query(
-          name: :vernacular,
-          log: log,
-          q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
-        )
+      def count_remaining_graph_nodes(id)
+        TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
       end
 
-      def remove_most_metadata_relationships(resource_id)
+      def remove_by_resource_complete?(resource, log)
+        count = count_remaining_graph_nodes(resource.id)
+        return false unless count.zero?
+        return true
+      end
+      
+      def end_trait_content_removal_background_jobs(resource, log)
+        msg = "There is no (remaining) trait content for #{resource.log_string}, job complete."
+        log.log(msg)
+        Rails.logger.warn(msg)
+        resource.complete
+      end
+
+      def remove_by_resource(resource, stage, size, should_republish)
+        log = resource.log_handle
+        if remove_by_resource_complete?(resource, log)
+          if should_republish
+            republish(resource)
+          else
+            end_trait_content_removal_background_jobs(resource, log)
+          end
+          return 0
+        end
+        
+        removal_tasks = build_removal_tasks(resource)
+        index = STAGES.index(stage)
+        raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove_by_resource, exiting." if index.nil?
+
+        if stage == 'begin'
+          index += 1
+          stage = STAGES[index]
+          log.log("Removing trait content for #{resource.log_string}, continuing to stage #{index}: #{stage}")
+        end
+        
+        if stage == 'end'
+          if remove_by_resource_complete?(resource, log)
+            end_trait_content_removal_background_jobs(resource, log)
+            republish(resource) if should_republish
+            return 0
+          else
+            log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
+            enqueue_trait_removal_stage(resource.id, 1)
+          end
+        elsif stage == 'prune_metadata'
+          prune_metadata_with_too_many_relationships(resource.id, log)
+          enqueue_next_trait_removal_stage(resource.id, index)
+        else
+          # We're in one of the "normal" stages...
+          task = removal_tasks[stage].merge(log: log, size: size || DEFAULT_REMOVAL_BATCH_SIZE)
+          if count_query_results(task).zero?
+            # We have already finished this stage, move on to the next.
+            enqueue_next_trait_removal_stage(resource.id, index)
+          else 
+            # Take a chunk out of this stage:
+            remove_batch_with_query(task)
+            if count_query_results(task).zero?
+              # This stage is done, move on to the next task:
+              enqueue_next_trait_removal_stage(resource.id, index)
+            else
+              # There's more to do for this stage, engqueue it to continue:
+              # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
+              # were too big or small:
+              enqueue_trait_removal_stage(resource.id, index, task[:size])
+            end
+          end
+        end
+        log.pause
+      end
+
+      def republish(resource)
+        resource.log_handle.pause
+        Delayed::Job.enqueue(RepublishJob.new(resource.id))
+      end
+
+      def build_removal_tasks(resource)
+        {
+          'meta_traits' => {
+            name: :meta,
+            q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          },
+          'metadata' => {
+            name: :meta,
+            q: "(meta:MetaData)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          },
+          'inferred_traits' => {
+            name: :rel,
+            q: "()-[rel:inferred_trait]-(:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          },
+          'traits' => {
+            name: :trait,
+            q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          },
+          'vernaculars' => {
+            name: :vernacular,
+            q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          }
+        }
+      end
+
+      def enqueue_next_trait_removal_stage(resource_id, index, size = nil)
+        enqueue_trait_removal_stage(resource_id, index + 1, size)
+      end
+
+      def enqueue_trait_removal_stage(resource_id, index, size = nil)
+        size ||= DEFAULT_REMOVAL_BATCH_SIZE
+        stage = STAGES[index]
+        Rails.logger.warn("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
+        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size, false))
+      end
+
+      # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "normal"
+      # delete process takes AGES. To avoid this, we find them beforehand and remove those relationships one metadata node
+      # at a time, which is less process-intensive.
+      def prune_metadata_with_too_many_relationships(resource_id, log)
+        log.log("Pruning metadata...")
         resource_id = resource_id.to_i
-        results = TraitBank.query(%Q{
+        query = %Q{
           MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource_id} })
           WITH DISTINCT meta
           MATCH (meta)-[r]-()
@@ -140,12 +216,24 @@ module TraitBank
           RETURN meta.eol_pk, rel_count
           ORDER BY rel_count DESC
           LIMIT 20
-        }) # This can take a few seconds...
-        return unless results.has_key?('data') # Something went really wrong.
+        }
+        # This can take a few seconds...
+        results = TraitBank.query(query)
+        unless results.has_key?('data') # Something went really wrong.
+          log.log("WARNING: metadata relationship query had no 'data' key: #{query}")
+          log.log("Response keys: #{results.keys}")
+          return nil
+        end
+        removed = 0
         while results['data']&.first&.last && results['data'].first.last > 20_000 do
           result = results['data'].shift
-          remove_metadata_relationships(result.first, result.last)
+          eol_pk = result.first
+          rel_count = result.last
+          remove_metadata_relationships(eol_pk, rel_count)
+          removed += rel_count
         end
+        log.log("...removed approximately #{removed} metadata relationships.")
+        return removed
       end
 
       def remove_metadata_relationships(id, count)
@@ -170,41 +258,56 @@ module TraitBank
 
       # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
-        name = options[:name]
-        q = invert_quotes(options[:q])
         delay = options[:delay] || 1 # Increasing this did not really help site performance. :|
-        size = options[:size] || 64
-        log = options[:log]
-        count_before = count_by_query(name, q)
-        count = 0
+        count_before = count_query_results(options)
         return if count_before.nil? || ! count_before.positive?
+        name = options[:name]
+        options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
+        count = 0
+        log = options[:log]
         loop do
-          time_before = Time.now
           begin
-            apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{size} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
-            TraitBank::Logger.log("--TB_DEL: #{apoc}")
-            TraitBank.query(apoc)
+            remove_batch_with_query(options.merge(size: options[:size]))
           rescue => e
-            log.log("ERROR during delete of #{size} x #{name}: #{e.message}", cat: :warns) if log
-            sleep size
-            size = size / 2
-            retry unless size <= 16
+            log.log("ERROR during delete of #{options[:size]} x #{name}: #{e.message}", cat: :warns) if log
+            sleep options[:size]
+            options[:size] = options[:size] / 2
+            retry unless options[:size] <= 16
           end
-          time_delta = Time.now - time_before
-          TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
-          count += size
+          count += options[:size]
           if count >= count_before
-            count = count_by_query(name, q)
+            count = count_by_query(name, options[:q])
             break unless count.positive?
             if count >= 2 * count_before
               raise "I have been attempting to delete #{name} data for twice as long as expected. "\
                     "Started with #{count_before} entries, now there are #{count}. Aborting."
             end
           end
-          size *= 2 if time_delta < 15 and size <= 8192
-          size /= 2 if time_delta > 30
           sleep(delay)
         end
+      end
+
+      def remove_batch_with_query(options = {})
+        name = options[:name]
+        q = invert_quotes(options[:q])
+        options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
+        log = options[:log]
+        time_before = Time.now
+        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+        TraitBank::Logger.log("--TB_DEL: #{apoc}")
+        TraitBank.query(apoc)
+        time_delta = Time.now - time_before
+        TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
+        # Note this is changing the ACTUAL options hash. You will GET BACK this value (via that hash)
+        options[:size] *= 2 if time_delta < 15 and options[:size] <= 8192
+        options[:size] /= 2 if time_delta > 30
+        return options[:size]
+      end
+      
+      def count_query_results(options)
+        name = options[:name]
+        q = invert_quotes(options[:q])
+        count_by_query(name, q)
       end
 
       def invert_quotes(str)
@@ -248,7 +351,8 @@ module TraitBank
         dumb_log('Starting')
         nodes.includes(:parent).find_each do |node|
           i += 1
-          dumb_log("Percent complete: #{((i / count.to_f) * 100).ceil}% (#{i}/#{count})") if (i % per_cent).zero?
+          pct_complete = ((i / count.to_f) * 100).ceil
+          dumb_log("Percent complete: #{pct_complete}% (#{i}/#{count})") if (i % per_cent).zero?
           page_id = node.page_id
           next if node.parent.nil?
           parent_id = node.parent.page_id

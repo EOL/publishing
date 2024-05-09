@@ -37,7 +37,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = Rails.application.secrets.smtp
+  config.action_mailer.smtp_settings = Rails.configuration.creds[:smtp]
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -65,8 +65,4 @@ Rails.application.configure do
 
   config.x.resource_authority = 'https://beta.eol.org'
 
-  Rails.configuration.repository_url = Rails.application.secrets.repository[:url]
-  Rails.configuration.eol_web_url = Rails.application.secrets.host[:url]
-  Rails.configuration.x.image_path = Rails.application.secrets.image_path
-  Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url
 end

@@ -8,6 +8,7 @@
 # Author: Mainframe98
 # Author: Marcelhospers
 # Author: McDutchie
+# Author: Mitsjol
 # Author: Nickthijssen1994
 # Author: Optilete
 # Author: PonkoSasuke
@@ -1440,6 +1441,7 @@ nl:
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: actieve groeiperiode
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adult
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agrarisch
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alpiene gletjser
         http://eol(dot)org/schema/terms/ambush: hinderlaagpredator
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidroom

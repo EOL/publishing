@@ -28,7 +28,7 @@ module EolWebsite
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = %i(en mk pt-BR fr zh-TW zh-CN pms tr ar el nl de uk es fi)
+    config.i18n.available_locales = %i(en ar tr cs es pms fi de it mk pt-BR fr zh-TW zh-CN el nl uk)
 
     # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
     # the I18n.default_locale when a translation cannot be found).
@@ -37,10 +37,18 @@ module EolWebsite
     config.exceptions_app = self.routes
     config.data_glossary_page_size = 250
 
+    # Our credentials are environment-specific (for now; Rails 6 fixes this):
+    config.creds = Rails.application.credentials[Rails.env.to_sym]
+
+    config.repository_url = Rails.configuration.creds[:repository][:url]
+    config.eol_web_url = Rails.configuration.creds[:host][:url]
+    config.x.image_path = Rails.configuration.creds[:image_path]
+    config.traitbank_url = ENV.fetch('TRAITBANK_URL') { "http://neo4j_username:password_here@neo4j:7474" }
+
     # For activenode/ruby-neo4j-driver gems, not neography
-    config.neo4j.driver.url = Rails.application.secrets.neo4j_driver_url
-    config.neo4j.driver.username = Rails.application.secrets.neo4j_user
-    config.neo4j.driver.password = Rails.application.secrets.neo4j_password
+    config.neo4j.driver.url = ENV.fetch('NEO4J_DRIVER_URL') { "bolt://neo4j:7687" }
+    config.neo4j.driver.username = ENV.fetch('NEO4J_USER') { "neo4j_username" }
+    config.neo4j.driver.password = ENV.fetch('NEO4J_PASSWORD') { "password_here" }
     config.neo4j.driver.encryption = false
 
     # Search for classes in the lib directory
@@ -48,7 +56,7 @@ module EolWebsite
     config.eager_load_paths += %W(#{config.root}/lib) # NOTE: make sure this stays the same as autoload_paths!
 
     # set x-robots-tag header to noindex for all requests
-    config.x.block_crawlers = Rails.application.secrets.block_crawlers || false
+    config.x.block_crawlers = Rails.configuration.creds[:block_crawlers] || false
 
     # disallowed prefixes for robots.txt and X-Robots-Tag header
     config.x.robots_disallow_patterns = [
@@ -85,7 +93,7 @@ module EolWebsite
       "Sogou inst spider"
     ]
 
-    config.x.geonames_app_id = Rails.application.secrets.geonames_app_id
+    config.x.geonames_app_id = Rails.configuration.creds[:geonames_app_id]
 
     # scaffold config
     config.generators do |g|
@@ -95,9 +103,13 @@ module EolWebsite
     end
 
     config.active_storage.service = :local
-    Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host[:name]
+    app_host_name = Rails.configuration.creds[:host] &&
+      Rails.configuration.creds[:host].key?(:name) ?
+      Rails.configuration.creds[:host][:name] :
+      'localhost:3001'
+    Rails.application.routes.default_url_options[:host] = app_host_name 
 
-    config.x.gbif_credentials = Rails.application.secrets.gbif_credentials
+    config.x.gbif_credentials = Rails.configuration.creds[:gbif_credentials]
 
     # point autocomplete to localized fields
     config.x.autocomplete_i18n_enabled = true
@@ -111,7 +123,7 @@ module EolWebsite
 
     # neo4j log
     config.neo4j.logger = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', 'traitbank.log')))
-    config.neo4j.logger.level = Logger::DEBUG
+    config.neo4j.logger.level = Logger::WARN
     config.neo4j.logger.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime} [#{severity}]: #{msg}\n"
     end

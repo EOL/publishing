@@ -2,47 +2,32 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 1233qwer1234qwer4
-# Author: 1233qwer1234qwer4
-# Author: DDPAT
+# Author: Adriendelucca
 # Author: DDPAT
 # Author: Dimitri Nakashidze
-# Author: Dimitri Nakashidze
+# Author: Dirruw'o
 # Author: HFoxii
-# Author: HFoxii
-# Author: INS Pirat
 # Author: INS Pirat
 # Author: Ice bulldog
 # Author: Kareyac
-# Author: Kareyac
-# Author: Katunchik
 # Author: Katunchik
 # Author: Khaietart
-# Author: Khaietart
-# Author: Lugimax
 # Author: Lugimax
 # Author: Movses
-# Author: Movses
-# Author: MuratTheTurkish
 # Author: MuratTheTurkish
 # Author: NR Deblocked
 # Author: Pacha Tchernof
-# Author: Pacha Tchernof
-# Author: Rivka Silinsky
 # Author: Rivka Silinsky
 # Author: Saimongoltinio
-# Author: Saimongoltinio
-# Author: Steve Lemo
+# Author: Sanyanov
 # Author: Steve Lemo
 # Author: Wileyfoxyx
-# Author: Wileyfoxyx
 # Author: YuliaVo
-# Author: YuliaVo
-# Author: Марио
 # Author: Марио
 # Author: Умар
 ---
 ru:
-  language_name: английский
+  language_name: русский
   about:
     trait_bank:
       title: TraitBank
@@ -175,6 +160,7 @@ ru:
         other: '%{name} включает <a href="%{names_path}">% {count} детей</a>:'
       see_more: узнать больше
     hierarchies:
+      header: Курируемые иерархии для %{sci_name}
       see_resource_file: Полный список смотреть <a href='%{href}'>файле ресурсов</a>.
       this_page: (эта страница)
     richness:
@@ -206,6 +192,8 @@ ru:
     %{page}.
   collected_page_already_in_collection: Это уже было в вашей коллекции.
   collected_pages_title: Страницы
+  collected_pages_medium:
+    destroyed_flash: Изображение удалено с собранной страницы.
   collection_associations:
     destroyed_flash: '%{name} больше не находится в этой коллекции.'
   collected_pages:
@@ -378,6 +366,9 @@ ru:
       worms: Черви
     eol_is_hosted_by: 'EOL размещён на:'
   forgot_your_password: Забыли пароль?
+  gbif_download:
+    created: Задание загрузки GBIF создано. Проверьте <a href="%{url}">страницу своего
+      профиля</a> , чтобы просмотреть его статус.
   landing_page:
     header: Всемирный доступ к информации о жизни на Земле
     stats_cleared: Статистика была пересчитана.
@@ -456,12 +447,14 @@ ru:
     da: Датский
     q3362072: Диго
     q56466: Динка
+    dv: Дивехи; Дивехи; Мальдивский
     q18415595: Дотяли
     q33013: Дуала
     dut: Нидерландский язык; фламандский диалект
     nl: Нидерландский язык; фламандский диалект
     dz: Язык дзонг-кэ
     dzo: Язык дзонг-кэ
+    q4126517: Восточно-канадский инуктитут
     en: Английский
     q29952: Эрзя
     eo: Эсперанто
@@ -544,6 +537,7 @@ ru:
     kg: Конго
     ko: Корейский
     kor: Корейский
+    kj: Куаньяма; Кваньяма
     ku: Курдский язык
     q36206: Лакский язык
     lo: Лаосский
@@ -565,6 +559,7 @@ ru:
     q13286: Нижнелужицкий язык
     lu: Луба-катанга
     q3437661: Лугуру
+    lb: Люксембургский; Летзебурский
     q35787: Масаи
     mk: Македонский
     q497345: Майнфранкские диалекты
@@ -772,6 +767,9 @@ ru:
     prefer: предпочитать
     preferred_in_language_for_page: '%{name} теперь является предпочтительным %{language}
       диалектом для %{page}'
+    show_more_langs:
+      one: показать ещё один язык
+      other: показать другие языки (%{count})
   nav:
     about: О проекте
     discuss: Обсудить
@@ -780,6 +778,7 @@ ru:
       no_results_html: <strong>Нет подтвержденных результатов</strong><br />Нажмите
         Ввод, чтобы увидеть необработанные результаты
       placeholder: Искать Энциклопедию жизни...
+    trait_bank: TraitBank
   name_preferred_label: предпочтительный
   page_title: Энциклопедия жизни
   page_title_search: 'Поиск: %{query}'

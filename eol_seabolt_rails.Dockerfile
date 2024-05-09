@@ -1,13 +1,12 @@
 FROM ruby:3.1.4
 # Note that ruby version is based off of debian 11.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2024-02-14 19:30"
 
 WORKDIR /app
 
 RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
-    apache2-utils procps supervisor vim nginx logrotate msmtp gnupg && \
+    apache2-utils procps vim logrotate msmtp gnupg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir /etc/ssmtp
@@ -22,9 +21,6 @@ RUN apt-get update -q && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
-COPY config/nginx.conf /etc/nginx/nginx.conf
-
 # Set up mail (for user notifications, which are rare but critical)
 # root is the person who gets all mail for userids < 1000
 RUN echo "root=admin@eol.org" >> /etc/ssmtp/ssmtp.conf
@@ -33,12 +29,6 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
-
-RUN gem install bundler:2.5.6
-RUN bundle config set without 'test development staging'
-RUN bundle install --jobs 10 --retry 5
-# Skipping this for now. The secrets file does not work during a `docker-compose build`. :\
-# RUN cd app && rake assets:precompile
 
 RUN apt-get update -q && \
     apt-get install -qq -y cmake

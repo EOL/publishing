@@ -2,24 +2,17 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
-# Author: Ajeje Brazorf
 # Author: Beta16
-# Author: Beta16
-# Author: ElisaPaglia
+# Author: Champ0999
 # Author: ElisaPaglia
 # Author: FedeB
 # Author: G313
-# Author: G313
 # Author: IrsY
 # Author: JackLantern
-# Author: JackLantern
-# Author: Lorem Ipsum
+# Author: LametinoWiki
 # Author: Lorem Ipsum
 # Author: R.caredda1
-# Author: R.caredda1
 # Author: Toa
-# Author: Toa
-# Author: Ubibi
 # Author: Ubibi
 ---
 it:
@@ -542,10 +535,20 @@ it:
     mi: Maori
     mr: Marathi
     mh: Marshallese
+    q13357: Meänkieli
+    q13358: Meglenorumeno
+    q13321: Miꞌkmaq
+    q36455: Min Dong
+    q13324: Minangkabau
+    q13359: Mingrelio
     q13330: Mirandese
+    q13343: Moksha
     mn: Mongolo
     q56426: Arabo marocchino
+    q13300: Nahuatl
     na: Nauruano
+    nv: Navajo; Navaho
+    ng: Ndonga
     q33845: Napoletano
     ne: Nepalese
     q28224: Frisone settentrionale
@@ -555,23 +558,49 @@ it:
     nno: Norvegese
     nob: Norvegese
     nor: Norvegese
+    q36738: Novial
+    q4121131: Nyamwezi
     oc: Occitano (post 1500)
     q28602: Aramaico ufficiale
+    oj: Ojibwe
+    or: Oriya
+    om: Oromo
+    os: Osseto
+    q715755: Paiwan
+    pi: Pāli
     pa: Punjabi
     fa: Persiano
+    q23014: Tedesco palatino
+    q34024: Piccardo
     q15085: Piemontese
     pl: Polacco
     pol: Polacco
+    q36748: Pontico
     pt: Portoghese
+    ps: Pashtu; Pashto
+    qu: Quechua
+    ro: Rumeno; Moldavo
     rm: Romancio
+    rn: Kirundi
     ru: Russo
     rus: Russo
+    q26245: Russino
+    q34299: Sacha
+    sm: Samoano
+    q213434: Samogitico
+    q34016: Sandawe
+    sg: Sango
     sa: Sanscrito
+    q33965: Santali
     sc: Sardo
     q845441: Sardo sassarese
     q14549: Scozzese
+    q716686: Seediq
     sr: Serbo
+    sn: Shona
+    q34004: Shona
     q33973: Siciliano
+    sd: Sindhi
     si: Singalese
     sk: Slovacco
     slk: Slovacco
@@ -581,26 +610,58 @@ it:
     st: Sotho del sud
     es: Spagnolo; Castigliano
     slv: Spagnolo
+    q2638144: Sukuma
+    su: Sundanese
+    sw: Swahili
     ss: Swati
     sv: Svedese
     swe: Svedese
+    tl: Tagalog
     ty: Tahitiano
+    tg: Tagico
+    q34318: Taliscio
     ta: Tamil
+    tt: Tartaro
+    te: Telugu
     th: Thailandese
     tha: Thailandese
     bo: Tibetano
+    ti: Tigrino
+    q34159: Tok pisin
     to: Tongano
+    q180937: Albanese tosco
+    ts: Tsonga
+    tn: Tswana
     q34251: Tulu
+    q34138: Tumbuka
     q56240: Arabo tunisino
     tr: Turco
     tur: Turco
     q36730: Turco, ottomano
+    tk: Turkmeno
+    tw: Twi
+    q13238: Udmurto
     uk: Ucraino
     ukr: Ucraino
     none: Non specificato
+    q13248: Alto sorabo
+    ur: Urdu
+    uz: Uzbeco
+    ve: Venda
+    q32747: Vepso
     vi: Vietnamita
+    vo: Volapük
+    q32858: Votico
+    wa: Vallone
+    q34279: Waray
+    cy: Gallese
+    wel: Gallese
     q100103: Fiammingo occidentale
     fy: Isole Frisone occidentali
+    wo: Wolof
+    q34290: Wu
+    xh: Xhosa
+    yi: Yiddish
     yo: Yoruba
     q237409: Zelandese
     zu: Zulu
@@ -643,6 +704,7 @@ it:
       no_results_html: <strong>Nessun risultato confermato</strong><br />Premi Invio
         per visualizzare i risultati senza revisione
       placeholder: Cerca in EOL...
+    trait_bank: TraitBank
   page_title: Enciclopedia della Vita
   page_title_search: 'Cerca: %{query}'
   page_vernaculars_empty: Non ci sono nomi comuni associati a questo taxon.
@@ -916,6 +978,7 @@ it:
     diseases_and_parasites: Malattie e parassiti
     distribution: Distribuzione
     ecology: Ecologia
+    evolution_and_systematics: Evoluzione e Sistematica
     general_ecology: Ecologia generale
     genetics: Genetica
     growth: Crescita
@@ -944,6 +1007,10 @@ it:
   show_date: Mostra la data di pubblicazione
   sign_in: Entra
   sign_up: Registrati
+  signature_with_contact_us_link: |-
+    In caso di problemi, contattaci a %{url}.
+
+    Il team di Encyclopedia of Life
   did_not_receive_confirmation_instructions: Non ho ricevuto le istruzioni di conferma
   simple_form:
     "yes": Sì
@@ -1017,6 +1084,7 @@ it:
       scientific_name: Nome scientifico
       source: Fonte
     search_results:
+      clade: 'clade: %{clade}'
       download_tsv: scarica tsv
       edit_filters: modifica filtri
       filter_display:
@@ -1027,6 +1095,7 @@ it:
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'risorsa: %{value}'
         sex: 'sesso: %{value}'
         statistical_method: 'metodo statistico: %{value}'
       gbif_search: Ricerca GBIF
@@ -1040,6 +1109,7 @@ it:
           predicate: o seleziona un attributo
     search_form:
       attribute: attributo
+      clade_filter_placeholder: 'gruppo (es: orsi) (facoltativo)'
       hide_additional_fields: nascondi campi aggiuntivi
       lifestage: fase della vita
       resource: risorsa
@@ -1062,6 +1132,8 @@ it:
     download_queue: Coda di download dei dati
     edit_account_details: Modifica i dettagli dell'account
     email: Email
+    to_commit_enter_current: Per confermare le modifiche, inserisci la tua password
+      attuale
     form_labels:
       age_confirm: Ho almeno 13 anni
     headers:
@@ -1079,8 +1151,10 @@ it:
     update: Aggiorna
     update_email: Aggiorna email
   users:
+    account_migration_header: 'Se ti sei registrato su EOL prima del 15 novembre 2018:'
     sign_in: Accedi
   vernacular_names_header: Nomi comuni
+  wordcloud_credit_html: generato con <a href='%{url}'>jQCloud</a>
   i18n_js:
     traits:
       data_viz:
@@ -1133,26 +1207,87 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: zona abissale
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: suolo acido
         http://eol(dot)org/schema/terms/adaptiveStrategy: strategia di adattamento
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: adesivo
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adulto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: habitat aereo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: tasso di ricrescita
           dopo il raccolto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: materiale agricolo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: suolo agricolo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: terrazza agricola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: rifiuti agricoli
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: rifiuti agricoli
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000316: ambiente alcalino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: habitat alcalino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: ghiacciaio alpino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: suolo alpino
+        http://eol(dot)org/schema/terms/amphibious: anfibio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: fango anaerobico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: sedimento anaerobico
+        https://eol(dot)org/schema/terms/anguilliform: anguilliforme
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: lettiera
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000173: acqua anossica
+        http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: anteriore
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009066: antera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: antropogenico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010001: materiale ambientale
+          antropogenico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatite
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: acquedotto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: acquatico
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta acquatica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: falda acquifera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: suolo arabile
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000571: habitat arboreo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Archean: eone
+          archeano
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: arido
         https://eol(dot)org/schema/terms/arm: braccio
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: riproduzione asessuata
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atollo
+        http://eol(dot)org/schema/terms/average: media
         https://eol(dot)org/schema/terms/bamboo_forest: foresta di bamboo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: piantagione di banane
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: solfato di bario
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: corteccia
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: tasso metabolico
+          basale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: basalto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000211: zona batipelagica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: baia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: spiaggia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: diga di castoro
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: cera d'api
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: biennale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biofilm
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: rifiuti biologici
+        http://eol(dot)org/schema/terms/Bioluminescent: bioluminescente
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: nero
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: sangue
         http://eol(dot)org/schema/terms/BloomPeriod: periodo di fioritura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: fluido corporeo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002323: cavità corporea
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: lunghezza del corpo
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: massa corporea
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: temperatura corporea
+        http://eol(dot)org/schema/terms/BodyVolume: volume corporeo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: lago salmastro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: stagno salmastro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: acqua salmastra
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: vasto
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrone
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: germoglio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000073: edificio
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: bulbo
+        https://eol(dot)org/schema/terms/burrowDepth: profondità della tana
+        https://eol(dot)org/schema/terms/burrowDiameter: diametro della tana
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: caffeina
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: calcite
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcio (ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato di calcio
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfato di calcio
@@ -1160,21 +1295,70 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: solfato di calcio diidrato
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: solfato di calcio emiidrato
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: caldera
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: periodo
+          Cambriano
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: canale
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79627: canne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: canyon
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Capitanian: età
+          capitaniana
+        https://eol(dot)org/schema/terms/carangiform: carangiforme
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001701: carapace
+        http://eol(dot)org/schema/terms/CarapaceLength: lunghezza del carapace
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: periodo
+          carbonifero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: carcassa
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: cartilagine
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: grotta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: ingresso della grotta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: pavimento della caverna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: muro della caverna
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diametro cellulare
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: massa cellulare
+        http://eol(dot)org/schema/terms/CellSurfaceArea: superficie cellulare
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volume cellulare
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: era
+          cenozoica
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: sistema nervoso centrale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: gesso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000395: canale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: città
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: argilla
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: sedimento argilloso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: suolo argilloso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: dirupo
         http://eol(dot)org/schema/terms/cloud_forest: foresta nebulosa
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: pianura costiera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: ciottolo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: sedimento di ciottoli
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: piantagione di cocco
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: piantagione di caffè
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: colore
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensale con
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: comunicazione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: compost
         http://purl(dot)obolibrary(dot)org/obo/PO_0020043: composto
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: occhi composti
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: bosco di conifere
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: foresta di conifere
+        http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: stato
+          di conservazione
+        http://eol(dot)org/schema/terms/contaminatedHabitat: habitat contaminato
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002114: sedimento contaminato
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002116: suolo contaminato
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: barriera corallina
+        https://eol(dot)org/schema/terms/coral_sand: sabbia corallina
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: cosmetici
+        http://eol(dot)org/schema/terms/Cosmopolitan: cosmopolita
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000288: piantagione di cotone
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020030: cotiledone
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscolare
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: periodo
+          cretaceo
+        http://eol(dot)org/schema/terms/cuneiform: cuneiforme
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: giorni
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: morto
@@ -1183,66 +1367,177 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: delta
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: dentale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: deserto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: oasi nel deserto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: sabbia del deserto
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: periodo
+          devoniano
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: diametro
+        http://eol(dot)org/schema/terms/DiapauseInitiation: diapausa
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: apparato digerente
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: dimetil solfuro
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: acido docosanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: acido dodecanoico
+        https://eol(dot)org/schema/terms/domesticated_in: addomesticato in
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: dorsale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: canale di drenaggio
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolleranza alla siccità
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: duna
+        http://eol(dot)org/schema/terms/DurationOfIllness: durata della malattia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: polvere
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: colorante
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: mangia
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: periodo
+          ediacarano
+        http://eol(dot)org/schema/terms/eggDensity: densità di uova
+        http://eol(dot)org/schema/terms/EggDiameter: diametro delle uova
+        http://eol(dot)org/schema/terms/EggMass: massa delle uova
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: acido arachico
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: altitudine
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000068: stadio embrionale
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: sistema endocrino
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoscheletro
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: epidermide
+        http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: stima
+        http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: data dell'evento
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempreverde
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: foresta sempreverde
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esposto
+        http://eol(dot)org/schema/terms/extinct: estinto
+        http://eol(dot)org/schema/terms/extinctInTheWild: estinto in natura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: habitat estremo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: occhi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: fattoria
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: veloce
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: piuma
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: piedi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: femmina
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: lunghezza del femore
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: larghezza del femore
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009566: fecondazione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: suolo fertilizzato
         http://eol(dot)org/schema/terms/FireResistance: resistenza al fuoco
         http://eol(dot)org/schema/terms/FireTolerance: tolleranza al fuoco
         http://eol(dot)org/schema/terms/FossilFirst: prima apparizione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: fiordo
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: volo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000255: golena
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: colore del fiore
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorite
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: foraggio
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: additivo alimentare
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: foresta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: acqua dolce
+        https://eol(dot)org/schema/terms/freshwater_animals: animali d'acqua dolce
+        https://eol(dot)org/schema/terms/freshwater_decapods: decapodi d'acqua dolce
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000053: palude d'acqua dolce
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: frontale
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frutto
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: colore del frutto
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: lunghezza del frutto
+        http://eol(dot)org/schema/terms/FruitSeedColor: colore del frutto o seme
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: forma del frutto
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: tipo di frutto
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: larghezza del frutto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000216: fumarola
         http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/giorno
         http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/anno
         http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm^3
         http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m^2
         http://eol(dot)org/schema/terms/gramsPerMonth: g/mese
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durata del periodo di gestazione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: ghiacciaio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: colla
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: erba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000018: ghiaia
+        http://eol(dot)org/schema/terms/grayGreen: grigioverde
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verde
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: porto
+        https://eol(dot)org/schema/terms/harvested_in: raccolto in
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: testa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: cuoriforme
+        http://semanticscience(dot)org/resource/SIO_000040: altezza
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: alta tolleranza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: collina
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: miele
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: orizzontale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: ospedale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: sorgente termale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
+        http://www(dot)marinespecies(dot)org/traits/Hydrostatic: scheletro idrostatico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: sorgente idrotermale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: ghiaccio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: iceberg
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: roccia ignea
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: sistema immunitario
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: cratere da impatto
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pollici
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: strumento
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: lago intermittente
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: lago salino intermittente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canale di irrigazione
+        http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: è un componente
+          di
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: mangiato da
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: isola
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: saltare
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: periodo
+          giurassico
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/anno
         http://eol(dot)org/schema/terms/squarekilometer: km^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: laguna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: letto del lago
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000546: sedimento lacustre
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminare
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000219: mare interno
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grande
         http://eol(dot)org/schema/terms/lateSpring: primavera inoltrata
         http://eol(dot)org/schema/terms/lateSummer: estate inoltrata
         http://eol(dot)org/schema/terms/lateWinter: inverno inoltrato
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: laterale
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: colore delle foglie
+        http://semanticscience(dot)org/resource/SIO_000041: lunghezza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002053: calcare
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineare
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lipidi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: terriccio
         http://eol(dot)org/schema/terms/log10gram: log10 grammi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa tolleranza
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: lava femica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesio (mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: maschio
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: palude di mangrovie
+        https://eol(dot)org/schema/terms/marine_animals: animali marini
+        https://eol(dot)org/schema/terms/marine_carnivore: carnivoro marino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: parco marino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: scogliera marina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: sedimento marino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: neve marina
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000125: massa
         http://semanticscience(dot)org/resource/SIO_001114: max
         http://semanticscience(dot)org/resource/SIO_001109: media
         http://eol(dot)org/schema/terms/meanAnnualTemperature: temperatura media annuale
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementMethod: metodo di misurazione
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: carne
         http://semanticscience(dot)org/resource/SIO_001110: mediana
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: medicinale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: bosco mediterraneo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: mesa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: zona mesopelagica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: era
+          mesozoica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Messinian: età
+          messiniana
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28240: metabolico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002017: roccia metamorfica
         http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
         http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm^2
         http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/giorno
@@ -1250,8 +1545,12 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
+        https://eol(dot)org/schema/terms/microalgae: microalghe
+        http://eol(dot)org/schema/terms/migratory: migratorio
         http://eol(dot)org/schema/terms/millimeterspermonth: millimetri al mese
         http://eol(dot)org/schema/terms/paleo_megaannum: milioni di anni fa
+        http://semanticscience(dot)org/resource/SIO_001113: min
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: minerali
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: misto
         http://eol(dot)org/schema/terms/millilitersPerMinute: ml/min
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
@@ -1267,39 +1566,172 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
+        http://eol(dot)org/schema/terms/moderateRate: moderato
         http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m^2/giorno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: deserto montano
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mesi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: brughiera
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: valico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: catena montuosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: muco
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: fango
+        http://rs(dot)tdwg(dot)org/dwc/terms/municipality: comune
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: muscolo
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12754: sistema muscolo-scheletrico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000465: porto naturale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000363: riserva naturale
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: neonato
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: sistema nervoso
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: malattie del sistema
+          nervoso
         https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/ora
         https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/min
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissazione dell'azoto
         https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
+        https://eol(dot)org/schema/terms/nmolpergramperhour: nmol/g/h
         http://eol(dot)org/schema/terms/no: "no"
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: nessuno
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: isola oceanica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: zona oceanica
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001758: ocelli
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000120: piantagione di palma
+          da olio
+        https://eol(dot)org/schema/terms/omnidirectional: omnidirezionale
+        https://eol(dot)org/schema/terms/omnivoreCarnivore: onnivoro-carnivoro
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: arancione
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ordovician: periodo
+          ordoviciano
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: materia organica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: rifiuti organici
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientamento
+        http://eol(dot)org/schema/terms/otherBudSource: altro
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossigeno
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: era
+          paleozoica
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parassita di
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: cure parentali
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cure parentali
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: pascolo
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: perenne
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001060: cellula fotorecettrice
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: molo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: piantagione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: altopiano
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/s
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002257: podsòl
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polare
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polare
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025281: polline
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: impollinato da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: impollina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: stagno
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: popolazione
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posizione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: prateria
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produce
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: area protetta
+        http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composizione proteica
+          del latte
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: proteine
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: eone
+          proterozoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purine
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: viola
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: piramidale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: cava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: sedimento radioattivo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: ferrovia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: rapide
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: rapporto
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rosso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000045: argilla rossa
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: riproduzione
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: temperatura di riproduzione
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: riserva idrica
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: resina
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: sistema respiratorio
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rizoma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: risaia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fiume
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: valle fluviale
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapporto rna:dna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: roccia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: deserto roccioso
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: radici
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: sabbia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: spiaggia sabbiosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000172: deserto sabbioso
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025538: linfa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000178: savana
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: squame
+        http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: nome scientifico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: mare
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: grotta marina
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: sicurezza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sedimento
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: semi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: sensibilità
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: sensoriale
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: sesso
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: riproduzione sessuale
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sessualmente dimorfico
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: arbusto
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seta
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: periodo
+          siluriano
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: semplice
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: dimensione
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: scheletro
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: struttura scheletrica
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: pelle
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lento
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: piccolo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: laghetto
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: sociale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: suolo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: aculei
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009029: stame
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: amido
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropicale
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: lunghezza della coda
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: denti
+        http://eol(dot)org/schema/terms/TemperateOcean: oceano temperato
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: temperatura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002269: termoclino
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: spessore
+        http://eol(dot)org/schema/terms/thoraxLength: lunghezza del torace
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnellate
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: trasporto
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: albero
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: periodo
+          triassico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: affluente
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: deserto tropicale
+        http://eol(dot)org/schema/terms/TropicalOcean: oceano tropicale
+        http://eol(dot)org/schema/terms/tropicalOrSubtropical: tropicale o subtropicale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: tundra
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C74723: torbidità
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: ombrello
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: lago sotterraneo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: fiume sotterraneo
+        http://eol(dot)org/schema/terms/unknown: sconosciuto
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: acido urico
+        http://eol(dot)org/schema/terms/Uses: usato per
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: valle
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54166: variabile
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: vigneto
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: vitamine
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000246: cratere vulcanico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: roccia vulcanica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: vulcano
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000031: uadi
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: camminare
+        http://eol(dot)org/schema/terms/SeawaterTemperature: temperatura dell'acqua
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianco
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: anni
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giallo
@@ -1319,4 +1751,24 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/s
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monogamo
+        http://eol(dot)org/schema/terms/collection_AGarai: Collezione A. Garai
+        http://eol(dot)org/schema/terms/collection_Fwillemse: Collezione F. Willemse
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: Collezione G.H. Schmidt
+        http://eol(dot)org/schema/terms/collection_Heller: Collezione Heller
+        http://eol(dot)org/schema/terms/collection_Singrisch: Collezione Singrisch
+        http://eol(dot)org/schema/terms/Muséum_d'histoire_naturelle_de_la_Ville_de_Genève: Muséum
+          d'histoire naturelle de la Ville de Genève
+        http://eol(dot)org/schema/terms/adultAndLarva: adulto e larva
+        http://eol(dot)org/schema/terms/adultAndNymph: adulto e ninfa
+        http://eol(dot)org/schema/terms/adultAndPupa: adulto e pupa
+        http://eol(dot)org/schema/terms/chick: pulcino
+        http://eol(dot)org/schema/terms/larvaAndPupa: larva e pupa
+        http://eol(dot)org/schema/terms/maleAndHermaphrodite: maschio ed ermafrodito
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: ninfa
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: spora
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: fertile
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: ermafrodito
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: terminale
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: pupa
 ...

@@ -421,10 +421,11 @@ private
       page_media = page_media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
         "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
         "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
-      # Duplication here is simpler / clearer. Sorry!
-      media_counter = media_counter.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
-        "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
-        "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
+      # Well, shoot. We don't have a license_id available in this query yet, so we have to join on the acutal media:
+      media_counter = media_counter.joins("JOIN media ON page_contents.content_id = media.id").
+        joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id").
+        joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id").
+        where("license_groups.id": @license_group.all_ids_for_filter)
       media_counter_key << "_license_group_#{params[:license_group]}"
     end
     if params[:subclass]

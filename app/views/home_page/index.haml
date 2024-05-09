@@ -1,6 +1,7 @@
-.home
-  .home-head
-    = image_tag "large_logo.png"
-    %h2= t("landing_page.header")
-  = render "main_feed"
-  = render "partner_feed"
+- cache [I18n.locale], expires_in: 1.day do
+  .home
+    .home-head
+      = image_tag "large_logo.png"
+      %h2= t("landing_page.header")
+    = render "main_feed"
+    = render "partner_feed"

@@ -15,9 +15,9 @@ class PageContent < ApplicationRecord
   scope :visible, -> { where(is_hidden: false) }
   scope :hidden, -> { where(is_hidden: true) }
 
-  scope :trusted, -> { where(trust: PageContent.trusts[:trusted]) }
-  scope :untrusted, -> { where(trust: PageContent.trusts[:untrusted]) }
-  scope :not_untrusted, -> { where.not(trust: PageContent.trusts[:untrusted]) }
+  scope :is_trusted, -> { where(trust: PageContent.trusts[:trusted]) }
+  scope :is_untrusted, -> { where(trust: PageContent.trusts[:untrusted]) }
+  scope :is_not_untrusted, -> { where.not(trust: PageContent.trusts[:untrusted]) }
 
   scope :articles, -> { where(content_type: "Article") }
 

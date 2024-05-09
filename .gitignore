@@ -16,8 +16,6 @@ log/*gz
 tmp
 !tmp/cache/
 .sass-cache/
-supervisord.log
-supervisord.pid
 
 # Ignore guard (which is an auto-tester):
 Guardfile
@@ -112,3 +110,6 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

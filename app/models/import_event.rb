@@ -3,5 +3,5 @@ class ImportEvent < ApplicationRecord
 
   enum cat: %i[infos warns errors starts ends urls updates]
 
-  scope :warns, -> { where(cat: ImportEvent.cats[:warns]) }
+  scope :warnings, -> { where(cat: ImportEvent.cats[:warns]) }
 end

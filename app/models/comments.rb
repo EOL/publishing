@@ -6,18 +6,18 @@ class Comments
       discourse_url
       return Rails.logger.error("Missing discourse_url") if discourse_url.nil?
       return Rails.logger.error("Missing discourse_url") if
-        Rails.application.secrets.discourse_key.nil?
+        Rails.configuration.creds[:discourse_key].nil?
       return Rails.logger.error("Missing discourse_url") if
-        Rails.application.secrets.discourse_user.nil?
+        Rails.configuration.creds[:discourse_user].nil?
       @client = DiscourseApi::Client.new(
         discourse_url,
-        Rails.application.secrets.discourse_key,
-        Rails.application.secrets.discourse_user
+        Rails.configuration.creds[:discourse_key],
+        Rails.configuration.creds[:discourse_user]
       )
     end
 
     def discourse_url
-      @discourse_url ||= Rails.application.secrets.discourse_url
+      @discourse_url ||= Rails.configuration.creds[:discourse_url]
     end
 
     def post_url(post)
@@ -50,7 +50,7 @@ class Comments
         client.delete_topic(topic['id'])
         # Just want to lock it down? (The problem with this is that it still shows up.) Archive it:
         # client.change_topic_status(topic['slug'], topic['id'],
-        #   { status: 'archived', enabled: true, api_username: Rails.application.secrets.discourse_user })
+        #   { status: 'archived', enabled: true, api_username: Rails.configuration.creds[:discourse_user] })
         count += 1
       end
       count

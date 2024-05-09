@@ -2,7 +2,6 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Borichèt
-# Author: Borichèt
 ---
 pms:
   language_name: Piemontèis
@@ -2859,62 +2858,214 @@ pms:
           petoral
         https://eol(dot)org/schema/terms/pectoral_fins: nov d'ala petoral
         https://eol(dot)org/schema/terms/pectoral_undulation: sbalansament d'ala petoral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000208: zòna pelàgica
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pennsylvanian: sot-perìod
+          pennsylvanian
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: àcid pentadecanoid
         http://eol(dot)org/schema/terms/perAcre: për acr
         http://purl(dot)obolibrary(dot)org/obo/UO_0000187: përsent
+        https://eol(dot)org/schema/terms/pereiopod: perejòpod
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: arzistent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000205: sorgiss përmanenta
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Permian: era permian-a
+        http://eol(dot)org/schema/terms/persistentSeedBank: përsistent
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: antiparassitari
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        http://eol(dot)org/schema/terms/phagocytosis: as nuriss për fagocitòsi
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: eon
+          fanerosòich
+        http://eol(dot)org/schema/terms/phenologicalSeason: stagion fenològica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000209: zòna fòtica
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fòto-autòtrof
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fòto-eteròtrof
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001060: célula fotoressetiva
+        http://eol(dot)org/schema/terms/photosymbiotroph: fotosimbiòtrof
+        http://eol(dot)org/schema/terms/photosyntheticPathway: sënté fotosintétich
         http://purl(dot)obolibrary(dot)org/obo/TO_0001015: tass ëd fòto-sìntesi
+        http://eol(dot)org/schema/terms/photosyntheticStem: gamba fotosintética
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000329: zòna freàtica
+        http://eol(dot)org/schema/terms/phytoplanktivore: fitoplanctìvor
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: età
+          piasensian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: mòlo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: porsil
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Foreste ùmide
           ëd Pindaré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: euj a përtus ëd gucia
+        http://eol(dot)org/schema/terms/pinnacleReef: bariera a gulia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000244: foresta ëd pin e zenèiver
+        http://www(dot)marinespecies(dot)org/traits/Plankton: planctònich
+        http://eol(dot)org/schema/terms/planktotrophic: planctòtrof
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla
           pianta
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: autëssa dla pianta
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma ëd vita dla pianta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000117: piantagion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000119: foresta piantà
         http://eol(dot)org/schema/terms/PlantingDensity: densità ëd piantassion
+        http://eol(dot)org/schema/terms/plastotype: plastotipo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000182: autipian
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pleistocene: época
+          pleistocen-a
+        https://eol(dot)org/schema/terms/pleopod: pleòpod
+        http://eol(dot)org/schema/terms/pleustophyte: pleustofita
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliensbachian: età
+          pliensbachian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pliocene: época
+          pliocen-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000483: bassin da cascada
+        https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002257: podzol
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: desert polar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000325: polje
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025281: póer dle fior
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: polinisà da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: a polinisa
+        https://eol(dot)org/schema/terms/polychaete_feeder: as nuriss ëd polichet
+        https://eol(dot)org/schema/terms/polygamodioecious: poligamodiòich
+        http://eol(dot)org/schema/terms/polyhaline: polialin-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: gròtola polimetàlica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000484: polinia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: baciass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000512: let ëd baciass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: eva ëd baciass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000062: pòst abità
+        http://purl(dot)obolibrary(dot)org/obo/OBI_0000181: popolassion
         http://eol(dot)org/schema/terms/PopulationGroupSize: taja ëd na partìa ëd
           popolassion
+        http://eol(dot)org/schema/terms/population_trend: tendensa ëd popolassion
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posission
         http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: emergensa ëd chërsùe
           apress un feu
         http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: dzorvivensa dle
           piantin-e apress un feu
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: tampa
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppMd
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: età pragian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: prairìa
         http://eol(dot)org/schema/terms/PrecipitationTolerance: toleransa a le pressipitassion
+        http://eol(dot)org/schema/terms/predatory_suspension_feeder: as nuriss coma
+          ravass ëd sospension
+        http://eol(dot)org/schema/terms/predatorScavenger: ravass ch'a mangia dle
+          carògne
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: durà dël dësvlup
           prenatal
+        http://rs(dot)tdwg(dot)org/dwc/terms/preparations: preparassion
         http://purl(dot)obolibrary(dot)org/obo/RO_0002458: a l'é la pijàita ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: as taca a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: età
+          priabonian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: época
+          ëd Pridoli
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: sensa rèis
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: a produv
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: lagh proglassial
         http://eol(dot)org/schema/terms/Propagule: propàgol
         http://eol(dot)org/schema/terms/ProsomeHeight: autëssa dël prosòma
         http://eol(dot)org/schema/terms/ProsomeLength: longheur dël prosòma
         http://eol(dot)org/schema/terms/ProsomeWidth: larghëssa dël prosòma
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: zòna protegiùa
         http://eol(dot)org/schema/terms/ProteinCompositionOfMilk: composission protèica
           dël làit
-        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: protein-e
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: época
+          proterosòica
+        http://eol(dot)org/schema/terms/protozoa_feeder: as nuriss ëd protozòo
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: psu
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purin-e
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: porpra
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: piramidal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: gava
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Quaternary: perìod
+          quaternari
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: sediment radioativ
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: ferovìa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000415: riva riaussà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000185: torbera riaussà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000365: sit Ramsar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: pastura
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: burie
         http://purl(dot)obolibrary(dot)org/obo/UO_0010006: rapòrt
+        http://rs(dot)tdwg(dot)org/dwc/terms/recordedBy: argistrà da
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: ross
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000045: crèja rossa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005790: seul ross
+        http://eol(dot)org/schema/terms/reefEdge: bordura ëd bariera
+        http://eol(dot)org/schema/terms/reefSlope: spiuvent ëd bariera
+        http://eol(dot)org/schema/terms/reefTerrace: trassa ëd bariera
+        http://eol(dot)org/schema/reference/referenceID: arferiment
+        https://eol(dot)org/schema/terms/reflecting_superposition_eyes: euj an dzor-esposission
+          arfletenta
+        https://eol(dot)org/schema/terms/refracting_superposition_eyes: euj an dzor-esposission
+          refrataria
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_REG: rigenerator
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002256: seul ëd regh
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
-        http://eol(dot)org/schema/terms/ReproductiveSkew: Deviassion arprodutiva
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: temperadura d'arprodussion
+        http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: condission arprodutiva
+        http://eol(dot)org/schema/terms/ReproductiveSkew: deviassion arprodutiva
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: strategìa arprodutiva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: serbator
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: resna
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: ritm respiratòri
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: sistema respiratòri
         http://eol(dot)org/schema/terms/RespClip: capassità ëd chërse ancor apress
           ël taj
         http://eol(dot)org/schema/terms/RespDist: capassità ëd chërse ancor apress
           dle përturbassion
         http://eol(dot)org/schema/terms/RespFire: capassità ëd chërse torna apress
           un feu
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: età
+          ressian-a
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: risòma
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: risòma
+        http://eol(dot)org/schema/terms/rhizomesOrRoots: risòma o rèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: risosfera
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: età
+          rudanian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: perìod
+          ritassian
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000418: ria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: risera
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000283: crësta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000148: torent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000203: lagh dë schërvass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000496: ravin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: brass mòrt
+        http://eol(dot)org/schema/terms/riparianWetland: zòna ùmida rivaria
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fium
-        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapòrt ARN:ADN
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: riva ëd fium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000384: lét ëd fium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: ìsola fluvial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: boca ëd fium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: valada fluvial
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: rapòrt arn:adn
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: età rodian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: ròch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: ròch drocà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000440: balma dë spiuvent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: desert rocos
+        http://eol(dot)org/schema/terms/rockyGrassland: prairìa rocosa
+        https://eol(dot)org/schema/terms/rockyVegetated: sporgensa rocosa con vegetassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005799: sabia rocosa
+        http://eol(dot)org/schema/terms/rootCrown: coron-a dla rèis
+        http://eol(dot)org/schema/terms/root_feeder: as nuriss ëd rèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000164: gròtola ëd rèis
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profondeur ëd l'anreisament
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rèis
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: piantagion ëd goma
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: corsa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: età
+          rupelian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000151: sabkha
+        http://eol(dot)org/schema/terms/sacSpawner: arprodutor an sach
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: età
+          sakmarian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005775: seul contaminà da la
+          sal
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: toleransa a la sal
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: sàut
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson

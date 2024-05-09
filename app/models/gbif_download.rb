@@ -43,26 +43,26 @@ class GbifDownload < ApplicationRecord
 
   def background_build
     begin
-      Delayed::Worker.logger.info("Begin background GBIF job #{id} for #{term_query}")
+      Rails.logger.warn("Begin background GBIF job #{id} for #{term_query}")
       self.update(
         processing_since: Time.current,
         status: :processing
       )
       run
     rescue => e
-      Delayed::Worker.logger.error("Error in background_build for GbifDownload")
-      Delayed::Worker.logger.error(e.message)
-      Delayed::Worker.logger.error(e.backtrace.join("\n"))
+      Rails.logger.error("Error in background_build for GbifDownload")
+      Rails.logger.error(e.message)
+      Rails.logger.error(e.backtrace.join("\n"))
       self.status = :failed
       raise e
     ensure
       self.completed_at = Time.now
 
       if !save
-        Delayed::Worker.logger.error("!!!Failed final save of GbifDownload #{id}")
+        Rails.logger.error("!!!Failed final save of GbifDownload #{id}")
       end
 
-      Delayed::Worker.logger.info("End of background GBIF job #{id}")
+      Rails.logger.warn("End of background GBIF job #{id}")
     end
   end
   handle_asynchronously :background_build, queue: "download"

@@ -42,7 +42,7 @@ class Page < ApplicationRecord
   has_many :page_icons, inverse_of: :page
   has_one :dh_node, -> { dh }, class_name: "Node"
 
-  has_many :page_contents, -> { visible.not_untrusted.order(:position) }
+  has_many :page_contents, -> { visible.is_not_untrusted.order(:position) }
   has_many :articles, through: :page_contents, source: :content, source_type: "Article"
   has_many :media, through: :page_contents, source: :content, source_type: "Medium"
   has_many :regular_media, -> { regular }, through: :page_contents, source: :content, source_type: "Medium"
@@ -189,6 +189,38 @@ class Page < ApplicationRecord
           klass.where(page_id: bad_pages).delete_all
         end
         Page.where(id: bad_pages).delete_all
+      end
+
+      def remove_zombie_search_indexes
+        puts "Starting"
+        STDOUT.flush
+        last_id = Page.last.id
+        last = 0
+        group = 0
+        while last_id >= last
+          first = last + 1
+          group += 1
+          last = first + 9_999
+          remove_zombie_search_indexes_in_range(first, last)
+          if group > 10
+            group = 0 
+            print "\n#{last}"
+          else
+            print "."
+          end
+          STDOUT.flush
+        end
+        puts "\nDone."
+      end
+
+      def remove_zombie_search_indexes_in_range(first, last)
+        ids = Page.where(['id >= ? and id <= ?', first, last]).pluck(:id)
+        a = (first..last).to_a
+        remove_search_index_for_ids(a - ids)
+      end
+
+      def remove_search_index_for_ids(ids)
+        ids.each { |id| Page.search_index.remove(Page.new(id: id)) }
       end
     end
 

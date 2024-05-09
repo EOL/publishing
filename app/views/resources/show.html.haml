@@ -28,13 +28,19 @@
       = @resource.description
 
   - if @resource.import_logs.empty?
-    %p This resource has not been imported yet.
+    %p No import logs to show.
   - else
+    %p
+      - if @resource.last_published_at.nil?
+        This resource has not been successfully published, yet.
+      - else
+        Last published
+        =l(@resource.last_published_at, format: '%Y-%m-%d %H:%M:%S')
     %h2 Content
     %p
       %ul.uk-subnav
         %li= link_to(t("resources.actions.index"), resources_path)
-        %li= link_to('see harvests', "#{Rails.application.secrets.repository[:url]}/resources/#{@resource.repository_id}")
+        %li= link_to('see harvests', "#{Rails.configuration.creds[:repository][:url]}/resources/#{@resource.repository_id}")
         %li= link_to("browse #{number_with_delimiter(@resource.nodes.count)} nodes", resource_nodes_path(@resource))
 
     .uk-section.uk-section-small

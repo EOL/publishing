@@ -52,8 +52,4 @@ I18n.exception_handler = lambda do |exception, locale, key, options|
   raise "Missing translation: #{key}"
 end
 
-Rails.configuration.repository_url = Rails.application.secrets.repository[:url]
-Rails.configuration.eol_web_url = Rails.application.secrets.host[:url]
-Rails.configuration.x.image_path = Rails.application.secrets.image_path
-Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url
 

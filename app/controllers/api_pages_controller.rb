@@ -90,8 +90,7 @@ class ApiPagesController < LegacyApiController
     licenses = License.where('1=1')
     licenses =  if name.match(/^cc-/)
                   licenses = licenses.where('name LIKE "cc%" OR name LIKE "%creativecommons%"')
-                  # NOTE: that funny looking pattern is the MySQL version of a word boundary, /\b/ to Rubyists.
-                  licenses.where("name REGEXP '[[:<:]]#{name.sub(/^cc-/, '')}(-[[:digit:]]|[^-]|$)'")
+                  licenses.where("name REGEXP '\b#{name.sub(/^cc-/, '')}(-[0-9]|[^-]|$)'")
                 elsif name == 'pd'
                   licenses.where('name LIKE "%publicdomain%" OR name LIKE "%public domain%"')
                 elsif name == 'na'

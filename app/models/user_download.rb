@@ -23,14 +23,15 @@ class UserDownload < ApplicationRecord
     where("(created_at >= ? AND status != ?) OR status = ?", EXPIRATION_TIME.ago, UserDownload.statuses[:completed], UserDownload.statuses[:completed])
   end
 
-  EXPIRATION_TIME = 30.days
+  EXPIRATION_TIME = 90.days
   VERSION = 1 # IMPORTANT: Increment this when making changes where you don't want older downloads to be reused
 
   class << self
-    # TODO: this should be set up in a regular task.
     def self.expire_old
-      where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
-        update_all(expired_at: Time.now)
+      where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).each do |dl|
+        dl.update(expired_at: Time.now)
+        dl.delete_file if dl.file_exists?
+      end
     end
 
     # ADMIN method (not called in code) to clear out jobs both in the DB and in Delayed::Job
@@ -88,30 +89,11 @@ class UserDownload < ApplicationRecord
     self.processing_since.present?
   end
 
-private
-  def background_build
-    begin
-      Delayed::Worker.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
-      self.update(processing_since: Time.current)
-      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: user_id)
-      self.filename = downloader.background_build
-      self.status = :completed
-    rescue => e
-      Delayed::Worker.logger.error("!! ERROR in background_build for User Download #{id}")
-      Rails.logger.error("!! ERROR in background_build for User Download #{id}")
-      Rails.logger.error("!! #{e.message}")
-      Delayed::Worker.logger.error("!! #{e.message}")
-      Rails.logger.error("!! #{e.backtrace.join('->')}")
-      Delayed::Worker.logger.error("!! #{e.backtrace.join('->')}")
-      mark_as_failed(e.message, e.backtrace.join("\n"))
-      raise e
-    ensure
-      self.completed_at = Time.now
-      save! # NOTE: this could fail and we lose everything.
-      Delayed::Worker.logger.warn("End background build of #{count} rows for #{term_query} -> #{search_url}")
-    end
+  def file_exists?
+    return false if filename.blank?
+    path = TraitBank::DataDownload.path.join(filename)
+    File.exist?(path)
   end
-  handle_asynchronously :background_build, :queue => "download"
 
   def delete_file
     if self.completed? && !self.filename.blank? && self.original?
@@ -123,4 +105,29 @@ private
       end
     end
   end
+
+private
+  def background_build
+    begin
+      Rails.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
+      self.update(processing_since: Time.current)
+      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: user_id)
+      self.filename = downloader.background_build
+      self.status = :completed
+    rescue => e
+      Rails.logger.error("!! ERROR in background_build for User Download #{id}")
+      Rails.logger.error("!! ERROR in background_build for User Download #{id}")
+      Rails.logger.error("!! #{e.message}")
+      Rails.logger.error("!! #{e.message}")
+      Rails.logger.error("!! #{e.backtrace.join('->')}")
+      Rails.logger.error("!! #{e.backtrace.join('->')}")
+      mark_as_failed(e.message, e.backtrace.join("\n"))
+      raise e
+    ensure
+      self.completed_at = Time.now
+      save! # NOTE: this could fail and we lose everything.
+      Rails.logger.warn("End background build of #{count} rows for #{term_query} -> #{search_url}")
+    end
+  end
+  handle_asynchronously :background_build, :queue => "download"
 end

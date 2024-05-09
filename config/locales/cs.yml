@@ -2,23 +2,18 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Adam N.
-# Author: Georg101
+# Author: Adriendelucca
 # Author: Georg101
 # Author: Jachym
-# Author: Jachym
-# Author: Juandev
 # Author: Juandev
 # Author: Matěj Suchánek
-# Author: Matěj Suchánek
-# Author: Setnicka
+# Author: Mormegil
 # Author: Setnicka
 # Author: Spotter
-# Author: Spotter
-# Author: Watt
 # Author: Watt
 ---
 cs:
-  language_name: Anglicky
+  language_name: čeština
   about:
     trait_bank:
       title: TraitBank

@@ -17,9 +17,7 @@ class TraitBank::Slurp
   # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
   # NOTE: this is the method called by Publishing::Fast
   def load_resource_from_repo
-    repo = ContentServerConnection.new(@resource, @logger)
-
-    @diff_metadata = repo.trait_diff_metadata
+    @diff_metadata = @resource.repo.trait_diff_metadata
 
     ResourceNode.create_if_missing(
       @resource.id,
@@ -39,22 +37,9 @@ class TraitBank::Slurp
     @resource.remove_traits_files
   end
 
-  # TraitBank::Slurp.new(res).load_resource_metadata_from_repo # ...and wait.
-  #def load_resource_metadata_from_repo
-  #  repo = ContentServerConnection.new(@resource)
-  #  repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
-  #  config = load_csv_config
-  #  metadata = config.keys.last
-  #  load_csv(metadata, config[metadata])
-  #  # "Touch" the resource so that it looks like it's been changed (it has):
-  #  @resource.touch
-  #  @resource.remove_traits_files
-  #end
-
   def heal_traits
-    repo = ContentServerConnection.new(@resource)
-    repo.copy_file(@resource.traits_file, 'traits.tsv')
-    repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
+    @resource.repo.copy_file(@resource.traits_file, 'traits.tsv')
+    @resource.repo.copy_file(@resource.meta_traits_file, 'metadata.tsv')
     heal_traits_by_type("traits_#{@resource.id}.csv", :Trait)
     heal_traits_by_type("meta_traits_#{@resource.id}.csv", :MetaTrait)
     post_load_cleanup
@@ -287,41 +272,21 @@ class TraitBank::Slurp
     nodes = config[:nodes]
 
     break_up_large_files(filename) do |sub_filename|
-      # check trait validity
-      skip_pks = Set.new
-
-      # XXX: Disabled due to small resources timing out. This may be worth revisiting in the future.
-      # - mvitale
-      #if checks
-      #  @logger.info("Running validity checks for #{sub_filename}")
-
-      #  checks.each do |where_clause, check|
-      #    skip_pks.merge(run_check(sub_filename, where_clause, check))
-      #  end
-
-      #  if skip_pks.length > MAX_SKIP_PKS
-      #    @logger.warn("WARNING: Too many invalid rows (#{skip_pks.length})! Not skipping any. This may result in bad data!")
-      #    skip_pks = Set.new
-      #  end
-      #end
-
       @logger.info("Importing #{MAX_CSV_SIZE} rows from #{sub_filename}")
 
       # build nodes required by all rows
       nodes.each do |node|
-        try_again = true
+        retries = 3
         begin
-          where = skip_pks.any? ?
-            "NOT row.eol_pk IN [#{skip_pks.map { |pk| "'#{pk}'" }.join(', ')}]" :
-            nil
-
-          build_nodes(node, csv_query_head(sub_filename, where))
+          build_nodes(node, csv_query_head(sub_filename, nil))
         rescue => e
-          if try_again
-            try_again = false
+          unless retries.zero?
             @logger.warn(e.message)
-            @logger.warn("FAILED on build_nodes query (#{node.label}), will "\
-                         "re-try once...")
+            @logger.warn("FAILED on build_nodes query (#{node.label}), will re-try #{retries} times after 5 minute pause "\
+            "(the site may be too busy to serve the CSV to Neo4j)...")
+            retries -= 1
+            sleep(5.minutes)
+            @logger.warn("...re-trying.")
             retry
           end
         end
@@ -331,6 +296,7 @@ class TraitBank::Slurp
         load_csv_where(clause, filename: sub_filename, nodes: nodes, config: where_config)
       end
     end
+    log_node_count
   end
 
   def break_up_large_files(filename)
@@ -339,7 +305,7 @@ class TraitBank::Slurp
       yield filename
     else
       num_chunks = (line_count / MAX_CSV_SIZE.to_f).ceil
-      @logger.warn("Found #{line_count} rows, will break up into #{MAX_CSV_SIZE}")
+      @logger.warn("Found #{line_count} rows, will break up into #{num_chunks} of #{MAX_CSV_SIZE}")
       break_up_large_file(filename, line_count) do |sub_filename, chunk|
         yield sub_filename
       end
@@ -359,7 +325,8 @@ class TraitBank::Slurp
         # TODO: it would, of course, be best if we had some way to *check* whether the DB is ready... consider.
         wait_time = chunk * 2.minutes
         wait_time = 30.minutes if wait_time > 30.minutes
-        @logger.info("Waiting #{wait_time / 60} minutes for the last 'chunk' to be added to neo4j...")
+        log_node_count
+        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j.")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
@@ -375,6 +342,13 @@ class TraitBank::Slurp
       yield(sub_file, chunks + 1)
       File.unlink("#{resource_file_dir}/#{sub_file}")
     end
+  end
+
+  def log_node_count
+    node_count = TraitBank::Queries.count_supplier_nodes_by_resource_nocache(@resource.id)
+    trait_count = TraitBank::Queries.count_traits_by_resource_nocache(@resource.id)
+    meta_count = TraitBank::Queries.count_metadata_by_resource_nocache(@resource.id)
+    @logger.info("Nodes: #{node_count}; Traits: #{trait_count}; MetaData: #{meta_count}")
   end
 
   def size_of_file(filename)
@@ -620,11 +594,7 @@ class TraitBank::Slurp
   end
 
   def remove_traits
-    if @diff_metadata.remove_all_traits?
-      @logger.info('removing all traits')
-
-      TraitBank::Admin.remove_all_traits_for_resource(@resource)
-    elsif @diff_metadata.removed_traits_file.present?
+    if @diff_metadata.removed_traits_file.present?
       @logger.info('removing traits specified in diff file')
 
       count = 0
@@ -641,35 +611,4 @@ class TraitBank::Slurp
       @logger.info('not removing any traits')
     end
   end
-
-  #def run_check(filename, row_where_clause, check)
-  #  head = csv_check_head(filename, row_where_clause)
-  #  query = <<~CYPHER
-  #    #{head}
-  #    MATCH #{check[:matches].join(", ")}
-  #    #{check[:optional_matches]&.any? ? "OPTIONAL MATCH #{check[:optional_matches].join(", ")}" : ''}
-  #    WHERE #{check[:fail_condition]}
-  #    RETURN DISTINCT #{check[:returns].join(", ")}
-  #  CYPHER
-
-  #  result = ActiveGraph::Base.query(query).to_a
-
-  #  skip_pks = []
-
-  #  if result.any?
-  #    @logger.error(check[:message])
-
-  #    values_to_log = []
-  #    result.each do |row|
-  #      skip_pks << row[:eol_pk]
-  #      values_to_log << [row[:page_id], row[:term_uri]]
-  #    end
-
-  #    @logger.error('[page_id, term_uri] pairs logged above')
-  #    @logger.error("Too many rows to log! This is just a sample.") if values_to_log.length > MAX_SKIP_PKS
-  #    @logger.error(values_to_log[0..MAX_SKIP_PKS].map { |v| "[#{v.join(', ')}]" }.join(', '))
-  #  end
-
-  #  skip_pks
-  #end
 end

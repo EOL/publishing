@@ -1,0 +1,33 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Node to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.yml definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using neo4j:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+---
+:constraints:
+- CONSTRAINT ON ( `activegraph::migrations::schemamigration`:`ActiveGraph::Migrations::SchemaMigration`
+  ) ASSERT (`activegraph::migrations::schemamigration`.migration_id) IS UNIQUE
+- CONSTRAINT ON ( metadata:MetaData ) ASSERT (metadata.eol_pk) IS UNIQUE
+- CONSTRAINT ON ( page:Page ) ASSERT (page.page_id) IS UNIQUE
+- CONSTRAINT ON ( resource:Resource ) ASSERT (resource.resource_id) IS UNIQUE
+- CONSTRAINT ON ( term:Term ) ASSERT (term.eol_id) IS UNIQUE
+- CONSTRAINT ON ( term:Term ) ASSERT (term.uri) IS UNIQUE
+- CONSTRAINT ON ( trait:Trait ) ASSERT (trait.eol_pk) IS UNIQUE
+:indexes:
+- INDEX FOR (n:Term) ON (n.name)
+- INDEX FOR (n:Trait) ON (n.object_page_id)
+- INDEX FOR (n:Trait) ON (n.resource_pk)
+:versions:
+- '20240418182529'
+- '20240418182604'
+- '20240418182623'
+- '20240418182642'
+- '20240418182659'
+

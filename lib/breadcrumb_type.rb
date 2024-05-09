@@ -1,9 +1,9 @@
 module BreadcrumbType
-  TYPES = {
+  TYPES ||= {
     vernacular: 0,
     canonical: 1
   }
-  TYPES_INVERTED = TYPES.invert
+  TYPES_INVERTED ||= TYPES.invert
 
   class << self
     TYPES.each do |k, v|
