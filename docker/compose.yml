@@ -16,7 +16,7 @@ x-app: &default-app
     - neo4j
     - memcached
     - redis
-    - elasticsearch
+    - elastic01
   deploy:
     replicas: 6
     resources:
@@ -55,7 +55,7 @@ x-worker: &default-worker
     - neo4j
     - memcached
     - redis
-    - elasticsearch
+    - elastic01
   deploy:
     resources:
       limits:
