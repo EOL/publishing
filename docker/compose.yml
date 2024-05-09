@@ -120,6 +120,9 @@ services:
       - network.host=0.0.0.0
       - "discovery.zen.minimum_master_nodes=1"
       - cluster.name=eol-search-staging
+      - cluster.routing.allocation.disk.watermark.low=50gb
+      - cluster.routing.allocation.disk.watermark.high=1gb
+      - cluster.routing.allocation.disk.watermark.flood_stage=500mb
       # - cluster.initial_master_nodes=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
     volumes:
