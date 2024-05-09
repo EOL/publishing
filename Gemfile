@@ -2,7 +2,7 @@ source "https://rubygems.org"
 # The REALLY basic stuff stays at the top:
 
 # gem 'rails', '5.2.8.1'
-gem 'rails', '6.0.6.1'
+gem 'rails', '6.1.7.7'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 # Use puma as the web host
