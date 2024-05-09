@@ -12,7 +12,7 @@ ENV NODE_OPTIONS="--openssl-legacy-provider npm run start"\
     NODE_ENV="production"\
     BUNDLE_PATH="/gems"
 
-RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`\
+RUN gem install `grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | sed 's/^\s\+/bundler:/'`\
   && bundle config set without 'test development staging'\
   && bundle install --jobs 10 --retry 1\
   && bundle config set --global path /gems\
