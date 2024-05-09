@@ -104,6 +104,7 @@ x-es: &default-es
       max-size: "5m"
   networks:
     - elastic
+  profiles: ["search"]
 
 services:
   elastic01:
