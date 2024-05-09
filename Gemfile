@@ -105,6 +105,8 @@ gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
 # to switch to. Read https://github.com/rubyzip/rubyzip when the time comes!
 gem 'redis', '~> 5.0'
 gem 'rubyzip', '~> 2.3'
+# Scout is an application monitoring tool:
+gem 'scout_apm'
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
 gem 'sidekiq', '~> 6.5'
 # Simplify Forms:
