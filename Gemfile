@@ -8,14 +8,9 @@ gem 'bigdecimal' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'mutex_m' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'csv' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 # Use mysql2 as the database for Active Record
-gem 'mysql2', '0.5.3'
+gem 'mysql2', '~> 0.5.6'
 # Use puma as the web host
 gem 'puma', '~> 6.4'
-
-# TEMP: Fixes a licensing issue with Rails:
-gem 'mimemagic', '0.4.3'
-# TEMP: Fixes a security patch in nokogiri:
-gem 'nokogiri', '>= 1.13.5'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
@@ -68,7 +63,7 @@ gem 'delayed_job_active_record', '~> 4.1'
 gem 'devise', '~> 4.9'
 gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
-# Discourse handles comments and chat:
+# Discourse handles comments and chat: TODO: do we even use this anymore?!
 gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
@@ -93,7 +88,7 @@ gem 'i18n-js', '~> 3.9' # NOTE: Version 4 is coming. There is no documentation f
 # JSON schema-based validation
 gem 'json_schemer', '~> 0.2'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
-gem 'lograge', '~> 0.11'
+gem 'lograge', '~> 0.14'
 # This should help stop some of the warnings you'll see in the logs/console:
 gem 'net-http'
 # Speed up JSON, including for ElasticSearch:
@@ -102,7 +97,7 @@ gem 'oj', '~> 3.13'
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
 gem 'pundit', '~> 2.1'
-# CORS middleware
+# CORS middleware, we need this for HW's cross-site API requests:
 gem 'rack-cors'
 # Turing test:
 gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
@@ -127,37 +122,12 @@ gem 'sitemap_generator', '~> 6.2'
 gem 'typhoeus', '~> 1.4'
 
 group :development, :test do
-  gem 'active_record_query_trace', '~> 1'
-  # Security analysis:
-  gem 'brakeman', '~> 5', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11'
-  # Coveralls tracks our spec coverage:
-  gem 'coveralls', '~> 0', require: false
-  # Rails told me to add this to my development group. I don't know why, but I'm ... listening.
-  gem 'listen', '~> 3'
-  # Rubocop... which technically you want on your *system*, but ...
-  gem 'rubocop', '0.93.1' # Being very specific because this is a PITA to update even a tiny bit!
-  gem 'rubocop-performance', '1.9.2'
-  gem 'rubocop-rails', '2.9.1'
-  # Simplecov, oddly, to add configuration for Coveralls.
-  gem 'simplecov', '~> 0'
-  gem 'solargraph', '~> 0'
-
   gem 'rspec-rails', '~> 4.1.0'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3'
-
-  # Spring speeds up development by keeping your application running in the background.
-  # Read more: https://github.com/rails/spring
-  gem 'spring', '~> 2'
-
-  # I removed "mailcatcher" the docs (https://mailcatcher.me/) actually say as much: DON'T include it. Just install it
-  # if you want to use it and ... uh... use it.
-
-  # For benchmarking queries:
-  gem 'meta_request', '~> 0'
 end
