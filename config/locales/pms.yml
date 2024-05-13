@@ -3064,10 +3064,21 @@ pms:
         http://eol(dot)org/schema/terms/sacSpawner: arprodutor an sach
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: età
           sakmarian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000055: baciass d'evaporassion
+          për la sal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000019: lagh salà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000279: bassin salà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: eva salà
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005775: seul contaminà da la
           sal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000022: maré salà
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: toleransa a la sal
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: sàut
+        http://rs(dot)tdwg(dot)org/dwc/terms/samplingEffort: sfòrs ëd campionament
+        http://rs(dot)tdwg(dot)org/dwc/terms/samplingProtocol: protocòl ëd campionament
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: sabia
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: età
+          sandbian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson
         http://purl(dot)obolibrary(dot)org/obo/PO_0005848: xilema scondari
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: smens
