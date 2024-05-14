@@ -52,7 +52,7 @@ gem 'bootsnap', '~> 1.10', require: false
 # Counter Culture handles cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 2.9'
 # Cron jobs:
-gem 'crono', '~> 1.1'
+gem 'crono', '~> 2.0'
 # Run background jobs:
 gem 'daemons', '~> 1.4'
 # Memcached (not for development):
