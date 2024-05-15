@@ -3,7 +3,7 @@ module Content
 
   included do
     include Content
-    searchkick callbacks: Searchkick.redis ? :queue : nil
+    searchkick callbacks: :queue
 
     belongs_to :resource
     belongs_to :language, optional: true
