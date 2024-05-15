@@ -50,27 +50,24 @@ class TraitsController < ApplicationController
       end
 
       fmt.csv do
-        if !current_user
-          redirect_to new_user_session_path
-        else
-          if @query.valid?
-            url = term_search_results_url(:tq => @query.to_short_params)
-            if UserDownload.user_has_pending_for_query?(current_user, @query)
-              flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
+        return redirect_to(new_user_session_path) unless user_signed_in?
+        if @query.valid?
+          url = term_search_results_url(:tq => @query.to_short_params)
+          if UserDownload.user_has_pending_for_query?(current_user, @query)
+            flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
+            redirect_to url
+          else
+            data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
+
+            if data.is_a?(UserDownload)
+              flash[:notice] = t("user_download.created", url: user_path(current_user))
               redirect_to url
             else
-              data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
-
-              if data.is_a?(UserDownload)
-                flash[:notice] = t("user_download.created", url: user_path(current_user))
-                redirect_to url
-              else
-                send_data data
-              end
+              send_data data
             end
-          else
-            redirect_to url
           end
+        else
+          redirect_to url
         end
       end
     end
