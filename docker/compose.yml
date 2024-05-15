@@ -86,7 +86,7 @@ x-es: &default-es
   deploy:
     resources:
       limits:
-        cpus: '1'
+        cpus: '2'
         memory: '10.5G'
     restart_policy:
       condition: on-failure
@@ -290,7 +290,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '1.00'
           memory: 2G
       restart_policy:
         condition: on-failure
