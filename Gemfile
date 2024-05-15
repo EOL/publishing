@@ -110,6 +110,8 @@ gem 'rubyzip', '~> 2.3'
 gem 'scout_apm'
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
 gem 'sidekiq', '~> 6.5'
+# OUT OF ORDER: Sidekiq needs AJ-TC to reduce concurrency https://github.com/ankane/searchkick?tab=readme-ov-file#filterable-fields
+gem "activejob-traffic_control", ">= 0.1.3"
 # Simplify Forms:
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
