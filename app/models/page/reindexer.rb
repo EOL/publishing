@@ -15,7 +15,6 @@ class Page::Reindexer
       SearchSuggestion.reindex
       # These are not so fast:
       Article.reindex
-      Link.reindex
       # This one is a beast, so we should background it:
       Medium.reindex(async: true, resume: true, refresh_interval: '60s')
       background_reindex_pages

@@ -28,8 +28,7 @@ class PageContent < ApplicationRecord
     column_name: proc { |model| "#{model.content_type.pluralize.downcase}_count" },
     column_names: {
       ["page_contents.content_type = ?", "Medium"] => "media_count",
-      ["page_contents.content_type = ?", "Article"] => "articles_count",
-      ["page_contents.content_type = ?", "Link"] => "links_count"
+      ["page_contents.content_type = ?", "Article"] => "articles_count"
     }
 
   acts_as_list scope: :page
