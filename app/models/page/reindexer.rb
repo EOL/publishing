@@ -14,6 +14,7 @@ class Page::Reindexer
       User.reindex
       SearchSuggestion.reindex
       # These are not so fast:
+      Searchkick.timeout = 500
       Article.reindex(mode: :async, refresh_interval: '60s')
       # This one is a beast, so we should background it:
       Medium.reindex(mode: :async, refresh_interval: '60s')
@@ -26,6 +27,7 @@ class Page::Reindexer
     end
 
     def background_reindex_pages
+      Searchkick.timeout = 500
       path = Rails.root.join('log', 'es_page_reindex.log')
       cmd = 'Page.reindex(mode: :async, refresh_interval: "60s")'
       rescue_cmd = 'Page.reindex(mode: :async, resume: true, refresh_interval: "60s")'
