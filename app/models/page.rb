@@ -18,7 +18,7 @@ class Page < ApplicationRecord
   autocompletes "autocomplete_names"
 
   # NOTE: default batch_size is 1000
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 2000,
+  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 500,
     merge_mappings: true, mappings: { properties: autocomplete_searchkick_properties }, callbacks: :queue
 
   belongs_to :native_node, class_name: "Node", optional: true

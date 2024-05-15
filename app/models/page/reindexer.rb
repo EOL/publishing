@@ -18,20 +18,16 @@ class Page::Reindexer
       Article.reindex(mode: :async, refresh_interval: '60s')
       # This one is a beast, so we should background it:
       Medium.reindex(mode: :async, refresh_interval: '60s')
-      background_reindex_pages
+      reindex
     end
 
-    # Simply Page::Reindexer.resume_reindex
     def resume_reindex
       Page.reindex(mode: :async, resume: true, refresh_interval: '60s')
     end
 
-    def background_reindex_pages
+    def reindex
       Searchkick.timeout = 500
-      path = Rails.root.join('log', 'es_page_reindex.log')
-      cmd = 'Page.reindex(mode: :async, refresh_interval: "60s")'
-      rescue_cmd = 'Page.reindex(mode: :async, resume: true, refresh_interval: "60s")'
-      `nohup rails r '#{cmd} rescue #{rescue_cmd}' > #{path} 2>&1 &`
+      Page.reindex(mode: :async, refresh_interval: '60s')
     end
 
     def promote_background_index(force = false)

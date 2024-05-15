@@ -1,5 +1,5 @@
 class Resource < ApplicationRecord
-  searchkick text_start: ["name"], batch_size: 250
+  searchkick text_start: ["name"], batch_size: 250, callbacks: :queue
 
   belongs_to :partner, inverse_of: :resources
   belongs_to :dataset_license, class_name: 'License', optional: true

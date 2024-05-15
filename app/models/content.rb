@@ -3,7 +3,7 @@ module Content
 
   included do
     include Content
-    searchkick callbacks: :queue
+    searchkick callbacks: :queue, batch_size: 250
 
     belongs_to :resource
     belongs_to :language, optional: true
