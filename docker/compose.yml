@@ -287,6 +287,16 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_sidekiq_log:/app/log
       - /data/publishing_web_private:/app/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 2G
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
   pub_crono:
     <<: *default-worker
     container_name: pub_crono
