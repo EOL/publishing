@@ -87,7 +87,7 @@ x-es: &default-es
     resources:
       limits:
         cpus: '1'
-        memory: '4.5G'
+        memory: '6.5G'
     restart_policy:
       condition: on-failure
       delay: 8s
@@ -114,7 +114,7 @@ services:
     ports:
       - 9200:9200
     environment:
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - node.name=elastic01
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
@@ -131,7 +131,7 @@ services:
     <<: *default-es
     container_name: elastic02
     environment:
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - node.name=elastic02
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
@@ -145,7 +145,7 @@ services:
     <<: *default-es
     container_name: elastic03
     environment:
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms6g -Xmx6g"
       - node.name=elastic03
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
