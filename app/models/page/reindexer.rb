@@ -7,9 +7,17 @@ class Page::Reindexer
   # you want to see them again, checkout 69b3076fa15c880daff673a45e073eb22d026371
   class << self
     def reindex
-      TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
-      Resource.reindex(async: {wait: true}, refresh_interval: '60s')
-      User.reindex(async: {wait: true}, refresh_interval: '60s')
+      # TODO: Not an AR model, so not working with new version of Searchkick!
+      # TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
+      # These are super fast, not worth putting in the background.
+      Resource.reindex
+      User.reindex
+      SearchSuggestion.reindex
+      # These are not so fast:
+      Article.reindex
+      Link.reindex
+      # This one is a beast, so we should background it:
+      Medium.reindex(async: true, resume: true, refresh_interval: '60s')
       background_reindex_pages
     end
 

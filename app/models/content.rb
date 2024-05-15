@@ -3,7 +3,8 @@ module Content
 
   included do
     include Content
-    searchkick
+    searchkick_args[:callbacks] = :queue if Searchkick.redis
+    searchkick **searchkick_args
 
     belongs_to :resource
     belongs_to :language, optional: true
