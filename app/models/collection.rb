@@ -1,5 +1,5 @@
 class Collection < ApplicationRecord
-  searchkick
+  # searchkick
 
   before_destroy :remove_owners
 

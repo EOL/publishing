@@ -290,7 +290,7 @@ ko:
       map: 제목 없는 지도
       map_of: '%{page_name}의 지도'
       js_map: 제목 없는 상호작용 지도
-    subclasses:
+    subcategories:
       image: 이미지
       sound: 소리
   medium_description_blank: 이 프로젝트에 지정된 설명이 없습니다.
@@ -330,7 +330,7 @@ ko:
         r_subphylum: 아문
         r_infraphylum: 하문
         r_class: 강
-        r_subclass: 아강
+        r_subcategory: 아강
         r_superorder: 상목
         r_order: 목
         r_suborder: 아목

@@ -107,7 +107,7 @@ zh-CN:
         r_infraphylum: '%{name1}是%{name2}的一个下门。'
         r_superclass: '%{name1}是%{name2}的一个总纲。'
         r_class: '%{name1}是%{name2}的一个纲。'
-        r_subclass: '%{name1}是%{name2}的一个亚纲。'
+        r_subcategory: '%{name1}是%{name2}的一个亚纲。'
         r_infraclass: '%{name1}是%{name2}的一个下纲。'
         r_superorder: '%{name1}是%{name2}的一个总目。'
         r_order: '%{name1}是%{name2}的一个目。'
@@ -733,7 +733,7 @@ zh-CN:
       map_of: '%{page_name}的地图'
       js_map: 无标题的互动地图
       js_map_of: '%{page_name}的互动地图'
-    subclasses:
+    subcategories:
       image: 图像
       video: 视频
       sound: 声音
@@ -824,7 +824,7 @@ zh-CN:
         r_infraphylum: 下门
         r_superclass: 总纲
         r_class: 纲
-        r_subclass: 亚纲
+        r_subcategory: 亚纲
         r_infraclass: 下纲
         r_superorder: 总目
         r_order: 目
@@ -907,7 +907,7 @@ zh-CN:
       r_infraphylum: 下门
       r_superclass: 总纲
       r_class: 纲
-      r_subclass: 亚纲
+      r_subcategory: 亚纲
       r_infraclass: 下纲
       r_superorder: 总目
       r_order: 目

@@ -31,7 +31,7 @@ the resource links and created_at and updated_at props. I'm not sure we need all
 
 // NOTE: I renamed "source_page_url" to "in_context_url" as it's more descriptive. Also "unmodified_source_url" instead
 // of just "unmodified_url"
-Medium:Content { format, subclass, description, base_url, unmodified_source_url, in_context_url }
+Medium:Content { format, subcategory, description, base_url, unmodified_source_url, in_context_url }
 
 Article:Content { source_url, body }
 

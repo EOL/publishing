@@ -82,12 +82,12 @@ x-default-deploy: &default-deploy
       max-size: "5m"
 
 x-es: &default-es
-  image: docker.elastic.co/elasticsearch/elasticsearch:8.13
+  image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
   deploy:
     resources:
       limits:
-        cpus: '1'
-        memory: '4.5G'
+        cpus: '2'
+        memory: '10.5G'
     restart_policy:
       condition: on-failure
       delay: 8s
@@ -114,17 +114,16 @@ services:
     ports:
       - 9200:9200
     environment:
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - node.name=elastic01
-      - node.master=true
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
-      - "discovery.zen.minimum_master_nodes=1"
-      - cluster.name=eol-search-staging
+      - cluster.name=eol-search-${RAILS_ENV}
       - cluster.routing.allocation.disk.watermark.low=50gb
       - cluster.routing.allocation.disk.watermark.high=1gb
       - cluster.routing.allocation.disk.watermark.flood_stage=500mb
       - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - discovery.seed_hosts=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
     volumes:
       - /data/publishing/elastic01/data:/usr/share/elasticsearch/data
@@ -132,13 +131,13 @@ services:
     <<: *default-es
     container_name: elastic02
     environment:
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - node.name=elastic02
-      - node.master=false
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
-      - cluster.name=eol-search-staging
+      - cluster.name=eol-search-${RAILS_ENV}
       - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - discovery.seed_hosts=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
     volumes:
       - /data/publishing/elastic02/data:/usr/share/elasticsearch/data
@@ -146,13 +145,13 @@ services:
     <<: *default-es
     container_name: elastic03
     environment:
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - node.name=elastic03
-      - node.master=false
       - bootstrap.memory_lock=true
       - network.host=0.0.0.0
-      - cluster.name=eol-search-staging
+      - cluster.name=eol-search-${RAILS_ENV}
       - cluster.initial_master_nodes=elastic01,elastic02,elastic03
+      - discovery.seed_hosts=elastic01,elastic02,elastic03
       - xpack.security.enabled=false
     volumes:
       - /data/publishing/elastic03/data:/usr/share/elasticsearch/data
@@ -288,6 +287,16 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_sidekiq_log:/app/log
       - /data/publishing_web_private:/app/data
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 2G
+      restart_policy:
+        condition: on-failure
+        delay: 8s
+        max_attempts: 3
+        window: 120s
   pub_crono:
     <<: *default-worker
     container_name: pub_crono
@@ -334,8 +343,8 @@ services:
           memory: 4G
     profiles: ["load"]
     build:
-      context: ..
       dockerfile: ./nginx.Dockerfile
+      context: ..
     container_name: nginx
     volumes:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro

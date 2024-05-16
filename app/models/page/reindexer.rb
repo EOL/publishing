@@ -6,34 +6,40 @@ class Page::Reindexer
   # NOTE: There were instance methods here to *manually* reindex things and "watch" the progress. I've removed them. If
   # you want to see them again, checkout 69b3076fa15c880daff673a45e073eb22d026371
   class << self
-    def reindex
-      TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
-      Resource.reindex(async: {wait: true}, refresh_interval: '60s')
-      User.reindex(async: {wait: true}, refresh_interval: '60s')
-      background_reindex_pages
+    def reindex_all
+      # TODO: Not an AR model, so not working with new version of Searchkick!
+      # TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
+      # These are super fast, not worth putting in the background.
+      Resource.reindex
+      User.reindex
+      SearchSuggestion.reindex
+      # These are not so fast:
+      Searchkick.timeout = 500
+      Article.reindex(mode: :async, refresh_interval: '60s')
+      # This one is a beast, so we should background it:
+      Medium.reindex(mode: :async, refresh_interval: '60s')
+      reindex
     end
 
-    # Simply Page::Reindexer.resume_reindex
     def resume_reindex
-      Page.reindex(async: true, resume: true, refresh_interval: '60s')
+      Page.reindex(mode: :async, resume: true, refresh_interval: '60s')
     end
 
-    def background_reindex_pages
-      path = Rails.root.join('log', 'es_page_reindex.log')
-      cmd = 'Page.reindex(async: {wait: true}, resume: true)'
-      rescue_cmd = 'Page.reindex(async: true, refresh_interval: "60s")'
-      `nohup rails r '#{cmd} rescue #{rescue_cmd}' > #{path} 2>&1 &`
+    def reindex
+      Searchkick.timeout = 500
+      Page.reindex(mode: :async, refresh_interval: '60s')
     end
 
     def promote_background_index(force = false)
       # => {:completed=>false, :batches_left=>2143}
-      status = Searchkick.reindex_status(index_names.sort.last)
+      index_name = Page.searchkick_index.all_indices.sort.last
+      status = Searchkick.reindex_status(index_name)
       if !force && !status[:completed]
         puts "Reindex incomplete! There are #{status[:batches_left]} batches left.\n"\
              "You can override this with \`promote_background_index(true)\`."
         return
       end
-      Page.search_index.promote(index_names.sort.last, update_refresh_interval: true)
+      Page.search_index.promote(index_name, update_refresh_interval: true)
     end
 
     # puts Searchkick.client.cat.indices

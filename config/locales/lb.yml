@@ -49,7 +49,7 @@ lb:
         r_phylum: '%{name1} ass e Stamm vu(n) %{name2}.'
         r_subphylum: '%{name1} ass en Ënnerstamm vu(n) %{name2}.'
         r_class: '%{name1} ass eng Klass vu(n) %{name2}.'
-        r_subclass: '% {name1} ass eng Ënnerklass vu(n) %{name2}.'
+        r_subcategory: '% {name1} ass eng Ënnerklass vu(n) %{name2}.'
         r_infraclass: '%{name1} ass eng Ënnerklass vu(n) %{name2}.'
         r_order: '%{name1} ass eng Uerdnung vu(n) %{name2}.'
         r_suborder: '%{name1} ass eng Ënneruerdnung vu(n) %{name2}.'
@@ -306,7 +306,7 @@ lb:
       map_of: Kaart vu(n) %{page_name}
       js_map: Interaktiv Kaart ouni Titel
       js_map_of: Interaktiv Kaart vu(n) %{page_name}
-    subclasses:
+    subcategories:
       image: Bild
       video: Video
       sound: Toun
@@ -370,7 +370,7 @@ lb:
         r_subphylum: Ënnerstamm
         r_superclass: Iwwerklass
         r_class: Klass
-        r_subclass: Ënnerklass
+        r_subcategory: Ënnerklass
         r_superorder: Iwweruerdnung
         r_order: Uerdnung
         r_suborder: Ënneruerdnung
@@ -425,7 +425,7 @@ lb:
       r_subphylum: Ënnerstamm
       r_superclass: Iwwerklass
       r_class: Klass
-      r_subclass: Ënnerklass
+      r_subcategory: Ënnerklass
       r_superorder: Iwweruerdnung
       r_order: Uerdnung
       r_suborder: Ënneruerdnung

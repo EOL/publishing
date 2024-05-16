@@ -90,7 +90,7 @@ mk:
         r_infraphylum: '%{name1} е инфраколено на %{name2}.'
         r_superclass: '%{name1} е наткласа на %{name2}.'
         r_class: '%{name1} е класа на %{name2}.'
-        r_subclass: '%{name1} е поткласа на %{name2}.'
+        r_subcategory: '%{name1} е поткласа на %{name2}.'
         r_infraclass: '%{name1} е инфракласа на %{name2}.'
         r_superorder: '%{name1} е надред на %{name2}.'
         r_order: '%{name1} е ред на %{name2}.'
@@ -726,7 +726,7 @@ mk:
       map_of: Карта на %{page_name}
       js_map: Интерактивна карта без наслов
       js_map_of: Интерактивна карта на %{page_name}
-    subclasses:
+    subcategories:
       image: слика
       video: видео
       sound: звук
@@ -823,7 +823,7 @@ mk:
         r_infraphylum: Инфраколено
         r_superclass: Наткласа
         r_class: Класа
-        r_subclass: Поткласа
+        r_subcategory: Поткласа
         r_infraclass: Инфракласа
         r_superorder: Надред
         r_order: Ред
@@ -913,7 +913,7 @@ mk:
       r_infraphylum: инфраколено
       r_superclass: наткласа
       r_class: класа
-      r_subclass: поткласа
+      r_subcategory: поткласа
       r_infraclass: инфракласа
       r_superorder: надред
       r_order: ред

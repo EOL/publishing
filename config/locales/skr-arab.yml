@@ -447,7 +447,7 @@ skr-arab:
       sound_of: '%{page_name} دی اواز'
       map: عنوان بغیر نقشہ
       map_of: '%{page_name} دا نقشہ'
-    subclasses:
+    subcategories:
       image: تصویر
       video: وڈیو
       sound: آواز

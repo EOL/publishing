@@ -1,5 +1,5 @@
 class Resource < ApplicationRecord
-  searchkick text_start: ["name"], batch_size: 250
+  searchkick text_start: ["name"], batch_size: 250, callbacks: :queue
 
   belongs_to :partner, inverse_of: :resources
   belongs_to :dataset_license, class_name: 'License', optional: true
@@ -254,7 +254,7 @@ class Resource < ApplicationRecord
 
   def remove_non_trait_content
     [NodeAncestor, Identifier].each { |klass| nuke(klass) }
-    [Medium, Article, Link].each { |klass| nuke_content_section(klass) }
+    [Medium, Article].each { |klass| nuke_content_section(klass) }
     [Javascript, Location, BibliographicCitation, Reference, Referent].each { |klass| nuke(klass) }
     # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
@@ -263,7 +263,7 @@ class Resource < ApplicationRecord
       # t.integer  "scientific_names_count", limit: 4,   default: 0,     null: false
       # t.integer  "referents_count",        limit: 4,   default: 0,     null: false
       # t.integer  "species_count",          limit: 4,   default: 0,     null: false
-    [ImageInfo, Medium, Article, Link, OccurrenceMap, ScientificName, Vernacular, Attribution].each do |klass|
+    [ImageInfo, Medium, Article, OccurrenceMap, ScientificName, Vernacular, Attribution].each do |klass|
       nuke(klass)
     end
     update_page_node_counts
@@ -397,7 +397,7 @@ class Resource < ApplicationRecord
   def fix_missing_page_contents(options = {})
     log("Fixing missing page contents")
     delete = options.key?(:delete) ? options[:delete] : false
-    [Medium, Article, Link].each { |klass| fix_missing_page_contents_by_type(klass, options.merge(delete: delete)) }
+    [Medium, Article].each { |klass| fix_missing_page_contents_by_type(klass, options.merge(delete: delete)) }
   end
 
   # TODO: this should be extracted and generalized so that a resource_id is an option (thus allowing ALL contents to be

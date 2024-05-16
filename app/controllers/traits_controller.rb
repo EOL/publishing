@@ -6,7 +6,7 @@ class TraitsController < ApplicationController
   before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
   before_action :build_query, only: [:create_search, :search_results, :search_form]
   before_action :set_title, only: [:search, :search_results]
-  skip_before_action :verify_authenticity_token, only: :search_form
+  skip_before_action :verify_authenticity_token, only: [:search_form, :search_results]
 
   PER_PAGE = 50
   GBIF_LINK_LIMIT = PER_PAGE
@@ -50,27 +50,24 @@ class TraitsController < ApplicationController
       end
 
       fmt.csv do
-        if !current_user
-          redirect_to new_user_session_path
-        else
-          if @query.valid?
-            url = term_search_results_url(:tq => @query.to_short_params)
-            if UserDownload.user_has_pending_for_query?(current_user, @query)
-              flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
+        return redirect_to(new_user_session_path) unless user_signed_in?
+        if @query.valid?
+          url = term_search_results_url(:tq => @query.to_short_params)
+          if UserDownload.user_has_pending_for_query?(current_user, @query)
+            flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
+            redirect_to url
+          else
+            data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
+
+            if data.is_a?(UserDownload)
+              flash[:notice] = t("user_download.created", url: user_path(current_user))
               redirect_to url
             else
-              data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
-
-              if data.is_a?(UserDownload)
-                flash[:notice] = t("user_download.created", url: user_path(current_user))
-                redirect_to url
-              else
-                send_data data
-              end
+              send_data data
             end
-          else
-            redirect_to url
           end
+        else
+          redirect_to url
         end
       end
     end

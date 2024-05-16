@@ -3,7 +3,7 @@ require "breadcrumb_type"
 class User < ApplicationRecord
   AdminEmail = "admin@eol.org"
 
-  searchkick word_start: [:username, :name]
+  searchkick word_start: [:username, :name], callbacks: :queue
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

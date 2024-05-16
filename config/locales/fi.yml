@@ -92,7 +92,7 @@ fi:
         r_infraphylum: '%{name1} on taksoniin %{name2} kuuluva osajakso.'
         r_superclass: '%{name1} on taksoniin %{name2} kuuluva yläluokka.'
         r_class: '%{name1} on taksoniin %{name2} kuuluva luokka.'
-        r_subclass: '%{name1} on taksoniin %{name2} kuuluva alaluokka.'
+        r_subcategory: '%{name1} on taksoniin %{name2} kuuluva alaluokka.'
         r_infraclass: '%{name1} on taksoniin %{name2} kuuluva osaluokka.'
         r_superorder: '%{name1} on taksoniin %{name2} kuuluva ylälahko.'
         r_order: '%{name1} on taksoniin %{name2} kuuluva lahko.'
@@ -719,7 +719,7 @@ fi:
       map_of: Sivun %{page_name} kartta
       js_map: Nimetön interaktiivinen kartta
       js_map_of: Interaktiivinen kartta sivusta %{page_name}
-    subclasses:
+    subcategories:
       image: kuva
       video: video
       sound: ääni
@@ -801,7 +801,7 @@ fi:
         r_infraphylum: Osajakso
         r_superclass: Yläluokka
         r_class: Luokka
-        r_subclass: Alaluokka
+        r_subcategory: Alaluokka
         r_infraclass: Osaluokka
         r_superorder: Ylälahko
         r_order: Lahko
@@ -886,7 +886,7 @@ fi:
       r_infraphylum: osajakso
       r_superclass: yläluokka
       r_class: luokka
-      r_subclass: alaluokka
+      r_subcategory: alaluokka
       r_infraclass: osaluokka
       r_superorder: ylälahko
       r_order: lahko

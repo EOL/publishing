@@ -18,10 +18,8 @@ class Page < ApplicationRecord
   autocompletes "autocomplete_names"
 
   # NOTE: default batch_size is 1000
-  searchkick_args = { word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 2000,
-    merge_mappings: true, mappings: { properties: autocomplete_searchkick_properties } }
-  searchkick_args[:callbacks] = :queue if Searchkick.redis
-  searchkick searchkick_args
+  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 500,
+    merge_mappings: true, mappings: { properties: autocomplete_searchkick_properties }, callbacks: :queue
 
   belongs_to :native_node, class_name: "Node", optional: true
   belongs_to :moved_to_page, class_name: "Page", optional: true
@@ -46,7 +44,6 @@ class Page < ApplicationRecord
   has_many :articles, through: :page_contents, source: :content, source_type: "Article"
   has_many :media, through: :page_contents, source: :content, source_type: "Medium"
   has_many :regular_media, -> { regular }, through: :page_contents, source: :content, source_type: "Medium"
-  has_many :links, through: :page_contents, source: :content, source_type: "Link"
 
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
@@ -491,7 +488,7 @@ class Page < ApplicationRecord
   end
 
   def maps
-    media.where(subclass: Medium.subclasses[:map_image])
+    media.where(subcategory: Medium.subcategories[:map_image])
   end
 
   def map_count

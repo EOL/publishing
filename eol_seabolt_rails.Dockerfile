@@ -1,7 +1,6 @@
-FROM ruby:2.7.8
-# Note that ruby version is based off of debian 11.
+FROM ruby:3.3.1-bullseye
+# Note that this ruby version is based off of debian 11, rather than 12, because Seabolt fails on 12.
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
-LABEL last_full_rebuild="2024-02-26"
 
 WORKDIR /app
 

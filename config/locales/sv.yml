@@ -635,7 +635,7 @@ sv:
       video_of: Video av %{page_name}
       sound: Namnlöst ljud
       map: Namnlös arta
-    subclasses:
+    subcategories:
       image: bild
       video: video
       sound: ljud
@@ -706,7 +706,7 @@ sv:
         r_infraphylum: Infrafylum
         r_superclass: Överklass
         r_class: Klass
-        r_subclass: Underklass
+        r_subcategory: Underklass
         r_infraclass: Infraklass
         r_superorder: ÖVerordning
         r_order: Ordning

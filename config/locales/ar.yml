@@ -104,7 +104,7 @@ ar:
         r_infraphylum: '%{name1} هي شعبة فرعية «infraphylum» من الـ%{name2}.'
         r_superclass: '%{name1} هي عمارة «superclass» من الـ%{name2}.'
         r_class: '%{name1} هي طائفة «class» من %{name2}.'
-        r_subclass: '%{name1} هي طُويئفة «subclass» من الـ%{name2}.'
+        r_subcategory: '%{name1} هي طُويئفة «subcategory» من الـ%{name2}.'
         r_infraclass: '%{name1} هو صنيف فرعي «infraclass» من الـ%{name2}.'
         r_superorder: '%{name1} هي رتبة عليا «superorder» من الـ%{name2}.'
         r_order: '%{name1} هي رُتبة «order» من %{name2}.'
@@ -734,7 +734,7 @@ ar:
       map_of: خريطة %{page_name}
       js_map: خريطة تفاعلية بدون عنوان
       js_map_of: خريطة تفاعلية لـ%{page_name}
-    subclasses:
+    subcategories:
       image: صورة
       video: فيديو
       sound: صوت
@@ -831,7 +831,7 @@ ar:
         r_infraphylum: الشعبة الفرعية
         r_superclass: العمارة
         r_class: الطائفة
-        r_subclass: الطويئفة
+        r_subcategory: الطويئفة
         r_infraclass: الصنيف الفرعي
         r_superorder: الرتبة العليا
         r_order: الرتبة
@@ -916,7 +916,7 @@ ar:
       r_infraphylum: شعبة فرعية
       r_superclass: عمارة
       r_class: طائفة
-      r_subclass: طويئفة
+      r_subcategory: طويئفة
       r_infraclass: صنيف فرعي
       r_superorder: رتبة عليا
       r_order: رتبة

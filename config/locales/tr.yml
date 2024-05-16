@@ -106,7 +106,7 @@ tr:
         r_infraphylum: '%{name1}, %{name2} altında bir infra şubedir.'
         r_superclass: '%{name1}, %{name2} üst sınıfıdır.'
         r_class: '%{name1}, bir %{name2} sınıfıdır.'
-        r_subclass: '%{name1}, %{name2} altında bir altsınıftır.'
+        r_subcategory: '%{name1}, %{name2} altında bir altsınıftır.'
         r_infraclass: '%{name1}, %{name2} altında bir infrasınıftır.'
         r_superorder: '%{name1}, %{name2} altında bir üsttakımdır.'
         r_order: '%{name1}, %{name2} altında bir takımdır.'
@@ -745,7 +745,7 @@ tr:
       map_of: '%{page_name} haritası'
       js_map: Adsız etkileşimli harita
       js_map_of: '%{page_name} sayfasının etkileşimli haritası'
-    subclasses:
+    subcategories:
       image: resim
       video: video
       sound: ses
@@ -841,7 +841,7 @@ tr:
         r_infraphylum: Kızılötesi aphylum
         r_superclass: Süper sınıf
         r_class: Sınıf
-        r_subclass: Alt sınıf
+        r_subcategory: Alt sınıf
         r_infraclass: Üst sınıf
         r_superorder: Süper sıra
         r_order: Sıra
@@ -930,7 +930,7 @@ tr:
       r_infraphylum: infra şube
       r_superclass: üst sınıf
       r_class: sınıf
-      r_subclass: alt sınıf
+      r_subcategory: alt sınıf
       r_infraclass: infra sınıf
       r_superorder: üst takım
       r_order: takım

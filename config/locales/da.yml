@@ -170,7 +170,7 @@ da:
       sound_of: Lyd af %{page_name}
       map: Unavngivet kort
       map_of: Kort over %{page_name}
-    subclasses:
+    subcategories:
       image: billede
       video: video
       sound: lyd
@@ -194,7 +194,7 @@ da:
         r_kingdom: Rige
         r_subkingdom: Underrige
         r_class: Klasse
-        r_subclass: Underklasse
+        r_subcategory: Underklasse
         r_order: Orden
         r_suborder: Underorden
         r_family: Familie

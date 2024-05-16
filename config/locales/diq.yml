@@ -485,7 +485,7 @@ diq:
   medium:
     untitled:
       video_of: Videoyê %{page_name}
-    subclasses:
+    subcategories:
       image: resım
       video: video
       sound: venge
@@ -543,7 +543,7 @@ diq:
         r_infraphylum: Infraphylum
         r_superclass: Supersınıfe
         r_class: Sınıfe
-        r_subclass: Bınşube
+        r_subcategory: Bınşube
         r_infraclass: Infrasınıfe
         r_superorder: Superorder
         r_order: Taxım
@@ -609,7 +609,7 @@ diq:
       r_phylum: şube
       r_subphylum: bınşube
       r_class: sınıfe
-      r_subclass: bınsınıfe
+      r_subcategory: bınsınıfe
       r_order: taxım
       r_suborder: bıntaxım
       r_family: familya

@@ -290,7 +290,7 @@ ast:
       map_of: Mapa de %{page_name}
       js_map: Mapa interactivu ensin títulu
       js_map_of: Mapa interactivu de %{page_name}
-    subclasses:
+    subcategories:
       image: imaxe
       video: videu
       sound: soníu

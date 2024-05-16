@@ -18,7 +18,7 @@ class Rank < ApplicationRecord
 
     :r_superclass,
     :r_class,
-    :r_subclass,
+    :r_subcategory,
     :r_infraclass,
 
     :r_superorder,

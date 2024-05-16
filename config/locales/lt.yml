@@ -56,7 +56,7 @@ lt:
         r_subphylum: '%{name1} yra %{name2} potipis.'
         r_superclass: '%{name1} yra %{name2} super-klasė.'
         r_class: '%{name1} yra %{name2} klasė.'
-        r_subclass: '%{name1} yra %{name2} poklasis.'
+        r_subcategory: '%{name1} yra %{name2} poklasis.'
         r_superorder: '%{name1} yra %{name2} super-būrys.'
         r_order: '%{name1} yra %{name2} būrys.'
         r_suborder: '%{name1} yra %{name2} po-būris.'
@@ -437,7 +437,7 @@ lt:
       map_of: '%{page_name} žemėlapis'
       js_map: Interaktyvus žemėlapis be pavadinimo
       js_map_of: Interaktyvus %{page_name} žemėlapis
-    subclasses:
+    subcategories:
       image: paveikslėlis
       video: vaizdo įrašas
       sound: garsas
@@ -490,7 +490,7 @@ lt:
         r_subphylum: Potipis
         r_superclass: Super-klasė
         r_class: Klasė
-        r_subclass: Poklasis
+        r_subcategory: Poklasis
         r_superorder: Super-būrys
         r_order: Būrys
         r_suborder: Po-būrys
@@ -565,7 +565,7 @@ lt:
       r_subphylum: potipis
       r_superclass: super-klasė
       r_class: klasė
-      r_subclass: poklasis
+      r_subcategory: poklasis
       r_superorder: super-būrys
       r_order: būrys
       r_suborder: po-būrys

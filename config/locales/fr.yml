@@ -98,7 +98,7 @@ fr:
         r_infraphylum: '%{name1} est un infra-embranchement de %{name2}.'
         r_superclass: '%{name1} est une super-classe de %{name2}.'
         r_class: '%{name1} est une classe de %{name2}.'
-        r_subclass: '%{name1} est une sous-classe de %{name2}.'
+        r_subcategory: '%{name1} est une sous-classe de %{name2}.'
         r_infraclass: '%{name1} est une infra-classe de %{name2}.'
         r_superorder: '%{name1} est un super-ordre de %{name2}.'
         r_order: '%{name1} est un ordre de %{name2}.'
@@ -745,7 +745,7 @@ fr:
       map_of: Carte de %{page_name}
       js_map: Carte interactive sans titre
       js_map_of: Carte interactive de %{page_name}
-    subclasses:
+    subcategories:
       image: image
       video: vidéo
       sound: son
@@ -843,7 +843,7 @@ fr:
         r_infraphylum: Infra-embranchement
         r_superclass: Super-classe
         r_class: Classe
-        r_subclass: Sous-classe
+        r_subcategory: Sous-classe
         r_infraclass: Infra-classe
         r_superorder: Super-ordre
         r_order: Ordre
@@ -934,7 +934,7 @@ fr:
       r_infraphylum: infra-embranchement
       r_superclass: super-classe
       r_class: classe
-      r_subclass: sous-classe
+      r_subcategory: sous-classe
       r_infraclass: infra-classe
       r_superorder: super-ordre
       r_order: ordre

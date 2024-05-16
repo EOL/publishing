@@ -114,7 +114,7 @@ ru:
         r_infraphylum: '%{name1} — это инфратип %{name2}.'
         r_superclass: '%{name1} — это надкласс %{name2}.'
         r_class: '%{name1} — это класс %{name2}.'
-        r_subclass: '%{name1} — это подкласс %{name2}.'
+        r_subcategory: '%{name1} — это подкласс %{name2}.'
         r_infraclass: '%{name1} — это инфракласс %{name2}.'
         r_superorder: '%{name1} — это надотряд %{name2}.'
         r_order: '%{name1} — это отряд %{name2}.'
@@ -750,7 +750,7 @@ ru:
       map_of: Карта %{page_name}
       js_map: Интерактивная карта без названия
       js_map_of: Интерактивная карта %{page_name}
-    subclasses:
+    subcategories:
       image: изображение
       video: видео
       sound: звучит
@@ -841,7 +841,7 @@ ru:
         r_infraphylum: Инфратип
         r_superclass: Надкласс
         r_class: Класс
-        r_subclass: Подкласс
+        r_subcategory: Подкласс
         r_infraclass: Инфракласс
         r_superorder: Надотряд
         r_order: Отряд
@@ -927,7 +927,7 @@ ru:
       r_infraphylum: инфратип
       r_superclass: Надкласс
       r_class: класс
-      r_subclass: подкласс
+      r_subcategory: подкласс
       r_infraclass: инфракласс
       r_superorder: надотряд
       r_order: Отряд

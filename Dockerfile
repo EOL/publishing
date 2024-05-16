@@ -1,4 +1,5 @@
-FROM encoflife/eol_seabolt_rails:2024.03.22.01 AS assets
+FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS assets
+# WARNING:                       ^^^^^^^^^^^^^ when you update that, ALSO update it below!
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -12,7 +13,7 @@ ENV NODE_OPTIONS="--openssl-legacy-provider npm run start"\
     NODE_ENV="production"\
     BUNDLE_PATH="/gems"
 
-RUN gem install `tail -n 1 Gemfile.lock | sed 's/^\s\+/bundler:/'`\
+RUN gem install `grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | sed 's/^\s\+/bundler:/'`\
   && bundle config set without 'test development staging'\
   && bundle install --jobs 10 --retry 1\
   && bundle config set --global path /gems\
@@ -42,7 +43,7 @@ CMD ["bash"]
 
 # -=-=-=-=-=-=-
 
-FROM encoflife/eol_seabolt_rails:2024.03.22.01 AS app
+FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -64,8 +65,7 @@ COPY --from=assets /app/Gemfile /app/Gemfile.lock /app/.
 # Just to save me a few grey hairs:
 COPY config/.vimrc /root/.vimrc
 
-RUN bundle config set without 'test development staging'\
-  && bundle install --jobs 10 --retry 1\
+RUN bundle install --jobs 10 --retry 1\
   && bundle config set --global path /gems
 
 ARG eol_github_email
