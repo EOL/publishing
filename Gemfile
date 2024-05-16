@@ -42,6 +42,7 @@ gem 'kaminari', '~> 1.2.2'
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'activegraph', '~> 10.1' # NOTE: there's at least a version 11, but I am scared of it.
+gem 'activestorage', '~> 6.1.7' # TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
 gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.3'
@@ -127,7 +128,6 @@ gem 'typhoeus', '~> 1.4'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11'
-  gem 'rspec-rails', '~> 4.1.0'
 end
 
 group :development do
