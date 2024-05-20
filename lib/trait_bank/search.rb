@@ -11,7 +11,7 @@ module TraitBank
         batch_found = 1 # Placeholder; will update in query.
         page = 1
         while(found < count && batch_found > 0)
-          batch = term_search(term_query, options.merge(page: page))[:data]
+          batch = term_search(term_query, **options.merge(page: page))[:data]
           batch_found = batch.size
           found += batch_found
           yield(batch)

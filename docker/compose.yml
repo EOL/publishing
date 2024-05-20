@@ -113,6 +113,8 @@ services:
     container_name: elastic01
     ports:
       - 9200:9200
+    # NOTE: it is important to set the ES_JAVA_OPTS memory levels to *HALF* of the allocated memory: the OS needs the
+    # rest to manage cache, see https://www.elastic.co/blog/advanced-tuning-finding-and-fixing-slow-elasticsearch-queries
     environment:
       - "ES_JAVA_OPTS=-Xms10g -Xmx10g"
       - node.name=elastic01

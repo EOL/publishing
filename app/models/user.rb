@@ -44,7 +44,7 @@ class User < ApplicationRecord
   USERNAME_MAX_LENGTH = 32
 
   def self.autocomplete(query, options = {})
-    search(query, options.reverse_merge({
+    search(query, **options.reverse_merge({
       fields: ["username", "name"],
       match: :word_start,
       limit: 10,

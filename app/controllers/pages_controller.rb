@@ -319,7 +319,7 @@ class PagesController < ApplicationController
     @tsv_path = batch_lookup_pages_path(query: params[:query], format: "csv")
     @results_by_line = {}
     searches = @lines.collect do |line|
-      search = Page.search(line, {
+      search = Page.search(line, **{
         fields: ['preferred_scientific_names'],
         match: :phrase,
         limit: 1,

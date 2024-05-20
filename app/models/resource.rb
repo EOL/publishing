@@ -555,7 +555,7 @@ class Resource < ApplicationRecord
   end
 
   def self.autocomplete(query, options = {})
-    search(query, options.reverse_merge({
+    search(query, **options.reverse_merge({
       fields: ['name'],
       match: :text_start,
       limit: 10,

@@ -220,7 +220,7 @@ class MultiClassSearch
   end
 
   def basic_search(klass, options = {})
-    klass.search(@query, options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
+    klass.search(@query, **options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
       match: :word_start, execute: false, page: @page, per_page: MultiClassSearch::PAGE_SIZE))
   end
 
