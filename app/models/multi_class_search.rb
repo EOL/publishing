@@ -175,7 +175,9 @@ class MultiClassSearch
 
   def prepare_terms_query
     if @types[:terms]
-      basic_search(TermNode, fields: ["name"])
+      # TEMP: TermNode not yet searchable. :|
+      # basic_search(TermNode, fields: ["name"])
+      nil
     else
       nil
     end
