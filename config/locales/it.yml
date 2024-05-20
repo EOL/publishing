@@ -19,7 +19,6 @@ it:
   language_name: italiano
   about:
     trait_bank:
-      title: TraitBank
       body_html: <p>Il team di gestione tecnica e dei dati di EOL si riferisce alle
         risorse strutturate di dati in EOL - i tratti distintivi e altri dati attributivi,
         le interazioni ecologiche e la nostra classificazione originaria, la Gerarchia
@@ -99,7 +98,7 @@ it:
         r_infraphylum: '%{name1} è un infraphylum di %{name2}.'
         r_superclass: '%{name1} è una superclasse di %{name2}.'
         r_class: '%{name1} è una classe di %{name2}.'
-        r_subcategory: '%{name1} è una sottoclasse di %{name2}.'
+        r_subcategory: '%{name1} è una sottocategoria di %{name2}.'
         r_infraclass: '%{name1} è un''infraclasse di %{name2}.'
         r_superorder: '%{name1} è un superordine di %{name2}.'
         r_order: '%{name1} è un ordine di %{name2}.'
@@ -704,7 +703,6 @@ it:
       no_results_html: <strong>Nessun risultato confermato</strong><br />Premi Invio
         per visualizzare i risultati senza revisione
       placeholder: Cerca in EOL...
-    trait_bank: TraitBank
   page_title: Enciclopedia della Vita
   page_title_search: 'Cerca: %{query}'
   page_vernaculars_empty: Non ci sono nomi comuni associati a questo taxon.

@@ -20,7 +20,6 @@ tr:
   language_name: Türkçe
   about:
     trait_bank:
-      title: TraitBank
       body_html: <p>EOL'deki teknik ve veri yönetimi ekibi, EOL- özelliği ve diğer
         nitelik verileri, ekolojik etkileşimler ve yerel sınıflandırmamız olan Dinamik
         Çalışma Hiyerarşisi olarak TraitBank olarak yapılandırılmış veri kaynaklarını
@@ -773,7 +772,6 @@ tr:
       no_results_html: <strong>Onaylanmış sonuç yok</strong><br />İyileşmemiş sonuçları
         görmek için Enter tuşuna basın
       placeholder: EOL'de ara...
-    trait_bank: TraitBank
   name_preferred_label: tercih edildi
   page_icon_counts:
     header:

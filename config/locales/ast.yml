@@ -7,9 +7,6 @@
 ---
 ast:
   language_name: Asturianu
-  about:
-    trait_bank:
-      title: TraitBank
   account_already_linked: la to cuenta yá ta enllazada con EOL
   account_not_linked: la to cuenta nun ta enllazada con EOL
   advanced: avanzao
@@ -309,7 +306,6 @@ ast:
     education: Educación
     search:
       placeholder: Buscar n'EOL…
-    trait_bank: TraitBank
   name_preferred_label: preferíu
   page_icon_created: Movióse la imaxe «%{name}» a la parte cimera.
   page_title: Enciclopedia de la Vida
