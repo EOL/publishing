@@ -52,7 +52,6 @@ private
 
     @pages = searcher.pages
     @articles = searcher.articles
-    @collections = searcher.collections
     @users = searcher.users
     @terms = searcher.terms
 
