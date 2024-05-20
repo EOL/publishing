@@ -13,7 +13,7 @@ Delayed::Worker.raise_signal_exceptions = :term # unlock jobs on SIGTERM so that
 RepublishJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Rails.logger.warn("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Rails.logger.warn("Publishing resource [#{resource.name}](#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/resources/#{resource.id})")
     resource.publish
   end
 
@@ -29,7 +29,7 @@ end
 RepublishTraitsJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Rails.logger.warn("Re-publishing TRAITS ONLY for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Rails.logger.warn("Re-publishing TRAITS ONLY for resource [#{resource.name}](#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/resources/#{resource.id})")
     resource.republish_traits
   end
 
@@ -62,7 +62,7 @@ end
 ReindexJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Rails.logger.warn("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Rails.logger.warn("Reindexing resource [#{resource.name}](#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_missing_page_contents
   end
@@ -79,7 +79,7 @@ end
 FixNoNamesJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
-    Rails.logger.warn("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
+    Rails.logger.warn("Fixing names for resource [#{resource.name}](#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_no_names
   end

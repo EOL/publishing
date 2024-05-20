@@ -7,7 +7,7 @@ class Partner < ApplicationRecord
       where(name: "Encyclopedia of Life").first_or_create do |r|
         r.name = "Encyclopedia of Life"
         r.short_name = "EOL"
-        r.homepage_url = "https://eol.org"
+        r.homepage_url = ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }
         r.description = "EOL seeks to build a webpage for every species and to "\
           "provide global access to knowledge about life on Earth"
       end

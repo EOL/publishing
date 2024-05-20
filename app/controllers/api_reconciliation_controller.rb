@@ -108,7 +108,7 @@ class ApiReconciliationController < ApplicationController
       end
 
       json.view do
-        json.url "https://eol.org/{{id}}"
+        json.url "#{ENV.fetch('EOL_PUBLISHING_URL') { "https://eol.org" }}/{{id}}"
       end
 
       json.suggest do

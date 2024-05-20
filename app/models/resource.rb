@@ -287,7 +287,7 @@ class Resource < ApplicationRecord
   end
 
   def log_string
-    "[#{name}](https://eol.org/resources/#{id})"
+    "[#{name}](#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/resources/#{id})"
   end
 
   def new_log
@@ -469,7 +469,7 @@ class Resource < ApplicationRecord
     %w[base_url unmodified_url].each do |field|
       all = Medium.where(resource_id: id).where("#{field} LIKE 'data%'").select("id, #{field}")
       all.find_in_batches do |batch|
-        Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://repo.eol.org/', #{field})")
+        Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://content.eol.org/', #{field})")
       end
     end
   end

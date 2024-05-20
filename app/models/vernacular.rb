@@ -88,10 +88,10 @@ class Vernacular < ApplicationRecord
           user_id = pick_user(row[:user_eol_id], row[:user_name])
           user_id = 1 if user_id.zero? # This is duplicated, but I want to be safe.
           unless exists?(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id,
-                         trust: 1, source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id,
+                         trust: 1, source: "#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/users/#{user_id}", resource_id: Resource.native.id,
                          user_id: user_id)
             create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
-              source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
+              source: "#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
           end
         rescue => e
           # @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")

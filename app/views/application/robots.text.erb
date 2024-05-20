@@ -3,7 +3,7 @@ Request-rate: 1/1
 <% @disallow_patterns.each do |pattern| %>
 <%= "Disallow: #{pattern}" %>
 <% end %>
-Sitemap: https://eol.org/data/sitemap/sitemap.xml.gz
+Sitemap: <%= ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' } %>/data/sitemap/sitemap.xml.gz
 
 <% @slow_spiders.each do |spider| %>
 User-agent: <%= spider %>

@@ -22,7 +22,7 @@ class CacheWarmer
       # NOTE: at the time of this writing, I ended up with 21K names, here, so this is a LOT of work!
       strings.each do |string|
         # Using Curl so we hit the full stack. I am wimping out here and hard-coding the URL. Sorry. TODO: extract.
-        `curl https://eol.org/search?q=#{CGI.escape(string)}`
+        `curl #{url}/search?q=#{CGI.escape(string)}`
         sleep(0.25) # Just to take a LITTLE stress off the system without taking too long...
       end
     end
