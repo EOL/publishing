@@ -1,5 +1,5 @@
 class MultiClassSearch
-  attr_accessor :query, :notice, :pages, :collections, :articles, :terms, :users
+  attr_accessor :query, :notice, :pages, :articles, :terms, :users
   PAGE_SIZE=50
 
   def initialize(query, options = {})
@@ -30,7 +30,7 @@ class MultiClassSearch
         # It doesn't make sense to filter some things by clade:
         @only =
           if @only
-            @only - [:collections, :users, :predicates, :object_terms]
+            @only - [:users, :predicates, :object_terms]
           else
             [:pages]
           end
@@ -131,18 +131,17 @@ class MultiClassSearch
     only_set = Set.new(@only.collect { |o| o.to_sym })
 
     @types = {}
-    [ :pages, :collections, :articles, :links, :users, :terms ].each do |sym|
+    [ :pages, :articles, :links, :users, :terms ].each do |sym|
       @types[sym] = only_set.empty? || only_set.include?(sym)
     end
   end
 
   def search
     @pages = prepare_pages_query
-    @collections = prepare_collections_query
     @articles = prepare_articles_query
     @terms = prepare_terms_query
     @users = prepare_users_query
-    Searchkick.multi_search([@pages, @articles, @collections, @users, @terms].compact)
+    Searchkick.multi_search([@pages, @articles, @users, @terms].compact)
     decorate_results
   end
 
@@ -158,14 +157,6 @@ class MultiClassSearch
         where: @clade ? { ancestry_ids: @clade.id } : nil,
         includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }]
       )
-    else
-      nil
-    end
-  end
-
-  def prepare_collections_query
-    if @types[:collections]
-      basic_search(Collection, fields: ["name^5", "description"])
     else
       nil
     end
@@ -202,7 +193,6 @@ class MultiClassSearch
     @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
     remove_zombie_pages if @pages
     @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
-    @collections = CollectionSearchDecorator.decorate_collection(@collections) if @collections
     @users = UserSearchDecorator.decorate_collection(@users) if @users
     @terms = TermSearchDecorator.decorate_collection(@terms) if @terms
   end
@@ -210,7 +200,7 @@ class MultiClassSearch
   def errors
     errors = []
 
-    [@pages, @articles, @collections, @users, @terms].each do |type|
+    [@pages, @articles, @users, @terms].each do |type|
       if !type.nil? && type.error
         errors << type.error
       end

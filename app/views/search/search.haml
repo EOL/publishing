@@ -1,6 +1,6 @@
 .filter-bar
   .filter-bar-filters>
-    - results = [@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms]
+    - results = [@pages, @articles, @images, @videos, @sounds, @users, @terms]
     - total_results = result_total(results)
     - upper_bound = results.size
     - if @page && @page > 1
@@ -19,7 +19,7 @@
   - if @q.blank?
     %li.blank-q-msg= t("search.blank_q_msg")
   - else
-    = render :partial => "search_page", :locals => { :type => first_type_with_results([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms])}
+    = render :partial => "search_page", :locals => { :type => first_type_with_results([@pages, @articles, @images, @videos, @sounds, @users, @terms])}
   = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
     %ul.search-filter-types.js-search-filter-types
       - if any_results(@pages)
@@ -36,9 +36,6 @@
       - if any_results(@articles)
         = render :partial => "filter_type",
           :locals => { :i18n_key => "search.n_articles", :results => @articles}
-      - if any_results(@collections)
-        = render :partial => "filter_type",
-          :locals => { :i18n_key => "search.n_collections", :results => @collections}
       - if any_results(@users)
         = render :partial => "filter_type",
           :locals => { :i18n_key => "search.n_users", :results => @users}
