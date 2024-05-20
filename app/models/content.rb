@@ -35,7 +35,7 @@ module Content
         resource_pk: resource_pk,
         owner: owner,
         ancestry_ids: ancestry_ids,
-        description: description
+        description: description[0..30_000]
       })
     end
 
