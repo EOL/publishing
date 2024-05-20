@@ -11,6 +11,7 @@
 # Author: Leonardo9387
 # Author: Leosls
 # Author: Mariagarbin
+# Author: McDutchie
 # Author: Rafaelff
 # Author: Re demz
 # Author: Rodrigo Pavani
@@ -23,7 +24,6 @@ pt-BR:
   language_name: Português do Brasil
   about:
     trait_bank:
-      title: TraitBank
       body_html: <p>O grupo técnico de gerenciamento de dados do EOL refere-se aos
         recursos de dados estruturados no EOL-dados e outras informações atribuídas,
         interações ecológicas, e nossa classificação nativa, a Dynamic Working Hierarchy

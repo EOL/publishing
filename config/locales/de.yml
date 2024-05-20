@@ -34,7 +34,6 @@ de:
   language_name: Deutsch
   about:
     trait_bank:
-      title: TraitBank
       body_html: "<p>Das technische und Datenverwaltungsteam von EOL bezeichnet die
         strukturierten Datenressourcen von EOL - Merkmale und andere Attributdaten,
         ökologische Wechselwirkungen, und unsere eigene Taxonomy, die Dynamic Working
@@ -791,7 +790,6 @@ de:
       no_results_html: <strong>Keine bestätigten Ergebnisse</strong><br /> Drücken
         Sie die Eingabetaste, um nicht kuratierte Ergebnisse anzuzeigen
       placeholder: Durchsuche EOL...
-    trait_bank: TraitBank
   name_preferred_label: bevorzugt
   page_icon_counts:
     header:

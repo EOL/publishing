@@ -7,9 +7,6 @@
 ---
 diq:
   language_name: Zazaki
-  about:
-    trait_bank:
-      title: TraitBank
   advanced: raverşiyaye
   are_you_sure_delete_account: Şıma qayılê ke hesabê xoyê EOLyi pak kerê?
   article:
@@ -502,7 +499,6 @@ diq:
     education: Musayış
     search:
       placeholder: EOL de bıvin ...
-    trait_bank: TraitBank
   name_preferred_label: tercih biyo
   page_title: Ensiklopediyay Cıwiyayışi
   page_title_search: 'Cıgeyre: %{query}'

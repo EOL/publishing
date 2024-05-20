@@ -45,7 +45,6 @@ es:
   language_name: Español
   about:
     trait_bank:
-      title: TraitBank
       body_html: <p> El equipo técnico y de administración de información en EOL se
         refiere a los recursos de datos estructurados en EOL- datos de rasgos y otros
         atributos, interacciones ecológicas, y nuestra clasificación nativa, el Dynamic
@@ -793,7 +792,6 @@ es:
       no_results_html: <strong>Resultados no confirmados</strong><br />Presiona enter
         para ver resultados no organizados
       placeholder: Buscar en EOL…
-    trait_bank: TraitBank
   name_preferred_label: preferido
   page_icon_counts:
     header:

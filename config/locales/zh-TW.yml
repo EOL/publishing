@@ -20,7 +20,6 @@ zh-TW:
   language_name: 繁體中文
   about:
     trait_bank:
-      title: 性狀庫
       body_html: <p>網路生命大百科技術與資料管理團隊參照在網路生命大百科裡的結構化資料來源 — 特質與其它姓名標示資料、種間關係、與我們的本地分類、動態運作階系來作為特質資料庫（TraitBank）。此內容的管理方式與我們的「典型」內容
         — 圖片、影片、聲音、與描述文字相比之下有所差別，這在對於不同的事物裡很有用。</p><p>特質資料庫是比網路生命大百科其它部份還新穎的東西，這最初是由
         Species Pages Group 總監 Cynthia Parr 所構思，並於 2014 年 1 月在網路生命大百科第二版裡上線。從那時開始，結構化資料就一直是我們開發時的首要項目。</p><p>現在，您可以透過結構化資料來<a
@@ -740,7 +739,6 @@ zh-TW:
     search:
       no_results_html: <strong>沒有確定的結果</strong><br />按下 Enter 鍵來查看未定結果
       placeholder: 搜尋網路生命大百科…
-    trait_bank: 特質資料庫
   name_preferred_label: 優先
   page_icon_counts:
     header:

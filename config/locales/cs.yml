@@ -16,7 +16,6 @@ cs:
   language_name: čeština
   about:
     trait_bank:
-      title: TraitBank
       body_html: <p>Tým technické a datové správy v EOL odkazuje na strukturované
         zdroje dat v EOL-trait a další atributy, ekologické interakce a naši nativní
         klasifikaci, Dynamic Working Hierarchy - společně jako TraitBank. Tento obsah
@@ -746,7 +745,6 @@ cs:
       no_results_html: <strong>Žádné potvrzené výsledky</strong><br /> Stisknutím
         klávesy Enter zobrazíte neupravené výsledky
       placeholder: Hledat na EOL...
-    trait_bank: TraitBank
   name_preferred_label: oblíbená
   page_icon_counts:
     header:

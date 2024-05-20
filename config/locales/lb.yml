@@ -8,9 +8,6 @@
 ---
 lb:
   language_name: Lëtzebuergesch
-  about:
-    trait_bank:
-      title: TraitBank
   account_already_linked: Äre Benotzerkont ass scho mat EOL verbonnen
   account_not_linked: Äre Benotzerkont ass net mat EOL verbonnen
   advanced: erweidert
@@ -49,7 +46,7 @@ lb:
         r_phylum: '%{name1} ass e Stamm vu(n) %{name2}.'
         r_subphylum: '%{name1} ass en Ënnerstamm vu(n) %{name2}.'
         r_class: '%{name1} ass eng Klass vu(n) %{name2}.'
-        r_subcategory: '% {name1} ass eng Ënnerklass vu(n) %{name2}.'
+        r_subcategory: '%{name1} ass eng Ënnerkategorie vu(n) %{name2}.'
         r_infraclass: '%{name1} ass eng Ënnerklass vu(n) %{name2}.'
         r_order: '%{name1} ass eng Uerdnung vu(n) %{name2}.'
         r_suborder: '%{name1} ass eng Ënneruerdnung vu(n) %{name2}.'
@@ -327,7 +324,6 @@ lb:
     discuss: Diskutéieren
     search:
       placeholder: EOL duerchsichen...
-    trait_bank: TraitBank
   page_icon_counts:
     header:
       one: Bescht Bild fir d'Säit

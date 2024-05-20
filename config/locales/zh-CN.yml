@@ -40,7 +40,6 @@ zh-CN:
   language_name: 简体中文
   about:
     trait_bank:
-      title: 性状库
       body_html: <p>网络生命大百科的技术和数据管理团队将网络生命大百科的结构化数据资源（性状及其他属性数据、生态相互作用、我们的本地分类、动态工作层级）统称为特性库（TraitBank）。其内容的管理方式与我们的“经典”内容（图像、视频，音频及描述性文本）有所不同，其用途亦不相同。</p><p>特性库比EOL的其他部分更加年轻。构想源于Species
         Pages Group总监Cynthia Parr，并于2014年1月在网络生命大百科 v2中上线。从那时起，结构化数据一直是内容开发的首要任务。</p><p>现在，您可以透过结构化数据<a
         href='%{example_search_path}'>搜索</a>或浏览网络生命大百科，或下载, 亦或您在我们新的概览页阅读<a href='%{autogen_page_path}'>自动生成的文本</a>的方式邂逅它。如同其他网络生命大百科内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是用<a
@@ -759,7 +758,6 @@ zh-CN:
     search:
       no_results_html: <strong>没有确认的结果</strong><br />按回车键查看未策划的结果。
       placeholder: 搜索EOL ...
-    trait_bank: 特性库
   name_preferred_label: 首选
   page_icon_counts:
     header:

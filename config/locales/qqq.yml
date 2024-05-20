@@ -21,6 +21,9 @@ qqq:
     Note that language names (or adjectives) do not necessarily have a leading capital in all languages, even if they are all capitalized in English, because for example they distinguish the people names (ethnonyms) with the initial capital.
 
     Translate these language names as appropriate for the common use and as found in dictionnaries, but not necessarily in isolation as a title or heading, so they can be used as qualifiers or in comma-separated lists of languages, but where the capitalization is applied only contextually in very strict contexts with special formatting or grammatical rules (e.g. only capitalized for the first word of a complete sentence, or the first significant word of a book title or chapter heading, or the first word of a verse in poems and lyrics).
+  about:
+    trait_bank:
+      title: '{{optional}}'
   breadcrumbs:
     notices:
       vernacular: https://www.webton.nl/blog/wat-zijn-breadcrumbs/
@@ -64,6 +67,8 @@ qqq:
       * [[w:en:Car language|Car language]], on English Wikipedia.
     q2591230: Eigentlich Huni Kuin, siehe https://de.wikipedia.org/wiki/Huni_Kuin
   medium_header_description: '{{Identical|Description}}'
+  nav:
+    trait_bank: '{{optional}}'
   pages:
     resource_names:
       rank:
@@ -2368,7 +2373,8 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: An intentional planting
           of trees or shrubs maintained for food, typically fruit, production.
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: anatomical structure that
-          consists of organs and organ subcategories responsible for certain body functions
+          consists of organs and organ subcategories responsible for certain body
+          functions
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000155: Environmental material
           characteristic of, pertaining to, or derived from living organisms.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000137: An accumulation of organic
@@ -3539,9 +3545,9 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: An oxopurine that is the
           final oxidation product of purine metabolism.
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: anatomical structure that
-          consists of organs and organ subcategories responsible for certain body functions.
-          Representative examples are the gastrointestinal system, urinary system,
-          and hematopoietic system
+          consists of organs and organ subcategories responsible for certain body
+          functions. Representative examples are the gastrointestinal system, urinary
+          system, and hematopoietic system
         http://eol(dot)org/schema/terms/Uses: The uses of the organism or products
           derived from the organism.
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: A depression caused

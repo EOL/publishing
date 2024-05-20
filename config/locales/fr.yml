@@ -27,7 +27,6 @@ fr:
   language_name: français
   about:
     trait_bank:
-      title: TraitBank
       body_html: |-
         <p>L’équipe technique et de gestion des données de l’EdlV (''EOL'' en anglais) se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques et notre classification native, la Hiérarchie de travail dynamique – désignées collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
         <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
@@ -773,7 +772,6 @@ fr:
       no_results_html: <strong>Aucun résultat confirmé</strong><br />Taper Entrée
         pour voir les résultats non supervisés
       placeholder: Recherche dans l’EdlV...
-    trait_bank: TraitBank
   name_preferred_label: préféré
   page_icon_counts:
     header:
@@ -934,7 +932,7 @@ fr:
       r_infraphylum: infra-embranchement
       r_superclass: super-classe
       r_class: classe
-      r_subcategory: sous-classe
+      r_subcategory: sous-catégorie
       r_infraclass: infra-classe
       r_superorder: super-ordre
       r_order: ordre

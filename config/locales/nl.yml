@@ -19,7 +19,6 @@ nl:
   language_name: Nederlands
   about:
     trait_bank:
-      title: TraitBank
       body_html: "<p>Het technische en gegevensbeheerteam van EOL verwijst naar de
         gestructureerde gegevensbronnen van de EOL-trait en andere kenmerkgegevens,
         ecologische interacties en onze eigen classificatie, de Dynamic Working Hierarchy-
@@ -751,7 +750,6 @@ nl:
       no_results_html: <strong>Geen bevestigde resultaten</strong><br/>Gebruik de
         Entertoets om ongecontroleerde gegevens te zien.
       placeholder: Doorzoek EOL...
-    trait_bank: TraitBank
   name_preferred_label: voorkeur
   page_icon_counts:
     header:

@@ -8,9 +8,6 @@
 ---
 sv:
   language_name: Svenska
-  about:
-    trait_bank:
-      title: TraitBank
   account_already_linked: ditt konto är redan länkat till EOL
   account_not_linked: ditt konto är inte länkat till EOL
   advanced: avancerat
