@@ -66,7 +66,7 @@ class Page
     end
 
     def traits_for_predicates_helper(predicates, trait_match, options = {})
-      unless page_node
+      if page_node.nil?
         return options[:limit].present? ? nil : []
       end
 

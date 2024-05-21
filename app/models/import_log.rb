@@ -41,22 +41,15 @@ class ImportLog < ApplicationRecord
     options ||= {}
     cat = options[:cat] || :starts
     call_level = 0
-    call_stack = caller
-    stack_size = call_stack.size
-    called_by = 'import_log.rb:' # Dummy, just to get started, sorry.
-    while called_by =~ /(pry_instance|(import|pub)_log).rb:/
-      call_level += 1
-      called_by = call_stack[call_level].sub(%r{.*/}, '')
-    end
-    parent_caller = called_by
-    while parent_caller.sub(/:.*$/, '') == called_by.sub(/:.*$/, '') && call_level < stack_size
-      call_level += 1
-      parent_caller = call_stack[call_level].sub(%r{.*/}, '')
-    end
-    body = "#{parent_caller}> #{called_by}> #{body}"
+    call_stack = call_stack = caller.map { |c| file_and_line(c) }.uniq { |c| c.sub(/:.*$/, '') }[0..3].reverse
+    body = "#{call_stack.join('>')}= #{body}"
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
     end
+  end
+
+  def file_and_line(called)
+    called.sub(%r{.*/}, '').sub(/:in .*$/, '')
   end
 
   def log_update(body)
@@ -91,7 +84,7 @@ class ImportLog < ApplicationRecord
 
   def complete
     update_attribute(:completed_at, Time.now) unless destroyed?
-    update_attribute(:status, 'completed') unless destroyed?
+    update_attribute(:status, 'completed') unless destroyed? || failed_at
     resource.touch # Ensure that we see the resource as having changed
     log('Complete', cat: :ends)
   end

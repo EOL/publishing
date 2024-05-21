@@ -252,7 +252,7 @@ class Publishing
 
     def import
       @log.start("#import #{@klass}")
-      cols = @klass.column_names
+      cols = @klass.column_names.dup
       cols.delete('id') # We never load the PK, since it's auto_inc.
 
       q = ['LOAD DATA']
