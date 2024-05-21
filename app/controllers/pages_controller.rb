@@ -322,8 +322,7 @@ class PagesController < ApplicationController
       search = Page.search(line, **{
         fields: ['preferred_scientific_names'],
         match: :phrase,
-        limit: 1,
-        execute: false
+        limit: 1
       })
       @results_by_line[line] = search
       search

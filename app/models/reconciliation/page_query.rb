@@ -22,8 +22,7 @@ module Reconciliation
         match: match, 
         includes: [{ native_node: { node_ancestors: :ancestor } }],
         highlight: { tag: '' }, 
-        limit: @limit,
-        execute: false
+        limit: @limit
       )
     end
   end
