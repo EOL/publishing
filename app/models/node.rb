@@ -55,6 +55,7 @@ class Node < ApplicationRecord
   # Really, you should have loaded your page (or node) with these includes BEFORE calling this:
   def ancestors_for_landmarks
     Rails.logger.warn('INEFFICIENT call of #ancestors_for_landmarks')
+    Rails.logger.warn(caller[1..10].map {|c| c.sub(%r{^.*/([^/]+)/}, "\\1/") }.join('->'))
     node_ancestors.
       includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
       collect(&:ancestor).compact
