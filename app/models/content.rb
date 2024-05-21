@@ -29,13 +29,14 @@ module Content
 
       # NOTE: description is a method because articles have a body; we use an
       # alias to normalize it.
+      limited_description = description ? description[0..30_000] : nil
       extra_data.merge({
         id: id,
         name: name,
         resource_pk: resource_pk,
         owner: owner,
         ancestry_ids: ancestry_ids,
-        description: description[0..30_000]
+        description: limited_description
       })
     end
 
