@@ -26,10 +26,11 @@ class SearchController < ApplicationController
     }
 
     pages_results = Page.autocomplete(params[:query], common_options)
-    term_results = TermNode.autocomplete(params[:query], common_options)
+    # TEMP: term_results = TermNode.autocomplete(params[:query], common_options)
     pages_simple = autocomplete_results(pages_results, "pages")
-    terms_simple = autocomplete_results(term_results, "term_nodes")
-    render json: (pages_simple.concat(terms_simple).sort do |a, b|
+    # TEMP: terms_simple = autocomplete_results(term_results, "term_nodes")
+    # TEMP: render json: (pages_simple.concat(terms_simple).sort do |a, b|
+    render json: (pages_simple.sort do |a, b|
       a[:name].length <=> b[:name].length
     end)[0, MAX_AUTOCOMPLETE_RESULTS]
   end
