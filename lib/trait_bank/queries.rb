@@ -141,7 +141,7 @@ module TraitBank
       end
 
       def get_count(res)
-        res["data"] ? res["data"].first.first : false
+        (res["data"] && res["data"].first) ? res["data"].first.first : false
       end
 
       # each argument is expected to be an Array of strings

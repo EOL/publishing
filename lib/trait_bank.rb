@@ -5,7 +5,12 @@ module TraitBank
     def query(q, params={})
       response = nil
       clean_q = q.gsub(/^\s+/, "")
-      response = ActiveGraph::Base.query(clean_q, params, wrap: false)
+      response = begin
+          ActiveGraph::Base.query(clean_q, params, wrap: false)
+        rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+          sleep(0.2)
+          retry
+        end
 
       return nil if response.nil?
 
