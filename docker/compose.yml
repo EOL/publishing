@@ -74,7 +74,7 @@ x-worker: &default-worker
       max-file: "3"
       max-size: "5m"
 
-x-default-deploy: &default-deploy
+x-log: &default-log
   logging:
     driver: "local"
     options:
@@ -158,7 +158,7 @@ services:
     volumes:
       - /data/publishing/elastic03/data:/usr/share/elasticsearch/data
   memcached:
-    <<: *default-deploy
+    <<: *default-log
     deploy:
       restart_policy:
         condition: on-failure
@@ -170,7 +170,7 @@ services:
           cpus: '1.00'
           memory: 12G
     image: memcached
-    container_name: publishing_memcached
+    container_name: memcached
     restart: always
     environment:
       - TZ=America/New_York
@@ -179,7 +179,7 @@ services:
     ports:
       - 11211:11211
   neo4j:
-    <<: *default-deploy
+    <<: *default-log
     deploy:
       restart_policy:
         condition: on-failure
@@ -257,7 +257,7 @@ services:
     ports:
       - 3306:3306
   redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
-    <<: *default-deploy
+    <<: *default-log
     deploy:
       restart_policy:
         condition: on-failure
@@ -336,7 +336,7 @@ services:
       - /data/publishing_integrity_log:/app/log
       - /data/publishing_web_private:/app/data
   nginx:
-    <<: *default-deploy
+    <<: *default-log
     deploy:
       restart_policy:
         condition: on-failure
