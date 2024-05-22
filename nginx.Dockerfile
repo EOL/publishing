@@ -5,6 +5,6 @@ WORKDIR $RAILS_ROOT
 RUN mkdir log
 STOPSIGNAL SIGTERM
 EXPOSE 80
-COPY --from=app /app/public/assets /app/public/assets
-COPY --from=app /app/public/packs /app/public/packs
+COPY --from=app:/app/public/assets /app/public/assets
+COPY --from=app:/app/public/packs /app/public/packs
 CMD [ "nginx", "-g", "daemon off;" ]
