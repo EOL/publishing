@@ -356,8 +356,6 @@ services:
       - ../config/nginx.conf:/etc/nginx/nginx.conf:ro
       - /data/publishing_nginx_log:/var/log/nginx
       - /data/publishing_web:/app/public/data:ro
-      - /data/publishing_web_assets:/app/public/assets:ro
-      - /data/publishing_web_packs:/app/public/packs:ro
     ports:
       - "80:80"
     depends_on:
