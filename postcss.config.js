@@ -1,5 +1,5 @@
 const path = require('path');
-const rtlPath = path.resolve('app/webpacker/packs/stylesheets/rtl');
+const rtlPath = path.resolve('app/javascript/packs/stylesheets/rtl');
 
 module.exports = (ctx) => {
   var rtl = ctx.file.dirname == rtlPath;
