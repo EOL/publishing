@@ -39,8 +39,6 @@ RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\
   bundle exec rails assets:precompile
 
-CMD ["bash"]
-
 # -=-=-=-=-=-=-
 
 FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS app
