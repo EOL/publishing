@@ -23,7 +23,7 @@ x-app: &default-app
     resources:
       limits:
         cpus: '2.00'
-        memory: 6G
+        memory: 4G
     restart_policy:
       condition: on-failure
       delay: 16s
@@ -346,7 +346,7 @@ services:
       resources:
         limits:
           cpus: '1.00'
-          memory: 4G
+          memory: 2G
     profiles: ["load"]
     build:
       dockerfile: ./nginx.Dockerfile

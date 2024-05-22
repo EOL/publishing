@@ -1,0 +1,9 @@
+[mysqld]
+# For production, we set this to 26G, but in the compose.yml file, we gave SQL 32GB of memory.
+innodb_buffer_pool_size=12G
+local-infile=1
+max_connections=2000
+log_error_verbosity=2
+# If you don't have this line in, it will warn you about using deprecated passwords, but (for us),
+# Rails required the old passwords when we created it. It might work now with new versions.
+log_error_suppression_list='MY-013360'
