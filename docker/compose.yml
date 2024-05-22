@@ -168,13 +168,13 @@ services:
       resources:
         limits:
           cpus: '1.00'
-          memory: 16G
+          memory: 12G
     image: memcached
     container_name: publishing_memcached
     restart: always
     environment:
       - TZ=America/New_York
-    command: memcached -m 4096m
+    command: memcached -m 8192m
     profiles: ["cache"]
     ports:
       - 11211:11211
