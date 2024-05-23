@@ -133,9 +133,6 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   # TODO: we may want to use :null_session when for the API, when we set that up.
   protect_from_forgery with: :exception
-  def logged_in?
-    session[:user_id] && current_user.active?
-  end
 
   def clear_cached_summaries
     (0..9).each do |bucket|
