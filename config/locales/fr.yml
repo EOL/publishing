@@ -97,7 +97,7 @@ fr:
         r_infraphylum: '%{name1} est un infra-embranchement de %{name2}.'
         r_superclass: '%{name1} est une super-classe de %{name2}.'
         r_class: '%{name1} est une classe de %{name2}.'
-        r_subcategory: '%{name1} est une sous-classe de %{name2}.'
+        r_subcategory: '%{name1} est une sous-catégorie de %{name2}.'
         r_infraclass: '%{name1} est une infra-classe de %{name2}.'
         r_superorder: '%{name1} est un super-ordre de %{name2}.'
         r_order: '%{name1} est un ordre de %{name2}.'

@@ -3093,7 +3093,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: scaje
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: nòm sientìfich
         http://eol(dot)org/schema/terms/scraping: raspador
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000194: giairon
+        http://eol(dot)org/schema/terms/scrotal: scrotal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000092: riva ëd mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: balma marin-a
         http://purl(dot)obolibrary(dot)org/obo/PO_0005848: xilema scondari
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: smens
         http://eol(dot)org/schema/terms/SeedBank: banca dle smens

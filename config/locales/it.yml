@@ -510,7 +510,7 @@ it:
     q36106: Ligure
     li: Limburghese
     ln: Lingala
-    q146803: Lingua franca nova
+    q146803: Lingua Franca Nova
     lt: Lituano
     lit: Lituano
     q33698: Livone
@@ -751,7 +751,7 @@ it:
         r_superfamily: Superfamiglia
         r_family: Famiglia
         r_subfamily: Sottofamiglia
-        r_infrafamily: Sottofamiglia
+        r_infrafamily: Infrafamiglia
         r_tribe: Tribù
         r_supergenus: Supergenere
         r_genus: Genere
@@ -1203,6 +1203,7 @@ it:
           anormale
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abbondanza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: zona abissale
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: sorgente termale acida
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: suolo acido
         http://eol(dot)org/schema/terms/adaptiveStrategy: strategia di adattamento
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: adesivo
