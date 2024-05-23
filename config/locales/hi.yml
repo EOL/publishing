@@ -960,7 +960,7 @@ hi:
     headers:
       index: संसाधन
       import_log: '%{resource} के लिए लॉग आयात करें'
-    no_events: कोई नहीं
+    no_events: कोई नहीं!
   resource_missing: संसाधन नही मिला
   scientific_name:
     status_title:
