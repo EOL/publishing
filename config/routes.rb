@@ -204,6 +204,7 @@ Rails.application.routes.draw do
     get "/terms/search" => "traits#search", :as => "term_search"
     post "/terms/search_results" => "traits#create_search"
     get "/terms/search_results" => "traits#search_results", :as => "term_search_results"
+    get "/terms/search_download" => "traits#search_download", :as => "term_search_download"
     post "/terms/search_form" => "traits#search_form", :as => "term_search_form"
 
     namespace :traits do

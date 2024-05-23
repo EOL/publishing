@@ -48,8 +48,18 @@ class TraitsController < ApplicationController
           render "search"
         end
       end
+    end
+  end
 
-      fmt.csv do
+  def search_download
+    @query.remove_really_blank_filters
+
+    return redirect_to term_search_results_path(tq: @query.to_short_params), status: 301 if params[:term_query] # short params version is canonical
+
+    set_view_type
+
+    respond_to do |fmt|
+      fmt.html do
         # return redirect_to(new_user_session_path) unless current_user.present?
         if @query.valid?
           url = term_search_results_url(:tq => @query.to_short_params)

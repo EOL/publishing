@@ -23,7 +23,7 @@
         %span= t(".edit_filters")
     %li
       %i{:'uk-icon' => "icon: download"}
-      = link_to(t(".download_tsv"), term_search_results_path(params: { tq: @query.to_short_params }, format: :csv))
+      = link_to(t(".download_tsv"), term_search_download_path(params: { tq: @query.to_short_params }))
     - if @gbif_url
       %li{:'uk-tooltip' => t(".gbif_search_hover")}
         %i{:'uk-icon' => "icon: link"}
