@@ -4,7 +4,12 @@ class Publishing
 
   class << self
     def work(queue)
-      ImportLog.all_clear! if queue == 'harvest'
+      if queue == 'harvest'
+        # If we're starting up, we know that any existing processes are dead.
+        ImportLog.all_clear!
+        # Terms will not be refreshed until we do this:
+        TermBootstrapper.new.load
+      end
       worker = Delayed::Worker.new(queues: [queue])
       worker.name_prefix = queue + ' '
       worker.start
