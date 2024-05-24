@@ -60,7 +60,7 @@ class TraitsController < ApplicationController
 
     respond_to do |fmt|
       fmt.html do
-        # return redirect_to(new_user_session_path) unless current_user.present?
+        return redirect_to(new_user_session_path) unless current_user.present?
         if @query.valid?
           url = term_search_results_url(:tq => @query.to_short_params)
           if UserDownload.user_has_pending_for_query?(current_user, @query)
