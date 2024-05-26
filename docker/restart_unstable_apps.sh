@@ -1,10 +1,14 @@
 #!/bin/bash
 
-for i in $(docker compose ps | grep app | awk '{print $1;}' | sed 's/^.*-//'); do
+for i in $(docker compose ps | grep docker-app | awk '{print $1;}' | sed 's/^.*-//'); do
+  echo "Index ${i}:"
   if docker compose logs --tail 200 --index ${i} app | grep 'Make sure that your application is loading Devise and Warden'; then
-    echo "docker stop docker-app-${i}"
+    echo "Devise error, will restart docker-app-${i}"
     docker stop docker-app-${i}
-    echo "docker rm docker-app-${i}"
+    docker rm docker-app-${i}
+  elif docker compose logs --tail 200 --index ${i} app | grep 'rake neo4j:migrate'; then
+    echo "Neo4j error, will restart docker-app-${i}"
+    docker stop docker-app-${i}
     docker rm docker-app-${i}
   else
     echo "index ${i} seems stable."
