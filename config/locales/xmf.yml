@@ -1,0 +1,884 @@
+# Messages for Mingrelian (მარგალური)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Narazeni
+---
+xmf:
+  language_name: მარგალური
+  account_already_linked: თქვანი ანგარიში უკვე მერცხილი რე EOL-შა
+  account_not_linked: თქვან ანგარიში ვა რე მერცხილი EOL-შა
+  advanced: გაუჯგუშებული
+  are_you_sure_delete_account: გონებჷნანო თქვან EOL ანგარიშიშ ლასუა?
+  article:
+    actions:
+      collect: შაყარუა
+    header:
+      blank: (სტატიას ვა რე ტექსტი.)
+      body: ტექსტი
+      language: 'ნინა: %{language}'
+      title: დუდჯოხო
+      untitled: ჯოხოშ უმუშო
+    name:
+      missing: ჯოხოშ უმუშო
+  article_from_partner: წუმორინაფილი რე %{partner}-შით
+  article_duplicate: ათე სტატია თაშნეშე ნაძირეფუ რე „%{section}-ს“
+  autocomplete:
+    see_all:
+      one: შხვა მოღალობეფიშ ძირაფა
+      other: '%{count}ხოლო მოღალობაშ ძირაფა'
+  breadcrumbs:
+    notices:
+      canonical: მენცარული ჯოხოეფი იძირებედანი იჸი ნავიგაციურ ცხირს.
+    types:
+      scientific: მენცარული
+      vernacular: უბრალე
+  brief_summary:
+    extinction:
+      r_genus_html: ათე გვარქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>
+        .
+      r_subgenus_html: ათე გიმენგვარქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+      r_infragenus_html: ათე ინფრაგვარქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+      r_superspecies_html: ათე ჟინგვარობაქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+      r_species_html: ათე გვარობაქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+      r_subspecies_html: ათე გიმენგვარობაქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+      r_infraspecies_html: ათე ინფრაგვარობაქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+      r_form_html: ათე ფორმაქ <span class='%{class_str}' id='%{id}'>გეშალჷ</span>.
+    fix_nitrogen_html: თინეფი <span class='%{class_str}' id='%{predicate_id}'>გიშმაკვანწკჷნა</span>
+      <span class='%{class_str}' id='%{object_id}'>აზოტის</span>.
+    freshwater_html: თინეფი ხენა <span class='%{class_str}' id='%{id}'>ზუღას</span>
+    marine_html: თინეფი ხენა <span class='%{class_str}' id='%{id}'>ზუღას</span>.
+    species: '%{name1} — %{name2}-შ გვარობაშ რე.'
+    species_in_family: '%{name1} — %{name2}-შ გვარობაშ რე %{name_family} ფანიაშე.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} — %{name2}-შ ჟინფანიაშე რე.'
+        r_domain: '%{name1} — %{name2}-შ ჟინდომენიშ რე.'
+        r_subdomain: '%{name1} — %{name2}-შ გიმენდომენიშ რე.'
+        r_infradomain: '%{name1} — %{name2}-შ ინფრადომენიშ რე.'
+        r_superkingdom: '%{name1} — %{name2}-შ ჟინომაფეშ რე.'
+        r_kingdom: '%{name1} — %{name2}-შ ომაფეშ რე.'
+        r_subkingdom: '%{name1} — %{name2}-შ გიმენომაფეშ რე.'
+        r_infrakingdom: '%{name1} — %{name2}-შ ინფრაომაფეშ რე.'
+        r_superphylum: '%{name1} — %{name2}-შ ჟინტიპიშ რე.'
+        r_phylum: '%{name1} — %{name2}-შ ტიპიშ რე.'
+        r_subphylum: '%{name1} — %{name2}-შ გიმენტიპიშ რე.'
+        r_infraphylum: '%{name1} — %{name2}-შ ინფრატიპიშ რე'
+        r_superclass: '%{name1} — %{name2}-შ ჟიკლასიშ რე.'
+        r_class: '%{name1} — %{name2}-შ კლასიშ რე.'
+        r_subcategory: '%{name1} — %{name2}-შ გიმენკლასიშ რე.'
+        r_infraclass: '%{name1} — %{name2}-შ ინფრაკლასიშ რე.'
+        r_superorder: '%{name1} — %{name2}-შ ჟინრანწკიშ რე.'
+        r_order: '%{name1} — %{name2}-შ რანწკიშ რე.'
+        r_suborder: '%{name1} — %{name2}-შ გიმენრანწკიშ რე.'
+        r_infraorder: '%{name1} — %{name2}-შ ინფრარანწკიშ რე.'
+        r_family: '%{name1} — %{name2}-შ ფანიაშ რე.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} — %{name2}-შ გიმენფანიაშე რე %{name3}-შ ფანიას.'
+          r_infrafamily: '%{name1} — %{name2}-შ ინფრაფანიაშ რე %{name3}-შ ფანიას.'
+          r_tribe: '%{name1} — %{name2}-შ ტრიბა რე %{name3}-შ ფანიას.'
+          r_supergenus: '%{name1} — %{name2}-შ ჟინგვარიშ რე %{name3}-შ ფანიას.'
+          r_genus: '%{name1} — %{name2}-შ გვარი რე %{name3}-შ ფანიას.'
+          r_subgenus: '%{name1} — %{name2}-შ გიმენგვარი რე %{name3}-შ ფანიას.'
+          r_infragenus: '%{name1} — %{name2}-შ ინფრაგვარობაშ რე %{name3}-შ ფანიას.'
+          r_superspecies: '%{name1} — %{name2}-შ ჟინგვარობაშ რე %{name3}-შ ფანიას.'
+          r_species: '%{name1} — %{name2}-შ გვარობაშ რე %{name3}-შ ფანიას.'
+          r_subspecies: '%{name1} — %{name2}-შ გიმენგვარობაშ რე %{name3}-შ ფანიას.'
+          r_infraspecies: '%{name1} — %{name2}-შ ინფრაგვარობაშ რე %{name3}-შ ფანიას.'
+          r_form: '%{name1} — %{name2}-შ ფორმა რე %{name3}-შ ფანიას.'
+        without_family:
+          r_subfamily: '%{name1} — %{name2}-შ გიმენფანიაშ რე.'
+          r_infrafamily: '%{name1} — %{name2}-შ ინფრაფანიაშ რე.'
+          r_tribe: '%{name1} — %{name2}-შ ტრიბაშ რე.'
+          r_supergenus: '%{name1} — %{name2}-შ ჟინგვარიშ რე.'
+          r_genus: '%{name1} — %{name2}-შ გვარიშ რე.'
+          r_subgenus: '%{name1} — %{name2}-შ გიმენგვარიშ რე.'
+          r_infragenus: '%{name1} — %{name2}-შ ინფრაგვარიშ რე.'
+          r_superspecies: '%{name1} — %{name2}-შ ჟინგვარობაშ რე.'
+          r_species: '%{name1} — %{name2}-შ გვარობაშ რე.'
+          r_subspecies: '%{name1} — %{name2}-შ გიმენგვარობაშ რე.'
+          r_infraspecies: '%{name1} — %{name2}-შ ინფრაგვარობაშ რე.'
+          r_form: '%{name1} — %{name2}-შ ფორმაშ რე.'
+  button_create: გოჭყაფა
+  button_add: გეძინა
+  cancel: გოუქვაფა
+  change_my_password: ჩქიმ პაროლიშ თირუა
+  change_your_password: თქვან პაროლიშ თირუა
+  classifications:
+    children:
+      header_html:
+        one: '%{name} იკათუანს <a href="%{names_path}">%{count} ბაღანას</a>:'
+        other: '%{name} იკათუანს <a href="%{names_path}">%{count} ბაღანეფს</a>:'
+      see_more: უმოსიშ გაგება
+    hierarchies:
+      see_resource_file: რსული ერკებული ქოძირით <a href='%{href}'>რესურსეფიშ ფაილს</a>.
+      this_page: (თე ხასჷლა)
+    richness:
+      header: ხასჷლაშ ანჯა
+      score: ანჯაშ ფასება
+      page_contents_count: მერსხილი დინორე
+      missing: თე ხასჷლაშ ანჯა დიო ვა რე ანგარიშებული.
+      media_count: მულტიმედია
+      articles_count: სტატიეფი
+      links_count: რსხილეფი
+      maps_count: რუკეფი
+      data_count: მუნაჩემეფი
+      nodes_count: ნოსქვეფი
+      vernaculars_count: აბანობური ნინეფი
+      scientific_names_count: მენცარული ჯოხოეფი
+      referents_count: რეფერენტეფი
+      species_count: გვარობეფი
+      updated_at: ბოლო მოახალაფა
+  collect_already_in_collection: (უკვე თაქ რე)
+  collect_already_in_collection_will_add_icon: (ხასჷლაშა „%{page}“ მულტიმედიაშ გეძინა)
+  collect_new_collection: ახალი კოლექციაშ ჯოხო
+  collect_new_collection_title: '...ახალი კოლექცია'
+  collected_pages_title: ხასჷლეფი
+  collected_pages:
+    delete_button: ლასუა
+    edit_button: რედაქტირაფა
+    delete_confirm: დასურო გოკონანო?
+  collection_user_is_admin: თე მახვარებუ რე ადმინისტრატორი.
+  collection:
+    collection_type:
+      gallery: გალერეა
+    log:
+      page:
+        add: '%{user}-ქ ქეგუძინჷ ხასჷლა %{page}'
+        change: '%{user}-ქ დოთირუ %{field} ხასჷლას %{page} "%{from}-შე" "%{to}-შა"'
+        remove: '%{user}-ქ დოლასუ ხასჷლა %{page}'
+      user:
+        add: '%{user}-ქ ქეგუძინუ მენეჯერი %{manager}'
+        remove: '%{user}-ქ დოლასუ მენეჯერი %{manager}'
+    search:
+      placeholder: გირუა კოლექციას…
+      submit: გორუა
+    sort:
+      hierarchy: იერარქია
+      position: თარიღიქ ქეგიაძინჷ
+      sci_name: მენცარული ჯოხო, ა-ჰ
+      sci_name_rev: მენცარული ჯოხო, ჰ-ა
+      sort_field: ანოტაცია, ა-ჰ
+      sort_field_rev: ანოტაცია, ჰ-ა
+    updated: კოლექციაქ მიახალჷ.
+  collection_unauthorized_edit: ხვალე მინჯე-მახვარებუს შეულებუ ათე კოლექციაშ რედაქტირაფა.
+  complete_registration: ქორთხინთ, გაგჷნძორით რეგისტრაცია
+  content_attributions_header: კილიშკილი ინფორმაცია
+  content_attributions_labels:
+    altitude: სიმაღალა
+    author: ავტორი
+    bibliographic_citation: ბიბლიოგრაფიული რცხუ
+    contributor: თიაშ მიშმაღალარეფი
+    editor: რედაქტორი
+    latitude: განედი
+    license: ლიცენზია
+    location: ორენი
+    original_media_file: ორიგინალი მედია ფაილი
+    owner: ოავტორე ნება
+    photographer: ფოტოგრაფი
+    publisher: გჷმაბჟინაფალი
+    project: პროექტი
+    view_source_label: ორიგინალი
+    view_source_link: ორიგინალი სურათიშ ძირაფა
+    view_source_page_link: წყუშ ძირაფა
+  content_not_in_any_collection_image: თე სურათი ვა რე აკა კოლექციას.
+  content_not_in_any_collection_sound: თე ხონარი ვა რე აკა კოლექციას.
+  content_not_in_any_collection_video: თე ვიდეო ვა რე აკა კოლექციას.
+  data:
+    modifier:
+      sex_term: ორგანიზმიშ სქესი გოთანჯილი რე
+      lifestage_term: ორგანიზმიშ გოვითარაფაშ სტადია გოტანჯილი რე
+      statistical_method_term: სტატისტიკური მეთოდი, ნამუთ გჷმირინუაფუ ოზჷმალო
+  data_missing: '(ვა რე მუნაჩემეფი, რსხილეფი: %{keys})'
+  dear_username_with_comma: პატჷცემული %{username},
+  delete_account_button: თქვანი ანგარიშიშ ლასუა
+  errors:
+    internal_server: სერვერიშ დონოხოლენი ჩილათა (ჩილათა 500)
+    not_found: ხასჷლაქ ვეგორჷ (ჩილათა 404)
+  filter_by_license: ლიცენზია
+  filter_by_license_any_item: არძანერი ლიცენზია
+  filter_by_medium_subtype: ტიპი
+  filter_by_medium_any_item: არძანერი ტიპი
+  filter_by_resource: პროვაიდერი
+  filter_by_resource_any_item: ნამდგა პროვაიდერი
+  footer:
+    eol_info:
+      glossary: გლოსარიუმი
+      help: მოხვარა
+      language_support: ნინაშური აზარა
+      terms_of_use: გჷმოტინაფაშ პიჯალეფი
+      the_eol_forum: EOL ფორუმი
+      what_is_eol: მუ რე EOL?
+      whats_new: მუ რე ახალი?
+    discover:
+      algae: წყარჩანარეფი
+      amphibians: ამფიბიეფი
+      animals: ჩხოლარეფი
+      bacteria: ბაქტერია
+      birds: მაფურინჯეეფი
+      crustaceans: კიბოიაშნერეფი
+      fishes: ჩხომეფი
+      flowering_plants: პეულამი ჩანარეფი
+      fungi: სოკოეფი
+      insects: ჭანდეფი
+      invertebrates: უგაგაჩეეფი
+      mammals: ბჟაშუმუეფი
+      molds: ფოკვაშ სოკოეფი
+      mushrooms: სოკოეფი
+      mollusks: მოლუსკეფი
+      plants: ჩანარეფი
+      protists: პროტისტეფი
+      reptiles: რეპტილიეფი
+      spiders: ბორბოლიეფი
+      trees: ჯალეფი
+      viruses: ვირუსეფი
+      worms: ღვერღვეფი
+  forgot_your_password: დუგოჭყორდესო პაროლქ?
+  language: ნინა
+  languages:
+    ab: აფხაზური
+    q27683: აჩეხური
+    q27776: ადიღეური
+    aa: აფარული
+    af: აფრიკაანსი
+    ak: აკანური
+    alb: ალბანური
+    sq: ალბანური
+    q131339: ალემანური
+    am: ამჰარული
+    ar: არაბული
+    an: არაგონული
+    hy: სომეხური
+    as: ასამური
+    q29507: ასტურიული
+    q56590: ატიკამეკი
+    av: ხუნძური
+    ae: ავესტური
+    ay: აიმარა
+    q9292: აზერბაიჯანული
+    az: აზერბაიჯანული
+    q33070: ბალიური
+    bm: ბამბარა
+    q33151: ბანჯარი
+    ba: ბაშკირული
+    eu: ბასკური
+    q29540: ბავარიული
+    be: ბელარუსული
+    q8836490: ბენდე
+    bn: ბენგალური
+    bh: ბიჰარული ნინეფი
+    bi: ბისლამა
+    nb: ბუკმოლი, ნორვეგიული ნინა; ნორვეგიული ბუკმოლი
+    q4941378: ბონდეი
+    bs: ბოსნიური
+    q33202: ბრაჰუი
+    q750553: ბრაზილიური პორტუგალიური
+    br: ბრეტონული
+    bg: ბულგარული
+    my: ბირმული
+    q33120: ბურიატული
+    q35037: ნდიუკა
+    q880301: ლუიზიანური ფრანგული
+    q2937525: კაპიზნონი
+    q35156: კარი
+    q2591230: კაშინაჰუა
+    ca: კატალანური; ვალენსიური დიალექტი
+    q33239: სებუანური
+    khm: ცენტრალური ქმერული
+    km: ცენტრალური ქმერული
+    ch: ჩამორო
+    q33281: ჩაბაკანო
+    ce: ჩეჩენური
+    q33388: ჩეროკი
+    q33265: შაიენე
+    ny: ჩიჩევა; ჩევა; ნიანჯა
+    zh: ჩინური
+    chi: ჩინური
+    q32979: ჩოკტო
+    cu: ჯვეში სლავური
+    cv: ჩუვაშური
+    q37041: კლასიკური ჩინური
+    kw: კორნული
+    co: კორსიკული
+    cr: კრი
+    q33357: ყირიმ-თათარული
+    hr: ხორვატული
+    hrv: ხორვატული
+    cs: ჩეხური
+    q32238: დაგბანი
+    da: დანიური
+    q3362072: დიგო
+    q56466: დინკა
+    dv: დივეჰი; დჰივეჰი; მალდივური
+    q18415595: დოტიალი
+    q33013: დუალა
+    dut: ნიდერლანდური; ფლამანდრიული
+    nl: ნიდერლანდური; ფლამანდრიული
+    dz: ძონგხა
+    dzo: ძონგხა
+    q4126517: ბჟაეიოლკანადური ინუკტიტუტი
+    en: ინგლისური
+    q29952: ერზია
+    eo: ესპერანტო
+    et: ესტონური
+    est: ესტონური
+    ee: ევე
+    fo: ფარერული
+    fj: ფიჯური
+    fi: ფინური
+    fin: ფინური
+    q667747: ფიპა
+    fr: ფრანგული
+    fra: ფრანგული
+    ff: ფულა
+    gd: შოტლანდიურ-გელური
+    gl: გალისიური
+    q33475: გან ჩინური
+    lg: განდა
+    ka: ქორთული
+    de: გერმანული
+    deu: გერმანული
+    q5575236: კონკანი (ნინა)
+    q3272630: გოგო (ნინა)
+    q2501174: გორონტალო (ნინა)
+    el: ბერძენული, თეხანური (1453-)
+    gre: ბერძენული
+    gn: გუარანი
+    gu: გუჯარათული
+    q33303: ჰაიდა
+    ht: ჰაიტური; ჰაიტური კრეოლი
+    ha: ჰაუსა
+    q35756: ჰაია
+    he: ურიული
+    heb: ურიული
+    q3129390: ჰეჰე
+    hz: ჰერერი
+    q35978: ჰილიგაინონი
+    hi: ჰინდი
+    ho: ჰირი-მოტუ
+    hu: უნგრული
+    is: ისლანდიური
+    ice: ისლანდიური
+    io: იდო
+    ig: იგბო
+    q35936: ილოკანო
+    id: ინდონეზიური
+    q33509: ინგუშური
+    ia: Interlingua (International Auxiliary Language Association)
+    ie: ინტერლინგვა; ოქციდენდალური
+    iu: ინუკტიტუტი
+    ik: ინუპიაკური
+    q33595: ირაკუ (ნინა)
+    ga: ირლანდიური
+    it: იტალიური
+    ita: იტალიური
+    q35939: იამაიკური კრეოლური ინგლისური
+    ja: იაპონური
+    jp: იაპონური
+    jv: იავური
+    q33522: ყაბარდული ჩერქეზული
+    q35475: ქაბიიე
+    q35853: ქაბილე
+    kl: კალაალისუტი; გრენლანდიური
+    q33634: ყალმუხური
+    kn: კანნადა
+    kr: კანური (ნინა)
+    q36121: კაპამპანგანური
+    q33541: ყარაყალპაკური
+    ks: ქაშმირული
+    q33690: ქაშუბური
+    kk: ყაზახური
+    ki: კიკუიუ; გიკუიუ
+    q33656: კილდინური საამური
+    q33720: კინარაიული
+    q11005332: კინგა
+    q11732519: კინგინდო
+    rw: კინიარუანდა
+    ky: ყირგიზული
+    kv: კომი
+    kg: კონგო
+    ko: კორეული
+    kor: კორეული
+    kj: კუანიამა; კვანიამა
+    ku: ქურთული
+    q36206: ლაკური
+    lo: ლაოსური
+    lao: ლაოსური
+    la: ლათინური
+    lv: ლატვიური
+    q1160372: ლაზური
+    q31746: ლეზგიური
+    q36106: ლიგურიული
+    li: ლიმბურგული; ლიმბურგერი;
+    ln: ლინგალა
+    q146803: ლინგვა ფრანკა ნოვა
+    lt: ლიეტუვური
+    lit: ლიეტუვური
+    q33698: ლივი
+    q36584: ლივური დიალქეტი
+    q33754: ლომბარდული
+    q168446: თუდოლენი საქსონური
+    q13286: თუდოლენი სორბული
+    lu: ლუბა-კატანგა
+    q3437661: ლუგურუ
+    lb: ლუქსემბურგული; ლეტცებურგული
+    q35787: მასაი
+    mk: მაკედონური
+    q497345: მაინფრანკული დიალექტი
+    q36109: მაიტჰილი
+    mg: მალაგასური
+    ms: მალაიური
+    ml: მალაიალამური
+    mt: მალტური
+    mlt: მალტური
+    gv: მენური
+    mi: მაორი
+    mr: მარათული
+    mh: მარშალური
+    q6786446: მატენგო
+    q3906614: ბჟაეიოლური მარიული ნინა
+    q13357: მეიანკიელი
+    q13358: მეგლენო რუმინული
+    q13313: მერუ
+    q13321: მიგმაკი
+    q36455: მინ დონგი (მინიშ ბჟაეიოლური დიალექტი)
+    q13324: მინანგკაბაუ
+    q13359: მარგალური
+    q13330: მირანდული
+    q13343: მოკშა
+    mn: მონღოლური
+    q56426: არაბული ნინაშ მაროკოული დიალექტი
+    q6944725: მვერა
+    q13300: ნაჰუატლი
+    q3508074: ნაიური; ბიაკური
+    na: ნაურუული
+    nv: ნავახო; ნავაჰო
+    nd: ნდებელე; ოორუე ნდებელე
+    nr: ნდებელე; ობჟათე ნდებელე
+    ng: ნდონგა
+    q33845: ნეაპოლიტანური
+    ne: ნეპალური
+    q7022366: ნგინდო
+    q28224: ოორუე ფრიზული
+    q19933293: ოორუე ლურული
+    se: ოორუე საამური
+    "no": ნორვეგიული
+    nno: ნორვეგიული
+    nob: ნორვეგიული; ბუკმოლი
+    nor: ნორვეგიული
+    nn: ნორვეგიული ნიუნორსკი; ნიუნორსკი, ნორვეგიული
+    q36738: ნორვიალი
+    q3272620: ნიაკუსა
+    q4121131: ნიამვეზი
+    q7193418: ნიატურუ
+    q11128374: ნიიჰა
+    q16115145: ნიიკა
+    oc: ოქსიტანური (პოსტ 1500)
+    q28602: ოფიციალური არამეული
+    oj: ოჯიბვა
+    or: ორია (ნინა)
+    om: ორომო
+    os: ოსური; ოვსური
+    q715755: პაივანი
+    pi: პალი (ნინა)
+    pa: პენჯაბური
+    q36403: პარე
+    fa: სპარსული
+    q23014: პფალცური
+    q34024: პიკარდული
+    q15085: პიემონტური
+    q2429648: პოგორო
+    pl: პოლონური
+    pol: პოლონური
+    q36748: პონტური
+    pt: პორტუგალიური
+    ps: პუშტუ
+    qu: კეჩუა
+    q584983: რანგი (ნინა)
+    ro: რუმინული; მოლდოვური ნინა; მოლდოვური
+    rm: რომანშული
+    rn: რუნდი (ნინა)
+    ru: რუსული
+    rus: რუსული
+    q26245: რუსინული
+    q34299: სახა
+    q718269: საკიზაია
+    sm: სამოური
+    q213434: ჟემაიტური
+    q34016: სანდავე
+    sg: სანგო (ნინა)
+    sa: სანსკრიტი
+    q33965: სანტალი
+    sc: სარდინული
+    q845441: სასარული სარდინული ნინა
+    q14549: შოტლანდიური
+    q716686: სიდიქი
+    sr: სერბული
+    q3788739: შამბალა
+    q56482: შანი
+    sn: შონა
+    q34004: შონა
+    ii: სიჩუანური ი; ნოსუ
+    q33973: სიცილიური
+    sd: სინდჰი
+    si: სინჰალური
+    sk: სლოვაკური
+    slk: სლოვაკური
+    sl: სლოვენური
+    so: სომალი
+    som: სომალი
+    st: ობჟათე სოთო
+    es: ესპანური; კასტილიური
+    slv: ესპანური
+    q2638144: სუკუმა
+    su: სუნდანური
+    sw: სუაჰილი
+    ss: სვატი
+    sv: შვედური
+    swe: შვედური
+    tl: ტაგალოგი
+    ty: ტაიტური
+    tg: ტაჯიკური
+    q34318: თალიშური
+    ta: ტამილური
+    tt: თათარული
+    te: ტელუგუ
+    th: ტაილანდური
+    tha: ტაილანდური
+    bo: ტიბეტური
+    ti: ტიგრინია
+    q34159: ტოკ-პისინი
+    to: ტონგური
+    q180937: ალბანური ნინაშ ტოსკური დიალექტი
+    ts: ტსონგა
+    tn: ტსვანა
+    q34251: ტულუ
+    q34138: ტუმბუკა
+    q56240: ტუნისური არაბული
+    tr: თურქული
+    tur: თურქული
+    q36730: თურქული, ოსმალური
+    tk: თურქმენული
+    tw: ჩვი
+    q13238: უდმურტული
+    ug: უიღურული
+    uk: უკრაინული
+    ukr: უკრაინული
+    none: უგუთანჯუ
+    q13248: ჟიმოლენი სორბული
+    ur: ურდუ
+    uz: უზბეკური
+    ve: ვენდა
+    q32747: ვეფსური
+    vi: ვიეტნამური
+    vo: ვოლაპუკი
+    q32858: ვოდური
+    wa: ვალონური
+    q34279: ვარაი
+    cy: უელსური
+    wel: უელსური
+    q100103: ბჟადალი ფლანდრიული
+    fy: ბჟადალი ფრიზული
+    wo: ვოლოფი
+    q34290: ვუ
+    xh: ქოსა
+    yi: იდიში
+    yo: იორუბა
+    q10199: ზაზაკი
+    q237409: ნიდერლანდური ნინაშ ზეელანდური დიალექტი
+    za: ჩჟუანური; ჩჟუანური
+    zu: ზულუ
+    Q33219: ბანიუმასანური
+  layout_sign_in: მიშულა
+  layout_sign_up: რეგისტრაცია
+  layout_sign_out: გიშულა
+  literature_and_references_header: ლიტერატურა დო სქოლიო
+  maps:
+    empty: ათე ხასჷლაშო ხემიოლი რუკეფი ვა რე.
+    other_maps_title: ვა ინტერაქტიური რუკეფი
+  medium:
+    untitled:
+      image: სურათი ჯოხოშ უმუშო
+      image_of: '%{page_name}-შ სურათი'
+      video: ვიდეო ჯოხოშ უმუშო
+      video_of: '%{page_name}-შ ვიდეო'
+      sound: ხონარი ჯოხოშ უმუშო
+      sound_of: '%{page_name}-შ ხონარი'
+      map: რუკა ჯოხოშ უმუშო
+      map_of: '%{page_name}-შ რუკა'
+      js_map: ინტერაქტიული რუკა ჯოხოშ უმუშო
+      js_map_of: '%{page_name}-შ ინტერაქტიული რუკა'
+    subcategories:
+      image: სურათი
+      video: ვიდეო
+      sound: ხონარი
+      map_image: რუკა
+      js_map: ინტერაქტიული რუკა
+  medium_collect_button: კოლექტიური მედია
+  medium_description_blank: მოჩამილი ობიექტიშ გეშა ეჭარუა ვა რე.
+  medium_header_title: 'დუდჯოხო:'
+  medium_header_description: 'ეჭარუა:'
+  names:
+    hide_langs:
+      one: ართ ნინაშ ტყობინაფა
+      other: '%{count} ნინაშ ტყობინაფა'
+    prefer: სხუნება
+    preferred_in_language_for_page: '%{name} რე სხუნებული %{language} დიალექტო %{page}-შო'
+    show_more_langs:
+      one: ხოლო ართი ნინაშ ძირაფა
+      other: '%{count} ნინაშ ძირაფა'
+  nav:
+    about: გეშა
+    discuss: სხუნუა
+    education: გონათუა
+  pages:
+    batch_lookup:
+      search: გორუა
+    filter_menu:
+      show_all: არძაშ ძირაფა
+    page_data:
+      show_all: არძაშ ძირაფა
+    resource_names:
+      name_recognized_by: აღიარაფილი რე %{by}-შით
+      name_recognized_by_w_rank: '%{rank} აღიარაფილი რე %{by}-შით'
+      name_recognized_by_w_status: '%{status} %{by}-შ მეჯინათ'
+      rank:
+        r_domain: დომენი
+        r_subdomain: გიმენდომენი
+        r_infradomain: ინფრადომენი
+        r_superkingdom: ჟინომაფე
+        r_kingdom: ომაფე
+        r_subkingdom: გიმენომაფე
+        r_infrakingdom: ინფრაომაფე
+        r_superphylum: ჟინტიპი
+        r_phylum: ტიპი
+        r_subphylum: გიმენტიპი
+        r_infraphylum: ინფრატიპი
+        r_superclass: ჟინკლასი
+        r_class: კლასი
+        r_subcategory: გიმენკლასი
+        r_infraclass: ინფრაკლასი
+        r_superorder: ჟინრანწკი
+        r_order: რანწკი
+        r_suborder: გიმენრანწკი
+        r_infraorder: ინფრარანწკი
+        r_superfamily: ჟინფანია
+        r_family: ფანია
+        r_subfamily: გიმენფანია
+        r_infrafamily: ინფრაფანია
+        r_tribe: ტრიბა
+        r_supergenus: ჟინგვარი
+        r_genus: გვარი
+        r_subgenus: გიმენგვარი
+        r_infragenus: ინფრაგვარი
+        r_superspecies: ჟინგვარობა
+        r_species: გვარობა
+        r_subspecies: გიმენგვარობა
+        r_infraspecies: ინფრაგვარობა
+        r_form: ფორმა
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      username_missing: მახვარებუ %{user_id}
+    trophic_web:
+      competitor: კონკურსიშ მაკათური
+      predator: მახვამილაფარი
+      prey: ოკიბირალი
+      reset: გჷმორღვაფა
+    tabs:
+      articles: სტატიეფი
+      classifications: კლასიფიკაციეფი
+      data: მუნაჩემეფი
+      literature_and_references: ლიტერატურა დო სქოლიო
+      overview: გინოჯინა
+      maps: რუკეფი
+      media: მულტიმედია
+      names: ჯოხოეფი
+    iucn_status:
+      label: 'IUCN სტატუსი:'
+      ex: ეშმალაფარი (EX)
+      ew: ეშალაფირი ტყარი ორთას (EW)
+      cr: კრიტიკული ოშქურანჯობას (CR)
+      en: ოშქურანჯობას (EN)
+      vu: მაწყანწყუ დგომარობას (VU)
+      nt: მაწყამწყუ დგომარობაშ არხოს (NT)
+      lc: უჭიჭაში წყანწყუაშ გიმე რე (LC)
+      dd: მუნაჩემეფი ვა რე დასაბაღი (DD)
+      ne: ოშქურანჯობა ვა რე ფასებული (NE)
+      unknown: უჩინებუ (ვა რე დინნაჭარა)
+    unresolved_name: უგნუჭყვიდუ ჯოხო
+    unresolved_name_prefix: 'უგნუჭყვიდუ ჯოხო:'
+  page_titles:
+    pages:
+      data: '%{page_name}-შ მუნაჩემეფი'
+      media: '%{page_name}-შ მულტიმედია'
+      maps: '%{page_name}-შ რუკეფი'
+      names: '%{page_name} ჯოხოეფი'
+      articles: '%{page_name}-შ სტატიეფი'
+    traits:
+      search: გორუა ანდეფიშ მეჯინათ
+  rank:
+    name:
+      r_domain: დომენი
+      r_subdomain: გიმენდომენი
+      r_infradomain: ინფრადომენი
+      r_superkingdom: ჟინომაფე
+      r_kingdom: ომაფე
+      r_subkingdom: გიმენომაფე
+      r_infrakingdom: ინფრაომაფე
+      r_superphylum: ჟინტიპი
+      r_phylum: ტიპი
+      r_subphylum: გიმენტიპი
+      r_infraphylum: ინფრატიპი
+      r_superclass: ჟინკლასი
+      r_class: კლასი
+      r_subcategory: გიმენკლასი
+      r_infraclass: ინფრაკლასი
+      r_superorder: ჟინრანწკი
+      r_order: რანწკი
+      r_suborder: გიმენრანწკი
+      r_infraorder: ინფრარანწკი
+      r_superfamily: ჟინფანია
+      r_family: ფანია
+      r_subfamily: გიმენფანია
+      r_infrafamily: ინფრაფანია
+      r_tribe: ტრიბა
+      r_supergenus: ჟინგვარი
+      r_genus: გვარი
+      r_subgenus: გიმენგვარი
+      r_infragenus: ინფრაგვარი
+      r_superspecies: ჟინგვარობა
+      r_species: გვარობეფი
+      r_subspecies: გიმენგვარობეფი
+      r_infraspecies: ინფრაგვარობა
+      r_form: ფორმა
+  recaptcha: reCAPTCHA
+  recaptcha_error: დადასურით, ნამჷ-და რობოტი ვა რეთინ.
+  reconciliation:
+    id_space:
+      headers:
+        type_id: დოჭარით იდენტიფიკატორი
+        type_name: დოჭარით ჯოხო
+        id_format: იდენტიფიკატორიშ ფორმატი
+      type_names:
+        taxon: ტაქსონი
+      numeric_id: ნომერული იდენტიფიკატორი
+    property:
+      description:
+        ancestor: ტაქსონი, ნამუთ შხვა ტაქსონიშ წოხონერი რენ.
+        conservation_status: ტაქსონიშ თხილუაშ სტატუსი.
+        extinction_status: ტაქსონიშ ეშალაფაშ სტატუსი. შილებუანი შანულობეფი რე „ეშალაფირი“
+          დო „შურდგუმილი“
+      name:
+        ancestor: წოხონერი
+        conservation_status: თხილუაშ სტატუსი
+        extinction_status: ეშალაფირი გვარობაშ სტატუსი
+        rank: რანგი
+    property_settings:
+      limit:
+        label: გოხურგუა
+    schema_space:
+      headers:
+        id: იდენტიფიკატორი
+        name: ჯოხო
+        description: ეჭარუა
+  resources:
+    actions:
+      republish: ხეახალშო გიშაშქუმალა
+      clean_republish: ხეახალშო გიშაშქუმალაშ ლასუა
+      diff: გინორთი
+  search_results:
+    medium_article: სტატია
+    medium_image: სურათი
+    medium_map: რუკა
+    medium_sound: ხონარი
+    medium_video: ვიდეო
+    medium_title_article_html: 'სტატია: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'სურათი: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'რუკა: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'აუდიო: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'ვიდეო: <span class=''sub''>%{title}</span>'
+    empty: მუთუნქ ვეგორუ.
+  sections:
+    migration: მიგრაცია
+    molecular_biology: მოლეკულური ბიოლოგია
+    molecular_biology_and_genetics: მოლეკულური ბიოლოგია დო გენეტიკა
+    morphology: მორფოლოგია
+    names_and_taxonomy: ჯოხოეფი დო ტაქსონომია
+    notes: ხვილაფეფი
+    overview: გინოჯინა
+    physical_description: ფიზიკური ეჭარუა
+    reproduction: გომიარაფა
+    risks: ოშქურანჯობეფი
+    size: ზჷმა
+    taxonomy: ტაქსონომია
+    wikipedia: ვიკიპედია
+  settings: პარამეტრეფი
+  sign_in: მიშულა
+  sign_up: რეგისტრაცია
+  signature_with_contact_us_link: |-
+    მუთუნნერი პრობლემაქ ქუგაშუეს-და, ქორტხინთ, ქუგმოგებაფეთ მიოწურაფუს %{url}.
+
+    The Encyclopedia of Life Team
+  did_not_receive_confirmation_instructions: ვემეიღებჷ დოდასურაფაშ ინსტრუქცია
+  simple_form:
+    "yes": ქო
+    "no": ვარი
+    required:
+      text: უციო
+    error_notification:
+      default_message: 'ქორთხინთ, ქოძირით გიმე მოჩამილი გეჸვენჯი პრობლემეფი:'
+    labels:
+      defaults:
+        email: ელ-ფოსტა
+        password: პაროლი
+        password_confirmation: პაროლიშ დოსასურაფა
+        remember_me: ქუდომჷტე
+        username: მახვარებუშ ჯოხო
+        bio: ბიო
+  stats:
+    articles: სტატიეფი
+    collections: კოლექციეფი
+    data: დინნაჭარა მუნაჩემეფი
+    media: მულტიმედია
+    pages: ხასჷლეფი
+    nodes: ნოსქვეფი
+    scientific_names: ჯოხოეფი
+    users: მახვარებუეფი
+    references: სქოლიო
+  terms:
+    source: წყუ
+  traits:
+    data_viz:
+      num_records_label: 'დინნაჭარეფიშ #'
+      other: შხვა
+      show_link:
+        taxon_summary: ქაძირე ტაქსონიშ რეზიუმე
+      toggle_text:
+        taxon_summary: ქაძირე ტაქსონიშ რეზიუმე
+    search_results:
+      download_tsv: tsv გჷმოხარგუა
+      edit_filters: ხინტკეფიშ რედაქტირაფა
+      new_search: ახალი გორუა
+    search_form:
+      hide_additional_fields: გეძინელი ველეფიშ ტყობინაფა
+      resource: რესურსი
+      search: გორუა
+      sex: სქესი
+      show_additional_fields: გეძინელი ველეფიშ ძირაფა
+      statistical_method: სტატისტიკური მეთოდი
+      this_may_take_a_minute: შილებე წუთი მიკორინუასჷნ
+      value: შანულობა
+  user:
+    is_power_user: თე მახვარებუ შანილი რე მუჭოთ გუნამორსა მახვარებუთ.
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: ტერიტორია
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ჭკომუნს
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: პიოლიშ ფერი
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: ხილიშ ტიპი
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: ორიენტაცია
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: გომიარაფა
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: ფორმა
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: კუდელიშ სიგჷნძა
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: სისქა
+...
