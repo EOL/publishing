@@ -2,7 +2,7 @@ module TraitBank
   module Admin
 
     # NOTE: these are STRINGS, not symbols:
-    STAGES = %w{begin prune_metadata meta_traits metadata inferred_traits traits vernaculars end}
+    STAGES = %w{begin prune_metadata meta_traits metadata inferred_traits traits vernaculars eol_pk_prefix end}
     DEFAULT_REMOVAL_BATCH_SIZE = 64
 
     class << self
@@ -92,9 +92,14 @@ module TraitBank
         TraitBank::Queries.count_supplier_nodes_by_resource_nocache(id)
       end
 
+      def count_remaining_graph_pks(repo_id)
+        TraitBank::Queries.count_eol_pks_by_respository_id(repo_id)
+      end
+
       def remove_by_resource_complete?(resource, log)
-        count = count_remaining_graph_nodes(resource.id)
-        return false unless count.zero?
+        count_nodes = count_remaining_graph_nodes(resource.id)
+        count_pks = count_remaining_graph_pks(resource.repository_id)
+        return false unless count_nodes.zero? && count_pks.zero?
         return true
       end
       
@@ -133,28 +138,28 @@ module TraitBank
             return 0
           else
             log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
-            enqueue_trait_removal_stage(resource.id, 1)
+            enqueue_trait_removal_stage(resource.id, 1, should_republish)
           end
         elsif stage == 'prune_metadata'
           prune_metadata_with_too_many_relationships(resource.id, log)
-          enqueue_next_trait_removal_stage(resource.id, index)
+          enqueue_next_trait_removal_stage(resource.id, index, should_republish)
         else
           # We're in one of the "normal" stages...
           task = removal_tasks[stage].merge(log: log, size: size || DEFAULT_REMOVAL_BATCH_SIZE)
           if count_query_results(task).zero?
             # We have already finished this stage, move on to the next.
-            enqueue_next_trait_removal_stage(resource.id, index)
+            enqueue_next_trait_removal_stage(resource.id, index, should_republish)
           else 
             # Take a chunk out of this stage:
             remove_batch_with_query(task)
             if count_query_results(task).zero?
               # This stage is done, move on to the next task:
-              enqueue_next_trait_removal_stage(resource.id, index)
+              enqueue_next_trait_removal_stage(resource.id, index, should_republish)
             else
               # There's more to do for this stage, engqueue it to continue:
               # NOTE: we pass in the size FROM THE OPTIONS, because that would have changed inside the call, if it
               # were too big or small:
-              enqueue_trait_removal_stage(resource.id, index, task[:size])
+              enqueue_trait_removal_stage(resource.id, index, task[:size], should_republish)
             end
           end
         end
@@ -187,19 +192,23 @@ module TraitBank
           'vernaculars' => {
             name: :vernacular,
             q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          },
+          'eol_pk_prefix' => {
+            name: :trait,
+            q: "MATCH (trait:Trait) WHERE trait.eol_pk STARTS WITH 'R#{resource.repository_id}-'"
           }
         }
       end
 
-      def enqueue_next_trait_removal_stage(resource_id, index, size = nil)
-        enqueue_trait_removal_stage(resource_id, index + 1, size)
+      def enqueue_next_trait_removal_stage(resource_id, index, size = nil, should_republish = false)
+        enqueue_trait_removal_stage(resource_id, index + 1, size, should_republish)
       end
 
-      def enqueue_trait_removal_stage(resource_id, index, size = nil)
+      def enqueue_trait_removal_stage(resource_id, index, size = nil, should_republish = false)
         size ||= DEFAULT_REMOVAL_BATCH_SIZE
         stage = STAGES[index]
         Rails.logger.warn("Removing TraitBank data (stage: #{stage}) for resource ##{resource_id}")
-        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size, false))
+        Delayed::Job.enqueue(RemoveTraitContentJob.new(resource_id, stage, size, should_republish))
       end
 
       # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "normal"

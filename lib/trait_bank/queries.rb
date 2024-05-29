@@ -37,6 +37,12 @@ module TraitBank
         get_count(res)
       end
 
+      def count_eol_pks_by_respository_id(repo_id)
+        res = TraitBank.query(
+          "MATCH (trait:Trait) WHERE trait.eol_pk STARTS WITH $prefix RETURN COUNT(trait)", prefix: "R#{repo_id}-")
+        get_count(res)
+      end
+
       def count_metadata_by_resource_nocache(id)
         res = TraitBank.query(
           "MATCH (res:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)-[:metadata]->(meta:MetaData) "\
