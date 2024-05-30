@@ -47,6 +47,7 @@ module PagesHelper
 
   def index_stat(key, count)
     return '0' if count.nil?
+    return '0' if count.to_i != count
     count =
       if count > 1_000_000
         "#{(count / 100_000) / 1.0}M"

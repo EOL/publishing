@@ -222,10 +222,12 @@ class TermBootstrapper
     # These don't seem to work with a normal update:
     set_show_in_select(@show_in_select, true)
     set_show_in_select(@hide_from_select, false)
+    puts "Updates complete."
   end
   
   def set_show_in_select(list, value)
     list.each do |uri|
+      puts "- <#{uri}> Setting is_hidden_from_select = #{value}"
       TraitBank.query(%{
           MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) SET term.is_hidden_from_select = #{value}
         })
