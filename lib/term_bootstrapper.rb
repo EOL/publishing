@@ -142,7 +142,7 @@ class TermBootstrapper
       unless equivalent_terms(term_from_gem, term_from_neo4j)
         puts "** Needs update: #{term_from_gem['uri']}"
         term_from_gem.keys.sort.each do |k|
-          if key == 'is_hidden_from_select'
+          if k == 'is_hidden_from_select'
             if term_from_gem[k] == 'true'
               @hide_from_select << term_from_gem['uri']
               puts "- Needs to be hidden from select"
