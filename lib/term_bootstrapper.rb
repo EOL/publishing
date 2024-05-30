@@ -124,6 +124,8 @@ class TermBootstrapper
     @new_terms = []
     @update_terms = []
     @uris_to_delete = []
+    @hide_from_select = []
+    @show_in_select = []
   end
 
   def compare_with_gem
@@ -140,9 +142,19 @@ class TermBootstrapper
       unless equivalent_terms(term_from_gem, term_from_neo4j)
         puts "** Needs update: #{term_from_gem['uri']}"
         term_from_gem.keys.sort.each do |k|
-          puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k].to_s == term_from_neo4j[k].to_s
+          if key == 'is_hidden_from_select'
+            if term_from_gem[k] == 'true'
+              @hide_from_select << term_from_gem['uri']
+              puts "- Needs to be hidden from select"
+            else
+              @show_in_select << term_from_gem['uri']
+              puts "- Needs to be shown in select"
+            end
+          else
+            puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k].to_s == term_from_neo4j[k].to_s
+            @update_terms << term_from_gem
+          end
         end
-        @update_terms << term_from_gem
       end
     end
     term_from_gem_by_uri.each do |uri, term_from_gem|
@@ -207,6 +219,17 @@ class TermBootstrapper
   def update_terms
     puts "Updating #{@update_terms.size} terms..."
     @update_terms.each { |term| TraitBank::Term.update(term) }
+    # These don't seem to work with a normal update:
+    set_show_in_select(@show_in_select, true)
+    set_show_in_select(@hide_from_select, false)
+  end
+  
+  def set_show_in_select(list, value)
+    list.each do |uri|
+      TraitBank.query(%{
+          MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) SET term.is_hidden_from_select = #{value}
+        })
+    end
   end
 
   def delete_terms
