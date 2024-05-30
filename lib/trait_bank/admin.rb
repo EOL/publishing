@@ -138,7 +138,7 @@ module TraitBank
             return 0
           else
             log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
-            enqueue_trait_removal_stage(resource.id, 1, nil, should_republish)
+            enqueue_trait_removal_stage(resource.id, 1, size / 2, should_republish)
           end
         elsif stage == 'prune_metadata'
           prune_metadata_with_too_many_relationships(resource.id, log)
@@ -200,8 +200,8 @@ module TraitBank
         }
       end
 
-      def enqueue_next_trait_removal_stage(resource_id, index, size = nil, should_republish = false)
-        enqueue_trait_removal_stage(resource_id, index + 1, size, should_republish)
+      def enqueue_next_trait_removal_stage(resource_id, index, should_republish = false)
+        enqueue_trait_removal_stage(resource_id, index + 1, nil, should_republish)
       end
 
       def enqueue_trait_removal_stage(resource_id, index, size = nil, should_republish = false)
