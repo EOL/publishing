@@ -272,7 +272,8 @@ class TraitBank::Slurp
     nodes = config[:nodes]
 
     break_up_large_files(filename) do |sub_filename|
-      @logger.info("Importing #{MAX_CSV_SIZE} rows from #{sub_filename}")
+      chunk_size = size_of_file(sub_filename) 
+      @logger.info("Importing #{chunk_size} rows from #{sub_filename}")
 
       # build nodes required by all rows
       nodes.each do |node|
@@ -331,7 +332,9 @@ class TraitBank::Slurp
       end
       sub_file = sub_file_name(basename, chunk)
       copy_head(filename, sub_file)
-      `head -n #{MAX_CSV_SIZE * chunk + 1} #{resource_file_dir}/#{filename} | tail -n #{MAX_CSV_SIZE} >> #{resource_file_dir}/#{sub_file}`
+      # Adding 1 to the chunk*size for the header, of course:
+      head_lines = MAX_CSV_SIZE * chunk + 1
+      `head -n #{head_lines} #{resource_file_dir}/#{filename} | tail -n #{MAX_CSV_SIZE} >> #{resource_file_dir}/#{sub_file}`
       yield(sub_file, chunk)
       File.unlink("#{resource_file_dir}/#{sub_file}")
     end
