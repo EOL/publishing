@@ -3,7 +3,7 @@ require 'csv'
 
 # NOTE: Publishing will call .load_resource_from_repo q.v..
 class TraitBank::Slurp
-  MAX_CSV_SIZE = 128_000
+  MAX_CSV_SIZE = 99_000
   MAX_SKIP_PKS = 1_000
 
   delegate :query, to: TraitBank
@@ -326,7 +326,7 @@ class TraitBank::Slurp
         wait_time = chunk * 2.minutes
         wait_time = 30.minutes if wait_time > 30.minutes
         log_node_count
-        @logger.info("Waiting #{wait_time / 60} minutes for the part #{chunk} of #{chunks + 1} to be added to neo4j.")
+        @logger.info("Waiting #{wait_time / 60} minutes for part #{chunk} of #{chunks + 1} to be added to neo4j.")
         sleep(wait_time)
       end
       sub_file = sub_file_name(basename, chunk)
