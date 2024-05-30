@@ -139,27 +139,35 @@ class TermBootstrapper
         next
       end
       term_from_gem = term_from_gem_by_uri[term_from_neo4j['uri']]
-      unless equivalent_terms(term_from_gem, term_from_neo4j)
-        puts "** Needs update: #{term_from_gem['uri']}"
-        term_from_gem.keys.sort.each do |k|
-          if k == 'is_hidden_from_select'
-            if term_from_gem[k] == 'true'
-              @hide_from_select << term_from_gem['uri']
-              puts "- Needs to be hidden from select"
-            else
-              @show_in_select << term_from_gem['uri']
-              puts "- Needs to be shown in select"
-            end
-          else
-            puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k].to_s == term_from_neo4j[k].to_s
-          end
-        end
-        @update_terms << term_from_gem
-      end
+      add_updates(term_from_gem, term_from_neo4j) unless equivalent_terms(term_from_gem, term_from_neo4j)
     end
     term_from_gem_by_uri.each do |uri, term_from_gem|
       @new_terms << term_from_gem unless seen_uris.key?(uri.downcase)
     end
+  end
+
+  def add_updates(term_from_gem, term_from_neo4j)
+    puts "** Needs update: #{term_from_gem['uri']}"
+    only_select = false
+    term_from_gem.keys.sort.each do |k|
+      if term_from_gem[k].to_s != term_from_neo4j[k].to_s
+        if k == 'is_hidden_from_select'
+          if term_from_gem[k] == 'true'
+            @hide_from_select << term_from_gem['uri']
+            only_select = true
+            puts "- Needs to be hidden from select"
+          else
+            @show_in_select << term_from_gem['uri']
+            only_select = true
+            puts "- Needs to be shown in select"
+          end
+        else
+          puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'"
+          only_select = false
+        end
+      end
+    end
+    @update_terms << term_from_gem unless only_select
   end
 
   def equivalent_terms(term_from_gem, term_from_neo4j)
