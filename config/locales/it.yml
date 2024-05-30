@@ -1457,24 +1457,40 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: testa
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: cuoriforme
         http://semanticscience(dot)org/resource/SIO_000040: altezza
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: alto
+        http://eol(dot)org/schema/terms/highCNRatio: alta (>59)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002025: habitat ad alta temperatura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: alta tolleranza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: collina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: catena collinare
+        http://eol(dot)org/schema/terms/HindTarsusLength: lunghezza del tarso posteriore
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002243: histosol
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: olotipo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Homerian: età
+          homeriana
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: miele
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: orizzontale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: ospedale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: sorgente termale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000000: humus
+        http://eol(dot)org/schema/terms/hydrochory: idrocoria
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000448: bacino idroelettrico
         http://www(dot)marinespecies(dot)org/traits/Hydrostatic: scheletro idrostatico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000134: fluido idrotermale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: sorgente idrotermale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: ghiaccio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: iceberg
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002013: roccia ignea
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001501: immaturo
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: sistema immunitario
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: cratere da impatto
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pollici
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: età induana
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0000548: strumento
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000387: lago intermittente
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000502: lago salino intermittente
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: guscio interno
+        http://eol(dot)org/schema/terms/InvasiveRange: invasivo in
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: canale di irrigazione
         http://purl(dot)allotrope(dot)org/ontologies/property#AFX_0000939: è un componente
           di
@@ -1483,11 +1499,18 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000016: saltare
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Jurassic: periodo
           giurassico
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kasimovian: età
+          kasimoviana
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Katian: età katiana
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/anno
         http://eol(dot)org/schema/terms/squarekilometer: km^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: età
+          kunguriana
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: età
+          ladinica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: laguna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: lago
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000268: letto del lago
@@ -1507,9 +1530,12 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: lipidi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002258: terriccio
         http://eol(dot)org/schema/terms/log10gram: log10 grammi
+        http://eol(dot)org/schema/terms/lowCNRatio: bassa (<23)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa tolleranza
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: età
+          maastrichtiana
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: lava femica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesio (mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: maschio
@@ -1529,6 +1555,8 @@ it:
         http://semanticscience(dot)org/resource/SIO_001110: mediana
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C142605: medicinale
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000199: bosco mediterraneo
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C49507: medio
+        http://eol(dot)org/schema/terms/mediumCNRatio: media (23 - 59)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: mesa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: zona mesopelagica
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Mesozoic: era
@@ -1591,6 +1619,9 @@ it:
         https://eol(dot)org/schema/terms/nmolpergramperhour: nmol/g/h
         http://eol(dot)org/schema/terms/no: "no"
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: nessuno
+        http://eol(dot)org/schema/terms/notMonogamous: non monogamo
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: lunghezza del nucleo
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghezza del nucleo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000222: isola oceanica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000207: zona oceanica
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001758: ocelli
@@ -1605,6 +1636,8 @@ it:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002873: rifiuti organici
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000133: orientamento
         http://eol(dot)org/schema/terms/otherBudSource: altro
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: età
+          oxfordiana
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossigeno
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Paleozoic: era

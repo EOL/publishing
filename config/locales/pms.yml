@@ -3099,10 +3099,22 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: mar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000092: riva ëd mar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000326: balma marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000088: rochera marenga
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005739: s-ciuma marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000059: let d'erba marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: riva marenga
+        https://eol(dot)org/schema/terms/sea_urchin_feeder: as nuriss d'ariss marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000264: mont marengh
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001857: stagional
+        http://eol(dot)org/schema/terms/secondaryConsumer: consumador secondari
         http://purl(dot)obolibrary(dot)org/obo/PO_0005848: xilema scondari
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: sigurëssa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002007: sediment
         http://purl(dot)obolibrary(dot)org/obo/PO_0009010: smens
         http://eol(dot)org/schema/terms/SeedBank: banca dle smens
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: massa
+          dla smens sëcca
+        http://eol(dot)org/schema/terms/seedHoarding: ambaronament ëd le smens
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: massa dla smens
         http://eol(dot)org/schema/terms/SeedPeriodBegin: prinsipi dël perìod ëd le
           smens
@@ -3111,6 +3123,10 @@ pms:
           smens
         http://eol(dot)org/schema/terms/SeedlingSurvival: dzorvivensa dij piantin
         http://eol(dot)org/schema/terms/SeedPerPound: smens për livra
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: età
+          selandian-a
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: as nuriss ëd depòsit
+          seletiv
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semipërsistenta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorfism sessual
         http://eol(dot)org/schema/terms/ShadeTolerance: toleransa a l'ombra
