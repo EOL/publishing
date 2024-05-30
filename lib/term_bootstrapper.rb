@@ -152,9 +152,9 @@ class TermBootstrapper
             end
           else
             puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k].to_s == term_from_neo4j[k].to_s
-            @update_terms << term_from_gem
           end
         end
+        @update_terms << term_from_gem
       end
     end
     term_from_gem_by_uri.each do |uri, term_from_gem|
