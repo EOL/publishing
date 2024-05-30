@@ -1109,11 +1109,11 @@ zh-CN:
     user_title_html: 用户：<span class='sub'>%{name}</span>
   search_suggestion:
     actions:
-      create: 创建一个新的搜索建议
-    created: 为%{match}创建一个搜索建议
+      create: 创建新搜索建议
+    created: 给“%{match}”创建搜索建议
     destroyed: 已去除“%{match}”的搜索建议
     new:
-      header: 创建一个搜索建议
+      header: 创建搜索建议
     update:
       header: 更新搜索建议
     index:
