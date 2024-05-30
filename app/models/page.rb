@@ -662,7 +662,7 @@ class Page < ApplicationRecord
   end
 
   def recount
-    [ "page_contents", "media", "articles", "links", "maps",
+    [ "page_contents", "media", "articles", "maps",
       "nodes", "vernaculars", "scientific_names", "referents"
     ].each do |field|
       update_column("#{field}_count".to_sym, send(field).count)
