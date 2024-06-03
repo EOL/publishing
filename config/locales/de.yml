@@ -117,7 +117,7 @@ de:
         r_infraphylum: '%{name1} ist ein Infraphylum von %{name2}.'
         r_superclass: '%{name1} ist eine Überklasse von %{name2}.'
         r_class: '%{name1} ist eine Klasse von %{name2}.'
-        r_subcategory: '%{name1} ist eine Unterklasse von %{name2}.'
+        r_subcategory: '%{name1} ist eine Unterkategorie von %{name2}.'
         r_infraclass: '%{name1} ist eine Intraklasse zu %{name2}.'
         r_superorder: '%{name1} ist eine Überordnung von %{name2}.'
         r_order: '%{name1} ist eine Ordnung von %{name2}.'

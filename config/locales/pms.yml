@@ -3127,7 +3127,10 @@ pms:
           selandian-a
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: as nuriss ëd depòsit
           seletiv
+        http://eol(dot)org/schema/terms/self-supportingGrowthForm: as sosten daspërchiel
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semipërsistenta
+        http://eol(dot)org/schema/terms/semiInfaunal: semi-infàun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: sensitività
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorfism sessual
         http://eol(dot)org/schema/terms/ShadeTolerance: toleransa a l'ombra
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma

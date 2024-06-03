@@ -16,6 +16,7 @@
 # Author: Jinghong
 # Author: Josephine W.
 # Author: Kly
+# Author: Lakejason0
 # Author: Lantianjialiang
 # Author: LittlePaw365
 # Author: Liuxinyu970226
@@ -106,7 +107,7 @@ zh-CN:
         r_infraphylum: '%{name1}是%{name2}的一个下门。'
         r_superclass: '%{name1}是%{name2}的一个总纲。'
         r_class: '%{name1}是%{name2}的一个纲。'
-        r_subcategory: '%{name1}是%{name2}的一个亚纲。'
+        r_subcategory: '%{name1}是%{name2}的子分类。'
         r_infraclass: '%{name1}是%{name2}的一个下纲。'
         r_superorder: '%{name1}是%{name2}的一个总目。'
         r_order: '%{name1}是%{name2}的一个目。'
