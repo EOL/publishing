@@ -10,11 +10,11 @@ Delayed::Worker.queue_attributes = {
 Delayed::Worker.raise_signal_exceptions = :term # unlock jobs on SIGTERM so that they can be picked up by the next available worker
 
 # NOTE: If you add another one of these, you should really move them to a jobs folder.
-RepublishJob = Struct.new(:resource_id, check_traits) do
+RepublishJob = Struct.new(:resource_id, :check_traits) do
   def perform
     resource = Resource.find(resource_id)
     Rails.logger.warn("Publishing resource [#{resource.name}](#{ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' }}/resources/#{resource.id})")
-    if resource.remove_traits_required?
+    if check_traits && resource.remove_traits_required?
       resource.new_log.info('Harvesting server requests removal of all traits')
       TraitBank::ResourceRemover.remove(resource, 'begin', nil, true)
     else
