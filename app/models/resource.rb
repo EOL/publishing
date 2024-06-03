@@ -220,7 +220,11 @@ class Resource < ApplicationRecord
     Delayed::Job.where(queue: 'harvest', locked_at: nil).where(%Q{handler LIKE "%resource_id: #{id}\n%"}).any?
   end
 
-  # You would only call this manually, there should be no references to this method in code.
+  def remove_traits_required?
+    diff_metadata = repo.trait_diff_metadata
+    @diff_metadata.remove_all_traits?
+  end
+
   def publish
     Publishing::Fast.by_resource(self)
   end
@@ -270,7 +274,7 @@ class Resource < ApplicationRecord
     nuke(Node)
     # You should run something like #fix_native_nodes (q.v.), but it's slow, and not terribly important if you are just
     # about to re-load the resource, so it's the responsibility of the caller to do it if desired.
-    TraitBank::Admin.remove_non_trait_content_for_resource(self)
+    TraitBank::Admin.remove_non_trait_content(self)
   end
 
   def background_remove_trait_content(republish)
@@ -502,15 +506,7 @@ class Resource < ApplicationRecord
   end
 
   def background_republish
-    @diff_metadata = repo.trait_diff_metadata
-    if @diff_metadata.remove_all_traits?
-      new_log.info('Harvesting server requests removal of all traits')
-      new_log.pause
-      update!(last_published_at: nil)
-      background_remove_trait_content(true)
-    else
-      Delayed::Job.enqueue(RepublishJob.new(id))
-    end
+    Delayed::Job.enqueue(RepublishJob.new(id, false))
   end
 
   # Meant to be called manually:
@@ -520,7 +516,7 @@ class Resource < ApplicationRecord
   end
 
   def background_republish_traits
-    Delayed::Job.enqueue(RepublishJob.new(id))
+    Delayed::Job.enqueue(RepublishJob.new(id, true))
   end
 
   # Note this does NOT include metadata!
