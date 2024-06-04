@@ -274,7 +274,7 @@ class Resource < ApplicationRecord
     nuke(Node)
     # You should run something like #fix_native_nodes (q.v.), but it's slow, and not terribly important if you are just
     # about to re-load the resource, so it's the responsibility of the caller to do it if desired.
-    TraitBank::Admin.remove_non_trait_content(self)
+    TraitBank::ResourceRemover.remove_non_trait_content(self)
   end
 
   def background_remove_trait_content(republish)
