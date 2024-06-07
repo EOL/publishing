@@ -206,6 +206,7 @@ class Publishing
         backtrace = [e.backtrace[0]] + e.backtrace.grep(/\bapp\b/)[1..5]
         @log.warn("Trait Publishing failed: #{e.message} FROM #{backtrace.join(' << ')}")
         @can_clean_up = false
+        raise e
       end
       clean_up
     end
