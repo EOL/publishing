@@ -1,0 +1,98 @@
+# Messages for Malay (Bahasa Melayu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Stress 043
+---
+ms:
+  devise:
+    confirmations:
+      confirmed: Alamat emal anda telah berjaya disahkan.
+      send_instructions: Anda akan menerima emel dengan arahan untuk mengesahkan alamat
+        emel anda dalam beberapa minit.
+      send_paranoid_instructions: Jika alamat emel anda wujud dalam pangkalan data
+        kami, anda akan menerima emel dengan arahan untuk mengesahkan alamat emel
+        anda dalam beberapa minit.
+    failure:
+      already_authenticated: Anda sudah log masuk.
+      inactive: Akaun anda belum diaktifkan lagi.
+      invalid: Tidak sah %{authentication_keys} atau kata laluan.
+      locked: Akaun anda telah dikunci, Sila cuba lagi selepas satu jam
+      last_attempt: Anda mempunyai satu lagi percubaan sebelum akaun anda dikunci.
+      not_found_in_database: Tidak sah %{authentication_keys} atau kata laluan.
+      recaptcha_error: Terdapat ralat dengan kod recaptcha di bawah. Sila masukkan
+        semula kod dan klik hantar.
+      timeout: Sesi anda telah tamat. Sila log masuk semula untuk teruskan.
+      unauthenticated: Anda perlu log masuk atau mendaftar sebelum meneruskan.
+      unconfirmed: Anda perlu mengesahkan alamat emel anda sebelum meneruskan.
+    mailer:
+      confirmation_instructions:
+        action: Sahkan akaun saya
+        greeting: Selamat datang %{recipient}!
+        instruction: 'Anda boleh mengesahkan emel akaun anda menerusi pautan di bawah:'
+        subject: Arahan pengesahan
+      reset_password_instructions:
+        action: Tukar kata laluan saya
+        greeting: 'Hello #{recipient}!'
+        instruction: Seseorang telah meminta pautan untuk menukar kata laluan anda,
+          dan anda boleh lakukannya menerusi pautan di bawah.
+        instruction_2: Jika anda tidak memintanya, sila abaikan emel ini.
+        instruction_3: Kata laluan anda tidak akan berubah sehingga anda mengakses
+          pautan di atas dan menukarnya dengan kata laluan baru.
+        subject: Arahan tetapan semula kata laluan
+      unlock_instructions:
+        subject: Arahan nyahkunci
+      password_change:
+        greeting: 'Hello #{recipient}!'
+        message: Kami menghubungi anda untuk memberitahu bahawa kata laluan anda sudah
+          ditukar.
+        subject: Kata laluan Ditukar
+    passwords:
+      no_token: Anda tidak boleh mengakses laman ini tanpa datang dari emel tetapan
+        semula kata laluan. Jika anda datang dari emel tetapan semula kata laluan,
+        sila pastikan anda menggunakan URL penuh yang disediakan.
+      send_instructions: Anda akan menerima emel dengan arahan untuk menetapkan semula
+        kata laluan dalam beberapa minit.
+      send_paranoid_instructions: Jika alamat emel anda wujud dalam pangkalan data
+        kami, anda akan menerima emel dengan pautan untuk mendapatkan semula kata
+        laluan anda dalam beberapa minit.
+      updated: Kata laluan anda telah berjaya diubah. Anda kini telah log masuk.
+      updated_not_active: Kata laluan anda telah berjaya ditukar.
+    registrations:
+      destroyed: Selamat tinggal! Akaun anda telah berjaya dibatalkan. Kami berharap
+        dapat berjumpa anda lagi.
+      signed_up: Selamat datang! Anda telah berjaya mendaftar.
+      signed_up_but_inactive: Anda telah berjaya mendaftar. Namun, kami tidak dapat
+        log anda masuk kerana akaun anda belum lagi diaktifkan.
+      signed_up_but_locked: Anda telah berjaya mendaftar. Namun, kami tidak dapat
+        log anda masuk kerana akaun anda dikunci.
+      signed_up_but_unconfirmed: Mesej dengan pautan pengesahan telah dihantar ke
+        alamat emel anda. Sila ikuti pautan untuk mengaktifkan akaun anda.
+      update_needs_confirmation: Anda berjaya mengemas kini akaun anda, namun kami
+        perlu mengesahkan alamat emel baru anda. Sila semak emel anda dan ikuti pautan
+        pengesahan bagi mengesahkan alamat emel baru anda.
+      updated: Akaun anda telah berjaya dikemas kini.
+    sessions:
+      signed_in: Log masuk berjaya.
+      signed_out: Log keluar berjaya.
+      already_signed_out: Log keluar berjaya.
+      recaptcha: Ralat pengesahan recaptcha
+      sign_in_remember_me_disabled_for_admins: Atas sebab keselamatan, pentadbir tidak
+        boleh menggunakan ciri ingatlah saya.
+    unlocks:
+      send_instructions: Anda akan menerima emel dengan arahan untuk menyahkunci akaun
+        anda dalam beberapa minit.
+      send_paranoid_instructions: Jika akaun anda wujud, anda akan menerima e-mel
+        dengan arahan untuk menyahkuncinya dalam beberapa minit.
+      unlocked: Akaun anda telah berjaya dinyahkunci. Sila log masuk untuk teruskan.
+  errors:
+    messages:
+      already_confirmed: telah disahkan, sila cuba log masuk
+      confirmation_period_expired: perlu disahkan dalam tempoh %{period}, sila minta
+        yang baru
+      expired: telah tamat tempoh, sila minta yang baru
+      not_found: tidak dijumpai
+      not_locked: tidak dikunci
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: '%{count} errors prohibited this %{resource} from being saved:'
+...

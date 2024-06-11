@@ -263,6 +263,7 @@ it:
     resource_pk: '(id: %{key})'
     rights_statement: dichiarazione dei diritti
     source: fonte
+    spatial_location: spaziale
     view_source_label: originale
     view_source_link: vedi l'immagine originale
     view_source_page_link: consulta la fonte
@@ -703,6 +704,7 @@ it:
       no_results_html: <strong>Nessun risultato confermato</strong><br />Premi Invio
         per visualizzare i risultati senza revisione
       placeholder: Cerca in EOL...
+  name_preferred_label: preferito
   page_title: Enciclopedia della Vita
   page_title_search: 'Cerca: %{query}'
   page_vernaculars_empty: Non ci sono nomi comuni associati a questo taxon.
@@ -974,6 +976,7 @@ it:
     cyclicity: Ciclicità
     diagnostic_description: Descrizione diagnostica
     diseases_and_parasites: Malattie e parassiti
+    dispersal: Dispersione
     distribution: Distribuzione
     ecology: Ecologia
     evolution_and_systematics: Evoluzione e Sistematica
@@ -999,6 +1002,7 @@ it:
     taxonomy: Tassonomia
     threats: Minacce
     trends: Tendenze
+    trophic_strategy: Strategia Trofica
     type_information: Tipo di informazione
     wikipedia: Wikipedia
   settings: impostazioni

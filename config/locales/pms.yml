@@ -3130,7 +3130,17 @@ pms:
         http://eol(dot)org/schema/terms/self-supportingGrowthForm: as sosten daspërchiel
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semipërsistenta
         http://eol(dot)org/schema/terms/semiInfaunal: semi-infàun
+        http://eol(dot)org/schema/terms/semi-woody: semi-boscarù
+        http://eol(dot)org/schema/terms/semifossorial: semi-scavator
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: sensitività
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: sensorial
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: sistema sensorial
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: età
+          serpukhovian-a
+        https://eol(dot)org/schema/terms/sessile_prey_feeder: an nuriss ëd pijàite
+          imòbij
+        http://rs(dot)tdwg(dot)org/dwc/terms/sex: sess
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: metamòrfosi sessual
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorfism sessual
         http://eol(dot)org/schema/terms/ShadeTolerance: toleransa a l'ombra
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
