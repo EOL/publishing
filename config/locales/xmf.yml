@@ -203,6 +203,12 @@ xmf:
   filter_by_resource_any_item: ნამდგა პროვაიდერი
   footer:
     eol_info:
+      citing_eol: ციტირაფათ EOL
+      contact_us: მუკმართით
+      data_services: მუნაჩემეფიშ გინოჩამაშ ნინალეფი
+      donate: აზარა
+      education: გონათუა
+      food_webs: ოჩამური რშვილეფი
       glossary: გლოსარიუმი
       help: მოხვარა
       language_support: ნინაშური აზარა
@@ -233,6 +239,7 @@ xmf:
       trees: ჯალეფი
       viruses: ვირუსეფი
       worms: ღვერღვეფი
+    eol_is_hosted_by: 'EOL-იშ ორენი რე:'
   forgot_your_password: დუგოჭყორდესო პაროლქ?
   language: ნინა
   languages:
@@ -631,9 +638,19 @@ xmf:
     about: გეშა
     discuss: სხუნუა
     education: გონათუა
+    search:
+      placeholder: თელარაშ ენციკლოპედიაშ გორუა...
   pages:
     batch_lookup:
       search: გორუა
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL იკათუანს მუნაჩემეფს <a href="%{data_path}">-შო ართი ატრიბუტიშო</a>:'
+        other: 'EOL იკათუანს მუნაჩემეფს <a href="%{data_path}">%{count} არტიბუტიშო</a>,
+          თინეფს შქას:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL იკათუანს მუნაჩემეფს <a href="%{data_path}">ართი ატრიბუტიშო</a>.
+        other: EOL იკათუანს მუნაჩემეფს <a href="%{data_path}">%{count} ატრიბუტიშო</a>.
     filter_menu:
       show_all: არძაშ ძირაფა
     page_data:
@@ -872,6 +889,7 @@ xmf:
   term:
     name:
       by_uri:
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: აქტიური რდუალაშ პერიოდი
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: ტერიტორია
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ჭკომუნს
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: პიოლიშ ფერი
