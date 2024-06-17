@@ -3137,21 +3137,35 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: sistema sensorial
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serpukhovian: età
           serpukhovian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: età
+          seravalian-a
         https://eol(dot)org/schema/terms/sessile_prey_feeder: an nuriss ëd pijàite
           imòbij
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: sess
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: metamòrfosi sessual
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM_YES: metamòrfosi sessual
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: arprodussion sessual
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorfism sessual
+        http://eol(dot)org/schema/terms/shade: ombra
         http://eol(dot)org/schema/terms/ShadeTolerance: toleransa a l'ombra
+        http://eol(dot)org/schema/terms/shallowInfaunal: infàun pòch profond
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000034: sediment marengh pòch
+          profond
+        http://eol(dot)org/schema/terms/shallowReef: rochera pòch profonda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuje ch'a casco
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: età
+          sheinwoodian-a
         http://eol(dot)org/schema/terms/ShellHeightBivalve: autëssa dla cuchija, bivàlvola
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: longheur ëd la cuchija
         http://eol(dot)org/schema/terms/ShellLengthBivalve: longheur ëd la cuchija,
           bivàlvola
+        http://eol(dot)org/schema/terms/sheltered: parà
         http://purl(dot)obolibrary(dot)org/obo/PO_0000037: vèrtes dël but
-        http://eol(dot)org/schema/terms/ShootRootRatio: rapòrt gamb/rèis (RGR)
+        http://eol(dot)org/schema/terms/ShootRootRatio: rapòrt gamb/rèis (rgr)
+        http://eol(dot)org/schema/terms/shortPersistentSeedBank: a curta përsistensa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: erborin
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seda
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: sempi
         http://eol(dot)org/schema/terms/SkeletalDensity: densità schelétrica
         http://eol(dot)org/schema/terms/SkeletalReinforcement: ranforsament ëschelétrich
