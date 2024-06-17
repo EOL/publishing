@@ -39,8 +39,16 @@ class ContentServerConnection
   def file(name)
     contents_from_url(file_url(name))
   end
-
+  
   def contents_from_url(url)
+    attempts = 0
+    do
+      result = wget_file(url)
+      attempts += 1
+      raise "Unable to connect to harvesting website" if attempts >= 3
+      break unless result =~ /Bad Gateway/
+      log_info("BAD GATEWAY ... trying again (attempt #{attempts})")
+    end
     # Need to get the _harvester_session cookie or this will not work:
     uri = URI.parse(Rails.configuration.creds[:repository][:url] + '/')
     http = Net::HTTP.new(uri.host, uri.port)
@@ -72,15 +80,20 @@ class ContentServerConnection
     `wget -c -r -O #{local_file} -o #{log_file} #{@repo_site}#{url}`
     second_timestamp = Time.now.to_i
     log_warn("Took #{second_timestamp - timestamp} seconds.")
-    log_wget_response(log_file)
+    last_line = log_wget_response(log_file)
+    raise "ERROR CODE #{$?} using wget of #{url}" unless $?.zero?
     read_wget_output_to_string(local_file)
+    return last_line
   end
 
   def log_wget_response(log_file)
+    last_line = ''
     File.readlines(log_file).reject {|l| l =~ / .......... /}.reject {|l| l == "\n" }.each do |line|
+      last_line = line if line =~ /\w/
       log_info(line)
     end
     File.unlink(log_file)
+    return last_line
   end
 
   def read_wget_output_to_string(local_file)
