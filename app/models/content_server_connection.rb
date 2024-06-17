@@ -42,7 +42,7 @@ class ContentServerConnection
   
   def contents_from_url(url)
     attempts = 0
-    do
+    loop do
       result = wget_file(url)
       attempts += 1
       raise "Unable to connect to harvesting website" if attempts >= 3
