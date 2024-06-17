@@ -47,7 +47,8 @@ class ContentServerConnection
       attempts += 1
       raise "Unable to connect to harvesting website" if attempts >= 3
       break unless result =~ /Bad Gateway/
-      log_info("BAD GATEWAY ... trying again (attempt #{attempts})")
+      log_info("BAD GATEWAY ... trying again (attempt #{attempts}) in 2 minutes")
+      sleep(120)
     end
     # Need to get the _harvester_session cookie or this will not work:
     uri = URI.parse(Rails.configuration.creds[:repository][:url] + '/')
