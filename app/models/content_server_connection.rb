@@ -45,7 +45,7 @@ class ContentServerConnection
     loop do
       result = wget_file(url_path)
       if result =~ /404 Not Found/
-        log_warn("MISSING #{@repo_site}#{url_path} [#{response.code}] (#{response.size} bytes); skipping")
+        log_warn("MISSING #{@repo_site}#{url_path} (#{result}); skipping")
         return false
       end
       attempts += 1
