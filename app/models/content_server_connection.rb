@@ -1,4 +1,14 @@
 # TODO: Rename this to HarvestingServerConnection to be consistent with naming
+module ContentServer
+  class NotFoundError < StandardError # 404
+  end
+
+  class BadGatewayEerror < StandardError # 502 Bad Gateway
+  end
+end
+
+
+
 class ContentServerConnection
   TRAIT_DIFF_SLEEP = 10
   MAX_TRAIT_DIFF_TRIES = 60 # * 10s = 30 = 300s = 5 mins
@@ -42,39 +52,18 @@ class ContentServerConnection
   
   def contents_from_url(url_path)
     attempts = 0
-    loop do
-      result = wget_file(url_path)
-      if result =~ /404 Not Found/
-        log_warn("MISSING #{@repo_site}#{url_path} (#{result}); skipping")
-        return false
-      end
+    begin
+      wget_file(url_path)
+    rescue ContentServer::NotFoundError => e
+      log_warn("MISSING #{@repo_site}#{url_path} (#{result}); skipping")
+      return false
+    rescue ContentServer::BadGatewayEerror => e
       attempts += 1
       raise "Unable to connect to harvesting website" if attempts >= 3
-      break unless result =~ / \d\d\d /
       log_info("BAD GATEWAY ... trying again (attempt #{attempts}) in 2 minutes")
       sleep(120)
+      retry
     end
-    # Need to get the _harvester_session cookie or this will not work:
-    uri = URI.parse(Rails.configuration.creds[:repository][:url] + '/')
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    log_info("Connecting to #{uri} ...")
-    response = http.request(Net::HTTP::Get.new(uri.request_uri))
-    cookies = response.response['set-cookie']
-    request = Net::HTTP::Get.new(url_path)
-    request['Cookie'] = cookies
-    response = http.request(request)
-    if response.code.to_i >= @unacceptable_codes
-      log_warn("MISSING #{@repo_site}#{url_path} [#{response.code}] (#{response.size} bytes); skipping")
-      return false
-    elsif response.body.size < response.content_length - 1
-      log_warn("TRUNCATED RESPONSE! Got #{response.body.size} bytes out of #{response.content_length} from #{@repo_site}#{url_path}")
-      return wget_file(url_path)
-    end
-    # NOTE: neo4j cannot properly handle all cases of meta-quoted double quotes ("") so we change them here
-    # to backslashed quotes (\"). This is not the greatest place to do it, as we've obfuscated the transofmration,
-    # but it would be less efficient elsewhere.
-    fix_neo4j_illegal_quotes(response.body)
   end
 
   def wget_file(url_path)
@@ -88,8 +77,9 @@ class ContentServerConnection
     second_timestamp = Time.now.to_i
     log_warn("Took #{second_timestamp - timestamp} seconds.")
     last_line = log_wget_response(log_file)
+    raise ContentServer::NotFoundError if last_line =~ /404 Not Found/
+    raise ContentServer::BadGatewayEerror if last_line =~ /502 Bad Gateway/
     read_wget_output_to_string(local_file)
-    return last_line
   end
 
   def log_wget_response(log_file)
