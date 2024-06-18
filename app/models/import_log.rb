@@ -41,7 +41,11 @@ class ImportLog < ApplicationRecord
     options ||= {}
     cat = options[:cat] || :starts
     call_level = 0
-    call_stack = call_stack = caller.map { |c| file_and_line(c) }.uniq { |c| c.sub(/:.*$/, '') }[0..3].reverse
+    # Dense code that looks for the class and the line number and appends ",line" if the class is the same, otherwise ">class:line"
+    call_stack = caller.map { |c| file_and_line(c) }.select { |c| c !~ /_log/ }[0..5].inject do |str, c|
+      (k,l) = c.split(':')
+      str =~ />#{k}[^>]+$/ ? "#{str},#{l}" : "#{str}>#{c}"
+    end
     body = "#{call_stack.join('>')}= #{body}"
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
@@ -50,7 +54,7 @@ class ImportLog < ApplicationRecord
   end
 
   def file_and_line(called)
-    called.sub(%r{.*/}, '').sub(/:in .*$/, '')
+    called.sub(%r{.*/}, '').sub(/:in .*$/, '').sub('.rb', '')
   end
 
   def log_update(body)
