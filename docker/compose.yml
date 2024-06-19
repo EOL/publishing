@@ -319,6 +319,7 @@ services:
       - /data/publishing_web:/app/public/data
       - /data/publishing_worker_log:/app/log
       - /data/publishing_web_private:/app/data
+      - /data/harvesting_web:/app/harvesting
   pub_data_worker:
     <<: *default-worker
     container_name: pub_data_worker

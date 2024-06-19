@@ -7,107 +7,72 @@ module ContentServer
   end
 end
 
-
-
 class ContentServerConnection
   TRAIT_DIFF_SLEEP = 10
   MAX_TRAIT_DIFF_TRIES = 60 # * 10s = 30 = 300s = 5 mins
 
   def initialize(resource, log = nil)
     @resource = resource
-    repo_url = Rails.configuration.creds[:repository][:url]
-    @repo_site = URI(repo_url)
+    harv_url = Rails.configuration.creds[:repository][:url]
+    @harv_site = URI(harv_url)
     @log = log # Okay if it's nil.
     @unacceptable_codes = 300
     @trait_diff_tries = 0
   end
 
-  def is_on_this_host?
-    @repo_is_on_this_host ||= (@repo_site.host == '128.0.0.1' ||  @repo_site.host == 'localhost')
-  end
-
   def file_url(name)
     "/data/#{@resource.path}/publish_#{name}"
   end
-
+  
   def exists?(name)
-    url = URI.parse(file_url(name)) # e.g.: "/data/NMNHtypes/publish_publish_metadata.tsv"
-    req = Net::HTTP.new(@repo_site.host, @repo_site.port)
-    req.use_ssl = @repo_site.scheme == 'https'
-    res = req.request_head(url.path)
-    res.code.to_i < @unacceptable_codes
+    File.exist?(file_path(name))
   end
-
+  
+  def file(name)
+    contents(file_path(name))
+  end
+  
+  def trait_diff_metadata
+    @trait_diff_tries = 0
+    trait_diff_metadata_helper
+  end
+  
   def copy_file(local_name, remote_name)
     open(local_name, 'wb') { |f| f.write(file(remote_name)) }
   end
+  
+  private
 
-  def copy_file_for_remote_url(local_path, remote_url)
-    open(local_path, 'wb') { |f| f.write(contents_from_url(remote_url)) }
-  end
-
-  def file(name)
-    contents_from_url(file_url(name))
+  # This method can receive two different formats. One is something like "traits.tsv" and the other is a "relative path".
+  # The latter will always have a slash in it, so we check for that, then handle the result:
+  def file_path(name)
+    name =~ %r{/} ?
+      name.sub(%r{^/data/}, '/app/harvesting/') :
+      "/app/harvesting/#{@resource.path}/publish_#{name}"
   end
   
-  def contents_from_url(url_path)
-    attempts = 0
-    begin
-      wget_file(url_path)
-    rescue ContentServer::NotFoundError => e
-      log_warn("MISSING #{@repo_site}#{url_path} (404); skipping")
-      return false
-    rescue ContentServer::BadGatewayEerror => e
-      attempts += 1
-      raise "Unable to connect to harvesting website" if attempts >= 3
-      log_info("BAD GATEWAY ... trying again (attempt #{attempts}) in 2 minutes")
-      sleep(120)
-      retry
-    end
+  def is_on_this_host?
+    @harv_is_on_this_host ||= (@harv_site.host == '128.0.0.1' ||  @harv_site.host == 'localhost')
+  end
+  
+  def copy_harvesting_file(local_path, remote_url)
+    open(local_path, 'wb') { |f| f.write(contents(remote_url)) }
   end
 
-  def wget_file(url_path)
-    log_warn('USING wget TO RETRIEVE FULL FILE...')
-    timestamp = Time.now.to_i
-    local_file = Rails.root.join('tmp', "#{@resource.abbr}_tmp_#{timestamp}_#{File.basename(url_path)}")
-    log_file = Rails.root.join('tmp', "#{@resource.abbr}_tmp_#{timestamp}.log")
-    args = "-c -r -O #{local_file} -o #{log_file} #{@repo_site}#{url_path}"
-    log_warn("wget #{args}")
-    system('wget', *args.split)
-    second_timestamp = Time.now.to_i
-    log_warn("Took #{second_timestamp - timestamp} seconds.")
-    last_line = log_wget_response(log_file)
-    raise ContentServer::NotFoundError if last_line =~ /404 Not Found/
-    raise ContentServer::BadGatewayEerror if last_line =~ /502 Bad Gateway/
-    read_wget_output_to_string(local_file)
+  def contents(file)
+    file_contents_to_clean_string(file)
   end
 
-  def log_wget_response(log_file)
-    last_line = ''
-    File.readlines(log_file).reject {|l| l =~ / .......... /}.reject {|l| l == "\n" }.each do |line|
-      last_line = line if line =~ /\w/
-      log_info(line)
-    end
-    File.unlink(log_file)
-    return last_line
-  end
-
-  def read_wget_output_to_string(local_file)
+  def file_contents_to_clean_string(local_file)
     contents = File.readlines(local_file)
     contents.each do |line|
       line = fix_neo4j_illegal_quotes(line)
     end
-    File.unlink(local_file)
     contents.join
   end
 
   def fix_neo4j_illegal_quotes(string)
     string.gsub(/\\\n/, "\n").gsub(/\\N/, '').gsub(/""/, '\\"')
-  end
-
-  def trait_diff_metadata
-    @trait_diff_tries = 0
-    trait_diff_metadata_helper
   end
 
   def log_info(what)
@@ -130,6 +95,9 @@ class ContentServerConnection
     attr_reader :new_traits_file, :removed_traits_file, :new_metadata_file, :json, :resource, :connection
 
     def initialize(json, resource, connection)
+      # Example:
+      # { "status":"completed","new_traits_path":"/data/dhvdd/publish_traits.tsv",
+      #   "removed_traits_path":null,"new_metadata_path":"/data/dhvdd/publish_metadata.tsv","remove_all_traits":true }
       @json = json
       @resource = resource
       @connection = connection
@@ -173,7 +141,7 @@ class ContentServerConnection
     end
 
     def copy_trait_file(local, remote)
-      @connection.copy_file_for_remote_url(local, remote) unless local.nil?
+      @connection.copy_harvesting_file(local, remote) unless local.nil?
     end
   end
 
@@ -186,7 +154,7 @@ class ContentServerConnection
 
     resp = nil
 
-    Net::HTTP.start(@repo_site.host, @repo_site.port, use_ssl: @repo_site.scheme == 'https') do |http|
+    Net::HTTP.start(@harv_site.host, @harv_site.port, use_ssl: @harv_site.scheme == 'https') do |http|
       resp = http.get(url)
     end
 
