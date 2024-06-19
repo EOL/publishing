@@ -55,7 +55,7 @@ class ContentServerConnection
     begin
       wget_file(url_path)
     rescue ContentServer::NotFoundError => e
-      log_warn("MISSING #{@repo_site}#{url_path} (#{result}); skipping")
+      log_warn("MISSING #{@repo_site}#{url_path} (404); skipping")
       return false
     rescue ContentServer::BadGatewayEerror => e
       attempts += 1
