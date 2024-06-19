@@ -46,7 +46,7 @@ class ImportLog < ApplicationRecord
       (k,l) = c.split(':')
       str =~ />#{k}[^>]+$/ ? "#{str},#{l}" : "#{str}>#{c}"
     end
-    body = "#{call_stack}= #{body}"
+    body = "#{body}<br/><small>#{call_stack}</small>"
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
       puts "IMPORT #{cat}: #{chunk}"
