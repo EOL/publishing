@@ -29,6 +29,7 @@ class ContentServerConnection
   end
   
   def file(name)
+    return false unless exists?(name)
     contents(file_path(name))
   end
   
