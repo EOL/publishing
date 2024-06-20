@@ -3161,10 +3161,13 @@ pms:
         http://eol(dot)org/schema/terms/ShellLengthBivalve: longheur ëd la cuchija,
           bivàlvola
         http://eol(dot)org/schema/terms/sheltered: parà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000545: riva ëd pere
         http://purl(dot)obolibrary(dot)org/obo/PO_0000037: vèrtes dël but
         http://eol(dot)org/schema/terms/ShootRootRatio: rapòrt gamb/rèis (rgr)
         http://eol(dot)org/schema/terms/shortPersistentSeedBank: a curta përsistensa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: erborin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000176: gerbi d'erborin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000044: sediment ëd siliss
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seda
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: sempi
         http://eol(dot)org/schema/terms/SkeletalDensity: densità schelétrica
