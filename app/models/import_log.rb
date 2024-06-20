@@ -42,9 +42,9 @@ class ImportLog < ApplicationRecord
     cat = options[:cat] || :starts
     call_level = 0
     # Dense code that looks for the class and the line number and appends ",line" if the class is the same, otherwise ">class:line"
-    call_stack = caller.map { |c| file_and_line(c) }.select { |c| c !~ /_log/ }.reverse[0..5].inject do |str, c|
+    call_stack = caller.map { |c| file_and_line(c) }.select { |c| c !~ /_log/ }[0..5].reverse.inject do |str, c|
       (k,l) = c.split(':')
-      str =~ />#{k}[^>]+$/ ? "#{str},#{l}" : "#{str}>#{c}"
+      str =~ /\b#{k}[^>]+$/ ? "#{str},#{l}" : "#{str}>#{c}"
     end
     body = "#{body}\n\n#{call_stack}"
     chop_into_text_chunks(body).each do |chunk|
