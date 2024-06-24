@@ -877,6 +877,7 @@ lb:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: sozial
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: Buedem
         http://purl(dot)org/dc/terms/source: Quell
+        http://eol(dot)org/schema/terms/StandardLength: Standardlängt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropesch
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000184: subtropesch Wüüst
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000159: Zockerplantage

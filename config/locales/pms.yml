@@ -3169,15 +3169,36 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000176: gerbi d'erborin
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000044: sediment ëd siliss
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000119: sediment ëd pàuta
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: perìod
+          silurian
         http://purl(dot)obolibrary(dot)org/obo/PO_0020042: sempi
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000047: euj sempi
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000050: euj sempi con vàire
+          lent
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sinemurian: età
+          sinemurian-a
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001444: mzura ùnica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000195: depression natural
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: taja
         http://eol(dot)org/schema/terms/SkeletalDensity: densità schelétrica
         http://eol(dot)org/schema/terms/SkeletalReinforcement: ranforsament ëschelétrich
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: schéletr
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: lë schéletr a conten
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: strutura dlë schéletr
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: pel
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: meusi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: cit
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: cit lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: cit fium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: camp coatà ëd fiòca
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: sossial
         http://eol(dot)org/schema/terms/SocialGroupSize: taja dla partìa sossial
         http://eol(dot)org/schema/terms/SocialSystem: sistema sossial
+        http://eol(dot)org/schema/terms/softBenthicSubstrate: sostrà bèntich còti
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: seul
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000217: sorfera
+        http://eol(dot)org/schema/terms/solitary: solitari
         http://purl(dot)obolibrary(dot)org/obo/PO_0025173: feuja spinosa
         http://eol(dot)org/schema/terms/StandardLength: longheur ëstàndard
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
