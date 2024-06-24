@@ -1,5 +1,3 @@
-# PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Modify your own config/secrets.yml
-
 # common settings for all databases
 common: &common
   adapter: mysql2
