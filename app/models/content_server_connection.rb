@@ -42,6 +42,10 @@ class ContentServerConnection
     open(local_name, 'wb') { |f| f.write(file(remote_name)) }
   end
   
+  def copy_harvesting_file(local_path, remote_url)
+    open(local_path, 'wb') { |f| f.write(contents(remote_url)) }
+  end
+
   private
 
   # This method can receive two different formats. One is something like "traits.tsv" and the other is a "relative path".
@@ -56,10 +60,6 @@ class ContentServerConnection
     @harv_is_on_this_host ||= (@harv_site.host == '128.0.0.1' ||  @harv_site.host == 'localhost')
   end
   
-  def copy_harvesting_file(local_path, remote_url)
-    open(local_path, 'wb') { |f| f.write(contents(remote_url)) }
-  end
-
   def contents(file)
     file_contents_to_clean_string(file)
   end
