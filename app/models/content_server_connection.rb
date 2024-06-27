@@ -42,8 +42,10 @@ class ContentServerConnection
     open(local_name, 'wb') { |f| f.write(file(remote_name)) }
   end
   
-  def copy_harvesting_file(local_path, remote_url)
-    open(local_path, 'wb') { |f| f.write(contents(remote_url)) }
+  def copy_harvesting_file(local_path, remote_path)
+    # We used to read these from a remote path, but now we read them from an NFS mount, convert:
+    remote_path.sub!(%r{^/data}, '/app/harvesting/')
+    open(local_path, 'wb') { |f| f.write(contents(remote_path)) }
   end
 
   private
