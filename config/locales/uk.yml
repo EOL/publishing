@@ -5,6 +5,7 @@
 # Author: Base
 # Author: DDPAT
 # Author: Ice bulldog
+# Author: Ignatgg
 # Author: Movses
 # Author: SteveR
 # Author: Vlnt
@@ -95,7 +96,7 @@ uk:
         r_infraphylum: '%{name1} є інфрафілом %{name2}.'
         r_superclass: '%{name1} є надкласом %{name2}.'
         r_class: '%{name1} є класом %{name2}.'
-        r_subcategory: '%{name1} є підкласом %{name2}.'
+        r_subcategory: '%{name1} є підкатегорією %{name2}.'
         r_infraclass: '%{name1} є інфракласом %{name2}.'
         r_superorder: '%{name1} є вищим замовником %{name2}.'
         r_order: '%{name1} є наказом %{name2}.'
