@@ -3208,7 +3208,12 @@ pms:
           ëspessìfica ëd la feuja
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000327: speleotema
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002268: torbera a sfagn
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000543: sferëtta
         http://purl(dot)obolibrary(dot)org/obo/PO_0025173: a forma dë spin-a
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: spin-e
+        http://eol(dot)org/schema/terms/sponge_feeder: as nuriss dë sponge
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: bariera dë sponge
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: sorgiss (d'eva)
         http://eol(dot)org/schema/terms/StandardLength: longheur ëstàndard
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
