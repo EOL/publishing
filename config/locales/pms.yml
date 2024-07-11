@@ -3214,7 +3214,12 @@ pms:
         http://eol(dot)org/schema/terms/sponge_feeder: as nuriss dë sponge
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: bariera dë sponge
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: sorgiss (d'eva)
+        https://eol(dot)org/schema/terms/springing: surtìa
+        http://eol(dot)org/schema/terms/squamulose: squamos
         http://eol(dot)org/schema/terms/StandardLength: longheur ëstàndard
+        https://eol(dot)org/schema/terms/starfish_feeder: as nuriss dë stèile ëd mar
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: perìod
+          statherian
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
         http://eol(dot)org/schema/terms/Attached: tacà al substrà
