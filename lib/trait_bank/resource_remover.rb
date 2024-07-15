@@ -62,7 +62,7 @@ module TraitBank
         return 0
       end
       
-      removal_tasks = build_removal_tasks(resource)
+      removal_tasks = build_removal_tasks(@resource)
       
       raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove, exiting." if index.nil?
 
@@ -77,13 +77,13 @@ module TraitBank
           republish if @should_republish
           return 0
         else
-          log.log("Removal of trait content for #{resource.log_string} FAILED: there is still data in the graph, retrying...")
+          log.log("Removal of trait content for #{@resource.log_string} FAILED: there is still data in the graph, retrying...")
           set_stage(1)
           reduce_size # Try it with a smaller batch, though.
           enqueue_trait_removal_stage
         end
       elsif @stage_name == 'prune_metadata'
-        prune_metadata_with_too_many_relationships(resource.id, log)
+        prune_metadata_with_too_many_relationships(@resource.id, log)
         enqueue_next_trait_removal_stage
       else
         # We're in one of the "normal" stages...
