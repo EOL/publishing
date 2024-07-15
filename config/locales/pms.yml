@@ -3221,7 +3221,11 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: perìod
           statherian
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000183: desert rocos
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000142: riva ëd ri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000383: let ëd ri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000385: boca ëd ri
         http://eol(dot)org/schema/terms/Attached: tacà al substrà
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
