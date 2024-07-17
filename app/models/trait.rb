@@ -1,6 +1,9 @@
 # Bridge between TraitNodes and their associated ActiveRecord models (e.g., Page, Resource)
 # Efficiently loads these associated models in batches.
 # TODO: should this live in app/models or lib? It behaves like a model (and is intended to be used as such), so maybe this is the right place?
+#
+# Trait.find "R578-PK212202303"
+
 class Trait
   DEFAULT_INCLUDES = [
     :predicate, 
