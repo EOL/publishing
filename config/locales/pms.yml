@@ -3226,6 +3226,9 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000142: riva ëd ri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000383: let ëd ri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000385: boca ëd ri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002127: sediment ëd ri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000129: comba ëd ri
+        http://eol(dot)org/schema/terms/stressTolerant: tolerant a la tension
         http://eol(dot)org/schema/terms/Attached: tacà al substrà
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
