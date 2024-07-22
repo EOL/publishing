@@ -4,6 +4,7 @@
 # Author: AOla333
 # Author: Adriendelucca
 # Author: Chrumps
+# Author: Frozengeist
 # Author: Kareyac
 # Author: Krzyz23
 # Author: Mkazberuk
@@ -86,6 +87,7 @@ pl:
       placeholder: imię i nazwisko lub nazwa użytkownika
     actions:
       associate: współpracownik
+      download_taxa_csv: pobierz CSV taksonów
       delete: usuń
       edit: edytuj
       sort: sortuj
@@ -123,13 +125,16 @@ pl:
     compiler: kompilator
     creator: twórca
     editor: edytor
+    latitude: szerokość
     license: licencja
     location: lokalizacja
+    longitude: długość
     owner: Prawa autorskie
     photographer: fotograf
     publisher: wydawca
     project: projekt
     provider: dostawca
+    resource_label: strona partnerska
     source: źródło
     view_source_label: oryginalny
     view_source_link: zobacz oryginalne zdjęcia
@@ -191,35 +196,57 @@ pl:
     af: Afrykanowie
     alb: Albański
     sq: Albański
+    am: amharski
     ar: Arabski
+    an: aragoński
     hy: Ormiański
+    q29507: asturyjski
+    q9292: azerski
+    az: azerski
+    ba: baszkirski
+    eu: baskijski
     q29540: Bawarski
     be: Białoruski
+    nb: norweski (bokmål)
     bs: Bośniacki
+    br: bretoński
     bg: Bułgarski
     my: Birmański
+    q33120: buriacki
+    q33239: cebuański
+    ce: czeczeński
     zh: Chiński
     chi: Chiński
+    cu: staro-cerkiewno-słowiański
+    cv: czuwaski
+    kw: kornijski
+    co: korsykański
     hr: Chorwacki
     hrv: Chorwacki
     cs: Czeski
     da: Duński
     en: Angielski
+    eo: esperanto
     et: Estoński
+    est: estoński
     fi: Fiński
     fin: Fiński
     fr: Francuski
     fra: Francuski
+    gd: gaelicki szkocki
     gl: Galicyjski
     ka: Gruziński
     de: Niemiecki
     deu: Niemiecki
     gre: Grecki
+    gn: guarani
+    gu: gudźarati
     he: Hebrajski
     heb: Hebrajski
     hi: hinduski
     hu: Węgierski
     is: Islandzki
+    ice: islandzki
     id: Indonezyjski
     ga: Irlandzki
     it: Włoski
@@ -247,10 +274,13 @@ pl:
     pt: Portugalski
     ru: Rosyjski
     rus: Rosyjski
+    sa: sanskryt
     sr: Serbski
+    q33973: sycylijski
     sk: Słowacki
     slk: Słowacki
     sl: Słoweński
+    so: somalijski
     slv: Hiszpański
     sv: Szwedzki
     swe: Szwedzki
@@ -264,6 +294,9 @@ pl:
     vi: Wietnamski
     cy: Walijski
     wel: Walijski
+    yi: jidysz
+    q10199: zazaki
+    q237409: zelandzki
   layout_sign_in: Zaloguj się
   layout_sign_up: Zarejestruj się
   layout_sign_out: Wyloguj się
@@ -300,6 +333,7 @@ pl:
     search:
       placeholder: Szukaj EOL...
   name_preferred_label: woleć
+  page_title: Encyklopedia Życia
   pages:
     actions:
       collect: zbierać
@@ -308,6 +342,7 @@ pl:
       new_search: nowe wyszukiwanie
       page_id: ID strony
       page_url: URL obrazu
+      query: zapytanie
       search: szukaj
     filter_menu:
       show_all: pokaż wszystko
@@ -322,6 +357,8 @@ pl:
         r_class: Klasa
         r_family: Rodzina
         r_tribe: Plemię
+        r_genus: Rodzaj
+        r_subgenus: Podrodzaj
         r_species: Gatunki
         r_form: Forma
       username_missing: użytkownik %{user_id}
@@ -340,6 +377,11 @@ pl:
       names: nazwy
     iucn_status:
       ex: wymarły (WY)
+      cr: krytycznie zagrożony (CR)
+      en: zagrożony (EN)
+      vu: narażony (VU)
+      nt: bliski zagrożenia (NT)
+      lc: najmniejszej troski (LC)
       unknown: nieznany (brak informacji)
     unresolved_name: Nierozpoznana nazwa
     unresolved_name_prefix: 'Nierozpoznana nazwa:'
@@ -349,6 +391,8 @@ pl:
       maps: '%{page_name} mapy'
       names: '%{page_name}nazwy'
       articles: '%{page_name}artykuły'
+    traits:
+      search: szukaj cechy
   rank:
     name:
       r_domain: domena
@@ -367,6 +411,7 @@ pl:
     property:
       name:
         ancestor: Przodek
+        conservation_status: Status ochronny
         rank: Ranga
     property_settings:
       limit:

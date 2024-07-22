@@ -3216,11 +3216,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: sorgiss (d'eva)
         https://eol(dot)org/schema/terms/springing: surtìa
         http://eol(dot)org/schema/terms/squamulose: squamos
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009029: stam
         http://eol(dot)org/schema/terms/StandardLength: longheur ëstàndard
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: àmid
         https://eol(dot)org/schema/terms/starfish_feeder: as nuriss dë stèile ëd mar
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: perìod
           statherian
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009047: gamba
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Stem_specific_density: densità
+          spessìfica dle gambe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000183: desert rocos
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000142: riva ëd ri
@@ -3229,6 +3234,8 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002127: sediment ëd ri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000129: comba ëd ri
         http://eol(dot)org/schema/terms/stressTolerant: tolerant a la tension
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000186: torbera a còrda
+        https://eol(dot)org/schema/terms/subcarangiform: sot-carangiform
         http://eol(dot)org/schema/terms/Attached: tacà al substrà
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
