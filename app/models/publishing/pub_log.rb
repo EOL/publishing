@@ -8,7 +8,11 @@ class Publishing::PubLog
   end
 
   def choose_logger(option)
-    return @resource.create_log if @resource.import_logs.count.zero?
+    if @resource.import_logs.count.zero?
+      log = @resource.create_log
+      log.pause # We pause the new log so it doesn't block the check to see if anything is currently running.
+      return log
+    end
 
     last_log = @resource.import_logs.last
     return last_log if option
