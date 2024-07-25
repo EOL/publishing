@@ -26,6 +26,7 @@
 # Author: Symposiarch
 # Author: ThisCarthing
 # Author: Tiin
+# Author: TomatoCake
 # Author: Umherirrender
 # Author: Umlaut
 # Author: Wolfdietmann
@@ -821,12 +822,10 @@ de:
     overview:
       eol_has_data_for_n_attributes_including_html:
         one: 'EOL hat Daten für <a href="%{data_path}">ein Attribut</a>:'
-        other: 'EOL hat Daten für <a href="<span class="notranslate" translate="no">%{data_path}">%{count}
-          attributes</a>, einschließlich:'
+        other: 'EOL hat Daten für <a href="%{data_path}">%{count} Attribute</a>, einschließlich:'
       eol_has_data_for_n_attributes_html:
         one: EOL hat Daten für <a href="%{data_path}">ein Attribut</a>.
-        other: EOL hat Daten für <a href="<span class="notranslate" translate="no">%{data_path}">%{count}
-          attributes</a>.
+        other: EOL hat Daten für <a href="%{data_path}">%{count} Attribute</a>.
     filter_menu:
       show_all: Alle anzeigen
     page_data:
@@ -1278,8 +1277,7 @@ de:
       range_invalid_error: muss >= zum ersten Wert sein
       units_blank_error: Einheiten können bei einer numerischen Suche nicht leer sein
   terms:
-    attribution_field_html: <strong>Namensnennung:</strong> <a href='<span class="notranslate"
-      translate="no">%{attribution}'>% {attribution}</a>
+    attribution_field_html: <strong>Namensnennung:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Kommentar:</strong> %{comment}
     definition_field_html: <strong>Definition:</strong> %{definition}
     source_field_html: <strong>Quelle:</strong> <a href='%{source}'>%{source}</a>
@@ -1751,6 +1749,8 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: Ton
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: Tonsediment
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: Tonerde
+        http://eol(dot)org/schema/terms/clearWater: Klares Wasser
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: Lichtung
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: Klippe
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: Kletterpflanze
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: Kline
@@ -1794,6 +1794,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: Grad
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: Grad Celsius
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: Delta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: Depression
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: Wüste
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: Dornstrauchsavanne
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: Wüstenoase
@@ -1807,6 +1808,9 @@ de:
         http://eol(dot)org/schema/terms/dryFruit: Trockenfrucht
         http://eol(dot)org/schema/terms/dryMass: Trockenmasse
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: Düne
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: Partikel
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: Farbstoff
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: früh
         http://eol(dot)org/schema/terms/earlySpring: Vorfrühling
         http://eol(dot)org/schema/terms/earlySummer: Frühsommer
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ernährt sich von
@@ -1833,8 +1837,10 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: Feder
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: Fuß
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: weiblich
+        http://eol(dot)org/schema/terms/FireResistance: feuerresistent
         http://eol(dot)org/schema/terms/FossilFirst: erstes Auftreten
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: Fjord
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: Flug
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Floian: Floium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000154: Überschwemmungswiese
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: Fluorit
@@ -1848,6 +1854,7 @@ de:
         https://eol(dot)org/schema/terms/freshwater_carnivore: Fleischfressende Süßwasserfische
         http://eol(dot)org/schema/terms/fructose: Fructose
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: Frucht
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: Kraftstoff
         http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/Tag
         http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/Jahr
@@ -1861,10 +1868,13 @@ de:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Givetian: Givetium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: Gletschertal
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: gleitend
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: Klebstoff
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: Gorstium
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: Gras
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: Grasland
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grün
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: Boden
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260865002: Wachstumsrate
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guzhangian: Guzhangium
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: Gzhelium
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Lebensraum

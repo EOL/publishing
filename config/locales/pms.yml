@@ -3226,6 +3226,7 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Stem_specific_density: densità
           spessìfica dle gambe
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000046: ujèt lateraj
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000183: desert rocos
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000142: riva ëd ri
@@ -3236,6 +3237,8 @@ pms:
         http://eol(dot)org/schema/terms/stressTolerant: tolerant a la tension
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000186: torbera a còrda
         https://eol(dot)org/schema/terms/subcarangiform: sot-carangiform
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000267: comba sot-marenga
+        http://eol(dot)org/schema/terms/submassive: sot-massis
         http://eol(dot)org/schema/terms/Attached: tacà al substrà
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd

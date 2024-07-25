@@ -142,6 +142,9 @@ pl:
   content_not_in_any_collection_image: Ten obraz nie znajduje się w żadnych kolekcjach.
   content_not_in_any_collection_sound: Ten głos nie znajduje się w żadnych kolekcjach.
   content_not_in_any_collection_video: Ten wideo nie znajduje się w żadnych kolekcjach.
+  data:
+    modifier:
+      sex_term: Płeć mierzonego organizmu
   delete_account_button: Usuń swoje konto
   errors:
     internal_server: Wewnętrzny błąd serwera (500)
@@ -157,6 +160,7 @@ pl:
     filter_by_provider: filtruj według dostawca
   footer:
     eol_info:
+      citing_eol: Cytowanie EOL
       contact_us: Skontaktuj się z nami
       donate: Darowizny
       education: Edukacja
@@ -184,29 +188,40 @@ pl:
       mushrooms: Grzyby
       mollusks: Mięczaki
       plants: Rośliny
+      protists: Protisty
       reptiles: Gady
       spiders: Pająki
       trees: Drzewo
       viruses: Wirusy
       worms: Robaki
+    eol_is_hosted_by: 'Hosting EOL zapewnia:'
   forgot_your_password: Zapomniałeś hasła?
   language: Język
   languages:
     ab: Abchaski
+    aa: Afar
     af: Afrykanowie
+    ak: Akan
     alb: Albański
     sq: Albański
+    q131339: Alemański
     am: amharski
     ar: Arabski
     an: aragoński
     hy: Ormiański
+    as: Asamski
     q29507: asturyjski
+    ae: Awestański
+    ay: Ajmara
     q9292: azerski
     az: azerski
     ba: baszkirski
     eu: baskijski
     q29540: Bawarski
     be: Białoruski
+    bn: Bengalski
+    bh: Języki bihari
+    bi: Bislama
     nb: norweski (bokmål)
     bs: Bośniacki
     br: bretoński
@@ -253,16 +268,21 @@ pl:
     ita: Włoski
     ja: Japoński
     jp: Japoński
+    q33690: kaszubski
+    kk: kazachski
     ko: Koreański
     kor: Koreański
+    ku: kurdyjski
     lao: Laotańskie
     la: Łaciński
     lv: Łotewski
     lt: Litewski
     lit: Litewski
+    q13286: dolnołużycki
     lb: Luksemburski
     mk: Macedoński
     mlt: Maltański
+    gv: manx
     q13359: Megrelski
     "no": Norweski
     nno: Norweski
@@ -294,7 +314,9 @@ pl:
     vi: Wietnamski
     cy: Walijski
     wel: Walijski
+    xh: Xhosa
     yi: jidysz
+    yo: Joruba
     q10199: zazaki
     q237409: zelandzki
   layout_sign_in: Zaloguj się
@@ -338,11 +360,14 @@ pl:
     actions:
       collect: zbierać
     batch_lookup:
+      canonical_name: nazwa kanoniczna
+      download_tsv: pobierz TSV
       match: dopasować
       new_search: nowe wyszukiwanie
       page_id: ID strony
       page_url: URL obrazu
       query: zapytanie
+      query_cant_be_blank: zapytanie nie może być puste
       search: szukaj
     filter_menu:
       show_all: pokaż wszystko
@@ -396,9 +421,17 @@ pl:
   rank:
     name:
       r_domain: domena
+      r_superkingdom: nadkrólestwo
       r_kingdom: Królestwo
+      r_subkingdom: podkrólestwo
       r_class: klasa
+      r_superorder: nadrząd
+      r_order: rząd
+      r_suborder: podrząd
+      r_infraorder: infrarząd
+      r_superfamily: nadrodzina
       r_family: Rodzina
+      r_subfamily: podrodzina
       r_tribe: Plemię
       r_species: gatunek
       r_form: Forma
@@ -408,6 +441,8 @@ pl:
     id_space:
       headers:
         type_name: Wpisz imię
+      type_names:
+        taxon: Takson
     property:
       name:
         ancestor: Przodek
@@ -422,9 +457,11 @@ pl:
         description: Opis
   reference_compiled_from: Referenced by %{links}
   reference_compiled_from_article: '%{source} artykuł zatytułowany %{name}'
+  register_new_account: Rejestracja nowego konta
   resources:
     actions:
       republish: opublikuj ponownie
+      index: powrót do wszystkich zasobów
     headers:
       index: Zasoby
     no_events: Żadne!
@@ -437,7 +474,9 @@ pl:
       unusable: Nieużyteczne nazwy
       synonym: Snonimy
   scientific_names_header: nazwy naukowe
+  send_me_reset_password_instructions: Wyślij instrukcje przywracania hasła
   search:
+    blank_q_msg: Możesz szukać treści EOL za pomocą paska na górze strony.
     matched_text: |2-
 
       Dopasowane%{text}
@@ -479,12 +518,14 @@ pl:
     life_history_and_behavior: Historia życia i zachowanie
     management: Zarządzanie
     migration: Migracja
+    names_and_taxonomy: Nazwy i taksonomia
     notes: Notatki
     overview: Przegląd
     physical_description: Opis fizyczny
     reproduction: Reprodukcja
     risks: Narażenie
     size: Rozmiar
+    taxonomy: Taksonomia
     threats: Zagrożenia
     trends: Trendy
     wikipedia: Wikipedia
@@ -614,10 +655,13 @@ pl:
         http://eol(dot)org/schema/terms/percentPerMonth: '%/miesiąc'
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: obfitość
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: abisal
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: gleba kwaśna
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: spoiwo
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: dorosły
         http://eol(dot)org/schema/terms/aerial: lotniczy
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: lotniczy
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerozol
         http://eol(dot)org/schema/terms/AgeAtMaturity: wiek w momencie dojrzałości
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: rolniczy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: |2-
@@ -626,17 +670,24 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: gleba rolnicza
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: Odpady rolnicze
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: Odpady rolnicze
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: allotyp
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: stożek napływowy
         http://eol(dot)org/schema/terms/amphibious: ziemnowodny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: odpady zwierzęce
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: roczny
         http://purl(dot)obolibrary(dot)org/obo/BSPO_0000055: poprzedni
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatyt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000072: Akwedukt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: wodny
         http://eol(dot)org/schema/terms/aquatic: przystosowany do wody
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: roślina wodna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00012408: warstwa wodonośna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005742: grunt orny
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: teren
         https://eol(dot)org/schema/terms/arm: ramię
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: rozmnażanie bezpłciowe
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atol
         http://eol(dot)org/schema/terms/average: średnia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000472: łacha
         https://eol(dot)org/schema/terms/bamboo_forest: las bambusowy
@@ -652,6 +703,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: staw bobrowy
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: wosk pszczeli
         http://eol(dot)org/schema/terms/benthic: bentos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biofilm
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: odpady biologiczne
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminescencyjny
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: czarny
@@ -693,6 +745,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: podłoga jaskini
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: system jaskiń
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002144: ściana jaskini
+        http://eol(dot)org/schema/terms/CellLength: długość komórki
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: cement
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: ośrodkowy układ nerwowy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: kredka
@@ -765,6 +818,7 @@ pl:
 
           dieta obejmuje
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: układ trawienny
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: siarczek dimetylu
         http://eol(dot)org/schema/terms/DiscDiameter: średnica tarczy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: rów
         https://eol(dot)org/schema/terms/domesticated_in: udomowione w
@@ -1019,6 +1073,7 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: niska tolerancja
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnez (mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: mężczyzna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: morski
         https://eol(dot)org/schema/terms/marine_animals: zwierzęta morskie
@@ -1080,7 +1135,9 @@ pl:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: minerały
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mieszany
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: las mieszany
+        http://eol(dot)org/schema/terms/millilitersPerMinute: mL/min
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mmHg
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3miesiąc
         http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4miesiąc
         http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6miesiąc
@@ -1091,6 +1148,7 @@ pl:
         http://eol(dot)org/schema/terms/millimetersPerYear: mm/rok
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/L
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: miesiąc
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: Góra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: górskie przejście
