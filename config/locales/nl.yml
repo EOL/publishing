@@ -1200,7 +1200,7 @@ nl:
     source_field_html: <strong>Bron:</strong> <a href='%{source}'>%{source}</a>
     record_url: record URL
     scientific_name: wetenschappelijke naam
-    show_all_records: Alle records tonen
+    show_all_records: Alle records weergeven
     source: bron
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
@@ -1215,11 +1215,11 @@ nl:
         en een bepaalde soort kan in meer dan één balk voorkomen.
       about_this_chart_tooltip_assoc: Dit is een samenvatting op basis van gegevens
         die beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt de muiscursor
-        op de naam van een taxon plaatsen om de relaties ervan te laten tonen. Een
-        groene link geeft aan dat het geselecteerde taxon het subject is van de associatie;
-        een paarse geeft aan dat het het object is. Grotere zoekopdrachten worden
-        samengevat op geslacht of familie. U kunt deze beperken door op de naam van
-        een taxon te klikken.
+        op de naam van een taxon plaatsen om de relaties ervan weer te weergeven.
+        Een groene link geeft aan dat het geselecteerde taxon het subject is van de
+        associatie; een paarse geeft aan dat het het object is. Grotere zoekopdrachten
+        worden samengevat op geslacht of familie. U kunt deze beperken door op de
+        naam van een taxon te klikken.
       about_this_chart_tooltip_sankey_2d: Dit is een samenvatting op basis van gegevens
         die beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt een categorie
         uit elke as selecteren om uw zoekresultaten te verfijnen. Veel categorieën
@@ -1268,7 +1268,7 @@ nl:
         other: Klik om %{count} taxa met meetwaarden in [%{min}, %{limit}] %{units}
           te zien
       show_link:
-        taxon_summary: taxonsamenvatting tonen
+        taxon_summary: taxonsamenvatting weergeven
     properties:
       citation: bibliografisch citaat
       method: Meetmethode
