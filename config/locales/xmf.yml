@@ -131,17 +131,41 @@ xmf:
       updated_at: ბოლო მოახალაფა
   collect_already_in_collection: (უკვე თაქ რე)
   collect_already_in_collection_will_add_icon: (ხასჷლაშა „%{page}“ მულტიმედიაშ გეძინა)
+  collect_icon_title: „%{item}-შ“ გეძინა ხასჷლაშე „%{page}“ ხასჷლაშა…
   collect_new_collection: ახალი კოლექციაშ ჯოხო
   collect_new_collection_title: '...ახალი კოლექცია'
+  collect_no_existing_collections: დიო ვაგიღჷნა! გაჭყით თინა კვარჩხანი ფორმაშ გჷმორინაფათ..
+  collect_select_collection: '...ართ-ართი თქვანი კოლექციაშე'
+  collected_page_added_to_collection: კოლექციას <a href='%{link}'>%{name}</a> ქეგიაძინჷ
+    %{page}-ქ.
+  collected_page_already_in_collection: თენა უკვე რე თქვანი კოლექციას.
   collected_pages_title: ხასჷლეფი
+  collected_pages_medium:
+    destroyed_flash: სურათი ლასირი რე კოლექციაშ ხასჷლაშე.
+  collection_associations:
+    destroyed_flash: '%{name} ანწი ვა რე თე კოლექციას.'
   collected_pages:
     delete_button: ლასუა
     edit_button: რედაქტირაფა
     delete_confirm: დასურო გოკონანო?
+    destroyed_flash: ხასჷლა „%{name}“ ლასირი რე კოლექციაშე.
+  collection_association_added_to_collection: კოლექციას <a href='%{link}'>"%{name}"</a>
+    ქეგიაძინჷ „%{associated}-ქ“.
   collection_user_is_admin: თე მახვარებუ რე ადმინისტრატორი.
   collection:
+    actions:
+      delete: ლასუა
+      edit: რედაქტირაფა
+      sort: გიშახინტკუა
     collection_type:
+      normal: ნორმალური
       gallery: გალერეა
+    delete_confirm: თენა დოლასუნს ედომუშამი კოლექციას, თეშ, ნამჷ-და ვეშილებედას იჸი
+      თიში დორთინაფა. გონებნანო თენა?
+    destroyed: „%{name}-ქ“ უდურთინუო დილასჷ.
+    pages_count:
+      one: 1 დღა
+      other: '%{count} დღა'
     log:
       page:
         add: '%{user}-ქ ქეგუძინჷ ხასჷლა %{page}'
@@ -169,15 +193,25 @@ xmf:
     author: ავტორი
     bibliographic_citation: ბიბლიოგრაფიული რცხუ
     contributor: თიაშ მიშმაღალარეფი
+    compiler: აკმაქიმინალი
+    creator: გჷმაჭყაფალი
     editor: რედაქტორი
     latitude: განედი
     license: ლიცენზია
     location: ორენი
+    longitude: გრძედი
     original_media_file: ორიგინალი მედია ფაილი
     owner: ოავტორე ნება
     photographer: ფოტოგრაფი
     publisher: გჷმაბჟინაფალი
     project: პროექტი
+    provider: პროვაიდერი
+    references_header:
+      one: სქოლიო
+      other: სქოლიო
+    resource_label: პარტნიორიშ საიტი
+    source: წყუ
+    spatial_location: ოფირჩული
     view_source_label: ორიგინალი
     view_source_link: ორიგინალი სურათიშ ძირაფა
     view_source_page_link: წყუშ ძირაფა
@@ -201,6 +235,9 @@ xmf:
   filter_by_medium_any_item: არძანერი ტიპი
   filter_by_resource: პროვაიდერი
   filter_by_resource_any_item: ნამდგა პროვაიდერი
+  filters:
+    filter_by_language: გიშახინტკუა ნინაშ მეჯინათ
+    filter_by_provider: გიშახინტკუა პროვაიდერიშ მეჯინათ
   footer:
     eol_info:
       citing_eol: ციტირაფათ EOL
@@ -220,6 +257,7 @@ xmf:
       algae: წყარჩანარეფი
       amphibians: ამფიბიეფი
       animals: ჩხოლარეფი
+      archaea: არქეა
       bacteria: ბაქტერია
       birds: მაფურინჯეეფი
       crustaceans: კიბოიაშნერეფი
@@ -241,6 +279,8 @@ xmf:
       worms: ღვერღვეფი
     eol_is_hosted_by: 'EOL-იშ ორენი რე:'
   forgot_your_password: დუგოჭყორდესო პაროლქ?
+  landing_page:
+    stats_cleared: სტატისტიკა გინოკოროცხილი რე.
   language: ნინა
   languages:
     ab: აფხაზური
@@ -640,8 +680,23 @@ xmf:
     education: გონათუა
     search:
       placeholder: თელარაშ ენციკლოპედიაშ გორუა...
+  name_preferred_label: სხუნებული
+  page_title: თელარაშ ენციკლოპედია
+  page_title_search: 'გორუა: %{query}'
   pages:
+    actions:
+      collect: შაყარუა
+      comment:
+        zero: კომენტარი
+        one: '%{count} კომენტარი'
+        other: '%{count} კომენტარი'
     batch_lookup:
+      match: აკოხვალამა
+      new_search: ახალი გორუა
+      page_id: ხასჷლაშ ID
+      page_url: ხასჷლაშ URL
+      query: მოთხუალა
+      query_cant_be_blank: მოთხუალა ვეშილებე ცაიორი ორდასჷნ
       search: გორუა
     overview:
       eol_has_data_for_n_attributes_including_html:
@@ -797,11 +852,23 @@ xmf:
         id: იდენტიფიკატორი
         name: ჯოხო
         description: ეჭარუა
+  register_new_account: დერეგისტრირით ახალი ანგარიშიშ გაჭყაფალო
   resources:
     actions:
       republish: ხეახალშო გიშაშქუმალა
       clean_republish: ხეახალშო გიშაშქუმალაშ ლასუა
       diff: გინორთი
+    no_events: აკა მოთხუალა ვა რე!
+  resource_missing: რესურსეფქ ვეგორჷ
+  scientific_name:
+    status_title:
+      accepted: მეღებული ჯოხოდვალეფი
+      alternative: ალტერნატიული ჯოხოდვალეფი
+      preferred: სხუნებული ჯოხოდვალეფი
+      unusable: ვაშინერებული ჯოხოდვალეფი
+      synonym: სინონიმეფი
+  scientific_names_header: მენცარული ჯოხოდვალეფი
+  send_me_reset_password_instructions: ქუმომიჯღონით პაროლიშ გჷმორღვაფაშ ინსტრუქციეფი
   search_results:
     medium_article: სტატია
     medium_image: სურათი
@@ -815,6 +882,18 @@ xmf:
     medium_title_video_html: 'ვიდეო: <span class=''sub''>%{title}</span>'
     empty: მუთუნქ ვეგორუ.
   sections:
+    behavior: რჯება
+    brief_summary: კუნტა რეზიუმე
+    conservation: თხილუა
+    conservation_status: თხილუაშ სტატუსი
+    diseases_and_parasites: ლახარეფი დო პარაზიტეფი
+    dispersal: გოჩხვარუა
+    ecology: ეკოლოგია
+    evolution_and_systematics: ევოლუცია დო სისტემატიკა
+    general_ecology: ართამი ეკოლოგია
+    genetics: გენეტიკა
+    life_expectancy: თელარაშ ოშქაშე განწეობა
+    life_history_and_behavior: თელარაშ ისტორია დო რჯება
     migration: მიგრაცია
     molecular_biology: მოლეკულური ბიოლოგია
     molecular_biology_and_genetics: მოლეკულური ბიოლოგია დო გენეტიკა
@@ -862,6 +941,11 @@ xmf:
     users: მახვარებუეფი
     references: სქოლიო
   terms:
+    comment_field_html: <strong>კომენტარი:</strong> %{comment}
+    definition_field_html: <strong>ენწყუმა:</strong> %{definition}
+    source_field_html: <strong>წყუ:</strong> <a href='%{source}'>%{source}</a>
+    scientific_name: მენცარული ჯოხოდვალა
+    show_all_records: არძა დინნაჭარაშ ძირაფა
     source: წყუ
   traits:
     data_viz:
@@ -871,9 +955,17 @@ xmf:
         taxon_summary: ქაძირე ტაქსონიშ რეზიუმე
       toggle_text:
         taxon_summary: ქაძირე ტაქსონიშ რეზიუმე
+    properties:
+      scientific_name: მენცარული ჯოხოდვალა
+      source: წყუ
+    search_hdr: მუნაჩემეფიშ გორუა
     search_results:
       download_tsv: tsv გჷმოხარგუა
       edit_filters: ხინტკეფიშ რედაქტირაფა
+      filter_display:
+        resource: 'რესურსი: %{value}'
+        sex: 'სქესი: %{value}'
+        statistical_method: 'სტატისტიკური მეთოდი: %{value}'
       new_search: ახალი გორუა
     search_form:
       hide_additional_fields: გეძინელი ველეფიშ ტყობინაფა
