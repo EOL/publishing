@@ -3265,7 +3265,11 @@ pms:
           sub-tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000187: savan-a subtropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000222: foresta sub-tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000159: piantagion ëd càuna
+          da sùcher
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000059: seul ëd surfassa
+        https://eol(dot)org/schema/terms/surficialModifier: modificator superfissial
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longheur ëd la coa
         http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: longheur
