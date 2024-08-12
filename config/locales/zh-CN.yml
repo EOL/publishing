@@ -189,20 +189,20 @@ zh-CN:
   collected_pages_medium:
     destroyed_flash: 图像已从收藏夹中删除。
   collection_associations:
-    destroyed_flash: '%{name}不再与此收集关联。'
+    destroyed_flash: '%{name}将不在此收藏夹中。'
   collected_pages:
     delete_button: 删除
     edit_button: 编辑
     delete_confirm: 您确定吗？
-    destroyed_flash: '%{name}已从收集中删除。'
-  collection_association_added_to_collection: 把“%{associated}”添加到收藏<a href='%{link}'>"%{name}"</a>。
+    destroyed_flash: '%{name}已从收藏夹中删除。'
+  collection_association_added_to_collection: 把“%{associated}”添加到收藏夹<a href='%{link}'>"%{name}"</a>。
   collection_associations_empty: 没有其他收藏与该收藏相关联。您可以点击其他收藏上的“关联”按钮让它们显示在这里。
   collection_associations_title: 关联收藏
   collection_collected_pages_media_remove: 从收藏中删除图像（更改即刻生效）：
   collection_created: 已创建新的收藏"%{name}"。
-  collection_created_for_association: 把 "%{associated}" 加入到新收藏 <a href='%{link}'>"%{name}"</a>。
+  collection_created_for_association: 把 "%{associated}" 加入到新收藏夹 <a href='%{link}'>"%{name}"</a>。
   collection_user_is_admin: 该用户是管理员。
-  collection_pages_empty: 该收藏尚未包含任何页面。在物种页面点击“收藏”按钮来添加一些项目。
+  collection_pages_empty: 该收藏夹尚未包含任何页面。在物种页面点击“收藏”按钮来添加一些项目。
   collection:
     admins:
       header: 可编辑此收藏的用户（更改即刻生效）
@@ -250,14 +250,14 @@ zh-CN:
       sci_name_rev: 学名，Z-A
       sort_field: 评注，A-Z
       sort_field_rev: 评注，Z-A
-    updated: 收集已更新。
-  collection_unauthorized_edit: 只有所有者可以编辑此收集。
+    updated: 收藏夹已更新。
+  collection_unauthorized_edit: 只有用户所有者可以编辑此收藏夹。
   complete_registration: 请继续完成您的注册
   content_appears_on: 包含在以下页面中：
   content_collected_in: 特别刊登在下列收集中：
   content_attributions_header: 来源信息
   content_attributions_labels:
-    altitude: 海拔
+    altitude: 海拔高度
     author: 作者
     bibliographic_citation: 书目引用
     contributor: 贡献者
@@ -287,7 +287,7 @@ zh-CN:
     view_source_link: 查看原始图片
     view_source_page_link: 访问来源
   content_not_in_any_collection_image: 此图像不在任何收集中。
-  content_not_in_any_collection_sound: 此声音不在任何收集中。
+  content_not_in_any_collection_sound: 此声音不在任何收藏夹中。
   content_not_in_any_collection_video: 此视频不在任何收集中。
   data:
     modifier:
