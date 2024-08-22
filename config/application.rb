@@ -42,6 +42,7 @@ module EolWebsite
 
     config.repository_url = Rails.configuration.creds[:repository][:url]
     config.eol_web_url = Rails.configuration.creds[:host][:url]
+    config.eol_web_private_url = ENV.fetch('EOL_WEB_PRIVATE_URL') { 'https://eol.org' }
     config.x.image_path = Rails.configuration.creds[:image_path]
     config.traitbank_url = ENV.fetch('TRAITBANK_URL') { "http://neo4j_username:password_here@neo4j:7474" }
 

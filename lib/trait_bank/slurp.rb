@@ -424,7 +424,7 @@ class TraitBank::Slurp
   def csv_query_file_location(filename)
     filename =~ /^http/ ?
       filename :
-      Rails.configuration.eol_web_url +
+      Rails.configuration.eol_web_private_url +
         "/#{@resource.file_dir.relative_path_from(Rails.root.join('public'))}" +
         "/#{filename}"
   end
