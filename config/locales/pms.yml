@@ -3273,6 +3273,7 @@ pms:
           da sùcher
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000126: sorgis sorforosa
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/DZ_SUP: zòna dzor-litoral
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000059: seul ëd surfassa
         https://eol(dot)org/schema/terms/surficialModifier: modificator superfissial
         http://purl(dot)bioontology(dot)org/ontology/MSH/D054712: salinità dë dzorvivensa
@@ -3281,12 +3282,17 @@ pms:
         http://eol(dot)org/schema/terms/suspensionFeeder: as nuriss ëd sospension
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: maré
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00002300: dossé
+        http://purl(dot)obolibrary(dot)org/obo/GO_0036268: nov
+        http://eol(dot)org/schema/terms/symbiontInheritance: ardità ëd simbiòta
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
+        http://eol(dot)org/schema/terms/symbiotroph: simbiòtrof
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Syntype: sintipo
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longheur ëd la coa
         http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: longheur
           ëd tarsimetatarsi + dil mesan
         http://eol(dot)org/schema/terms/TarsusLength: longheur dël tarsi
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: dent
         http://eol(dot)org/schema/terms/TemperateOcean: Océan temprà
         http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: temperadura
           a la latitùdin dël pont mesan ëd la zòna
