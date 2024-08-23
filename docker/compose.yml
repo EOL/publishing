@@ -43,6 +43,7 @@ x-worker: &default-worker
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV=${RAILS_ENV}
     - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    - EOL_WEB_PRIVATE_URL=${EOL_WEB_PRIVATE_URL}
     - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
     - REDIS_HOST=${REDIS_HOST}
     - CACHE_URL=${CACHE_URL}

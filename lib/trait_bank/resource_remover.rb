@@ -30,15 +30,15 @@ module TraitBank
       @resource = resource
       @stage_name = stage
       @stage_index = STAGES.index(stage)
-      @size = size || DEFAULT_REMOVAL_BATCH_SIZE
+      @size = size || TraitBank::Admin::DEFAULT_REMOVAL_BATCH_SIZE
       @should_republish = should_republish
       @log = resource.log_handle
     end
-  
+
     def next_stage
       @log.end(@stage_name)
       set_stage(@stage_index + 1)
-      @size = DEFAULT_REMOVAL_BATCH_SIZE
+      @size = TraitBank::Admin::DEFAULT_REMOVAL_BATCH_SIZE
     end
 
     def reduce_size
@@ -61,40 +61,40 @@ module TraitBank
         end
         return 0
       end
-      
-      removal_tasks = build_removal_tasks(@resource)
-      
+
+      removal_tasks = build_removal_tasks
+
       raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove, exiting." if index.nil?
 
       if @stage_name == 'begin'
         next_stage
-        log.log("Removing trait content for #{@resource.log_string}, continuing to stage #{@stage_index}: #{@stage_name}")
+        @log.log("Removing trait content for #{@resource.log_string}, continuing to stage #{@stage_index}: #{@stage_name}")
       end
-      
+
       if @stage_name == 'end'
         if remove_complete?
           end_trait_content_removal_background_jobs
           republish if @should_republish
           return 0
         else
-          log.log("Removal of trait content for #{@resource.log_string} FAILED: there is still data in the graph, retrying...")
+          @log.log("Removal of trait content for #{@resource.log_string} FAILED: there is still data in the graph, retrying...")
           set_stage(1)
           reduce_size # Try it with a smaller batch, though.
           enqueue_trait_removal_stage
         end
       elsif @stage_name == 'prune_metadata'
-        prune_metadata_with_too_many_relationships(@resource.id, log)
+        prune_metadata_with_too_many_relationships(@resource.id, @log)
         enqueue_next_trait_removal_stage
       else
         # We're in one of the "normal" stages...
-        task = removal_tasks[@stage_name].merge(log: log, size: @size)
-        if count_query_results(task).zero?
+        task = removal_tasks[@stage_name].merge(log: @log, size: @size)
+        if TraitBank::Admin.count_query_results(task).zero?
           # We have already finished this stage, move on to the next.
           enqueue_next_trait_removal_stage
-        else 
+        else
           # Take a chunk out of this stage:
-          remove_batch_with_query(task)
-          if count_query_results(task).zero?
+          TraitBank::Admin.remove_batch_with_query(task)
+          if TraitBank::Admin.count_query_results(task).zero?
             # This stage is done, move on to the next task:
             enqueue_next_trait_removal_stage
           else
@@ -116,7 +116,7 @@ module TraitBank
       return false unless count_nodes.zero? && count_pks.zero?
       return true
     end
-    
+
     def count_remaining_graph_nodes
       TraitBank::Queries.count_supplier_nodes_by_resource_nocache(@resource.id)
     end
@@ -124,7 +124,7 @@ module TraitBank
     def count_remaining_graph_pks
       TraitBank::Queries.count_eol_pks_by_respository_id(@resource.repository_id)
     end
-    
+
     def end_trait_content_removal_background_jobs
       msg = "There is no (remaining) trait content for #{@resource.log_string}, job complete."
       @log.log(msg)
@@ -161,7 +161,7 @@ module TraitBank
         },
         'eol_pk_prefix' => {
           name: :trait,
-          q: "MATCH (trait:Trait) WHERE trait.eol_pk STARTS WITH 'R#{@resource.repository_id}-'"
+          q: "(trait:Trait) WHERE trait.eol_pk STARTS WITH 'R#{@resource.repository_id}-'"
         }
       }
     end
@@ -182,7 +182,7 @@ module TraitBank
     # delete process takes AGES. To avoid this, we find them beforehand and remove those relationships one metadata node
     # at a time, which is less process-intensive.
     def prune_metadata_with_too_many_relationships(resource_id, log)
-      log.log("Pruning metadata...")
+      @log.log("Pruning metadata...")
       count_limit = 20_000
       resource_id = resource_id.to_i
       query = %Q{
@@ -197,24 +197,25 @@ module TraitBank
       # This can take a few seconds...
       results = TraitBank.query(query)
       unless results.has_key?('data') # Something went really wrong.
-        log.log("WARNING: metadata relationship query had no 'data' key: #{query}")
-        log.log("Response keys: #{results.keys}")
+        @log.log("WARNING: metadata relationship query had no 'data' key: #{query}")
+        @log.log("Response keys: #{results.keys}")
         return nil
       end
       removed = 0
       highest_count = results['data']&.first&.last
       if highest_count < count_limit
-        log.log("...No high-relationship-count metadata found (highest count: #{highest_count})")
+        @log.log("...No high-relationship-count metadata found (highest count: #{highest_count})")
         return 0
       end
       while highest_count && highest_count >= count_limit do
         result = results['data'].shift
+        break unless result
         eol_pk = result.first
         rel_count = result.last
         remove_metadata_relationships(eol_pk, rel_count)
         removed += rel_count
       end
-      log.log("...removed approximately #{removed} metadata relationships.")
+      @log.log("...removed approximately #{removed} metadata relationships.")
       return removed
     end
 
