@@ -210,7 +210,7 @@ module TraitBank
       }
       # This can take a few seconds...
       results = TraitBank.query(query)
-      unless results.has_key?('data') # Something went really wrong.
+      unless results.has_key?('data') && ! results['data'].empty? # Nothing's actually there, nothing to do.
         @log.log("WARNING: metadata relationship query had no 'data' key: #{query}")
         @log.log("Response keys: #{results.keys}")
         return nil
