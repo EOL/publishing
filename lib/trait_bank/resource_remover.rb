@@ -27,7 +27,6 @@ module TraitBank
     end
 
     def initialize(resource, config)
-      stage, size, should_republish
       @resource = resource
       @stage_name = config.has_key?(:stage) ? config[:stage] : STAGES.first
       @stage_index = STAGES.index(stage)
