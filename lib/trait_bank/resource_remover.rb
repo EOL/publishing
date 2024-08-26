@@ -29,7 +29,7 @@ module TraitBank
     def initialize(resource, config)
       @resource = resource
       @stage_name = config.has_key?(:stage) ? config[:stage] : STAGES.first
-      @stage_index = STAGES.index(stage)
+      @stage_index = STAGES.index(@stage_name)
       @size = config.has_key?(:size) ? config[:size] : TraitBank::Admin::DEFAULT_REMOVAL_BATCH_SIZE
       @should_republish = config.has_key?(:should_republish) ? config[:should_republish] : false
       @background = config.has_key?(:background) ? config[:background] : true
