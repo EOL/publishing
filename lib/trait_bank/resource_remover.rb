@@ -94,7 +94,20 @@ module TraitBank
           enqueue_next_trait_removal_stage
         else
           # Take a chunk out of this stage:
-          TraitBank::Admin.remove_batch_with_query(task)
+          begin
+            TraitBank::Admin.remove_batch_with_query(task)
+          rescue => e
+            @log.log("ERROR on query: #{task[:q]}")
+            @log.log("Error message: #{e.message}")
+
+            # This means that the delete failed; the data may be *corrupt*...
+            if @stage_name == 'eol_pk_prefix'
+              # SOOOO... if it's an old eol_pk_prefix removal that failed, we can actually just make these "invisible"
+              # by removing their relationships to pages:
+              make_dead_nodes_invisible(task)
+            end
+          end
+
           if done?(task)
             # This stage is done, move on to the next task:
             enqueue_next_trait_removal_stage
@@ -170,7 +183,7 @@ module TraitBank
         },
         'eol_pk_prefix' => {
           name: :trait,
-          q: %Q{(trait:Trait) WHERE trait.eol_pk STARTS WITH "R#{@resource.repository_id}-"}
+          q: %Q{(trait:Trait)<-[rel]-(page:Page) WHERE trait.eol_pk STARTS WITH "R#{@resource.repository_id}-"}
         }
       }
     end
@@ -239,6 +252,23 @@ module TraitBank
       # Now that metadata no longer has a relationship to the resource, making it very hard to delete.
       # We remove it here to avoid having to try.
       TraitBank.query(%Q{MATCH (meta:MetaData {eol_pk: '#{id}'}) DETACH DELETE meta;})
+    end
+
+    def make_dead_nodes_invisible(task)
+      # q: "(trait:Trait) WHERE trait.eol_pk STARTS WITH \"R578-\""
+      results = TraitBank.query("MATCH #{task[:q]} WITH trait LIMIT #{task[:size]} RETURN trait.eol_pk")
+      raise "No results from #{task[:q]}!" unless results.has_key?('data') && results['data'].class == Array
+      # I don't want to muck with pagination here; this is an edge case, we're going slowly:
+      failures = []
+      results['data'].each do |row|
+        eol_pk = row.first
+        begin
+          TraitBank.query(%Q{MATCH (trait:Trait)<-[rel]-(page:Page) WHERE trait.eol_pk = "#{eol_pk}" DELETE rel})
+        rescue Neo4j::Driver::Exceptions::DatabaseException => e
+          failures << eol_pk
+        end
+      end
+      @log.log("UNABLE TO REMOVE OR MAKE INVISIBLE: #{failures.join(',')}") unless failures.empty?
     end
   end
 end

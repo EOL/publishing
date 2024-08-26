@@ -123,7 +123,10 @@ module TraitBank
         time_before = Time.now
         apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
         TraitBank::Logger.log("--TB_DEL: #{apoc}")
-        TraitBank.query(apoc)
+        results = TraitBank.query(apoc)
+        unless apoc_errors(results).blank?
+          raise results['data'][0][-4][:errors]
+        end
         time_delta = Time.now - time_before
         TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")
         # Note this is changing the ACTUAL options hash. You will GET BACK this value (via that hash)
@@ -132,6 +135,14 @@ module TraitBank
         return options[:size]
       end
       
+      def apoc_errors(results)
+        results.has_key?("data") &&
+        !results["data"].empty? &&
+        !results["data"][0].empty? &&
+        results['data'][0][-4].class == Hash &&
+        results['data'][0][-4][:errors]
+      end
+
       def count_query_results(options)
         name = options[:name]
         q = invert_quotes(options[:q])
