@@ -21,17 +21,19 @@ module TraitBank
       end
 
       def remove(resource, stage, size, should_republish)
-        instance = self.new(resource, stage, size, should_republish)
+        instance = self.new(resource, stage: stage, size: size, republish: should_republish)
         instance.remove
       end
     end
 
-    def initialize(resource, stage, size, should_republish)
+    def initialize(resource, config)
+      stage, size, should_republish
       @resource = resource
-      @stage_name = stage
+      @stage_name = config.has_key?(:stage) ? config[:stage] : STAGES.first
       @stage_index = STAGES.index(stage)
-      @size = size || TraitBank::Admin::DEFAULT_REMOVAL_BATCH_SIZE
-      @should_republish = should_republish
+      @size = config.has_key?(:size) ? config[:size] : TraitBank::Admin::DEFAULT_REMOVAL_BATCH_SIZE
+      @should_republish = config.has_key?(:should_republish) ? config[:should_republish] : false
+      @background = config.has_key?(:background) ? config[:background] : true
       @log = resource.log_handle
     end
 
@@ -88,13 +90,13 @@ module TraitBank
       else
         # We're in one of the "normal" stages...
         task = removal_tasks[@stage_name].merge(log: @log, size: @size)
-        if TraitBank::Admin.count_query_results(task).zero?
+        if done?(task)
           # We have already finished this stage, move on to the next.
           enqueue_next_trait_removal_stage
         else
           # Take a chunk out of this stage:
           TraitBank::Admin.remove_batch_with_query(task)
-          if TraitBank::Admin.count_query_results(task).zero?
+          if done?(task)
             # This stage is done, move on to the next task:
             enqueue_next_trait_removal_stage
           else
@@ -107,6 +109,10 @@ module TraitBank
         end
       end
       @log.pause
+    end
+
+    def done?(task)
+      TraitBank::Admin.count_by_query(task[:name], task[:q]).zero?
     end
 
     def remove_complete?
@@ -134,7 +140,11 @@ module TraitBank
 
     def republish
       @log.pause
-      Delayed::Job.enqueue(RepublishJob.new(@resource.id, false))
+      if @background
+        Delayed::Job.enqueue(RepublishJob.new(@resource.id, false))
+      else
+        puts "YOU CAN REPUBLISH THIS RESOURCE NOW."
+      end
     end
 
     def build_removal_tasks
@@ -161,7 +171,7 @@ module TraitBank
         },
         'eol_pk_prefix' => {
           name: :trait,
-          q: "(trait:Trait) WHERE trait.eol_pk STARTS WITH 'R#{@resource.repository_id}-'"
+          q: %Q{(trait:Trait) WHERE trait.eol_pk STARTS WITH "R#{@resource.repository_id}-"}
         }
       }
     end
@@ -175,7 +185,12 @@ module TraitBank
       msg = "Going to call background trait removal stage: #{@stage_name} for ##{@resource.log_string}"
       Rails.logger.warn(msg)
       @log.log(msg)
-      Delayed::Job.enqueue(RemoveTraitContentJob.new(@resource.id, @stage_name, @size, @should_republish))
+      if @background
+        Delayed::Job.enqueue(RemoveTraitContentJob.new(@resource.id, @stage_name, @size, @should_republish))
+      else
+        puts "BEGIN STAGE: #{@stage_name}"
+        remove
+      end
     end
 
     # There are some metadata nodes that have WILDLY too many relationships, and handling these as part of the "normal"
