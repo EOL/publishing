@@ -3287,12 +3287,23 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
         http://eol(dot)org/schema/terms/symbiotroph: simbiòtrof
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Syntype: sintipo
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/271649006: pression
+          sanghin-a sistòlica
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longheur ëd la coa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000455: lagh ëd giassé
         http://eol(dot)org/schema/terms/TarsometatarsusPlusMiddleToeLength: longheur
           ëd tarsimetatarsi + dil mesan
         http://eol(dot)org/schema/terms/TarsusLength: longheur dël tarsi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000162: piantagion ëd te
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: dent
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Telychian: età
+          telychian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000206: temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000202: foresta ëd latifeuje
+          temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000211: foresta ëd conìfere
+          temprà
         http://eol(dot)org/schema/terms/TemperateOcean: Océan temprà
         http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: temperadura
           a la latitùdin dël pont mesan ëd la zòna

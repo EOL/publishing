@@ -16,6 +16,7 @@
 # Author: Gastonsaenz
 # Author: Genesis
 # Author: Geryescalier
+# Author: HC226
 # Author: Ihojose
 # Author: Jack30
 # Author: Jakeukalane
@@ -2841,6 +2842,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: ventilador de lavado
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: aovado
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: lago Oxbow
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: oxea
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: edad
           Oxfordiense
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxígeno
@@ -2860,6 +2862,7 @@ es:
           paleozoica
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmeado
         https://eol(dot)org/schema/terms/palmeiral: palmeiral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000489: palsa
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paralectotype: paralectotipo
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: Parásito de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasitado por
@@ -2916,9 +2919,14 @@ es:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Piacenzian: edad
           Piacenziense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000563: muelle
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003042: criadero de cerdos
         http://eol(dot)org/schema/terms/Tocantins/Pindare_moist_forests: Bosques húmedos
           de Pindare
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000413: pingo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000048: ojos de alfiler
+        http://eol(dot)org/schema/terms/pinnacleReef: arrecife pináculo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000244: bosque de piñones y
+          sabinas
         http://www(dot)marinespecies(dot)org/traits/Plankton: planctónico
         http://eol(dot)org/schema/terms/planktotrophic: planctótrofo
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma de crecimiento
@@ -2940,6 +2948,7 @@ es:
           del plioceno
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000483: piscina de inmersión
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002257: podsol
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000894: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000339: polar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000186: desierto polar
@@ -2949,6 +2958,9 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
         https://eol(dot)org/schema/terms/polychaete_feeder: se alimenta de poliquetos
         https://eol(dot)org/schema/terms/polygamodioecious: poligamodioico
+        http://eol(dot)org/schema/terms/polyhaline: agua polihalina
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: nodulo polimetálico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000484: polinia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: estanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000512: lecho del estanque
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002228: estanque de agua
@@ -2957,6 +2969,10 @@ es:
         http://eol(dot)org/schema/terms/PopulationGroupSize: tamaño del grupo de población
         http://eol(dot)org/schema/terms/population_trend: Tendencia de la población
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: posición
+        http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: emergencia de plántulas
+          tras un incendio
+        http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: supervivencia de
+          plántulas tras un incendio
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: Bache
         http://purl(dot)obolibrary(dot)org/obo/UO_0000170: partes por mil millones
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pragian: edad
@@ -2973,7 +2989,11 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: se alimenta de
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Priabonian: edad
           Priaboniense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Pridoli: época
+          Prídoli
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: decumbente
         http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produce
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: lago proglacial
         http://eol(dot)org/schema/terms/Propagule: propágulo
         http://eol(dot)org/schema/terms/ProsomeHeight: altura del prosoma
         http://eol(dot)org/schema/terms/ProsomeLength: longitud del prosoma
@@ -2996,6 +3016,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002154: Sedimento radioactivo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000065: Ferrocarril
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000415: playa levantada
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000185: turbera elevada
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000365: sitio Ramsar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000247: pastizales
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000034: rápidos
@@ -3006,9 +3027,13 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005790: Tierra roja
         http://eol(dot)org/schema/terms/reefEdge: borde del arrecife
         http://eol(dot)org/schema/terms/reefSlope: pendiente de arrecife
+        http://eol(dot)org/schema/terms/reefTerrace: terraza de arrecife
         http://eol(dot)org/schema/reference/referenceID: referencia
         https://eol(dot)org/schema/terms/reflecting_superposition_eyes: ojos reflectantes
           de superposición
+        https://eol(dot)org/schema/terms/refracting_superposition_eyes: ojos de superposición
+          refractoria
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_REG: regenerador
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002256: regosol
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: Reproducción
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: Temperatura de reproducción
@@ -3033,8 +3058,15 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005801: rizosfera
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhuddanian: edad
           Rhuddaniense
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhyacian: periodo
+          riásico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000418: ría
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000296: Campo de arroz
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000283: cresta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000148: revuelo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000203: lago de grietas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000496: canalillo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000497: corte de meandro
         http://eol(dot)org/schema/terms/riparianWetland: humedal ribereño
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: río
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000143: orilla del río
@@ -3042,28 +3074,43 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: isla del río/isla fluvial
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: desembocadura
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: valle del río
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: proporción arn:adn
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: edad
           Roadiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: roca
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: desprendimiento
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000440: abrigo rocoso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: desierto rocoso
+        http://eol(dot)org/schema/terms/rockyGrassland: pastizal rocoso
+        https://eol(dot)org/schema/terms/rockyVegetated: afloramiento rocoso con vegetación
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005799: arena rocosa
+        http://eol(dot)org/schema/terms/rootCrown: cuello de raíz
         http://eol(dot)org/schema/terms/root_feeder: se alimenta de raíces
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000164: nódulo de la raíz
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profundidad de raíz
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: raíces
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: plantación de caucho
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: En ejecución
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: edad
           Rupeliense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000151: sebja
+        http://eol(dot)org/schema/terms/sacSpawner: desovador de sacos
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: edad
           Sakmariense
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000055: estanque de evaporación
+          salina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000019: lago salino
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000279: panal salino
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002010: agua salada
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005775: suelo contaminado por
           sal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000022: Pantano de sal
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: Tolerancia a la  sal
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: saltación
+        http://rs(dot)tdwg(dot)org/dwc/terms/samplingEffort: esfuerzo de muestreo
         http://rs(dot)tdwg(dot)org/dwc/terms/samplingProtocol: Protocolo de muestreo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: Arena
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000028: cantera de arena
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sandbian: edad
           Sandbiense
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: Playa arenosa
@@ -3073,10 +3120,15 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002229: suelo arenoso
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Santonian: edad
           Santoniense
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025538: savia
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001597: árbol joven
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000178: Sabana
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005746: suelo de sabana
         http://eol(dot)org/schema/terms/scaleLike: en forma de escama
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002542: escamas
         http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: nombre científico
+        http://eol(dot)org/schema/terms/scraping: raspador
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000194: talud de gravedad
         http://eol(dot)org/schema/terms/scrotal: escrotal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matorral
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: mar
@@ -3088,6 +3140,8 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: Orilla de mar
         https://eol(dot)org/schema/terms/sea_urchin_feeder: se alimenta de erizos
           de mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000264: monte submarino
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001857: condimento
         http://eol(dot)org/schema/terms/secondaryConsumer: Consumidor secundario
         http://purl(dot)obolibrary(dot)org/obo/PO_0005848: Xilema secundario
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: Seguridad
@@ -3096,12 +3150,18 @@ es:
         http://eol(dot)org/schema/terms/SeedBank: Banco de semilla
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: masa
           seca de la semilla
+        http://eol(dot)org/schema/terms/seedHoarding: almacenamiento de semillas
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: Masa de la semilla
+        http://eol(dot)org/schema/terms/SeedPeriodBegin: inicio del periodo de siembra
         http://eol(dot)org/schema/terms/SeedPeriodEnd: Fin de periodo de la semilla
+        http://eol(dot)org/schema/terms/SeedSpreadRate: tasa de propagación de semillas
+        http://eol(dot)org/schema/terms/SeedlingSurvival: supervivencia de plántulas
+        http://eol(dot)org/schema/terms/SeedPerPound: semillas por libra
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: edad
           Selandiense
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: se alimenta de
           depósitos selectivos
+        http://eol(dot)org/schema/terms/self-supportingGrowthForm: autosuficiente
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: sensibilidad
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: sensorial
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: sistema sensorial
