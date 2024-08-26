@@ -65,7 +65,7 @@ module TraitBank
 
       removal_tasks = build_removal_tasks
 
-      raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove, exiting." if index.nil?
+      raise "Invalid stage '#{stage}' called from TraitBank::Admin#remove, exiting." if @stage_index.nil?
 
       if @stage_name == 'begin'
         next_stage
