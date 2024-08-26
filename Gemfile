@@ -128,7 +128,6 @@ gem 'typhoeus', '~> 1.4'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 11'
-  gem 'ruby-lsp' # used for VSCode. :\
 end
 
 group :development do
