@@ -135,7 +135,7 @@ module TraitBank
       else
         count.zero?
       end
-    end:want
+    end
 
     def remove_complete?
       count_nodes = count_remaining_graph_nodes
