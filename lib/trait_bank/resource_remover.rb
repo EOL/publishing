@@ -124,7 +124,12 @@ module TraitBank
     end
 
     def done?(task)
-      TraitBank::Admin.count_by_query(task[:name], task[:q]).zero?
+      count = TraitBank::Admin.count_by_query(task[:name], task[:q])
+      if defined?(@failures) && @failures.size.positive?
+        count <= @failures.size
+      else
+        count.zero?
+      end
     end
 
     def remove_complete?
