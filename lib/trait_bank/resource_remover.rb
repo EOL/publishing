@@ -264,16 +264,16 @@ module TraitBank
       results = TraitBank.query("MATCH #{task[:q]} WITH trait LIMIT #{task[:size]} RETURN trait.eol_pk")
       raise "No results from #{task[:q]}!" unless results.has_key?('data') && results['data'].class == Array
       # I don't want to muck with pagination here; this is an edge case, we're going slowly:
-      @failures ||= []
+      @failures ||= {}
       results['data'].each do |row|
         eol_pk = row.first
         begin
           TraitBank.query(%Q{MATCH (trait:Trait)<-[rel]-(page:Page) WHERE trait.eol_pk = "#{eol_pk}" DELETE rel})
         rescue Neo4j::Driver::Exceptions::DatabaseException => e
-          @failures << eol_pk
+          @failures[eol_pk] = true
         end
       end
-      @log.log("UNABLE TO REMOVE OR MAKE INVISIBLE: #{@failures.join(',')}") unless @failures.empty?
+      @log.log("UNABLE TO REMOVE OR MAKE INVISIBLE: #{@failures.keys.join(',')}") unless @failures.empty?
       @size += @failures.size
     end
   end
