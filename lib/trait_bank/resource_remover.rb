@@ -126,11 +126,16 @@ module TraitBank
     def done?(task)
       count = TraitBank::Admin.count_by_query(task[:name], task[:q])
       if defined?(@failures) && @failures.size.positive?
-        count <= @failures.size
+        # So, there were some "failures" to delete, and we have to AVOID couting those, lest we end up in a loop.
+        is_done = count <= (@failures.size + 100) # I'm adding some fudge room, again: just to avoid endless loops.
+        if is_done
+          @log.log("UNABLE TO REMOVE OR MAKE INVISIBLE: #{@failures.keys.join(',')}") unless @failures.empty?
+        end
+        is_done
       else
         count.zero?
       end
-    end
+    end:want
 
     def remove_complete?
       count_nodes = count_remaining_graph_nodes
