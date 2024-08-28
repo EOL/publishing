@@ -34,6 +34,7 @@ module TraitBank
       @should_republish = config.has_key?(:should_republish) ? config[:should_republish] : false
       @background = config.has_key?(:background) ? config[:background] : true
       @log = resource.log_handle
+      @skip_count = false
     end
 
     def next_stage
@@ -125,16 +126,8 @@ module TraitBank
 
     def done?(task)
       count = TraitBank::Admin.count_by_query(task[:name], task[:q])
-      if defined?(@failures) && @failures.size.positive?
-        # So, there were some "failures" to delete, and we have to AVOID couting those, lest we end up in a loop.
-        is_done = count <= (@failures.size + 100) # I'm adding some fudge room, again: just to avoid endless loops.
-        if is_done
-          @log.log("UNABLE TO REMOVE OR MAKE INVISIBLE: #{@failures.keys.join(',')}") unless @failures.empty?
-        end
-        is_done
-      else
-        count.zero?
-      end
+      return true if @skip_count?
+      count.zero?
     end
 
     def remove_complete?
@@ -264,22 +257,10 @@ module TraitBank
       TraitBank.query(%Q{MATCH (meta:MetaData {eol_pk: '#{id}'}) DETACH DELETE meta;})
     end
 
+    # So sometimes neo4j refuses to remove some nodes
     def make_dead_nodes_invisible(task)
-      # q: "(trait:Trait) WHERE trait.eol_pk STARTS WITH \"R578-\""
-      results = TraitBank.query("MATCH #{task[:q]} WITH trait LIMIT #{task[:size]} RETURN trait.eol_pk")
-      raise "No results from #{task[:q]}!" unless results.has_key?('data') && results['data'].class == Array
-      # I don't want to muck with pagination here; this is an edge case, we're going slowly:
-      @failures ||= {}
-      results['data'].each do |row|
-        eol_pk = row.first
-        begin
-          TraitBank.query(%Q{MATCH (trait:Trait)<-[rel]-(page:Page) WHERE trait.eol_pk = "#{eol_pk}" DELETE rel})
-        rescue Neo4j::Driver::Exceptions::DatabaseException => e
-          @failures[eol_pk] = true
-        end
-      end
-      @log.log("UNABLE TO REMOVE OR MAKE INVISIBLE: #{@failures.keys.join(',')}") unless @failures.empty?
-      @size += @failures.size
+      TraitBank::ResourceRemover::TraitNodeDelinker.delink(task[:q])
+      @skip_count = true
     end
   end
 end
