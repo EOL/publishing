@@ -127,7 +127,7 @@ module TraitBank
     def done?(task)
       count = TraitBank::Admin.count_by_query(task[:name], task[:q])
       return true if @skip_count?
-      count.zero?
+      return count.zero?
     end
 
     def remove_complete?
