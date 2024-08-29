@@ -7,6 +7,7 @@
 # Author: Dimitri Nakashidze
 # Author: Dirruw'o
 # Author: HFoxii
+# Author: Hot-Vinegar
 # Author: INS Pirat
 # Author: Ice bulldog
 # Author: Kapatych
@@ -114,7 +115,7 @@ ru:
         r_infraphylum: '%{name1} — это инфратип %{name2}.'
         r_superclass: '%{name1} — это надкласс %{name2}.'
         r_class: '%{name1} — это класс %{name2}.'
-        r_subcategory: '%{name1} — это подкласс %{name2}.'
+        r_subcategory: '%{name1} подкатегория %{name2}.'
         r_infraclass: '%{name1} — это инфракласс %{name2}.'
         r_superorder: '%{name1} — это надотряд %{name2}.'
         r_order: '%{name1} — это отряд %{name2}.'

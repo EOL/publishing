@@ -3162,6 +3162,10 @@ es:
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: se alimenta de
           depósitos selectivos
         http://eol(dot)org/schema/terms/self-supportingGrowthForm: autosuficiente
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semicaducifolio
+        http://eol(dot)org/schema/terms/semiInfaunal: semi-infaunal
+        http://eol(dot)org/schema/terms/semi-woody: semi-leñoso
+        http://eol(dot)org/schema/terms/semifossorial: semi-fosorial
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: sensibilidad
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: sensorial
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: sistema sensorial
@@ -3178,13 +3182,26 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexualmente dimórfico
         http://eol(dot)org/schema/terms/shade: sombra
         http://eol(dot)org/schema/terms/ShadeTolerance: tolerancia a la sombra
+        http://eol(dot)org/schema/terms/shallowInfaunal: infaunal de aguas poco profundas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000034: sedimento marino poco
+          profundo
         http://eol(dot)org/schema/terms/shallowReef: arrecife poco profundo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: capacidad de desprendimiento
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: edad
           Sheinwoodiense
+        http://eol(dot)org/schema/terms/ShellHeightBivalve: altura de la concha, bivalvo
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: longitud de concha
+        http://eol(dot)org/schema/terms/ShellLengthBivalve: longitud de la concha,
+          bivalvo
+        http://eol(dot)org/schema/terms/sheltered: protegido
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000545: playa de guijarros
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: ápice del brote
+        http://eol(dot)org/schema/terms/ShootRootRatio: proporción de brotes
+        http://eol(dot)org/schema/terms/shortPersistentSeedBank: corta-persistente
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: arbusto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000176: matorral
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000044: barro silíceo
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: seda
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000119: sedimento limoso
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Silurian: período
@@ -3199,6 +3216,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000195: sumidero
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: tamaño
         http://eol(dot)org/schema/terms/SkeletalDensity: densidad esquelética
+        http://eol(dot)org/schema/terms/SkeletalReinforcement: refuerzo esquelético
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0004288: esqueleto
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: el esqueleto contiene
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: estructura de esqueleto
@@ -3211,11 +3229,26 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: social
         http://eol(dot)org/schema/terms/SocialGroupSize: tamaño del grupo social
         http://eol(dot)org/schema/terms/SocialSystem: sistema social
+        http://eol(dot)org/schema/terms/softBenthicSubstrate: substrato bentónico
+          suave
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001998: tierra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000217: solfatara
         http://eol(dot)org/schema/terms/solitary: solitario
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002252: solonchak
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002255: solonetz
         http://purl(dot)org/dc/terms/source: fuente
+        http://eol(dot)org/schema/terms/southernArcticDwarfShrubSubzone: zona de arbustos
+          enanos del ártico meridional
+        http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: área
+          foliar específica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000327: espeleotema
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002268: turbera
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000543: esférula
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: en forma de espina
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: espinas
         http://eol(dot)org/schema/terms/sponge_feeder: se alimenta de esponjas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: arrecife de esponjas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: manantial (agua)
         http://purl(dot)obolibrary(dot)org/obo/PO_0009029: estambre
         http://eol(dot)org/schema/terms/StandardLength: longitud estándar
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: almidón

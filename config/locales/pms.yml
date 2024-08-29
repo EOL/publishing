@@ -3304,13 +3304,33 @@ pms:
           temprà
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000211: foresta ëd conìfere
           temprà
-        http://eol(dot)org/schema/terms/TemperateOcean: Océan temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000182: desert temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000193: prairìa temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000877: prairìa, savan-a o gerbi
+          temprà
+        http://eol(dot)org/schema/terms/temperate_grasslands_savannas_and_shrublands: prairìe,
+          savan-e o gerbi temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000212: foresta mës-cia temprà
+        http://eol(dot)org/schema/terms/TemperateOcean: océan temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000189: savan-a temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000215: gerbi d'erborin temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000221: foresta temprà
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: temperadura
         http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: temperadura
           a la latitùdin dël pont mesan ëd la zòna
         http://eol(dot)org/schema/terms/TemperatureInRange: temperadura ëd na zòna
           geogràfica
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002323: distribussion temporal
+        http://eol(dot)org/schema/terms/tenagophyte: tenagofita
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000252: moren-a terminal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000508: trassa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Terreneuvian: época
+          teranovian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terestr
-        http://eol(dot)org/schema/terms/TestesMass: Massa dij testìcoj
+        http://eol(dot)org/schema/terms/terrestrialPlant: pianta terestra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000070: sediment terigen
+        http://eol(dot)org/schema/terms/TestesMass: massa dij testìcoj
+        http://eol(dot)org/schema/terms/testicond: testicond
         http://eol(dot)org/schema/terms/TestisLocation: posission dël testìcol
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: àcid tetracosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: àcid tetradecanoid
