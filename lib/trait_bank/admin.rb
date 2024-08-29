@@ -124,8 +124,9 @@ module TraitBank
         apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
         TraitBank::Logger.log("--TB_DEL: #{apoc}")
         results = TraitBank.query(apoc)
-        unless apoc_errors(results).blank?
-          raise results['data'][0][-4][:errors]
+        error = apoc_errors(results)
+        unless error.blank?
+          raise error
         end
         time_delta = Time.now - time_before
         TraitBank::Logger.log("--TB_DEL: Took #{time_delta}.")

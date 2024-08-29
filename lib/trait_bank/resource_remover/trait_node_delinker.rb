@@ -20,7 +20,7 @@ module TraitBank
         # @query is something like: "(trait:Trait) WHERE trait.eol_pk STARTS WITH \"R578-\""
         ordered_query = "MATCH #{@query} WITH trait LIMIT 1 RETURN trait.eol_pk ORDER BY trait.eol_pk"
         first_pk = TraitBank.query(ordered_query)['data'].first.first
-        last_pk  = TraitBank.query("#{@query} DESC")['data'].first.first
+        last_pk  = TraitBank.query("#{ordered_query} DESC")['data'].first.first
         resource_key = first_pk.sub(/-PK.*$/, '')
         first_id = first_pk.sub(/R\d+-PK/, '').to_i
         last_id  =  last_pk.sub(/R\d+-PK/, '').to_i
