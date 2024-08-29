@@ -3,15 +3,16 @@ module TraitBank
     class TraitNodeDelinker
       
       class << self
-        def delink(query)
-          delinker = self.new(query)
+        def delink(query, log)
+          delinker = self.new(query, log)
           delinker.make_dead_nodes_invisible
         end
       end
 
-      def initialize(query)
+      def initialize(query, log)
         @query = query
         @failures = {}
+        @log = log
       end
 
       def make_dead_nodes_invisible

@@ -259,7 +259,7 @@ module TraitBank
 
     # So sometimes neo4j refuses to remove some nodes
     def make_dead_nodes_invisible(task)
-      TraitBank::ResourceRemover::TraitNodeDelinker.delink(task[:q])
+      TraitBank::ResourceRemover::TraitNodeDelinker.delink(task[:q], @log)
       @skip_count = true
     end
   end
