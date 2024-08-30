@@ -34,7 +34,6 @@ module TraitBank
       @should_republish = config.has_key?(:should_republish) ? config[:should_republish] : false
       @background = config.has_key?(:background) ? config[:background] : true
       @log = resource.log_handle
-      @skip_count = false
     end
 
     def next_stage
@@ -75,9 +74,7 @@ module TraitBank
 
       if @stage_name == 'end'
         if remove_complete?
-          end_trait_content_removal_background_jobs
-          republish if @should_republish
-          return 0
+          return end_removal
         else
           @log.log("Removal of trait content for #{@resource.log_string} FAILED: there is still data in the graph, retrying...")
           set_stage(1)
@@ -106,6 +103,7 @@ module TraitBank
               # SOOOO... if it's an old eol_pk_prefix removal that failed, we can actually just make these "invisible"
               # by removing their relationships to pages:
               make_dead_nodes_invisible(task)
+              return end_removal # this breaks out of the entire process. There's nothing more we *can* do, now.
             end
           end
 
@@ -126,7 +124,6 @@ module TraitBank
 
     def done?(task)
       count = TraitBank::Admin.count_by_query(task[:name], task[:q])
-      return true if @skip_count
       count.zero?
     end
 
@@ -257,10 +254,15 @@ module TraitBank
       TraitBank.query(%Q{MATCH (meta:MetaData {eol_pk: '#{id}'}) DETACH DELETE meta;})
     end
 
-    # So sometimes neo4j refuses to remove some nodes
+    # So sometimes neo4j refuses to remove some nodes and we need to be clever about it:
     def make_dead_nodes_invisible(task)
       TraitBank::ResourceRemover::TraitNodeDelinker.delink(task[:q], @log)
-      @skip_count = true
+    end
+
+    def end_removal
+      end_trait_content_removal_background_jobs
+      republish if @should_republish
+      0
     end
   end
 end
