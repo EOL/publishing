@@ -4,6 +4,7 @@
 # Author: Ajeje Brazorf
 # Author: Beta16
 # Author: Champ0999
+# Author: Dream Indigo
 # Author: ElisaPaglia
 # Author: FedeB
 # Author: G313
@@ -193,7 +194,7 @@ it:
   collection_created: Creata nuova collezione %{name}
   collection_created_for_association: Aggiunto "%{associated}" alla nuova collezione
     <a href='%{link}'>"%{name}"</a>.
-  collection_user_is_admin: Questo utente è un amministratore.
+  collection_user_is_admin: Quest'utente è un amministratore.
   collection_pages_empty: Questa collezione non ha pagine. Prova a clickare sul pulsante
     "raccogli" sulle pagine delle specie per aggiungere alcuni elementi!
   collection:

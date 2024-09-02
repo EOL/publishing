@@ -3335,7 +3335,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: àcid tetracosanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: àcid tetradecanoid
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diàmeter dël talo
-        http://eol(dot)org/schema/terms/OceaniaRealm: ël regn dl'Osseania (ìsole)
+        https://eol(dot)org/schema/terms/thallus_length: longheur ëd l'organism
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: età
+          thanetian-a
+        http://eol(dot)org/schema/terms/OceaniaRealm: ël regn osseànich (ìsole)
+        http://eol(dot)org/schema/terms/thermalFeature: termal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002269: termoclin
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: spessor
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonëlà
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapessòid
