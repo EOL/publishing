@@ -17,7 +17,7 @@ class BriefSummary
         if match = matches.first_of_type(:species_of_x)
           val = species_of_x_part(match)
         elsif match = matches.first_of_type(:species_of_lifecycle_x)
-          lifecycle_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('lifecycle_habit'))
+          lifecycle_trait = @page.first_trait_for_predicate(TermNode.safe_find_by_alias('lifecycle_habit'))
 
           if lifecycle_trait
             lifecycle_part = @helper.add_trait_val_to_fmt('%s', lifecycle_trait)
@@ -57,7 +57,7 @@ class BriefSummary
         return BriefSummary::Sentences::Result.invalid unless @page.above_family?
 
         first_appearance_trait = @page.first_trait_for_predicate(
-          TermNode.find_by_alias('fossil_first'), 
+          TermNode.safe_find_by_alias('fossil_first'), 
           with_object_term: true
         )
 
@@ -115,14 +115,14 @@ class BriefSummary
 
       def native_range
         return BriefSummary::Sentences::Result.invalid unless @page.genus_or_below? && @page.has_native_range?  
-        predicate = TermNode.find_by_alias('native_range')
+        predicate = TermNode.safe_find_by_alias('native_range')
         traits = @page.native_range_traits
 
         BriefSummary::Sentences::Result.valid("They are native to #{@helper.trait_vals_to_sentence(traits, predicate)}.")
       end
 
       def found_in
-        predicate = TermNode.find_by_alias('biogeographic_realm')
+        predicate = TermNode.safe_find_by_alias('biogeographic_realm')
         traits = @page.traits_for_predicate(predicate)
 
         if (
@@ -147,15 +147,15 @@ class BriefSummary
 
       def behavior
         circadian = @page.first_trait_for_object_terms([
-          TermNode.find_by_alias('nocturnal'),
-          TermNode.find_by_alias('diurnal'),
-          TermNode.find_by_alias('crepuscular')
+          TermNode.safe_find_by_alias('nocturnal'),
+          TermNode.safe_find_by_alias('diurnal'),
+          TermNode.safe_find_by_alias('crepuscular')
         ])
-        solitary = @page.first_trait_for_object_term(TermNode.find_by_alias('solitary'))
+        solitary = @page.first_trait_for_object_term(TermNode.safe_find_by_alias('solitary'))
         begin_traits = [solitary, circadian].compact
         trophic = @page.first_trait_for_predicate(
-          TermNode.find_by_alias('trophic_level'), 
-          exclude_values: [TermNode.find_by_alias('variable')]
+          TermNode.safe_find_by_alias('trophic_level'), 
+          exclude_values: [TermNode.safe_find_by_alias('variable')]
         )
         sentence = nil
         trophic_part = @helper.add_trait_val_to_fmt("%s", trophic, pluralize: true) if trophic
@@ -185,7 +185,7 @@ class BriefSummary
         lifespan_part = nil
         size_part = nil
 
-        lifespan_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('lifespan'), includes: [:units_term])
+        lifespan_trait = @page.first_trait_for_predicate(TermNode.safe_find_by_alias('lifespan'), includes: [:units_term])
 
         if lifespan_trait
           value = lifespan_trait.measurement
@@ -212,8 +212,8 @@ class BriefSummary
 
       def plant_description
         leaf_traits = @page.leaf_traits 
-        flower_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('flower_color'))
-        fruit_trait = @page.first_trait_for_predicate(TermNode.find_by_alias('fruit_type'))
+        flower_trait = @page.first_trait_for_predicate(TermNode.safe_find_by_alias('flower_color'))
+        fruit_trait = @page.first_trait_for_predicate(TermNode.safe_find_by_alias('fruit_type'))
         leaf_part = nil
         flower_part = nil
         fruit_part = nil
@@ -261,7 +261,7 @@ class BriefSummary
       end
 
       def ecosystem_engineering
-        trait = @page.first_trait_for_predicate(TermNode.find_by_alias('ecosystem_engineering'))
+        trait = @page.first_trait_for_predicate(TermNode.safe_find_by_alias('ecosystem_engineering'))
         obj_name = trait&.object_term&.name
 
         if obj_name
@@ -416,14 +416,14 @@ class BriefSummary
         @helper.add_term_to_fmt(
           fstr,
           trait.object_term.name,
-          TermNode.find_by_alias('conservation_status'),
+          TermNode.safe_find_by_alias('conservation_status'),
           trait.object_term,
           trait.source
         )
       end
 
       def flower_visitor_sentence_helper(trait_fn, page_fn)
-        pages = @page.send(trait_fn, TermNode.find_by_alias('visits_flowers_of')).map do |t|
+        pages = @page.send(trait_fn, TermNode.safe_find_by_alias('visits_flowers_of')).map do |t|
           t.send(page_fn)
         end.uniq.slice(0, FLOWER_VISITOR_LIMIT)
 

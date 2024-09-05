@@ -20,12 +20,12 @@ class PagesController < ApplicationController
     "page_url" => -> (qs, page, url) { url }
   }
   MIN_CLOUD_WORDS = 6
-  WORDCLOUD_PREDICATES = [TermNode.find_by_alias('habitat')]
+  WORDCLOUD_PREDICATES = [TermNode.safe_find_by_alias('habitat')]
   TROPHIC_WEB_PREDICATES = [
-    TermNode.find_by_alias('eats'),
-    TermNode.find_by_alias('is_eaten_by'),
-    TermNode.find_by_alias('preys_on'),
-    TermNode.find_by_alias('preyed_upon_by')
+    TermNode.safe_find_by_alias('eats'),
+    TermNode.safe_find_by_alias('is_eaten_by'),
+    TermNode.safe_find_by_alias('preys_on'),
+    TermNode.safe_find_by_alias('preyed_upon_by')
   ]
 
   HABITAT_CHART_BLACKLIST_IDS = Set.new([
@@ -547,7 +547,7 @@ private
   end
 
   def setup_wordcloud
-    wordcloud = Wordcloud.new(@page, TermNode.find_by_alias('habitat'))
+    wordcloud = Wordcloud.new(@page, TermNode.safe_find_by_alias('habitat'))
 
     if wordcloud.length > MIN_CLOUD_WORDS
       @wordcloud_words = wordcloud.to_json

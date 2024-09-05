@@ -114,7 +114,7 @@ class TraitNode
       measurement,
       object_term
     )
-      @predicate = TermNode.find_by_alias(pred_alias)
+      @predicate = TermNode.safe_find_by_alias(pred_alias)
 
       raise TypeError, "invalid Term alias" if @predicate.nil?
 

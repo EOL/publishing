@@ -48,6 +48,14 @@ class TermNode
       self.all(:t).where("t.is_hidden_from_overview = false AND NOT (t)-[:synonym_of]->(:Term)")
     end
 
+    def safe_find_by_alias(a)
+      begin
+        find_by_alias(a)
+      rescue Neo4j::Driver::Exceptions::ServiceUnavailableException => e
+        nil
+      end
+    end
+
     def find_by_alias(a)
       find_by(alias: a)
     end

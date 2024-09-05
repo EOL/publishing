@@ -1,11 +1,11 @@
 class BriefSummary
   class ConservationStatus
     IUCN_OBJS = Set[
-      TermNode.find_by_alias('iucn_en'),
-      TermNode.find_by_alias('iucn_cr'),
-      TermNode.find_by_alias('iucn_ew'),
-      TermNode.find_by_alias('iucn_nt'),
-      TermNode.find_by_alias('iucn_vu')
+      TermNode.safe_find_by_alias('iucn_en'),
+      TermNode.safe_find_by_alias('iucn_cr'),
+      TermNode.safe_find_by_alias('iucn_ew'),
+      TermNode.safe_find_by_alias('iucn_nt'),
+      TermNode.safe_find_by_alias('iucn_vu')
     ]
 
     def initialize(page)
@@ -18,7 +18,7 @@ class BriefSummary
       end
 
       @by_provider = {}
-      traits = @page.traits_for_predicate(TermNode.find_by_alias('conservation_status'))
+      traits = @page.traits_for_predicate(TermNode.safe_find_by_alias('conservation_status'))
 
       multiples_warned = Set.new
 

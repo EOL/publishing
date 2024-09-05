@@ -40,7 +40,7 @@ module Reconciliation
 
     def conservation_status_value_for_page(page)
       decorated = BriefSummary::PageDecorator.new(page, nil)
-      trait = decorated.first_trait_for_predicate(TermNode.find_by_alias('conservation_status'))
+      trait = decorated.first_trait_for_predicate(TermNode.safe_find_by_alias('conservation_status'))
 
       value = trait&.object_term&.i18n_name
 

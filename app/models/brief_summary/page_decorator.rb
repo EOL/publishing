@@ -49,7 +49,7 @@ class BriefSummary
     end
 
     def native_range_traits
-      @native_range_traits ||= traits_for_predicate(TermNode.find_by_alias('native_range'))
+      @native_range_traits ||= traits_for_predicate(TermNode.safe_find_by_alias('native_range'))
     end
 
     def object_traits_for_predicate(predicate)
@@ -107,7 +107,7 @@ class BriefSummary
     # GrowthHabitGroup.match returns a result, or nil if none do. The result
     # of this operation is cached.
     def growth_habit_matches
-      @growth_habit_matches ||= GrowthHabitGroup.match_all(@page.traits_for_predicate(TermNode.find_by_alias('growth_habit')))
+      @growth_habit_matches ||= GrowthHabitGroup.match_all(@page.traits_for_predicate(TermNode.safe_find_by_alias('growth_habit')))
     end
 
     def extinct?
@@ -116,7 +116,7 @@ class BriefSummary
 
     def extinct_trait
       unless @extinct_checked
-        @extinct_trait = @page.first_trait_for_object_terms([TermNode.find_by_alias('iucn_ex')])
+        @extinct_trait = @page.first_trait_for_object_terms([TermNode.safe_find_by_alias('iucn_ex')])
         @extinct_checked = true
       end
 
@@ -126,7 +126,7 @@ class BriefSummary
     def extant_trait
       unless @extant_checked
         # bypass decorator first_trait_for_object_terms since that adds the exclude_hidden_from_overview option
-        @extant_trait = @page.first_trait_for_object_terms([TermNode.find_by_alias('extant')], match_object_descendants: true)
+        @extant_trait = @page.first_trait_for_object_terms([TermNode.safe_find_by_alias('extant')], match_object_descendants: true)
         @extant_checked = true
       end
 
@@ -134,14 +134,14 @@ class BriefSummary
     end
 
     def marine?
-      habitat_term = TermNode.find_by_alias('habitat')
+      habitat_term = TermNode.safe_find_by_alias('habitat')
       @page.has_data_for_predicate(
         habitat_term,
-        with_object_term: TermNode.find_by_alias('marine')
+        with_object_term: TermNode.safe_find_by_alias('marine')
       ) &&
       !@page.has_data_for_predicate(
         habitat_term,
-        with_object_term: TermNode.find_by_alias('terrestrial')
+        with_object_term: TermNode.safe_find_by_alias('terrestrial')
       )
     end
 
@@ -150,7 +150,7 @@ class BriefSummary
     end
 
     def freshwater_trait
-      @freshwater_trait ||= @page.first_trait_for_object_terms([TermNode.find_by_alias('freshwater')])
+      @freshwater_trait ||= @page.first_trait_for_object_terms([TermNode.safe_find_by_alias('freshwater')])
     end
 
     def first_trait_for_predicate(predicate, options = {})
@@ -172,8 +172,8 @@ class BriefSummary
     end
 
     def greatest_value_size_trait
-      size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_mass'), includes: [:units_term])
-      size_traits = @page.traits_for_predicate(TermNode.find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
+      size_traits = @page.traits_for_predicate(TermNode.safe_find_by_alias('body_mass'), includes: [:units_term])
+      size_traits = @page.traits_for_predicate(TermNode.safe_find_by_alias('body_length'), includes: [:units_term]) if size_traits.empty?
 
       greatest_value_trait = nil
 
@@ -195,8 +195,8 @@ class BriefSummary
     def leaf_traits
       # exact_predicate option is required here b/c one term is a descendant of the other
       [
-        TermNode.find_by_alias('leaf_complexity'),
-        TermNode.find_by_alias('leaf_morphology')
+        TermNode.safe_find_by_alias('leaf_complexity'),
+        TermNode.safe_find_by_alias('leaf_morphology')
       ].collect { |term| first_trait_for_predicate(term, exact_predicate: true) }.compact
     end
 
@@ -209,13 +209,13 @@ class BriefSummary
     end
 
     def reproduction_matches
-      @reproduction_matches ||= BriefSummary::ReproductionGroupMatcher.match_all(traits_for_predicate(TermNode.find_by_alias('reproduction')))
+      @reproduction_matches ||= BriefSummary::ReproductionGroupMatcher.match_all(traits_for_predicate(TermNode.safe_find_by_alias('reproduction')))
     end
 
     def motility_matches
       @motility_matches ||= BriefSummary::MotilityGroupMatcher.match_all(traits_for_predicates([
-        TermNode.find_by_alias('motility'),
-        TermNode.find_by_alias('locomotion')
+        TermNode.safe_find_by_alias('motility'),
+        TermNode.safe_find_by_alias('locomotion')
       ]))
     end
 
@@ -228,7 +228,7 @@ class BriefSummary
       unless @form_traits
         # intentionally skip descendants of this term
         traits = traits_for_predicate(
-          TermNode.find_by_alias('forms'), 
+          TermNode.safe_find_by_alias('forms'), 
           exact_predicate: true, 
           includes: [:predicate, :object_term, :lifestage_term]
         ).uniq { |t| t.object_term&.uri }

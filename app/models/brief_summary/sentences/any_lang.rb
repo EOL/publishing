@@ -29,7 +29,7 @@ class BriefSummary
         key = "extinction.#{@page.rank.treat_as}_html"
         val = i18n_w_term(
           key, 
-          TermNode.find_by_alias('extinction_status'), 
+          TermNode.safe_find_by_alias('extinction_status'), 
           @page.extinct_trait.object_term
         )
         BriefSummary::Sentences::Result.valid(val)
@@ -62,8 +62,8 @@ class BriefSummary
             'brief_summary.marine_html',
             class_str: BriefSummary::TermTagger.tag_class_str,
             id: @helper.toggle_id(
-              TermNode.find_by_alias('habitat'),
-              TermNode.find_by_alias('marine'),
+              TermNode.safe_find_by_alias('habitat'),
+              TermNode.safe_find_by_alias('marine'),
               nil
             ),
             locale: @locale
@@ -91,8 +91,8 @@ class BriefSummary
       end
 
       def fix_nitrogen
-        predicate = TermNode.find_by_alias('fixes')
-        object = TermNode.find_by_alias('nitrogen')
+        predicate = TermNode.safe_find_by_alias('fixes')
+        object = TermNode.safe_find_by_alias('nitrogen')
 
         trait = @page.first_trait_for_predicate(predicate, for_object_term: object)
 

@@ -25,25 +25,25 @@ class BriefSummary
     end
 
     def reproduction_matches
-      @reproduction_matches ||= ReproductionGroupMatcher.match_all(@page.traits_for_predicate(TermNode.find_by_alias('reproduction')))
+      @reproduction_matches ||= ReproductionGroupMatcher.match_all(@page.traits_for_predicate(TermNode.safe_find_by_alias('reproduction')))
     end
     
     # ...has a value with parent http://purl.obolibrary.org/obo/ENVO_00000447 for measurement type
     # http://eol.org/schema/terms/Habitat
     def is_it_marine?
-      habitat_term = TermNode.find_by_alias('habitat')
+      habitat_term = TermNode.safe_find_by_alias('habitat')
       @page.has_data_for_predicate(
         habitat_term,
-        with_object_term: TermNode.find_by_alias('marine')
+        with_object_term: TermNode.safe_find_by_alias('marine')
       ) &&
       !@page.has_data_for_predicate(
         habitat_term,
-        with_object_term: TermNode.find_by_alias('terrestrial')
+        with_object_term: TermNode.safe_find_by_alias('terrestrial')
       )
     end
 
     def freshwater_trait
-      @freshwater_trait ||= @page.first_trait_for_object_terms([TermNode.find_by_alias('freshwater')])
+      @freshwater_trait ||= @page.first_trait_for_object_terms([TermNode.safe_find_by_alias('freshwater')])
     end
 
     def is_species?
@@ -153,7 +153,7 @@ class BriefSummary
       if extinct?
         add_sentence do
           key = "extinction.#{@page.rank.treat_as}"
-          i18n_w_term(key, TermNode.find_by_alias('extinction_status'), extinct_trait.object_term)
+          i18n_w_term(key, TermNode.safe_find_by_alias('extinction_status'), extinct_trait.object_term)
         end
 
         true
