@@ -3342,7 +3342,28 @@ pms:
         http://eol(dot)org/schema/terms/thermalFeature: termal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002269: termoclin
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: spessor
+        http://eol(dot)org/schema/terms/thoraxLength: longheur dla cassia dlë stòmi
+        https://eol(dot)org/schema/terms/threatened: mnassà
+        https://eol(dot)org/schema/terms/thunniform: toniform
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000041: ri ëd maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000317: bassin ëd maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000412: cors d'eva ëd maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000456: giassé d'eva ëd maré
+        https://eol(dot)org/schema/terms/tissue_contains: ël tëssù a conten
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tithonian: età
+          tithonian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Toarcian: età
+          toarcian-a
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonëlà
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Topotype: topotipo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tortonian: età
+          tortonian-a
+        http://eol(dot)org/schema/terms/TotalSpeciesSurveyed: total dë spece studià
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tournaisian: età
+          tournasian-a
+        http://eol(dot)org/schema/terms/trailing: strusiant
+        http://eol(dot)org/schema/terms/transientSeedBank: transitòri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: traspòrt
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapessòid
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: erbo
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: àcid tridecanòid
