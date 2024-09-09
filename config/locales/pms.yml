@@ -3364,8 +3364,12 @@ pms:
         http://eol(dot)org/schema/terms/trailing: strusiant
         http://eol(dot)org/schema/terms/transientSeedBank: transitòri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: traspòrt
+        http://eol(dot)org/schema/terms/transverseDivision: division për gich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapessòid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003982: travertin
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: erbo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: età
+          tremadocian-a
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: àcid tridecanòid
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
