@@ -577,7 +577,7 @@ class TraitBank::Publish
   end
 
   def add_traits
-    if @diff_metadata.new_traits_file.nil?
+    if @diff_metadata.new_traits_file.nil? || !File.exist?(@diff_metadata.new_traits_file)
       @logger.info('no traits to add')
       return
     end
@@ -587,7 +587,7 @@ class TraitBank::Publish
   end
 
   def add_metadata
-    if @diff_metadata.new_metadata_file.nil?
+    if @diff_metadata.new_metadata_file.nil? || !File.exist?(@diff_metadata.new_metadata_file)
       @logger.info('no metadata to add')
       return
     end
