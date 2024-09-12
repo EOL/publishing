@@ -199,7 +199,7 @@ class Publishing
     end
 
     def publish_traits_with_cleanup
-      @log.start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
+      @log.start('#publish_traits = TraitBank::Publish.load_resource_from_repo')
       begin
         publish_traits
       rescue => e
@@ -332,7 +332,7 @@ class Publishing
     end
 
     def publish_traits
-      TraitBank::Slurp.new(@resource, @log).load_resource_from_repo
+      TraitBank::Publish.new(@resource, @log).load_resource_from_repo
     end
 
     def page_contents_required?

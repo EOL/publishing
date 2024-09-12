@@ -217,7 +217,7 @@ class TermBootstrapper
 
   def create_terms
     # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster. But I would prefer to
-    # generalize the current Slurp class before attempting it.
+    # generalize the current Publish class before attempting it.
     puts "Creating #{@new_terms.size} new terms..."
     @new_terms.each do |term|
       TraitBank::Term.create(term)

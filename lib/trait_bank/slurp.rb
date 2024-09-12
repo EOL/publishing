@@ -2,7 +2,7 @@ require 'set'
 require 'csv'
 
 # NOTE: Publishing will call .load_resource_from_repo q.v..
-class TraitBank::Slurp
+class TraitBank::Publish
   MAX_CSV_SIZE = 99_000
   MAX_SKIP_PKS = 1_000
 
@@ -14,7 +14,7 @@ class TraitBank::Slurp
     @logger = logger
   end
 
-  # TraitBank::Slurp.new(res).load_resource_from_repo # ...and wait.
+  # TraitBank::Publish.new(res).load_resource_from_repo # ...and wait.
   # NOTE: this is the method called by Publishing::Fast
   def load_resource_from_repo
     @diff_metadata = @resource.repo.trait_diff_metadata
