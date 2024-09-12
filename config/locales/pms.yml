@@ -3364,10 +3364,50 @@ pms:
         http://eol(dot)org/schema/terms/trailing: strusiant
         http://eol(dot)org/schema/terms/transientSeedBank: transitòri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: traspòrt
+        http://eol(dot)org/schema/terms/transverseDivision: division për gich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapessòid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003982: travertin
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: erbo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Tremadocian: età
+          tremadocian-a
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000599: triat
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Triassic: perìod
+          triàssich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: afluent
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: àcid tridecanòid
+        http://eol(dot)org/schema/terms/trophicEcology: ecologìa tròfica
         http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005806: foresta ëd conìfere
+          tropical e sot-tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000879: foresta ëd latifeuje
+          tropical e sot-tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: foresta ëd latifeuje
+          tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: foresta ëd conìfere
+          tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: desert tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000227: foresta sëcca ëd latifeuje
+          tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002990: foreste o tère boscose
+          sëcche o ëd latifeuje tropicaj (comprèise le foreste ëd monson)
+        http://eol(dot)org/schema/terms/tropicalFreshwaterLake: lagh d'eva dossa tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000192: prairìa tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002993: foreste ùmide tropicaj
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000228: foresta ùmida tropical
+          ëd latifeuje
+        http://eol(dot)org/schema/terms/TropicalOcean: océan tropical
+        http://eol(dot)org/schema/terms/tropicalOrSubtropical: tropical o sot-tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000188: savan-a tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000388: foresta tropical semipërsistenta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000214: gerbi d'erborin tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005778: seul tropical
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/TEMP_HOT: eve tropicaj
+          (càude)
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT_WARM: eve tropicaj (tëbbie)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: foresta tropical
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0008247: pe tubolar
+        https://eol(dot)org/schema/terms/tubicolous: tubolos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: galarìa
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
