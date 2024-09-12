@@ -30,7 +30,7 @@ class ContentServerConnection
   
   def file(name)
     return false unless exists?(name)
-    contents(file_path(name))
+    get_contents(file_path(name))
   end
   
   def trait_diff_metadata
@@ -44,8 +44,9 @@ class ContentServerConnection
   
   def copy_harvesting_file(local_path, remote_path)
     # We used to read these from a remote path, but now we read them from an NFS mount, convert:
-    remote_path.sub!(%r{^/data}, '/app/harvesting/')
-    open(local_path, 'wb') { |f| f.write(contents(remote_path)) }
+    nfs_path = remote_path.sub(%r{^/data}, '/app/harvesting/')
+    return unless File.exist?(nfs_path)
+    open(local_path, 'wb') { |f| f.write(get_contents(nfs_path)) }
   end
 
   private
@@ -62,7 +63,8 @@ class ContentServerConnection
     @harv_is_on_this_host ||= (@harv_site.host == '128.0.0.1' ||  @harv_site.host == 'localhost')
   end
   
-  def contents(file)
+  # NOTE: don't rename this to "contents" ... there are variables with that name
+  def get_contents(file)
     file_contents_to_clean_string(file)
   end
 
