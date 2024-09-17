@@ -10,7 +10,7 @@ rescue
 end
 
 begin
-  require 'neo4j-ruby-driver'
+  require 'neo4j_ruby_driver'
 rescue
   puts "ERROR: Neo4j/neo4j-ruby-driver failed to connect! (#{e.class} - #{e.message})"
 end
