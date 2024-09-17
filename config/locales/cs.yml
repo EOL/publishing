@@ -91,7 +91,7 @@ cs:
         r_subphylum: '%{name1} je podkmen %{name2}.'
         r_superclass: '%{name1} je nadtřídou %{name2}.'
         r_class: '%{name1} je třída %{name2}.'
-        r_subcategory: '%{name1} je podtřídou %{name2}.'
+        r_subcategory: '%{name1} je podkategorií %{name2}.'
         r_infraclass: '%{name1} je infratřída %{name2}.'
         r_superorder: '%{name1} je nadřád %{name2}.'
         r_order: '%{name1} je řád %{name2}.'
@@ -133,7 +133,7 @@ cs:
   classifications:
     children:
       header_html:
-        one: '%{name} zahrnuje <a href="%{names_path}">%{count} pdřazený</a>:'
+        one: '%{name} zahrnuje <a href="%{names_path}">%{count} podřazený</a>:'
         other: '%{name} zahrnuje <a href="%{names_path}">%{count} podřazených</a>:'
       see_more: Zobrazit více
     hierarchies:
@@ -168,7 +168,7 @@ cs:
     vlevo.
   collect_select_collection: … Jedna z vašich sbírek
   collect_title: Přidat "%{item}" k...
-  collected_page_added_to_collection: Přidáno %{page} do kolekce <a href='%{link}'>%{name}</a>.
+  collected_page_added_to_collection: Přidáno %{page} do sbírky <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: To už bylo ve vaší sbírce.
   collected_pages_title: Stránky
   collected_pages_medium:
@@ -188,7 +188,7 @@ cs:
   collection_collected_pages_media_remove: 'Odstranit obrázky ze sbírky (změny se
     projeví okamžitě):'
   collection_created: Vytvořena nová sbírka "%{name}".
-  collection_created_for_association: Přidáno "%{associated}" do nové kolekce <a href='%{link}'>"%{name}"</a>
+  collection_created_for_association: Přidáno "%{associated}" do nové sbírky <a href='%{link}'>"%{name}"</a>
     .
   collection_user_is_admin: Tento uživatel je správce.
   collection_pages_empty: Tato sbírka neobsahuje žádné stránky. Chcete-li přidat některé
@@ -548,6 +548,7 @@ cs:
     gv: Manx
     mi: Maorština
     mr: maráthština
+    mh: maršálský
     q6786446: Matengo
     q3906614: Louka Mari
     q13357: Meänkieli
@@ -556,6 +557,7 @@ cs:
     q13321: Miꞌkmaq
     q36455: Min Dong
     q13324: Minangkabau
+    q13359: Mingrelian
     q13343: Moksha
     mn: Mongolština
     q56426: Marocká arabština
@@ -587,6 +589,7 @@ cs:
     oc: okcitánština (po roce 1500)
     q28602: Oficiální aramejština
     oj: Ojibwa
+    or: Urijština
     om: Oromo
     os: Ossetijština
     q715755: Paiwan
@@ -888,6 +891,7 @@ cs:
       r_subdomain: poddoména
       r_infradomain: infradoména
       r_superkingdom: superříše
+      r_kingdom: království
       r_subkingdom: podříše
       r_infrakingdom: infraříše
       r_superphylum: nadčeleď
@@ -1406,6 +1410,7 @@ cs:
     showing_n_power_users:
       one: Výpis jednoho pokročilého uživatele
       other: Výpis %{count} zkušených uživatelů
+    trait_bank_cypher_form: Zobrazení kódů v bankovním systému
     username: Uživatelské jméno
     update: Aktualizovat
     update_email: Aktualizovat email
@@ -1528,6 +1533,7 @@ cs:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allolectotype: alolektotyp
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Alloneotype: alloneotyp
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: alotyp
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000314: aluviální nános
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: aluviální rovina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002871: aluviální půda
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000085: alpský ledovec
@@ -1665,6 +1671,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: široký
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: listnatý les
         http://eol(dot)org/schema/terms/bromelicolous: bromélie
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: sezení na vejcích
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: hnědá
         http://eol(dot)org/schema/terms/browsing: prohledávač
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: pupen
@@ -1677,6 +1684,7 @@ cs:
         https://eol(dot)org/schema/terms/burrowDepth: hloubka nory
         https://eol(dot)org/schema/terms/burrowDiameter: průměr nory
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/MOB_BUR: obyvatel nory
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000287: poklička
         http://eol(dot)org/schema/terms/caespitose: caespitóza
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: kofein
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Calabrian: kalábrijský
@@ -1847,6 +1855,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: válec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: cypřišový močál
         http://eol(dot)org/schema/terms/dahllite: dahllit
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: mléko
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: dambo
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: dánský
           věk
@@ -1960,8 +1969,11 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: eocénní
           epocha
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: pokožka
+        http://eol(dot)org/schema/terms/epihydate: epihydrát
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: epifyt z
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: epizodický
+        http://eol(dot)org/schema/terms/epizoochory: epizoochorie
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000280: sráz
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000282: esker
         http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: odhad
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000020: ústí řek
@@ -1992,11 +2004,13 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: samice
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: délka stehenní kosti
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: šířka stehenní kosti
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: bažina
         http://purl(dot)obolibrary(dot)org/obo/GO_0009566: hnojení
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: hnojená půda
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005755: polní půda
         http://eol(dot)org/schema/terms/FireResistance: odolnost proti ohni
         http://eol(dot)org/schema/terms/FireTolerance: tolerance ohně
+        http://eol(dot)org/schema/terms/FossilFirst: první objevení
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000263: puklinová jeskyně
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000039: fjord
         http://eol(dot)org/schema/terms/fleshyFruit: dužnaté ovoce
@@ -2093,6 +2107,7 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: gželiánský
           věk
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: prostředí
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: alkalické stanoviště
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: visuté údolí
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: přístav
         http://eol(dot)org/schema/terms/hardBenthicSubstrate: tvrdý bentický substrát
@@ -2130,6 +2145,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: kyselina hexadekanová
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: vysoká
         http://eol(dot)org/schema/terms/highCNRatio: vysoký (>59)
+        http://eol(dot)org/schema/terms/highArctic: vysoká arktická oblast
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: vysoká životnost
         http://eol(dot)org/schema/terms/highNitrogenFixation: vysoká n fixace
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002025: prostředí s vysokou
@@ -2161,6 +2177,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: hydroxylapatit
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: hyperparazit
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: hypersolná voda
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: délka hypokonu
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: led
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: ledová čepička
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000132: ledový štít
@@ -2281,6 +2298,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005783: listnatá dřevnatá půda
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Lectotype: lektotyp
         http://semanticscience(dot)org/resource/SIO_000041: délka
+        https://eol(dot)org/schema/terms/lens_eyes: oči s čočkami
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: leptosol
         http://eol(dot)org/schema/terms/lichenous: lišejníkovitý
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: zvyk životního cyklu
@@ -2358,7 +2376,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: masa mořské vody
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: mokřina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: masiv
-        http://eol(dot)org/schema/terms/MatingSystem: párovací systém
+        http://eol(dot)org/schema/terms/MatingSystem: systém spáření
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001701: dospělý
         http://semanticscience(dot)org/resource/SIO_001114: max
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000108: louka
