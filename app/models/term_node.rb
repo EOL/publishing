@@ -57,7 +57,11 @@ class TermNode
     end
 
     def find_by_alias(a)
-      find_by(alias: a)
+      begin
+        find_by(alias: a)
+      rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+        return nil
+      end
     end
   end
   # end class << self
