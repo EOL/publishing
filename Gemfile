@@ -41,9 +41,17 @@ gem 'kaminari', '~> 1.2.2'
 # maintainable!
 
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
-gem 'activegraph', '~> 10.1' # NOTE: there's at least a version 11, but I am scared of it.
-gem 'activestorage', '~> 6.1.7' # TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
-gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
+#
+# NOTE: These are not "required" here because we would like the site to be up if neo4j is down, and that's imposible to
+# catch from the Gemfile.
+#
+# NOTE: there's at least a version 11, but I am scared of it.
+gem 'activegraph', '~> 10.1', require: false
+# TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
+gem 'activestorage', '~> 6.1.7', require: false
+gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7', require: false
+
+
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.3'
 # Acts As List simplifies ordered lists of models:
