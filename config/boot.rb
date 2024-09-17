@@ -5,8 +5,6 @@ require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
 
 begin
   require 'activegraph'
-rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
-  puts "ERROR: Neo4j/activegraph timed out trying to connect: #{e.message}"
 rescue
   puts "ERROR: Neo4j/activestorage failed to connect! (#{e.class} - #{e.message})"
 end
@@ -14,16 +12,12 @@ end
 # TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
 begin
   require 'activestorage'
-rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
-  puts "ERROR: Neo4j/activestorage timed out trying to connect: #{e.message}"
 rescue
   puts "ERROR: Neo4j/activestorage failed to connect! (#{e.class} - #{e.message})"
 end
 
 begin
   require 'neo4j-ruby-driver'
-rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
-  puts "ERROR: Neo4j/neo4j-ruby-driver timed out trying to connect: #{e.message}"
 rescue
   puts "ERROR: Neo4j/neo4j-ruby-driver failed to connect! (#{e.class} - #{e.message})"
 end
