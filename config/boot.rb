@@ -4,16 +4,9 @@ require 'bundler/setup' # Set up gems listed in the Gemfile.
 require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
 
 begin
-  require 'activegraph'
+  require 'active_graph'
 rescue
-  puts "ERROR: Neo4j/activestorage failed to connect! (#{e.class} - #{e.message})"
-end
-
-# TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
-begin
-  require 'activestorage'
-rescue
-  puts "ERROR: Neo4j/activestorage failed to connect! (#{e.class} - #{e.message})"
+  puts "ERROR: Neo4j/active_graph failed to connect! (#{e.class} - #{e.message})"
 end
 
 begin
