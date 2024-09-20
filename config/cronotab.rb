@@ -13,6 +13,7 @@ Crono.perform(BriefSummaryWarmingJob).every 1.day, at: { hour: 0, minute: 0 }
 Crono.perform(LogRotJob).every 5.minutes
 Crono.perform(WarmCsvDownloadsJob).every 14.days, at: { hour: 1 }
 Crono.perform(BuildIdentifierMapJob).every 1.month, on: :monday
+Crono.perform(FixMediaCountsJob).every 1.month, on: :tuesday # if the media tab doesn't show up on a page but should ...
 Crono.perform(BuildFullIdentifierMapJob).every 1.month, on: :thursday
 Crono.perform(BuildMediaManifestJob).every 1.month, on: :friday
 Crono.perform(BuildSitemapJob).every 1.month, on: :thursday, at: { hour: 19 }

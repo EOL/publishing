@@ -218,7 +218,9 @@ class Resource < ApplicationRecord
   end
   
   # This happens to be almost the same code for the same method on the Page model, q.v.; it is useful to be able
-  # to run such a slow query on a single resource.
+  # to run such a slow query on a single resource. Sometimes when you publish a resource, the pages that have NEW media
+  # will not show their media tab link, even though you can go to the URL (just add /media to it). This will fix the
+  # underlying problem, but does not clear cache, which may also be required.
   def fix_media_counts
     nodes.select('id, page_id').find_in_batches do |batch|
       Page.where(id: batch.flat_map(&:page_id).uniq).find_each { |page| page.recount }

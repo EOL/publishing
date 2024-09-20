@@ -6,6 +6,6 @@ class BuildIdentifierMapJob < ApplicationJob
   def perform
     Rails.logger.warn("START BuildIdentifierMapJob")
     IdentifierMap.build
-    Rails.logger.warn("END BuildIdentifierMapJob. Output to #{zipped}")
+    Rails.logger.warn("END BuildIdentifierMapJob.")
   end
 end
