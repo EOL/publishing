@@ -198,8 +198,9 @@ class Resource < ApplicationRecord
       # A little magic to index an array as a hash:
       Hash[ *resources.map { |r| [ r.id, r ] }.flatten ]
     end
-  end
 
+  end
+  
   # Note: you *probably* want to call PageIcon.fix after this.
   def recount_pages
     visited_pages = {}
@@ -214,6 +215,16 @@ class Resource < ApplicationRecord
       page.recount
     end
     puts "++ Done. #{visited_pages.size} pages affected out of #{total_count} possible nodes."
+  end
+  
+  # This happens to be almost the same code for the same method on the Page model, q.v.; it is useful to be able
+  # to run such a slow query on a single resource.
+  def fix_media_counts
+    nodes.select('id, page_id').find_in_batches do |batch|
+      Page.where(id: batch.flat_map(&:page_id).uniq).find_each { |page| page.recount }
+      puts ("++ Recounted #{batch.size} pages, e.g. https://eol.org/#{batch.first.id}")
+      STDOUT.flush
+    end
   end
 
   def publish_pending?
