@@ -8,7 +8,7 @@ class IdentifierMap
     end
   end
 
-  def initialize(params = nil)
+  def initialize(params = {})
     require 'zlib'
     @file = Rails.public_path.join('data', 'provider_ids.csv')
     @browsable_resource_ids = Resource.classification.pluck(:id)

@@ -4,7 +4,7 @@
 # http://eol.org/data/provider_ids.csv.gz
 class BuildFullIdentifierMapJob < ApplicationJob
   def perform
-    Rails.logger.warn("START BuildIdentifierMapJob")
+    Rails.logger.warn("START BuildFullIdentifierMapJob")
     file = Rails.public_path.join('data', 'full_provider_ids.csv')
     CSV.open(file, 'wb') do |csv|
       csv << %w[node_id resource_pk resource_id page_id preferred_canonical_for_page]
