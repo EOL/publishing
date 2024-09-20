@@ -3407,12 +3407,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000220: foresta tropical
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008247: pe tubolar
         https://eol(dot)org/schema/terms/tubicolous: tubolos
+        https://eol(dot)org/schema/terms/tuft: bron
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: galarìa
         http://eol(dot)org/schema/terms/turbidWater: eva tërbola
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: età
           turonian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000370: tuya
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Type: tipo
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#typeOfType: sòrt ëd tipo
+        http://eol(dot)org/schema/terms/TypeSpecimenRepository: depòsit ëd l'esemplar
+          tipo
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
