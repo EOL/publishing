@@ -3408,8 +3408,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008247: pe tubolar
         https://eol(dot)org/schema/terms/tubicolous: tubolos
         https://eol(dot)org/schema/terms/tuft: bron
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: tundra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: galarìa
         http://eol(dot)org/schema/terms/turbidWater: eva tërbola
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C74723: turbidità
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000454: turlough
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: età
           turonian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000370: tuya
@@ -3417,6 +3420,7 @@ pms:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#typeOfType: sòrt ëd tipo
         http://eol(dot)org/schema/terms/TypeSpecimenRepository: depòsit ëd l'esemplar
           tipo
+        http://rs(dot)tdwg(dot)org/dwc/terms/typeStatus: stat dël tipo
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
