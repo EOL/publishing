@@ -3421,7 +3421,23 @@ pms:
         http://eol(dot)org/schema/terms/TypeSpecimenRepository: depòsit ëd l'esemplar
           tipo
         http://rs(dot)tdwg(dot)org/dwc/terms/typeStatus: stat dël tipo
+        http://eol(dot)org/schema/terms/ultraoligotrophicAlpineFreshwaterLake: lagh
+          d'eva dossa ultra-oligòtrof alpin
+        http://eol(dot)org/schema/terms/ultraoligotrophicFreshwaterLake: lagh d'eva
+          dossa ultra-oligòtrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: parapieuva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002253: umbrisseul
+        http://eol(dot)org/schema/terms/uncommon: pòch comun
+        http://eol(dot)org/schema/terms/unconfirmedHolotype: olotipo nen confirmà
+        http://eol(dot)org/schema/terms/unconfirmedLectotype: lectotipo nen confirmà
+        http://eol(dot)org/schema/terms/unconfirmedParatype: paratipo nen confirmà
+        http://eol(dot)org/schema/terms/unconfirmedSyntype: sintipo ne confirmà
+        http://eol(dot)org/schema/terms/unconfirmedType: tipo nen confirmà
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: lagh soterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: fium soterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000060: ri soterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: eva soterania
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
