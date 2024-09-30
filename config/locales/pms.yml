@@ -3438,7 +3438,29 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: fium soterani
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000060: ri soterani
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: eva soterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000061: còrp d'eva soterani
+        http://eol(dot)org/schema/terms/UndescribedSpeciesInMuseumCollections: spece
+          marenghe nen descrivùe presente ant le colession dij musé
+        https://eol(dot)org/schema/terms/unisexual_flowers: fior unisessuà
+        http://eol(dot)org/schema/terms/unknown: sconossù
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005786: seul dle tère àute
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000314: lìmit superior ëd confidensa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperCretaceous: época
+          cretassia superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperDevonian: época
+          devonian-a superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperJurassic: época
+          giuràssica superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperOrdovician: época
+          ordovician-a superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: età
+          del pleistocen superior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: época
+          triàssica superiora
+        http://eol(dot)org/schema/terms/upperEpifaunal: epifàuna ëd livel superior
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_UC: ancalanator assendent
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: sistema urinari
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
