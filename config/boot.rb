@@ -11,6 +11,12 @@ end
 
 begin
   require 'neo4j_ruby_driver'
+  # Nesting this b/c the error type doesn't exist until the module is required!
+  begin 
+    ActiveGraph::Migrations.check_for_pending_migrations!
+  rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+    puts "ERROR: Neo4j migrations pending! (#{e.class} - #{e.message})"
+  end
 rescue
   puts "ERROR: Neo4j/neo4j-ruby-driver failed to connect! (#{e.class} - #{e.message})"
 end
