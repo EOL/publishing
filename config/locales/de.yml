@@ -21,6 +21,7 @@
 # Author: LilFlo3000
 # Author: Lorisobi
 # Author: Max Kleinehelleforth
+# Author: Memverse
 # Author: Schmackes
 # Author: Sinuhe20
 # Author: Symposiarch
@@ -1619,6 +1620,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: Anabranch
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: katadrom
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002133: anaerober Schlamm
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002045: anaerobes Sediment
         https://eol(dot)org/schema/terms/anal_fin: Afterflossen-Schwimmen
         https://eol(dot)org/schema/terms/andromonoecious: After- und Rückenflossen-Schwimmen
         http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: Dichte des Tierbestands

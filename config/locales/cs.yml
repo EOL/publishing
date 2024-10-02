@@ -13,7 +13,7 @@
 # Author: Watt
 ---
 cs:
-  language_name: čeština
+  language_name: Čeština
   about:
     trait_bank:
       body_html: <p>Tým technické a datové správy v EOL odkazuje na strukturované
@@ -335,7 +335,7 @@ cs:
       mushrooms: Houby
       mollusks: Měkkýši
       plants: Rostliny
-      protists: Protisté
+      protists: Jednobuněčné
       reptiles: Plazi
       spiders: Pavouci
       trees: Stromy

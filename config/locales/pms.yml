@@ -3408,8 +3408,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008247: pe tubolar
         https://eol(dot)org/schema/terms/tubicolous: tubolos
         https://eol(dot)org/schema/terms/tuft: bron
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000180: tundra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: galarìa
         http://eol(dot)org/schema/terms/turbidWater: eva tërbola
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C74723: turbidità
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000454: turlough
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: età
           turonian-a
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000370: tuya
@@ -3417,8 +3420,47 @@ pms:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#typeOfType: sòrt ëd tipo
         http://eol(dot)org/schema/terms/TypeSpecimenRepository: depòsit ëd l'esemplar
           tipo
+        http://rs(dot)tdwg(dot)org/dwc/terms/typeStatus: stat dël tipo
+        http://eol(dot)org/schema/terms/ultraoligotrophicAlpineFreshwaterLake: lagh
+          d'eva dossa ultra-oligòtrof alpin
+        http://eol(dot)org/schema/terms/ultraoligotrophicFreshwaterLake: lagh d'eva
+          dossa ultra-oligòtrof
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: parapieuva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002253: umbrisseul
+        http://eol(dot)org/schema/terms/uncommon: pòch comun
+        http://eol(dot)org/schema/terms/unconfirmedHolotype: olotipo nen confirmà
+        http://eol(dot)org/schema/terms/unconfirmedLectotype: lectotipo nen confirmà
+        http://eol(dot)org/schema/terms/unconfirmedParatype: paratipo nen confirmà
+        http://eol(dot)org/schema/terms/unconfirmedSyntype: sintipo ne confirmà
+        http://eol(dot)org/schema/terms/unconfirmedType: tipo nen confirmà
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: lagh soterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: fium soterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000060: ri soterani
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: eva soterania
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000061: còrp d'eva soterani
+        http://eol(dot)org/schema/terms/UndescribedSpeciesInMuseumCollections: spece
+          marenghe nen descrivùe presente ant le colession dij musé
+        https://eol(dot)org/schema/terms/unisexual_flowers: fior unisessuà
+        http://eol(dot)org/schema/terms/unknown: sconossù
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005786: seul dle tère àute
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000314: lìmit superior ëd confidensa
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperCretaceous: época
+          cretassia superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperDevonian: época
+          devonian-a superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperJurassic: época
+          giuràssica superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperOrdovician: época
+          ordovician-a superiora
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: età
+          del pleistocen superior
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: época
+          triàssica superiora
+        http://eol(dot)org/schema/terms/upperEpifaunal: epifàuna ëd livel superior
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_UC: ancalanator assendent
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: sistema urinari
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
