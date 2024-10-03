@@ -39,7 +39,7 @@ cs:
     actions:
       collect: sbírat
     header:
-      blank: (K tomuto článku není obsah)
+      blank: (K tomuto článku není obsah.)
       body: Obsah
       language: 'jazyk: %{language}'
       title: Název
@@ -84,6 +84,8 @@ cs:
         r_domain: '%{name1} je doména %{name2}.'
         r_subdomain: '%{name1} je subdoménou %{name2}.'
         r_infradomain: '%{name1} je infradoména %{name2}.'
+        r_superkingdom: '%{name1} je nadříší %{name2}.'
+        r_kingdom: '%{name1} je říší %{name2}.'
         r_subkingdom: '%{name1} je podříší %{name2}.'
         r_infrakingdom: '%{name1} je infraříše %{name2}.'
         r_superphylum: '%{name1} je nadkmen %{name2}.'
@@ -252,7 +254,7 @@ cs:
     altitude: nadmořská výška
     author: autor
     bibliographic_citation: bibliografická citace
-    contributor: Přispěvatel
+    contributor: přispěvatel
     compiler: překladatel
     creator: autor
     editor: editor
@@ -309,7 +311,7 @@ cs:
       data_services: Datové služby
       donate: Darovat
       education: Vzdělávání
-      food_webs: Potravinové weby
+      food_webs: Potravní sítě
       glossary: Slovník
       help: Nápověda
       language_support: Jazyková podpora
@@ -347,7 +349,7 @@ cs:
     created: Byla vytvořena úloha stahování GBIF. Zkontrolujte <a href="%{url}">stránku
       svého uživatelského profilu</a> , abyste viděli jeho stav
   landing_page:
-    header: Globální přístup k znalostem o životě na zemi
+    header: Globální přístup k znalostem o životě na Zemi
     stats_cleared: Statistiky byly přepočítány
   language: Jazyk
   languages:
@@ -817,11 +819,11 @@ cs:
         r_subcategory: Podtřída
         r_infraclass: Infratřída
         r_superorder: Nadřád
-        r_order: Pořadí
+        r_order: Řád
         r_suborder: Podřád
         r_infraorder: Infrařád
         r_superfamily: Nadčeleď
-        r_family: Rodina
+        r_family: Čeleď
         r_subfamily: Podčeleď
         r_tribe: Kmen
         r_supergenus: Nadrod
@@ -891,7 +893,7 @@ cs:
       r_subdomain: poddoména
       r_infradomain: infradoména
       r_superkingdom: superříše
-      r_kingdom: království
+      r_kingdom: říše
       r_subkingdom: podříše
       r_infrakingdom: infraříše
       r_superphylum: nadčeleď
@@ -905,8 +907,8 @@ cs:
       r_order: řád
       r_suborder: podřád
       r_infraorder: infrařád
-      r_family: rod
-      r_subfamily: podrod
+      r_family: čeleď
+      r_subfamily: podčeleď
       r_tribe: kmen
       r_supergenus: nadrod
       r_genus: rod
@@ -1506,8 +1508,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: nezpevněná půda
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: dospělý
         https://eol(dot)org/schema/terms/adventive: adventivní v
-        http://eol(dot)org/schema/terms/aerial: letecký
-        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: letecký
+        http://eol(dot)org/schema/terms/aerial: vzdušný
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: vzdušný
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: vzdušné stanoviště
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: aeronianský
           věk
@@ -1554,7 +1556,7 @@ cs:
         http://eol(dot)org/schema/terms/androviviparous: androviviparní
         http://eol(dot)org/schema/terms/anemochory: anemochorie
         https://eol(dot)org/schema/terms/anguilliform: anguilliformní
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: obydlí zvířat
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: stanoviště zvířat
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002191: zvířecí trus
         http://purl(dot)bioontology(dot)org/ontology/CSP/2383-1863: hustota populace
           zvířat
@@ -1633,8 +1635,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: pláž
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000529: plážový hřbet
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: plážový písek
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: hráz bobra
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: rybník bobrů
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000500: bobří hráz
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000270: bobří rybník
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: včelí vosk
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: Cirkadiánní rytmus chování
         http://eol(dot)org/schema/terms/benthic: bentické
@@ -2007,6 +2009,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: bažina
         http://purl(dot)obolibrary(dot)org/obo/GO_0009566: hnojení
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: hnojená půda
+        http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: terénní poznámky
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005755: polní půda
         http://eol(dot)org/schema/terms/FireResistance: odolnost proti ohni
         http://eol(dot)org/schema/terms/FireTolerance: tolerance ohně
@@ -2066,6 +2069,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm³
         http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m²
         http://eol(dot)org/schema/terms/gramsPerMonth: g/měsíc
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C79641: žluč
         http://purl(dot)obolibrary(dot)org/obo/PO_0025340: gametofyt
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: zahradní půda
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: gelasiánský
@@ -2107,6 +2111,7 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: gželiánský
           věk
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: prostředí
+        http://eol(dot)org/schema/terms/HabitatBreadth: rozsah stanoviště
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: alkalické stanoviště
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: visuté údolí
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: přístav
@@ -2369,10 +2374,12 @@ cs:
         https://eol(dot)org/schema/terms/marine_carnivore: mořský masožravec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005795: mořské bahno
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000362: mořský park
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000023: mořské pelagické
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: mořský útes
         http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: mořský sediment
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000158: mořský sníh
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000063: mořské vzlínání
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000109: mořská teplovodní sféra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000686: masa mořské vody
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000035: mokřina
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000381: masiv
@@ -2562,6 +2569,7 @@ cs:
         http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: složení živin mléka
         http://eol(dot)org/schema/terms/nutrient_symbiotroph: živinový symbiotrof
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: dubový les
+        http://eol(dot)org/schema/terms/obligateClimber: obligátní lezec
         http://eol(dot)org/schema/terms/obligateEpiphyte: obligátní epifyt
         http://rs(dot)tdwg(dot)org/dwc/terms/occurrenceRemarks: poznámky k výskytu
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000037: oceánská batypelagická
@@ -2886,6 +2894,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_03000034: mělký mořský sediment
         http://eol(dot)org/schema/terms/shallowReef: mělký útes
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: tvar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: rozložitelnost
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sheinwoodian: sheinwoodský
           věk
         http://eol(dot)org/schema/terms/ShellHeightBivalve: výška lastury, mlž
@@ -2962,6 +2971,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000267: podmořský kaňon
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000251: subpolární
         http://eol(dot)org/schema/terms/subshrub: podrost
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000572: podzemní
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000050: přílivový skalnatý útes
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropický
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000201: subtropický listnatý
@@ -3045,6 +3055,7 @@ cs:
         http://eol(dot)org/schema/terms/thoraxLength: délka hrudníku
         https://eol(dot)org/schema/terms/threatened: ohrožený
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000041: přílivový potok
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000317: přílivové mělčiny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000412: přílivový vodní tok
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000456: ledovec přílivové vody
         https://eol(dot)org/schema/terms/tissue_contains: tkáň obsahuje
@@ -3058,6 +3069,7 @@ cs:
           věk
         http://eol(dot)org/schema/terms/TotalSpeciesSurveyed: celkový počet zkoumaných
           druhů
+        http://eol(dot)org/schema/terms/trailing: plazení
         http://eol(dot)org/schema/terms/transientSeedBank: přechodný
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000125: přeprava
         http://eol(dot)org/schema/terms/transverseDivision: příčné dělení
