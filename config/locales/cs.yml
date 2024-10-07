@@ -37,7 +37,7 @@ cs:
   are_you_sure_delete_account: Opravdu chcete smazat svůj účet EOL?
   article:
     actions:
-      collect: sbírat
+      collect: do sbírky
     header:
       blank: (K tomuto článku není obsah.)
       body: Obsah
@@ -164,9 +164,9 @@ cs:
   collect_already_in_collection: (již je zde)
   collect_already_in_collection_will_add_icon: (přidat média na "%{page}")
   collect_icon_title: Přidat "%{item}" ze stránky "%{page}" do...
-  collect_new_collection: Nový Název Sbírky
+  collect_new_collection: Název nové sbírky
   collect_new_collection_title: '... Nová Sbírka'
-  collect_no_existing_collections: Zatím žádné nemáte! Vytvořte jej pomocí formuláře
+  collect_no_existing_collections: Zatím žádnou nemáte! Vytvořte jí pomocí formuláře
     vlevo.
   collect_select_collection: … Jedna z vašich sbírek
   collect_title: Přidat "%{item}" k...
@@ -194,7 +194,7 @@ cs:
     .
   collection_user_is_admin: Tento uživatel je správce.
   collection_pages_empty: Tato sbírka neobsahuje žádné stránky. Chcete-li přidat některé
-    položky, zkuste kliknout na tlačítko "sbírat" na stránkách druhů.
+    položky, zkuste kliknout na tlačítko "do sbírky" na stránkách druhů.
   collection:
     admins:
       header: Uživatelé, kteří mohou tuto sbírku upravovat (změny se projeví okamžitě)
@@ -306,7 +306,7 @@ cs:
     filter_by_provider: filtrovat podle poskytovatele
   footer:
     eol_info:
-      citing_eol: citace EOL
+      citing_eol: Citování EOL
       contact_us: Kontaktujte nás
       data_services: Datové služby
       donate: Darovat
@@ -323,13 +323,13 @@ cs:
       algae: Řasy
       amphibians: Obojživelníci
       animals: Zvířata
-      archaea: Jednobuněční
+      archaea: Archaea
       bacteria: Bakterie
       birds: Ptáci
       crustaceans: Korýši
       fishes: Ryby
       flowering_plants: Kvetoucí rostliny
-      fungi: Houby
+      fungi: Podhoubí
       insects: Hmyz
       invertebrates: Bezobratlí
       mammals: Savci
@@ -337,12 +337,12 @@ cs:
       mushrooms: Houby
       mollusks: Měkkýši
       plants: Rostliny
-      protists: Jednobuněčné
+      protists: Prvoci
       reptiles: Plazi
       spiders: Pavouci
       trees: Stromy
       viruses: Viry
-      worms: Žížaly
+      worms: Červi
     eol_is_hosted_by: 'EOL je hostováno:'
   forgot_your_password: Zapomněli jste heslo
   gbif_download:
@@ -560,6 +560,7 @@ cs:
     q36455: Min Dong
     q13324: Minangkabau
     q13359: Mingrelian
+    q13330: Mirandština
     q13343: Moksha
     mn: Mongolština
     q56426: Marocká arabština
@@ -600,12 +601,14 @@ cs:
     q36403: Pare
     fa: Perština
     q15085: piemontský
+    q2429648: Pogoro
     pl: Polština
     pol: Polština
     q36748: Pontština
     pt: Portugalština
     ps: Paštúnština
     qu: Kečuánština
+    q584983: Rangi
     ro: Rumunština; Moldavština; Moldovan
     rm: rétorománština
     rn: Rundi
@@ -728,7 +731,7 @@ cs:
       sound: Zvuk
       map_image: mapa
       js_map: interaktivní mapa
-  medium_collect_button: média kolekcí
+  medium_collect_button: sbírat média
   medium_description_blank: Pro tento objekt nebyl dodán popis.
   medium_header_title: 'Název:'
   medium_header_description: 'Popis:'
@@ -761,7 +764,7 @@ cs:
   page_vernaculars_empty: S tímto taxonem nejsou spojena žádná běžná jména.
   pages:
     actions:
-      collect: sbírat
+      collect: do sbírky
       comment:
         zero: bez komentáře
         one: '%{count} komentář'
@@ -848,7 +851,7 @@ cs:
         jednoho druhu; zobrazují ohniskový druh spolu s druhy, kterými se živí (kořist),
         druhy, které se jím živí (predátoři), a dalšími druhy, které se živí stejnou
         kořistí (potenciální konkurenti). Kliknutím získáte další informace.
-      trophic_web_title_html: Trofický web <a href='%{about_path}'><sup><span class='a'
+      trophic_web_title_html: Trofická síť <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: Mezipaměť této stránky byla vymazána. Chcete-li zobrazit nové hodnoty,
@@ -952,8 +955,7 @@ cs:
         help_text: Maximální počet hodnot, které se mají vrátit na řádek (0 pro bez
           omezení)
     schema_space:
-      intro: Kolekce vlastností používaných službou Reconciliation API je popsána
-        níže.
+      intro: Sbírka vlastností používaných službou API Reconciliation je popsána níže.
       headers:
         id: ID
         name: Název
@@ -1019,8 +1021,8 @@ cs:
       one: '%{count} článek'
       other: '%{count} článků'
     n_collections:
-      one: '%{count} kolekce'
-      other: '%{count} kolekcí'
+      one: '%{count} sbírka'
+      other: '%{count} sbírek'
     n_images:
       one: '%{count} obrázek'
       other: '%{count} obrázků'
@@ -1076,8 +1078,8 @@ cs:
         other: 'jeden=odpovídá běžnému názvu:'
     section_titles:
       collections:
-        one: '%{count} kolekce'
-        other: '%{count} kolekcí'
+        one: '%{count} sbírka'
+        other: '%{count} sbírek'
       media:
         one: '%{count} médium'
         other: '%{count} média'
@@ -1542,6 +1544,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005741: alpská půda
         http://eol(dot)org/schema/terms/alternatingReproduction: střídání generací
         http://eol(dot)org/schema/terms/ambush: predátor ze zálohy
+        https://eol(dot)org/schema/terms/ampharetid_feeder: živící se amfaretidy
         http://eol(dot)org/schema/terms/amphibious: obojživelný
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amfidromní
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000152: kanál
@@ -1640,6 +1643,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: včelí vosk
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: Cirkadiánní rytmus chování
         http://eol(dot)org/schema/terms/benthic: bentické
+        https://eol(dot)org/schema/terms/benthic_diatom_feeder: živící se bentickými
+          rozsivkami
         http://purl(dot)jp/bio/4/id/201306015586596728: bentické rozsivky
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Berriasian: berriasovský
           věk
@@ -1651,6 +1656,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: biologický odpad
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminiscenční
         https://eol(dot)org/schema/terms/bipedal_running: dvounohý běh
+        https://eol(dot)org/schema/terms/bivalve_feeder: živicí se škeblemi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: černá
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: krev
         http://eol(dot)org/schema/terms/BloomPeriod: období květu
@@ -1670,6 +1676,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000540: brakické jezero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000541: brakický rybník
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: brakická voda
+        https://eol(dot)org/schema/terms/brittlestar_feeder: živící se ostnokožci
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: široký
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: listnatý les
         http://eol(dot)org/schema/terms/bromelicolous: bromélie
@@ -1759,6 +1766,7 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cenozoic: cenozoická
           éra
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: centrální nervový systém
+        https://eol(dot)org/schema/terms/cephalopod_feeder: živící se hlavonožci
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: křída
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003914: křídová půda
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Changhsingian: changsingovský
@@ -1776,6 +1784,9 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: cisuralská
           epocha
         http://purl(dot)org/dc/terms/bibliographicCitation: citace
+        http://eol(dot)org/schema/terms/CITES_I: CITES Příloha i
+        http://eol(dot)org/schema/terms/CITES_II: CITES Příloha ii
+        http://eol(dot)org/schema/terms/CITES_III: CITES Příloha iii
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: město
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: jíl
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: jílová usazenina
@@ -1789,6 +1800,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm²
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm³
+        http://eol(dot)org/schema/terms/cnidaria_feeder: živící se žahavci
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: pobřežní
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: pobřežní duna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: pobřežní zátoka
@@ -1809,6 +1821,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: komunikace
         http://eol(dot)org/schema/terms/competitive: soutěživý
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: kompost
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: složený
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: složené oči
         https://eol(dot)org/schema/terms/concave_mirror_eyes: konkávní zrcadlové oči
         http://eol(dot)org/schema/terms/cone: kužel
@@ -1844,16 +1857,21 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PO_0020030: děložní list
         http://rs(dot)tdwg(dot)org/dwc/terms/countryCode: kód země
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: stáj
+        https://eol(dot)org/schema/terms/crab_feeder: živící se kraby
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000052: kráterové jezero
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000363: plazení
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: soumračný
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cretaceous: období
           křídy
+        https://eol(dot)org/schema/terms/crinoid_feeder: živící se lilijicemi
         http://eol(dot)org/schema/terms/criticallyEndangered: kriticky ohrožený
+        http://eol(dot)org/schema/terms/cruising: živící se při plutí
+        https://eol(dot)org/schema/terms/crustacean_feeder: živící se korýši
         http://eol(dot)org/schema/terms/crustose: krustóza
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: kryogenní
           období
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: celoročně zmrzlá půda
+        http://eol(dot)org/schema/terms/cuneiform: klínový
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: válec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: cypřišový močál
         http://eol(dot)org/schema/terms/dahllite: dahllit
@@ -1869,15 +1887,18 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: mrtvý
         http://sweet(dot)jpl(dot)nasa(dot)gov/2(dot)3/matrSediment(dot)owl#Debris: odpad
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: kyselina dekanová
+        https://eol(dot)org/schema/terms/decapod_feeder: živící se desetinožci
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: opadavý
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000816: listnatý opadavý les
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: snížená kvalita
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: ležící na zemi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002113: hlubokomořská usazenina
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: stupně
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: stupně celsia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000101: delta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000248: hustě osídlený biom
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: zubní
+        http://eol(dot)org/schema/terms/depositFeeder: živicí se organickým sedimentem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000309: snížení
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: poušť
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000883: pouštní a xerické křoviny
@@ -1891,6 +1912,7 @@ cs:
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: průměr
         http://eol(dot)org/schema/terms/diandry: diandrický
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapauza
+        https://eol(dot)org/schema/terms/diatom_feeder: živící se rozsivkami
         http://eol(dot)org/schema/terms/dielVerticalMigration: díl vertikální migrace
         http://eol(dot)org/schema/terms/Diet: dieta zahrnuje
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: zažívací ústrojí
@@ -1939,10 +1961,12 @@ cs:
         http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Východní obloukové
           hory
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: žere
+        http://eol(dot)org/schema/terms/echinoderm_feeder: živící se ostnokožci
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: ekosystémové inženýrství
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ektoparazit
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: ediakarské
           období
+        https://eol(dot)org/schema/terms/eel_feeder: živící se úhoři
         http://eol(dot)org/schema/terms/eggDensity: hustota vejce
         http://eol(dot)org/schema/terms/EggDiameter: průměr vejce
         http://eol(dot)org/schema/terms/EggMass: hmotnost vejce
@@ -1951,6 +1975,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: kyselina eikosanová
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eifelian: eifeliánský
           věk
+        https://eol(dot)org/schema/terms/elasmobranch_feeder: živící se chrupavčitými
+          parybami příčnoústní
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000176: zvýšené
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimElevation: nadmořská výška
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: protáhlý
@@ -1971,6 +1997,7 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Eocene: eocénní
           epocha
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: pokožka
+        http://eol(dot)org/schema/terms/epifauna_feeder: živící se přisedlou epifaunou
         http://eol(dot)org/schema/terms/epihydate: epihydrát
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: epifyt z
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: epizodický
@@ -2030,6 +2057,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: krmivo
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: potravinářská přísada
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: potravinářské barvivo
+        https://eol(dot)org/schema/terms/foram_feeder: živící se dírkonošci
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: délka přední končetiny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: les
         http://eol(dot)org/schema/terms/forestEdge: kraj lesa
@@ -2112,6 +2140,7 @@ cs:
           věk
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: prostředí
         http://eol(dot)org/schema/terms/HabitatBreadth: rozsah stanoviště
+        https://eol(dot)org/schema/terms/hagfish_feeder: živící se sliznatkami
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002024: alkalické stanoviště
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: visuté údolí
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: přístav
@@ -2169,6 +2198,7 @@ cs:
           věk
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: med
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: vodorovný
+        https://eol(dot)org/schema/terms/horseshoe_crab_feeder: živící se hrotnáčovitými
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: nemocnice
         http://purl(dot)obolibrary(dot)org/obo/RO_0002453: hostitel
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000051: horké prameny
@@ -2198,6 +2228,8 @@ cs:
         http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: individuální počet
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: induánský
           věk
+        http://eol(dot)org/schema/terms/infauna_feeder: živící se organismy ve vodních
+          sedimentech
         https://eol(dot)org/schema/terms/infection_effect: infekční účinek
         http://eol(dot)org/schema/terms/InitialMortalityRate: počáteční úmrtnost
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000089: vnitrozemský útes
@@ -2255,6 +2287,8 @@ cs:
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: známé mořské druhy
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kungurian: kungurský
           věk
+        https://eol(dot)org/schema/terms/labile_material_feeder: živící se rychle
+          metabolizovatelnými organickými sloučeninami
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ladinian: ladinský
           věk
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000038: laguna
@@ -2481,6 +2515,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm²
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000063: mmol/l
+        https://eol(dot)org/schema/terms/mobile_prey_feeder: živící se pohybujícími
+          organismy
         http://eol(dot)org/schema/terms/ModeOfAction: režim akce
         http://eol(dot)org/schema/terms/moderateRate: střední
         http://eol(dot)org/schema/terms/moderateLifeSpan: střední délka života
@@ -2504,6 +2540,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: horský hřeben
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: sliz
         https://eol(dot)org/schema/terms/mucus_gliding: klouzání zprostředkované hlenem
+        http://eol(dot)org/schema/terms/mucus_net_feeder: živící se lapáním částic
+          na trávící hlen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: bláto
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: bahenní sopka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005771: bahnitá půda
@@ -2552,6 +2590,8 @@ cs:
           skupina
         http://eol(dot)org/schema/terms/activityCycleOther: noční/krepuskulární, katemerální,
           krepuskulární nebo denní/krepuskulární
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_NSD: živící se neselektivně
+          organickými usazeninami
         http://eol(dot)org/schema/terms/non-woodyEpipyte: nezdřevnatělý epifyt
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: kyselina nonadekanová
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: žádný
@@ -2565,7 +2605,7 @@ cs:
         http://eol(dot)org/schema/terms/fossilOccPBDB: počet fosilních výskytů
         http://eol(dot)org/schema/terms/NumberOfHosts: počet hostitelů
         http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: počet veřejných
-          záznamů tučně
+          záznamů v BOLD
         http://eol(dot)org/schema/terms/NutrientCompositionOfMilk: složení živin mléka
         http://eol(dot)org/schema/terms/nutrient_symbiotroph: živinový symbiotrof
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000239: dubový les
@@ -2666,6 +2706,7 @@ cs:
         http://eol(dot)org/schema/terms/persistentSeedBank: vytrvalý
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0011562: hubení škůdců
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        http://eol(dot)org/schema/terms/phagocytosis: živící se fagocytózou
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Phanerozoic: fanerozoický
           eon
         http://eol(dot)org/schema/terms/phenologicalSeason: fenologická sezóna
@@ -2713,6 +2754,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PO_0025281: pyl
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: opylován
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: opyluje
+        https://eol(dot)org/schema/terms/polychaete_feeder: živící se mnohoštětinatci
         http://eol(dot)org/schema/terms/polyhaline: polyhalinní
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: polymetalické konkrece
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: rybník
@@ -2733,6 +2775,8 @@ cs:
           věk
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000260: prérie
         http://eol(dot)org/schema/terms/PrecipitationTolerance: srážková tolerance
+        http://eol(dot)org/schema/terms/predatory_suspension_feeder: živící se zachycením
+          mikroskopické kořisti suspendované ve vodě
         http://eol(dot)org/schema/terms/predatorScavenger: predátor – mrchožrout
         http://eol(dot)org/schema/terms/PrenatalDevelopmentDuration: trvání prenatálního
           vývoje
@@ -2749,6 +2793,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: proteiny
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: proterozoický
           eon
+        http://eol(dot)org/schema/terms/protozoa_feeder: živící se prvoky
         http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: růžová
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: pyramidový
@@ -2814,6 +2859,7 @@ cs:
         https://eol(dot)org/schema/terms/rockyVegetated: skalní výchozy s vegetací
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005799: kamenitý písek
         http://eol(dot)org/schema/terms/rootCrown: kořenová koruna
+        http://eol(dot)org/schema/terms/root_feeder: živící se kořeny
         http://purl(dot)obolibrary(dot)org/obo/TO_0000519: hloubka zakořenění
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: kořeny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000164: kaučuková plantáž
@@ -2857,6 +2903,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005739: mořská pěna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000059: lůžko z mořské trávy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000485: mořské pobřeží
+        https://eol(dot)org/schema/terms/sea_urchin_feeder: živící se ježovkami
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000264: podmořská hora
         http://purl(dot)obolibrary(dot)org/obo/PO_0005848: sekundární xylém
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25669: zabezpečení
@@ -2874,6 +2921,8 @@ cs:
         http://eol(dot)org/schema/terms/SeedPerPound: semen na libru
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Selandian: selandský
           věk
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/FEED_SD: živící se selektivně
+          organickými usazeninami
         http://eol(dot)org/schema/terms/self-supportingGrowthForm: samonosné
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: poloopadavý
         http://eol(dot)org/schema/terms/semi-woody: polodřevitá
@@ -2884,6 +2933,8 @@ cs:
           věk
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Serravallian: serravalský
           věk
+        https://eol(dot)org/schema/terms/sessile_prey_feeder: živící se přisedlou
+          kořistí
         http://rs(dot)tdwg(dot)org/dwc/terms/sex: pohlaví
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM: sexuální metamorfóza
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/SM_YES: sexuální metamorfóza
@@ -2945,11 +2996,13 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000543: sferule
         http://purl(dot)obolibrary(dot)org/obo/PO_0025173: ve tvaru páteře
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0008260: páteře
+        http://eol(dot)org/schema/terms/sponge_feeder: živící se mořskými houbami
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000123: houbový útes
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000027: pramenitá (voda)
         http://purl(dot)obolibrary(dot)org/obo/PO_0009029: tyčinka
         http://eol(dot)org/schema/terms/StandardLength: standardní délka
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28017: škrob
+        https://eol(dot)org/schema/terms/starfish_feeder: živící se mořskými hvězdicemi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Statherian: statherovské
           období
         http://purl(dot)obolibrary(dot)org/obo/PO_0009047: stonek
@@ -2971,6 +3024,8 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000267: podmořský kaňon
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000251: subpolární
         http://eol(dot)org/schema/terms/subshrub: podrost
+        http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: živící se podpovrchovými
+          usazeninami
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000572: podzemní
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000050: přílivový skalnatý útes
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000205: subtropický
@@ -3083,6 +3138,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000495: přítok
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: kyselina tridekanová
         http://eol(dot)org/schema/terms/trophicEcology: trofická ekologie
+        http://eol(dot)org/schema/terms/TrophicGuild: trofické společenství
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005806: tropický a subtropický
           jehličnatý les
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000879: tropický a subtropický
@@ -3336,6 +3392,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: promiskuitní
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: šplhající
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: izotyp
+        http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: kód sbírky
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isosyntype: izosyntyp
         http://eol(dot)org/schema/terms/originalMaterial: původní materiál
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: epityp
@@ -3343,9 +3400,9 @@ cs:
           Lycksele
         http://eol(dot)org/schema/terms/collection_AGarai: Sbírka A. Garai
         http://eol(dot)org/schema/terms/collection_Fwillemse: sbírka F. Willemse
-        http://eol(dot)org/schema/terms/collection_GHSchmidt: Kolekce GH Schmidta
-        http://eol(dot)org/schema/terms/collection_Heller: Hellerova sbírka
-        http://eol(dot)org/schema/terms/collection_Singrisch: Kolekce Singrisch
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: Sbírka G. H. Schmidta
+        http://eol(dot)org/schema/terms/collection_Heller: Sbírka Heller
+        http://eol(dot)org/schema/terms/collection_Singrisch: Sbírka Singrisch
         http://eol(dot)org/schema/terms/Entomological_Museum_Department_of_Agriculture_Bangkok_Thailand: Entomologické
           muzeum Ministerstvo zemědělství Bangkok Thajsko
         http://eol(dot)org/schema/terms/exepitype: bývalý epityp
