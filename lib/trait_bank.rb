@@ -9,10 +9,13 @@ module TraitBank
     def query(q, params={})
       response = nil
       clean_q = q.gsub(/^\s+/, "")
+      tries_left = 3
       response = begin
           ActiveGraph::Base.query(clean_q, params, wrap: false)
         rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
           sleep(0.2)
+          tries_left -= 1
+          raise e unless tries_left.positive?
           retry
         end
 

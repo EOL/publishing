@@ -10,7 +10,7 @@ module ActiveGraph
   module Migrations
     class << self
       def currently_running_migrations
-        return true # If it's NOT true, it's goping to validate them, EVEN THOUGH WE CONFIGED IT NOT TO.
+        return true # If it's NOT true, it's going to validate them, EVEN THOUGH WE CONFIGED IT NOT TO.
       end
     end
   end
