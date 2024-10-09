@@ -15,7 +15,10 @@ module TraitBank
         rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
           sleep(0.2)
           tries_left -= 1
-          raise e unless tries_left.positive?
+          unless tries_left.positive?
+            Rails.logger.error("Session Expired attempting Neo4j query: #{clean_q[0..1000]}")
+            return nil
+          end
           retry
         end
 
