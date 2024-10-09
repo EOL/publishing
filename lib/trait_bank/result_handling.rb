@@ -67,9 +67,10 @@ module TraitBank::ResultHandling
     # as the "identifier" (meaning the field who's ID will uniquely identify a
     # row of related data ... e.g.: the "trait" for trait data)
     def results_to_hashes(results, identifier = nil)
+      hashes = []
+      return hashes if results.nil?
       id_col = results["columns"].index(identifier ? identifier.to_s : "trait")
       id_col ||= 0 # If there is no trait column and nothing was specified...
-      hashes = []
       previous_id = nil
       hash = nil
       results["data"].each do |row|
