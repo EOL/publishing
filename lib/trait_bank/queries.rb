@@ -147,7 +147,7 @@ module TraitBank
       end
 
       def get_count(res)
-        return false unless res.respond_to?(:[])
+        return 0 unless res.respond_to?(:[])
         (res["data"] && res["data"].first) ? res["data"].first.first : false
       end
 
