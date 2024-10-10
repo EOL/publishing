@@ -145,6 +145,15 @@ module TraitBank
       end
 
       def key_data_pks(page, limit)
+        begin
+          raw_key_data_pks(page, limit)
+        rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+          # Don't die just because we can't reach the server! (But also don't cache the value)
+          []
+        end
+      end
+
+      def raw_key_data_pks(page, limit)
         Rails.cache.fetch("trait_bank/key_data_pks/#{page.id}/v2/limit_#{limit}", expires_in: 1.day) do
           if page.page_node.nil?
             []
