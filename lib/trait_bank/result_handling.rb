@@ -153,6 +153,7 @@ module TraitBank::ResultHandling
     # NOTE: this method REQUIRES that some fields have a particular name.
     # ...which isn't very generalized, but it will do for our purposes...
     def build_trait_array(results, options={})
+      return [] if results.nil? # Don't fail just 'cause the server's down.
       hashes = options[:flat_results] ? flat_results_to_hashes(results) : results_to_hashes(results, options[:identifier])
       key = options[:key]
       TraitBank::Logger.log("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key

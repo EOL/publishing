@@ -140,6 +140,8 @@ module TraitBank
             RETURN group_predicate, page_assoc_role
           ))
 
+          return {} if res.nil? # Don't fail just 'cause the server's down.
+
           res["data"].collect { |d| { group_predicate: d[0]["data"].symbolize_keys, page_assoc_role: d[1] } }
         end
       end
@@ -198,12 +200,12 @@ module TraitBank
         q = "MATCH (page:Page) RETURN COUNT(page)"
         res = query(q)
         return [] if res["data"].empty?
-        res["data"] ? res["data"].first.first : 0
+        res && res["data"] ? res["data"].first.first : 0
       end
 
       def page_exists?(page_id)
         res = query("MATCH (page:Page { page_id: #{page_id} }) RETURN page")
-        res["data"] && res["data"].first ? res["data"].first.first : false
+        res && res["data"] && res["data"].first ? res["data"].first.first : false
       end
 
       def association_page_ids(page_id)
@@ -219,6 +221,7 @@ module TraitBank
             RETURN DISTINCT page_id
           )
           result = query(q)
+          return [] if result.nil? # Don't fail just 'cause the server's down.
           result["data"].flatten
         end
       end
@@ -240,6 +243,7 @@ module TraitBank
           )
 
           res = query(q)
+          return [] if res.nil? # Don't fail just 'cause the server's down.
           TraitBank::ResultHandling.build_trait_array(res)
         end
       end
