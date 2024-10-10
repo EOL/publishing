@@ -803,7 +803,12 @@ class Page < ApplicationRecord
   end
 
   def page_node
-    PageNode.find_by(id: id)
+    begin
+      PageNode.find_by(id: id)
+    rescue => e
+      # Don't fail just because the connection died
+      nil
+    end
   end
 
   private
