@@ -545,6 +545,15 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
+    begin
+      raw_key_data
+    rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+      # Don't fail just because the server went away!
+      {}
+    end
+  end
+
+  def raw_key_data
     tb_result = TraitBank::Page.key_data_pks(self, KEY_DATA_LIMIT)
     traits_by_id = Trait.for_eol_pks(tb_result.map { |row| row[:trait_pk] })
       .map { |t| [t.id, t] }
