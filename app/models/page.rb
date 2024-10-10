@@ -561,6 +561,7 @@ class Page < ApplicationRecord
   end
 
   def has_data?
+    return false if data_count.nil?
     data_count > 0
   end
 
