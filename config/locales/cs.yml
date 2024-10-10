@@ -91,6 +91,7 @@ cs:
         r_superphylum: '%{name1} je nadkmen %{name2}.'
         r_phylum: '%{name1} je kmen %{name2}.'
         r_subphylum: '%{name1} je podkmen %{name2}.'
+        r_infraphylum: '%{name1} je infrakmen %{name2}.'
         r_superclass: '%{name1} je nadtřídou %{name2}.'
         r_class: '%{name1} je třída %{name2}.'
         r_subcategory: '%{name1} je podkategorií %{name2}.'
@@ -99,29 +100,29 @@ cs:
         r_order: '%{name1} je řád %{name2}.'
         r_suborder: '%{name1} je podřád %{name2}.'
         r_infraorder: '%{name1} je infrařád %{name2}.'
-        r_family: '%{name1} je rodina %{name2}.'
+        r_family: '%{name1} je čeleď %{name2}.'
       below_family:
         with_family:
-          r_subfamily: '%{name1} je podrodinou %{name2} v rodině %{name3}.'
-          r_infrafamily: '%{name1} je infrarodina %{name2} v rodině %{name3}.'
-          r_tribe: '%{name1} je kmen %{name2} v rodině %{name3}.'
-          r_supergenus: '%{name1} je nadrod %{name2} v rodině %{name3}.'
-          r_genus: '%{name1} je rod %{name2} v rodině %{name3}.'
-          r_subgenus: '%{name1} je podrodem %{name2} v rodině %{name3}.'
-          r_infragenus: '%{name1} je infrarod %{name2} v rodině %{name3}.'
-          r_superspecies: '%{name1} je naddruh %{name2} v rodině %{name3}.'
-          r_species: '%{name1} je druh %{name2} v rodině %{name3}.'
-          r_subspecies: '%{name1} je poddruh %{name2} v rodině %{name3}.'
-          r_infraspecies: '%{name1} je infradruh %{name2} v rodině %{name3}.'
-          r_form: '%{name1} je tvar %{name2} v rodině %{name3}.'
+          r_subfamily: '%{name1} je podčeleď %{name2} v čeledi %{name3}.'
+          r_infrafamily: '%{name1} je infračeleď %{name2} v čeledi %{name3}.'
+          r_tribe: '%{name1} je tribus %{name2} v čeledi %{name3}.'
+          r_supergenus: '%{name1} je nadrod %{name2} v čeledi %{name3}.'
+          r_genus: '%{name1} je rod %{name2} v čeledi %{name3}.'
+          r_subgenus: '%{name1} je podrodem %{name2} v čeledi %{name3}.'
+          r_infragenus: '%{name1} je infrarod %{name2} v čeledi %{name3}.'
+          r_superspecies: '%{name1} je naddruh %{name2} v čeledi %{name3}.'
+          r_species: '%{name1} je druh %{name2} v čeledi %{name3}.'
+          r_subspecies: '%{name1} je poddruh %{name2} v čeledi %{name3}.'
+          r_infraspecies: '%{name1} je infradruh %{name2} v čeledi %{name3}.'
+          r_form: '%{name1} je forma %{name2} v čeledi %{name3}.'
         without_family:
-          r_subfamily: '%{name1} je podrodina %{name2}.'
-          r_infrafamily: '%{name1} je infrarodina %{name2}.'
-          r_tribe: '%{name1} je kmen %{name2}.'
+          r_subfamily: '%{name1} je podčeleď %{name2}.'
+          r_infrafamily: '%{name1} je infračeleď %{name2}.'
+          r_tribe: '%{name1} je tribus %{name2}.'
           r_supergenus: '%{name1} je nadrod %{name2}.'
           r_genus: '%{name1} je rod %{name2}.'
-          r_subgenus: '%{name1} je podrodem %{name2}.'
-          r_infragenus: '%{name1} je infragenus %{name2}.'
+          r_subgenus: '%{name1} je podrod %{name2}.'
+          r_infragenus: '%{name1} je infrarod %{name2}.'
           r_superspecies: '%{name1} je naddruh %{name2}.'
           r_species: '%{name1} je druh %{name2}.'
           r_subspecies: '%{name1} je poddruh %{name2}.'
@@ -129,7 +130,7 @@ cs:
           r_form: '%{name1} je tvar %{name2}.'
   button_create: vytvořit
   button_add: přidat
-  cancel: Zrušit
+  cancel: zrušit
   change_my_password: Změnit heslo
   change_your_password: Změňte vaše heslo
   classifications:
@@ -817,6 +818,7 @@ cs:
         r_superphylum: Nadčeleď
         r_phylum: Čeleď
         r_subphylum: Podčeleď
+        r_infraphylum: Infrakmen
         r_superclass: Nadtřída
         r_class: Třída
         r_subcategory: Podtřída
@@ -828,13 +830,16 @@ cs:
         r_superfamily: Nadčeleď
         r_family: Čeleď
         r_subfamily: Podčeleď
+        r_infrafamily: Infračeleď
         r_tribe: Kmen
         r_supergenus: Nadrod
         r_genus: Rod
         r_subgenus: Podrod
+        r_infragenus: Infrarod
         r_superspecies: Naddruh
         r_species: Druhy
         r_subspecies: Poddruhy
+        r_infraspecies: Infradruh
         r_form: Tvar
       reference_taxon_attrib: Referenční taxon z %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
@@ -902,6 +907,7 @@ cs:
       r_superphylum: nadčeleď
       r_phylum: čeleď
       r_subphylum: podčeleď
+      r_infraphylum: Infrakmen
       r_superclass: nadtřída
       r_class: třída
       r_subcategory: podtřída
@@ -910,12 +916,15 @@ cs:
       r_order: řád
       r_suborder: podřád
       r_infraorder: infrařád
+      r_superfamily: Nadčeleď
       r_family: čeleď
       r_subfamily: podčeleď
+      r_infrafamily: Infračeleď
       r_tribe: kmen
       r_supergenus: nadrod
       r_genus: rod
       r_subgenus: podrod
+      r_infragenus: Infrarod
       r_superspecies: naddruh
       r_species: druhy
       r_subspecies: poddruhy
@@ -1556,6 +1565,7 @@ cs:
         https://eol(dot)org/schema/terms/anal_dorsal_fins: plavání s řitní a hřbetní
           ploutví
         https://eol(dot)org/schema/terms/anal_fin: plavání za pomocí řitní ploutve
+        https://eol(dot)org/schema/terms/andromonoecious: mnohomanželnost
         http://eol(dot)org/schema/terms/androviviparous: androviviparní
         http://eol(dot)org/schema/terms/anemochory: anemochorie
         https://eol(dot)org/schema/terms/anguilliform: anguilliformní
