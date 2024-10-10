@@ -3473,7 +3473,14 @@ pms:
         http://eol(dot)org/schema/terms/VegetativeSpreadRate: andi ëd colonisassion
           vegetativa
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000604: veìcol
+        http://eol(dot)org/schema/terms/veneer: arvestiment an bòsch
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimLatitude: latitùdin verbatim
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimLongitude: longitùdin verbatim
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002254: vertisol
+        http://eol(dot)org/schema/terms/vertivore: vertìvor
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/258262008: motobin grand
+        http://eol(dot)org/schema/terms/veryLongPersistentSeedBank: a përsistensa
+          motobin longa
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur ëd l'eva
