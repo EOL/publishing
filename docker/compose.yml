@@ -202,6 +202,7 @@ services:
     environment:
       - TZ=America/New_York
       - NEO4J_AUTH
+      - NEO4J_db_tx__log_rotation_size=100M
       - NEO4J_dbms_memory_pagecache_size=34G
       - NEO4J_dbms_memory_heap_max__size=31500m
       - NEO4J_dbms_memory_heap_initial__size=31500m
