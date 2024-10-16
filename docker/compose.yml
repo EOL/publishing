@@ -193,7 +193,7 @@ services:
           # Yes, this really needs a ton of memory to function. It will run out quickly. You may want to _increase_ this:
           memory: 48G
     profiles: ["graph"]
-    image: neo4j:4.2.3
+    image: neo4j:5.24
     container_name: neo4j
     restart: always
     # NOTE: environment variables OVERRIDE the values in the config file!
@@ -201,7 +201,7 @@ services:
     # $HOME/conf/neo4j.conf, which can be VERY confusing. Be aware.
     environment:
       - TZ=America/New_York
-      - NEO4J_AUTH=neo4j/SomePasswordHere
+      - NEO4J_AUTH
       - NEO4J_dbms_memory_pagecache_size=34G
       - NEO4J_dbms_memory_heap_max__size=31500m
       - NEO4J_dbms_memory_heap_initial__size=31500m
@@ -217,7 +217,6 @@ services:
       - /data/neo4j/exports:/exports
       - ./templates/neo4j.conf:/conf/neo4j.conf
     ports:
-      - 7473:7473
       - 7474:7474
       - 7687:7687
   mysql:
