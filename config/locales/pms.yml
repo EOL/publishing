@@ -3489,8 +3489,13 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002618: a vìsita
         http://purl(dot)obolibrary(dot)org/obo/RO_0002622: a vìsita le fior ëd
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: vitamin-e
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010622: vivié
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000094: volcànich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000351: arch volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000398: còno volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000246: boca volcànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000354: camp volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: ròch volcànich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur ëd l'eva
         http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
