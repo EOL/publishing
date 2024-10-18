@@ -203,11 +203,12 @@ services:
       - TZ=America/New_York
       - NEO4J_AUTH_FILE=/run/secrets/neo4j_auth_file
       - NEO4J_db_tx__log_rotation_size=100M
-      - NEO4J_dbms_memory_pagecache_size=34G
-      - NEO4J_dbms_memory_heap_max__size=31500m
-      - NEO4J_dbms_memory_heap_initial__size=31500m
-      - NEO4J_cypher_query__max__allocations_size=4G
+      - NEO4J_dbms_memory_pagecache_size='34g'
+      - NEO4J_dbms_memory_heap_max__size='32g'
+      - NEO4J_dbms_memory_heap_initial__size='32g'
+      - NEO4J_cypher_query__max__allocations_size='4g'
       - NEO4J_dbms_transaction_timeout=85s
+      - NEO4J_server_jvm_additional='-XX:+ExitOnOutOfMemoryError'
       - NEO4J_dbms_security_procedures_unrestricted=apoc.*
       - NEO4J_dbms_directories_import=/exports
       - NEO4J_apoc_export_file_enabled=true
