@@ -3482,9 +3482,37 @@ pms:
         http://eol(dot)org/schema/terms/veryLongPersistentSeedBank: a përsistensa
           motobin longa
         http://dicom(dot)nema(dot)org/resources/ontology/DCM/112132: motobin cit
+        https://eol(dot)org/schema/terms/vestigial_eyes: euj vestigiaj
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000116: vigna
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Visean: età visean-a
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002619: visità da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: a vìsita
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: a vìsita le fior ëd
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: vitamin-e
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010622: vivié
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000094: volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000351: arch volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000398: còno volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000246: boca volcànica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000354: camp volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002015: ròch volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005785: seul volcànich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: volcan
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
+        http://eol(dot)org/schema/terms/VoucherID: identificant ëd l'esemplar
+        http://eol(dot)org/schema/terms/vulnerable: vulneràbil
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000031: wadi
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: marcia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002998: desert càud e semidesert
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002264: mnis
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur ëd l'eva
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
+        http://eol(dot)org/schema/terms/SeawaterTemperature: temperadura ëd l'eva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000002: poss d'eva
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000613: ambarcassion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000040: cascada
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: watt
+        http://eol(dot)org/schema/terms/waveExposure: esposission a j'onde
+        http://eol(dot)org/schema/terms/weddelite: weddelite
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianch
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densità dël bòsch
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
