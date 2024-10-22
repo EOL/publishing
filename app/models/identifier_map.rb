@@ -3,15 +3,22 @@ class IdentifierMap
 
   class << self
     def build
-      builder = self.new
+      builder = self.new(browsable_resource_ids: Resource.classification.pluck(:id))
+      builder.build
+    end
+
+    def build_all
+      builder = self.new(browsable_resource_ids: Resource.pluck(:id), prefix: 'all')
       builder.build
     end
   end
 
   def initialize(params = {})
     require 'zlib'
+    filename = 'provider_ids.csv'
+    filename = "#{params[:prefix]}_#{filename}" if params.has_key?(:prefix)
     @file = Rails.public_path.join('data', 'provider_ids.csv')
-    @browsable_resource_ids = Resource.classification.pluck(:id)
+    @browsable_resource_ids = params[:browsable_resource_ids] || Resource.classification.pluck(:id)
     @file = params[:file] if params.key?(:file)
     @browsable_resource_ids = params[:resource_ids] if params.key?(:resource_ids)
     @debug = params[:debug]
