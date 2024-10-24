@@ -3512,7 +3512,18 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000040: cascada
         http://purl(dot)obolibrary(dot)org/obo/UO_0000114: watt
         http://eol(dot)org/schema/terms/waveExposure: esposission a j'onde
+        http://eol(dot)org/schema/terms/WeaningAge: età dël dësvlup
         http://eol(dot)org/schema/terms/weddelite: weddelite
+        https://eol(dot)org/schema/terms/weeping: pendent
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000535: sbarament
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000026: poss
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wenlock: época
+          ëd Wenlock
+        http://eol(dot)org/schema/terms/bodyMassWet: massa dël còrp ìdrica
+        http://eol(dot)org/schema/terms/wet_forest: foresta ùmida
+        http://eol(dot)org/schema/terms/wetMass: massa ìdrica
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000449: prairìa ùmida
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000043: teren ùmid
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianch
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densità dël bòsch
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
