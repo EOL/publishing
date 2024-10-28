@@ -3524,7 +3524,16 @@ pms:
         http://eol(dot)org/schema/terms/wetMass: massa ìdrica
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000449: prairìa ùmida
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000043: teren ùmid
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000140: carcassa ëd balen-a
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianch
+        http://eol(dot)org/schema/terms/whiteGrey: bianch-gris
+        http://semanticscience(dot)org/resource/SIO_000042: larghëssa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000374: àrea ëd gestion ëd la
+          vita sërvaja
+        http://eol(dot)org/schema/terms/winterDeciduous: a fujagi nen përsistent d'invern
+        http://eol(dot)org/schema/terms/winterSemiDeciduous: a fujagi semipërsistent
+          d'invern
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: bòsch
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densità dël bòsch
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giàun
