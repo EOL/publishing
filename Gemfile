@@ -41,7 +41,7 @@ gem 'kaminari', '~> 1.2.2'
 # maintainable!
 
 # NEO4J:
-gem 'activegraph', '~> 11.5'
+gem 'activegraph', '~> 11.4'
 gem 'neo4j-ruby-driver', '~> 4.4'
 
 
