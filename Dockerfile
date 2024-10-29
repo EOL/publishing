@@ -1,5 +1,5 @@
-FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS assets
-# WARNING:                       ^^^^^^^^^^^^^ when you update that, ALSO update it below!
+FROM encoflife/eol-rails:2024-10-29.01 AS assets
+# WARNING:               ^^^^^^^^^^^^^ when you update that, ALSO update it below!
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -41,7 +41,7 @@ RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
 
 # -=-=-=-=-=-=-
 
-FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS app
+FROM encoflife/eol-rails:2024-10-29.01 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app

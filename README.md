@@ -55,6 +55,21 @@ bundle
 
 ...That's pretty much it, assuming you run everything else in containers!
 
+## Building
+
+You must have your .env file setup (in the docker subdir) for this to work.
+YYYY-MM-DD.NN means year, month, day, and build count for that day, e.g.: 2024-10-29.01
+
+
+```
+cd docker
+docker buildx build --tag encoflife/eol-rails:YYYY-MM-DD.NN --file ../eol_rails.Dockerfile .
+docker push encoflife/eol-rails:YYYY-MM-DD.NN
+# Modify the current Dockerfile to reference that new tag! (TWICE!)
+export $(grep -v "^#" .env | xargs) && dc build --build-arg rails_secret_key=$RAILS_MASTER_KEY --build-arg rails_env=$RAILS_ENV --build-arg traitbank_url=$TRAITBANK_URL --build-arg neo4j_driver_url=$NEO4J_DRIVER_URL --build-arg neo4j_user=$NEO4J_USER --build-arg neo4j_password=$NEO4J_PASSWORD --build-arg eol_github_user=$EOL_GITHUB_USER --build-arg eol_github_email=$EOL_GITHUB_EMAIL
+docker compose cp app:/app/public/packs /data/publishing_web_packs && dc cp app:/app/public/assets /data/publishing_web_assets
+```
+
 ## More information
 
 There is various additional information about the project in the doc/ folder.
