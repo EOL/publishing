@@ -30,11 +30,11 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
-RUN apt-get update -q && \
-    apt-get install -qq -y cmake
+# RUN apt-get update -q && \
+#     apt-get install -qq -y cmake
 
-RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && \
-    cd seabolt && ./make_debug.sh && cd build && cpack
-RUN cd / && \
-    tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-11.tar.gz && \
-    cp -rf seabolt-1.7.4-dev-Linux-debian-11/* .
+# RUN cd / && git clone https://github.com/neo4j-drivers/seabolt.git && \
+#     cd seabolt && ./make_debug.sh && cd build && cpack
+# RUN cd / && \
+#     tar xzf /seabolt/build/dist-package/seabolt-1.7.4-dev-Linux-debian-11.tar.gz && \
+#     cp -rf seabolt-1.7.4-dev-Linux-debian-11/* .
