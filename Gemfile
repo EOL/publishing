@@ -40,10 +40,9 @@ gem 'kaminari', '~> 1.2.2'
 # ...and with a comment above each gem (or block of related gems) explaining what it's for. Let's keep this
 # maintainable!
 
-gem 'activegraph', '~> 10.1'
-# TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
-gem 'activestorage', '~> 6.1.7'
-gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
+# NEO4J:
+gem 'activegraph', '~> 11.5'
+gem 'neo4j-ruby-driver', '~> 4.4'
 
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.3'
