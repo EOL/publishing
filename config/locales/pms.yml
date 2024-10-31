@@ -3535,6 +3535,9 @@ pms:
           d'invern
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: bòsch
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densità dël bòsch
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000142: cascà ëd bòsch
+        http://top-thesaurus(dot)org/annotationInfo?viz=1&trait=Woodiness: lëgnosità
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: tèra boscosa
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giàun
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: verd giàun
