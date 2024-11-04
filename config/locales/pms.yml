@@ -3538,6 +3538,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000142: cascà ëd bòsch
         http://top-thesaurus(dot)org/annotationInfo?viz=1&trait=Woodiness: lëgnosità
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: tèra boscosa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001240: canopea ëd tèra boscosa
+        http://eol(dot)org/schema/terms/woodyEpipyte: epifita ëd bòsch
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: età wordian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: età
+          wuchiapingian-a
+        http://eol(dot)org/schema/terms/yearRound: tut l'ann
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giàun
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: verd giàun
