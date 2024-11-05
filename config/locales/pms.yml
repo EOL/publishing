@@ -3543,6 +3543,7 @@ pms:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wordian: età wordian-a
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Wuchiapingian: età
           wuchiapingian-a
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000218: vàuda sëcca d'erborin
         http://eol(dot)org/schema/terms/yearRound: tut l'ann
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giàun
