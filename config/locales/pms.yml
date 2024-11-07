@@ -3548,9 +3548,27 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giàun
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: verd giàun
+        http://eol(dot)org/schema/terms/yes: é!
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ypresian: età
+          ypresian-a
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Zanclean: età
+          zanclean-a
+        http://eol(dot)org/schema/terms/zoochory: zoocorìa
+        http://eol(dot)org/schema/terms/ZooplanktonFeedingMode: manera d'alimentassion
+          dël zooplàncton
+        http://eol(dot)org/schema/terms/microatmosphere: µatm
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
+        http://eol(dot)org/schema/terms/µg_cm-2: µg/cm²
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000017: µm
+        http://eol(dot)org/schema/terms/perMicrometer: µm^(-1)
+        http://eol(dot)org/schema/terms/squareMicrometer: µm²
+        http://eol(dot)org/schema/terms/cubicMicrometer: µm³
         http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /sélula /di
         http://eol(dot)org/schema/terms/µmol_cell-1: µmol/sélula
+        https://eol(dot)org/schema/terms/micromolpergram: µmol/g
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: µmol/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
+        http://purl(dot)obolibrary(dot)org/obo/GO_0050959: ecolocalisassion
         http://eol(dot)org/schema/terms/Colonial: Colonial
         http://eol(dot)org/schema/terms/NonInvasiveRange: nen anvasiva
         http://eol(dot)org/schema/terms/Territorial: teritorial
