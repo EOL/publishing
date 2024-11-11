@@ -3568,7 +3568,12 @@ pms:
         https://eol(dot)org/schema/terms/micromolpergram: µmol/g
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C48508: µmol/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0016490: sistema auditiv
         http://purl(dot)obolibrary(dot)org/obo/GO_0050959: ecolocalisassion
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000165: boca
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001038: òrgo cordotonaj
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001687: stafe
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001756: orija mesan-a timpànica
         http://eol(dot)org/schema/terms/Colonial: Colonial
         http://eol(dot)org/schema/terms/NonInvasiveRange: nen anvasiva
         http://eol(dot)org/schema/terms/Territorial: teritorial
