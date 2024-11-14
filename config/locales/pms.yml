@@ -3574,6 +3574,8 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001038: òrgo cordotonaj
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001687: stafe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001756: orija mesan-a timpànica
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0006583: statochista
+        https://eol(dot)org/schema/terms/extratympanic: estratimpànich
         http://eol(dot)org/schema/terms/Colonial: Colonial
         http://eol(dot)org/schema/terms/NonInvasiveRange: nen anvasiva
         http://eol(dot)org/schema/terms/Territorial: teritorial
