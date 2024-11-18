@@ -3575,9 +3575,33 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001687: stafe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001756: orija mesan-a timpànica
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0006583: statochista
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0006860: vëssìa noatòria
         https://eol(dot)org/schema/terms/extratympanic: estratimpànich
-        http://eol(dot)org/schema/terms/Colonial: Colonial
+        https://eol(dot)org/schema/terms/tympanic_bladder: vëssìa timpànica
+        https://eol(dot)org/schema/terms/omnivoreHerbivore: onìvor-erbìvor
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D059646: taja dël genòma
+        http://eol(dot)org/schema/terms/geneticVoucher: campion genétich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000345: àuta montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001456: montagna tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000346: bassa montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01001455: montagna temprà
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000432: foresta pautosa
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001866: prolat
+        http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: célula
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020049: fujëtta
+        http://eol(dot)org/schema/terms/algal_filament: filament algal
+        http://eol(dot)org/schema/terms/activelyMobile: ativaman mòbil
+        http://eol(dot)org/schema/terms/Colonial: colonial
         http://eol(dot)org/schema/terms/NonInvasiveRange: nen anvasiva
         http://eol(dot)org/schema/terms/Territorial: teritorial
+        http://eol(dot)org/schema/terms/harem: harem
+        http://eol(dot)org/schema/terms/monogamous: monògam
+        http://eol(dot)org/schema/terms/socialGroupLiving: vivent an ëstrop
+        http://eol(dot)org/schema/terms/cubicMillimeter: mm³
+        http://eol(dot)org/schema/terms/perPound: /lb
+        http://eol(dot)org/schema/terms/pelagic: pelàgich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: giassa ëd mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000197: lagh endoréich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000198: lagh coatà ëd giassa
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
 ...
