@@ -3603,5 +3603,7 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: giassa ëd mar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000197: lagh endoréich
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000198: lagh coatà ëd giassa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000218: fumador nèir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000228: estuari anvers
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
 ...
