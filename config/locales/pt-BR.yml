@@ -18,6 +18,7 @@
 # Author: Saturnow
 # Author: TheEduGobi
 # Author: Trooper57
+# Author: Tuliouel
 # Author: YuriNikolai
 ---
 pt-BR:
@@ -107,7 +108,7 @@ pt-BR:
         r_infraphylum: '%{name1} é um infrafilo de %{name2}.'
         r_superclass: '%{name1} é uma superclasse de %{name2}.'
         r_class: '%{name1} é uma classe de %{name2}.'
-        r_subcategory: '%{name1} é uma subcategorye de %{name2}.'
+        r_subcategory: '%{name1} é uma subcategoria de %{name2}.'
         r_infraclass: '%{name1} é uma infraclasse de %{name2}.'
         r_superorder: '%{name1} é uma superordem de %{name2}.'
         r_order: '%{name1} é uma ordem de %{name2}.'

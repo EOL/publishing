@@ -183,8 +183,8 @@ mk:
   collection_associations_empty: Ниедна друга збирка не е поврзана со оваа. Можете
     да стиснете на копчето „поврзи“ во другите збирки за да се појават овде.
   collection_associations_title: Поврзани збирки
-  collection_collected_pages_media_remove: 'Острани слики од збирката (промените веднаш
-    стапуваат на сила):'
+  collection_collected_pages_media_remove: 'Отстрани слики од збирката (промените
+    веднаш стапуваат на сила):'
   collection_created: Создадена нова збирка „%{name}“.
   collection_created_for_association: Додадено „%{associated}“ во нова збирка <a href='%{link}'>„%{name}“</a>.
   collection_user_is_admin: Овој корисник е администратор.
