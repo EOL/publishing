@@ -293,7 +293,7 @@ cs:
   dear_username_with_comma: Vážený %{username},
   delete_account_button: Smazat váš účet
   errors:
-    internal_server: Chyba interního serveru (500)
+    internal_server: Interní chyba serveru (500)
     not_found: Stránka nenalezena (404)
   filter_by_license: licence
   filter_by_license_any_item: jakákoli licence
@@ -483,6 +483,7 @@ cs:
     id: Indonésština
     q33509: Ingush
     ia: Interlingua (Mezinárodní asociace pomocných jazyků)
+    ie: Interlingue; Occidental
     iu: Inuktitut
     ik: Inupiaq
     q33595: Iraqw
@@ -601,6 +602,8 @@ cs:
     pa: Pandžábština
     q36403: Pare
     fa: Perština
+    q23014: Falčtina
+    q34024: Picard
     q15085: piemontský
     q2429648: Pogoro
     pl: Polština
@@ -619,6 +622,7 @@ cs:
     q34299: Jakutština
     q718269: Sakizaya
     sm: Samoaština
+    q213434: Žemaitština
     q34016: Sandawe
     sg: Sango
     sa: Sanskrit
@@ -1698,6 +1702,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: stavební materiál
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Burdigalian: burdigaliánský
           věk
+        http://eol(dot)org/schema/terms/burl: boulovitost
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005760: spálená půda
         https://eol(dot)org/schema/terms/burrow_builder: stavitel nor
         https://eol(dot)org/schema/terms/burrowDepth: hloubka nory
@@ -1790,6 +1795,7 @@ cs:
           stanoviště
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: černozem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: šot
+        http://eol(dot)org/schema/terms/ciliary_gliding: hlenový skluz
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: sopečný kužel
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: cisuralská
           epocha
@@ -1924,6 +1930,7 @@ cs:
         http://eol(dot)org/schema/terms/DiapauseInitiation: diapauza
         https://eol(dot)org/schema/terms/diatom_feeder: živící se rozsivkami
         http://eol(dot)org/schema/terms/dielVerticalMigration: díl vertikální migrace
+        http://eol(dot)org/schema/terms/DietBreadth: rozsah stravy
         http://eol(dot)org/schema/terms/Diet: dieta zahrnuje
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: zažívací ústrojí
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_17437: dimethylsulfid
@@ -2039,6 +2046,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: farmářská půda
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: rychle
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: péro
+        http://eol(dot)org/schema/terms/feedingCurrent: živící se v proudu
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: stopy
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: samice
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: délka stehenní kosti
@@ -2065,8 +2073,10 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000079: žlab
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorit
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03301293: krmivo
+        http://eol(dot)org/schema/terms/foliose: listová
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: potravinářská přísada
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03303179: potravinářské barvivo
+        http://eol(dot)org/schema/terms/ForagingHabitat: potravní stanoviště
         https://eol(dot)org/schema/terms/foram_feeder: živící se dírkonošci
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: délka přední končetiny
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: les
@@ -2146,6 +2156,7 @@ cs:
           epocha
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Guzhangian: guzhangianský
           věk
+        https://eol(dot)org/schema/terms/gynomonoecious: jednodomé
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gzhelian: gželiánský
           věk
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: prostředí
@@ -2197,6 +2208,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: vysoká tolerance
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: kopec
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000082: pohoří
+        http://eol(dot)org/schema/terms/HindTarsusLength: délka zadního tarzu
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: Hirnantianský
           věk
         http://eol(dot)org/schema/terms/hispidose: hispidóza
@@ -2234,6 +2246,7 @@ cs:
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: imunitní systém
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000310: impaktní kráter
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: palce
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0050001: píďalkující
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: zvýšená kvalita
         http://rs(dot)tdwg(dot)org/dwc/terms/individualCount: individuální počet
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Induan: induánský
@@ -2252,6 +2265,7 @@ cs:
           jezero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000549: přerušovaný vodní útvar
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000389: občasný mokřad
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0001048: vnitřní schránka
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: přílivový sediment
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: přílivová zóna
         http://eol(dot)org/schema/terms/InvasiveRange: invazivní v
@@ -2404,6 +2418,7 @@ cs:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: maastrichtský
           věk
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: makrořasa
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: mafická láva
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: hořčík (mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: samec
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: poměr mužské ženské

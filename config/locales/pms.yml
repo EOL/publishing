@@ -3609,5 +3609,16 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000244: pian-a abissal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000273: spiuvent continental
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000274: montà continental
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000315: bajada
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000318: zòna d'àut maré
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000404: stratovolcan
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002131: epilimnion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002132: metalimnion
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002249: feosema
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002260: seuli a dun-e
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002926: anfiltrassion càuda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005743: seul lateral ëd la stra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005769: seul ëd foresta ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005796: pàuta marenga
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
 ...
