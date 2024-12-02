@@ -286,7 +286,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.22.0)
+    loofah (2.23.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -297,7 +297,7 @@ GEM
     marcel (1.0.4)
     method_source (1.0.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.6)
+    mini_portile2 (2.8.8)
     minitest (5.22.3)
     msgpack (1.7.2)
     multi_json (1.15.0)
@@ -316,7 +316,7 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.16.5)
+    nokogiri (1.16.8)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oj (3.14.2)
@@ -335,7 +335,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.3.1)
       activesupport (>= 3.0.0)
-    racc (1.7.3)
+    racc (1.8.1)
     rack (2.2.9)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
@@ -362,9 +362,9 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.0)
+    rails-html-sanitizer (1.6.1)
       loofah (~> 2.21)
-      nokogiri (~> 1.14)
+      nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     railties (6.1.7.7)
       actionpack (= 6.1.7.7)
       activesupport (= 6.1.7.7)
@@ -421,8 +421,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scout_apm (5.3.8)
-      parser
     searchkick (5.3.1)
       activemodel (>= 6.1)
       hashie
@@ -566,7 +564,6 @@ DEPENDENCIES
   redis (~> 5.0)
   rubyzip (~> 2.3)
   sass-rails
-  scout_apm
   searchkick (~> 5.3)
   sidekiq (~> 6.5)
   simple_form (~> 5.1)
