@@ -3617,8 +3617,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002249: feosema
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002260: seuli a dun-e
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002926: anfiltrassion càuda
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003071: mangim d'erba
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005743: seul lateral ëd la stra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005769: seul ëd foresta ëd montagna
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005770: seul ëd foresta ëd fò
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005796: pàuta marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005797: pàuta ëd fond ëd lagh
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
 ...
