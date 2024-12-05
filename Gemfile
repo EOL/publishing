@@ -44,6 +44,7 @@ gem 'kaminari', '~> 1.2.2'
 gem 'activegraph', '~> 11.4'
 gem 'neo4j-ruby-driver', '~> 4.4'
 
+
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.3'
 # Acts As List simplifies ordered lists of models:
