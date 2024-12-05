@@ -3621,7 +3621,14 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005743: seul lateral ëd la stra
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005769: seul ëd foresta ëd montagna
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005770: seul ëd foresta ëd fò
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005772: seul ëd vërzé
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005784: seul ëd foresta ëd bòsso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005796: pàuta marenga
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005797: pàuta ëd fond ëd lagh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000125: zòna litoral marenga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000127: anfiltrassion frèida
+        http://eol(dot)org/schema/terms/coenobium: cenòbi
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
 ...
