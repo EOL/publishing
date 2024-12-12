@@ -3632,6 +3632,8 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: ìsola ëd mangròvia
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000338: seuli ëd giass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000335: sot-bòsch
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
+        http://eol(dot)org/schema/terms/mol_cell-1: mol/célula
         http://eol(dot)org/schema/terms/physiologicalState: stat fisològich
 ...
