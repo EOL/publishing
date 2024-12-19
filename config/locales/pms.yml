@@ -3639,4 +3639,5 @@ pms:
         http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/célula/di
         http://eol(dot)org/schema/terms/physiologicalState: stat fisològich
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monògam
 ...

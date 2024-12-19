@@ -1516,7 +1516,7 @@ nl:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hartvormig
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helofiet
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic zuur
-        http://eol(dot)org/schema/terms/HomeRange: home range
+        http://eol(dot)org/schema/terms/HomeRange: thuisgebied
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrofiet
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inches
         http://eol(dot)org/schema/terms/InitialMortalityRate: initial mortality rate
