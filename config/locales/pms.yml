@@ -3636,8 +3636,10 @@ pms:
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
         http://eol(dot)org/schema/terms/mol_cell-1: mol/célula
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tardiss
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: fragransa
         http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/célula/di
         http://eol(dot)org/schema/terms/physiologicalState: stat fisològich
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m²/s
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monògam
+        http://eol(dot)org/schema/terms/temporaryAquatic: aquàtich temporani
 ...
