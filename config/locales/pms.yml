@@ -3642,4 +3642,5 @@ pms:
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m²/s
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monògam
         http://eol(dot)org/schema/terms/temporaryAquatic: aquàtich temporani
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: radialman simétrich
 ...
