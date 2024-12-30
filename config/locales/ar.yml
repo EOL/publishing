@@ -761,7 +761,7 @@ ar:
       one: إظهار لغة واحدة أخرى
       other: إظهار %{count} لغات
   nav:
-    about: عن
+    about: حول
     discuss: ناقش
     education: تعليم
     search:
