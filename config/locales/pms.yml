@@ -3637,12 +3637,16 @@ pms:
         http://eol(dot)org/schema/terms/mol_cell-1: mol/célula
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tardiss
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: fragransa
+        http://eol(dot)org/schema/terms/OptimalGrowthpH: pH otimal ëd chërsùa
         http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/célula/di
         http://eol(dot)org/schema/terms/physiologicalState: stat fisològich
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: lagh calm
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monògam
         http://eol(dot)org/schema/terms/temporaryAquatic: aquàtich temporani
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: radialman simétrich
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: simétrich bilateral
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: poligìnich
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: poliàndrich
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: rampiant
 ...
