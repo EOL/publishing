@@ -51,7 +51,7 @@ class TermNode
     def safe_find_by_alias(a)
       begin
         find_by_alias(a)
-      rescue Neo4j::Driver::Exceptions::ServiceUnavailableException => e
+      rescue ActiveGraph::Driver::Exceptions::ServiceUnavailableException => e
         nil
       end
     end
@@ -59,7 +59,7 @@ class TermNode
     def find_by_alias(a)
       begin
         find_by(alias: a)
-      rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+      rescue ActiveGraph::Driver::Exceptions::SessionExpiredException => e
         return nil
       end
     end

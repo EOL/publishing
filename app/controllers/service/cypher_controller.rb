@@ -76,7 +76,7 @@ class Service::CypherController < ServicesController
     begin
       results = TraitBank.query(cypher)
       render_results(results, format)
-    rescue Neo4j::Driver::Exceptions::ClientException => e
+    rescue ActiveGraph::Driver::Exceptions::ClientException => e
       return render_bad_request(title: "Cypher syntax error: #{e.message}")
     end
   end

@@ -36,7 +36,7 @@ module TraitBank
         eol_pk = "#{resource_key}-PK#{current_id}"
         begin
           delete_trait(eol_pk)
-        rescue Neo4j::Driver::Exceptions::DatabaseException => e
+        rescue ActiveGraph::Driver::Exceptions::DatabaseException => e
           delete_trait_to_page_relationship(eol_pk)
         end
       end
@@ -48,7 +48,7 @@ module TraitBank
       def delete_trait_to_page_relationship(eol_pk)
         begin
           TraitBank.query(%Q{MATCH (trait:Trait)<-[rel]-(page:Page) WHERE trait.eol_pk = "#{eol_pk}" DELETE rel})
-        rescue Neo4j::Driver::Exceptions::DatabaseException => e
+        rescue ActiveGraph::Driver::Exceptions::DatabaseException => e
           @failures[eol_pk] = true
         end
       end

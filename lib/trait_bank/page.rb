@@ -149,7 +149,7 @@ module TraitBank
       def key_data_pks(page, limit)
         begin
           raw_key_data_pks(page, limit)
-        rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+        rescue ActiveGraph::Driver::Exceptions::SessionExpiredException => e
           # Don't die just because we can't reach the server! (But also don't cache the value)
           []
         end

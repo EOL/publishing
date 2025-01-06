@@ -12,7 +12,7 @@ module TraitBank
       tries_left = 3
       response = begin
           ActiveGraph::Base.query(clean_q, params, wrap: false)
-        rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+        rescue ActiveGraph::Driver::Exceptions::SessionExpiredException => e
           sleep(0.2)
           tries_left -= 1
           unless tries_left.positive?

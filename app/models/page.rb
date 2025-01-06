@@ -547,7 +547,7 @@ class Page < ApplicationRecord
   def key_data
     begin
       raw_key_data
-    rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
+    rescue ActiveGraph::Driver::Exceptions::SessionExpiredException => e
       # Don't fail just because the server went away!
       {}
     end
