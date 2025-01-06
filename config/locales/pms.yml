@@ -3648,5 +3648,35 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: simétrich bilateral
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: poligìnich
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: poliàndrich
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: bodrà
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: rampiant
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: isotipo
+        http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: còdes dla colession
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0006391: efira
+        http://eol(dot)org/schema/terms/podocyst: podochista
+        http://eol(dot)org/schema/terms/microthallus: micro-organism
+        http://eol(dot)org/schema/terms/macrothallus: macro-organism
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isolectotype: isoletotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isosyntype: isosintipo
+        http://eol(dot)org/schema/terms/eudoxid: eudòssid
+        http://eol(dot)org/schema/terms/originalMaterial: material original
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isoneotype: isoneotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: epitipo
+        http://eol(dot)org/schema/terms/MuseumOfForestryLycksele: Musé dle foreste
+          Lycksele
+        http://eol(dot)org/schema/terms/collection_AGarai: Colession A. Garai
+        http://eol(dot)org/schema/terms/collection_Fwillemse: Colession F. Willemse
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: Colession G.H. Schmidt
+        http://eol(dot)org/schema/terms/collection_Heller: Colession Heller
+        http://eol(dot)org/schema/terms/collection_Singrisch: Colession Singrisch
+        http://eol(dot)org/schema/terms/Entomological_Museum_Department_of_Agriculture_Bangkok_Thailand: Dipartiment
+          ëd l'agricoltura dël Musé entomològich ëd Bangkok (Tailandia)
+        http://eol(dot)org/schema/terms/exepitype: derivà da epitipo
+        http://eol(dot)org/schema/terms/exholotype: derivà da olotipo
+        http://eol(dot)org/schema/terms/exparatype: derivà da paratipo
+        http://eol(dot)org/schema/terms/extype: derivà da tipo
+        http://eol(dot)org/schema/terms/King_Abdulaziz_University: Università dël
+          re Abdulaziz
+        http://eol(dot)org/schema/terms/Löbbecke_Museum_Düsseldorf: Musé Löbbecke
+          ëd Düsseldorf
 ...
