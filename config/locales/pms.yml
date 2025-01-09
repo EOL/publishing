@@ -3679,4 +3679,15 @@ pms:
           re Abdulaziz
         http://eol(dot)org/schema/terms/Löbbecke_Museum_Düsseldorf: Musé Löbbecke
           ëd Düsseldorf
+        http://eol(dot)org/schema/terms/Mus_Rothschild: Musé Rothschild
+        http://eol(dot)org/schema/terms/Muséum_d'histoire_naturelle_de_la_Ville_de_Genève: Musé
+          dë stòria natural dla sità ëd Gêneva
+        http://eol(dot)org/schema/terms/Zoological_Museum_Helsinki: Musé zoològich
+          d'Helsinki
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: paraneotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Plastoneotype: plastoneotipo
+        http://eol(dot)org/schema/terms/isoparatype: isoparatipo
+        http://eol(dot)org/schema/terms/prototype: prototipo
+        http://eol(dot)org/schema/terms/adolescaria: adolescàira
+        http://eol(dot)org/schema/terms/chick: pipì
 ...
