@@ -15,6 +15,7 @@
 # Author: Sucsuzz
 # Author: SwornToTranslate29
 # Author: ToprakM
+# Author: Wooze
 ---
 tr:
   language_name: Türkçe
@@ -826,7 +827,7 @@ tr:
       name_recognized_by_w_rank: '%{rank} %{by} tarafından tanındı'
       name_recognized_by_w_status: '%{by} göre %{status}'
       rank:
-        r_domain: Etki alanı
+        r_domain: Alan adı
         r_subdomain: Alt etki alanı
         r_infradomain: Alt alan adı
         r_superkingdom: Süper krallık

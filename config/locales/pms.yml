@@ -3689,5 +3689,7 @@ pms:
         http://eol(dot)org/schema/terms/isoparatype: isoparatipo
         http://eol(dot)org/schema/terms/prototype: prototipo
         http://eol(dot)org/schema/terms/adolescaria: adolescàira
+        http://eol(dot)org/schema/terms/adultAndJuvenile: mur e giovanij
+        http://eol(dot)org/schema/terms/adultAndLarva: mur e gate
         http://eol(dot)org/schema/terms/chick: pipì
 ...
