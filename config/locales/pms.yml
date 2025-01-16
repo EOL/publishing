@@ -3691,5 +3691,7 @@ pms:
         http://eol(dot)org/schema/terms/adolescaria: adolescàira
         http://eol(dot)org/schema/terms/adultAndJuvenile: mur e giovanij
         http://eol(dot)org/schema/terms/adultAndLarva: mur e gate
+        http://eol(dot)org/schema/terms/adultAndSubadult: mur e scasi mur
         http://eol(dot)org/schema/terms/chick: pipì
+        http://eol(dot)org/schema/terms/copepodid: copepòdid
 ...
