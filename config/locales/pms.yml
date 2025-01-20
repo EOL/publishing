@@ -3691,7 +3691,14 @@ pms:
         http://eol(dot)org/schema/terms/adolescaria: adolescàira
         http://eol(dot)org/schema/terms/adultAndJuvenile: mur e giovanij
         http://eol(dot)org/schema/terms/adultAndLarva: mur e gate
+        http://eol(dot)org/schema/terms/adultAndNymph: mur e ninfee
+        http://eol(dot)org/schema/terms/adultAndPupa: mur e crisàlida
         http://eol(dot)org/schema/terms/adultAndSubadult: mur e scasi mur
+        http://eol(dot)org/schema/terms/alatoidNymph: ninfea alatòida
+        http://eol(dot)org/schema/terms/apterousNymph: ninfa sensa ale
         http://eol(dot)org/schema/terms/chick: pipì
         http://eol(dot)org/schema/terms/copepodid: copepòdid
+        http://eol(dot)org/schema/terms/femaleFlowers: fior fumele
+        http://eol(dot)org/schema/terms/larvaAndPupa: gate e crisàlide
+        http://eol(dot)org/schema/terms/maleAndHermaphrodite: mas-cc e ermafrodita
 ...
