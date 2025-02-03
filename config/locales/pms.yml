@@ -3701,10 +3701,26 @@ pms:
         http://eol(dot)org/schema/terms/femaleFlowers: fior fumele
         http://eol(dot)org/schema/terms/floweringAndFruiting: fiorìa e frutificassion
         http://eol(dot)org/schema/terms/immatureAndOvigerous: nen mur e ovìger
+        http://eol(dot)org/schema/terms/in_bud: ant ël boton
+        http://eol(dot)org/schema/terms/juvenileAndOvigerous: giovanil e ovìger
         http://eol(dot)org/schema/terms/larvaAndPupa: gate e crisàlide
         http://eol(dot)org/schema/terms/maleAndHermaphrodite: mas-cc e ermafrodita
         http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: mas-cc fumele
           e ermafrodita
         http://eol(dot)org/schema/terms/maleFlowers: fior mas-ce
+        http://eol(dot)org/schema/terms/manca: manca
+        http://eol(dot)org/schema/terms/marita: marita
         http://eol(dot)org/schema/terms/metamorph: metamòrfich
+        http://eol(dot)org/schema/terms/miracidium: mirassid
+        http://eol(dot)org/schema/terms/morphotype: morfotipo
+        http://eol(dot)org/schema/terms/nonBreeding: nen d'anlevament
+        http://eol(dot)org/schema/terms/parthenita: partenita
+        http://eol(dot)org/schema/terms/plerocercoid: plerossercòid
+        http://eol(dot)org/schema/terms/plerocercus: plerossèrcus
+        http://eol(dot)org/schema/terms/postmetamorph: pòst-metamòrf
+        http://eol(dot)org/schema/terms/praniza: pranisa
+        http://eol(dot)org/schema/terms/redia: redia
+        http://eol(dot)org/schema/terms/tetrathyridium: tetratiridi
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000757: plasmòdi
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: gata
 ...
