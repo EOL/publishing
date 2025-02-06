@@ -3723,4 +3723,10 @@ pms:
         http://eol(dot)org/schema/terms/tetrathyridium: tetratiridi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000757: plasmòdi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: gata
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: spora
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001293: oocista sporolà
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: tachisòit
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001773: oocista
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: sercàir
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: drù
 ...
