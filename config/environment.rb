@@ -6,7 +6,7 @@ require_relative 'application'
 # ...which is no good for us, so we set it here:
 ActiveGraph::Config.default_file = "/app/config/neo4j/config.yml"
 # When that's set, apparently this never gets set, soooo:
-module Neo4j
+module ActiveGraph
   module Migrations
     class << self
       def currently_running_migrations

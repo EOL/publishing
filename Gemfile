@@ -13,6 +13,9 @@ gem 'mysql2', '~> 0.5.6'
 # Use puma as the web host
 gem 'puma', '~> 6.4'
 
+# TEMP - remove this once we update bundler
+gem 'set'm '1.1.0'
+
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
 
