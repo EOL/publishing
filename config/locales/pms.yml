@@ -3727,6 +3727,12 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001293: oocista sporolà
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: tachisòit
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001773: oocista
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0003670: stadi microfilar
         http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: sercàir
+        http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: stadi sporocista
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: drù
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: ermafrodita
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: terminal
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007038: stadi complet ëd madurassion
+          dla fruta
 ...
