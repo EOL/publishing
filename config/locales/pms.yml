@@ -3733,6 +3733,10 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: drù
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: ermafrodita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: terminal
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007001: stati ëd madurassion dla
+          fruta dnans temp
         http://purl(dot)obolibrary(dot)org/obo/PO_0007038: stadi complet ëd madurassion
           dla fruta
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007616: stadi ëd fiorìa
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025500: stadi ëd dësvlup dij frut
 ...
