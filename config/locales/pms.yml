@@ -3739,4 +3739,11 @@ pms:
           dla fruta
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: stadi ëd fiorìa
         http://purl(dot)obolibrary(dot)org/obo/PO_0025500: stadi ëd dësvlup dij frut
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: bagat
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014856: stasi ëd sistiserch
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: stadi ëd megalòpa
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000708: sercàir
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000716: metacéstod
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000720: meta-sercàir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: estuari salign
 ...
