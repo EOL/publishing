@@ -252,7 +252,7 @@ zh-CN:
       sort_field: 评注，A-Z
       sort_field_rev: 评注，Z-A
     updated: 收藏夹已更新。
-  collection_unauthorized_edit: 只有用户所有者可以编辑此收藏夹。
+  collection_unauthorized_edit: 只有所有者用户才能编辑此收藏集。
   complete_registration: 请继续完成您的注册
   content_appears_on: 包含在以下页面中：
   content_collected_in: 特别刊登在下列收集中：

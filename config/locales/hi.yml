@@ -6,6 +6,7 @@
 # Author: Ajay Singh Rawat
 # Author: Ajaysajay
 # Author: AnupamM
+# Author: Bunnypranav
 # Author: Gopalindians
 # Author: Jai
 # Author: Nilesh shukla
@@ -769,13 +770,13 @@ hi:
       query_cant_be_blank: पूछताछ खाली नहीं हो सकती
       search: खोजें
     filter_menu:
-      show_all: सभी दिखाएं
+      show_all: सभी दिखाएँ
     page_data:
       habitat_wordcloud_tooltip: हमारे आवास रिकॉर्ड बड़े पैमाने पर टेक्स्टमाइन्ड हैं,
         इसलिए कई शब्द कई बार पाए जाते हैं; अधिक सामान्यतः पाए जाने वाले आवास शब्द
         - क्लाउड शब्द में बड़े आकार में प्रदर्शित - अधिक महत्वपूर्ण होने की संभावना
         है। सभी रिकॉर्ड नीचे सूचीबद्ध हैं.
-      show_all: सभी दिखाएं
+      show_all: सभी दिखाएँ
     resource_names:
       name_recognized_by: '%{by} द्वारा मान्यता प्राप्त'
       name_recognized_by_w_rank: '%{rank} को %{by} द्वारा मान्यता दी गई'
