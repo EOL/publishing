@@ -337,15 +337,20 @@ class Resource < ApplicationRecord
       times = 0
       expected_times = (total_count / batch_size.to_f).ceil
       max_times = expected_times * 2
-      begin
-        log_update("Batch #{times} (expect #{expected_times} batches, maximum #{max_times})...")
-        STDOUT.flush
-        klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}")
-        times += 1
-        sleep(0.5) # Being (moderately) nice.
-      end while klass.where(resource_id: id).count.positive? && times < max_times
-      raise "Failed to delete all of the #{klass} instances! Tried #{times}x#{batch_size} times." if
-        klass.where(resource_id: id).count.positive?
+      remaining_count = total_count
+
+      ActiveRecord::Base.transaction do
+        while remaining_count.positive? && times < max_times
+          log_update("Batch #{times} (expect #{expected_times} batches, maximum #{max_times})...") if (times % 100).zero?
+          STDOUT.flush
+          deleted_count = klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}").cmd_tuples
+          remaining_count -= deleted_count
+          times += 1
+          sleep(0.5) # Being (moderately) nice.
+        end
+      end
+
+      raise "Failed to delete all of the #{klass} instances! Tried #{times}x#{batch_size} times." if remaining_count.positive?
       total_count
     end
     log("Removed #{count} #{klass.name.humanize.pluralize}")
