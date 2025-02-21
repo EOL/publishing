@@ -343,9 +343,7 @@ class Resource < ApplicationRecord
         ActiveRecord::Base.transaction do
           log_update("Batch #{times} (expect #{expected_times} batches, maximum #{max_times})...") if (times % 100).zero?
           STDOUT.flush
-          result = klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}")
-          deleted_count = result&.cmd_tuples || 0
-          remaining_count -= deleted_count
+          remaining_count -= klass.where(resource_id: id).limit(batch_size).delete_all
           times += 1
           sleep(0.5) # Being (moderately) nice.
           ActiveRecord::Base.connection.commit_db_transaction if (times % 100).zero?
