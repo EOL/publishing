@@ -364,8 +364,8 @@ services:
       - "80:80"
     ulimits:
       nofile:
-        soft: 65536
-        hard: 65536
+        soft: 16384
+        hard: 16384
     depends_on:
       - app
 
