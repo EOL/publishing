@@ -48,7 +48,9 @@ class ImportLog < ApplicationRecord
     end
     body = "#{body}\n\n#{call_stack}"
     chop_into_text_chunks(body).each do |chunk|
-      import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
+      EolDatabase.reconnect_if_idle do
+        import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
+      end
       puts "[IMPORT](#{cat}) #{chunk}"
     end
   end
