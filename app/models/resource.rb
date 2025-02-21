@@ -339,14 +339,15 @@ class Resource < ApplicationRecord
       max_times = expected_times * 2
       remaining_count = total_count
 
-      ActiveRecord::Base.transaction do
-        while remaining_count.positive? && times < max_times
+      while remaining_count.positive? && times < max_times
+        ActiveRecord::Base.transaction do
           log_update("Batch #{times} (expect #{expected_times} batches, maximum #{max_times})...") if (times % 100).zero?
           STDOUT.flush
           deleted_count = klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}").cmd_tuples
           remaining_count -= deleted_count
           times += 1
           sleep(0.5) # Being (moderately) nice.
+          ActiveRecord::Base.connection.commit_db_transaction if (times % 100).zero?
         end
       end
 
