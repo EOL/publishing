@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 22258
 # Author: AquAFox
 # Author: Codenstory
 # Author: Gomdoli
@@ -18,6 +19,8 @@ ko:
   advanced: 고급
   are_you_sure_delete_account: EOL 계정을 정말로 지우시겠습니까?
   article:
+    actions:
+      collect: 수집
     header:
       blank: (이 문서에는 본문이 없습니다.)
       body: 본문
@@ -27,7 +30,9 @@ ko:
     name:
       missing: 제목 없음
   article_from_partner: '%{partner} 제공'
+  article_duplicate: 이 기사는 "%{section}"에도 표시됩니다.
   breadcrumbs:
+    setting_header: 빵가루 안의 이름들
     types:
       scientific: 학명
       vernacular: 향명 및 속명
@@ -39,6 +44,13 @@ ko:
       r_species_html: 이 종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
       r_subspecies_html: 이 아종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
         .
+    species_in_family: '%{name1}은 %{name_family}과에 속한 %{name2}의 종입니다.'
+    taxonomy:
+      family_above:
+        r_family: '%{name1}은 %{name2}과입니다.'
+      below_family:
+        without_family:
+          r_tribe: '%{name1}은 %{name2}의 부족입니다.'
   button_create: 만들기
   button_add: 추가
   cancel: 취소
@@ -55,6 +67,7 @@ ko:
       links_count: 링크
       maps_count: 지도
       data_count: 데이터
+      nodes_count: 마디
       vernaculars_count: 향명 및 속명
       scientific_names_count: 학명
       species_count: 종
@@ -63,6 +76,8 @@ ko:
   collect_already_in_collection_will_add_icon: (미디어를 "%{page}"에 추가)
   collect_new_collection: 새 모음집 이름
   collected_pages_title: 페이지
+  collected_pages_medium:
+    destroyed_flash: 수집된 페이지에서 삭제된 이미지.
   collected_pages:
     delete_button: 삭제
     edit_button: 편집
@@ -79,6 +94,7 @@ ko:
       edit: 편집
       sort: 정렬
     collection_type:
+      normal: 일반적인
       gallery: 갤러리
     delete_confirm: 이 작업은 모든 모음집을 제거하며 취소할 수 없습니다. 그렇게 하시겠습니까?
     destroyed: '"%{name}"님이 영구적으로 삭제되었습니다.'
@@ -97,6 +113,7 @@ ko:
       placeholder: 모음집에서 검색...
       submit: 검색
     sort:
+      hierarchy: 계층
       sci_name: 학명, A-Z
       sci_name_rev: 학명, Z-A
     updated: 모음집이 업데이트되었습니다.
@@ -121,6 +138,8 @@ ko:
     provider: 제공자
     resource_label: 파트너 사이트
     resource_pk: '(id: %{key})'
+    view_source_label: 원래의
+    view_source_page_link: 소스 보기
   data_missing: '(데이터 없음. 키: %{keys})'
   dear_username_with_comma: '%{username}님,'
   delete_account_button: 내 계정 삭제
@@ -128,6 +147,7 @@ ko:
     internal_server: 내부 서버 오류 (500)
     not_found: 페이지를 찾을 수 없습니다 (404)
   filter_by_license: 라이선스
+  filter_by_medium_subtype: 종류
   filter_by_medium_any_item: 모든 유형
   filter_by_resource: 제공자
   filters:
@@ -204,6 +224,7 @@ ko:
     bs: 보스니아어
     q750553: 브라질 포르투갈어
     bg: 불가리아어
+    q35156: 카르어
     zh: 중국어
     chi: 중국어
     hr: 크로아티아어
@@ -214,13 +235,16 @@ ko:
     eo: 에스페란토어
     et: 에스토니아어
     est: 에스토니아어
+    fj: 피지어
     fi: 핀란드어
     fin: 핀란드어
     fr: 프랑스어
     fra: 프랑스어
+    gl: 갈리시아어
     de: 독일어
     deu: 독일어
     gre: 그리스어
+    ht: 하이티어; 하이티 크리올어
     he: 히브리어
     heb: 히브리어
     hu: 헝가리어
@@ -239,6 +263,7 @@ ko:
     li: Limburgish
     lt: 리투아니아어
     lit: 리투아니아어
+    q35787: 마사이어
     mk: 마케도니아어
     ms: 말레이어
     mi: 마오리어
