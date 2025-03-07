@@ -10,12 +10,12 @@ module TraitBank
         # 'external' metadata
         TraitBank::Admin.remove_with_query(
           name: :meta,
-          q: "(meta:MetaData)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          q: "(meta:MetaData)-[:supplier]->(r:Resource) WHERE r.resource_id = #{resource.id}"
         )
 
         TraitBank::Admin.remove_with_query(
           name: :vernacular,
-          q: "(vernacular:Vernacular)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          q: "(vernacular:Vernacular)-[:supplier]->(r:Resource) WHERE r.resource_id = #{resource.id}"
         )
         Rails.cache.clear # Sorry, this is easiest. :|
       end

@@ -127,7 +127,10 @@ module TraitBank
         options[:size] = 16 unless options[:size].is_a?(Integer) && options[:size].positive?
         log = options[:log]
         time_before = Time.now
-        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+        # CALL apoc.periodic.iterate('MATCH (vernacular:Vernacular)-[:supplier]->(r:Resource)
+        # WHERE r.resource_id = 724 WITH vernacular LIMIT 2 RETURN vernacular', 'DETACH DELETE vernacular', { batchSize: 32 })
+        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', "\
+          "'DETACH DELETE #{name}', { batchSize: 32 })"
         TraitBank::Logger.log("--TB_DEL: #{apoc}")
         results = TraitBank.query(apoc)
         error = apoc_errors(results)
