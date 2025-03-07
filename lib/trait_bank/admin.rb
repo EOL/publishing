@@ -119,6 +119,7 @@ module TraitBank
         name = options[:name]
         q = invert_quotes(options[:q])
         options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
+        options[:size] = 16 unless options[:size].is_a?(Integer) && options[:size].positive?
         log = options[:log]
         time_before = Time.now
         apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
