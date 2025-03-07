@@ -91,16 +91,21 @@ module TraitBank
         return if count_before.nil? || ! count_before.positive?
         name = options[:name]
         options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
+        original_size = options[:size]
         count = 0
         log = options[:log]
         loop do
           begin
             remove_batch_with_query(options.merge(size: options[:size]))
           rescue => e
-            log.log("ERROR during delete of #{options[:size]} x #{name}: #{e.message}", cat: :warns) if log
+            msg = "ERROR during delete of #{options[:size]} x #{name}: #{e.message}"
+            puts msg # If we're running this locally, we need to know!
+            log.log(msg, cat: :warns) if log
             sleep options[:size]
             options[:size] = options[:size] / 2
-            retry unless options[:size] <= 16
+            raise e if options[:size] <= 1
+            retry
+            options[:size] = original_size
           end
           count += options[:size]
           if count >= count_before
