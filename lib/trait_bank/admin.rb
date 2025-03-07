@@ -98,7 +98,8 @@ module TraitBank
           begin
             remove_batch_with_query(options.merge(size: options[:size]))
           rescue => e
-            msg = "ERROR during delete of #{options[:size]} x #{name}: #{e.message}"
+            count_now = count_query_results(options)
+            msg = "ERROR during delete of #{options[:size]} x #{name} (count: #{count_before}>#{count_now}): #{e.message}"
             puts msg # If we're running this locally, we need to know!
             log.log(msg, cat: :warns) if log
             sleep options[:size]
