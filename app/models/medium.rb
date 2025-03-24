@@ -136,9 +136,9 @@ class Medium < ApplicationRecord
 
   def source_pages
     if page_contents.loaded? && page_contents.first&.association(:page)&.loaded?
-      page_contents.select { |pc| pc.source_page_id == page_id }.map(&:page)
+      page_contents.select { |pc| pc.source_page_id == page_id }.map(&:page).compact
     else
-      page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page)
+      page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page).compact
     end
   end
 

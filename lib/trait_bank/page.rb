@@ -288,6 +288,7 @@ module TraitBank
       end
 
       def trait_pks_for_page_helper(page_node, trait_match, group_predicate_match, type_for_key, options)
+        return nil if page_node.nil?
         key = "trait_pks_for_page_helper/v2/#{page_node.id}/#{type_for_key}"
         TraitBank::Caching.add_hash_to_key(key, options)
 
