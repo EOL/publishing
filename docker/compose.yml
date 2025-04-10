@@ -363,6 +363,10 @@ services:
       - /data/publishing_web_packs/packs:/app/public/packs:ro
     ports:
       - "80:80"
+    ulimits:
+      nofile:
+        soft: 32768
+        hard: 32768
     depends_on:
       - app
 

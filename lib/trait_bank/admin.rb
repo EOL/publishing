@@ -91,16 +91,22 @@ module TraitBank
         return if count_before.nil? || ! count_before.positive?
         name = options[:name]
         options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
+        original_size = options[:size]
         count = 0
         log = options[:log]
         loop do
           begin
             remove_batch_with_query(options.merge(size: options[:size]))
           rescue => e
-            log.log("ERROR during delete of #{options[:size]} x #{name}: #{e.message}", cat: :warns) if log
+            count_now = count_query_results(options)
+            msg = "ERROR during delete of #{options[:size]} x #{name} (count: #{count_before}>#{count_now}): #{e.message}"
+            puts msg # If we're running this locally, we need to know!
+            log.log(msg, cat: :warns) if log
             sleep options[:size]
             options[:size] = options[:size] / 2
-            retry unless options[:size] <= 16
+            raise e if options[:size] <= 1
+            retry
+            options[:size] = original_size
           end
           count += options[:size]
           if count >= count_before
@@ -119,9 +125,13 @@ module TraitBank
         name = options[:name]
         q = invert_quotes(options[:q])
         options[:size] ||= DEFAULT_REMOVAL_BATCH_SIZE
+        options[:size] = 16 unless options[:size].is_a?(Integer) && options[:size].positive?
         log = options[:log]
         time_before = Time.now
-        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', 'DETACH DELETE #{name}', { batchSize: 32 })"
+        # CALL apoc.periodic.iterate('MATCH (vernacular:Vernacular)-[:supplier]->(r:Resource)
+        # WHERE r.resource_id = 724 WITH vernacular LIMIT 2 RETURN vernacular', 'DETACH DELETE vernacular', { batchSize: 32 })
+        apoc = "CALL apoc.periodic.iterate('MATCH #{q} WITH #{name} LIMIT #{options[:size]} RETURN #{name}', "\
+          "'DETACH DELETE #{name}', { batchSize: 32 })"
         TraitBank::Logger.log("--TB_DEL: #{apoc}")
         results = TraitBank.query(apoc)
         error = apoc_errors(results)

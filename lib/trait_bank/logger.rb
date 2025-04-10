@@ -4,11 +4,13 @@ module TraitBank
       LOGGER = Rails.application.config.neo4j.logger
 
       def log(message)
-        LOGGER.info(message)
+        # Disabling this because of overload
+        # LOGGER.info(message)
       end
 
       def warn(message)
-        LOGGER.warn(message)
+        # Disabling this because of overload
+        # LOGGER.warn(message)
       end
 
       def log_error(message)

@@ -1,12 +1,26 @@
 User-agent: *
 Request-rate: 1/15
+Crawl-delay: 10 
+
+# High priority, essential paths
+Allow: /
+Allow: /data/
+Allow: /packs/
+Allow: /sitemap.xml.gz
+
 <% @disallow_patterns.each do |pattern| %>
 <%= "Disallow: #{pattern}" %>
 <% end %>
+
+<% @lang_codes.each do |lang| %>
+Disallow: /<%= lang %>/users/
+Disallow: /<%= lang %>/resources/
+Disallow: /<%= lang %>/collected_pages/
+<% end %>
+
 Sitemap: <%= ENV.fetch('EOL_PUBLISHING_URL') { 'https://eol.org' } %>/data/sitemap/sitemap.xml.gz
 
 <% @slow_spiders.each do |spider| %>
 User-agent: <%= spider %>
-Crawl-delay: 2
-
+Crawl-delay: <%= spider == 'GPTBot' ? 20 : 15 %>
 <% end %>

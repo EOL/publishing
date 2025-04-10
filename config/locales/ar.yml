@@ -82,6 +82,8 @@ ar:
       r_infraspecies_html: هذا نوع فرعي «infraspecies» <span class='%{class_str}'
         id='%{id}'>منقرض</span>.
       r_form_html: هذا شكل «form» <span class='%{class_str}' id='%{id}'>منقرض</span>.
+    fix_nitrogen_html: يقومون <span class='%{class_str}' id='%{predicate_id}'>بتثبيت</span>
+      <span class='%{class_str}' id='%{object_id}'>النيتروجين</span> .
     freshwater_html: وهي مرتبطة بمواطن <span class='%{class_str}' id='%{id}'> المياه
       العذبة </span>.
     marine_html: يتم العثور عليها في <span class='%{class_str}' id='%{id}'>المواطن
@@ -727,6 +729,9 @@ ar:
   maps:
     empty: لا توجد خرائط متاحة لهذه الصفحة.
     occurrence_caption: الحوادث المعروفة، والعينات المجموعة، وملاحظات %{page_name}
+    occurrence_caption_w_link_html: الحالات المعروفة، والعينات المجمعة، والملاحظات
+      المتعلقة بـ %{page_name}. <a href='%{url}'>شاهد هذا النوع على GBIF<i class='fa
+      fa-external-link'></i></a>
     other_maps_title: خرائط غير تفاعلية
   medium:
     untitled:
@@ -761,7 +766,7 @@ ar:
       one: إظهار لغة واحدة أخرى
       other: إظهار %{count} لغات
   nav:
-    about: عن
+    about: حول
     discuss: ناقش
     education: تعليم
     search:
@@ -868,6 +873,10 @@ ar:
       predator: المفترس
       prey: الفريسة
       reset: إعادة ضبط
+      trophic_web_about: تُركز مخططات الشبكة الغذائية لنهاية الحياة على العلاقات الغذائية
+        لنوع واحد؛ فهي تُظهر النوع الرئيسي، بالإضافة إلى الأنواع التي يتغذى عليها
+        (الفريسة)، والأنواع التي تتغذى عليها (المفترسات)، والأنواع الأخرى التي تتغذى
+        على نفس الفريسة (المنافسون المحتملون). انقر لمعرفة المزيد.
       trophic_web_title_html: Trophic Web <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
@@ -946,6 +955,10 @@ ar:
   recaptcha_error: رجاءً أخبرنا أنك لست روبوتًا.
   reconciliation:
     id_space:
+      intro: كل معرف كيان تم إرجاعه بواسطة واجهة برمجة التطبيقات للمصالحة هو جزء المسار
+        من عنوان URL للتمثيل العام للكيان على نهاية العمر الافتراضي، بحيث يمكن استبدال
+        معرف معين في https://eol.org/<id> لإنتاج رابط صحيح للكيان. تنسيق مُعرِّفات
+        كل نوع موضح أدناه.
       headers:
         type_id: مُعرف النمط
         type_name: اسم النمط
@@ -970,6 +983,7 @@ ar:
         label: الحد
         help_text: الحد الأقصى من القيم التي يجب إرجاعها لكل سطر (0 لبدون حد)
     schema_space:
+      intro: يتم وصف مجموعة الخصائص التي تستخدمها خدمة Reconciliation API أدناه.
       headers:
         id: المُعرف (ID)
         name: الاسم
@@ -981,7 +995,12 @@ ar:
     actions:
       import_traits: استيراد الصفات (من المستودع)
       republish: إعادة النشر
+      clean_republish: إعادة نشر نظيفة
       diff: فرق
+      republish_confirm: سيؤدي هذا إلى حذف جميع محتويات المورد (باستثناء السمات، التي
+        ستستخدم فرقًا). هل أنت متأكد؟!
+      clean_republish_confirm: سيؤدي هذا إلى حذف جميع محتوى المورد ولن يُستخدم اختلافات
+        السمات. هل أنت متأكد؟!
       reindex: إعادة الفهرسة
       fix_no_names: عدم إصلاح أية أسماء
       index: العودة إلى جميع الموارد
@@ -1021,6 +1040,7 @@ ar:
   scientific_names_header: الأسماء العلمية
   send_me_reset_password_instructions: أرسل لي تعليمات تغيير كلمة المرور
   search:
+    blank_q_msg: بإمكانك البحث عن محتويات EOL باستخدام الشريط الموجود أعلى الصفحة.
     full_name: '%{vernacular}%{scientific}'
     matched_text: متطابقة %{text}
     flash:
@@ -1215,15 +1235,21 @@ ar:
     users: المستخدمون
     references: المراجع
   term_query:
+    invalid_obsolete: غير صالح/قديم
     validations:
       empty_filters_error_record: يجب عليك توفير مرشحا بسمة أو قيمة لعمليات البحث
         الخاصة بالسجلات
+      empty_filters_error_taxa: يجب عليك توفير مجموعة أو مرشح مع سمة أو قيمة لعمليات
+        البحث عن التصنيفات
   term_query_filter:
     validations:
       blank_error: يجب تحديد قيمة
       invalid_uri: عنوان URL غير صالح
+      multi_obj_error: لا يمكن أن يكون لديك كل من مصطلح الكائن ومجموعة الهدف
+      pred_uri_blank_obj_clade_error: لا يمكن أن يكون فارغًا مع مجموعة مستهدفة
       pred_uri_blank_numeric_error: لا يمكن أن يكون فارغا بقيمة رقمية
       range_invalid_error: يجب أن يكون >= القيمة الأولى
+      units_blank_error: لا يمكن أن تكون الوحدات فارغة للبحث الرقمي
   terms:
     attribution_field_html: <strong>النسبة:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>التعليق:</strong> %{comment}
@@ -1243,9 +1269,22 @@ ar:
       about_this_chart_tooltip_1d: هذا ملخص بناء على البيانات المتوفرة في EOL. قد
         يكون غير مكتمل! يمكنك تحديد فئة من المخطط البياني لتضييق نتائج البحث. تتداخل
         العديد من الفئات ويمكن ان تتضمين الانواع في أكثر من فئة واحدة.
+      about_this_chart_tooltip_assoc: هذا ملخص مبني على بيانات متوفرة في نهاية العمر.
+        قد يكون غير مكتمل! يمكنك تمرير مؤشر الماوس فوق اسم التصنيف لتحديد علاقاته.
+        يشير الرابط الأخضر إلى أن التصنيف الذي تم تمرير مؤشر الماوس عليه هو موضوع
+        الارتباط؛ بينما يشير الرابط الأرجواني إلى أنه الكائن. تُلخّص عمليات البحث
+        الأكبر حسب الجنس أو العائلة. يمكنك تضييق نطاق البحث بالنقر على اسم التصنيف.
       about_this_chart_tooltip_sankey_2d: هذا ملخص بناء على البيانات المتوفرة في EOL.
         قد يكون غير مكتمل! يمكنك تحديد فئة من المخطط البياني لتضييق نتائج البحث. تتداخل
         العديد من الفئات ويمكن ان تتضمين الانواع في أكثر من فئة واحدة.
+      about_this_chart_tooltip_sankey_3+: هذا ملخص مبني على البيانات المتوفرة في نهاية
+        العمر. قد يكون غير مكتمل! يمكنك تحديد فئة على أي محور لتضييق نتائج البحث.
+        تتداخل العديد من الفئات، وقد يُدرج النوع في أكثر من فئة واحدة في المحور نفسه.
+        في عرض مجموعة فرعية مميزة، سيتم حساب هذه الأنواع متعددة القيم عدة مرات في
+        محاور أخرى.
+      about_this_chart_tooltip_taxon_summary: هذا ملخص للمجموعات التصنيفية التي تحتوي
+        بياناتها في نهاية العمر على مطابقة لبحثك. يمكن اختصاره ليناسب حجم العرض. يمكنك
+        تحديد مجموعة من المخطط لعرض المجموعات الفرعية أو لتضييق نتائج البحث.
       other_term_name: آخر %{term_name}
       hist_value_label: القيمة %{units}
       n_family_records:
@@ -1326,6 +1365,8 @@ ar:
         sex: الجنس:%{value}
         statistical_method: الطريقة الإحصائية:%{value}
       gbif_search: بحث GBIF
+      gbif_search_hover: ابحث عن سجلات الحدوث في GBIF للتصنيفات الموجودة في نتائج
+        البحث الخاصة بك (بحد أقصى 50)
       result_header_records: عرض %{range_begin} - %{range_end} من %{total} السجلات
         للأصنوفات %{page_count}
       result_header_taxa: عرض %{range_begin} - %{range_end} من %{total} للأصنوفات
@@ -1374,6 +1415,8 @@ ar:
     batch_page_lookup: دفعة البحث عن الصفحة
     created_at: إنشاء
     download_queue: قائمة انتظار تنزيل البيانات
+    grant_power: منح حق الوصول للمستخدم المتمكن
+    revoke_power: إلغاء وصول المستخدم المتمتع بالسلطة
     edit_account_details: تعديل تفاصيل الحساب
     email: البريد الإلكتروني
     to_commit_enter_current: لتنفيذ التغييرات؛ يُرجَى إدخال كلمة المرور الحالية
@@ -1448,6 +1491,7 @@ ar:
       next: الصفحة التالية
       previous: الصفحة السابقة
     inverse_name:
+      fallback: معكوس '%{term_name}'
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يأكله
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: يمتلك المتطفل الخارجي
@@ -1497,6 +1541,7 @@ ar:
           الإروني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: الأهباء الجوية (أيروسول)
         http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: معدل النمو بعد الحصاد
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: سموم الأغاثوكسينات
         http://eol(dot)org/schema/terms/age At Dispersal: العمر عند التشتيت
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: عمر فتح العيون
         http://eol(dot)org/schema/terms/AgeAtMaturity: العمر عند النضج
@@ -1535,6 +1580,7 @@ ar:
           والظهرية
         https://eol(dot)org/schema/terms/anal_fin: السباحة بالزعنفة الشرجية
         https://eol(dot)org/schema/terms/andromonoecious: وحيد المسكن خنثي وذكري
+        http://eol(dot)org/schema/terms/androviviparous: أندروفيباروس
         http://eol(dot)org/schema/terms/anemochory: انتشار بالرياح
         https://eol(dot)org/schema/terms/anguilliform: أنقليسي الشكل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005803: استيطان الحيوانات
@@ -1629,6 +1675,7 @@ ar:
         http://eol(dot)org/schema/terms/BillLength: طول المنقار
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DIFF: الناشر الحيوي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: غشاء حيوي رقيق
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: السيليكا الحيوية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000082: الرواسب أحيائية المنشأ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: المخلفات البيولوجية
         http://eol(dot)org/schema/terms/Bioluminescent: تلألؤ بيولوجي
@@ -1659,9 +1706,11 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002019: المياه الأجاج
         https://eol(dot)org/schema/terms/brittlestar_feeder: مقتات بنجوم البحر الهشة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: عريض
+        http://eol(dot)org/schema/terms/broadcastSpawner: مُفرخ البث
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000197: الغابات ذات الأوراق
           العريضة
         http://eol(dot)org/schema/terms/bromelicolous: بروميليادس
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: الحضانة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: بنى
         http://eol(dot)org/schema/terms/browsing: مَرْعَويّ
         http://purl(dot)obolibrary(dot)org/obo/PO_0000055: برعم
@@ -1730,6 +1779,7 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: العصر
           الكارني
         http://eol(dot)org/schema/terms/carnivorous_scavenger: قمام لاحم
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000235: كار
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: غضروف
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: هباطة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: كهف
@@ -1783,8 +1833,10 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: رواسب الطين
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: التربة الطينية
         http://eol(dot)org/schema/terms/clearWater: المياه النقية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: المقاصة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: الجروف
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: متسلق
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: كلاين
         http://eol(dot)org/schema/terms/cloud_forest: الغابات الضبابية
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: حجم البطن/ الحضانة / التعشيش
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: سنتيمتر
@@ -1815,10 +1867,13 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: عيون مركبة
         https://eol(dot)org/schema/terms/concave_mirror_eyes: عيون المرآة المقعرة
         http://eol(dot)org/schema/terms/cone: مخروط
+        http://eol(dot)org/schema/terms/conePlusHalfSphere-40Percent: مخروط زائد نصف
+          كرة ناقص 40 بالمائة
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: العصر
           الكونياكي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000240: الأحراج الصنوبرية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: الغابات الصنوبرية
+        http://eol(dot)org/schema/terms/conservationDependent: يعتمد على الحفظ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001171: عملية إدارة الحفظ
         http://rs(dot)tdwg(dot)org/ontology/voc/SPMInfoItems#ConservationStatus: حالة
           الحفظ
@@ -1862,11 +1917,14 @@ ar:
         http://eol(dot)org/schema/terms/crustose: القشرية
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cryogenian: العصر
           الصقيعي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002236: كريوسول
         http://eol(dot)org/schema/terms/cuneiform: إسفيني الشكل
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: أسطوانة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000331: مستنقعات السرو
         http://eol(dot)org/schema/terms/dahllite: داليت
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: ألبان
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003862: منتجات الألبان (الموائل
+          الميكروبية)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000236: أودية دامبو
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Danian: العصر
           الداني
@@ -1903,6 +1961,7 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Devonian: العصر
           الديفوني
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: القطر
+        http://eol(dot)org/schema/terms/diandry: دياندريك
         http://eol(dot)org/schema/terms/DiapauseInitiation: السبات
         https://eol(dot)org/schema/terms/diatom_feeder: مقتات بالمشطورات
         http://eol(dot)org/schema/terms/dielVerticalMigration: الهجرة العمودية الدورية
@@ -1918,12 +1977,15 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000037: السواقي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: حمض دوكوسانويك
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: حمض دوديكانويك
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000332: دولين
         https://eol(dot)org/schema/terms/domesticated_in: مستأنس في
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: ظهري
         https://eol(dot)org/schema/terms/dorsal_fin: السباحة بالزعنفة الظهرية
         https://eol(dot)org/schema/terms/dorsoventral_undulatory: السباحة التموجية
           الظهرية البطنية
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C94519: ظهري بطني
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW_DC: ناقل هابط
+        https://eol(dot)org/schema/terms/dracaenoid: التنينية
         http://purl(dot)obolibrary(dot)org/obo/AGRO_00002004: حيوان العمل
         https://eol(dot)org/schema/terms/drag_based_swimming: السباحة بقوة الانزلاق
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000042: قنوات التصريف
@@ -1960,6 +2022,7 @@ ar:
         http://eol(dot)org/schema/terms/echinoderm_feeder: مقتات بشائكات الجلد
         http://eol(dot)org/schema/terms/EcomorphologicalGuild: طائفة الشكل الظاهري
           البيئي
+        http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: هندسة النظام البيئي
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: متطفل خارجي على
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ediacaran: العصر
           الإدياكاري
@@ -1999,6 +2062,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: البشرة
         http://eol(dot)org/schema/terms/epifauna_feeder: مقتات بالحيوانات الفوقية
         http://www(dot)marinespecies(dot)org/traits/Epifaunal: الحيوانات الفوقية
+        http://eol(dot)org/schema/terms/epihydate: إبيهيدات
         http://purl(dot)obolibrary(dot)org/obo/RO_0008501: يتعلق بنبات
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002630: عرضي
         http://eol(dot)org/schema/terms/epizoochory: انتشار بالنقل الحيواني الخارجي
@@ -2014,11 +2078,14 @@ ar:
         http://rs(dot)tdwg(dot)org/dwc/terms/eventDate: تاريخ الحدث
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: دائم الخضرة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000843: الغابات دائمة الخضرة
+        https://eol(dot)org/schema/terms/everse: العكس
         http://eol(dot)org/schema/terms/excavating: حَفّار
+        http://eol(dot)org/schema/terms/explanate: شرح
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: مكشوف
         http://www(dot)marinespecies(dot)org/traits/ExternalTube: أنبوب خارجي
         http://eol(dot)org/schema/terms/extinct: منقرض
         http://eol(dot)org/schema/terms/extinctInTheWild: منقرض في البرية
+        https://eol(dot)org/schema/terms/extirpated: تم استئصاله
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002020: الموائل المتطرفة (المتقلبة)
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: العيون
         http://eol(dot)org/schema/terms/facultativeClimber: متسلق اختياري
@@ -2037,6 +2104,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: طول الفخذ
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: عرض الفخذ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000232: الهور
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002246: فيرالسول
         http://purl(dot)obolibrary(dot)org/obo/GO_0009566: التخصيب
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005754: تربة مخصبة
         http://rs(dot)tdwg(dot)org/dwc/terms/fieldNotes: ملاحظات ميدانية
@@ -2076,6 +2144,9 @@ ar:
         http://eol(dot)org/schema/terms/ForkLength: طول الأشواك
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: العصر
           الفورتوني
+        http://eol(dot)org/schema/terms/fossorialOrGround: مسكن حفري و/أو أرضي
+        http://eol(dot)org/schema/terms/groundDwelling: الحفريات و/أو المساكن الأرضية
+          فقط
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Frasnian: العصر
           الفراسني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: المياه العذبة
@@ -2112,6 +2183,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002263: تربة الحدائق
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gelasian: العصر
           الجيلاسي
+        http://eol(dot)org/schema/terms/GenbankAccessionNumber: رقم الانضمام إلى بنك
+          الجينات
         http://eol(dot)org/schema/terms/GenerationTime: الزمن الجيلي
         http://eol(dot)org/schema/terms/genotype: نمط الجنس
         http://eol(dot)org/schema/terms/Present: يَضمّ التوزيع الجغرافي
@@ -2125,9 +2198,12 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000488: البحيرات الجليدية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000248: الأودية الجليدية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: الأنهار الجليدية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002244: جليسول
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: الانزلاق
         'http://purl(dot)obolibrary(dot)org/obo/NBO_0000369 ': الانزلاق
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: صمغ
+        http://eol(dot)org/schema/terms/gonadRatioFemaleToMale: نسبة الغدد التناسلية
+          f/m
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Gorstian: العصر
           الغورستي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000290: الأخاديد
@@ -2162,6 +2238,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000184: الأودية المعلقة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: المرافئ
         http://eol(dot)org/schema/terms/hardBenthicSubstrate: مادة تفاعل قاعية قاسية
+        http://eol(dot)org/schema/terms/hardSubstrateBoring: حفر الركيزة الصلبة
         https://eol(dot)org/schema/terms/harvested_in: تحصد في
         http://purl(dot)obolibrary(dot)org/obo/RO_0002633: لديه طفيلي خارجي
         http://purl(dot)obolibrary(dot)org/obo/RO_0008508: لديه بيض تبثته عليه
@@ -2183,6 +2260,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: الأراضي الخنجلية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: سياج شجيرات
         http://semanticscience(dot)org/resource/SIO_000040: الارتفاع
+        http://eol(dot)org/schema/terms/HeightStanding: ارتفاع الوقوف
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: نبات مستنقع
         http://eol(dot)org/schema/terms/hemiepiphyte: نبات شبه عالق
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: حمض هيبتاديكانويك
@@ -2196,6 +2274,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: جلود الحيوانات
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: عالي
         http://eol(dot)org/schema/terms/highCNRatio: عالي (أكثر من 59)
+        http://eol(dot)org/schema/terms/highArctic: القطب الشمالي المرتفع
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: فترة عمر طويلة
         http://eol(dot)org/schema/terms/highNitrogenFixation: تثبيت النيتروجين عالي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002025: الموائل ذات درجة حرارة
@@ -2206,6 +2285,8 @@ ar:
         http://eol(dot)org/schema/terms/HindTarsusLength: طول الرسغ الخلفي
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Hirnantian: العصر
           الهيرنانتي
+        http://eol(dot)org/schema/terms/hispidose: هيسبيدوز
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002243: الهيستوزول
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Holocene: فترة
           الهولوسيني
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Holotype: نمط أوحد
@@ -2229,6 +2310,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000134: السوائل الحرارية المائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000030: الفتحات الحرارية المائية
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: هيدروكسيلاباتيت
+        http://eol(dot)org/schema/terms/hyperhydate: فرط الترطيب
         http://purl(dot)obolibrary(dot)org/obo/RO_0002553: متطفل فوقي على
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002012: المياه شديدة الملوحة
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: طول الحدبة الوحشية اللسانية
@@ -2270,6 +2352,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002179: رواسب المد والجزر
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000316: مناطق المد والجزر
         http://eol(dot)org/schema/terms/InvasiveRange: غازي لـ
+        https://eol(dot)org/schema/terms/inverse: معكوس
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: مقلوب
         http://eol(dot)org/schema/terms/invertivore: آكل حشرات
         http://ecoinformatics(dot)org/oboe/oboe(dot)1(dot)0/oboe-characteristics(dot)owl#Irradiance: الإشعاع
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000036: قنوات الري
@@ -2307,6 +2391,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002626: يقتل
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Kimmeridgian: العصر
           الكيمريدجي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000410: كيبوكا
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: متطفل سارق من
         http://eol(dot)org/schema/terms/squarekilometer: كيلومتر مربع
         http://eol(dot)org/schema/terms/DescribedAcceptedSpecies: الأنواع البحرية
@@ -2340,6 +2425,7 @@ ar:
         http://eol(dot)org/schema/terms/LatentPeriod: الفترة الكامنة
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25230: جانبي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000249: الركام الجانبي
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: مثل الخشب
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000322: كهوف الحمم البركانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000095: منطقة الحمم البركانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000110: أنفاق الحمم البركانية
@@ -2360,9 +2446,13 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: صنف حجم الورقة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: شبه ورقي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005783: التربة الخشبية الورقية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000544: جلد
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Lectotype: نمط منتخب
         http://semanticscience(dot)org/resource/SIO_000041: الطول
         https://eol(dot)org/schema/terms/lens_eyes: عيون العدسة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002241: الليبتوسول
+        http://eol(dot)org/schema/terms/lichenicole: ليشينيكول
+        http://eol(dot)org/schema/terms/lichenous: شائك
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: عادة دورة الحياة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: فترة العمر
         http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: مرحلة الحياة
@@ -2377,6 +2467,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: خطي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001708: الحجم الخطي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: الدهون
+        http://eol(dot)org/schema/terms/LittersPerYear: الفضلات في السنة
         http://eol(dot)org/schema/terms/littoralZone: المنطقة الساحلية
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Llandovery: فترة
           اللاندوفري
@@ -2385,18 +2476,21 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lochkovian: العصر
           اللوكوفي
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: التحرك
+        http://eol(dot)org/schema/terms/log10gram: سجل 10 جرام
         http://eol(dot)org/schema/terms/longPersistentSeedBank: طويل الأمد
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lopingian: فترة
           اللوبنجي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000517: التيارات الغائرة
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C54722: منخفض
         http://eol(dot)org/schema/terms/lowCNRatio: منخفض (أقل من 23)
+        http://eol(dot)org/schema/terms/lowArctic: القطب الشمالي المنخفض
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: فترة عمر قصيرة
         http://eol(dot)org/schema/terms/lowNitrogenFixation: تثبيت النيتروجين منخفض
         http://eol(dot)org/schema/terms/TemperatureTolerance: تحمل درجات حرارة منخفضة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000319: مناطق الجَزر
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: تحمل منخفض
         http://eol(dot)org/schema/terms/lowEpifaunal: الحيوانات الفوقية المنخفضة
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000315: حد الثقة الأدنى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerCretaceous: فترة
           الطباشيري الأدنى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/LowerDevonian: فترة
@@ -2412,18 +2506,24 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Ludlow: فترة اللودلو
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Lutetian: العصر
           اللوتيتي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002248: لوفيسول
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000261: ليسوكلين
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: متر
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: متر مربع
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000245: البحيرات البركانية
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Maastrichtian: العصر
           الماسترخي
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000417: ماشير
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: الطحالب الكبيرة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000234: الحمم المافية
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: المغنيسيوم(mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: ذكر
         http://eol(dot)org/schema/terms/MaleFemaleBodyMassRatio: نسبة وزن الجسم للذكور
           والإناث
         http://eol(dot)org/schema/terms/maleOrUnsexed: ذكر أو لا جنس
+        http://eol(dot)org/schema/terms/MaleTenure: فترة ولاية الذكور
         http://eol(dot)org/schema/terms/mammalivore: آكل ثدييات
+        https://eol(dot)org/schema/terms/manca: مانكا
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000181: مستنقعات القرم (المانجروف)
         http://eol(dot)org/schema/terms/MantleLength: طول الرداء
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003074: منتَج مصنَع
@@ -2478,8 +2578,10 @@ ar:
         http://eol(dot)org/schema/terms/mediumNitrogenFixation: تثبيت النيتروجين متوسط
         http://eol(dot)org/schema/terms/mediumCNRatio: متوسط (23 – 59)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: متوسط (طبيعي)
+        https://eol(dot)org/schema/terms/medusoid: شكل متوسط
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000199: بحيرات ناقصة الموجان
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000179: الهضاب الصغيرة (ميسا)
+        http://eol(dot)org/schema/terms/mesohaline: ميسوهالين
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000213: النطاق اللُجي المتوسط
         http://eol(dot)org/schema/terms/mesotrophicFreshwaterLake: البحيرات العذبة
           ذات مغذيات متوسطة
@@ -2507,6 +2609,8 @@ ar:
         http://eol(dot)org/schema/terms/midSummer: منتصف الصيف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000406: الحيد وسط المحيط
         http://eol(dot)org/schema/terms/midPersistentSeedBank: متوسط الاستدامة
+        http://eol(dot)org/schema/terms/middleArcticDwarfShrubSubzone: منطقة فرعية
+          لشجيرات القزم القطبية الوسطى
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleDevonian: فترة
           الديفوني الأوسط
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/MiddleJurassic: فترة
@@ -2559,6 +2663,7 @@ ar:
           يوم
         https://eol(dot)org/schema/terms/mollusk_foot: قدم الرخويات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000432: الجبال المتخلفة
+        http://eol(dot)org/schema/terms/monandry: أحادي
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000412: أحادية المحور
         https://eol(dot)org/schema/terms/monoicous: أحادي المسكن
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000185: الصحاري الجبلية
@@ -2569,6 +2674,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: شهرا
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000231: المستنقعات (مور)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000177: الركام
+        http://eol(dot)org/schema/terms/MortalityRateDoublingTime: وقت مضاعفة معدل
+          الوفيات
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Moscovian: العصر
           الموسكوفي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: الجبال
@@ -2598,6 +2705,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0014406: طور اليرقانة
         http://eol(dot)org/schema/terms/nearThreatened: قريب من خطر الانقراض
         http://www(dot)marinespecies(dot)org/traits/Nekton: نكتوني
+        http://eol(dot)org/schema/terms/nektobenthic: قاعية
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Neogene: العصر
           النيوجيني
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: حديثي الولادة
@@ -2631,6 +2739,8 @@ ar:
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: لا شيء
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Norian: العصر
           النوري
+        http://eol(dot)org/schema/terms/northernArcticDwarfShrubSubzone: منطقة فرعية
+          لشجيرات القزم القطبية الشمالية
         http://eol(dot)org/schema/terms/notMonogamous: ليست وحيدة التزاوج
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: طول النواة
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: عرض النواة
@@ -2690,6 +2800,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000434: مروحة الجرافة الجليدية
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001891: بيضوي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000202: بحيرات أوكسبو
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000431: أوكسيا
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Oxfordian: العصر
           الأكسفوردي
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: الأكسجين
@@ -2719,6 +2830,8 @@ ar:
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paratype: نمط رفيق
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/BP_YES: رعاية الوالدين
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: الرعاية الأبوية
+        http://www(dot)marinespecies(dot)org/traits/NonSolidParticlesComp: هيكل جزيئي
+          (غير صلب)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: المراعي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005773: تربة المراعي
         http://eol(dot)org/schema/terms/patchReef: الشعاب الرقعية
@@ -2801,6 +2914,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: يلقح
         https://eol(dot)org/schema/terms/polychaete_feeder: مقتات بعديدات الأشواك
         https://eol(dot)org/schema/terms/polygamodioecious: وحيد المسكن متعدد الأجناس
+        http://eol(dot)org/schema/terms/polyhaline: متعدد الملوحة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000112: العقيدات متعددة المعادن
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000484: الفروج المائية (بولينيا)
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: البرك
@@ -2811,6 +2925,8 @@ ar:
         http://eol(dot)org/schema/terms/PopulationGroupSize: حجم المجموعة السكانية
         http://eol(dot)org/schema/terms/population_trend: الاتجاه السكاني
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000140: موضع
+        http://eol(dot)org/schema/terms/PostFireSeedlingEmergence: ظهور الشتلات بعد
+          الحرائق
         http://eol(dot)org/schema/terms/PostFireSeedlingSurvival: بقاء الشتلات بعد
           الحريق
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000534: النحور
@@ -2845,6 +2961,7 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Proterozoic: دهر
           الطلائع
         http://eol(dot)org/schema/terms/protozoa_feeder: مقتات بالأوليات
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: وحدة إمداد الطاقة
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: البورينات
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: نفسجي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: هَرَمِيّ
@@ -2876,11 +2993,14 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: التكاثر
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RT: درجة حرارة التكاثر
         http://rs(dot)tdwg(dot)org/dwc/terms/reproductiveCondition: حالة التكاثر
+        http://eol(dot)org/schema/terms/ReproductiveSkew: انحراف تكاثري
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/STRAT: استراتيجية التكاثر
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000025: الخزانات
         http://purl(dot)obolibrary(dot)org/obo/PO_0025603: راتنج (مادة صمغية)
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: معدل التنفس
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: الجهاز التنفسي
+        http://eol(dot)org/schema/terms/RespClip: القدرة على الإنبات بعد القص
+        http://eol(dot)org/schema/terms/RespDist: القدرة على الإنبات بعد الاضطراب
         http://eol(dot)org/schema/terms/RespFire: القدرة على إعادة الإشطاء بعد الحريق
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rhaetian: العصر
           الرهتي
@@ -2906,10 +3026,13 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000423: الجُزر النهرية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000386: مصبات الأنهار
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000171: أودية الأنهار
+        http://eol(dot)org/schema/terms/RNAtoDNAratio: نسبة الحمض النووي الريبي إلى
+          الحمض النووي
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Roadian: العصر
           الرودي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: الصخور
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: الانهيارات الصخرية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000440: بيت صخري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000173: الصحاري الصخرية
         http://eol(dot)org/schema/terms/rockyGrassland: المراعي الصخرية
         https://eol(dot)org/schema/terms/rockyVegetated: منكشفات صخرية ذات غطاء نباتي
@@ -2924,6 +3047,7 @@ ar:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Rupelian: العصر
           الروبيلي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000151: السبخة
+        http://eol(dot)org/schema/terms/sacSpawner: كيس التبويض
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Sakmarian: العصر
           الساكماري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000055: برك استخراج الملح
@@ -2976,6 +3100,7 @@ ar:
         http://eol(dot)org/schema/terms/SeedBank: بنك البذور
         http://top-thesaurus(dot)org/annotationInfo?viz=1&&trait=Seed_dry_mass: وزن
           البذور الجافة
+        http://eol(dot)org/schema/terms/seedHoarding: تخزين البذور
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: وزن البذور
         http://eol(dot)org/schema/terms/SeedPeriodBegin: بداية فترة الإبذار
         http://eol(dot)org/schema/terms/SeedPeriodEnd: نهاية فترة الإبذار
@@ -3019,6 +3144,7 @@ ar:
         http://eol(dot)org/schema/terms/sheltered: محمية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000545: شواطئ الحصباء الساحلية
         http://purl(dot)obolibrary(dot)org/obo/PO_0000037: قمة المجموع الخضري
+        http://eol(dot)org/schema/terms/ShootRootRatio: نسبة البراعم إلى الجذور (srr)
         http://eol(dot)org/schema/terms/shortPersistentSeedBank: قصير الاستدامة
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: جنبة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000176: الشجيرات
@@ -3058,6 +3184,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002255: التربة الملحية التجتية
           (سولونتز)
         http://purl(dot)org/dc/terms/source: المصدر
+        http://eol(dot)org/schema/terms/southernArcticDwarfShrubSubzone: منطقة فرعية
+          لشجيرات القزم القطبية الجنوبية
         http://www(dot)nucleodiversus(dot)org/index(dot)php?mod=caracter&id=17: مساحة
           الورقة المحددة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000327: قُرارت الكهوف
@@ -3098,8 +3226,10 @@ ar:
         http://eol(dot)org/schema/terms/subalpineFreshwaterLake: البحيرات العذبة شبه
           الألبية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000267: الخوانق تحت البحرية
+        http://eol(dot)org/schema/terms/submassive: شبه ضخم
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000251: تحت قطبية
         http://eol(dot)org/schema/terms/subshrub: شجيرية (شبيهة الشجيرة)
+        http://eol(dot)org/schema/terms/Attached: مرتبط بالركيزة
         http://eol(dot)org/schema/terms/subsurfaceDepositFeeder: مقتات بالرواسب تحت
           السطح
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000572: تحت اليابسة
@@ -3132,7 +3262,9 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000113: الرواسب العالقة
         http://eol(dot)org/schema/terms/suspensionFeeder: مقتات بالمُعلّقات
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: المستنقعات
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00002300: مُحلي
         http://purl(dot)obolibrary(dot)org/obo/GO_0036268: السباحة
+        http://eol(dot)org/schema/terms/symbiontInheritance: وراثة التكافل
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: متعايش مع
         http://eol(dot)org/schema/terms/symbiotroph: متكافل الاغتذاء
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Syntype: نمط مثيل
@@ -3164,9 +3296,12 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000215: الشجيرات معتدلة المناخ
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000221: الأحراج معتدلة المناخ
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: درجة الحرارة
+        http://eol(dot)org/schema/terms/TemperatureAtRangeMidpointLatitude: درجة الحرارة
+          عند منتصف خط العرض
         http://eol(dot)org/schema/terms/TemperatureInRange: درجة الحرارة في النطاق
           الجغرافي
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002323: التوزيع الزمني
+        http://eol(dot)org/schema/terms/tenagophyte: نبات التيناغوفيت
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000252: الركام النهائي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000508: المصطبات
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Terreneuvian: فترة
@@ -3175,6 +3310,7 @@ ar:
         http://eol(dot)org/schema/terms/terrestrialPlant: نبات أرضي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000070: الرواسب الأرضية
         http://eol(dot)org/schema/terms/TestesMass: وزن الخصيتين
+        http://eol(dot)org/schema/terms/testicond: خصية
         http://eol(dot)org/schema/terms/TestisLocation: موقع الخصية
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: حمض التتراكوسانويك
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: حمض التيتراديكانويك
@@ -3182,6 +3318,7 @@ ar:
         https://eol(dot)org/schema/terms/thallus_length: طول المشرة
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Thanetian: العصر
           الثانتي
+        http://eol(dot)org/schema/terms/OceaniaRealm: المملكة الأوقيانوسية (الجزر)
         http://eol(dot)org/schema/terms/thermalFeature: حراري
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002269: المنحذرات الحرارية
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: سماكة
@@ -3224,6 +3361,8 @@ ar:
         http://eol(dot)org/schema/terms/TrophicGuild: الطائفة الغذائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005806: الغابات الصنوبرية الاستوائية
           وشبه الاستوائية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000879: الغابات عريضة الأوراق
+          الرطبة الاستوائية وشبه الاستوائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000200: الغابات الاستوائية ذات
           الأوراق العريضة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000210: الغابات الصنوبرية الاستوائية
@@ -3256,6 +3395,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: الأنفاق
         http://eol(dot)org/schema/terms/turbidWater: المياه العكرة
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C74723: العكارة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000454: تورلو
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Turonian: العصر
           التوروني
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000370: براكين تويا
@@ -3268,6 +3408,7 @@ ar:
         http://eol(dot)org/schema/terms/ultraoligotrophicFreshwaterLake: البحيرات
           العذبة ذات مغذيات عالية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: مظلة
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002253: أومبريسول
         http://eol(dot)org/schema/terms/uncommon: غير مألوف
         http://eol(dot)org/schema/terms/unconfirmedHolotype: نمط أوحد غير مؤكد
         http://eol(dot)org/schema/terms/unconfirmedLectotype: نمط منتخب غير مؤكد
@@ -3280,6 +3421,8 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000060: التيارات الجوفية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005792: المياه الجوفية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000061: المسطحات المائية الجوفية
+        http://eol(dot)org/schema/terms/UndescribedSpeciesInMuseumCollections: الأنواع
+          البحرية غير الموصوفة الموجودة في مجموعات المتاحف
         https://eol(dot)org/schema/terms/unisexual_flowers: زهور للجنسين
         http://eol(dot)org/schema/terms/unknown: غير معروف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005786: التربة المرتفعة
@@ -3337,6 +3480,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005785: التربة البركانية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: البراكين
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: الحجم
+        http://eol(dot)org/schema/terms/VoucherID: معرف القسيمة
         http://eol(dot)org/schema/terms/vulnerable: غير محصن
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000031: الأودية
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: المشي
@@ -3397,6 +3541,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000023: ميكروغرام
         http://eol(dot)org/schema/terms/µg_cm-2: ميكروغرام/ سنتيمتر مربع
         http://purl(dot)obolibrary(dot)org/obo/UO_0000017: ميكرومتر
+        http://eol(dot)org/schema/terms/perMicrometer: ميكرومتر^(-1)
         http://eol(dot)org/schema/terms/squareMicrometer: ميكرومتر مربع
         http://eol(dot)org/schema/terms/cubicMicrometer: ميكرومتر مكعب
         http://eol(dot)org/schema/terms/µmol_cell-1_day-1: ميكرومول/ خلية/ يوم
@@ -3413,9 +3558,11 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001756: الأذن الوسطى الطبلية
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0006583: خلايا التوازن
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0006860: حويصل العوم
+        https://eol(dot)org/schema/terms/extratympanic: خارج الطبلة
         https://eol(dot)org/schema/terms/tympanic_bladder: الحويصل الطبلي
         https://eol(dot)org/schema/terms/omnivoreHerbivore: عاشب وأحيانا قارت
         http://purl(dot)bioontology(dot)org/ontology/MESH/D059646: حجم الجينوم
+        http://eol(dot)org/schema/terms/geneticVoucher: قسيمة وراثية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000345: الجبل العلوي
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001456: الجبال الاستوائية
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000346: الجبل السفلي
@@ -3467,6 +3614,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: ديسيبل
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: جزيرة المانجروف
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000338: طبقة المخلّفات
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000335: الطبقة السفلية
         http://eol(dot)org/schema/terms/HasDispersalVector: لديه ناقل التشتت
         http://eol(dot)org/schema/terms/mol_cell-1: مول/ خلية
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: متأخر
@@ -3475,6 +3623,7 @@ ar:
         http://eol(dot)org/schema/terms/mol_cell-1_day-1: مول/ خلية/ يوم
         http://eol(dot)org/schema/terms/physiologicalState: الحالة الفسيولوجية
         http://eol(dot)org/schema/terms/mol_m-2_s-1: مول/ متر مربع/ ثانية
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: عدسي
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: وحيدا التزاوج
         http://eol(dot)org/schema/terms/temporaryAquatic: المياه المؤقتة
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: متماثل شعاعيا
@@ -3491,9 +3640,17 @@ ar:
         http://eol(dot)org/schema/terms/macrothallus: المِشرة الكبيرة
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isolectotype: نمط شائع منتخب
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isosyntype: نمط شائع مثيل
+        http://eol(dot)org/schema/terms/eudoxid: يودوكسيد
         http://eol(dot)org/schema/terms/originalMaterial: المواد الأصلية
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isoneotype: نمط شائع حديث
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: نمط خارجي
+        http://eol(dot)org/schema/terms/MuseumOfForestryLycksele: متحف الغابات في
+          ليكسيلي
+        http://eol(dot)org/schema/terms/collection_AGarai: مجموعة أ. جاراي
+        http://eol(dot)org/schema/terms/collection_Fwillemse: مجموعة ف. ويليمس
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: مجموعة جي إتش شميدت
+        http://eol(dot)org/schema/terms/collection_Heller: مجموعة هيلر
+        http://eol(dot)org/schema/terms/collection_Singrisch: مجموعة سينغريش
         http://eol(dot)org/schema/terms/Entomological_Museum_Department_of_Agriculture_Bangkok_Thailand: إدارة
           متحف علم الحشرات للزراعة بانكوك تايلاند
         http://eol(dot)org/schema/terms/exepitype: نمط خارجي سابق
@@ -3513,6 +3670,7 @@ ar:
           حديث
         http://eol(dot)org/schema/terms/isoparatype: نمط شائع رفيق
         http://eol(dot)org/schema/terms/prototype: نمط أولي
+        http://eol(dot)org/schema/terms/adolescaria: مراهقات
         http://eol(dot)org/schema/terms/adultAndJuvenile: بالغ ويافع
         http://eol(dot)org/schema/terms/adultAndLarva: يرقة وبالغة
         http://eol(dot)org/schema/terms/adultAndNymph: حورية وبالغة
@@ -3521,6 +3679,7 @@ ar:
         http://eol(dot)org/schema/terms/alatoidNymph: حورية شبه مجنحة
         http://eol(dot)org/schema/terms/apterousNymph: حورية لامجنحة
         http://eol(dot)org/schema/terms/chick: صوص
+        http://eol(dot)org/schema/terms/copepodid: الكوبيوبيد
         http://eol(dot)org/schema/terms/femaleFlowers: زهور أنثوية
         http://eol(dot)org/schema/terms/floweringAndFruiting: الإزهار والإثمار
         http://eol(dot)org/schema/terms/immatureAndOvigerous: غير ناضج وبيوض
@@ -3530,12 +3689,17 @@ ar:
         http://eol(dot)org/schema/terms/maleAndHermaphrodite: خنثى وذكر
         http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: خنثى وذكر وأنثى
         http://eol(dot)org/schema/terms/maleFlowers: زهور ذكورية
+        http://eol(dot)org/schema/terms/manca: مانكا
+        http://eol(dot)org/schema/terms/marita: ماريتا
         http://eol(dot)org/schema/terms/metamorph: التحول
         http://eol(dot)org/schema/terms/miracidium: ميراسيديوم (تفقس البيض)
         http://eol(dot)org/schema/terms/morphotype: نمط مظهري
         http://eol(dot)org/schema/terms/nonBreeding: عديمة التربية
+        http://eol(dot)org/schema/terms/parthenita: بارثينيتا
         http://eol(dot)org/schema/terms/plerocercoid: ذيلنية مكتملة
+        http://eol(dot)org/schema/terms/plerocercus: بليروسيركوس
         http://eol(dot)org/schema/terms/postmetamorph: بعد التحول
+        http://eol(dot)org/schema/terms/praniza: برانيز
         http://eol(dot)org/schema/terms/redia: الريدية
         http://eol(dot)org/schema/terms/tetrathyridium: تتراتيريدوم
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000757: بلازموديوم
@@ -3544,6 +3708,7 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001293: البيضة المتكيسة المتبوغة
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: متسارعة
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001773: البيضة المتكيسة
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0003670: مرحلة الخيطيات الدقيقة
         http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: مُتذَنبة
         http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: مرحلة الحويصة البوغية
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: خصب
@@ -3554,6 +3719,10 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: مرحلة الإزهار
         http://purl(dot)obolibrary(dot)org/obo/PO_0025500: مرحلة نمو الثمار
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: خادرة
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014856: مرحلة الكيسات المذنبة
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: مرحلة ميغالوبا
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000708: السركاريوم
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000716: الديدان الخيطية
         http://purl(dot)obolibrary(dot)org/obo/WBls_0000720: خليفة ذانبة
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: مصبات الأنهار قليلة
           الملوحة

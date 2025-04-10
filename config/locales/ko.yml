@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 22258
 # Author: AquAFox
 # Author: Codenstory
 # Author: Gomdoli
@@ -18,6 +19,8 @@ ko:
   advanced: 고급
   are_you_sure_delete_account: EOL 계정을 정말로 지우시겠습니까?
   article:
+    actions:
+      collect: 수집
     header:
       blank: (이 문서에는 본문이 없습니다.)
       body: 본문
@@ -27,7 +30,9 @@ ko:
     name:
       missing: 제목 없음
   article_from_partner: '%{partner} 제공'
+  article_duplicate: 이 기사는 "%{section}"에도 표시됩니다.
   breadcrumbs:
+    setting_header: 빵가루 안의 이름들
     types:
       scientific: 학명
       vernacular: 향명 및 속명
@@ -39,6 +44,26 @@ ko:
       r_species_html: 이 종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
       r_subspecies_html: 이 아종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
         .
+    species: '%{name1}은 %{name2}의 종입니다.'
+    species_in_family: '%{name1}은 %{name_family}과에 속한 %{name2}의 종입니다.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1}은 %{name2}상과입니다.'
+        r_domain: '%{name1}은 %{name2}역입니다.'
+        r_superkingdom: '%{name1}은 %{name2}상계입니다.'
+        r_kingdom: '%{name1}은 %{name2}계입니다.'
+        r_subkingdom: '%{name1}은 %{name2}아계입니다.'
+        r_infrakingdom: '%{name1}은 %{name2}하계입니다.'
+        r_superphylum: '%{name1}은 %{name2}상문입니다.'
+        r_phylum: '%{name1}은 %{name2}문입니다.'
+        r_subphylum: '%{name1}은 %{name2}아문입니다.'
+        r_infraphylum: '%{name1}은 %{name2}하문입니다.'
+        r_superclass: '%{name1}은 %{name2}상강입니다.'
+        r_class: '%{name1}은 %{name2}강입니다.'
+        r_family: '%{name1}은 %{name2}과입니다.'
+      below_family:
+        without_family:
+          r_tribe: '%{name1}은 %{name2}의 부족입니다.'
   button_create: 만들기
   button_add: 추가
   cancel: 취소
@@ -50,11 +75,14 @@ ko:
     hierarchies:
       this_page: (이 문서)
     richness:
+      score: 풍부도 점수
+      page_contents_count: 관련 내용
       media_count: 미디어
       articles_count: 문서
       links_count: 링크
       maps_count: 지도
       data_count: 데이터
+      nodes_count: 마디
       vernaculars_count: 향명 및 속명
       scientific_names_count: 학명
       species_count: 종
@@ -63,10 +91,16 @@ ko:
   collect_already_in_collection_will_add_icon: (미디어를 "%{page}"에 추가)
   collect_new_collection: 새 모음집 이름
   collected_pages_title: 페이지
+  collected_pages_medium:
+    destroyed_flash: 수집된 페이지에서 삭제된 이미지.
+  collection_associations:
+    destroyed_flash: '%{name}은 더 이상 이 수집물과 연관되지 않습니다.'
   collected_pages:
     delete_button: 삭제
     edit_button: 편집
     delete_confirm: 확실합니까?
+    destroyed_flash: '%{name}는 수집물에서 삭제되었습니다.'
+  collection_associations_title: 관련 수집물
   collection_created: 새 모음집 "%{name}"을(를) 만들었습니다.
   collection_user_is_admin: 이 사용자는 관리자입니다.
   collection:
@@ -75,10 +109,12 @@ ko:
       label: '이 모음집을 편집할 수 있는 사용자 추가:'
       placeholder: 성명 또는 사용자 이름
     actions:
+      associate: 연관
       delete: 삭제
       edit: 편집
       sort: 정렬
     collection_type:
+      normal: 일반적인
       gallery: 갤러리
     delete_confirm: 이 작업은 모든 모음집을 제거하며 취소할 수 없습니다. 그렇게 하시겠습니까?
     destroyed: '"%{name}"님이 영구적으로 삭제되었습니다.'
@@ -86,6 +122,9 @@ ko:
       one: 문서 1개
       other: 문서 %{count}개
     log:
+      collection:
+        add: '%{user}가 컬렉션을 생성했습니다.'
+        change: '%{user}가 %{field}를 "%{from}"에서 "%{to}"로 변경했습니다.'
       content:
         add: '%{user}님이 문서 %{page}에 대해 %{medium} 미디어를 추가했습니다'
       page:
@@ -97,6 +136,8 @@ ko:
       placeholder: 모음집에서 검색...
       submit: 검색
     sort:
+      hierarchy: 계층
+      position: 추가된 날짜
       sci_name: 학명, A-Z
       sci_name_rev: 학명, Z-A
     updated: 모음집이 업데이트되었습니다.
@@ -121,6 +162,17 @@ ko:
     provider: 제공자
     resource_label: 파트너 사이트
     resource_pk: '(id: %{key})'
+    source: 출처
+    spatial_location: 공간적
+    view_source_label: 원래의
+    view_source_link: 원본 이미지 보기
+    view_source_page_link: 소스 보기
+  content_not_in_any_collection_image: 이 이미지는 어떤 수집물에도 실려 있지 않습니다.
+  content_not_in_any_collection_sound: 이 소리는 어떤 수집물에도 실려있지 않습니다.
+  content_not_in_any_collection_video: 이 영상은 어떤 수집물에도 실려있지 않습니다.
+  data:
+    modifier:
+      sex_term: 측정된 생물의 성별
   data_missing: '(데이터 없음. 키: %{keys})'
   dear_username_with_comma: '%{username}님,'
   delete_account_button: 내 계정 삭제
@@ -128,6 +180,7 @@ ko:
     internal_server: 내부 서버 오류 (500)
     not_found: 페이지를 찾을 수 없습니다 (404)
   filter_by_license: 라이선스
+  filter_by_medium_subtype: 종류
   filter_by_medium_any_item: 모든 유형
   filter_by_resource: 제공자
   filters:
@@ -175,6 +228,8 @@ ko:
   forgot_your_password: 비밀번호를 잊으셨나요?
   gbif_download:
     created: GBIF 다운로드 작업이 생성되었습니다. <a href="%{url}">사용자 프로필 페이지</a>에서 상태를 확인하세요
+  landing_page:
+    stats_cleared: 통계가 재계산되었습니다.
   language: 언어
   languages:
     ab: 압하스어
@@ -201,9 +256,25 @@ ko:
     q33070: 발리어
     bm: 밤바라어
     q33151: 반자르어
+    ba: 바시키르어
+    eu: 바스크어
+    q29540: 바이에른어
+    be: 벨라루스어
+    q8836490: 벤데어
+    bn: 뱅골어
+    bh: 비하리어
+    bi: 비슬라마어
+    nb: 보크몰어, 노르웨이어; 노르웨이 보크몰어
+    q4941378: 본데이어
     bs: 보스니아어
+    q33202: 브라후이어
     q750553: 브라질 포르투갈어
+    br: 브르타뉴어
     bg: 불가리아어
+    my: 버마어
+    q33120: 부랴트어
+    q880301: 케이준 프랑스어
+    q35156: 카르어
     zh: 중국어
     chi: 중국어
     hr: 크로아티아어
@@ -214,13 +285,16 @@ ko:
     eo: 에스페란토어
     et: 에스토니아어
     est: 에스토니아어
+    fj: 피지어
     fi: 핀란드어
     fin: 핀란드어
     fr: 프랑스어
     fra: 프랑스어
+    gl: 갈리시아어
     de: 독일어
     deu: 독일어
     gre: 그리스어
+    ht: 하이티어; 하이티 크리올어
     he: 히브리어
     heb: 히브리어
     hu: 헝가리어
@@ -239,10 +313,14 @@ ko:
     li: Limburgish
     lt: 리투아니아어
     lit: 리투아니아어
+    q35787: 마사이어
     mk: 마케도니아어
     ms: 말레이어
+    mt: 몰타어
+    mlt: 몰타어
     mi: 마오리어
     mn: 몽골어
+    q56426: 모로코 아랍어
     ne: 네팔어
     "no": 노르웨이어
     nno: 노르웨이어
@@ -253,6 +331,7 @@ ko:
     pl: 폴란드어
     pol: 폴란드어
     pt: 포르투갈어
+    ro: 루마니아어; 몰도바어; 몰도바어
     ru: 러시아어
     rus: 러시아어
     sm: 사모아어
@@ -271,9 +350,11 @@ ko:
     none: 지정되지 않음
     vi: 베트남어
     q100103: 서플라망어
+    zu: 줄루어
   layout_sign_in: 로그인
   layout_sign_up: 가입하기
   layout_sign_out: 로그아웃
+  literature_and_references_header: 문학 및 참조자료
   maps:
     empty: 이 문서에서는 사용 가능한 지도가 없습니다.
   medium:
@@ -289,22 +370,30 @@ ko:
       js_map: 제목 없는 상호작용 지도
     subcategories:
       image: 이미지
+      video: 동영상
       sound: 소리
+      map_image: 지도
   medium_description_blank: 이 프로젝트에 지정된 설명이 없습니다.
   medium_header_title: '제목:'
   medium_header_description: '설명:'
+  names:
+    prefer: 선호하는
   nav:
     about: 정보
     discuss: 토론
     education: 교육
     search:
       placeholder: EOL 검색...
+  name_preferred_label: 선호하는
   page_icon_created: '"%{name}" 이미지를 최상단으로 이동했습니다.'
   page_title: 생명의 백과사전
   page_title_search: '검색: %{query}'
   pages:
+    actions:
+      collect: 수집
     batch_lookup:
       download_tsv: TSV 다운로드
+      match: 일치
       new_search: 새 검색
       page_id: 문서 ID
       page_url: 페이지 URL
@@ -316,9 +405,11 @@ ko:
     page_data:
       show_all: 모두 보기
     resource_names:
+      name_recognized_by_w_status: '%{by}에 따르면 %{status}이다'
       rank:
         r_domain: 도메인
         r_subdomain: 서브도메인
+        r_superkingdom: 상계
         r_kingdom: 계
         r_subkingdom: 아계
         r_infrakingdom: 하계
@@ -326,29 +417,40 @@ ko:
         r_phylum: 문
         r_subphylum: 아문
         r_infraphylum: 하문
+        r_superclass: 상강
         r_class: 강
         r_subcategory: 아강
+        r_infraclass: 하강
         r_superorder: 상목
         r_order: 목
         r_suborder: 아목
+        r_infraorder: 하목
         r_superfamily: 상과
+        r_family: 과
         r_subfamily: 아과
+        r_infrafamily: 하과
+        r_tribe: 부족
         r_genus: 속
         r_subgenus: 아속
         r_superspecies: 상종
+        r_species: 종
         r_subspecies: 아종
         r_infraspecies: 하종
+        r_form: 형태
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       username_missing: 사용자 %{user_id}
     trophic_web:
+      competitor: 경쟁자
       globi_credit_html: <a href='%{url}'>GloBI</a>의 데이터
+      predator: 포식자
+      reset: 초기화
     tabs:
       articles: 문서
       classifications: 분류
       data: 데이터
-      literature_and_references: 참고문헌
+      literature_and_references: 문학 및 참조자료
       overview: 개요
       maps: 지도
       media: 미디어
@@ -356,6 +458,9 @@ ko:
     iucn_status:
       label: 'IUCN 상태:'
       ex: 멸종 (EX)
+      ew: 야생에서 멸종(EW)
+      cr: 멸종위기 (CR)
+      en: 멸종위기 (EN)
       unknown: 알 수 없음 (레코드 없음)
   page_titles:
     pages:
@@ -446,6 +551,7 @@ ko:
       header: 검색 제안
   sections:
     behavior: 동작
+    benefits: 이익
     brief_summary: 간단한 요약
     conservation: 보존
     conservation_status: 보존 상태
@@ -454,6 +560,7 @@ ko:
     diseases_and_parasites: 질병과 기생충
     ecology: 생태학
     genetics: 유전학
+    habitat: 서식지
     life_expectancy: 기대 수명
     life_history_and_behavior: 생명 역사 및 행동
     management: 관리
@@ -522,9 +629,12 @@ ko:
     search_hdr: 데이터 검색
     search_results:
       gbif_search: GBIF 검색
+      new_search: 새로운 검색
       switch_to_gallery: 갤러리 뷰로 전환
   trust:
     unreviewed: 검토되지 않음
+    trusted: 신뢰하는
+    untrusted: 신뢰하지 않는
   user:
     download_queue: 데이터 다운로드 대기열
     email: 이메일
@@ -561,37 +671,108 @@ ko:
     fields:
       name: '이름:'
       definition: '정의:'
+      comment: 댓글
       is_hidden_from_glossary: '용어집에서 숨김:'
       is_hidden_from_overview: '둘러보기 탭에서 숨김:'
     pagination:
       next: 다음 페이지
       previous: 이전 페이지
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ~에 의해 먹힌다
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://eol(dot)org/schema/terms/amphibious: 양서류의
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 연간
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 수생 식물
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 구역
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: 건조한
+        https://eol(dot)org/schema/terms/arm: 팔
         http://eol(dot)org/schema/terms/average: 평균
+        https://eol(dot)org/schema/terms/bamboo_forest: 대나무 숲
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: 해변의 모래
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: 밀랍
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 검정
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: 피
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: 파랑
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: 체액
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 몸길이
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 몸무게
+        http://eol(dot)org/schema/terms/BodyShape: 체형
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: 체온
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 갈색
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: 카페인
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: 동굴
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: 동굴 입구
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000019: 동굴 바닥
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: 세포 지름
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: 세포 무게
+        http://eol(dot)org/schema/terms/CellSurfaceArea: 세포 표면적
+        http://www(dot)marinespecies(dot)org/traits/NonSolidCement: 시멘트
+        http://eol(dot)org/schema/terms/clearWater: 청수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: 절벽
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: 색
+        http://eol(dot)org/schema/terms/cone: 원뿔
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: 원기둥
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: 유제품
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 일
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: 죽은
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 도
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 섭씨
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: 지름
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: 소화기관
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: 건조한 토양
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: 마른 개울
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: 마른 계곡
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: 모래 언덕
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: 먼지
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: 눈
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000078: 농장
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005749: 농장의 토양
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: 빠른
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: 깃털
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 피트
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 숲
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: 민물
+        http://eol(dot)org/schema/terms/fructose: 과당
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: 과일
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 과일의 종류
         http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
         http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm^3
         http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m^2
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: 잔디
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 초록
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 서식지
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: 머리
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: 황무지
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: 숨기기
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: 얼음
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: 빙하
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: 빙산
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: ~에 의해 먹힌다
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: 섬
         http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
         http://eol(dot)org/schema/terms/squarekilometer: km^2
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 호수
+        http://eol(dot)org/schema/terms/lateSpring: 늦봄
+        http://eol(dot)org/schema/terms/lateSummer: 늦여름
+        http://eol(dot)org/schema/terms/lateWinter: 늦겨울
+        http://eol(dot)org/schema/terms/LatentPeriod: 잠복기
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: 지방
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 마그네슘 (mg)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: 남
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: 고기
         http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
         http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm^2
         http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/일
@@ -599,21 +780,35 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 섞인
         http://eol(dot)org/schema/terms/mlO2perhour: ml/시간 o2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000272: mm hg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
         http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m^2/일
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: 산
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: 점액
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: 진흙
         https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/시간
         https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/분
         https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
         https://eol(dot)org/schema/terms/nmolpergramperhour: nmol/g/시간
+        http://eol(dot)org/schema/terms/no: 아니오
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: 없음
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 산소
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/초
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: 연못
         http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppb
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: 단백질
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: 빨강
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 강
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: 바위
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: 낙석
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: 뿌리
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: 달리기
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: 온도
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: 열대 사막
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: 우산

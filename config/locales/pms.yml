@@ -3630,5 +3630,120 @@ pms:
         http://eol(dot)org/schema/terms/coenobium: cenòbi
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000103: ìsola ëd mangròvia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000338: seuli ëd giass
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000335: sot-bòsch
         http://eol(dot)org/schema/terms/HasDispersalVector: a l'ha 'n vetor ëd dispersion
+        http://eol(dot)org/schema/terms/mol_cell-1: mol/célula
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C64998: tardiss
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_48318: fragransa
+        http://eol(dot)org/schema/terms/OptimalGrowthpH: pH otimal ëd chërsùa
+        http://eol(dot)org/schema/terms/mol_cell-1_day-1: mol/célula/di
+        http://eol(dot)org/schema/terms/physiologicalState: stat fisològich
+        http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m²/s
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000617: lagh calm
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000063: monògam
+        http://eol(dot)org/schema/terms/temporaryAquatic: aquàtich temporani
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001325: radialman simétrich
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001324: simétrich bilateral
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000065: poligìnich
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000064: poliàndrich
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000067: bodrà
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000368: rampiant
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isotype: isotipo
+        http://rs(dot)tdwg(dot)org/dwc/terms/collectionCode: còdes dla colession
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0006391: efira
+        http://eol(dot)org/schema/terms/podocyst: podochista
+        http://eol(dot)org/schema/terms/microthallus: micro-organism
+        http://eol(dot)org/schema/terms/macrothallus: macro-organism
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isolectotype: isoletotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isosyntype: isosintipo
+        http://eol(dot)org/schema/terms/eudoxid: eudòssid
+        http://eol(dot)org/schema/terms/originalMaterial: material original
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Isoneotype: isoneotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Epitype: epitipo
+        http://eol(dot)org/schema/terms/MuseumOfForestryLycksele: Musé dle foreste
+          Lycksele
+        http://eol(dot)org/schema/terms/collection_AGarai: Colession A. Garai
+        http://eol(dot)org/schema/terms/collection_Fwillemse: Colession F. Willemse
+        http://eol(dot)org/schema/terms/collection_GHSchmidt: Colession G.H. Schmidt
+        http://eol(dot)org/schema/terms/collection_Heller: Colession Heller
+        http://eol(dot)org/schema/terms/collection_Singrisch: Colession Singrisch
+        http://eol(dot)org/schema/terms/Entomological_Museum_Department_of_Agriculture_Bangkok_Thailand: Dipartiment
+          ëd l'agricoltura dël Musé entomològich ëd Bangkok (Tailandia)
+        http://eol(dot)org/schema/terms/exepitype: derivà da epitipo
+        http://eol(dot)org/schema/terms/exholotype: derivà da olotipo
+        http://eol(dot)org/schema/terms/exparatype: derivà da paratipo
+        http://eol(dot)org/schema/terms/extype: derivà da tipo
+        http://eol(dot)org/schema/terms/King_Abdulaziz_University: Università dël
+          re Abdulaziz
+        http://eol(dot)org/schema/terms/Löbbecke_Museum_Düsseldorf: Musé Löbbecke
+          ëd Düsseldorf
+        http://eol(dot)org/schema/terms/Mus_Rothschild: Musé Rothschild
+        http://eol(dot)org/schema/terms/Muséum_d'histoire_naturelle_de_la_Ville_de_Genève: Musé
+          dë stòria natural dla sità ëd Gêneva
+        http://eol(dot)org/schema/terms/Zoological_Museum_Helsinki: Musé zoològich
+          d'Helsinki
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Paraneotype: paraneotipo
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Plastoneotype: plastoneotipo
+        http://eol(dot)org/schema/terms/isoparatype: isoparatipo
+        http://eol(dot)org/schema/terms/prototype: prototipo
+        http://eol(dot)org/schema/terms/adolescaria: adolescàira
+        http://eol(dot)org/schema/terms/adultAndJuvenile: mur e giovanij
+        http://eol(dot)org/schema/terms/adultAndLarva: mur e gate
+        http://eol(dot)org/schema/terms/adultAndNymph: mur e ninfee
+        http://eol(dot)org/schema/terms/adultAndPupa: mur e crisàlida
+        http://eol(dot)org/schema/terms/adultAndSubadult: mur e scasi mur
+        http://eol(dot)org/schema/terms/alatoidNymph: ninfea alatòida
+        http://eol(dot)org/schema/terms/apterousNymph: ninfa sensa ale
+        http://eol(dot)org/schema/terms/chick: pipì
+        http://eol(dot)org/schema/terms/copepodid: copepòdid
+        http://eol(dot)org/schema/terms/femaleFlowers: fior fumele
+        http://eol(dot)org/schema/terms/floweringAndFruiting: fiorìa e frutificassion
+        http://eol(dot)org/schema/terms/immatureAndOvigerous: nen mur e ovìger
+        http://eol(dot)org/schema/terms/in_bud: ant ël boton
+        http://eol(dot)org/schema/terms/juvenileAndOvigerous: giovanil e ovìger
+        http://eol(dot)org/schema/terms/larvaAndPupa: gate e crisàlide
+        http://eol(dot)org/schema/terms/maleAndHermaphrodite: mas-cc e ermafrodita
+        http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: mas-cc fumele
+          e ermafrodita
+        http://eol(dot)org/schema/terms/maleFlowers: fior mas-ce
+        http://eol(dot)org/schema/terms/manca: manca
+        http://eol(dot)org/schema/terms/marita: marita
+        http://eol(dot)org/schema/terms/metamorph: metamòrfich
+        http://eol(dot)org/schema/terms/miracidium: mirassid
+        http://eol(dot)org/schema/terms/morphotype: morfotipo
+        http://eol(dot)org/schema/terms/nonBreeding: nen d'anlevament
+        http://eol(dot)org/schema/terms/parthenita: partenita
+        http://eol(dot)org/schema/terms/plerocercoid: plerossercòid
+        http://eol(dot)org/schema/terms/plerocercus: plerossèrcus
+        http://eol(dot)org/schema/terms/postmetamorph: pòst-metamòrf
+        http://eol(dot)org/schema/terms/praniza: pranisa
+        http://eol(dot)org/schema/terms/redia: redia
+        http://eol(dot)org/schema/terms/tetrathyridium: tetratiridi
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000757: plasmòdi
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: gata
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: spora
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001293: oocista sporolà
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: tachisòit
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0001773: oocista
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0003670: stadi microfilar
+        http://purl(dot)obolibrary(dot)org/obo/BTO_0005513: sercàir
+        http://purl(dot)obolibrary(dot)org/obo/OPL_0000098: stadi sporocista
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: drù
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: ermafrodita
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: terminal
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007001: stati ëd madurassion dla
+          fruta dnans temp
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007038: stadi complet ëd madurassion
+          dla fruta
+        http://purl(dot)obolibrary(dot)org/obo/PO_0007616: stadi ëd fiorìa
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025500: stadi ëd dësvlup dij frut
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: bagat
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014856: stasi ëd sistiserch
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0014859: stadi ëd megalòpa
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000708: sercàir
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000716: metacéstod
+        http://purl(dot)obolibrary(dot)org/obo/WBls_0000720: meta-sercàir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002137: estuari salign
 ...

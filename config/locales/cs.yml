@@ -1632,6 +1632,7 @@ cs:
         http://eol(dot)org/schema/terms/ballistichory: balistichorie
         https://eol(dot)org/schema/terms/bamboo_forest: bambusový les
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000161: banánová plantáž
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000167: lavice
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: síran barnatý
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: kůra
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: barremský
@@ -1977,7 +1978,7 @@ cs:
         http://eol(dot)org/schema/terms/earlySummer: rané léto
         http://eol(dot)org/schema/terms/Eastern_Arc_mountains: Východní obloukové
           hory
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: žere
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: živí se
         http://eol(dot)org/schema/terms/echinoderm_feeder: živící se ostnokožci
         http://polytraits(dot)lifewatchgreece(dot)eu/terms/RW: ekosystémové inženýrství
         http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ektoparazit

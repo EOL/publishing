@@ -153,6 +153,8 @@ xmf:
     ქეგიაძინჷ „%{associated}-ქ“.
   collection_user_is_admin: თე მახვარებუ რე ადმინისტრატორი.
   collection:
+    admins:
+      placeholder: რსული ჯოხო ვარ-და მახვარებუშ ჯოხო
     actions:
       delete: ლასუა
       edit: რედაქტირაფა
@@ -858,6 +860,8 @@ xmf:
       republish: ხეახალშო გიშაშქუმალა
       clean_republish: ხეახალშო გიშაშქუმალაშ ლასუა
       diff: გინორთი
+    headers:
+      index: რესურსეფი
     no_events: აკა მოთხუალა ვა რე!
   resource_missing: რესურსეფქ ვეგორჷ
   scientific_name:
@@ -977,12 +981,76 @@ xmf:
       this_may_take_a_minute: შილებე წუთი მიკორინუასჷნ
       value: შანულობა
   user:
+    form_labels:
+      age_confirm: 13 წანერშე უმოსი ვორექი
+      tou_confirm_html: წებკითხი <a href='%{tou_path}'>გჷმორინაფაშ წესეფი</a> დო <a
+        href='%{privacy_path}'>კონფიდენციალურობაშ პოლიტიკა</a>
+    headers:
+      bio: კუნტა ბიოგრაფია
+      collections: კოლექციეფი
+      downloads: გჷმოხარგუეფი
+      links: რსხილეფი
     is_power_user: თე მახვარებუ შანილი რე მუჭოთ გუნამორსა მახვარებუთ.
+    validations:
+      age_confirm: თქვა დადასურათ ოკო, ნამჷ-და 13 წანერშე უმოსი რეთჷნ
+      tou_confirm: თქვა დადასურათ ოკო, ნამჷ-და წეკითხით გჷმორინაფაშ წესეფი დო კონფიდენციალურობაშ
+        პოლიტიკა
+    new_password: ახალი პაროლი
+    confirm_new_password: დადასურით ახალი პაროლი
+    username: მახვარებუშ ჯოხო
+    update: მოახალება
+    update_email: ელ-ფოსტაშ მოახალება
+  users:
+    sign_in: მიშულა
+  wordcloud_credit_html: გენერირებული რე <a href='%{url}'>jQCloud-ით</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{n}-შ %{m}'
   term:
+    edit:
+      submit: ჩუალა
+    fields:
+      name: 'ჯოხო:'
+      comment: 'კომენტარი:'
+      sections: 'გუმნართეფი:'
+      is_hidden_from_glossary: 'გლოსარიუმშე დატყობინე:'
+    pagination:
+      next: გეჸვენჯი ხასჷლა
+      previous: კინოხიანი ხასჷლა
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ოჭკომჷ
     name:
       by_uri:
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: აქტიური რდუალაშ პერიოდი
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: ძინაგათებული
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: ტერიტორია
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: ასექსუალური რეპროდუქცია
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Asselian: ასელური
+          ხანი
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: ატოლი
+        http://eol(dot)org/schema/terms/average: ოშქაშე
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: ზისხირი
+        http://eol(dot)org/schema/terms/BloomPeriod: გოპეულუაშ პერიოდი
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: ლენი
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000019: ორგანიზმიშ ქვანთი
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: ანაგიშ სიგჷნძა
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: ანაგიშ წონა
+        http://eol(dot)org/schema/terms/BodyShape: ანაგიშ ფორმა
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: ანაგიშ ტემპერატურა
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: ანაგიშ სიგანა
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: გვიგვილი
+        http://eol(dot)org/schema/terms/BudSource: გვიგვილიშ ორენი
+        http://purl(dot)obolibrary(dot)org/obo/EUPATH_0000001: აკაგაფალი მასალეფი
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: კალციუმიშ სულფატიშ დიჰიტრატი
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: კალციუმიშ სულფატიშ ჰემიჰიდრატი
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000096: კალდერა
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000014: სვირი
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: კანიონი
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: ხვაშია
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: ხვაშიაშ მინალი
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ჭკომუნს
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: პიოლიშ ფერი
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: ხილიშ ტიპი

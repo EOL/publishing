@@ -70,7 +70,11 @@ module EolWebsite
       "/pages/*/names",
       "/pages/*/data/",
       "/pages/*/trophic_web",
-      "*?*" # Lots of arguments to all of the media tabs! Yeesh.
+      "/*?*locale_code=",
+      "/*?*resource_id=",
+      "/*?*license_group=",
+      "/*?*subclass=",
+      "/*?*subcategory="
     ]
     config.i18n.available_locales.each do |locale|
       config.x.robots_disallow_patterns += [
