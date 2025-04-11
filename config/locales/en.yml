@@ -720,7 +720,7 @@ en:
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}. View this species on GBIF"
-    occurrence_caption_w_link_html: "Known occurrences, collected specimens and observations of %{page_name}. <a href='%{url}'>View this species on GBIF <i class='fa fa-external-link'></i></a>"
+    occurrence_caption_w_link_html: "Known occurrences, collected specimens and observations of %{page_name} from the <a href='https://gbif.org'>Global Biodiversity Information Facility %{gbif_logo}</a> &nbsp;&nbsp;GBIF provides free and open access to biodiversity data. <a href='%{url}'>View this species on GBIF <i class='fa fa-external-link'></i></a>"
     other_maps_title: "Non-interactive Maps"
   medium:
     untitled:

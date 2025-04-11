@@ -358,7 +358,7 @@ private
     url = gbif_species_page_url(page)
     name = page.name.html_safe
     url.present? ?
-      t("maps.occurrence_caption_w_link_html", page_name: name, url: url) :
+      t("maps.occurrence_caption_w_link_html", page_name: name, url: url, gbif_logo: image_tag("gbif_logo_sm.png")) :
       t("maps.occurrence_caption", page_name: name)
   end
 
