@@ -729,9 +729,10 @@ ar:
   maps:
     empty: لا توجد خرائط متاحة لهذه الصفحة.
     occurrence_caption: الحوادث المعروفة، والعينات المجموعة، وملاحظات %{page_name}
-    occurrence_caption_w_link_html: الحالات المعروفة، والعينات المجمعة، والملاحظات
-      المتعلقة بـ %{page_name}. <a href='%{url}'>شاهد هذا النوع على GBIF<i class='fa
-      fa-external-link'></i></a>
+    occurrence_caption_w_link_html: المواقع المعروفة، والعينات المجمعة، والملاحظات
+      المتعلقة بـ %{page_name} من <a href='https://gbif.org'>مرفق معلومات التنوع البيولوجي
+      العالمي %{gbif_logo}.</a> يوفر GBIF وصولاً مجانيًا ومفتوحًا لبيانات التنوع البيولوجي.
+      <a href='%{url}'>شاهد هذا النوع على GBIF.<i class='fa fa-external-link'></i></a>
     other_maps_title: خرائط غير تفاعلية
   medium:
     untitled:
