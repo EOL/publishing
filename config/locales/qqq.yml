@@ -1,6 +1,7 @@
 # Messages for Message documentation (Message documentation)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: A100Star
 # Author: Ajeje Brazorf
 # Author: Amire80
 # Author: EugeneZelenko
@@ -26,7 +27,13 @@ qqq:
       title: '{{optional}}'
   breadcrumbs:
     notices:
+      canonical: |-
+        Breadcrumb navigation is a type of menu usually displayed at the top of web pages that shows the user’s location within the site hierarchy. It allows easy navigation back to previous or parent pages.
+
+        https://en.wikipedia.org/wiki/Breadcrumb_navigation
       vernacular: https://www.webton.nl/blog/wat-zijn-breadcrumbs/
+    types:
+      vernacular: https://en.wikipedia.org/wiki/Vernacular
   brief_summary:
     marine_html: Do not translate the two HTML tags <code><nowiki><span class="%{class_str}"
       id="%{id}"></nowiki></code> and <code><nowiki></span></nowiki></code> surrounding
@@ -54,6 +61,50 @@ qqq:
         dan ook geen bloemen
   language: '{{Identical|Language}}'
   languages:
+    ab: https://en.wikipedia.org/wiki/Abkhaz_language
+    q27683: https://en.wikipedia.org/wiki/Acehnese_language
+    q27776: https://en.wikipedia.org/wiki/Adyghe_language
+    aa: https://en.wikipedia.org/wiki/Afar_language
+    af: https://en.wikipedia.org/wiki/Afrikaans
+    ak: https://en.wikipedia.org/wiki/Akan_language
+    alb: https://en.wikipedia.org/wiki/Albanian_language
+    sq: https://en.wikipedia.org/wiki/Albanian_language
+    q131339: https://en.wikipedia.org/wiki/Alemannic_German
+    am: https://en.wikipedia.org/wiki/Amharic
+    ar: https://en.wikipedia.org/wiki/Arabic
+    an: https://en.wikipedia.org/wiki/Aragonese_language
+    hy: https://en.wikipedia.org/wiki/Armenian_language
+    as: https://en.wikipedia.org/wiki/Assamese_language
+    q29507: https://en.wikipedia.org/wiki/Asturian_language
+    q56590: https://en.wikipedia.org/wiki/Atikamekw_language
+    av: https://en.wikipedia.org/wiki/Avar_language
+    ae: https://en.wikipedia.org/wiki/Avestan
+    ay: https://en.wikipedia.org/wiki/Aymara_language
+    q9292: https://en.wikipedia.org/wiki/Azerbaijani_language
+    az: https://en.wikipedia.org/wiki/Azerbaijani_language
+    q33070: https://en.wikipedia.org/wiki/Balinese_language
+    bm: https://en.wikipedia.org/wiki/Bambara_language
+    q33151: https://en.wikipedia.org/wiki/Banjarese_language
+    ba: https://en.wikipedia.org/wiki/Bashkir_language
+    eu: https://en.wikipedia.org/wiki/Basque_language
+    q29540: https://en.wikipedia.org/wiki/Bavarian_language
+    be: https://en.wikipedia.org/wiki/Belarusian_language
+    q8836490: https://en.wikipedia.org/wiki/Tongwe_language
+    bn: https://en.wikipedia.org/wiki/Bengali_language
+    bh: https://en.wikipedia.org/wiki/Bihari_languages
+    bi: https://en.wikipedia.org/wiki/Bislama
+    nb: https://en.wikipedia.org/wiki/Bokm%C3%A5l
+    q4941378: https://en.wikipedia.org/wiki/Bondei_language
+    bs: https://en.wikipedia.org/wiki/Bosnian_language
+    q33202: https://en.wikipedia.org/wiki/Brahui_language
+    q750553: https://en.wikipedia.org/wiki/Brazilian_Portuguese
+    br: https://en.wikipedia.org/wiki/Breton_language
+    bg: https://en.wikipedia.org/wiki/Bulgarian_language
+    my: https://en.wikipedia.org/wiki/Burmese_language
+    q33120: https://en.wikipedia.org/wiki/Buryat_language
+    q35037: https://en.wikipedia.org/wiki/Ndyuka_language
+    q880301: https://en.wikipedia.org/wiki/Louisiana_French
+    q2937525: https://en.wikipedia.org/wiki/Capiznon_language
     q35156: |-
       '''DO NOT CONFUSE: this NOT a motorized vehicle !'''
 
@@ -65,7 +116,182 @@ qqq:
       * [https://iso639-3.sil.org/code/caq Car Nicobarese], on the ISO 639-3 website.
       * [https://glottolog.org/resource/languoid/id/carn1240 Car Nicobarese], on Glottolog.
       * [[w:en:Car language|Car language]], on English Wikipedia.
-    q2591230: Eigentlich Huni Kuin, siehe https://de.wikipedia.org/wiki/Huni_Kuin
+    q2591230: |-
+      Eigentlich Huni Kuin, siehe https://de.wikipedia.org/wiki/Huni_Kuin
+
+      * https://en.wikipedia.org/wiki/Kashinawa_language
+    ca: |-
+      * https://en.wikipedia.org/wiki/Catalan_language
+      * https://en.wikipedia.org/wiki/Valencian_language
+    q33239: https://en.wikipedia.org/wiki/Cebuano_language
+    khm: https://en.wikipedia.org/wiki/Khmer_language
+    km: https://en.wikipedia.org/wiki/Khmer_language
+    ch: https://en.wikipedia.org/wiki/Chamorro_language
+    q33281: https://en.wikipedia.org/wiki/Chavacano
+    ce: https://en.wikipedia.org/wiki/Chechen_language
+    q33388: https://en.wikipedia.org/wiki/Cherokee_language
+    q33265: https://en.wikipedia.org/wiki/Cheyenne_language
+    ny: https://en.wikipedia.org/wiki/Chewa_language
+    zh: https://en.wikipedia.org/wiki/Chinese_language
+    chi: https://en.wikipedia.org/wiki/Chinese_language
+    q32979: https://en.wikipedia.org/wiki/Choctaw_language
+    cu: https://en.wikipedia.org/wiki/Old_Church_Slavonic
+    cv: https://en.wikipedia.org/wiki/Chuvash_language
+    q37041: https://en.wikipedia.org/wiki/Classical_Chinese
+    kw: https://en.wikipedia.org/wiki/Cornish_language
+    co: https://en.wikipedia.org/wiki/Corsican_language
+    cr: https://en.wikipedia.org/wiki/Cree_language
+    q33357: https://en.wikipedia.org/wiki/Crimean_Tatar_language
+    hr: https://en.wikipedia.org/wiki/Croatian_language
+    hrv: https://en.wikipedia.org/wiki/Croatian_language
+    cs: https://en.wikipedia.org/wiki/Czech_language
+    q32238: https://en.wikipedia.org/wiki/Dagbani_language
+    da: https://en.wikipedia.org/wiki/Danish_language
+    q3362072: https://en.wikipedia.org/wiki/Digo_language
+    q56466: https://en.wikipedia.org/wiki/Dinka_language
+    dv: https://en.wikipedia.org/wiki/Maldivian_language
+    q18415595: https://en.wikipedia.org/wiki/Doteli
+    q33013: https://en.wikipedia.org/wiki/Duala_language
+    dut: |-
+      * https://en.wikipedia.org/wiki/Dutch_language
+      * https://en.wikipedia.org/wiki/Flemish_dialects
+    nl: |-
+      * https://en.wikipedia.org/wiki/Dutch_language
+      * https://en.wikipedia.org/wiki/Flemish_dialects
+    dz: https://en.wikipedia.org/wiki/Dzongkha
+    dzo: https://en.wikipedia.org/wiki/Dzongkha
+    q4126517: https://en.wikipedia.org/wiki/Inuktitut
+    en: https://en.wikipedia.org/wiki/English_language
+    q29952: https://en.wikipedia.org/wiki/Erzya_language
+    eo: https://en.wikipedia.org/wiki/Esperanto
+    et: https://en.wikipedia.org/wiki/Estonian_language
+    est: https://en.wikipedia.org/wiki/Estonian_language
+    ee: https://en.wikipedia.org/wiki/Ewe_language
+    fo: https://en.wikipedia.org/wiki/Faroese_language
+    fj: https://en.wikipedia.org/wiki/Fijian_language
+    fi: https://en.wikipedia.org/wiki/Finnish_language
+    fin: https://en.wikipedia.org/wiki/Finnish_language
+    q667747: https://en.wikipedia.org/wiki/Fipa_language
+    fr: https://en.wikipedia.org/wiki/French_language
+    fra: https://en.wikipedia.org/wiki/French_language
+    ff: https://en.wikipedia.org/wiki/Fula_language
+    q33475: https://en.wikipedia.org/wiki/Gan_Chinese
+    lg: https://en.wikipedia.org/wiki/Luganda
+    ka: https://en.wikipedia.org/wiki/Georgian_language
+    de: https://en.wikipedia.org/wiki/German_language
+    deu: https://en.wikipedia.org/wiki/German_language
+    q5575236: https://en.wikipedia.org/wiki/Konkani_language
+    q3272630: https://en.wikipedia.org/wiki/Gogo_language
+    q2501174: https://en.wikipedia.org/wiki/Gorontalo_language
+    el: https://en.wikipedia.org/wiki/Modern_Greek
+    gre: https://en.wikipedia.org/wiki/Greek_language
+    gn: https://en.wikipedia.org/wiki/Guarani_language
+    q33303: https://en.wikipedia.org/wiki/Haida_language
+    ht: https://en.wikipedia.org/wiki/Haitian_Creole
+    ha: https://en.wikipedia.org/wiki/Hausa_language
+    q35756: https://en.wikipedia.org/wiki/Haya_language
+    he: https://en.wikipedia.org/wiki/Hebrew_language
+    heb: https://en.wikipedia.org/wiki/Hebrew_language
+    q3129390: https://en.wikipedia.org/wiki/Hehe_language
+    hz: https://en.wikipedia.org/wiki/Herero_language
+    q35978: https://en.wikipedia.org/wiki/Hiligaynon_language
+    hi: https://en.wikipedia.org/wiki/Hindi
+    ho: https://en.wikipedia.org/wiki/Hiri_Motu
+    hu: https://en.wikipedia.org/wiki/Hungarian_language
+    is: https://en.wikipedia.org/wiki/Icelandic_language
+    ice: https://en.wikipedia.org/wiki/Icelandic_language
+    io: https://en.wikipedia.org/wiki/Ido
+    ig: https://en.wikipedia.org/wiki/Igbo_language
+    q35936: https://en.wikipedia.org/wiki/Ilocano_language
+    id: https://en.wikipedia.org/wiki/Indonesian_language
+    q33509: https://en.wikipedia.org/wiki/Ingush_language
+    ia: https://en.wikipedia.org/wiki/Interlingua
+    ie: https://en.wikipedia.org/wiki/Interlingue
+    iu: https://en.wikipedia.org/wiki/Inuktitut
+    ik: https://en.wikipedia.org/wiki/I%C3%B1upiaq_language
+    q33595: https://en.wikipedia.org/wiki/Iraqw_language
+    ga: https://en.wikipedia.org/wiki/Irish_language
+    it: https://en.wikipedia.org/wiki/Italian_language
+    ita: https://en.wikipedia.org/wiki/Italian_language
+    q35939: https://en.wikipedia.org/wiki/Jamaican_Patois
+    ja: https://en.wikipedia.org/wiki/Japanese_language
+    jp: https://en.wikipedia.org/wiki/Japanese_language
+    jv: https://en.wikipedia.org/wiki/Javanese_language
+    q33522: https://en.wikipedia.org/wiki/Kabardian_language
+    q35475: https://en.wikipedia.org/wiki/Kabiye_language
+    q35853: https://en.wikipedia.org/wiki/Kabyle_language
+    kl: |-
+      * https://en.wikipedia.org/wiki/Greenlandic_language
+      * https://en.wikipedia.org/wiki/West_Greenlandic
+    q33634: https://en.wikipedia.org/wiki/Kalmyk_Oirat
+    kn: https://en.wikipedia.org/wiki/Kannada
+    kr: https://en.wikipedia.org/wiki/Kanuri_language
+    q36121: https://en.wikipedia.org/wiki/Kapampangan_language
+    q33541: https://en.wikipedia.org/wiki/Karakalpak_language
+    ks: https://en.wikipedia.org/wiki/Kashmiri_language
+    q33690: https://en.wikipedia.org/wiki/Kashubian_language
+    kk: https://en.wikipedia.org/wiki/Kazakh_language
+    ki: https://en.wikipedia.org/wiki/Kikuyu_language
+    q33656: https://en.wikipedia.org/wiki/Kildin_Sami
+    q33720: https://en.wikipedia.org/wiki/Karay-a_language
+    q11005332: https://en.wikipedia.org/wiki/Kinga_language
+    q11732519: https://en.wikipedia.org/wiki/Ngindo_language
+    rw: https://en.wikipedia.org/wiki/Kinyarwanda
+    ky: https://en.wikipedia.org/wiki/Kyrgyz_language
+    kv: https://en.wikipedia.org/wiki/Komi_language
+    kg: https://en.wikipedia.org/wiki/Kongo_language
+    ko: https://en.wikipedia.org/wiki/Korean_language
+    kor: https://en.wikipedia.org/wiki/Korean_language
+    kj: https://en.wikipedia.org/wiki/Kwanyama
+    ku: https://en.wikipedia.org/wiki/Kurdish_language
+    q36206: https://en.wikipedia.org/wiki/Lak_language
+    lo: https://en.wikipedia.org/wiki/Lao_language
+    lao: https://en.wikipedia.org/wiki/Lao_language
+    la: https://en.wikipedia.org/wiki/Latin
+    lv: https://en.wikipedia.org/wiki/Latvian_language
+    q1160372: https://en.wikipedia.org/wiki/Laz_language
+    q31746: https://en.wikipedia.org/wiki/Lezgian_language
+    q36106: https://en.wikipedia.org/wiki/Ligurian_language
+    li: https://en.wikipedia.org/wiki/Limburgish
+    ln: https://en.wikipedia.org/wiki/Lingala
+    q146803: https://en.wikipedia.org/wiki/Lingua_Franca_Nova
+    lt: https://en.wikipedia.org/wiki/Lithuanian_language
+    lit: https://en.wikipedia.org/wiki/Lithuanian_language
+    q33698: https://en.wikipedia.org/wiki/Livonian_language
+    q36584: https://en.wikipedia.org/wiki/Livvi-Karelian_language
+    q33754: https://en.wikipedia.org/wiki/Lombard_language
+    q168446: https://en.wikipedia.org/wiki/Low_Saxon
+    q13286: https://en.wikipedia.org/wiki/Lower_Sorbian_language
+    lu: https://en.wikipedia.org/wiki/Luba-Katanga_language
+    q3437661: https://en.wikipedia.org/wiki/Luguru_language
+    lb: https://en.wikipedia.org/wiki/Luxembourgish
+    q35787: https://en.wikipedia.org/wiki/Maasai_language
+    mk: https://en.wikipedia.org/wiki/Macedonian_language
+    q497345: https://en.wikipedia.org/wiki/East_Franconian_German
+    q36109: https://en.wikipedia.org/wiki/Maithili_language
+    mg: https://en.wikipedia.org/wiki/Malagasy_language
+    ms: https://en.wikipedia.org/wiki/Malay_language
+    ml: https://en.wikipedia.org/wiki/Malayalam
+    mt: https://en.wikipedia.org/wiki/Maltese_language
+    mlt: https://en.wikipedia.org/wiki/Maltese_language
+    gv: https://en.wikipedia.org/wiki/Manx_language
+    mi: https://en.wikipedia.org/wiki/M%C4%81ori_language
+    mr: https://en.wikipedia.org/wiki/Marathi_language
+    mh: https://en.wikipedia.org/wiki/Marshallese_language
+    q6786446: https://en.wikipedia.org/wiki/Matengo_language
+    q3906614: https://en.wikipedia.org/wiki/Meadow_Mari_language
+    q13357: https://en.wikipedia.org/wiki/Me%C3%A4nkieli
+    q13358: https://en.wikipedia.org/wiki/Megleno-Romanian_language
+    q13313: https://en.wikipedia.org/wiki/Meru_language
+    q56426: https://en.wikipedia.org/wiki/Moroccan_Arabic
+    "no": https://en.wikipedia.org/wiki/Norwegian_language
+    nno: https://en.wikipedia.org/wiki/Norwegian_language
+    nob: https://en.wikipedia.org/wiki/Norwegian_language
+    nor: https://en.wikipedia.org/wiki/Norwegian_language
+    ukr: https://en.wikipedia.org/wiki/Ukrainian_language
+    q13248: https://en.wikipedia.org/wiki/Upper_Sorbian_language
+    cy: https://en.wikipedia.org/wiki/Welsh_language
+    wel: https://en.wikipedia.org/wiki/Welsh_language
   medium_header_description: '{{Identical|Description}}'
   nav:
     trait_bank: '{{optional}}'

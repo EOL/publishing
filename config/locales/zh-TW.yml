@@ -699,8 +699,9 @@ zh-TW:
   maps:
     empty: 沒有可用於此頁面的地圖。
     occurrence_caption: '%{page_name}的已知事物、標本收集與觀察。在 GBIF 上查看此物種'
-    occurrence_caption_w_link_html: '%{page_name}的已知事物、標本收集與觀察。<a href=''%{url}''>在
-      GBIF 上查看此物種<i class=''fa fa-external-link''></i></a>'
+    occurrence_caption_w_link_html: 來自<a href='https://gbif.org'>全球生物多樣性資訊機構 GBIF
+      %{gbif_logo}</a>%{page_name}的已知事物、標本收集與觀察。GBIF 提供自由開放的生物多樣性資料存取。<a href='%{url}'>在
+      GBIF 上查看此物種<i class='fa fa-external-link'></i></a>
     other_maps_title: 非互動式地圖
   medium:
     untitled:
