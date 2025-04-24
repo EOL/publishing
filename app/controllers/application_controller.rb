@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
   def robots
     respond_to do |format|
       format.text do
+        @lang_codes = I18n.available_locales.map { |l| l.to_s }
         if Rails.application.config.x.block_crawlers
           @disallow_patterns = ["/"]
           @slow_spiders = []
