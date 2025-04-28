@@ -283,15 +283,173 @@ qqq:
     q13357: https://en.wikipedia.org/wiki/Me%C3%A4nkieli
     q13358: https://en.wikipedia.org/wiki/Megleno-Romanian_language
     q13313: https://en.wikipedia.org/wiki/Meru_language
+    q13321: https://en.wikipedia.org/wiki/Mi%27kmaq_language
+    q36455: https://en.wikipedia.org/wiki/Eastern_Min
+    q13324: https://en.wikipedia.org/wiki/Minangkabau_language
+    q13359: https://en.wikipedia.org/wiki/Mingrelian_language
+    q13330: https://en.wikipedia.org/wiki/Mirandese_language
+    q13343: https://en.wikipedia.org/wiki/Moksha_language
+    mn: https://en.wikipedia.org/wiki/Mongolian_language
     q56426: https://en.wikipedia.org/wiki/Moroccan_Arabic
+    q6944725: |-
+      * https://en.wikipedia.org/wiki/Mwera_language
+      * https://en.wikipedia.org/wiki/Mbamba_Bay_language
+    q13300: |-
+      * https://en.wikipedia.org/wiki/Nahuatl
+      * https://en.wikipedia.org/wiki/Nahuan_languages
+    q3508074: https://en.wikipedia.org/wiki/Nai_language
+    na: https://en.wikipedia.org/wiki/Nauruan_language
+    nv: https://en.wikipedia.org/wiki/Navajo_language
+    nd: |-
+      * https://en.wikipedia.org/wiki/Northern_Ndebele_language
+      * https://en.wikipedia.org/wiki/Ndebele_language
+    nr: |-
+      * https://en.wikipedia.org/wiki/Southern_Ndebele_language
+      * https://en.wikipedia.org/wiki/Ndebele_language
+    ng: https://en.wikipedia.org/wiki/Ndonga
+    q33845: https://en.wikipedia.org/wiki/Neapolitan_language
+    ne: https://en.wikipedia.org/wiki/Nepali_language
+    q7022366: https://en.wikipedia.org/wiki/Ngindo_language
+    q28224: https://en.wikipedia.org/wiki/North_Frisian_language
+    q19933293: |-
+      * https://en.wikipedia.org/wiki/Luri_language
+      * https://en.wikipedia.org/wiki/Luri_language#Northern_Luri
+    se: https://en.wikipedia.org/wiki/Northern_S%C3%A1mi
     "no": https://en.wikipedia.org/wiki/Norwegian_language
     nno: https://en.wikipedia.org/wiki/Norwegian_language
     nob: https://en.wikipedia.org/wiki/Norwegian_language
     nor: https://en.wikipedia.org/wiki/Norwegian_language
+    nn: https://en.wikipedia.org/wiki/Nynorsk
+    q36738: https://en.wikipedia.org/wiki/Novial
+    q3272620: https://en.wikipedia.org/wiki/Nyakyusa_language
+    q4121131: https://en.wikipedia.org/wiki/Nyamwezi_language
+    q7193418: https://en.wikipedia.org/wiki/Turu_language
+    q11128374: https://en.wikipedia.org/wiki/Nyiha_language
+    q16115145: https://en.wikipedia.org/wiki/Nyika_language
+    oc: https://en.wikipedia.org/wiki/Occitan_language
+    q28602: https://en.wikipedia.org/wiki/Imperial_Aramaic
+    oj: https://en.wikipedia.org/wiki/Ojibwe_language
+    or: https://en.wikipedia.org/wiki/Odia_language
+    om: https://en.wikipedia.org/wiki/Oromo_language
+    os: https://en.wikipedia.org/wiki/Ossetian_language
+    q715755: https://en.wikipedia.org/wiki/Paiwan_language
+    pi: https://en.wikipedia.org/wiki/Pali
+    pa: https://en.wikipedia.org/wiki/Punjabi_language
+    q36403: https://en.wikipedia.org/wiki/Pare_language
+    fa: https://en.wikipedia.org/wiki/Persian_language
+    q23014: https://en.wikipedia.org/wiki/Palatine_German_dialects
+    q34024: https://en.wikipedia.org/wiki/Picard_language
+    q15085: https://en.wikipedia.org/wiki/Piedmontese_language
+    q2429648: https://en.wikipedia.org/wiki/Pogolo_language
+    pl: https://en.wikipedia.org/wiki/Polish_language
+    pol: https://en.wikipedia.org/wiki/Polish_language
+    q36748: |-
+      * https://en.wikipedia.org/wiki/Pontic_Greek
+      * https://en.wikipedia.org/wiki/Pontic_languages
+    pt: https://en.wikipedia.org/wiki/Portuguese_language
+    ps: https://en.wikipedia.org/wiki/Pashto
+    qu: https://en.wikipedia.org/wiki/Quechuan_languages
+    q584983: https://en.wikipedia.org/wiki/Rangi_language
+    ro: |-
+      * https://en.wikipedia.org/wiki/Romanian_language
+      * https://en.wikipedia.org/wiki/Moldovan_language
+    rm: https://en.wikipedia.org/wiki/Romansh_language
+    rn: https://en.wikipedia.org/wiki/Kirundi
+    ru: https://en.wikipedia.org/wiki/Russian_language
+    rus: https://en.wikipedia.org/wiki/Russian_language
+    q26245: https://en.wikipedia.org/wiki/Rusyn_language
+    q34299: https://en.wikipedia.org/wiki/Yakut_language
+    q718269: https://en.wikipedia.org/wiki/Sakizaya_language
+    sm: https://en.wikipedia.org/wiki/Samoan_language
+    q213434: https://en.wikipedia.org/wiki/Samogitian_language
+    q34016: https://en.wikipedia.org/wiki/Sandawe_language
+    sg: https://en.wikipedia.org/wiki/Sango_language
+    sa: https://en.wikipedia.org/wiki/Sanskrit
+    q33965: https://en.wikipedia.org/wiki/Santali_language
+    sc: https://en.wikipedia.org/wiki/Sardinian_language
+    q845441: https://en.wikipedia.org/wiki/Sassarese_language
+    q14549: https://en.wikipedia.org/wiki/Scots_language
+    q716686: https://en.wikipedia.org/wiki/Seediq_language
+    sr: https://en.wikipedia.org/wiki/Serbian_language
+    q3788739: https://en.wikipedia.org/wiki/Shambala_language
+    q56482: https://en.wikipedia.org/wiki/Shan_language
+    sn: https://en.wikipedia.org/wiki/Shona_language
+    q34004: https://en.wikipedia.org/wiki/Shona_language
+    ii: https://en.wikipedia.org/wiki/Nuosu_language
+    q33973: https://en.wikipedia.org/wiki/Sicilian_language
+    sd: https://en.wikipedia.org/wiki/Sindhi_language
+    si: https://en.wikipedia.org/wiki/Sinhala_language
+    sk: https://en.wikipedia.org/wiki/Slovak_language
+    slk: https://en.wikipedia.org/wiki/Slovak_language
+    sl: https://en.wikipedia.org/wiki/Slovene_language
+    so: https://en.wikipedia.org/wiki/Somali_language
+    som: https://en.wikipedia.org/wiki/Somali_language
+    st: https://en.wikipedia.org/wiki/Sotho_language
+    es: |-
+      * https://en.wikipedia.org/wiki/Castilian_Spanish
+      * https://en.wikipedia.org/wiki/Peninsular_Spanish
+    slv: '* https://en.wikipedia.org/wiki/Spanish_language'
+    q2638144: https://en.wikipedia.org/wiki/Sukuma_language
+    su: https://en.wikipedia.org/wiki/Sundanese_language
+    sw: https://en.wikipedia.org/wiki/Swahili_language
+    ss: https://en.wikipedia.org/wiki/Swazi_language
+    sv: https://en.wikipedia.org/wiki/Swedish_language
+    swe: https://en.wikipedia.org/wiki/Swedish_language
+    tl: https://en.wikipedia.org/wiki/Tagalog_language
+    ty: https://en.wikipedia.org/wiki/Tahitian_language
+    tg: https://en.wikipedia.org/wiki/Tajik_language
+    q34318: https://en.wikipedia.org/wiki/Talysh_language
+    ta: https://en.wikipedia.org/wiki/Tamil_language
+    tt: https://en.wikipedia.org/wiki/Tatar_language
+    te: https://en.wikipedia.org/wiki/Telugu_language
+    th: https://en.wikipedia.org/wiki/Thai_language
+    tha: https://en.wikipedia.org/wiki/Thai_language
+    bo: |-
+      * https://en.wikipedia.org/wiki/Lhasa_Tibetan
+      * https://en.wikipedia.org/wiki/Classical_Tibetan
+      * https://en.wikipedia.org/wiki/Tibetic_languages
+    ti: https://en.wikipedia.org/wiki/Tigrinya_language
+    q34159: https://en.wikipedia.org/wiki/Tok_Pisin
+    to: https://en.wikipedia.org/wiki/Tongan_language
+    q180937: https://en.wikipedia.org/wiki/Tosk_Albanian
+    ts: https://en.wikipedia.org/wiki/Tsonga_language
+    tn: https://en.wikipedia.org/wiki/Tswana_language
+    q34251: https://en.wikipedia.org/wiki/Tulu_language
+    q34138: https://en.wikipedia.org/wiki/Tumbuka_language
+    q56240: https://en.wikipedia.org/wiki/Tunisian_Arabic
+    tr: https://en.wikipedia.org/wiki/Turkish_language
+    tur: https://en.wikipedia.org/wiki/Turkish_language
+    q36730: https://en.wikipedia.org/wiki/Ottoman_Turkish
+    tk: https://en.wikipedia.org/wiki/Turkmen_language
+    tw: https://en.wikipedia.org/wiki/Twi
+    q13238: https://en.wikipedia.org/wiki/Udmurt_language
+    ug: https://en.wikipedia.org/wiki/Uyghur_language
+    uk: https://en.wikipedia.org/wiki/Ukrainian_language
     ukr: https://en.wikipedia.org/wiki/Ukrainian_language
     q13248: https://en.wikipedia.org/wiki/Upper_Sorbian_language
+    ur: https://en.wikipedia.org/wiki/Urdu
+    uz: https://en.wikipedia.org/wiki/Uzbek_language
+    ve: https://en.wikipedia.org/wiki/Venda_language
+    q32747: https://en.wikipedia.org/wiki/Veps_language
+    vi: https://en.wikipedia.org/wiki/Vietnamese_language
+    vo: https://en.wikipedia.org/wiki/Volap%C3%BCk
+    q32858: https://en.wikipedia.org/wiki/Votic_language
+    wa: https://en.wikipedia.org/wiki/Walloon_language
+    q34279: https://en.wikipedia.org/wiki/Waray_language
     cy: https://en.wikipedia.org/wiki/Welsh_language
     wel: https://en.wikipedia.org/wiki/Welsh_language
+    q100103: https://en.wikipedia.org/wiki/West_Flemish
+    fy: https://en.wikipedia.org/wiki/West_Frisian_language
+    wo: https://en.wikipedia.org/wiki/Wolof_language
+    q34290: https://en.wikipedia.org/wiki/Wu_Chinese
+    xh: https://en.wikipedia.org/wiki/Xhosa_language
+    yi: https://en.wikipedia.org/wiki/Yiddish
+    yo: https://en.wikipedia.org/wiki/Yoruba_language
+    q10199: https://en.wikipedia.org/wiki/Zaza_language
+    q237409: https://en.wikipedia.org/wiki/Zeelandic
+    za: https://en.wikipedia.org/wiki/Zhuang_languages
+    zu: https://en.wikipedia.org/wiki/Zulu_language
+    Q33219: https://en.wikipedia.org/wiki/Banyumasan_dialect
   medium_header_description: '{{Identical|Description}}'
   nav:
     trait_bank: '{{optional}}'
