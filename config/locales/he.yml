@@ -12,18 +12,18 @@ he:
   language_name: עברית
   about:
     trait_bank:
-      body_html: <p>הצוות הטכני וניהול הנתונים ב-EOL מתייחס למשאבי הנתונים המובְנִים
-        בנתוני תכונות EOL- trait וכאל שאר המאפיינים, האינטראקציות האקולוגיות, וסיווג
-        המינים הפנימיים שלנו, ה-Dynamic Working Hierarchy - כאל מקשה אחת בשם TraitBank.
-        תוכן זה מנוהל בצורה שונה במקצת מהתוכן ה"קלאסי" שלנו - תמונות, וידאו, אודיו
-        וטקסטים תיאוריים - והוא מיועד לשימושים שונים.</p> <p>TraitBank צעיר יותר משאר
-        חלקי EOL; הוא הוצג לראשונה על ידי מנהלת קבוצת Species Pages, סינת'יה פאר,
+      body_html: <p>צוות הטכנולוגיה וניהול הנתונים ב־EOL מתייחס למשאבי הנתונים המובְנִים
+        ב־EOL – נתוני trait ושאר נתוני המאפיינים, האינטראקציות האקולוגיות, וסיווג
+        המינים הפנימי שלנו, ה־Dynamic Working Hierarchy – כאל מקשה אחת בשם TraitBank.
+        התוכן הזה מנוהל בצורה שונה במקצת מהתוכן ה"קלאסי" שלנו – תמונות, וידאו, אודיו
+        וטקסטים תיאוריים – והוא מיועד לשימושים שונים.</p> <p>TraitBank צעיר יותר משאר
+        חלקי EOL; הוא הוצג לראשונה על־ידי מנהלת קבוצת Species Pages, סינת'יה פָּאר,
         והושק בגרסה 2 של EOL בינואר 2014. מאז, נתונים מובנים הם בראש סדר העדיפויות
         שלנו בפיתוח תוכן.</p> <p>כיום ניתן <a href='%{example_search_path}'>לחפש</a>
         או לעיין ב־EOL לפי נתונים מובנים, להוריד אותם, או להיתקל בהם בלשונית הסקירה
         הכללית החדשה שלנו בצורת <a href='%{autogen_page_path}'>טקסט שנוצר אוטומטית</a>.
-        כמו שאר התוכן ב־EOL, גם נתונים אלה זמינים לשימוש חוזר, וכוללים מידע מפורט
-        על מייחוס כך שתוכלו לתת קרדיט בעת השימוש בהם בעבודה שלכם.</p> <p>הנתונים הללו
+        כמו שאר התוכן ב־EOL, גם הנתונים האלה זמינים לשימוש חוזר, וכוללים מידע מפורט
+        על ייחוס, כך שתוכלו לתת קרדיט בעת השימוש בהם בעבודה שלכם.</p> <p>הנתונים הללו
         מדוּמְים כ<a href='%{property_graph_url}'>גרף תכונות</a> בתוך <a href='%{neo4j_url}'>neo4j</a>.
         <a href='%{data_services_path}'>שירותי נתונים</a> זמינים.</p>
   account_already_linked: החשבון שלך כבר מקושר ל-EOL
@@ -45,8 +45,8 @@ he:
   article_duplicate: ערך זה מופיע גם תחת „%{section}”
   autocomplete:
     see_all:
-      one: ראה תוצאות נוספות
-      other: ראו את כל %{count} התוצאות
+      one: ר' תוצאות נוספות
+      other: ר' את כל %{count} התוצאות
   breadcrumbs:
     notices:
       canonical: שמות מדעיים יוצגו מעתה בנתיב הניווט של הדף
@@ -59,11 +59,11 @@ he:
     extinction:
       r_genus_html: טקסון סוג זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_subgenus_html: טקסון תת-סוג זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_infragenus_html: טקסון אינפרה-סוג זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_infragenus_html: האינפרה־סוג הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_superspecies_html: טקסון על-מין זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_species_html: טקסון מין זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_subspecies_html: טקסון תת-מין זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_infraspecies_html: טקסון אינפרה-מין זהis <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_infraspecies_html: האינפרה־מין הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_form_html: טקסון צורת חיים זו <span class='%{class_str}' id='%{id}'>נכחדה</span>.
     fix_nitrogen_html: יש להם <span class='%{class_str}' id='%{predicate_id}'>זיקה
       ל</span> <span class='%{class_str}' id='%{object_id}'>חנקן</span>.
@@ -92,35 +92,35 @@ he:
         r_infraclass: '%{name1} הם אינפרה-מחלקה של %{name2}.'
         r_superorder: '%{name1} הם על-סדרה של %{name2}.'
         r_order: '%{name1} הם סדרה של %{name2}.'
-        r_suborder: '%{name1} הם תת-סדרה של %{name2}.'
-        r_infraorder: '%{name1} הם אינפרה-סדרה של %{name2}.'
+        r_suborder: '%{name1} הם תת־סדרה של %{name2}.'
+        r_infraorder: '%{name1} הם אינפרא־סדרה של %{name2}.'
         r_family: '%{name1} הם משפחה של %{name2}.'
       below_family:
         with_family:
-          r_subfamily: '%{name1} הם תת-משפחה של %{name2} במשפחת %{name3}.'
-          r_infrafamily: '%{name1} הם אינפרה-משפחה של %{name2} במשפחת %{name3}.'
+          r_subfamily: '%{name1} הם תת־משפחה של %{name2} במשפחת %{name3}.'
+          r_infrafamily: '%{name1} הם אינפרא־משפחה של %{name2} במשפחת %{name3}.'
           r_tribe: '%{name1} הם שבט של %{name2} במשפחת %{name3}.'
-          r_supergenus: '%{name1} הם על-סוג של %{name2} במשפחת %{name3}.'
+          r_supergenus: '%{name1} הם על־סוג של %{name2} במשפחת %{name3}.'
           r_genus: '%{name1} הם סוג של %{name2} במשפחת %{name3}.'
-          r_subgenus: '%{name1} הם תת-סוג של %{name2} במשפחת %{name3}.'
-          r_infragenus: '%{name1} הם אינפרה-סוג של %{name2} במשפחת %{name3}.'
-          r_superspecies: '%{name1} הם על-מין של %{name2} במשפחת %{name3}.'
+          r_subgenus: '%{name1} הם תת־סוג של %{name2} במשפחת %{name3}.'
+          r_infragenus: '%{name1} הם אינפרא־סוג של %{name2} במשפחת %{name3}.'
+          r_superspecies: '%{name1} הם על־מין של %{name2} במשפחת %{name3}.'
           r_species: '%{name1} הם מין של %{name2} במשפחת %{name3}.'
-          r_subspecies: '%{name1} הם תת-מין של %{name2} במשפחת %{name3}.'
-          r_infraspecies: '%{name1} הם אינפרה-מין של %{name2} במשפחת %{name3}.'
+          r_subspecies: '%{name1} הם תת־מין של %{name2} במשפחת %{name3}.'
+          r_infraspecies: '%{name1} הם אינפרא־מין של %{name2} במשפחת %{name3}.'
           r_form: '%{name1} הם צורת חיים של %{name2} במשפחת %{name3}.'
         without_family:
-          r_subfamily: '%{name1} הם תת-משפחה של %{name2}.'
-          r_infrafamily: '%{name1} הם אינפרה-משפחה של %{name2}.'
+          r_subfamily: '%{name1} הם תת־משפחה של %{name2}.'
+          r_infrafamily: '%{name1} הם אינפרא־משפחה של %{name2}.'
           r_tribe: '%{name1} הם שבט של %{name2}.'
-          r_supergenus: '%{name1} הם על-סוג של %{name2}.'
+          r_supergenus: '%{name1} הם על־סוג של %{name2}.'
           r_genus: '%{name1} הם סוג של %{name2}.'
-          r_subgenus: '%{name1} הם תת-סוג של %{name2}.'
-          r_infragenus: '%{name1} הם אינפרה-סוג של %{name2}.'
-          r_superspecies: '%{name1} הם על-מין של %{name2}.'
+          r_subgenus: '%{name1} הם תת־סוג של %{name2}.'
+          r_infragenus: '%{name1} הם אינפרא־סוג של %{name2}.'
+          r_superspecies: '%{name1} הם על־מין של %{name2}.'
           r_species: '%{name1} הם מין של %{name2}.'
-          r_subspecies: '%{name1} הם תת-מין של %{name2}.'
-          r_infraspecies: '%{name1} הם אינפרה-מין של %{name2}.'
+          r_subspecies: '%{name1} הם תת־מין של %{name2}.'
+          r_infraspecies: '%{name1} הם אינפרא־מין של %{name2}.'
           r_form: '%{name1} הם צורת חיים של %{name2}.'
   button_create: יצירה
   button_add: הוספה
@@ -135,11 +135,11 @@ he:
       see_more: להציג עוד
     hierarchies:
       header: היררכיות מאורגנות עבור %{sci_name}
-      see_resource_file: ראה את <a href='%{href}'>קובץ המשאבים</a> לקבלת רשימה מלאה.
+      see_resource_file: ר' את <a href='%{href}'>קובץ המשאבים</a> לקבלת רשימה מלאה.
       this_page: (הדף הזה)
       truncated_siblings:
-        one: אח נוסף הוסתר לקיצור.
-        other: '%{count} אחים נוספים הוסתרו לקיצור.'
+        one: אח נוסף הוסתר לשם קיצור.
+        other: '%{count} אחים נוספים הוסתרו לשם קיצור.'
     richness:
       header: עושר דפים
       score: ציון עושר
@@ -157,11 +157,11 @@ he:
       species_count: מינים
       updated_at: עדכון אחרון
   collect_already_in_collection: (כבר כאן)
-  collect_already_in_collection_will_add_icon: (הוספת מדיה ל-"%{page}")
-  collect_icon_title: הוספת "%{item}" מהדף "%{page}" ל…
+  collect_already_in_collection_will_add_icon: (הוספת מדיה לדף "%{page}")
+  collect_icon_title: הוספת "%{item}" מהדף "%{page}" ל־...
   collect_new_collection: שם אוסף חדש
   collect_new_collection_title: …אוסף חדש
-  collect_no_existing_collections: עדיין אין לך כאלה! צור אחד באמצעות הטופס שמשמאל.
+  collect_no_existing_collections: עדיין אין לך כאלה! יש ליצור אחד באמצעות הטופס שמימין.
   collect_select_collection: …אחד מהאוספים שלך
   collect_title: הוספת „%{item}” אל…
   collected_page_added_to_collection: הוסיף את %{page} לאוסף <a href='%{link}'>%{name}</a>.
@@ -181,16 +181,16 @@ he:
     על כפתור "שיוך" באוספים אחרים כדי שיופיעו כאן.
   collection_associations_title: אוספים משויכים
   collection_collected_pages_media_remove: 'הסרת תמונות מהאוסף (השינויים יחולו באופן
-    מידי):'
-  collection_created: נוצר אוסף חדש "%{name}".
+    מיידי):'
+  collection_created: נוצר האוסף החדש "%{name}".
   collection_created_for_association: נוסף "%{associated}" לאוסף החדש <a href='%{link}'>"%{name}"</a>.
-  collection_user_is_admin: משתמש זה הוא מפעיל מערכת.
-  collection_pages_empty: באוסף זה אין דפים. נסו ללחוץ על הכפתור "איסוף" בדפי המינים
-    כדי להוסיף פריטים!
+  collection_user_is_admin: המשתמש הזה הוא מפעיל מערכת.
+  collection_pages_empty: באוסף הזה אין דפים. נא לנסות ללחוץ על הכפתור "איסוף" בדפי
+    המינים כדי להוסיף פריטים!
   collection:
     admins:
-      header: משתמשים שיכולים לערוך אוסף זה (השינויים נכנסים לתוקף באופן מיידי)
-      label: 'הוסף משתמש שיכול לערוך אוסף זה:'
+      header: משתמשים שיכולים לערוך את האוסף הזה (השינויים נכנסים לתוקף באופן מיידי)
+      label: 'הוסף משתמש שיכול לערוך את האוסף הזה:'
       placeholder: שם מלא או שם משתמש
     actions:
       associate: שיוך
@@ -201,7 +201,7 @@ he:
     collection_type:
       normal: רגיל
       gallery: גלריה
-    delete_confirm: פעולה זו תסיר את כל האוסף ולא ניתן לבטל אותה. האם אתה בטוח?
+    delete_confirm: זה יסיר את כל האוסף ולא ניתן לבטל את זה. האם באמת לעשות את זה?
     destroyed: „%{name}” נמחק לצמיתות.
     pages_count:
       one: דף
@@ -212,12 +212,12 @@ he:
         remove: '%{user} הסיר את השיוך לאוסף %{associated}'
       collection:
         add: '%{user} יצר את האוסף'
-        change: '%{user} שינה את ה-%{field} מ-"%{from}" ל-"%{to}"'
+        change: '%{user} שינה את השדה %{field} מהערך "%{from}" לערך "%{to}"'
       content:
-        add: '%{user} הוסיף את המדיום %{medium} לדף %{page}'
-        change: '%{user} שינה את ה-%{field} במדיום -%{medium} עבור דף %{page} מ-"%{from}"
-          ל-"%{to}"'
-        remove: '%{user} הסיר את המדיום %{medium} עבור הדף %{page}'
+        add: '%{user} הוסיף את האמצעי %{medium} לדף %{page}'
+        change: '%{user} שינה את השדה %{field} באמצעי -%{medium} עבור דף %{page} מהערך
+          "%{from}" לערך "%{to}"'
+        remove: '%{user} הסיר את האמצעי %{medium} עבור הדף %{page}'
       page:
         add: '%{user} הוסיף את הדף %{page}'
         change: '%{user} שינה את ה-%{field} בדף %{page} מ-"%{from}" ל-"%{to}"'
@@ -226,7 +226,7 @@ he:
         add: '%{user} הוסיף את המנהל %{manager}'
         remove: '%{user} הסיר את המנהל %{manager}'
     search:
-      placeholder: חיפוש באוסף…
+      placeholder: חיפוש באוסף...
       submit: חיפוש
     sort:
       hierarchy: היררכיה
@@ -261,8 +261,8 @@ he:
     project: מיזם
     provider: ספק
     references_header:
-      one: הפנייה
-      other: הפנייות
+      one: מקור
+      other: מקורות
     resource_label: אתר שותף
     resource_pk: '(מזהה: %{key})'
     rights_statement: הצהרת זכויות
@@ -308,7 +308,7 @@ he:
       language_support: תמיכה בשפות
       terms_of_use: תנאי שימוש
       the_eol_forum: הפורום של EOL
-      what_is_eol: מהו EOL?
+      what_is_eol: מהי EOL?
       whats_new: מה חדש?
     discover:
       algae: אצות
@@ -334,7 +334,7 @@ he:
       trees: עצים
       viruses: וירוסים
       worms: תולעים
-    eol_is_hosted_by: 'EOL מתארח על ידי:'
+    eol_is_hosted_by: 'EOL מתארח אצל:'
   forgot_your_password: שכחת את הסיסמה?
   gbif_download:
     created: נוצרה משימת הורדה של GBIF. בדוק <a href="%{url}">את דף פרופיל המשתמש</a>
@@ -376,7 +376,7 @@ he:
     bn: בנגלית
     bh: שפות ביהריות
     bi: ביסלמה
-    nb: בוקמול, נורווגית; נורווגית ספרותית
+    nb: נורווגית ספרותית
     q4941378: בונדאי
     bs: בוסנית
     q33202: ברהוי
@@ -390,16 +390,16 @@ he:
     q2937525: קאפיסנון
     q35156: קאר
     q2591230: קאשינהואה
-    ca: קטלאנית; ולנסית
+    ca: קטלאנית
     q33239: סבואנו
-    khm: קמרית
+    khm: קמרית מרכזית
     km: קמרית
     ch: צ'מורו
     q33281: צ'בקאנו
     ce: צ׳צ׳נית
     q33388: צ'רוקי
     q33265: שאיין
-    ny: צ'יצ'ווה; צ'ואה; ניאנג'ה
+    ny: צ'יצ'ווה
     zh: סינית
     chi: סינית
     q32979: צ'וקטאו
@@ -417,14 +417,14 @@ he:
     da: דנית
     q3362072: דיגו
     q56466: דינקה
-    dv: דיבהי; דהיבהי; מלדיבי
-    q18415595: דוטיאלי
+    dv: דיווהית
+    q18415595: דוטלית
     q33013: דואלה
-    dut: הולנדית; פלמית
-    nl: הולנדית; פלמית
+    dut: הולנדית
+    nl: הולנדית
     dz: דזונגקה
     dzo: דזונגקה
-    q4126517: אינוקטיטוט מזרח-קנדית
+    q4126517: אינוקטיטוט קנדית מזרחית
     en: אנגלית
     q29952: ארזיה
     eo: אספרנטו
@@ -454,14 +454,14 @@ he:
     gn: גוארני
     gu: גוג׳רטית
     q33303: היידה
-    ht: האיטית; קריאולית האיטית
+    ht: קריאולית האיטית
     ha: האוסה
     q35756: הייאה
     he: עברית
     heb: עברית
     q3129390: ההה
     hz: הררו
-    q35978: הליגאיינון
+    q35978: הליגאינון
     hi: הינדי
     ho: הירי מוטו
     hu: הונגרית
@@ -472,8 +472,8 @@ he:
     q35936: אילוקנו
     id: אינדונזית
     q33509: אינגושית
-    ia: אינטרלינגואה (האגודה הבינלאומית לשפות עזר)
-    ie: אינטרלינגה; אוקצידנטל
+    ia: אינטרלינגואה
+    ie: אוקצידנטל
     iu: אינוקטיטוט
     ik: אינופיאק
     q33595: אירקוו
@@ -483,53 +483,53 @@ he:
     q35939: אנגלית ג'מייקנית קריאולית
     ja: יפנית
     jp: יפנית
-    jv: ג'אווה
-    q33522: קברדינית צ'רקסית
-    q35475: קאביה
+    jv: ג'אוואנית
+    q33522: צ'רקסית קברדינית
+    q35475: קאבייה
     q35853: קבילית
-    kl: קלאליסוט; גרינלנדית
+    kl: גרינלנדית
     q33634: קלמיקית
     kn: קאנדה
-    kr: קאנורי
+    kr: קאנורית
     q36121: קפמפנגנית
-    q33541: קארה-קלפק
+    q33541: קארקלפקית
     ks: קשמירית
     q33690: קשובית
     kk: קזחית
-    ki: קיקויו; גיקויו
+    ki: קיקויו
     q33656: סאמית קילדינית
-    q33720: קריאית
+    q33720: קינראיה
     q11005332: קינגה
     q11732519: קינגינדו
     rw: קינירואנדה
-    ky: קירגיז; קירגיזית
+    ky: קירגיזית
     kv: קומי
     kg: קונגו
     ko: קוריאנית
     kor: קוריאנית
-    kj: קואניאמה; קוואניאמה
+    kj: קואניאמה
     ku: כורדית
-    q36206: לאק
-    lo: לאית
+    q36206: לאקית
+    lo: לאו
     lao: לאית
     la: לטינית
     lv: לטבית
     q1160372: לאזית
     q31746: לזגית
     q36106: ליגורית
-    li: לימבורגן; לימבורגר; לימבורגית
+    li: לימבורגית
     ln: לינגאלה
     q146803: לינגואה פרנקה נובה
     lt: ליטאית
     lit: ליטאית
     q33698: ליבונית
-    q36584: ליבבית
+    q36584: קרלית ליבית
     q33754: לומברדית
-    q168446: גרמנית תחתית
+    q168446: סקסונית תחתית
     q13286: סורבית תחתית
     lu: לובה-קטנגה
     q3437661: לוגורו
-    lb: לוקסמבורגית; לצבורגש
+    lb: לוקסמבורגית
     q35787: מסאי
     mk: מקדונית
     q497345: פרנקונית מיינית
@@ -544,9 +544,9 @@ he:
     mr: מראטהית
     mh: מרשלית
     q6786446: מטנגו
-    q3906614: מדו מרי
+    q3906614: מארית מישורית
     q13357: מאנקיילי
-    q13358: מגלנו-רומנית
+    q13358: מגלנורומנית
     q13313: מרו
     q13321: מי'קמאק
     q36455: מין דונג
@@ -556,13 +556,13 @@ he:
     q13343: מוקשה
     mn: מונגולית
     q56426: ערבית מרוקאית
-    q6944725: מווארה
+    q6944725: מוורה
     q13300: נאוואטל
     q3508074: נאי
     na: נאורית
-    nv: נאוואחו; נאבאחו
-    nd: נדבלית, צפונית; נדבלית צפונית
-    nr: נדבלית, דרומית; נדבלית דרומית
+    nv: נאוואחו
+    nd: נדבלה צפונית
+    nr: נדבלית דרומית
     ng: נדונגה
     q33845: נפוליטנית
     ne: נפאלית
@@ -574,7 +574,7 @@ he:
     nno: נורווגית
     nob: נורווגית
     nor: נורווגית
-    nn: נורווגית חדשה; ניונורסק, נורווגית
+    nn: נורווגית חדשה
     q36738: נוביאל
     q3272620: ניאקוסה
     q4121131: ניאמווהזי
@@ -586,24 +586,24 @@ he:
     oj: אוג'יבווה
     or: אורייה
     om: אורומו
-    os: אוסטית; אוסטי
+    os: אוסטית
     q715755: פייוואנית
     pi: פאלי
     pa: פנג'אבי
     q36403: פארה
     fa: פרסית
     q23014: פפאלצית
-    q34024: פיקארד
+    q34024: פיקארדית
     q15085: פיימונטית
     q2429648: פוגורו
     pl: פולנית
     pol: פולנית
     q36748: פונטית
     pt: פורטוגלית
-    ps: פשתו; פאשתו
+    ps: פשטו
     qu: קצ׳ואה
     q584983: ראנגי
-    ro: רומנית; מולדובני; מולדובנית
+    ro: רומנית; מולדובית
     rm: רומאנש
     rn: רונדי
     ru: רוסית
@@ -626,7 +626,7 @@ he:
     q56482: שאן
     sn: שונה
     q34004: שונה
-    ii: יי סצ'ואנית; נווסוו
+    ii: יי סצ'ואנית
     q33973: סיציליאנית
     sd: סינדית
     si: סינהלית
@@ -635,8 +635,8 @@ he:
     sl: סלובנית
     so: סומלית
     som: סומלית
-    st: סות'ו, דרומית
-    es: ספרדית; קסטיליאנית
+    st: סות'ו דרומית
+    es: ספרדית
     slv: ספרדית
     q2638144: סוקומה
     su: סונדנזית
@@ -647,7 +647,7 @@ he:
     tl: טגלית
     ty: טהיטית
     tg: טג׳יקית
-    q34318: טליש
+    q34318: טלישית
     ta: טמילית
     tt: טטרית
     te: טלוגו
@@ -658,8 +658,8 @@ he:
     q34159: טוק פיסין
     to: טונגאית
     q180937: אלבנית טוסקית
-    ts: צונגה
-    tn: צוואנה
+    ts: טסונגה
+    tn: טסוואנה
     q34251: טולו
     q34138: טומבוקה
     q56240: ערבית תוניסאית
@@ -669,7 +669,7 @@ he:
     tk: טורקמנית
     tw: טווי
     q13238: אודמורטית
-    ug: אויגורית; אויגורית
+    ug: אויגורית
     uk: אוקראינית
     ukr: אוקראינית
     none: לא הוגדרה
@@ -680,9 +680,9 @@ he:
     q32747: ופסית
     vi: וייטנאמית
     vo: וולאפיק
-    q32858: וודית
+    q32858: ווטית
     wa: ולונית
-    q34279: ואריי
+    q34279: ואראית
     cy: ולשית
     wel: ולשית
     q100103: פלמית מערבית
@@ -693,8 +693,8 @@ he:
     yi: יידיש
     yo: יורובה
     q10199: זאזאקי
-    q237409: זיילנדית
-    za: ג'ואנג; צ'ואנג
+    q237409: זילנדית
+    za: ג'ואנג
     zu: זולו
     Q33219: בניומסנית
   layout_sign_in: כניסה
@@ -723,7 +723,7 @@ he:
       map_image: מפה
       js_map: מפה אינטראקטיבית
   medium_collect_button: איסוף מדיה
-  medium_description_blank: לא סופק תיאור עבור אובייקט זה.
+  medium_description_blank: לא סופק תיאור עבור העצם הזה.
   medium_header_title: 'כותרת:'
   medium_header_description: 'תיאור:'
   names:
@@ -738,7 +738,7 @@ he:
   pages:
     actions:
       collect: איסוף
-      reindex: אינדוקס מחדש
+      reindex: מפתוח מחדש
     batch_lookup:
       download_tsv: הורדת TSV
       match: התאמה
@@ -815,9 +815,16 @@ he:
   register_new_account: רישום חשבון חדש
   resources:
     actions:
+      republish: פרסום מחדש
+      clean_republish: ניקוי פרסום מחדש
+      diff: הבדל
+      reindex: מפתוח מחדש
+      fix_no_names: תיקון NO NAMEs
       index: חזרה לכל המשאבים
+      clear_publishing: ניקוי נעילה
     headers:
       index: משאבים
+    no_events: אין!
   resource_missing: משאב לא נמצא
   scientific_name:
     status_title:

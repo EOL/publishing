@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Agaafd
+# Author: Andac
 # Author: ArdaDemirel
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
@@ -986,6 +987,11 @@ tr:
     actions:
       import_traits: içe aktarma özellikleri (depodan)
       republish: yeniden yayınlan
+      diff: fark
+      republish_confirm: Bu, kaynak için TÜM içeriği silecektir (bir diff kullanacak
+        olan özellikler hariç). EMİN MİSİNİZ?!
+      clean_republish_confirm: Bu, kaynak için TÜM içeriği silecek ve özellik farklarını
+        KULLANMAYACAKTIR. EMİN MİSİNİZ?!
       reindex: yeniden dizin
       fix_no_names: İSİM OLMAYANI düzeltin
       index: tüm kaynaklara dön
@@ -1025,6 +1031,8 @@ tr:
   scientific_names_header: Bilimsel İsimler
   send_me_reset_password_instructions: Bana şifre sıfırlama talimatlarını gönder
   search:
+    blank_q_msg: Sayfanın üst kısmındaki çubuğu kullanarak EOL içeriklerinde arama
+      yapabilirsiniz.
     full_name: '%{vernacular} (%{scientific})'
     matched_text: Eşleşen %{text}
     flash:
