@@ -708,8 +708,10 @@ nl:
     empty: Er zijn geen kaarten beschikbaar voor deze pagina
     occurrence_caption: Bekende voorkomens, verzamelde exemplaren en waarnemingen
       van %{page_name}. Bekijk deze soort op GBIF
-    occurrence_caption_w_link_html: Bekende voorkomens, verzamelde exemplaren en waarnemingen
-      van %{page_name}. <a href='%{url}'>Bekijk deze soort op GBIF<i class='fa fa-external-link'></i></a>
+    occurrence_caption_w_link_html: Bekende voorkomens, verzamelde exemplaren en observaties
+      van %{page_name} van de <a href='https://gbif.org'>Global Biodiversity Information
+      Facility %{gbif_logo}.</a> GBIF biedt gratis en open toegang tot biodiversiteitsgegevens.
+      <a href='%{url}'>Bekijk deze soort op GBIF.<i class='fa fa-external-link'></i></a>
     other_maps_title: Niet-interactieve kaarten
   medium:
     untitled:

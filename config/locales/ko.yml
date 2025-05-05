@@ -8,6 +8,7 @@
 # Author: Nuevo Paso
 # Author: Oliviamaule
 # Author: SeoJeongHo
+# Author: YeBoy371
 # Author: Ykhwong
 # Author: 그냥기여자
 # Author: 아라
@@ -50,6 +51,8 @@ ko:
       family_above:
         r_superfamily: '%{name1}은 %{name2}상과입니다.'
         r_domain: '%{name1}은 %{name2}역입니다.'
+        r_subdomain: '%{name1}은(는) %{name2}의 서브도메인입니다.'
+        r_infradomain: '%{name1}은(는) %{name2}의 인프라도메인입니다.'
         r_superkingdom: '%{name1}은 %{name2}상계입니다.'
         r_kingdom: '%{name1}은 %{name2}계입니다.'
         r_subkingdom: '%{name1}은 %{name2}아계입니다.'
@@ -60,6 +63,7 @@ ko:
         r_infraphylum: '%{name1}은 %{name2}하문입니다.'
         r_superclass: '%{name1}은 %{name2}상강입니다.'
         r_class: '%{name1}은 %{name2}강입니다.'
+        r_subcategory: '%{name1}은(는) %{name2}의 하위 분류입니다.'
         r_family: '%{name1}은 %{name2}과입니다.'
       below_family:
         without_family:

@@ -26,15 +26,15 @@ he:
         על ייחוס, כך שתוכלו לתת קרדיט בעת השימוש בהם בעבודה שלכם.</p> <p>הנתונים הללו
         מדוּמְים כ<a href='%{property_graph_url}'>גרף תכונות</a> בתוך <a href='%{neo4j_url}'>neo4j</a>.
         <a href='%{data_services_path}'>שירותי נתונים</a> זמינים.</p>
-  account_already_linked: החשבון שלך כבר מקושר ל-EOL
-  account_not_linked: החשבון שלך אינו מקושר ל-EOL
+  account_already_linked: החשבון שלך כבר מקושר ל־EOL
+  account_not_linked: החשבון שלך אינו מקושר ל־EOL
   advanced: מתקדם
-  are_you_sure_delete_account: האם אתה בטוח שברצונך למחוק את חשבון ה-EOL שלך?
+  are_you_sure_delete_account: האם ברצונך באמת למחוק את חשבון ה־EOL שלך?
   article:
     actions:
       collect: איסוף
     header:
-      blank: (אין גוף למאמר זה.)
+      blank: (אין גוף לערך הזה.)
       body: גוף
       language: 'שפה: %{language}'
       title: כותרת
@@ -57,14 +57,14 @@ he:
       vernacular: שפה עממית
   brief_summary:
     extinction:
-      r_genus_html: טקסון סוג זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_subgenus_html: טקסון תת-סוג זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_genus_html: הסוג הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_subgenus_html: התת־סוג הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_infragenus_html: האינפרה־סוג הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_superspecies_html: טקסון על-מין זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_species_html: טקסון מין זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_subspecies_html: טקסון תת-מין זה <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_superspecies_html: העל־מין הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_species_html: המין הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
+      r_subspecies_html: התת־מין הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
       r_infraspecies_html: האינפרה־מין הזה <span class='%{class_str}' id='%{id}'>נכחד</span>.
-      r_form_html: טקסון צורת חיים זו <span class='%{class_str}' id='%{id}'>נכחדה</span>.
+      r_form_html: צורת החיים הזאת <span class='%{class_str}' id='%{id}'>נכחדה</span>.
     fix_nitrogen_html: יש להם <span class='%{class_str}' id='%{predicate_id}'>זיקה
       ל</span> <span class='%{class_str}' id='%{object_id}'>חנקן</span>.
     freshwater_html: יש להם זיקה ל<span class='%{class_str}' id='%{id}'>בית גידול
@@ -74,23 +74,23 @@ he:
     species_in_family: '%{name1} הם מין של %{name2} במשפחת %{name_family}.'
     taxonomy:
       family_above:
-        r_superfamily: '%{name1} הם על-משפחה של %{name2}.'
-        r_domain: '%{name1} הם תחום-על של %{name2}.'
-        r_subdomain: '%{name1} הם תת-תחום של %{name2}.'
-        r_infradomain: '%{name1} הם אינפרה-תחום של %{name2}.'
-        r_superkingdom: '%{name1} הם תחום-על ממלכתי של %{name2}.'
-        r_kingdom: '%{name1} הם תחום ממלכתי של %{name2}.'
-        r_subkingdom: '%{name1} הם תת-תחום ממלכתי %{name2}.'
-        r_infrakingdom: '%{name1} הם אינפרה-תחום ממלכתי של %{name2}.'
-        r_superphylum: '%{name1} הם על-מערכה של %{name2}.'
+        r_superfamily: '%{name1} הם על־משפחה של %{name2}.'
+        r_domain: '%{name1} הם תחום של %{name2}.'
+        r_subdomain: '%{name1} הם תת־תחום של %{name2}.'
+        r_infradomain: '%{name1} הם אינפרא־תחום של %{name2}.'
+        r_superkingdom: '%{name1} הם ממלכת־על של %{name2}.'
+        r_kingdom: '%{name1} הם ממלכה של %{name2}.'
+        r_subkingdom: '%{name1} הם תת־ממלכה %{name2}.'
+        r_infrakingdom: '%{name1} הם אינפרא־ממלכה של %{name2}.'
+        r_superphylum: '%{name1} הם על־מערכה של %{name2}.'
         r_phylum: '%{name1} הם מערכה של %{name2}.'
-        r_subphylum: '%{name1} הם תת-מערכה של %{name2}.'
-        r_infraphylum: '%{name1} הם אינפרה-מערכה של %{name2}.'
-        r_superclass: '%{name1} הם על-מחלקה של %{name2}.'
+        r_subphylum: '%{name1} הם תת־מערכה של %{name2}.'
+        r_infraphylum: '%{name1} הם אינפרא־מערכה של %{name2}.'
+        r_superclass: '%{name1} הם על־מחלקה של %{name2}.'
         r_class: '%{name1} הם מחלקה של %{name2}.'
-        r_subcategory: '%{name1} הם קטגוריית-משנה של %{name2}.'
-        r_infraclass: '%{name1} הם אינפרה-מחלקה של %{name2}.'
-        r_superorder: '%{name1} הם על-סדרה של %{name2}.'
+        r_subcategory: '%{name1} הם קטגוריית־משנה של %{name2}.'
+        r_infraclass: '%{name1} הם אינפרא־מחלקה של %{name2}.'
+        r_superorder: '%{name1} הם על־סדרה של %{name2}.'
         r_order: '%{name1} הם סדרה של %{name2}.'
         r_suborder: '%{name1} הם תת־סדרה של %{name2}.'
         r_infraorder: '%{name1} הם אינפרא־סדרה של %{name2}.'
@@ -125,8 +125,8 @@ he:
   button_create: יצירה
   button_add: הוספה
   cancel: ביטול
-  change_my_password: שנה את סיסמתי
-  change_your_password: שנה את סיסמתך
+  change_my_password: שינוי הסיסמה שלי
+  change_your_password: שינוי הסיסמה שלך
   classifications:
     children:
       header_html:
@@ -144,7 +144,7 @@ he:
       header: עושר דפים
       score: ציון עושר
       page_contents_count: תוכן משויך
-      missing: עושר דף זה טרם חושב.
+      missing: עושר הדף הזה טרם חושב.
       media_count: מדיה
       articles_count: ערכים
       links_count: קישורים
@@ -170,11 +170,11 @@ he:
   collected_pages_medium:
     destroyed_flash: התמונה הוסרה מהדף שנאסף.
   collection_associations:
-    destroyed_flash: '%{name} כבר אינו משויך לאוסף זה.'
+    destroyed_flash: '%{name} כבר אינו משויך לאוסף הזה.'
   collected_pages:
     delete_button: מחיקה
     edit_button: עריכה
-    delete_confirm: האם אתה בטוח?
+    delete_confirm: בטוח?
     destroyed_flash: '%{name} הוסר מהאוסף.'
   collection_association_added_to_collection: נוסף "%{associated}" לאוסף <a href='%{link}'>"%{name}"</a>.
   collection_associations_empty: אין אוספים אחרים המשויכים לאוספים אלה. ניתן ללחוץ
@@ -337,8 +337,8 @@ he:
     eol_is_hosted_by: 'EOL מתארח אצל:'
   forgot_your_password: שכחת את הסיסמה?
   gbif_download:
-    created: נוצרה משימת הורדה של GBIF. בדוק <a href="%{url}">את דף פרופיל המשתמש</a>
-      שלך כדי לראות את הסטטוס שלו
+    created: נוצרה משימת הורדה של GBIF. נא לבדוק את <a href="%{url}">את דף פרופיל
+      המשתמש</a> שלך כדי לראות את המצב שלה
   landing_page:
     header: גישה עולמית לידע על החיים על פני כדור הארץ
     stats_cleared: הנתונים הסטטיסטיים חושבו מחדש.
