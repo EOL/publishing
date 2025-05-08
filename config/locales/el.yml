@@ -5,6 +5,7 @@
 # Author: Babispan
 # Author: Geraki
 # Author: Giorgos456
+# Author: Jimkats
 # Author: Marios
 # Author: MuratTheTurkish
 # Author: Nasia geor
@@ -882,7 +883,7 @@ el:
         gte: '%{pred} >= %{num_val} %{units}'
         lifestage: 'στάδιο της ζωής: %{value}'
         lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'τιμή: %{obj}'
+        obj_only: 'με τιμή: %{obj}'
         pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         sex: 'φύλο: %{value}'
@@ -1106,7 +1107,7 @@ el:
         http://semanticscience(dot)org/resource/SIO_001114: μέγιστο
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: μεσαίο (φυσιολογικό)
         http://eol(dot)org/schema/terms/millimeterspermonth: χιλιοστά ανά μήνα
-        http://eol(dot)org/schema/terms/paleo_megaannum: Εκατομμύρια χρόνια πριν
+        http://eol(dot)org/schema/terms/paleo_megaannum: εκατομμύρια χρόνια πριν
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: ο ανοργανοποιημένος
           ιστός περιλαμβάνει
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: χιλιοστά/3 μήνες
@@ -1167,7 +1168,7 @@ el:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: βατερίτης
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: όγκος
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: βάθος νερού
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: watts
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: λευκό
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: χρόνια
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: κίτρινο
