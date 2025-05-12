@@ -8,6 +8,7 @@
 # Author: Grkn gll
 # Author: Hedda
 # Author: Joseph
+# Author: Leo
 # Author: Melissadilara
 # Author: Mim.saitkilic
 # Author: MuratTheTurkish
@@ -107,7 +108,7 @@ tr:
         r_infraphylum: '%{name1}, %{name2} altında bir infra şubedir.'
         r_superclass: '%{name1}, %{name2} üst sınıfıdır.'
         r_class: '%{name1}, bir %{name2} sınıfıdır.'
-        r_subcategory: '%{name1}, %{name2} altında bir altsınıftır.'
+        r_subcategory: '%{name1}, %{name2} kategorisinin alt kategorisidir.'
         r_infraclass: '%{name1}, %{name2} altında bir infrasınıftır.'
         r_superorder: '%{name1}, %{name2} altında bir üsttakımdır.'
         r_order: '%{name1}, %{name2} altında bir takımdır.'
