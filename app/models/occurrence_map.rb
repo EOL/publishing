@@ -2,7 +2,7 @@ class OccurrenceMap < ApplicationRecord
   belongs_to :page
 
   class << self
-    # i.e: OccurrenceMap.read_new_list('/app/public/maps/final_taxon_concept_IDS.txt')
+    # i.e: OccurrenceMap.read_new_list('/app/public/data/map_data_dwca/final_taxon_concept_IDS.txt')
     def read_new_list(file)
       raise "file missing" unless File.exist?(file)
       last_max = maximum(:id)
