@@ -4,12 +4,18 @@ class OccurrenceMap < ApplicationRecord
   class << self
     # i.e: OccurrenceMap.read_new_list('/app/public/data/map_data_dwca/final_taxon_concept_IDS.txt')
     def read_new_list(file)
+      bad_pages = []
       raise "file missing" unless File.exist?(file)
       last_max = maximum(:id)
       File.readlines(file).each do |page_id|
-        create!(page_id: page_id)
+        begin
+          create!(page_id: page_id)
+        rescue ActiveRecord::RecordInvalid => e
+          bad_pages << page_id
+        end
       end
       where(['id <= ?', last_max]).delete_all
+      Rails.logger.info("Missing #{bad_pages.size} page IDs, first 20 max: #{bad_pages[0..20].join(', ')}") unless bad_pages.empty?
     end
 
     def remove_instances_with_missing_page(force = nil)
