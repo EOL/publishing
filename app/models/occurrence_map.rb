@@ -16,6 +16,7 @@ class OccurrenceMap < ApplicationRecord
       end
       where(['id <= ?', last_max]).delete_all
       Rails.logger.info("Missing #{bad_pages.size} page IDs, first 20 max: #{bad_pages[0..20].join(', ')}") unless bad_pages.empty?
+      puts("Missing #{bad_pages.size} page IDs:\n#{bad_pages.join(', ')}") unless bad_pages.empty?
     end
 
     def remove_instances_with_missing_page(force = nil)

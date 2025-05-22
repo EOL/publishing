@@ -30,7 +30,6 @@ module DataHelper
       target_id = options[:page_is_assoc_obj] ? data[:page_id] : data[:object_page_id]
       page = @associations[target_id]
       unless page
-        Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
         if Page.exists?(target_id)
           page = Page.find(target_id)
         else
