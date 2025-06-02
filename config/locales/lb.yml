@@ -178,6 +178,7 @@ lb:
   forgot_your_password: Hutt Dir Äert Passwuert vergiess?
   language: Sprooch
   languages:
+    af: Afrikaans
     alb: Albanesch
     sq: Albanesch
     q131339: Alemannesch
@@ -191,14 +192,20 @@ lb:
     bs: Bosnesch
     br: Bretonesch
     bg: Bulgaresch
+    q33239: Cebuano
+    ce: Tschetscheenesch
     zh: Chineesesch
     chi: Chineesesch
+    q37041: Klassescht Chineesesch
+    kw: Kornesch
     co: Korsesch
     hr: Kroatesch
     hrv: Kroatesch
     cs: Tschechesch
+    q32238: Dagbani
     da: Dänesch
     dut: Hollännesch; Flämesch
+    nl: Hollännesch; Flamännesch
     en: Englesch
     eo: Esperanto
     et: Estnesch
@@ -212,12 +219,15 @@ lb:
     de: Däitsch
     deu: Däitsch
     gre: Griichesch
+    gn: Guarani
+    gu: Gujarati
     he: Hebräesch
     heb: Hebräesch
     hi: Hindi
     hu: Ungaresch
     is: Islännesch
     ice: Islännesch
+    ig: Igbo
     id: Indoneesesch
     ia: Interlingua (International Auxiliary Language Association)
     iu: Inuktitut
@@ -226,6 +236,7 @@ lb:
     ita: Italieenesch
     ja: Japanesch
     jp: Japanesch
+    kn: Kannada
     kk: Kasachesch
     ko: Koreanesch
     kor: Koreanesch
@@ -245,10 +256,13 @@ lb:
     q13321: Mi’kmaq
     mn: Mongolesch
     q33845: Neapolitanesch
+    ne: Nepaleesesch
     "no": Norwegesch
     nno: Norwegesch
     nob: Norwegesch
     nor: Norwegesch
+    om: Oromo
+    fa: Persesch
     pl: Polnesch
     pol: Polnesch
     pt: Portugisesch
@@ -284,7 +298,10 @@ lb:
     wa: Wallounesch
     cy: Walisesch
     wel: Walisesch
+    wo: Wolof
     xh: Xhosa
+    yi: Jiddesch
+    yo: Yoruba
     zu: Zulu
   layout_sign_in: Umellen
   literature_and_references_header: Literatur a Referenzen
@@ -337,6 +354,7 @@ lb:
         one: '%{count} Bemierkung'
         other: '%{count} Bemierkungen'
     batch_lookup:
+      canonical_name: kanoneschen Numm
       download_tsv: TSV eroflueden
       new_search: nei Sich
       query: Ufro
