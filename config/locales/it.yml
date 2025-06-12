@@ -15,6 +15,7 @@
 # Author: R.caredda1
 # Author: Toa
 # Author: Ubibi
+# Author: Wheelygay
 ---
 it:
   language_name: italiano
@@ -711,6 +712,7 @@ it:
   page_vernaculars_empty: Non ci sono nomi comuni associati a questo taxon.
   pages:
     actions:
+      collect: raccogli
       reindex: reindicizzare
     batch_lookup:
       canonical_name: nome canonico
