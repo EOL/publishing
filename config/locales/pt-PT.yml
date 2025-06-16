@@ -10,14 +10,15 @@
 # Author: Mansil alfalb
 # Author: McDutchie
 # Author: Narazeni
+# Author: O andras
 ---
 pt-PT:
   language_name: Português (Portugal)
   about:
     trait_bank:
       title: Banco de características
-  account_already_linked: a sua conta já está associada com EOL
-  account_not_linked: a sua conta não está associada com EOL
+  account_already_linked: a sua conta já está associada com a EOL
+  account_not_linked: a sua conta não está associada com a EOL
   advanced: avançado
   are_you_sure_delete_account: Tem a certeza que deseja eliminar a sua conta EOL?
   article:
@@ -32,7 +33,7 @@ pt-PT:
     name:
       missing: Sem título
   article_from_partner: fornecido por %{partner}
-  article_duplicate: este artigo também é mostrado em «%{section}»
+  article_duplicate: este artigo também aparece em «%{section}»
   autocomplete:
     see_all:
       one: ver outros resultados
@@ -45,32 +46,32 @@ pt-PT:
         da página, quando disponíveis
     setting_header: nomes no trilho de navegação
     types:
-      scientific: cientifico
-      vernacular: vernáculo
+      scientific: científico
+      vernacular: vernacular
   brief_summary:
     extinction:
       r_genus_html: Este género está <span class='%{class_str}' id='%{id}'>extinto</span>.
       r_subgenus_html: Este subgénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
-      r_infragenus_html: Este infragénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_infragenus_html: Este infra-género está <span class='%{class_str}' id='%{id}'>extinto</span>.
       r_superspecies_html: Esta superespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_species_html: Esta espécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_subspecies_html: Esta subespécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_infraspecies_html: Esta infra-espécie está <span class='%{class_str}' id='%{id}'>extinta</span>.
       r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
-    fix_nitrogen_html: <span class='%{class_str}' id='%{predicate_id}'>correção</span>
-      <span class='%{class_str}' id='%{object_id}'>nitrogênio</span>.
+    fix_nitrogen_html: Eles <span class='%{class_str}' id='%{predicate_id}'>prendem</span>
+      <span class='%{class_str}' id='%{object_id}'>nitrogénio</span>.
     freshwater_html: Eles estão associados ao <span class='%{class_str}' id='%{id}'>habitat
       de água doce</span>.
     marine_html: Eles são encontrados no <span class='%{class_str}' id='%{id}'>habitat
       marinho</span>.
     species: '%{name1} é uma espécie de %{name2}.'
-    species_in_family: '%{name1} é uma espécie de %{name2} na família %{name_family}.'
+    species_in_family: '%{name1} é uma espécie de %{name2} da família %{name_family}.'
     taxonomy:
       family_above:
         r_superfamily: '%{name1} é uma superfamília de %{name2}.'
         r_domain: '%{name1} é um domínio de %{name2}.'
         r_subdomain: '%{name1} é um subdomínio de %{name2}.'
-        r_infradomain: '%{name1} é uma infradomínio de %{name2}.'
+        r_infradomain: '%{name1} é uma infra-domínio de %{name2}.'
         r_superkingdom: '%{name1} é um super-reino de %{name2}.'
         r_kingdom: '%{name1} é um reino de %{name2}.'
         r_subkingdom: '%{name1} é um sub-reino de %{name2}.'
@@ -78,38 +79,38 @@ pt-PT:
         r_superphylum: '%{name1} é um super-filo de %{name2}.'
         r_phylum: '%{name1} é um filo de %{name2}.'
         r_subphylum: '%{name1} é um subfilo de %{name2}.'
-        r_infraphylum: '%{name1} é um infrafilo de %{name2}.'
+        r_infraphylum: '%{name1} é um infra-filo de %{name2}.'
         r_superclass: '%{name1} é uma superclasse de %{name2}.'
         r_class: '%{name1} é uma classe de %{name2}.'
-        r_subcategory: '%{name1} é uma subcategorye de %{name2}.'
-        r_infraclass: '%{name1} é uma infraclasse de %{name2}.'
+        r_subcategory: '%{name1} é uma subcategoria de %{name2}.'
+        r_infraclass: '%{name1} é uma infra-classe de %{name2}.'
         r_superorder: '%{name1} é uma superordem de %{name2}.'
         r_order: '%{name1} é uma ordem de %{name2}.'
         r_suborder: '%{name1} é uma subordem de %{name2}.'
-        r_infraorder: '%{name1} é uma infraordem de %{name2}.'
+        r_infraorder: '%{name1} é uma infra-ordem de %{name2}.'
         r_family: '%{name1} é uma família de %{name2}.'
       below_family:
         with_family:
-          r_subfamily: '%{name1} é uma subfamília de %{name2} na família %{name3}.'
-          r_infrafamily: '%{name1} é uma infrafamília de %{name2} na família %{name3}.'
-          r_tribe: '%{name1} é uma tribo de %{name2} na família %{name3}.'
-          r_supergenus: '%{name1} é um supergénero de %{name2} na família %{name3}.'
-          r_genus: '%{name1} é um género de %{name2} na família %{name3}.'
-          r_subgenus: '%{name1} é um subgénero de %{name2} na família %{name3}.'
-          r_infragenus: '%{name1} é um infragénero de %{name2} na família %{name3}.'
-          r_superspecies: '%{name1} é uma superespécie de %{name2} na família %{name3}.'
-          r_species: '%{name1} é uma espécie de %{name2} na família %{name3}.'
-          r_subspecies: '%{name1} é uma subespécie de %{name2} na família %{name3}.'
-          r_infraspecies: '%{name1} é uma infra-espécie de %{name2} na família %{name3}.'
-          r_form: '%{name1} é uma forma de %{name2} na família %{name3}.'
+          r_subfamily: '%{name1} é uma subfamília de %{name2} da família %{name3}.'
+          r_infrafamily: '%{name1} é uma infra-família de %{name2} da família %{name3}.'
+          r_tribe: '%{name1} é uma tribo de %{name2} da família %{name3}.'
+          r_supergenus: '%{name1} é um supergénero de %{name2} da família %{name3}.'
+          r_genus: '%{name1} é um género de %{name2} da família %{name3}.'
+          r_subgenus: '%{name1} é um subgénero de %{name2} da família %{name3}.'
+          r_infragenus: '%{name1} é um infra-género de %{name2} da família %{name3}.'
+          r_superspecies: '%{name1} é uma superespécie de %{name2} da família %{name3}.'
+          r_species: '%{name1} é uma espécie de %{name2} da família %{name3}.'
+          r_subspecies: '%{name1} é uma subespécie de %{name2} da família %{name3}.'
+          r_infraspecies: '%{name1} é uma infra-espécie de %{name2} da família %{name3}.'
+          r_form: '%{name1} é uma forma de %{name2} da família %{name3}.'
         without_family:
           r_subfamily: '%{name1} é uma subfamília de %{name2}.'
-          r_infrafamily: '%{name1} é uma infrafamília de %{name2}.'
+          r_infrafamily: '%{name1} é uma infra-família de %{name2}.'
           r_tribe: '%{name1} é uma tribo de %{name2}.'
           r_supergenus: '%{name1} é um supergénero de %{name2}.'
           r_genus: '%{name1} é um género de %{name2}.'
           r_subgenus: '%{name1} é um subgénero de %{name2}.'
-          r_infragenus: '%{name1} é um infragénero de %{name2}.'
+          r_infragenus: '%{name1} é um infra-género de %{name2}.'
           r_superspecies: '%{name1} é uma superespécie de %{name2}.'
           r_species: '%{name1} é uma espécie de %{name2}.'
           r_subspecies: '%{name1} é uma subespécie de %{name2}.'
@@ -135,7 +136,7 @@ pt-PT:
         one: Um irmão adicional truncado por razões de brevidade.
         other: '%{count} irmãos adicionais truncados por razões de brevidade.'
     richness:
-      header: Riqueza da página
+      header: Riqueza da Página
       score: pontuação de riqueza
       page_contents_count: conteúdo associado
       media_count: multimédia
@@ -143,8 +144,8 @@ pt-PT:
       links_count: hiperligações
       maps_count: mapas
       data_count: dados
-      nodes_count: nodos
-      vernaculars_count: vernáculos
+      nodes_count: nós
+      vernaculars_count: vernaculares
       scientific_names_count: nomes científicos
       referents_count: referentes
       species_count: espécies
@@ -152,8 +153,8 @@ pt-PT:
   collect_already_in_collection: (já está aqui)
   collect_already_in_collection_will_add_icon: (adicionar multimédia a "%{page}")
   collect_new_collection: Nome da Nova Coleção
-  collect_new_collection_title: '... uma Nova Coleção'
-  collect_select_collection: '... Uma das Suas Coleções'
+  collect_new_collection_title: …uma Nova Coleção
+  collect_select_collection: …Uma das Suas Coleções
   collect_title: Adicionar "%{item}" a…
   collected_page_already_in_collection: Isso já estava na sua coleção.
   collected_pages_title: Páginas
@@ -167,14 +168,14 @@ pt-PT:
     <a href=''%{link}''>"%{name}"</a>.'
   collection_associations_title: Coleções Associadas
   collection_user_is_admin: Este utilizador é um administrador.
-  collection_pages_empty: Esta coleção não contém páginas. Tente clicar no botão "obter"
-    nas páginas das espécies para adicionar alguns itens!
+  collection_pages_empty: Esta coleção não contém páginas. Clique no botão "obter"
+    em páginas de espécies para adicionar itens!
   collection:
     admins:
-      placeholder: nome completo ou nome de utilizador
+      placeholder: nome completo ou de utilizador
     actions:
       associate: associar
-      download_taxa_csv: transferir CSV de taxa
+      download_taxa_csv: descarregar CSV de táxones
       delete: eliminar
       edit: editar
     collection_type:
@@ -189,8 +190,8 @@ pt-PT:
       user:
         remove: '%{user} removeu o gestor %{manager}'
     search:
-      placeholder: Pesquisar na coleção…
-      submit: pesquisar
+      placeholder: Procurar na coleção…
+      submit: procurar
     sort:
       hierarchy: hierarquia
       position: data adicionada
@@ -203,19 +204,19 @@ pt-PT:
   content_attributions_header: Informação fonte
   content_attributions_labels:
     altitude: altitude
-    author: autor
+    author: autor(a)
     bibliographic_citation: citação bibliográfica
-    compiler: compilador
-    creator: criador
-    editor: editor
+    compiler: compilador(a)
+    creator: criador(a)
+    editor: editor(a)
     latitude: latitude
     license: licença
     location: localização
-    location_verbatim: textualmente
+    location_verbatim: literalmente
     longitude: longitude
     owner: Direitos de Autor
-    photographer: fotógrafo
-    publisher: editor
+    photographer: fotógrafo(a)
+    publisher: editor(a)
     project: projeto
     provider: provedor
     references_header:
@@ -237,8 +238,8 @@ pt-PT:
       sex_term: Sexo do organismo calculado
       lifestage_term: Período de vida do organismo calculado
       statistical_method_term: Método estatístico utilizado para cálculo
-  data_missing: '(dados em falta; chaves: %{keys})'
-  dear_username_with_comma: '%{username},'
+  data_missing: '(dados em falta, chaves: %{keys})'
+  dear_username_with_comma: Caro(a) %{username},
   delete_account_button: Eliminar a sua conta
   filter_by_license: licença
   filter_by_license_any_item: qualquer licença
@@ -252,21 +253,21 @@ pt-PT:
     filter_by_provider: filtrar por provedor
   footer:
     eol_info:
-      citing_eol: Citar EOL
+      citing_eol: Citar a EOL
       contact_us: Contacte-nos
       data_services: Serviços de Dados
       donate: Doar
       education: Educação
       glossary: Glossário
-      terms_of_use: Termos de Utilização
+      terms_of_use: Condições de Uso
       the_eol_forum: O Fórum da EOL
-      what_is_eol: O que é EOL?
-      whats_new: Novidades?
+      what_is_eol: O que é a EOL?
+      whats_new: Novidades
     discover:
       algae: Algas
       amphibians: Anfíbios
       animals: Animais
-      bacteria: Bactéria
+      bacteria: Bactérias
       birds: Aves
       crustaceans: Crustáceos
       fishes: Peixes
@@ -276,7 +277,7 @@ pt-PT:
       spiders: Aranhas
       trees: Árvores
       viruses: Vírus
-    eol_is_hosted_by: 'EOL é alojado por:'
+    eol_is_hosted_by: 'A EOL é alojada por:'
   forgot_your_password: Esqueceu-se da sua palavra-passe?
   landing_page:
     header: Acesso global ao conhecimento sobre a vida na Terra
@@ -293,7 +294,7 @@ pt-PT:
     hr: Croata
     da: Dinamarquês
     q3362072: Digo
-    en: Português (Portugal)
+    en: Inglês
     eo: Esperanto
     et: Estoniano
     fi: Finlandês
@@ -303,7 +304,7 @@ pt-PT:
     de: Alemão
     q3272630: Gogo
     el: Grego, Moderno (1453-)
-    he: Hebreu
+    he: Hebraico
     hi: Hindi
     is: Islandês
     id: Indonésio
@@ -317,7 +318,7 @@ pt-PT:
     q1160372: Laz
     q146803: Língua Franca Nova
     q13358: Megleno-romeno
-    q13359: Mingreliano
+    q13359: Mingrélio
     q6944725: Mwera
     q4121131: Nyamwezi
     fa: Persa
@@ -339,7 +340,7 @@ pt-PT:
   maps:
     empty: Não existem mapas disponíveis para esta página.
     occurrence_caption: Ocorrências conhecidas, espécimes obtidos e observações de
-      %{page_name}
+      %{page_name}. Veja esta espécie no GBIF
     other_maps_title: Mapas não interativos
   medium:
     untitled:
@@ -370,22 +371,22 @@ pt-PT:
     discuss: Discutir
     education: Educação
     search:
-      placeholder: Pesquisar EOL...
+      placeholder: Procurar na EOL...
   name_preferred_label: preferido
   page_title: Enciclopédia da Vida
-  page_title_search: 'Pesquisar: %{query}'
+  page_title_search: 'Procurar: %{query}'
   pages:
     actions:
       collect: obter
     batch_lookup:
       canonical_name: nome canónico
-      download_tsv: transferir CSV
-      new_search: nova pesquisa
+      download_tsv: descarregar CSV
+      new_search: nova procura
       page_id: Id. da página
       query: consulta
-      search: pesquisar
+      search: procrurar
     page_data:
-      show_all: mostrar tudo
+      show_all: mostrar todos
     resource_names:
       name_recognized_by_w_rank: '%{rank} reconhecido por %{by}'
       rank:
@@ -397,7 +398,7 @@ pt-PT:
         r_tribe: Tribo
         r_species: Espécie
         r_subspecies: Subespécie
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
       username_missing: utilizador %{user_id}
     trophic_web:
@@ -410,7 +411,7 @@ pt-PT:
       articles: artigos
       classifications: classificações
       data: dados
-      overview: sinopse
+      overview: Visão geral
       maps: mapas
       media: multimédia
       names: nomes
@@ -424,7 +425,7 @@ pt-PT:
     name:
       r_domain: domínio
       r_subdomain: subdomínio
-      r_infradomain: infradomínio
+      r_infradomain: infra-domínio
       r_superkingdom: super-reino
       r_kingdom: reino
       r_subkingdom: sub-reino
@@ -432,25 +433,29 @@ pt-PT:
       r_superphylum: superfilo
       r_phylum: filo
       r_subphylum: subfilo
-      r_infraphylum: infrafilo
+      r_infraphylum: infra-filo
       r_superclass: superclasse
       r_class: classe
-      r_subcategory: subcategorye
-      r_infraclass: infraclasse
+      r_subcategory: subcategoria
+      r_infraclass: infra-classe
       r_superorder: superordem
       r_order: ordem
       r_suborder: subordem
-      r_infraorder: infraordem
+      r_infraorder: infra-ordem
       r_superfamily: superfamília
       r_family: família
       r_subfamily: subfamília
-      r_infrafamily: infrafamília
+      r_infrafamily: infra-família
       r_tribe: tribo
+      r_supergenus: supergénero
       r_genus: género
+      r_subgenus: subgénero
+      r_infragenus: infra-género
       r_superspecies: superespécie
       r_species: espécie
       r_subspecies: subespécie
-      r_infraspecies: infraespécie
+      r_infraspecies: infra-espécie
+      r_form: forma
   reference_compiled_from_article: '%{source} artigo nomeado "%{name}"'
   register_new_account: Registar para nova conta
   resources:

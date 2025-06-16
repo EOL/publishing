@@ -11,6 +11,7 @@
 # Author: Jhammock
 # Author: Meno25
 # Author: Michel Bakni
+# Author: Mohammed Qays
 # Author: NEHAOUA
 # Author: Nora
 # Author: Optilete
@@ -1445,7 +1446,7 @@ ar:
     update: تحديث
     update_email: تحديث البريد الالكترونى
   user_download:
-    created: ستتم معالجة ملفك في الخلفية، تحقق من <a href="%{url}"صفحة المستخدم الخاصة
+    created: سيُعالج ملفك في الخلفية، تحقق من <a href="%{url}"صفحة المستخدم الخاصة
       بك</a> لمعرفة ما إذا كانت قد اكتملت أم لا.
     have_pending: لديك بالفعل تنزيل معلق لهذا الاستعلام. تحقق من <a href="%{url}">صفحة
       المستخدم</a> الخاصة بك لمعرفة ما إذا كانت قد اكتملت أَم لا.
