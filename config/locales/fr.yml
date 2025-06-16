@@ -5,6 +5,7 @@
 # Author: Ajeje Brazorf
 # Author: Alno
 # Author: Crochet.david
+# Author: Derugon
 # Author: DreZhsh
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
@@ -729,8 +730,10 @@ fr:
     occurrence_caption: Occurrences connues, spécimens collectés et observations de
       %{page_name}. Voir ces espèces sur GBIF.
     occurrence_caption_w_link_html: Occurrences connues, spécimens collectés et observations
-      de %{page_name}. <a href="%{url}">Afficher cette espèce sur GBIF <i class='fa
-      fa-external-link'></i></a>.
+      de %{page_name} par le <a href='https://gbif.org'>Global Biodiversity Information
+      Facility %{gbif_logo}</a> &nbsp;&nbsp;GBIF offre un accès libre et gratuit aux
+      données sur la biodiversité. <a href="%{url}">Afficher cette espèce sur GBIF
+      <i class='fa fa-external-link'></i></a>.
     other_maps_title: Cartes non interactives
   medium:
     untitled:
