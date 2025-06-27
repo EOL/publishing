@@ -94,6 +94,7 @@ ko:
   collect_already_in_collection: (이미 있습니다)
   collect_already_in_collection_will_add_icon: (미디어를 "%{page}"에 추가)
   collect_new_collection: 새 모음집 이름
+  collect_new_collection_title: …새로운 컬렉션
   collected_pages_title: 페이지
   collected_pages_medium:
     destroyed_flash: 수집된 페이지에서 삭제된 이미지.
