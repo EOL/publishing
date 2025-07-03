@@ -1,0 +1,1272 @@
+# Messages for Slovak (slovenčina)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: EmmaOrfanusova
+# Author: Oujon
+# Author: Yardom78
+---
+sk:
+  language_name: slovenčina
+  about:
+    trait_bank:
+      body_html: <p>Technický tím a tím správy údajov v EOL sa odvoláva na zdroje
+        štruktúrovaných údajov v údajoch o vlastnostiach EOL a iných atribútoch, ekologických
+        interakciách a našej natívnej klasifikácii, dynamickej pracovnej hierarchii
+        – spoločne ako TraitBank. Tento obsah je spravovaný trochu inak ako náš „klasický“
+        obsah – obrázky, video, zvuk a popisný text – a je užitočný na rôzne veci.</p><p>
+        TraitBank je mladšia ako zvyšok EOL; pôvodne ho navrhla riaditeľka skupiny
+        Species Pages Group Cynthia Parr a v januári 2014 bol uvedený do prevádzky
+        v EOL v2. Odvtedy sú štruktúrované dáta našou najvyššou prioritou pri vývoji
+        obsahu.</p><p> Teraz môžete <a href='%{example_search_path}'>vyhľadávať</a>
+        alebo prehliadať EOL podľa štruktúrovaných dát alebo si ich stiahnuť, prípadne
+        sa s nimi môžete stretnúť na našej novej karte prehľadu vo forme <a href='%{autogen_page_path}'>automaticky
+        generovaného textu</a> . Rovnako ako zvyšok obsahu EOL je k dispozícii na
+        opätovné použitie a je dodávaný s podrobnými údajmi o priradení, takže ho
+        môžete pripísať, ak ho použijete vo svojej vlastnej práci.</p><p> Tieto údaje
+        sú modelované ako <a href='%{property_graph_url}'>graf vlastností</a> v <a
+        href='%{neo4j_url}'>neo4j</a> . K dispozícii sú <a href='%{data_services_path}'>dátové
+        služby</a> .</p>
+  account_already_linked: Váš účet už je na EOL napojený
+  account_not_linked: Váš účet nie je na EOL napojený
+  advanced: pokročilé
+  are_you_sure_delete_account: Naozaj chcete vymazať Váš účet EOL?
+  article:
+    actions:
+      collect: zbierať
+    header:
+      blank: (K tomuto článku nie je obsah.)
+      body: Obsah (text)
+      language: 'jazyk: %{language}'
+      title: Názov
+      untitled: Bez názvu
+    name:
+      missing: Bez názvu
+  article_from_partner: článok poskytol %{partner}
+  article_duplicate: tento článok je uvedený aj v %{section}
+  autocomplete:
+    see_all:
+      one: pozrieť ďalší výsledok
+      other: pozrieť všetky výledky %{count}
+  breadcrumbs:
+    notices:
+      canonical: Vedecké názvy budú teraz zobrazené na navigačnej pomôcke stránky
+      vernacular: Miestne názvy budú teraz zobrazené na navigačnej pomôcke stránky
+    setting_header: názvy na navigačnej pomôcke
+    types:
+      scientific: vedecký
+      vernacular: miestny
+  brief_summary:
+    extinction:
+      r_genus_html: Tento druh je <span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_subgenus_html: Tento pod druh je <span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_infragenus_html: Tento infra druh je<span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_superspecies_html: Tento super druh je <span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_species_html: Tento druh je <span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_subspecies_html: Tento pod druh je <span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_infraspecies_html: Tento infra druh je <span class='%{class_str}' id='%{id}'>vyhynutý</span>.
+      r_form_html: Táto forma je <span class='%{class_str}' id='%{id}'>vyhynutá</span>.
+    fix_nitrogen_html: Oni <span class='%{class_str}' id='%{predicate_id}'>fixujú</span>
+      <span class='%{class_str}' id='%{object_id}'>dusík</span>.
+    freshwater_html: Sú spojení so <span class='%{class_str}' id='%{id}'>sladkovodným
+      biotopom</span>.
+    marine_html: Nachádzajú sa v <span class='%{class_str}' id='%{id}'>morskom biotope</span>.
+    species: '%{name1} je druhom %{name2}.'
+    species_in_family: '%{name1} je druhom %{name2} z rodiny %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} je super rodinou %{name2}.'
+        r_domain: '%{name1} je doménou %{name2}.'
+        r_subdomain: '%{name1} je pod doménou %{name2}.'
+        r_infradomain: '%{name1} je infra doménou  %{name2}.'
+        r_superkingdom: '%{name1} je super ríšou %{name2}.'
+        r_kingdom: '%{name1} ríšou %{name2}.'
+        r_subkingdom: '%{name1} je podríšou %{name2}.'
+        r_infrakingdom: '%{name1} je infra ríšou %{name2}.'
+        r_superphylum: '%{name1} je super kmeňom %{name2}.'
+        r_phylum: '%{name1} je kmeňom %{name2}.'
+        r_subphylum: '%{name1} je pod kmeňom %{name2}.'
+        r_infraphylum: '%{name1} je infra kmeňom of %{name2}.'
+        r_superclass: '%{name1} je super triedou %{name2}.'
+        r_class: '%{name1} je triedou %{name2}.'
+        r_subcategory: '%{name1} je pod druhom %{name2}.'
+        r_infraclass: '%{name1} je infra triedou %{name2}.'
+        r_superorder: '%{name1} je super druhom %{name2}.'
+        r_order: '%{name1} je poradie %{name2}.'
+        r_suborder: '%{name1} je super druhom %{name2}.'
+        r_infraorder: '%{name1} je infra druhom %{name2}.'
+        r_family: '%{name1} je rodinou %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} je pod rodinou %{name2} z rodiny %{name3}.'
+          r_infrafamily: '%{name1} je infra rodinou %{name2} z rodiny %{name3}.'
+          r_tribe: '%{name1} je čeľaďou %{name2} z rodiny %{name3}.'
+          r_supergenus: '%{name1} je super druhom %{name2} z rodiny %{name3}.'
+          r_genus: '%{name1} je druhom %{name2} z rodiny %{name3}.'
+          r_subgenus: '%{name1} je pod druhom %{name2} z rodiny %{name3}.'
+          r_infragenus: '%{name1} je infra rodom %{name2} z rodiny %{name3}.'
+          r_superspecies: '%{name1} je super druhom %{name2} z rodiny %{name3}.'
+          r_species: '%{name1} druhom %{name2} z rodiny %{name3}.'
+          r_subspecies: '%{name1} je pod druhom %{name2} z rodiny %{name3}.'
+          r_infraspecies: '%{name1} je infra druhom %{name2} z rodiny %{name3}.'
+          r_form: '%{name1} druh %{name2} z rodiny %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} je pod rodinou %{name2}.'
+          r_infrafamily: '%{name1} je infra rodinou %{name2}.'
+          r_tribe: '%{name1} je druhom %{name2}.'
+          r_supergenus: '%{name1} je super druhom %{name2}.'
+          r_genus: '%{name1} je druhom %{name2}.'
+          r_subgenus: '%{name1} je pod druhom %{name2}.'
+          r_infragenus: '%{name1} je infra druhom %{name2}.'
+          r_superspecies: '%{name1} je super druhom %{name2}.'
+          r_species: '%{name1} je druhom %{name2}.'
+          r_subspecies: '%{name1} je pod druhom %{name2}.'
+          r_infraspecies: '%{name1} je infra druhom %{name2}.'
+          r_form: '%{name1} je druhom %{name2}.'
+  button_create: vytvoriť
+  button_add: pridať
+  cancel: zrušiť
+  change_my_password: Zmeniť moje heslo
+  change_your_password: Zmeniť Vaše heslo
+  classifications:
+    children:
+      header_html:
+        one: '%{name} vrátane <a href="%{names_path}">%{count} dieťaťa</a>:'
+        other: '%{name} vrátane <a href="%{names_path}">%{count} detí</a>:'
+      see_more: zobraziť viac
+    hierarchies:
+      header: Spravované hierarchie pre %{sci_name}
+      see_resource_file: Pre celý zoznam pozrite <a href='%{href}'>zdrojový súbor</a>.
+      this_page: (táto stránka)
+      truncated_siblings:
+        one: Jeden ďalší súrodenec bol pre stručnosť skrátený.
+        other: '%{count} ďalší súrodenci boli pre stručnosť skrátený.'
+    richness:
+      header: Bohatosť stránky
+      score: bohatostné skóre
+      page_contents_count: súvisiaci obsah
+      missing: Bohatosť ešte pre túto stránku nebola vypočítaná.
+      media_count: média
+      articles_count: článkov
+      links_count: odkazov
+      maps_count: máp
+      data_count: údajov
+      nodes_count: uzlov
+      vernaculars_count: miestnych názvov
+      scientific_names_count: vedeckých názvov
+      referents_count: referencií
+      species_count: druhy
+      updated_at: posledná aktualizácia
+  collect_already_in_collection: (už je to tu)
+  collect_already_in_collection_will_add_icon: (pridať médiá do "%{page}")
+  collect_icon_title: Pridať "%{item}" zo stránky "%{page}" do…
+  collect_new_collection: Názov novej zbierky
+  collect_new_collection_title: …nová kolekcia
+  collect_no_existing_collections: Ešte žiadne nemáte! Vytvorte si nejakú pomocou
+    formulára vľavo.
+  collect_select_collection: '...jedna z Vašich zbierok'
+  collect_title: Pridať "%{item}" do…
+  collected_page_added_to_collection: Pridané %{page} do zbierky <a href='%{link}'>%{name}</a>.
+  collected_page_already_in_collection: Tu už vo Vašej kolekcii bolo.
+  collected_pages_title: Stránky
+  collected_pages_medium:
+    destroyed_flash: Obrázok bol zo zbierkovej stránky odstránený.
+  collection_associations:
+    destroyed_flash: '%{name} už nie je pridružené k tejto zbierke.'
+  collected_pages:
+    delete_button: vymazať
+    edit_button: upraviť
+    delete_confirm: ste si istý/á?
+    destroyed_flash: '%{name} zo zbierky odstránené.'
+  collection_association_added_to_collection: Pridané "%{associated}" do kolekcie
+    <a href='%{link}'>"%{name}"</a>.
+  collection_associations_empty: Žiadne iné zbierky nie sú k tejto pridružené. Môžete
+    kliknúť na tlačítko "priradiť" na iných zbierkach, aby sa tu zobrazili.
+  collection_associations_title: Pridružené kolekcie
+  collection_collected_pages_media_remove: 'Odstrániť obrázky zo zbierok (zmeny sa
+    prejavia okamžite):'
+  collection_created: Vytvorená nová kolekcia %{name}.
+  collection_created_for_association: Pridané "%{associated}" do novej zbierky <a
+    href='%{link}'>"%{name}"</a>.
+  collection_user_is_admin: Tento používateľ je správca.
+  collection_pages_empty: Táto zbierka neobsahuje žiadne stránky. Pre pridanie nejakých
+    položiek skúste stlačiť na tlačítko "zbierať".
+  collection:
+    admins:
+      header: Používatelia, ktorí môže upravovať túto zbierku (zmeny sa prejavia okamžite)
+      label: 'Pridať používateľa, ktorý môže upravovať túto kolekciu:'
+      placeholder: plné meno alebo meno používateľa
+    actions:
+      associate: pridružiť
+      download_taxa_csv: stiahnuť CSV taxonov
+      delete: zmazať
+      edit: upraviť
+      sort: triediť
+    collection_type:
+      normal: normálne
+      gallery: galéria
+    delete_confirm: Toto odstráni celú zbierku a nedá sa to vrátiť. Ste si istý/á?
+    destroyed: '"%{name}" bolo natrvalo vymazané.'
+    pages_count:
+      one: 1 strana
+      other: '%{count} strán'
+    log:
+      associated_collection:
+        add: '%{user} pridal/a asociáciu do zbierky %{associated}'
+        remove: '%{user} odstránil/a asociáciu zo zbierky %{associated}'
+      collection:
+        add: '%{user} vytvoril/a zbierku'
+        change: '%{user} zmenil/a %{field} z "%{from}" na "%{to}"'
+      content:
+        add: '%{user} pridal/a médium %{medium} pre stránku %{page}'
+        change: '%{user} zmenil/a %{field} na médiu %{medium} pre stránku %{page}
+          z "%{from}" na "%{to}"'
+        remove: '%{user} odstránil/a médium %{medium} pre stránku %{page}'
+      page:
+        add: '%{user} pridal/a stránku %{page}'
+        change: '%{user} zmenil/a %{field} na stránke %{page} z "%{from}" na "%{to}"'
+        remove: '%{user} odstránil/a stránku %{page}'
+      user:
+        add: '%{user} pridal/a manažéra %{manager}'
+        remove: '%{user} odstránil/a manažéra %{manager}'
+    search:
+      placeholder: Hľadať v zbierke...
+      submit: hľadať
+    sort:
+      hierarchy: hierarchia
+      position: dátum pridania
+      sci_name: vedecký názov, A-Z
+      sci_name_rev: vedecký názov, Z-A
+      sort_field: anotácia, A-Z
+      sort_field_rev: anotácia, Z-A
+    updated: Zbierka aktualizovaná.
+  collection_unauthorized_edit: Túto zbierku môže upravovať iba vlastník.
+  complete_registration: Prosím pokračujte v registrácii
+  content_appears_on: 'Zahrnuté na nasledujúcich stránkach:'
+  content_collected_in: 'Uvádzané v nasledovných zbierkach:'
+  content_attributions_header: Zdroj informácií
+  content_attributions_labels:
+    altitude: nadmorská výška
+    author: autor
+    bibliographic_citation: bibliografická citácia
+    contributor: prispievateľ
+    compiler: spracovateľ
+    creator: tvorca
+    editor: redaktor
+    latitude: zemepisná šírka
+    license: licencia
+    location: poloha
+    location_verbatim: doslovne
+    longitude: zemepisná dĺžka
+    original_media_file: pôvodný mediálny súbor
+    owner: copyright
+    photographer: fotograf
+    publisher: vydavateľ
+    project: projekt
+    provider: poskytovateľ
+    references_header:
+      one: Referencia
+      few: Referencie
+      many: Referencií
+      other: Referencií
+    resource_label: partnerský web
+    resource_pk: '(id: %{key})'
+    rights_statement: vyhlásenie o právach
+    source: zdroj
+    spatial_location: priestorové
+    view_source_label: pôvodné
+    view_source_link: zobraziť pôvodný obrázok
+    view_source_page_link: navštíviť zdroj
+  content_not_in_any_collection_image: Obrázok nie je uvedený v žiadnej zbierke.
+  content_not_in_any_collection_sound: Tento zvuk nie je uvedený v žiadnej zbierke.
+  content_not_in_any_collection_video: Toto video nie je uvedené v žiadnej zbierke.
+  data:
+    modifier:
+      sex_term: Pohlavie organizmu odmerané
+      lifestage_term: Životná etapa organizmu odmeraná
+      statistical_method_term: Štatistická metóda použitá na meranie
+  data_missing: '(chýbajúce údaje, keys: %{keys})'
+  dear_username_with_comma: Drahý/á %{username},
+  delete_account_button: Vymazať Váš účet
+  errors:
+    internal_server: Chyba interného servera (500)
+    not_found: Stránka nenájdená (404)
+  filter_by_license: licencia
+  filter_by_license_any_item: akákoľvek licencia
+  filter_by_medium_subtype: typ
+  filter_by_medium_any_item: akýkoľvek typ
+  filter_by_resource: poskytovateľ
+  filter_by_resource_any_item: akýkoľvek poskytovateľ
+  filters:
+    filter_by_attribute: filtrovať podľa vlastnosti
+    filter_by_language: filtrovať podľa jazyka
+    filter_by_provider: filtrovať podľa poskytovateľa
+  footer:
+    eol_info:
+      citing_eol: Citovanie EOL
+      contact_us: Kontaktujte nás
+      data_services: Dátové služby
+      donate: Darovať
+      education: Vzdelávanie
+      food_webs: Potravinové weby
+      glossary: Slovník pojmov
+      help: Pomoc
+      language_support: Jazyková podpora
+      terms_of_use: Podmienky používania
+      the_eol_forum: EOL fórum
+      what_is_eol: Čo je to EOL?
+      whats_new: Čo je nového?
+    discover:
+      algae: Riasy
+      amphibians: Obojživelníci
+      animals: Zvieratá
+      archaea: Archeóny
+      bacteria: Baktérie
+      birds: Vtáky
+      crustaceans: Kôrovce
+      fishes: Ryby
+      flowering_plants: Kvitnúce rastliny
+      fungi: Hríby
+      insects: Hmyz
+      invertebrates: Bezstavovce
+      mammals: Cicavce
+      molds: Plesne
+      mushrooms: Hríby
+      mollusks: Mäkkýše
+      plants: Rastliny
+      protists: Protisty (jednobunkové)
+      reptiles: Plazy
+      spiders: Pavúky
+      trees: Stromy
+      viruses: Vírusy
+      worms: Červy
+    eol_is_hosted_by: 'Hostiteľ EOL(u):'
+  forgot_your_password: Zabudli ste heslo?
+  gbif_download:
+    created: GBIF stiahnutie bolo vytvorené. Pre zobrazenie stavu skontrolujte svoju
+      <a href="%{url}">stránku používateľa</a>
+  landing_page:
+    header: Globálny prístup k vedomostiam o živote na zemi
+    stats_cleared: Štatistiky boli prepočítané.
+  language: Jazyk
+  languages:
+    ab: Abcházsky
+    q27683: Acehnese
+    q27776: Adyghe
+    aa: Afar
+    af: Afrikánsky
+    ak: Akan
+    alb: Albánsky
+    sq: Albánsky
+    q131339: Alemannic
+    am: Amharic
+    ar: Arabský
+    an: Aragónsky
+    hy: Arménsky
+    as: Assamese
+    q29507: Asturian
+    q56590: Atikamekw
+    av: Avarský
+    ae: Avestan
+    ay: Aymara
+    q9292: Azerbajdžanský
+    az: Azerbajdžanský
+    q33070: Balinese
+    bm: Bambara
+    q33151: Banjar
+    ba: Bashkir
+    eu: Baskický
+    q29540: Bavorský
+    be: Bieloruský
+    q8836490: Bende
+    bn: Bengálsky
+    bh: Bihárske jazyky
+    bi: Bislama
+    nb: Bokmål, Nórsky; Nórsky Bokmål
+    q4941378: Bondei
+    bs: Bosniansky
+    q33202: Brahui
+    q750553: Brazílska portugalčina
+    br: Bretónsky
+    bg: Bulharský
+    my: Burmese
+    q33120: Buryat
+    q35037: Businenge Tongo
+    q880301: Cajun French
+    q2937525: Capiznon
+    q35156: Car
+    q2591230: Cashinahua
+    ca: Katalánsky
+    q33239: Cebuano
+    khm: Central Khmer
+    km: Central Khmer
+    ch: Chamorro
+    q33281: Chavacano
+    ce: Chechen
+    q33388: Cherokee
+    q33265: Cheyenne
+    ny: Chichewa; Chewa; Nyanja
+    zh: Čínsky
+    chi: Čínsky
+    q32979: Choctaw
+    cu: Staroslovanský
+    cv: Chuvash
+    q37041: Klasická čínština
+    kw: Cornish
+    co: Corsican
+    cr: Cree
+    q33357: Krymsko tatársky
+    hr: Chorvátsky
+    hrv: Chorvátsky
+    cs: Česky
+    q32238: Dagbani
+    da: Dánsky
+    q3362072: Digo
+    q56466: Dinka
+    dv: Divehi; Dhivehi; Maldivian
+    q18415595: Dotyali
+    q33013: Duala
+    dut: Holandský, Flámsky
+    nl: Holandský, Flámsky
+    dz: Dzongkha
+    dzo: Dzongkha
+    q4126517: Eastern Canadian Inuktitut
+    en: Anglický
+    q29952: Erzya
+    eo: Esperanto
+    et: Estónsky
+    est: Estónsky
+    ee: Ewe
+    fo: Faroese
+    fj: Fijian
+    fi: Fínsky
+    fin: Fínsky
+    q667747: Fipa
+    fr: Francúzsky
+    fra: Francúzsky
+    ff: Fulah
+    gd: Škótska galčina
+    gl: Galčina
+    q33475: Gan Chinese
+    lg: Ganda
+    ka: Gruzínsky
+    de: Nemecký
+    deu: Nemecký
+    q5575236: Goan Konkani
+    q3272630: Gogo
+    q2501174: Gorontalo
+    el: Grécky
+    gre: Grécky
+    gn: Guarani
+    gu: Gujarati
+    q33303: Haida
+    ht: Haitian; Haitian Creole
+    ha: Hausa
+    q35756: Haya
+    he: Hebrejský
+    heb: Hebrejský
+    q3129390: Hehe
+    hz: Herero
+    q35978: Hiligaynon
+    hi: Hindský
+    ho: Hiri Motu
+    hu: Maďarský
+    is: Islandský
+    ice: Islandský
+    io: Ido
+    ig: Igbo
+    q35936: Ilocano
+    id: Indonézsky
+    q33509: Ingush
+    ia: Interlingua (International Auxiliary Language Association)
+    ie: Interlingue; Occidental
+    iu: Inuktitut
+    ik: Inupiaq
+    q33595: Iraqw
+    ga: Írsky
+    it: Taliansky
+    ita: Taliansky
+    q35939: Jamajská kreolská angličtina
+    ja: Japonský
+    jp: Japosnký
+    jv: Jávsky
+    q33522: Kabardian Circassian
+    q35475: Kabiyè
+    q35853: Kabyle
+    kl: Kalaallisut; Greenlandic
+    q33634: Kalmyk
+    kn: Kannada
+    kr: Kanuri
+    q36121: Kapampangan
+    q33541: Kara-Kalpak
+    ks: Kashmiri
+    q33690: Kashubian
+    kk: Kazašský
+    ki: Kikuyu; Gikuyu
+    q33656: Kildin Sami
+    q33720: Kinaray-a
+    q11005332: Kinga
+    q11732519: Kingindo
+    rw: Kinyarwanda
+    ky: Kirghiz; Kyrgyz
+    kv: Komi
+    kg: Konžský
+    ko: Kórejský
+    kor: Kórejský
+    kj: Kuanyama; Kwanyama
+    ku: Kurdský
+    q36206: Lak
+    lo: Laoský
+    lao: Laoský
+    la: Latinský
+    lv: Lotyšský
+    q1160372: Laz
+    q31746: Lezgian
+    q36106: Ligurian
+    li: Limburgan; Limburger; Limburgish
+    ln: Lingala
+    q146803: Lingua Franca Nova
+    lt: Litovský
+    lit: Litovský
+    q33698: Liv
+    q36584: Livvi
+    q33754: Lombardský
+    q168446: Low Saxon
+    q13286: Lower Sorbian
+    lu: Luba-Katanga
+    q3437661: Luguru
+    lb: Luxemburský
+    q35787: Masai
+    mk: Macedónsky
+    q497345: Mainfränkisch
+    q36109: Maithili
+    mg: Malagasy
+    ms: Malajský
+    ml: Malayalam
+    mt: Maltézsky
+    mlt: Maltský
+    gv: Manx
+    mi: Maorský
+    mr: Marathi
+    mh: Marshallese
+    q6786446: Matengo
+    q3906614: Meadow Mari
+    q13357: Meänkieli
+    q13358: Megleno Rumunský
+    q13313: Meru
+    q13321: Miꞌkmaq
+    q36455: Min Dong
+    q13324: Minangkabau
+    q13359: Mingrelian
+    q13330: Mirandese
+    q13343: Moksha
+    mn: Mongolský
+    q56426: Marocká arabčina
+    q6944725: Mwera
+    q13300: Nahuatl
+    q3508074: Nai
+    na: Nauru
+    nv: Navajo; Navaho
+    nd: Ndebele, North; North Ndebele
+    nr: Ndebele, South; South Ndebele
+    ng: Ndonga
+    q33845: Neapolitan
+    ne: Nepálsky
+    q7022366: Ngindo
+    q28224: North Frisian
+    q19933293: Northern Luri
+    se: Northern Sami
+    "no": Nórsky
+    nno: Nórsky
+    nob: Nórsky
+    nor: Nórsky
+    nn: Norwegian Nynorsk; Nynorsk, Norwegian
+    q36738: Novial
+    q3272620: Nyakusa
+    q4121131: Nyamwezi
+    q7193418: Nyaturu
+    q11128374: Nyiha
+    q16115145: Nyika
+    oc: Occitan (post 1500)
+    q28602: Official Aramaic
+    oj: Ojibwa
+    or: Oriya
+    om: Oromo
+    os: Ossetian; Ossetic
+    q715755: Paiwan
+    pi: Pali
+    pa: Punjabi
+    q36403: Pare
+    fa: Perzský
+    q23014: Pfaelzisch
+    q34024: Picard
+    q15085: Piedmontese
+    q2429648: Pogoro
+    pl: Poľský
+    pol: Poľský
+    q36748: Pontic
+    pt: Portugalský
+    ps: Pushto; Pashto
+    qu: Quechua
+    q584983: Rangi
+    ro: Rumunský; Moldavský
+    rm: Romansh
+    rn: Rundi
+    ru: Ruský
+    rus: Ruský
+    q26245: Rusínsky
+    q34299: Sakha
+    q718269: Sakizaya
+    sm: Samoan
+    q213434: Samogitian
+    q34016: Sandawe
+    sg: Sango
+    sa: Sanskrit
+    q33965: Santali
+    sc: Sardínsky
+    q845441: Sassarese Sardinian
+    q14549: Škótsky
+    q716686: Seediq
+    sr: Srbský
+    q3788739: Shambala
+    q56482: Shan
+    sn: Shona
+    q34004: Shona
+    ii: Sichuan Yi; Nuosu
+    q33973: Sicilian
+    sd: Sindhi
+    si: Sinhalese
+    sk: Slovenský
+    slk: Slovenský
+    sl: Slovinský
+    so: Somálsky
+    som: Somálsky
+    st: Sotho, Southern
+    es: Španielsky; Kastelánsky
+    slv: Španielsky
+    q2638144: Sukuma
+    su: Sudánsky
+    sw: Swahili
+    ss: Swati
+    sv: Švédsky
+    swe: Švédsky
+    tl: Tagalog
+    ty: Tahitian
+    tg: Tajik
+    q34318: Talysh
+    ta: Tamil
+    tt: Tatar
+    te: Telugu
+    th: Thajský
+    tha: Thajský
+    bo: Tibetský
+    ti: Tigrinya
+    q34159: Tok Pisin
+    to: Tongan
+    q180937: Tosk Albanian
+    ts: Tsonga
+    tn: Tswana
+    q34251: Tulu
+    q34138: Tumbuka
+    q56240: Tuniská arabčina
+    tr: Turecký
+    tur: Turecký
+    q36730: Turkish, Ottoman
+    tk: Turkménsky
+    tw: Twi
+    q13238: Udmurt
+    ug: Uighur; Uyghur
+    uk: Ukrajinský
+    ukr: Ukrajinský
+    none: Neurčený
+    q13248: Upper Sorbian
+    ur: Urdu
+    uz: Uzbecký
+    ve: Venda
+    q32747: Vepsian
+    vi: Vietnamský
+    vo: Volapük
+    q32858: Votic
+    wa: Walloon
+    q34279: Waray
+    cy: Welšský
+    wel: Welšský
+    q100103: West Flemish
+    fy: Western Frisian
+    wo: Wolof
+    q34290: Wu
+    xh: Xhosa
+    yi: Jidiš
+    yo: Yoruba
+    q10199: Zazaki
+    q237409: Zeelandic
+    za: Zhuang; Chuang
+    zu: Zulu
+    Q33219: Banyumasan
+  layout_sign_in: Prihlásiť sa
+  layout_sign_up: Zaregistrovať sa
+  layout_sign_out: Odhlásiť sa
+  literature_and_references_header: Literatúra a referencie
+  maps:
+    empty: Pre túto stránku nie sú dostupné žiadne mapy.
+    occurrence_caption: Známe výskyty, zozbierané exempláre a pozorovania %{page_name}.
+      Pozrieť si tieto exempláre na GBIF
+    occurrence_caption_w_link_html: Známe výskyty, pozbierané exempláre a pozorovanie
+      %{page_name}. <a href='%{url}'>Pozrieť si tieto exempláre na GBIF<i class='fa
+      fa-external-link'></i></a>
+    other_maps_title: Žiadne interaktívne mapy
+  medium:
+    untitled:
+      image: Nepomenovaný obrázok
+      image_of: Obrázok %{page_name}
+      video: Nepomenované video
+      video_of: Video  %{page_name}
+      sound: Nepomenovaný zvuk
+      sound_of: Zvuk %{page_name}
+      map: Nepomenovaná mapa
+      map_of: Mapa %{page_name}
+      js_map: Nepomenovaná interaktívna mapa
+      js_map_of: Interaktívna mapa %{page_name}
+    subcategories:
+      image: obrázok
+      video: video
+      sound: zvuk
+      map_image: mapa
+      js_map: interaktívna mapa
+  medium_collect_button: zbierať médiá
+  medium_description_blank: Pre tento objekt nebol poskytnutý žiaden popis.
+  medium_header_title: 'Názov:'
+  medium_header_description: 'Popis:'
+  names:
+    hide_langs:
+      one: schovať jeden jazyk
+      few: schovať %{count} jazyky
+      many: schovať %{count} jazykov
+      other: schovať %{count} jazykov
+    prefer: uprednostniť
+    preferred_in_language_for_page: '%{name} je teraz preferovaným jazykom %{language}
+      pre %{page}'
+    show_more_langs:
+      one: zobraziť ešte jeden jazyk
+      other: zobraziť %{count} ďalšie jazyky
+  nav:
+    about: O aplikácii
+    discuss: Diskutujte
+    education: Vzdelávanie
+    search:
+      no_results_html: <strong>Žiadne potvrdené výsledky</strong><br /> Stlačením
+        klávesu Enter zobrazíte nespracované výsledky
+      placeholder: Hľadaj EOL...
+  name_preferred_label: preferovaný
+  page_icon_counts:
+    header:
+      one: Najlepší obrázok pre stránku
+      other: Najlepší obrázok pre stránky
+  page_icon_created: Obrázok "%{name}" bol presunutý na začiatok.
+  page_title: Encyklopédia života
+  page_title_search: 'Hľadaj: %{query}'
+  page_vernaculars_empty: S týmto taxónom nie sú spojené žiadne bežné mená.
+  pages:
+    actions:
+      collect: zbierať
+      comment:
+        one: 1 komentár
+        few: '%{count} komentáre'
+        many: '%{count} komentárov}'
+        other: '%{count} komentárov'
+      reindex: reindex
+    batch_lookup:
+      header: dávkové vyhľadávanie stránky
+      canonical_name: kanonické meno
+      download_tsv: stiahnuť TSV
+      match: priradiť
+      new_search: Nové vyhľadávanie
+      page_id: ID stránky
+      page_url: URL strány
+      query: Dotaz
+      query_cant_be_blank: dotaz nemôže byť prázdny
+      search: hľadať
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL má data pre <a href="%{data_path}">jeden atribút</a>:'
+        other: 'EOL má dáta pre <a href="%{data_path}">%{count} attribútov</a>, okrem:'
+      eol_has_data_for_n_attributes_html:
+        one: 'EOL má data pre <a href="%{data_path}">jeden atribút</a>:'
+        other: 'EOL má dáta pre <a href="%{data_path}">%{count} attribútov</a>, okrem:'
+    filter_menu:
+      show_all: ukázať všetko
+    page_data:
+      habitat_wordcloud_tooltip: Naše záznamy o biotopoch sú z veľkej časti textovo
+        ťažené, takže veľa výrazov sa opakuje viackrát; častejšie sa vyskytujúce termíny
+        biotopov – zobrazené väčšie v bubline – sú pravdepodobne dôležité. Všetky
+        záznamy sú uvedené nižšie.
+      n_hidden_show_all:
+        one: 1 “%{pred_name}” záznam skrytý — zobraziť všetko
+        other: '%{count} “%{pred_name}” záznamy skryté — zobraziť všetko'
+      n_hidden_show_all_noname:
+        other: jeden=1 skrytý záznam — zobraziť všetky
+      show_all: Zobraziť všetko
+    resource_names:
+      name_recognized_by: Rozpoznané %{by}
+      name_recognized_by_w_rank: '%{rank} rozpoznané %{by}'
+      name_recognized_by_w_status: '%{status} podľa %{by}'
+      rank:
+        r_domain: Doména
+        r_subdomain: Poddoména
+        r_infradomain: Infradoména
+        r_superkingdom: Superkráľovstvo
+        r_kingdom: Kráľovstvo
+        r_subkingdom: Podkráľovstvo
+        r_infrakingdom: Infrakráľovanie
+        r_superphylum: Nadčeľaď
+        r_phylum: Čeľaď
+        r_subphylum: Podčeľaď
+        r_infraphylum: Infraphylum
+        r_superclass: Nadtrieda
+        r_class: Trieda
+        r_subcategory: Podtrieda
+        r_infraclass: Infratrieda
+        r_superorder: Superporadie
+        r_order: Poradie
+        r_suborder: Podrad
+        r_infraorder: Infraporadie
+        r_superfamily: Nadčeľaď
+        r_family: Rodina
+        r_subfamily: Podrodina
+        r_infrafamily: Infrarodina
+        r_tribe: Kmeň
+        r_supergenus: Nadrod
+        r_genus: Rod
+        r_subgenus: Podrod
+        r_infragenus: Infrapodrod
+        r_superspecies: Naddruh
+        r_species: Druhy
+        r_subspecies: Poddruhy
+        r_infraspecies: Infradruhy
+        r_form: Tvar
+      reference_taxon_attrib: Referenčný taxón z %{dataset_name}
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      username_missing: používateľ %{user_id}
+    trophic_web:
+      competitor: Konkurent
+      globi_credit_html: údaje z <a href="%{url}">Globál</a>
+      predator: Tvorca
+      prey: Korisť
+      reset: Obnoviť
+      trophic_web_about: Diagramy potravinových sietí EOL sa zameriavajú na vzťahy
+        medzi jedlom druhom; zobrazujú fokálny druh spolu s druhom, na ktorom sa živí
+        (preda), druhom, ktoré sa naň živia (predátory) a inými druhymi, ktoré sa
+        živia rovnakým predom (potenciálni konkurenti). Kliknite na viac informácií.
+      trophic_web_title_html: Trofická sieť ?<a href="%{about_path}"><sup><span class="a"
+        uk-tooltip="%{tooltip}">?</span></sup></a>
+    flash:
+      reindexed: Kesierky na túto stránku boli vyčistené. Preplňte si nové hodnoty.
+        VZMETAJTE, že v súčasnosti toto *ne* reindexuje obrázky na stránke. Táto funkcia
+        bude implementovaná v budúcnosti.
+    native_node_missing_warning: žiadne informácie o hierarchii dostupné
+    tabs:
+      articles: články
+      classifications: klasifikácie
+      data: Údaje
+      literature_and_references: Literatúra a referencie
+      overview: Prehľad
+      maps: máp
+      media: Médiá
+      names: mená
+    iucn_status:
+      label: 'Stav IUCN:'
+      ex: vyhynutý (EX)
+      ew: vyhynutý vo voľnej prírode (EW)
+      cr: kriticky ohrozený (CR)
+      en: ohrozený (EN)
+      vu: zraniteľný (VU)
+      nt: takmer ohrozený (NT)
+      lc: najmenší záujem (LC)
+      dd: nedostatok dát (DD)
+      ne: nemerané (NE)
+      unknown: neznámy (žiadny záznam)
+    unresolved_name: Nerozlúštený názov
+    unresolved_name_prefix: 'Nerozlúštený názov:'
+  page_titles:
+    pages:
+      data: '%{page_name} dáta'
+      media: médiá %{page_name}
+      maps: '%{page_name} mapy'
+      names: '%{page_name} mená'
+      articles: '%{page_name} články'
+    traits:
+      search: Hľadanie znakov
+  rank:
+    name:
+      r_domain: Doména
+      r_subdomain: Poddoména
+      r_infradomain: Infradoména
+      r_superkingdom: Superkráľovstvo
+      r_kingdom: Kráľovstvo
+      r_subkingdom: Podkráľovstvo
+      r_infrakingdom: Infrakráľovstvo
+      r_superphylum: Nadčeľaď
+      r_phylum: Čeľaď
+      r_subphylum: Podčeľaď
+      r_infraphylum: Infrakmeň
+      r_superclass: Nadtrieda
+      r_class: Trieda
+      r_subcategory: Podkategória
+      r_infraclass: Infratrieda
+      r_superorder: Superporadie
+      r_order: rád
+      r_suborder: Podrád
+      r_infraorder: Infrarád
+      r_superfamily: Nadčeľaď
+      r_family: Rodina
+      r_subfamily: Podrodina
+      r_infrafamily: Infrarodina
+      r_tribe: Kmeň
+      r_supergenus: Nadrod
+      r_genus: Rod
+      r_subgenus: Podrod
+      r_infragenus: Infrapodrod
+      r_superspecies: Naddruh
+      r_species: druhy
+      r_subspecies: Poddruhy
+      r_infraspecies: Infradruhy
+      r_form: forma
+  recaptcha: Recaptcha
+  recaptcha_error: Prosím potvrďte, že nie ste robot.
+  reconciliation:
+    id_space:
+      headers:
+        type_id: Type ID
+        type_name: Zadajte Názov
+        id_format: ID Formát
+      type_names:
+        taxon: Taxón
+      numeric_id: číselné ID
+    property:
+      description:
+        ancestor: Taxon, který je predkom iného taxonu.
+        conservation_status: Stav ochrany taxónu.
+        extinction_status: Stav vymierania taxónu. Možné hodnoty sú " vyhynutý" a
+          " prežívajúci".
+        rank: Reťazec popisujúci stupeň taxónu, napr. " druhy". Nerozpoznané stupne
+          sa nehodnotia.
+      name:
+        ancestor: Predchodca
+        conservation_status: Stav ochrany
+        extinction_status: Stav vyhynutia
+        rank: Poradie
+    property_settings:
+      limit:
+        label: Limit
+        help_text: Maximálny počet hodnôt, ktoré sa majú vrátiť na riadok (0 pro bez
+          obmedzenia)
+    schema_space:
+      intro: Sbierka vlastností používaných službou API Reconciliation je popísaná
+        nižšie.
+      headers:
+        id: ID
+        name: Názov
+        description: Popis
+  reference_compiled_from: Odkazuje %{links}
+  reference_compiled_from_article: '%{source} článok s názvom "%{name}"'
+  register_new_account: Registrovať nový účet
+  resources:
+    actions:
+      import_traits: importovať vlastnosti (z úložiska)
+      republish: zverejniť
+      clean_republish: čisté opätovné publikovanie
+      diff: rozdiel
+      republish_confirm: Týmto sa vymaže VŠETOK obsah zdroja (okrem vlastností, ktoré
+        použijú rozdiel). SI SI ISTÝ?!
+      clean_republish_confirm: Týmto sa vymaže VŠETOK obsah zdroja a nepoužijú sa
+        rozdiely vlastností. Ste si ISTÝ?!
+      reindex: preindexovať
+      fix_no_names: opraviť BEZ MENA
+      index: späť na všetky zdroje
+      show_all:
+        other: zobraziť všetky (%{count})
+      show_warns:
+        one: zobraziť upozornenie (%{count})
+        other: zobraziť upozornenia (%{count})
+      clear_publishing: vymazať zámok
+      clear_publishing_confirm: Týmto sa „dokončí“ všetko publikovanie a môže to spôsobiť
+        problémy, ak sa použije počas aktívneho publikovania. Ste si istý?
+    headers:
+      index: Zdroje
+      import_log: Importovať protokol pre %{resource}
+    index:
+      locked_jobs:
+        other: nula=žiadne spustené úlohy
+      jobs:
+        other: nula=žiadne čakajúce úlohy
+      harvest_jobs:
+        other: nula=nič na publikovanie
+    no_events: Žiadne
+  resource_missing: zdroj sa nenašiel
+  scientific_name:
+    status_title:
+      accepted: Prijaté mená
+      alternative: Alternatívne názvy
+      preferred: Preferované mená
+      unusable: Nepoužiteľné mená
+      synonym: Synonymá
+  scientific_names_header: vedeckých názvov
+  send_me_reset_password_instructions: Pošlite mi pokyny na obnovenie hesla
+  search:
+    blank_q_msg: Obsah EOL môžete vyhľadávať pomocou panela v hornej časti stránky.
+    matched_text: Zhoda %{text}
+    flash:
+      cannot_combine_paths: Výsledky sa nepodarilo skombinovať s %{path}
+      more_than_one_species: Nepodarilo sa zlúčiť výsledky pre %{species}
+      more_than_two_terms: 'Nemožno kombinovať výsledky pre viac ako dva výrazy: %{terms}'
+    n_collections:
+      one: '%{count} relácia'
+      few: '%{count} relácie'
+      many: '%{count} relácií'
+      other: '%{count} relácií'
+    n_images:
+      one: '%{count} zmena'
+      few: '%{count} zmeny'
+      many: '%{count} zmien'
+      other: '%{count} zmien'
+    n_results:
+      other: nula=Žiadne výsledky
+    n_sounds:
+      one: '%{count} bod'
+      few: '%{count} body}'
+      many: '%{count} bodov}'
+      other: '%{count} bodov'
+    n_taxon_pages:
+      one: pred %{count} dňom
+      few: pred %{count} dňami
+      many: pred %{count} dňami
+      other: pred %{count} dňami
+    n_users:
+      one: '%{count} týždeň'
+      few: '%{count} týždne'
+      many: '%{count} týždňov'
+      other: '%{count} týždňov'
+    n_videos:
+      other: jedno=%{count} video
+    n_terms:
+      one: '%{count} termín'
+      other: '%{count} termínov'
+  search_results:
+    collection_page_count:
+      one: '%{count} cesta'
+      few: '%{count} cesty'
+      many: '%{count} ciest'
+      other: '%{count} ciest'
+    collection_page_count_and_users:
+      one: '%{count} stránka; udržuje %{users_sentence}'
+      other: '% {count} stránok; udržuje %{users_sentence}'
+    collected_media:
+      title: 'zhromaždené médiá z tejto stránky:'
+    medium_article: článok
+    medium_image: Obrázok
+    medium_map: Mapa
+    medium_sound: Zvuk
+    medium_video: Video
+    medium_title_article_html: 'Článok: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Obrázok: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Mapa: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Zvuk: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
+    empty: Prepáčte, žiadne výsledky.
+    field_matches:
+      description: zhoduje sa s popisom
+      resource_pk: 'zhoduje sa s vnútorným ID:'
+      bio: 'odpovedá biografií:'
+      tag_line: 'odpovedá riadku so značkou:'
+      resources:
+        other: 'jeden=odpovedá zdroju:'
+      synonyms:
+        other: 'jeden=odpovedá synonymu:'
+      vernaculars:
+        other: 'jeden=odpovedá bežnému názvu:'
+    section_titles:
+      collections:
+        one: '%{count} relácia'
+        few: '%{count} relácie'
+        many: '%{count} relácií'
+        other: '%{count} relácií'
+      media:
+        one: '%{count} termín'
+        other: '%{count} termínov'
+      pages:
+        one: '%{count} eol stránka (druh)'
+        other: '%{count} eol stránky (druh)'
+      object_terms:
+        one: '%{count} hodnota dátového záznamu (TraitBank)'
+        other: '%{count} hodnoty dátového záznamu (TraitBank)'
+      predicates:
+        one: '%{count} typ dátového záznamu (TraitBank)'
+        other: '%{count} typy dátového záznamu (TraitBank)'
+      users:
+        one: '%{count} užívateľ'
+        other: '%{count} užívateľov'
+    collection_title_html: 'Kolekcia: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ČLÁNOK
+        other: '%{count} ČLÁNKY'
+      n_data:
+        one: 1 DATUM
+        other: '%{count} DATA'
+      n_media:
+        one: 1 MEDIUM
+        other: '%{count} MÉDIÁ'
+    user_title_html: 'Užívateľ: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: Vytvoriť nový návrh vyhľadávania
+    created: Vytvorený návrh vyhľadávania pre "%{match}"
+    destroyed: Zničený návrh vyhľadávania pre "%{match}"
+    new:
+      header: Vytvoriť nový návrh vyhľadávania
+    update:
+      header: Aktualizovať návrh vyhľadávania
+    index:
+      header: Návrhy vyhľadávaní
+  sections:
+    associations: Asociácia
+    behavior: Správanie
+    benefits: Výhody
+    brief_summary: Rýchle zhrnutie
+    comprehensive_description: Súhrnný popis
+    conservation: Ochrana
+    conservation_status: Stav ochrany
+    cyclicity: Cyklicita
+    diagnostic_description: Diagnostický popis
+    diseases_and_parasites: Choroby a parazity
+    dispersal: Rozptyl
+    distribution: Distribúcia
+    ecology: Ekológia
+    evolution_and_systematics: Vývoj a systematika
+    general_ecology: Všeobecná ekológia
+    genetics: Genetika
+    growth: Rast
+    habitat: Biotop
+    identification_resources: Identifikačné zdroje
+    life_expectancy: Očakávaná dĺžka života
+    life_history_and_behavior: Životný štýl a správanie
+    management: spravovanie
+    migration: Migrácia
+    molecular_biology: Molekulárna biológia
+    molecular_biology_and_genetics: Molekulárna biológia a genetika
+    morphology: Morfológia
+    names_and_taxonomy: Názvy a taxonómia
+    notes: Poznámky
+    physiology_and_cell_biology: Fyziológia a bunková biológia
+    physical_description: Fyzický popis
+    relevance_to_humans_and_ecosystems: Význam pre človeka a ekosystémy
+    reproduction: Rozmnožovanie
+    risks: Riziká
+    size: Veľkosť
+    taxonomy: Taxonómia
+    threats: Nebezpečie
+    trends: Trendy
+    trophic_strategy: Trofická stratégia
+    type_information: Informácie o type
+    wikipedia: Wikipédia
+  settings: Nastavenia
+  show_date: Zobraziť dátum zverejnenia
+  sign_in: Prihlásiť sa
+  sign_up: Prihlásiť sa
+  signature_with_contact_us_link: |-
+    Pokiaľ narazíte na problémy, prosím kontaktujte nás na %{url}.
+
+    Tím Encyklopédie života
+  did_not_receive_confirmation_instructions: Nedostala som pokyny o potvrdení
+  simple_form:
+    "yes": Áno
+    "no": Nie
+    required:
+      text: povinný
+    error_notification:
+      default_message: 'Prosím prezrite si problémy nižšie:'
+    labels:
+      defaults:
+        email: E-mail
+        password: Heslo
+        password_confirmation: Potvrdenie hesla
+        remember_me: Zapamätať si ma
+        username: Používateľské meno
+        bio: Bio
+      search_suggestion:
+        match: Vyhľadávací reťazec
+        page_id: ID stránky EOL, na ktorú sa má presmerovať (alebo filtrovať podľa)
+        synonym_of_id: Identifikácia (!) návrhu na vyhľadávanie namiesto toho
+        object_term: URI preusmerať na (alebo filtrovať podľa)
+        path: smer (plný alebo relatívny) na presmerovanie na
+        wkt_string: WKT reťazec prejsť cez Effechecka
+  stats:
+    articles: články
+    collections: Zoznamy
+    data: záznamy údajov
+    media: Médiá
+    pages: stránky
+    nodes: uzly
+    scientific_names: mená
+    users: Používatelia
+    references: Zdroje
+  term_query:
+    invalid_obsolete: NEPLATNÉ/ZASTARALÉ
+  term_query_filter:
+    validations:
+      blank_error: musí zadať atribút alebo hodnotu
+      invalid_uri: neplatná URI
+      multi_obj_error: nemôže mať zároveň objektový termín aj cieľový klad
+      pred_uri_blank_obj_clade_error: nemôže byť prázdne s cieľovým kladom
+      pred_uri_blank_numeric_error: nemôže byť prázdne s číselnou hodnotou
+      range_invalid_error: musí byť >= k prvej hodnote
+      units_blank_error: Pole jednotiek nemôže byť prázdne pre číselné vyhľadávanie
+  terms:
+    attribution_field_html: <strong>Pripisovanie:</strong> <a href='<span class="notranslate"
+      translate="no">%{attribution}'>% {pripisovanie}</a>
+    source_field_html: <strong>Zdroj:</strong> <a href='<span class="notranslate"
+      translate="no">%{source}'>% {zdroj}</a>
+    record_url: URL adresa záznamu
+    scientific_name: vedecký názov
+    show_all_records: Zobraziť všetky záznamy
+    source: zdroj
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Vyberte stránku vyžšie a začnite.
+  data_definition: definície "%{data}"
+  traits:
+    data_viz:
+      about_this_chart: O tejto tabuľke
+      about_this_chart_tooltip_1d: Toto je súhrn založený na údajoch dostupných v
+        EOL. Môže byť neúplný! Môžete vybrať kategóriu z grafu a zúžiť výsledky vyhľadávania.
+        Mnoho kategórií sa prekrýva a druh môže byť zahrnutý do viac než jednej kategórie.
+      about_this_chart_tooltip_sankey_2d: Toto je súhrn založený na údajoch dostupných
+        v EOL. Môže byť neúplný! Môžete vybrať kategóriu na ľubovolnej ose a zúžiť
+        výsledky vyhľadávania. Mnoho kategórií sa prekrýva a druh môže byť zahrnutý
+        do viac než jednej kategórie na rovnakej ose.
+      other_term_name: iný %{term_name}
+      hist_value_label: hodnota (%{units})
+      n_family_records:
+        one: jeden záznam pre taxóny v rodine %{family}
+        other: '%{count} záznamov pre taxóny v rodine %{family}'
+      num_records_label: '# záznamov'
+      other: íný
+      show_link:
+        associations_summary: zobrazit souhrn asociací
+        attribute_summary: zobraziť súhrn atribútov
+        taxon_summary: zobraziť súhrn taxónov
+      taxon_summary:
+        click_to_filter: kliknutím filtrovať
+        click_to_filter_by: kliknutím filtrovať podľa '%{name}'
+      toggle_text:
+        taxon_summary: zobraziť súhrn taxónov
+    properties:
+      citation: bibliografická citácia
+      method: Metóda merania
+      remarks: Poznámky
+      sample_size: Veľkosť vzorky
+      scientific_name: vedecký názov
+      source: Zdroj
+    search_hdr: Hľadanie údajov
+    search_results:
+      clade: 'klad: %{clade}'
+...
