@@ -102,7 +102,7 @@ lb:
     actions:
       delete: läschen
       edit: änneren
-      sort: zortéieren
+      sort: sortéieren
     collection_type:
       normal: normal
       gallery: Galerie
@@ -566,7 +566,7 @@ lb:
   sign_in: Aloggen
   simple_form:
     "yes": Jo
-    "no": Neen
+    "no": Nee
     required:
       text: obligatoresch
     labels:
@@ -646,7 +646,7 @@ lb:
   vernacular_names_header: Allgemeng Nimm
   term:
     actions:
-      sort: zortéieren no
+      sort: sortéieren no
     edit:
       submit: Späicheren
     fields:
@@ -839,7 +839,7 @@ lb:
         https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/Stonn
         https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/min
         https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
-        http://eol(dot)org/schema/terms/no: neen
+        http://eol(dot)org/schema/terms/no: nee
         http://eol(dot)org/schema/terms/noHarem: keen Harem
         http://eol(dot)org/schema/terms/notMonogamous: net monogam
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: Ufank vun der Fruchtbarkeet
