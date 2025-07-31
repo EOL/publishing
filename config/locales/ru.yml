@@ -26,6 +26,7 @@
 # Author: Steve Lemo
 # Author: Wileyfoxyx
 # Author: YuliaVo
+# Author: Yupik
 # Author: Марио
 # Author: Умар
 ---
@@ -1078,6 +1079,7 @@ ru:
       collections: Коллекции
       downloads: Загрузки
       links: Ссылки
+    username: имя участника
   term:
     edit:
       submit: Сохранить
