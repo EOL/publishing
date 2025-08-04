@@ -6,6 +6,7 @@
 # Author: Champ0999
 # Author: Dream Indigo
 # Author: ElisaPaglia
+# Author: Emabarto01
 # Author: FedeB
 # Author: G313
 # Author: IrsY
@@ -707,6 +708,11 @@ it:
         per visualizzare i risultati senza revisione
       placeholder: Cerca in EOL...
   name_preferred_label: preferito
+  page_icon_counts:
+    header:
+      one: Miglior immagine per pagina
+      other: Miglior immagine per pagine
+  page_icon_created: Immagine "%{name}" spostata in alto.
   page_title: Enciclopedia della Vita
   page_title_search: 'Cerca: %{query}'
   page_vernaculars_empty: Non ci sono nomi comuni associati a questo taxon.
@@ -717,6 +723,7 @@ it:
     batch_lookup:
       canonical_name: nome canonico
       download_tsv: scarica TSV
+      match: corrispondenza
       new_search: nuova ricerca
       page_id: ID pagina
       page_url: URL pagina

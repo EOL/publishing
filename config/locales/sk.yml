@@ -711,9 +711,10 @@ sk:
     empty: Pre túto stránku nie sú dostupné žiadne mapy.
     occurrence_caption: Známe výskyty, zozbierané exempláre a pozorovania %{page_name}.
       Pozrieť si tieto exempláre na GBIF
-    occurrence_caption_w_link_html: Známe výskyty, pozbierané exempláre a pozorovanie
-      %{page_name}. <a href='%{url}'>Pozrieť si tieto exempláre na GBIF<i class='fa
-      fa-external-link'></i></a>
+    occurrence_caption_w_link_html: Známe výskyty, zozbierané exempláre a pozorovania
+      %{page_name} z <a href='https://gbif.org'>Globálneho informačného fondu o biodiverzite
+      %{gbif_logo}</a> GBIF poskytuje bezplatný a otvorený prístup k údajom o biodiverzite.
+      <a href='%{url}'>Pozrite si tento druh na GBIF<i class='fa fa-external-link'></i></a>
     other_maps_title: Žiadne interaktívne mapy
   medium:
     untitled:
@@ -846,6 +847,8 @@ sk:
         r_form: Tvar
       reference_taxon_attrib: Referenčný taxón z %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
       username_missing: používateľ %{user_id}
     trophic_web:
       competitor: Konkurent
@@ -935,6 +938,10 @@ sk:
   recaptcha_error: Prosím potvrďte, že nie ste robot.
   reconciliation:
     id_space:
+      intro: Každý identifikátor entity vrátený rozhraním Reconciliation API je časťou
+        cesty URL pre všeobecnú reprezentáciu danej entity na EOL, takže dané ID je
+        možné nahradiť do https://eol.org/.<id> aby sa pre danú entitu získala platná
+        URL adresa. Formát identifikátorov každého typu je uvedený nižšie.
       headers:
         type_id: Type ID
         type_name: Zadajte Názov
@@ -1014,11 +1021,15 @@ sk:
   send_me_reset_password_instructions: Pošlite mi pokyny na obnovenie hesla
   search:
     blank_q_msg: Obsah EOL môžete vyhľadávať pomocou panela v hornej časti stránky.
+    full_name: '%{vernacular} (%{scientific})'
     matched_text: Zhoda %{text}
     flash:
       cannot_combine_paths: Výsledky sa nepodarilo skombinovať s %{path}
       more_than_one_species: Nepodarilo sa zlúčiť výsledky pre %{species}
       more_than_two_terms: 'Nemožno kombinovať výsledky pre viac ako dva výrazy: %{terms}'
+    n_articles:
+      one: '%{count} článok'
+      other: '%{count} článkov'
     n_collections:
       one: '%{count} relácia'
       few: '%{count} relácie'
@@ -1157,6 +1168,7 @@ sk:
     morphology: Morfológia
     names_and_taxonomy: Názvy a taxonómia
     notes: Poznámky
+    overview: Prehľad
     physiology_and_cell_biology: Fyziológia a bunková biológia
     physical_description: Fyzický popis
     relevance_to_humans_and_ecosystems: Význam pre človeka a ekosystémy
@@ -1212,6 +1224,11 @@ sk:
     references: Zdroje
   term_query:
     invalid_obsolete: NEPLATNÉ/ZASTARALÉ
+    validations:
+      empty_filters_error_record: Pre vyhľadávanie záznamov musíte poskytnúť filter
+        s atribútom alebo hodnotou
+      empty_filters_error_taxa: musíte poskytnúť kladu alebo filter s atribútom alebo
+        hodnotou pre vyhľadávanie taxónov
   term_query_filter:
     validations:
       blank_error: musí zadať atribút alebo hodnotu
@@ -1223,6 +1240,8 @@ sk:
       units_blank_error: Pole jednotiek nemôže byť prázdne pre číselné vyhľadávanie
   terms:
     attribution_field_html: <strong>Pripisovanie:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Comment:</strong> %{comment}
+    definition_field_html: <strong>Definition:</strong> %{definition}
     source_field_html: <strong>Zdroj:</strong> <a href='%{source}'>%{source}</a>
     record_url: URL adresa záznamu
     scientific_name: vedecký názov
@@ -1238,17 +1257,63 @@ sk:
       about_this_chart_tooltip_1d: Toto je súhrn založený na údajoch dostupných v
         EOL. Môže byť neúplný! Môžete vybrať kategóriu z grafu a zúžiť výsledky vyhľadávania.
         Mnoho kategórií sa prekrýva a druh môže byť zahrnutý do viac než jednej kategórie.
+      about_this_chart_tooltip_assoc: Toto je zhrnutie založené na údajoch dostupných
+        v EOL. Môže to byť neúplné! Môžete sa preplaviť nad názvom taxónu, aby ste
+        zdôraznili jeho vzťahy. Zelená väzba znamená, že ležiaci taxón je subjektom
+        združenia; fialová znamená, že je objektom. Veľké vyhľadávania sú súhrnené
+        podľa rodu alebo rodiny. Môžete ich zúžiť kliknutím na názov taxónu.
       about_this_chart_tooltip_sankey_2d: Toto je súhrn založený na údajoch dostupných
         v EOL. Môže byť neúplný! Môžete vybrať kategóriu na ľubovolnej ose a zúžiť
         výsledky vyhľadávania. Mnoho kategórií sa prekrýva a druh môže byť zahrnutý
         do viac než jednej kategórie na rovnakej ose.
+      about_this_chart_tooltip_sankey_3+: Toto je zhrnutie založené na údajoch dostupných
+        v EOL. Môže to byť neúplné! Môžete vybrať kategóriu na akejkoľvek osi, aby
+        ste zúžili výsledky vyhľadávania. Mnohé kategórie sa prekrývajú a druh môže
+        byť zaradený do viac ako jednej kategórie v rovnakej osi. V vyzdviženom podsúhrne
+        zobrazenia sa tieto viachodnotné druhy spočítajú niekoľkokrát v iných osách.
+      about_this_chart_tooltip_taxon_summary: Toto je súhrn taxonomických skupín,
+        pre ktoré má EOL údaje zodpovedajúce vášmu vyhľadávaniu. Môže byť skrátený,
+        aby sa prispôsobil veľkosti zobrazenia. Môžete vybrať skupinu z grafu pre
+        zobrazenie podskupín alebo pre zúženie výsledkov vyhľadávania.
       other_term_name: iný %{term_name}
       hist_value_label: hodnota (%{units})
       n_family_records:
         one: jeden záznam pre taxóny v rodine %{family}
         other: '%{count} záznamov pre taxóny v rodine %{family}'
+      n_family_taxa:
+        one: one taxón v čeľadi %{family}
+        other: '%{count} taxónov v čeľadi %{family}'
+      n_other_records:
+        one: jeden ďalší záznam
+        other: '%{count} ďalších záznamov'
+      n_other_taxa:
+        one: jeden ďalší taxón
+        other: '%{count} ďalších taxónov'
       num_records_label: '# záznamov'
       other: íný
+      page_habitat_header: '%{name} Biotopy'
+      page_habitat_explanation: Oblasti, v ktorých je známe, že žije mnoho druhov.
+        Vyberte prostredie, aby ste si zobrazili zoznam druhov %{name} .
+      pie_prompt: podržte kurzor myši nad segmentom alebo klávesom pre zvýraznenie
+      show_n_family_records:
+        one: kliknite pre zobrazenie jedného záznamu o taxónoch v čeľadi %{family}
+        other: kliknite pre zobrazenie %{count} záznamov o taxónoch v čeľadi %{family}
+      show_n_family_taxa:
+        one: kliknite pre zobrazenie jedného taxónu v čeľadi %{family}
+        other: kliknite pre zobrazenie %{count} taxónov v čeľadi %{family}
+      see_n_taxa_with:
+        one: kliknite pre zobrazenie jedného taxónu s "%{obj_name}"
+        other: kliknite pre zobrazenie %{count} taxónov s "%{obj_name}"
+      show_n_records_between:
+        one: kliknite pre zobrazenie %{count} záznamu s hodnotami merania v [%{min},
+          %{limit}] %{units}
+        other: kliknite pre zobrazenie %{count} záznamov s hodnotami merania v [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: click pre zobrazenie %{count} taxónu s hodnotami merania v [%{min}, %{limit}]
+          %{units}
+        other: click pre zobrazenie %{count} taxónov s hodnotami merania v [%{min},
+          %{limit}] %{units}
       show_link:
         associations_summary: zobrazit souhrn asociací
         attribute_summary: zobraziť súhrn atribútov
@@ -1258,6 +1323,7 @@ sk:
         click_to_filter_by: kliknutím filtrovať podľa '%{name}'
       toggle_text:
         taxon_summary: zobraziť súhrn taxónov
+        trait_summary: zobraziť súhrn atribútov
     properties:
       citation: bibliografická citácia
       method: Metóda merania
@@ -1268,4 +1334,121 @@ sk:
     search_hdr: Hľadanie údajov
     search_results:
       clade: 'klad: %{clade}'
+      download_tsv: stiahnite tsv
+      edit_filters: upravte filtre
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'životná fáza: %{value}'
+        lte: '%{pred} = %{num_val} %{units}'
+        obj_only: 's hodnotou: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} v [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'zdroj: %{value}'
+        sex: 'pohlavie: %{value}'
+        statistical_method: 'štatistická metóda: %{value}'
+      gbif_search: Vyhľadávanie GBIF
+      result_header_taxa: Zobrazuje sa %{range_begin} – %{range_end} z %{total} taxónov
+      result_header_taxa_notaxa: Zobrazuje sa %{range_begin} – %{range_end} z %{total}
+      new_search: nové vyhľadávanie
+      show_query: zobraziť dotaz
+      switch_to_list: prepnúť na zobrazenie zoznamu
+      switch_to_gallery: prepnúť na zobrazenie galérie
+    search:
+      select:
+        child_term: vyberte podradený výraz (voliteľné)
+        top_level:
+          object_term: alebo vyberte hodnotu
+          predicate: alebo vyberte atribút
+    search_form:
+      attribute: atribút
+      attribute_eg: 'atribút (napr.: trofická úroveň)'
+      clade_filter_placeholder: 'skupina (napr.: medvede) (voliteľné)'
+      hide_additional_fields: skryť ďalšie polia
+      lifestage: životná etapa
+      records_matching_all: záznamy pre taxóny zodpovedajúce VŠETKÝM filtrom
+      resource: zdroj
+      search: Hľadať
+      sex: pohlavie
+      show_additional_fields: zobraziť dodatočné polia
+      statistical_method: štatistická metóda
+      target_group: cieľová skupina (napr. losos)
+      taxa_matching_all: taxóny zodpovedajúce VŠETKÝM filtrom
+      this_may_take_a_minute: Môže to chvíľu trvať
+      trait_filter: filter vlastností
+      value: hodnota
+  trophic_web:
+    group_descriptions:
+      predator: živí sa na %{source_name}
+      prey: konzumované %{source_name}
+      source: ohniskové druhy
+  trust:
+    unreviewed: neskontrolované
+    trusted: dôveryhodný
+    untrusted: nedôveryhodný
+  user:
+    batch_page_lookup: Hromadné vyhľadávanie stránok
+    created_at: vytvorené
+    revoke_power: Zrušiť prístup pre skúsených používateľov
+    edit_account_details: Upraviť podrobnosti o účte
+    email: E-mail
+    to_commit_enter_current: Pre potvrdenie zmien zadajte svoje aktuálne heslo
+    form_labels:
+      age_confirm: Mám najmenej 13 rokov
+      tou_confirm_html: Prečítal(a) som si <a href='%{tou_path}'>Podmienky používania</a>
+        a <a href='%{privacy_path}'>Zásady ochrany osobných údajov</a>
+    headers:
+      bio: Stručná biografia
+      collections: Zoznamy
+      downloads: Stiahnuť
+      links: Odkazy
+    new_password: Nové heslo
+    confirm_new_password: Potvrdiť nové heslo
+    showing_n_power_users:
+      one: Zoznam jedného skúseného používateľa
+      other: Zoznam %{count} skúsených používateľov
+    trait_bank_cypher_form: Zobrazenie kódov v bankovom systéme
+    username: Používateľské meno
+    update: Aktualizuj
+    update_email: Aktualizovať e-mail
+  users:
+    account_migration_header: 'Ak ste sa zaregistrovali v EOL pred 15. novembrom 2018:'
+    account_migration_notice: Informácie o vašom účte vrátane používateľského mena,
+      priradeného e-mailu, popisu profilu a vlastnených kolekcií boli importované
+      do nového EOL. Vaše používateľské meno je stále vaším zobrazovaným menom na
+      stránke, ale teraz sa musíte prihlásiť pomocou svojej e-mailovej adresy. Z bezpečnostných
+      dôvodov sa nám nepodarilo migrovať vaše heslo; ospravedlňujeme sa za obťažovanie.
+      Budete si ho môcť obnoviť pomocou procesu „Zabudnuté heslo“. Ak ste sa prihlásili
+      iba pomocou poskytovateľa tretej strany – Google, Twitter alebo Facebook – prosíme
+      o strpenie; pracujeme na riešení niektorých problémov so zdieľanými prihlasovacími
+      procesmi.
+    sign_in: Prihlásiť sa
+  vernacular_names_header: Všeobecné názvy
+  vernacular_preferred_by_resource: '%{resource} (uprednostňuje tento názov)'
+  wordcloud_credit_html: generované pomocou <a href="%{url}">jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} z %{n}'
+  term:
+    actions:
+      reindex: reindex
+      sort: Zoradiť podľa
+    edit:
+      header: Úprava %{uri}
+      submit: Uložiť
+    fields:
+      name: 'Názov:'
+      definition: Definícia
+      attribution: uvedenie autorov
+      comment: 'Komentár:'
+      sections: 'sekcie:'
+      is_hidden_from_glossary: 'skryť zo slovníka:'
+      is_hidden_from_overview: 'skryť z karty prehľadu:'
+    glossary:
+      full_title: Slovník všetkých termínov pre údaje o EOL
+      predicate_title: Slovník typových pojmov pre údaje o EOL
+      object_term_title: Glosár podmienok hodnoty pre údaje o EOL
 ...
