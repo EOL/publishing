@@ -24,6 +24,7 @@
 # Author: Saimongoltinio
 # Author: Sanyanov
 # Author: Steve Lemo
+# Author: Stjn
 # Author: Wileyfoxyx
 # Author: YuliaVo
 # Author: Yupik
@@ -31,7 +32,7 @@
 # Author: Умар
 ---
 ru:
-  language_name: Английский
+  language_name: русский
   about:
     trait_bank:
       body_html: <p>Техническая команда и команда управления данными в EOL ссылаются
