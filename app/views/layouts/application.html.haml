@@ -2,8 +2,6 @@
   %body
     = render("application/navbar")
     = image_tag "print_logo", class: "print-logo"
-    .uk-card.uk-card-default.uk-card-body
-      %p= "EOL will be down periodically for server relocation from Friday Aug 22 5:00 ET through Sunday Aug 24 08:00."
     - if main_container?
       .uk-container
         #main
@@ -13,6 +11,9 @@
     - else
       .l-basic-main
         = render("layouts/flash")
+        - maint_message = "EOL will be down periodically for server relocation from Friday Aug 22 5:00 ET through Sunday Aug 24 08:00."
+        %p.eol-flash{data: { text: maint_message }, hidden: true }
+          = maint_message
         = content_for?(:content) ? yield(:content) : yield
     = render("application/footer")
 = render template: "layouts/head_only"
