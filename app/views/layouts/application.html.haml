@@ -1,4 +1,4 @@
-- content_for :body  do
+- content_for :body do
   %body
     = render("application/navbar")
     = image_tag "print_logo", class: "print-logo"
@@ -15,7 +15,7 @@
       .l-basic-main
         = render("layouts/flash")
         %p.eol-flash{ class: 'maintenance', data: { text: maint_message } }
-            = maint_message
+          = maint_message
         = content_for?(:content) ? yield(:content) : yield
     = render("application/footer")
 = render template: "layouts/head_only"
