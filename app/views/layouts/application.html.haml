@@ -11,9 +11,6 @@
     - else
       .l-basic-main
         = render("layouts/flash")
-        - maint_message = "Scheduled maintenance: EOL will be offline for approximately 24 hours this coming weekend. The website and all data services will be affected. Thanks for your patience."
-        %p.eol-flash{data: { text: maint_message }, hidden: true }
-          = maint_message
         = content_for?(:content) ? yield(:content) : yield
     = render("application/footer")
 = render template: "layouts/head_only"
