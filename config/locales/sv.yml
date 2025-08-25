@@ -5,6 +5,7 @@
 # Author: Pyscowicz
 # Author: Sabelöga
 # Author: WikiPhoenix
+# Author: Yupik
 ---
 sv:
   language_name: Svenska
@@ -1123,6 +1124,7 @@ sv:
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rötter
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Skallängd
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000117: storlek
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelettinnehåll
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: långsam
