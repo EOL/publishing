@@ -267,7 +267,7 @@ nl:
       other: Verwijzingen
     resource_label: sponsorpagina
     resource_pk: '(id: %{key})'
-    rights_statement: rechten statement
+    rights_statement: rechtenverklaring
     source: bron
     spatial_location: ruimtelijk
     view_source_label: origineel
