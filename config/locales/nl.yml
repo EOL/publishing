@@ -267,7 +267,7 @@ nl:
       other: Verwijzingen
     resource_label: sponsorpagina
     resource_pk: '(id: %{key})'
-    rights_statement: rechten statement
+    rights_statement: rechtenverklaring
     source: bron
     spatial_location: ruimtelijk
     view_source_label: origineel
@@ -361,7 +361,7 @@ nl:
     an: Aragonees
     hy: Armeens
     as: Assamees
-    q29507: Asturian
+    q29507: Asturisch
     q56590: Atikamekw
     av: Avaric
     ae: Avestan
@@ -406,13 +406,13 @@ nl:
     zh: Chinees
     chi: Chinees
     q32979: Choctaw
-    cu: Oud kerks Slavonic
-    cv: Chuvash
-    q37041: Classical Chinees
-    kw: Cornis
+    cu: Oudkerkslavisch
+    cv: Tsjoevasjisch
+    q37041: Klassiek Chinees
+    kw: Cornish
     co: Corsicaans
     cr: Cree
-    q33357: Krim Tataars
+    q33357: Krim-Tataars
     hr: Kroatisch
     hrv: Kroatisch
     cs: Tsjechisch
@@ -420,14 +420,14 @@ nl:
     da: Deens
     q3362072: Digo
     q56466: Dinka
-    dv: Divehi; Dhivehi; Maldivian
+    dv: Divehi; Dhivehi; Maldivisch
     q18415595: Dotyali
     q33013: Duala
-    dut: Nederlands;Vlaams
-    nl: Nederlands;Vlaams
+    dut: Nederlands; Vlaams
+    nl: Nederlands; Vlaams
     dz: Dzongkha
     dzo: Dzongkha
-    q4126517: Eastern Canadian Inuktitut
+    q4126517: Oost-Canadees Inuktitut
     en: Engels
     q29952: Erzya
     eo: Esperanto
@@ -435,14 +435,14 @@ nl:
     est: Ests
     ee: Ewe
     fo: Faeröers
-    fj: Fijian
+    fj: Fijisch
     fi: Fins
     fin: Fins
     q667747: Fipa
     fr: Frans
     fra: Frans
     ff: Fulah
-    gd: Schots Gaelic
+    gd: Schots-Gaelisch
     gl: Galicisch
     q33475: Gan Chinees
     lg: Ganda
@@ -457,7 +457,7 @@ nl:
     gn: Guarani
     gu: Gujarati
     q33303: Haida
-    ht: Haitian; Haitian Creools
+    ht: Haïtiaans; Haïtiaans Creools
     ha: Hausa
     q35756: Haya
     he: Hebreeuws
@@ -474,9 +474,9 @@ nl:
     ig: Igbo
     q35936: Ilocano
     id: Indonesisch
-    q33509: Ingush
+    q33509: Ingoesjetisch
     ia: Interlingua (International Auxiliary Language Association)
-    ie: Interlingue; Westers
+    ie: Interlingue; Occidental
     iu: Inuktitut
     ik: Inupiaq
     q33595: Iraqw
@@ -487,9 +487,9 @@ nl:
     ja: Japans
     jp: Japans
     jv: Javaans
-    q33522: Kabardian Circassian
+    q33522: Kabardisch Circassisch
     q35475: Kabiyè
-    q35853: Kabyle
+    q35853: Kabylisch
     kl: Kalaallisut; Groenlands
     q33634: Kalmyk
     kn: Kannada

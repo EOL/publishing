@@ -4,6 +4,7 @@
 # Author: A100Star
 # Author: Ajeje Brazorf
 # Author: Amire80
+# Author: Dimitrie569
 # Author: EugeneZelenko
 # Author: Kareyac
 # Author: Optilete
@@ -52,6 +53,14 @@ qqq:
     actions:
       delete: '{{Identical|Delete}}'
   footer:
+    eol_info:
+      citing_eol: Button found on the [https://eol.org/ main page of EOL]. Clicking
+        the button lands on https://eol.org/docs/what-is-eol/citing-eol-and-eol-content
+        . It is about the recommended way to cite EOL articles.
+      data_services: Button found on the main web page
+      terms_of_use: Button that links to the [https://eol.org/docs/what-is-eol/terms-of-use
+        EOL Terms of Use page]. Found at the [https://eol.org/ main page] and the
+        [https://eol.org/docs/what-is-eol/terms-of-use sign up page].
     discover:
       flowering_plants: Alle planten die tot deze groep horen, laten bloemen zien,
         hoe onopvallend ook (zoals bij de grassen en sommige loofbomen). De naam bloemplanten
@@ -452,6 +461,8 @@ qqq:
     Q33219: https://en.wikipedia.org/wiki/Banyumasan_dialect
   medium_header_description: '{{Identical|Description}}'
   nav:
+    education: external link to https://education.eol.org/ ; found at [https://eol.org
+      the main EOL web page].
     trait_bank: '{{optional}}'
   pages:
     resource_names:
@@ -503,6 +514,20 @@ qqq:
     search_form:
       search: '{{Identical|Search}}'
       value: '{{Identical|Value}}'
+  user:
+    form_labels:
+      tou_confirm_html: |-
+        Found on the [https://eol.org/users/sign_up EOL sign up page], after a checkbox required to be checked for creating an EOL account.
+
+        * %{tou_path} is a link to the EOL Terms of Use; more specifically, the link is: https://eol.org/docs/what-is-eol/terms-of-use
+        * %{privacy_path} is a link to the EOL Privacy Policy; more specifically, the link is: https://eol.org/docs/what-is-eol/privacy-policy
+        Do not translate these parts.
+
+        Good to know: <a href></a> is a HTML instruction.
+    validations:
+      tou_confirm: |-
+        Red-coloured message found when trying to sign up without checking the checkbox above, where in the right of it is the following text: <nowiki>*</nowiki> I have read the [https://eol.org/docs/what-is-eol/terms-of-use Terms of Use] and [https://eol.org/docs/what-is-eol/privacy-policy Privacy Policy]
+        (where * means that the checkbox is required to be checked in order to create a new account.)
   term:
     edit:
       submit: '{{Identical|Save}}'

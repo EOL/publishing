@@ -162,6 +162,7 @@ ko:
     location: 위치
     longitude: 경도
     owner: 저작권
+    photographer: 사진사
     publisher: 게시자
     project: 프로젝트
     provider: 제공자
@@ -188,6 +189,7 @@ ko:
   filter_by_medium_subtype: 종류
   filter_by_medium_any_item: 모든 유형
   filter_by_resource: 제공자
+  filter_by_resource_any_item: 모든 제공자
   filters:
     filter_by_language: 언어별 필터
   footer:
@@ -303,6 +305,7 @@ ko:
     he: 히브리어
     heb: 히브리어
     hu: 헝가리어
+    ice: 아이슬란드어
     id: 인도네시아어
     ga: 아일랜드어
     it: 이탈리아어
@@ -340,7 +343,9 @@ ko:
     ru: 러시아어
     rus: 러시아어
     sm: 사모아어
+    sr: 세르비아어
     si: 신할라어
+    som: 소말리아어
     slv: 스페인어
     sv: 스웨덴어
     swe: 스웨덴어
@@ -475,6 +480,7 @@ ko:
   rank:
     name:
       r_subphylum: 아문
+      r_tribe: 부족
       r_genus: 속
       r_species: 종
   recaptcha: 리캡차
@@ -483,6 +489,10 @@ ko:
     id_space:
       headers:
         id_format: ID 포맷
+    property:
+      name:
+        conservation_status: 보존 상태
+        extinction_status: 멸종 상태
     property_settings:
       limit:
         label: 제한
@@ -491,6 +501,7 @@ ko:
         id: ID
         name: 이름
         description: 설명
+  register_new_account: 새 계정을 등록하세요
   resources:
     actions:
       republish: 다시 게시
@@ -560,11 +571,14 @@ ko:
     behavior: 동작
     benefits: 이익
     brief_summary: 간단한 요약
+    comprehensive_description: 종합적 설명
     conservation: 보존
     conservation_status: 보존 상태
     cyclicity: 순환계
     diagnostic_description: 진단 설명
     diseases_and_parasites: 질병과 기생충
+    dispersal: 분산
+    distribution: 분포
     ecology: 생태학
     genetics: 유전학
     growth: 성장
@@ -577,8 +591,10 @@ ko:
     molecular_biology_and_genetics: 분자 생물학과 유전학
     morphology: 형태학
     names_and_taxonomy: 이름과 분류
+    notes: 참고
     overview: 둘러보기
     physiology_and_cell_biology: 생리학과 세포 생물학
+    reproduction: 번식
     size: 크기
     taxonomy: 분류학
     threats: 위협
@@ -640,7 +656,11 @@ ko:
     search_results:
       gbif_search: GBIF 검색
       new_search: 새로운 검색
+      show_query: 질문 표시
       switch_to_gallery: 갤러리 뷰로 전환
+    search_form:
+      value: 값
+      value_eg: '값(예: 초식동물)'
   trust:
     unreviewed: 검토되지 않음
     trusted: 신뢰하는
@@ -691,13 +711,28 @@ ko:
     inverse_name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ~에 의해 먹힌다
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: 체외기생충이 있다
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: 체내기생충이 있다
     name:
       by_uri:
         http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: 산성 온천
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 산성 토양
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: 성체
+        http://eol(dot)org/schema/terms/aerial: 공중
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: 공중
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: 공중 서식지
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000196: 알칼리성 평지
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002022: 알칼리성 서식지
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002119: 알칼리성 온천
         http://eol(dot)org/schema/terms/amphibious: 양서류의
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002276: 동물 배설물
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 연간
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009066: 꽃밥
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000002: 인위적인
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: 수생
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000371: 수생(이동)
+        http://eol(dot)org/schema/terms/aquatic: 수생 적응된
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 수생 식물
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 구역
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000230: 건조한
@@ -705,8 +740,12 @@ ko:
         http://eol(dot)org/schema/terms/average: 평균
         https://eol(dot)org/schema/terms/bamboo_forest: 대나무 숲
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: 현무암
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000032: 만
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000091: 해변
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: 해변의 모래
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03302072: 밀랍
+        http://eol(dot)org/schema/terms/BillLength: 부리 길이
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 검정
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: 피
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: 파랑
@@ -715,9 +754,20 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 몸무게
         http://eol(dot)org/schema/terms/BodyShape: 체형
         http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: 체온
+        http://eol(dot)org/schema/terms/BodyVolume: 신체 부피
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 신체 너비
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: 넓은
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 갈색
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000055: 봉우리
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025356: 구근
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_27732: 카페인
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: 칼슘(ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: 탄산칼슘
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: 인산칼슘
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31346: 황산칼슘
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cambrian: 캄브리아기
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: 협곡
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: 시체
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: 연골
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: 동굴
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000102: 동굴 입구
@@ -733,6 +783,7 @@ ko:
         http://eol(dot)org/schema/terms/CellWidth: 세포 너비
         http://www(dot)marinespecies(dot)org/traits/NonSolidCement: 시멘트
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002054: 분필
+        http://purl(dot)org/dc/terms/bibliographicCitation: 인용
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: 도시
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: 점토
         http://eol(dot)org/schema/terms/clearWater: 청수
@@ -740,9 +791,16 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: 자갈
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: 자갈 퇴적물
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: 코코넛 농장
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: 색
+        http://eol(dot)org/schema/terms/competitive: 경쟁적인
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: 퇴비
         http://eol(dot)org/schema/terms/cone: 원뿔
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000196: 침엽수림
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: 산호초
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64857: 화장품
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003041: 소 헛간
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: 원기둥
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001256: 유제품
@@ -750,15 +808,31 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: 죽은
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 도
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 섭씨
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C41136: 치아의
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: 사막
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: 지름
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12378: 소화기관
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C45874: 등에 있는
+        http://eol(dot)org/schema/terms/dry_forest: 건조한 숲
         http://eol(dot)org/schema/terms/dryFruit: 말린 과일
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000277: 마른 호수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000296: 마른 호수 바닥
+        http://eol(dot)org/schema/terms/dryMass: 건조 질량
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00005748: 건조한 토양
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000278: 마른 개울
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000128: 마른 계곡
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000170: 모래 언덕
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: 먼지
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: 염료
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C61589: 이른
+        http://eol(dot)org/schema/terms/earlySpring: 초봄
+        http://eol(dot)org/schema/terms/earlySummer: 초여름
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 먹는다
+        http://eol(dot)org/schema/terms/EggMass: 알 질량
+        http://eol(dot)org/schema/terms/eggStage: 알 단계
+        http://eol(dot)org/schema/terms/endangered: 멸종 위기에 놓인
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0007376: 표피
+        http://purl(dot)bioontology(dot)org/ontology/LNC/LP64451-5: 추정
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
         http://eol(dot)org/schema/terms/extinct: 멸종
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: 눈
@@ -767,41 +841,82 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: 빠른
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000022: 깃털
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 피트
+        http://eol(dot)org/schema/terms/FireTolerance: 내화성
+        http://eol(dot)org/schema/terms/FossilFirst: 첫 등장
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: 비행
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 꽃 색깔
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 숲
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: 민물
+        https://eol(dot)org/schema/terms/freshwater_animals: 민물 동물
         http://eol(dot)org/schema/terms/fructose: 과당
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: 과일
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: 과일 색깔
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: 과일 길이
+        http://eol(dot)org/schema/terms/FruitSeedColor: 과일 또는 씨앗의 색깔
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: 과일 모양
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 과일의 종류
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: 과일 너비
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: 연료
         http://purl(dot)obolibrary(dot)org/obo/UO_0000021: g
         http://purl(dot)obolibrary(dot)org/obo/UO_0000084: g/cm^3
         http://eol(dot)org/schema/terms/gramsPerMeterSquared: g/m^2
+        http://eol(dot)org/schema/terms/genotype: 유전자형
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000133: 빙하
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: 접착제
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: 잔디
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 초록
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000635: 땅
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 서식지
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000516: 해먹
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000463: 항구
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: 머리
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000107: 황무지
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000046: 산울타리
+        http://semanticscience(dot)org/resource/SIO_000040: 키
+        http://eol(dot)org/schema/terms/HeightStanding: 선 키
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000053: 숨기기
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25227: 높은
+        http://eol(dot)org/schema/terms/highCNRatio: 높은 (>59)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000083: 언덕
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: 꿀
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002173: 병원
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: 얼음
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000145: 빙하
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000298: 빙산
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: 면역 체계
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: ~에 의해 먹힌다
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: 섬
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0026310: 장신구
         http://purl(dot)obolibrary(dot)org/obo/UO_0000009: kg
         http://purl(dot)obolibrary(dot)org/obo/UO_0000086: kg/m^2
         http://eol(dot)org/schema/terms/squarekilometer: km^2
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: 호수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: 큰 호수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: 큰 강
         http://eol(dot)org/schema/terms/lateSpring: 늦봄
         http://eol(dot)org/schema/terms/lateSummer: 늦여름
         http://eol(dot)org/schema/terms/lateWinter: 늦겨울
         http://eol(dot)org/schema/terms/LatentPeriod: 잠복기
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_pound: lb
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: 잎 면적
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 잎 색깔
+        http://semanticscience(dot)org/resource/SIO_000041: 길이
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: 수명
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_18059: 지방
         http://purl(dot)obolibrary(dot)org/obo/UO_0000008: m
         http://purl(dot)obolibrary(dot)org/obo/UO_0000080: m^2
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 마그네슘 (mg)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: 남
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 해양
+        https://eol(dot)org/schema/terms/marine_animals: 해양 동물
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000029: 해양 암초
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_03000033: 해양 퇴적물
+        http://semanticscience(dot)org/resource/SIO_001109: 평균
+        http://eol(dot)org/schema/terms/meanAnnualTemperature: 연평균 온도
+        http://rs(dot)tdwg(dot)org/dwc/terms/measurementAccuracy: 측정 정확도
         http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: 고기
+        http://semanticscience(dot)org/resource/SIO_001110: 중간값
         http://purl(dot)obolibrary(dot)org/obo/UO_0000022: mg
         http://eol(dot)org/schema/terms/milligramsPercm2: mg/cm^2
         http://eol(dot)org/schema/terms/milligramsPercm2PerDay: mg/cm^2/일
@@ -809,6 +924,8 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000273: mg/l
         http://purl(dot)obolibrary(dot)org/obo/UO_0000309: mg/m^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0010049: g/m^2
+        http://semanticscience(dot)org/resource/SIO_001113: 최소
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46662: 미네랄
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 섞인
         http://eol(dot)org/schema/terms/mlO2perhour: ml/시간 o2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000016: mm
@@ -816,33 +933,93 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000082: mm^2
         http://eol(dot)org/schema/terms/millimetersSquaredPerMilligram: mm^2/mg
         http://eol(dot)org/schema/terms/mol_per_meter_squared_per_day: mol/m^2/일
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 월
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: 산
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: 점액
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: 진흙
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0005090: 근육
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0007221: 신생아
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: 신경계
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D009422: 신경계 질환
         https://eol(dot)org/schema/terms/nanogrampergramperhour: ng/g/시간
         https://eol(dot)org/schema/terms/nanograpperkilgramperminute: ng/kg/분
         https://eol(dot)org/schema/terms/nanomolpergram: nmol/g
         https://eol(dot)org/schema/terms/nmolpergramperhour: nmol/g/시간
         http://eol(dot)org/schema/terms/no: 아니오
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/260413007: 없음
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 세포핵 너비
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: 주황색
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000115: 과수원
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 산소
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#US_ounce: oz
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 기생충
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000266: 목장
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: 퍼센트
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000205: 영구적인 샘
         http://purl(dot)obolibrary(dot)org/obo/UO_0000025: pg
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: 광합성 속도
         https://eol(dot)org/schema/terms/picomolpermetersquaredpersecond: pmol/m^2/초
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000033: 연못
         http://purl(dot)obolibrary(dot)org/obo/UO_0000170: ppb
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_36080: 단백질
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: 보라색
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: 피라미드형
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: 채석장
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: 비율
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: 빨강
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 번식
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 강
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00001995: 바위
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000521: 낙석
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: 뿌리
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: 달리기
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: 모래
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002199: 모래사장
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000172: 모래 사막
+        http://rs(dot)tdwg(dot)org/dwc/terms/scientificName: 학명
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: 씨앗
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000085: 민감성
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C28259: 감각적
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001032: 감각계
+        http://eol(dot)org/schema/terms/shade: 그늘
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0012245: 명주
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: 피부
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: 느린
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: 작은
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: 작은 호수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: 작은 강
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000146: 눈밭
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000011: 사회적
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009047: 줄기
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 줄기 직경
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000233: 늪지
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00002300: 감미료
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 꼬리 길이
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001091: 이
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000146: 온도
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: 나무
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000183: 열대 사막
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Type: 종류
+        http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#typeOfType: 종류의 종류
         http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: 우산
+        http://eol(dot)org/schema/terms/uncommon: 드문
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000058: 지하 호수
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000059: 지하 강
+        http://eol(dot)org/schema/terms/unknown: 알 수 없음
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: 요산
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: 비뇨기계
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: 화산
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000056: 걷는
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: 수심
+        http://eol(dot)org/schema/terms/SeawaterTemperature: 물 온도
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000002: 우물
         http://purl(dot)obolibrary(dot)org/obo/UO_0000114: 와트
+        http://semanticscience(dot)org/resource/SIO_000042: 너비
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: 나무
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000175: 삼림지대
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: 년
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: 노란색
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: 황록색
         http://eol(dot)org/schema/terms/yes: 예
         http://purl(dot)obolibrary(dot)org/obo/UO_0000023: µg
         http://eol(dot)org/schema/terms/µg_cm-2: µg/cm^2
@@ -855,7 +1032,9 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
         http://eol(dot)org/schema/terms/cubicMillimeter: mm^3
         http://eol(dot)org/schema/terms/perPound: /lb
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002200: 해빙
         http://purl(dot)obolibrary(dot)org/obo/UO_0000106: Hz
         http://purl(dot)obolibrary(dot)org/obo/UO_0000259: dB
         http://eol(dot)org/schema/terms/mol_m-2_s-1: mol/m^2/초
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002476: 끝에 있는
 ...

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Adriendelucca
+# Author: GilPe
 # Author: Les Meloures
 # Author: Robby
 # Author: Volvox
@@ -186,9 +187,11 @@ lb:
     hy: Armeenesch
     q9292: Aserbaidjanesch
     az: Aserbaidschanesch
+    q33070: Balineesesch
+    bm: Bambara
     eu: Baskesch
     q29540: Bayresch
-    be: Belarussesch
+    be: Wäissrussesch
     bs: Bosnesch
     br: Bretonesch
     bg: Bulgaresch
@@ -221,6 +224,7 @@ lb:
     gre: Griichesch
     gn: Guarani
     gu: Gujarati
+    ha: Hausa
     he: Hebräesch
     heb: Hebräesch
     hi: Hindi
@@ -236,6 +240,7 @@ lb:
     ita: Italieenesch
     ja: Japanesch
     jp: Japanesch
+    jv: Javaneesesch
     kn: Kannada
     kk: Kasachesch
     ko: Koreanesch
@@ -294,7 +299,7 @@ lb:
     none: Net uginn
     ur: Urdu
     uz: Usbeekesch
-    vi: Vietnamesesch
+    vi: Vietnameesesch
     vo: Volapük
     wa: Wallounesch
     cy: Walisesch
@@ -535,7 +540,7 @@ lb:
   sections:
     behavior: Verhalen
     benefits: Virdeeler
-    brief_summary: Kuerze Resumé
+    brief_summary: Kuerze Resümmee
     diagnostic_description: Diagnostesch Beschreiwung
     diseases_and_parasites: Krankheeten a Parasitten
     distribution: Verbreedung

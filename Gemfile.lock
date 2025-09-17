@@ -431,7 +431,8 @@ GEM
     reverse_markdown (3.0.0)
       nokogiri
     rexml (3.4.1)
-    rubocop (1.79.2)
+    rexml (3.4.2)
+    rubocop (1.65.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
