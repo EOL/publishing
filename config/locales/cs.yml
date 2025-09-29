@@ -715,8 +715,11 @@ cs:
     empty: Pro tuto stránku nejsou k dispozici žádné mapy.
     occurrence_caption: Známé výskyty, shromážděné vzorky a pozorování %{page_name}.
       Zobrazit tento druh na GBIF
-    occurrence_caption_w_link_html: Známé výskyty, shromážděné vzorky a pozorování
-      %{page_name}. <a href='%{url}'>Zobrazit tento druh na GBIF<i class='fa fa-external-link'></i></a>
+    occurrence_caption_w_link_html: Známé výskyty, sebrané exempláře a pozorování
+      druhu %{page_name} z <a href='https://gbif.org'>Globálního informačního systému
+      o biodiverzitě %{gbif_logo}.</a> GBIF poskytuje bezplatný a otevřený přístup
+      k datům o biodiverzitě. <a href='%{url}'>Prohlédněte si tento druh na GBIF.<i
+      class='fa fa-external-link'></i></a>
     other_maps_title: Neinteraktivní mapy
   medium:
     untitled:

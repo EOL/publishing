@@ -86,6 +86,7 @@ nl:
     species_in_family: '%{name1} is een %{name2} uit de familie %{name_family}.'
     taxonomy:
       family_above:
+        r_superfamily: '%{name1} is een superfamilie van %{name2}.'
         r_domain: '%{name1} is een domein van %{name2}.'
         r_subdomain: '%{name1} is een subdomein van %{name2}.'
         r_infradomain: '%{name1} is een infradomein van %{name2}.'
@@ -94,7 +95,8 @@ nl:
         r_subkingdom: '%{name1} is een subrijk van %{name2}.'
         r_infrakingdom: '%{name1} is een infrarijk van %{name2}.'
         r_superphylum: '%{name1} is een superphylum van %{name2}.'
-        r_phylum: '%{name1} is een phylum van %{name2}.'
+        r_phylum: '%{name1} is een stam van %{name2}.'
+        r_subphylum: '%{name1} is een onderstam van %{name2}.'
         r_order: '%{name1} is een orde uit %{name2}.'
         r_suborder: '%{name1} is een suborde van %{name2}.'
         r_infraorder: '%{name1} is een infraorde van %{name2}.'
