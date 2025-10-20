@@ -731,9 +731,11 @@ tr:
     empty: Bu sayfa için kullanılabilir harita yok.
     occurrence_caption: '%{page_name} alan adının bilinen örnekleri, toplanan örnekleri
       ve gözlemleri. Bu türleri GBIF''de görüntüleyin.'
-    occurrence_caption_w_link_html: '%{page_name} alan adının bilinen örnekleri, toplanan
-      örnekleri ve gözlemleri. <a href=''%{url}''>Bu türleri GBIF''de görüntüleyin
-      <i class=''fa fa-external-link''></i></a>'
+    occurrence_caption_w_link_html: <a href='https://gbif.org'>Küresel Biyoçeşitlilik
+      Bilgi Tesisi'nden %{page_name} %{gbif_logo}</a> bilinen oluşumlar, toplanan
+      örnekler ve gözlemler&nbsp;&nbsp;GBIF, biyoçeşitlilik verilerine ücretsiz ve
+      açık erişim sağlar. <a href='%{url}'>Bu türleri GBIF'de görüntüleyin <i class='fa
+      fa-external-link'></i></a>
     other_maps_title: Etkileşimli Olmayan Haritalar
   medium:
     untitled:
