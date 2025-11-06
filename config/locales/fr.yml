@@ -9,6 +9,7 @@
 # Author: DreZhsh
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
+# Author: HC226
 # Author: JenyxGym
 # Author: Jhammock
 # Author: LittleNemo
@@ -25,7 +26,7 @@
 # Author: Wladek92
 ---
 fr:
-  language_name: français
+  language_name: Anglais
   about:
     trait_bank:
       body_html: |-
@@ -33,10 +34,11 @@ fr:
         <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
         <p>Désormais, vous pouvez <a href="%{example_search_path}">rechercher</a> ou naviguer dans l’EdlV par données structurées, les télécharger, ou en prendre connaissance dans notre nouvel onglet de vue générale sous forme de <a href="%{autogen_page_path}">texte autogénéré</a>. Comme le reste du contenu de l’EdlV, tout ceci est disponible pour la réutilisation et vous est fourni avec les données détaillées d’attribution afin que vous puissiez les créditer si vous les utilisez dans votre propre travail.</p>
         <p>Ces données sont modélisées comme un <a href="%{property_graph_url}">graphe de propriété</a> dans <a href="%{neo4j_url}">neo4j</a>. Des <a href="%{data_services_path}">services de données</a> sont également disponibles.</p>
-  account_already_linked: votre compte est déjà lié à l’EdlV
-  account_not_linked: votre compte n’est pas lié à l’EdlV
+  account_already_linked: votre compte est déjà lié à l'EdlV
+  account_not_linked: votre compte n'est pas lié à l'EdlV
   advanced: avancé
-  are_you_sure_delete_account: Voulez-vous vraiment supprimer votre compte sur l’EdlV ?
+  are_you_sure_delete_account: Vous êtes sûr de vouloir supprimer votre compte sur
+    l'EdlV?
   article:
     actions:
       collect: collecter
@@ -255,16 +257,16 @@ fr:
       hierarchy: hiérarchie
       position: date ajoutée
       sci_name: noms scientifiques, A–Z
-      sci_name_rev: noms scientifiques, Z–A
+      sci_name_rev: nom scientifique, Z–A
       sort_field: annotation, A–Z
       sort_field_rev: annotation, Z–A
     updated: La collection a été mise à jour.
-  collection_unauthorized_edit: Seul l’utilisateur propriétaire peut modifier cette
+  collection_unauthorized_edit: Seul l'utilisateur propriétaire peut modifier cette
     collection.
-  complete_registration: Veuillez poursuivre votre inscription
+  complete_registration: Veuillez continuer votre inscription
   content_appears_on: 'Inclus dans les pages suivantes :'
   content_collected_in: 'Mis en vedette dans les collections suivantes :'
-  content_attributions_header: Informations sur la provenance
+  content_attributions_header: Information sur la source
   content_attributions_labels:
     altitude: altitude
     author: auteur
@@ -272,16 +274,16 @@ fr:
     contributor: contributeur
     compiler: compilateur
     creator: créateur
-    editor: rédacteur
+    editor: éditeur
     latitude: latitude
     license: licence
-    location: position
+    location: Localisation
     location_verbatim: verbatim
     longitude: longitude
-    original_media_file: fichier de média d’origine
-    owner: droit d’auteur
+    original_media_file: fichier de média original
+    owner: droits d’auteur
     photographer: photographe
-    publisher: éditeur de publication
+    publisher: éditeur
     project: projet
     provider: fournisseur
     references_header:

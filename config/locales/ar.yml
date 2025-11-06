@@ -261,7 +261,7 @@ ar:
       sci_name_rev: الاسم العلمى Z-A
       sort_field: شرح توضيحي، أ-ي
       sort_field_rev: شرح توضيحي، ي-أ
-    updated: تم تحديث المجموعة.
+    updated: حُدثَت المجموعة.
   collection_unauthorized_edit: يمكن للمستخدم المالك فقط تعديل هذه المجموعة.
   complete_registration: يرجى متابعة التسجيل الخاص بك
   content_appears_on: 'مشمول على الصفحات التالية:'
