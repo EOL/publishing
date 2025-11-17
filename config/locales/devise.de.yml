@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ameisenigel
 # Author: Brettchenweber
 # Author: Elliot
 # Author: Umlaut
@@ -75,9 +76,9 @@ de:
         Sie dem Link, um Ihre neue E-Mail-Adresse zu bestätigen.
       updated: Ihr Konto wurde aktualisiert.
     sessions:
-      signed_in: Sie sind angemeldet.
-      signed_out: Sie sind abgemeldet.
-      already_signed_out: Sie sind abgemeldet.
+      signed_in: Du bist angemeldet.
+      signed_out: Du bist abgemeldet.
+      already_signed_out: Du bist abgemeldet.
       recaptcha: Recaptcha-Überprüfungsfehler
       sign_in_remember_me_disabled_for_admins: Aus Sicherheitsgründen dürfen Administratoren
         die Funktion "An mich erinnern" nicht verwenden.
