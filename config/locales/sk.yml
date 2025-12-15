@@ -4,6 +4,7 @@
 # Author: EmmaOrfanusova
 # Author: Oujon
 # Author: Pppery
+# Author: Username1233219128
 # Author: Yardom78
 ---
 sk:
@@ -1378,6 +1379,7 @@ sk:
       this_may_take_a_minute: Môže to chvíľu trvať
       trait_filter: filter vlastností
       value: hodnota
+      value_eg: 'hodnota (napr.: bylinožravec)'
   trophic_web:
     group_descriptions:
       predator: živí sa na %{source_name}
@@ -1451,4 +1453,108 @@ sk:
       full_title: Slovník všetkých termínov pre údaje o EOL
       predicate_title: Slovník typových pojmov pre údaje o EOL
       object_term_title: Glosár podmienok hodnoty pre údaje o EOL
+    pagination:
+      next: ďalšia stránka
+      previous: predchádzajúca stránka
+    inverse_name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: je zabijaný
+    name:
+      by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mesiac'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: dospelý
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: poľnohospodársky
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: kôra
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: krv
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: dĺžka tela
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: hmotnosť tela
+        http://eol(dot)org/schema/terms/BodyShape: tvar tela
+        http://purl(dot)bioontology(dot)org/ontology/MESH/D001831: teplota tela
+        http://eol(dot)org/schema/terms/browsing: prehliadač
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: vápenec
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: vápnik (ca)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000169: kaňon
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: jaskyňa
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000055: veľkosť bunky
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: centrálna nervová sústava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: černozem
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: mesto
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: farba
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: kompost
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: koralový útes
+        http://eol(dot)org/schema/terms/criticallyEndangered: kriticky ohrozený
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dni
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: mŕtvy
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: púšť
+        http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: priemer
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: prach
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: farbivo
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: živí sa
+        http://eol(dot)org/schema/terms/EggDiameter: priemer vajca
+        http://eol(dot)org/schema/terms/EggMass: hmotnosť vajca
+        http://eol(dot)org/schema/terms/endangered: ohrozený
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12705: endokrinná sústava
+        http://eol(dot)org/schema/terms/extinct: vyhynutý
+        http://eol(dot)org/schema/terms/extinctInTheWild: vyhynutý vo voľnej prírode
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000970: oči
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000383: samica
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: ovocie
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: farba ovocia
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: dĺžka ovocia
+        http://eol(dot)org/schema/terms/FruitSeedColor: farba ovocia alebo semena
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000032: tvar ovocia
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: druh ovocia
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: šírka ovocia
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: palivo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: lepidlo
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: hlava
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: med
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: vodorovný
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000277: ľad
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12735: imunitný systém
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000098: ostrov
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: zabíja
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: jazero
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: veľké jazero
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: veľká rieka
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: farba lístia
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: zložitosť lístia
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: dĺžka listov
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: tvar listov
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000384: samec
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_00001006: mäso
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000198: zmiešaný les
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mesiacov
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: blato
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12755: nervová sústava
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12919: orgánová sústava
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: kyslík
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025603: živica
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12779: dýchacia sústava
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000017: piesok
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025538: miazga
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000016: more
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: semená
+        http://rs(dot)tdwg(dot)org/dwc/terms/sex: pohlavie
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019953: pohlavné rozmnožovanie
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12470: koža
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: pomalý
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: malý
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000892: malé jazero
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000890: malá rieka
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: strom
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000068: tunel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000052: dáždnik
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: vylučovacia sústava
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_33229: vitamíny
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000247: sopka
+        http://eol(dot)org/schema/terms/vulnerable: zraniteľný
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002040: drevo
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: rokov
+        http://purl(dot)obolibrary(dot)org/obo/TAO_0009000: bunka
+        http://eol(dot)org/schema/terms/femaleFlowers: samičie kvety
+        http://eol(dot)org/schema/terms/maleFemaleAndHermaphrodite: samec samica a
+          hermafrodit
+        http://eol(dot)org/schema/terms/maleFlowers: samčie kvety
 ...
