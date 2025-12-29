@@ -719,8 +719,9 @@ zh-CN:
   maps:
     empty: 此页面没有可用的地图。
     occurrence_caption: '%{page_name}已知的发现、标本收集和观测数量。 在GBIF上查看该物种'
-    occurrence_caption_w_link_html: '%{page_name}已知的发现、标本收集和观测数量。 <a href=''%{url}''>在GBIF上查看该物种
-      。<i class=''fa fa-external-link''></i></a>'
+    occurrence_caption_w_link_html: 来自<a href='https://gbif.org'>全球生物多样性信息机构 %{gbif_logo}</a>
+      %{page_name}的已知分布记录、采集标本和观察数据。GBIF提供自由开放的生物多样性数据访问服务。<a href='%{url}'>在 GBIF上查看该物种<i
+      class='fa fa-external-link'></i></a>
     other_maps_title: 非互动地图
   medium:
     untitled:
