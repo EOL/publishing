@@ -533,7 +533,7 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (0.13.2)
+    uri (0.13.3)
     uri_template (0.7.0)
     useragent (0.16.11)
     warden (1.2.9)
