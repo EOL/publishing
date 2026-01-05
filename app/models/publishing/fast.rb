@@ -3,6 +3,42 @@ class Publishing
     require 'net/http'
     attr_accessor :data_file, :log
 
+    # This is me working through manual publishing, do NOT call this method!
+    def manual_publish(@resource)
+      # pub = Publishing::Fast.new(@resource)
+      # cd pub
+      set_relationships
+      @resource.remove_non_trait_content unless @resource.nodes.count.zero?
+      # That'll take a while...
+      @log = Publishing::PubLog.new(@resource, use_existing_log: true)
+      import_and_prop_ids(Referent)
+      import_and_prop_ids(Node)
+      import_and_prop_ids(BibliographicCitation)
+      import_and_prop_ids(Identifier)
+      import_and_prop_ids(ScientificName)
+      import_and_prop_ids(NodeAncestor)
+      import_and_prop_ids(Vernacular)
+      import_and_prop_ids(Article)
+      import_and_prop_ids(Medium)
+      import_and_prop_ids(Attribution)
+      import_and_prop_ids(ImageInfo)
+      import_and_prop_ids(Reference)
+      import_and_prop_ids(ContentSection)
+      VernacularPreference.restore_for_resource(@resource.id, @log)
+      PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
+      MediaContentCreator.by_resource(@resource, log: @log) if page_contents_required?
+      publish_traits_with_cleanup
+      @resource.fix_native_nodes
+      TraitBank::Denormalizer.update_resource_vernaculars(@resource)
+      propagate_reference_ids
+      clean_up
+      Page.fix_missing_icons if page_contents_required?
+      Publishing::DynamicWorkingHierarchy.update(@resource, @log) if @resource.dwh?
+      @log.close
+      ImportLog.all_clear!
+      Rails.cache.delete("trait_bank/count_by_resource/#{@resource.id}")
+    end
+
     def self.by_resource(resource)
       publr = new(resource)
       # Because I do this manually and the class name is needed for that:
