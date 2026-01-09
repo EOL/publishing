@@ -46,7 +46,12 @@ class ContentServerConnection
     # We used to read these from a remote path, but now we read them from an NFS mount, convert:
     nfs_path = remote_path.sub(%r{^/data}, '/app/harvesting/')
     return unless File.exist?(nfs_path)
-    open(local_path, 'wb') { |f| f.write(get_contents(nfs_path)) }
+    File.open(local_path, 'wb') do |out_file|
+      File.foreach(nfs_path) do |line|
+        # Process and write one line at a time
+        out_file.write(fix_neo4j_illegal_quotes(line))
+      end
+    end
   end
 
   private
