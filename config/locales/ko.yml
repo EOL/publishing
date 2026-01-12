@@ -42,9 +42,16 @@ ko:
       r_genus_html: 이 속은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
       r_subgenus_html: 이 아속은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
         .
+      r_infragenus_html: 이 하속은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
+        .
+      r_superspecies_html: 이 상종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
+        .
       r_species_html: 이 종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
       r_subspecies_html: 이 아종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
         .
+      r_infraspecies_html: 이 하종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span>
+        .
+      r_form_html: 이 품종은 <span class='%{class_str}' id='%{id}'>멸종되었습니다</span> .
     species: '%{name1}은(는) %{name2}의 종입니다.'
     species_in_family: '%{name1}은(는) %{name_family}과에 속한 %{name2}의 종입니다.'
     taxonomy:
@@ -64,10 +71,19 @@ ko:
         r_superclass: '%{name1}은(는) %{name2}상강입니다.'
         r_class: '%{name1}은(는) %{name2}강입니다.'
         r_subcategory: '%{name1}은(는) %{name2}의 하위 분류입니다.'
+        r_infraclass: '%{name1}은(는) %{name2}하강입니다.'
         r_family: '%{name1}은(는) %{name2}과입니다.'
       below_family:
+        with_family:
+          r_infragenus: '%{name1}은(는) %{name3}과에 속한 %{name2}의 하속입니다.'
+          r_superspecies: '%{name1}은(는) %{name3}과에 속한 %{name2}의 상종입니다.'
+          r_infraspecies: '%{name1}은(는) %{name3}과에 속한 %{name2}의 하종입니다.'
         without_family:
           r_tribe: '%{name1}은(는) %{name2}의 부족입니다.'
+          r_genus: '%{name1}은(는) %{name2}속입니다.'
+          r_infragenus: '%{name1}은(는) %{name2}하속입니다.'
+          r_superspecies: '%{name1}은(는) %{name2}상종입니다.'
+          r_infraspecies: '%{name1}은(는) %{name2}하종입니다.'
   button_create: 만들기
   button_add: 추가
   cancel: 취소
@@ -331,7 +347,7 @@ ko:
     lo: 라오어
     lao: 라오어
     la: 라틴어
-    li: Limburgish
+    li: 림뷔르흐어; 림부르크어
     lt: 리투아니아어
     lit: 리투아니아어
     q35787: 마사이어
@@ -455,6 +471,7 @@ ko:
         r_tribe: 부족
         r_genus: 속
         r_subgenus: 아속
+        r_infragenus: 하속
         r_superspecies: 상종
         r_species: 종
         r_subspecies: 아종
@@ -495,7 +512,10 @@ ko:
       r_subphylum: 아문
       r_tribe: 부족
       r_genus: 속
+      r_infragenus: 하속
+      r_superspecies: 상종
       r_species: 종
+      r_infraspecies: 하종
   recaptcha: 리캡차
   recaptcha_error: 당신이 로봇이 아님을 저희에게 알려주십시오.
   reconciliation:
