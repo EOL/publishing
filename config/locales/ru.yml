@@ -6,6 +6,7 @@
 # Author: DDPAT
 # Author: Dimitri Nakashidze
 # Author: Dirruw'o
+# Author: Elzav
 # Author: HFoxii
 # Author: Hot-Vinegar
 # Author: INS Pirat
@@ -23,8 +24,10 @@
 # Author: Saimongoltinio
 # Author: Sanyanov
 # Author: Steve Lemo
+# Author: Stjn
 # Author: Wileyfoxyx
 # Author: YuliaVo
+# Author: Yupik
 # Author: Марио
 # Author: Умар
 ---
@@ -164,6 +167,9 @@ ru:
       header: Курируемые иерархии для %{sci_name}
       see_resource_file: Полный список смотреть <a href='%{href}'>файле ресурсов</a>.
       this_page: (эта страница)
+      truncated_siblings:
+        one: Один дополнительный брат или одна сестра сокращено для краткости.
+        other: '%{count} дополнительные братья и сестры сокращено для краткости.'
     richness:
       header: Богатство страницы
       score: оценка богатства
@@ -1074,6 +1080,7 @@ ru:
       collections: Коллекции
       downloads: Загрузки
       links: Ссылки
+    username: имя участника
   term:
     edit:
       submit: Сохранить

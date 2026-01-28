@@ -3,6 +3,55 @@ class Publishing
     require 'net/http'
     attr_accessor :data_file, :log
 
+    # This is me working through manual publishing, do NOT call this method!
+    def manual_publish(@resource)
+      # @resource = Resource.find(1218)
+      # pub = Publishing::Fast.new(@resource) ; 1
+      # cd pub
+      set_relationships ; 1
+      @resource.remove_non_trait_content unless @resource.nodes.count.zero?
+      # That'll take a while...
+      @log = Publishing::PubLog.new(@resource, use_existing_log: true) ; 1
+      import_and_prop_ids(Referent)
+      import_and_prop_ids(Node)
+      import_and_prop_ids(BibliographicCitation)
+      import_and_prop_ids(Identifier)
+      import_and_prop_ids(ScientificName)
+      # import_and_prop_ids(NodeAncestor)
+      @klass = NodeAncestor
+      @log.start("#import_and_prop_ids #{@klass}")
+      @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
+      name = "#{@klass.table_name}.tsv"
+      @log.start("#grab_file #{name}")
+      # repo_file = @resource.repo.file(name)
+      @repo ||= ContentServerConnection.new(@resource, @log) ; 1
+      @resource.repo.copy_harvesting_file(@data_file, @resource.repo.file_url(name))
+      repo_file = File.readlines(@data_file)
+      import
+      propagate_ids
+      @files << @data_file
+      import_and_prop_ids(Vernacular)
+      import_and_prop_ids(Article)
+      import_and_prop_ids(Medium)
+      import_and_prop_ids(Attribution)
+      import_and_prop_ids(ImageInfo)
+      import_and_prop_ids(Reference)
+      import_and_prop_ids(ContentSection)
+      VernacularPreference.restore_for_resource(@resource.id, @log)
+      PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
+      MediaContentCreator.by_resource(@resource, log: @log) if page_contents_required?
+      publish_traits_with_cleanup
+      @resource.fix_native_nodes
+      TraitBank::Denormalizer.update_resource_vernaculars(@resource)
+      propagate_reference_ids
+      clean_up
+      Page.fix_missing_icons if page_contents_required?
+      Publishing::DynamicWorkingHierarchy.update(@resource, @log) if @resource.dwh?
+      @log.close
+      ImportLog.all_clear!
+      Rails.cache.delete("trait_bank/count_by_resource/#{@resource.id}")
+    end
+
     def self.by_resource(resource)
       publr = new(resource)
       # Because I do this manually and the class name is needed for that:
@@ -244,11 +293,7 @@ class Publishing
 
     def grab_file(name)
       @log.start("#grab_file #{name}")
-      if repo_file = @resource.repo.file(name)
-        open(@data_file, 'wb') { |file| file.write(repo_file) }
-      else
-        return false
-      end
+      @resource.repo.copy_harvesting_file(@data_file, @resource.repo.file_path(name))
     end
 
     def import

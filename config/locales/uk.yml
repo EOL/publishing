@@ -7,8 +7,10 @@
 # Author: Gzhegozh
 # Author: Ice bulldog
 # Author: Ignatgg
+# Author: MonX94
 # Author: Movses
 # Author: SteveR
+# Author: VadymTS1
 # Author: Vlnt
 ---
 uk:
@@ -402,6 +404,7 @@ uk:
     q35037: Businenge Tongo
     q880301: Каджунський французький
     q2937525: Capiznon
+    q35156: Автомобіль
     q2591230: Кашинахуа
     ca: Каталонська; Валенсійська
     q33239: Себуано
@@ -564,7 +567,7 @@ uk:
     q13321: Miꞌkmaq
     q36455: Мін Донг
     q13324: Мінангкабау
-    q13359: Мінгрельський
+    q13359: Мегрельська
     q13330: Мірандес
     q13343: Мокша
     mn: Монгольська
@@ -719,7 +722,10 @@ uk:
     occurrence_caption: Відомі випадки, зібрані зразки та спостереження %{page_name}.
       Переглянути цей вид на GBIF
     occurrence_caption_w_link_html: Відомі випадки, зібрані зразки та спостереження
-      за %{page_name}. <a href='%{url}'>Переглянути цей вид на GBIF <i class='fa fa-external-link'></i></a>
+      за %{page_name} з <a href='https://gbif.org'>Global Biodiversity Information
+      Facility %{gbif_logo}</a> &nbsp;&nbsp;GBIF надає вільний та відкритий доступ
+      до даних біорізноманіття. <a href='%{url}'>Переглянути цей вид на GBIF<i class='fa
+      fa-external-link'></i></a>
     other_maps_title: Неінтерактивні мапи
   medium:
     untitled:
@@ -1367,7 +1373,7 @@ uk:
         sex: 'стать: %{value}'
         statistical_method: 'статистичний метод: %{value}'
       gbif_search: Пошук у форматі GBIF
-      gbif_search_hover: знайдіть записи записів у GBIF для таксонів у результатах
+      gbif_search_hover: знайдіть записи випадків у GBIF для таксонів у результатах
         пошуку (ліміт 50)
       result_header_records: Показано %{range_begin} — %{range_end} з %{total} записів
         для %{page_count} таксонів
@@ -2767,7 +2773,7 @@ uk:
         http://eol(dot)org/schema/terms/notMonogamous: не моногамний
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: довжина ядра
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: ширина ядра
-        http://eol(dot)org/schema/terms/fossilOccPBDB: кількість випадків викопності
+        http://eol(dot)org/schema/terms/fossilOccPBDB: кількість викопних випадків
         http://eol(dot)org/schema/terms/NumberOfHosts: кількість хостів
         http://eol(dot)org/schema/terms/NumberPublicRecordsInBOLD: кількість публічних
           записів жирним шрифтом

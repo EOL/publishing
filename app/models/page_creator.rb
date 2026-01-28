@@ -3,45 +3,35 @@ class PageCreator
   # something like it)
   def self.by_node_pks(node_pks, log, options = {})
     log.log('create_new_pages')
-    node_id_by_page = {}
-    # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
-    # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
-    # itself to that page, then the native_node_id should *change* to the DWH id.)
-    have_pages = []
+    
+    # Process everything in small batches. This prevents building massive
+    # arrays or hashes in memory.
     node_pks.in_groups_of(1000, false) do |group|
-      page_ids = []
-      Node.where(resource_pk: group).select("id, page_id").find_each do |node|
-        node_id_by_page[node.page_id] = node.id
-        page_ids << node.page_id
+      node_id_by_page = {}
+      
+      Node.where(resource_pk: group).pluck(:id, :page_id).each do |id, page_id|
+        node_id_by_page[page_id] = id
       end
-      have_pages += Page.where(id: page_ids).pluck(:id)
-    end
-    missing = node_id_by_page.keys - have_pages
-    pages = missing.map { |id| { id: id, native_node_id: node_id_by_page[id], nodes_count: 1 } }
-    if pages.empty?
-      log.log('There were NO new pages, skipping...', cat: :warns)
-      return
-    end
-    pages.in_groups_of(1000, false) do |group|
-      log.log("importing #{group.size} Pages", cat: :infos)
-      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
-      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Page.import!(group, on_duplicate_key_ignore: true)
-    end
-    if options[:skip_reindex]
-      log.log('Skipping reindexing. You should reindex soon.', cat: :warns)
-    else
-      log.log('Reindexing new pages...')
-      missing.in_groups_of(10_000, false) { |group| Page.where(id: group).reindex }
-    end
-    # TODO: This *shouldn't* be needed. The pages we created have native nodes assigned above, and existing pages should
-    # have been fine. But we keep seeing this happen, so there's a bug in the harvester's publishing code... ?
-    log.log('Fixing native nodes...')
-    missing.in_groups_of(10_000, false) do |missing_group|
-      bad_natives = Page.where(native_node_id: nil, id: missing_group).pluck(:id)
-      bad_natives.in_groups_of(10_000, false) do |bad_id_group|
-        Page.fix_missing_native_nodes(Page.where(native_node_id: nil, id: bad_id_group))
+      
+      target_page_ids = node_id_by_page.keys
+      next if target_page_ids.empty?
+
+      existing_page_ids = Page.where(id: target_page_ids).pluck(:id)
+      missing_page_ids = target_page_ids - existing_page_ids
+
+      next if missing_page_ids.empty?
+
+      pages_to_import = missing_page_ids.map do |id| 
+        { id: id, native_node_id: node_id_by_page[id], nodes_count: 1 } 
       end
+
+      Page.import!(pages_to_import, on_duplicate_key_ignore: true)
+
+      unless options[:skip_reindex]
+        Page.where(id: missing_page_ids).reindex
+      end
+
+      Page.fix_missing_native_nodes(Page.where(native_node_id: nil, id: missing_page_ids))
     end
     # TODO: Fix counter-culture counts on affected pages. :\
   end

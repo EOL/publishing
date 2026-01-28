@@ -27,6 +27,7 @@
 # Author: Joanmp17
 # Author: Johny Weissmuller Jr
 # Author: Josuert
+# Author: Karla sima cabrera
 # Author: L3n9u^
 # Author: Madamebiblio
 # Author: María
@@ -434,6 +435,7 @@ es:
     q35037: Businenge Tongo
     q880301: Francés Cajun
     q2937525: Capiceño
+    q35156: Kisbuuts'
     q2591230: Cashinahua
     ca: Catalán; Valenciano
     q33239: Cebuano
@@ -750,9 +752,11 @@ es:
     empty: No hay ningún mapa disponible para esta página.
     occurrence_caption: Incidencias conocidas, muestras recolectadas y observaciones
       de %{page_name}. Ver esta especie en GBIF
-    occurrence_caption_w_link_html: Incidencias conocidas, muestras recolectadas y
-      observaciones de %{page_name}. <a href='%{url}'>Ver esta especie en GBIF <i
-      class='fa fa-external-link'></i></a>
+    occurrence_caption_w_link_html: Incidencias conocidas, especímenes recolectados
+      y observaciones de %{page_name} de la <a href='https://gbif.org'>Biodiversity
+      Information Facility %{gbif_logo}</a> &nbsp;&nbsp;GBIF provee acceso gratuito
+      y abierto a datos sobre biodiversidad <a href='%{url}'> Ver esta especie en
+      GBIF <i class='fa fa-external-link'></i></a>
     other_maps_title: Mapas no interactivos
   medium:
     untitled:
