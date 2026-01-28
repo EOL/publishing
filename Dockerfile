@@ -48,6 +48,8 @@ LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
 
+RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/seabolt.conf && ldconfig
+
 COPY --chown=ruby:ruby bin/ ./bin
 RUN chmod 0755 bin/*
 
