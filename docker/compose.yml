@@ -36,6 +36,13 @@ x-app: &default-app
       max-file: 3
       max-size: 5m
 
+x-default-deploy: &default-deploy
+  logging:
+    driver: "local"
+    options:
+      max-file: "3"
+      max-size: "5m"
+
 x-worker: &default-worker
   build:
     context: ..
