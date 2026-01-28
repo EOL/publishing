@@ -75,6 +75,6 @@ RUN git config --global user.email ${eol_github_email}
 RUN git config --global user.name ${eol_github_user}
 RUN git config --global pull.rebase false
 
-RUN chmod +x bin/rails bin/rake bin/entrypoint.sh
+RUN chmod +x bin/*
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 EXPOSE 3000
