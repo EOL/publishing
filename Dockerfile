@@ -32,6 +32,7 @@ ARG neo4j_password
 # --build-arg neo4j_driver_url=$NEO4J_DRIVER_URL --build-arg neo4j_user=$NEO4J_USER \
 # --build-arg neo4j_password=$NEO4J_PASSWORD
 ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
+RUN chmod +x bin/rails bin/rake
 RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
