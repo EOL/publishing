@@ -41,7 +41,7 @@ gem 'kaminari', '~> 1.2.2'
 
 gem 'activegraph', '~> 10.1'
 # TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
-gem 'activestorage', '~> 8.0.2'
+gem 'activestorage', '~> 6.1'
 gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 
 # For bulk inserts:
