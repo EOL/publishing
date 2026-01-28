@@ -76,5 +76,6 @@ RUN git config --global user.name ${eol_github_user}
 RUN git config --global pull.rebase false
 
 RUN chmod +x bin/*
+ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 EXPOSE 3000
