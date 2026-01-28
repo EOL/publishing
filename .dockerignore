@@ -3,3 +3,5 @@ log/*
 !log/.keep
 docker/.env
 docker/resources/newrelic-infra.conf
+.dockerignore
+vendor/bundle
