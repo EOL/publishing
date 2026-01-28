@@ -570,7 +570,7 @@ class Page < ApplicationRecord
   end
 
   def has_data?
-    data_count > 0
+    data_count && data_count > 0
   end
 
   def data_count
