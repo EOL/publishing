@@ -7,6 +7,7 @@ gem 'bigdecimal' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'mutex_m' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'csv' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'drb' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7. This one is needed for assets.
+gem 'concurrent-ruby', '1.3.4' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '~> 0.5.6'
 # Use puma as the web host
