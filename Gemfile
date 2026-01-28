@@ -70,7 +70,7 @@ gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
 # ElasticSearch via SearchKick:
-gem 'elasticsearch', '~> 8.19' # Needs to stay in sync with the version of ES that we're using
+gem 'elasticsearch', '~> 8.8' # Needs to stay in sync with the version of ES that we're using
 gem 'searchkick', '~> 5.3' # Needs to stay in sync (ish) with the elasticsearch gem.
 # url slug support
 gem 'friendly_id', '~> 5.4'
@@ -84,7 +84,7 @@ gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 gem 'haml', '~> 5.2.1'
 gem 'haml-rails', '~> 2.0.1'
 # HTTP client
-gem 'http', '~> 5.3'
+gem 'http', '~> 5.0'
 # translations in JS
 gem 'i18n-js', '~> 3.9' # NOTE: Version 4 is coming. There is no documentation for it as yet, but be mindful.
 # JSON schema-based validation
@@ -116,8 +116,8 @@ gem "activejob-traffic_control", ">= 0.1.3"
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
 # TODO: I am not sure these are working / used anymore. Check and remove, if not.
 gem 'simple_form', '~> 5.1'
-gem 'client_side_validations', '~> 22.3'
-gem 'client_side_validations-simple_form', '~> 16'
+gem 'client_side_validations', '~> 18.1'
+gem 'client_side_validations-simple_form', '~> 13'
 #Sitemap
 gem 'sitemap_generator', '~> 6.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
