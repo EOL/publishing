@@ -1465,7 +1465,15 @@ sk:
         http://eol(dot)org/schema/terms/percm2: /cm^2
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: dospelý
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: poľnohospodársky
+        http://eol(dot)org/schema/terms/amphibious: obojživelný
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002030: vodný
+        http://eol(dot)org/schema/terms/aquatic: prispôsobený vode
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: vodná rastlina
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: oblasť
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000166: atol
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: kôra
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: čadič
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002138: plážový piesok
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: krv
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: dĺžka tela
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: hmotnosť tela
@@ -1480,13 +1488,17 @@ sk:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0001017: centrálna nervová sústava
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: černozem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: mesto
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: útes
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: farba
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002170: kompost
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: zložené oči
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000049: koralový útes
         http://eol(dot)org/schema/terms/criticallyEndangered: kriticky ohrozený
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: dni
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: mŕtvy
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000179: púšť
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000156: púštna oáza
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00005800: púštny piesok
         http://ncicb(dot)nci(dot)nih(dot)gov/xml/owl/EVS/Thesaurus(dot)owl#C25285: priemer
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002008: prach
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_37958: farbivo
@@ -1508,6 +1520,7 @@ sk:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015921: šírka ovocia
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_33292: palivo
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00003076: lepidlo
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: tráva
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000033: hlava
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0036016: med
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001855: vodorovný
@@ -1518,6 +1531,9 @@ sk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000252: jazero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000891: veľké jazero
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000887: veľká rieka
+        http://eol(dot)org/schema/terms/lateSpring: neskorá jar
+        http://eol(dot)org/schema/terms/lateSummer: neskoré leto
+        http://eol(dot)org/schema/terms/lateWinter: neskorá zima
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: farba lístia
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: zložitosť lístia
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001133: dĺžka listov

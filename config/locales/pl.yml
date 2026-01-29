@@ -13,6 +13,7 @@
 # Author: Rainbow P
 # Author: Rzuwig
 # Author: WaldiSt
+# Author: Woytecr
 ---
 pl:
   language_name: Polski
@@ -472,7 +473,7 @@ pl:
       alternative: Alternatywne nazwy
       preferred: Preferowane nazwy
       unusable: Nieużyteczne nazwy
-      synonym: Snonimy
+      synonym: Synonimy
   scientific_names_header: nazwy naukowe
   send_me_reset_password_instructions: Wyślij instrukcje przywracania hasła
   search:
