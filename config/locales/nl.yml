@@ -1221,8 +1221,8 @@ nl:
       about_this_chart_tooltip_assoc: Dit is een samenvatting op basis van gegevens
         die beschikbaar zijn in EOL. Dit kan onvolledig zijn! U kunt de muiscursor
         op de naam van een taxon plaatsen om de relaties ervan weer te weergeven.
-        Een groene link geeft aan dat het geselecteerde taxon het subject is van de
-        associatie; een paarse geeft aan dat het het object is. Grotere zoekopdrachten
+        Een groene koppeling geeft aan dat het geselecteerde taxon het subject is
+        van de associatie; een paarse geeft aan dat het het object is. Grotere zoekopdrachten
         worden samengevat op geslacht of familie. U kunt deze beperken door op de
         naam van een taxon te klikken.
       about_this_chart_tooltip_sankey_2d: Dit is een samenvatting op basis van gegevens
