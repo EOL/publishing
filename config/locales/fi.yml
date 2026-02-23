@@ -6,6 +6,7 @@
 # Author: Moj
 # Author: Muovipullo
 # Author: Nike
+# Author: Possuinen
 # Author: Pyscowicz
 # Author: Yupik
 ---
@@ -1314,6 +1315,7 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: Aalen-vaihe
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: yleisyys
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: abyssaalivyöhyke
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: hapan maaperä
         http://eol(dot)org/schema/terms/ActiveGrowthPeriod: aktiivinen kasvukausi
         http://eol(dot)org/schema/terms/adaptiveStrategy: sopeutumisstrategia
         http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: aikuinen
@@ -1322,6 +1324,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: agatoksiinit
         http://eol(dot)org/schema/terms/AgeAtEyeOpening: ikä silmien avauduttua
         http://eol(dot)org/schema/terms/AgeAtMaturity: ikä sukukypsänä
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: maatalousjäte
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: Alba-vaihe
         http://rs(dot)tdwg(dot)org/ontology/voc/TaxonName#Allotype: allotyyppi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000258: alluviaalitasanko
@@ -1359,6 +1362,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: kaarna
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Barremian: Barrême-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bartonian: Barton-vaihe
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/165109007: perusaineenvaihdunta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000236: basaltti
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bashkirian: Baškiria-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Bathonian: Bathonia-vaihe
@@ -1375,6 +1379,7 @@ fi:
         http://eol(dot)org/schema/terms/BillLength: nokan pituus
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002034: biofilmi
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: biogeeninen pii
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000373: biologinen jäte
         http://eol(dot)org/schema/terms/Bioluminescent: bioluminesenssi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C12434: veri
@@ -1432,6 +1437,7 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carboniferous: kivihiilikausi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002033: raato
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Carnian: Carnia-vaihe
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0002418: rusto
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: katadrominen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000067: luola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000013: luolasysteemi
@@ -1580,12 +1586,14 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kukan väri
         http://purl(dot)obolibrary(dot)org/obo/RO_0002623: kukissa vierailee
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluoriitti
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03412972: elintarvikelisäaine
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: metsä
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Fortunian: Fortune-vaihe
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Frasnian: Frasne-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: makea vesi
         https://eol(dot)org/schema/terms/freshwater_animals: makeanveden eläimet
         https://eol(dot)org/schema/terms/freshwater_decapods: makeanveden kymmenjalkaiset
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C161325: frontaalinen
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: hedelmä
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000147: hedelmän väri
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0001366: hedelmän pituus
@@ -1800,6 +1808,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000081: vuori
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000084: vuoristosola
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000080: vuoristo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_02000040: lima
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000001: muta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000402: mutatulivuori
         http://rs(dot)tdwg(dot)org/dwc/terms/municipality: kunta
@@ -1893,6 +1902,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000435: proglasiaalijärvi
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000358: suojelualue
         http://eol(dot)org/schema/terms/practicalSalinityUnits: psu
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: puriinit
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purppura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002336: pyramidin muotoinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000284: avolouhos
@@ -2014,6 +2024,8 @@ fi:
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperOrdovician: myöhäisordovikikausi
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperPleistocene: myöhäispleistoseeni
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/UpperTriassic: myöhäistriaskausi
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: virtsahappo
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C12413: virtsaneritysjärjestelmä
         http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Valanginian: Valangin-vaihe
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000100: laakso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01001305: kasvillistunut alue
@@ -2118,6 +2130,7 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/BTO_0000954: nymfi
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001171: itiö
         http://purl(dot)obolibrary(dot)org/obo/BTO_0001346: takytsoiitti
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000955: hedelmällinen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001340: hermafrodiitti
         http://purl(dot)obolibrary(dot)org/obo/PO_0007616: kukintavaihe
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0003143: kotelo
