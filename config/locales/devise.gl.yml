@@ -1,0 +1,101 @@
+# Messages for Galician (galego)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Toliño
+---
+gl:
+  devise:
+    confirmations:
+      confirmed: O teu enderezo de correo electrónico confirmouse correctamente.
+      send_instructions: Recibirás nun anaco un correo electrónico con instrucións
+        sobre como confirmar o teu enderezo de correo electrónico.
+      send_paranoid_instructions: Se o teu enderezo de correo electrónico existe na
+        nosa base de datos, recibirás nun anaco un correo electrónico sobre como confirmar
+        o teu enderezo de correo electrónico.
+    failure:
+      already_authenticated: Xa iniciaches sesión.
+      inactive: A túa conta aínda non está activada.
+      invalid: '%{authentication_keys} ou contrasinal non válidos.'
+      locked: A túa conta está bloqueada. Inténtao de novo dentro dunha hora.
+      last_attempt: Tes un intento máis antes de que se bloquee a túa conta.
+      not_found_in_database: '%{authentication_keys} ou contrasinal non válidos.'
+      recaptcha_error: Houbo un erro co código reCAPTCHA. Introduce de novo o código
+        e fai clic en «Enviar».
+      timeout: A túa sesión caducou. Inicia sesión de novo para continuar.
+      unauthenticated: Cómpre iniciar sesión ou rexistrarse antes de continuar.
+      unconfirmed: Tes que confirmar o teu enderezo de correo electrónico antes de
+        continuar.
+    mailer:
+      confirmation_instructions:
+        action: Confirmar a miña conta
+        greeting: Dámosche a benvida, %{recipient}!
+        instruction: 'Podes confirmar o correo electrónico da túa conta a través da
+          seguinte ligazón:'
+        subject: Instrucións de confirmación
+      reset_password_instructions:
+        action: Cambiar o meu contrasinal
+        greeting: 'Ola, #{recipient}!'
+        instruction: Alguén solicitou unha ligazón para cambiar o teu contrasinal
+          e podes facelo a través da ligazón de embaixo.
+        instruction_2: Se non o solicitaches ti, ignora este correo electrónico.
+        instruction_3: O teu contrasinal non cambiará ata que accedas á ligazón de
+          arriba e crees un contrasinal novo.
+        subject: Instrucións para restablecer o contrasinal
+      unlock_instructions:
+        subject: Instrucións de desbloqueo
+      password_change:
+        greeting: 'Ola, #{recipient}!'
+        message: Contactamos contigo para notificarche que se modificou o teu contrasinal.
+        subject: Modificación do contrasinal
+    passwords:
+      no_token: Non podes acceder a esta páxina sen recibir un correo electrónico
+        de restablecemento do contrasinal. Se recibiches un correo electrónico de
+        restablecemento do contrasinal, asegúrate de que usaches o enderezo URL completo
+        que se proporciona no correo.
+      send_instructions: Recibirás nun anaco un correo electrónico con instrucións
+        sobre como restablecer o teu contrasinal.
+      send_paranoid_instructions: Se o teu enderezo de correo electrónico existe na
+        nosa base de datos, recibirás nuns minutos unha ligazón de recuperación do
+        contrasinal no teu enderezo de correo electrónico.
+      updated: O teu contrasinal modificouse correctamente. Xa iniciaches sesión.
+      updated_not_active: O teu contrasinal modificouse correctamente.
+    registrations:
+      destroyed: Abur! A túa conta cancelouse correctamente. Esperamos verte de novo
+        pronto.
+      signed_up: Recibe a benvida! Rexistrácheste correctamente.
+      signed_up_but_inactive: Rexistrácheste correctamente. Non obstante, non puideches
+        iniciar sesión porque a túa conta aínda non está activada.
+      signed_up_but_locked: Rexistrácheste correctamente. Non obstante, non puideches
+        iniciar sesión porque a túa conta está bloqueada.
+      signed_up_but_unconfirmed: Enviouse unha mensaxe cunha ligazón de confirmación
+        ao teu enderezo de correo electrónico. Sigue a ligazón para activares a conta.
+      update_needs_confirmation: Actualizaches a túa conta correctamente, pero precisamos
+        verificar o teu novo enderezo de correo electrónico. Revisa o teu correo electrónico
+        e sigue a ligazón de confirmación para confirmares o novo enderezo de correo
+        electrónico.
+      updated: A túa conta actualizouse correctamente.
+    sessions:
+      signed_in: Iniciaches sesión correctamente.
+      signed_out: Pechaches sesión correctamente.
+      already_signed_out: Pechaches sesión correctamente.
+      recaptcha: Erros de validación de reCAPTCHA
+      sign_in_remember_me_disabled_for_admins: Por razóns de seguridade, a administración
+        non poden usar a función para lembrar o contrasinal.
+    unlocks:
+      send_instructions: Recibirás nun anaco un correo electrónico con instrucións
+        sobre como desbloquear a túa conta.
+      send_paranoid_instructions: Se a túa conta existe, recibirás nun anaco un correo
+        electrónico con instrucións sobre como desbloqueala.
+      unlocked: A túa conta desbloqueouse correctamente. Inicia sesión para continuar.
+  errors:
+    messages:
+      already_confirmed: xa se confirmou; intenta iniciar sesión
+      confirmation_period_expired: ten que confirmarse antes de %{period}; fai unha
+        nova solicitude
+      expired: caducou; fai unha nova solicitude
+      not_found: non se atopou
+      not_locked: non tiña un bloqueo
+      not_saved:
+        one: 'Un erro impediu que se gardase este %{resource}:'
+        other: '%{count} erros impediron que se gardase este %{resource}:'
+...
