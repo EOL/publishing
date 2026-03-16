@@ -1,0 +1,1000 @@
+# Messages for Galician (galego)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Toliño
+---
+gl:
+  language_name: galego
+  about:
+    trait_bank:
+      body_html: <p>O equipo técnico e de xestión de datos da EOL refírese aos recursos
+        de datos estruturados na EOL (datos de trazos e outros atributos, interaccións
+        ecolóxicas e a nosa clasificación nativa, a «Xerarquía de traballo dinámico»),
+        que en conxunto se denominan «TraitBank». Este contido xestiónase de forma
+        algo diferente ao noso contido «clásico» (imaxes, vídeo, son e texto descritivo)
+        e é útil para diferentes cousas.</p><p>TraitBank é máis novo que o resto da
+        EOL; foi concibido orixinalmente pola directora do grupo de páxinas de especies,
+        Cynthia Parr, e entrou en funcionamento na versión 2 da EOL en xaneiro de
+        2014. Desde entón, os datos estruturados foron a nosa máxima prioridade para
+        o desenvolvemento de contidos.</p><p>Agora podes <a href='%{example_search_path}'>buscar</a>
+        ou explorar a EOL por datos estruturados, descargalo ou podes atopalo na nosa
+        nova lapela de vista xeral en forma de <a href='%{autogen_page_path}'>texto
+        xerado automaticamente</a>. Do mesmo xeito que o resto do contido da EOL,
+        está dispoñible para a súa reutilización e inclúe datos de recoñecemento detallados
+        para que poidas atribuílo se o usas na túa propia obra.</p><p>Estes datos
+        están modelados como un <a href='%{property_graph_url}'>gráfico de propiedades</a>
+        en <a href='%{neo4j_url}'>neo4j</a>. Hai dispoñibles <a href='%{data_services_path}'>servizos
+        de datos</a>.</p>
+  account_already_linked: a túa conta xa está vinculada á EOL
+  account_not_linked: a túa conta non está vinculada á EOL
+  advanced: avanzado
+  are_you_sure_delete_account: Queres eliminar a túa conta da EOL?
+  article:
+    actions:
+      collect: recoller
+    header:
+      blank: (Este artigo non ten corpo.)
+      body: Corpo
+      language: 'idioma: %{language}'
+      title: Título
+      untitled: Sen título
+    name:
+      missing: Sen título
+  article_from_partner: proporcionado por %{partner}
+  article_duplicate: este artigo tamén se mostra en «%{section}»
+  autocomplete:
+    see_all:
+      one: ver outros resultados
+      other: ver os %{count} resultados
+  breadcrumbs:
+    notices:
+      canonical: Os nomes científicos mostraranse agora nas ligazóns de navegación
+        da páxina
+      vernacular: Os nomes vernáculos mostraranse agora nas ligazóns de navegación
+        da páxina cando estean dispoñibles
+    setting_header: nomes nas ligazóns de navegación
+    types:
+      scientific: científico
+      vernacular: vernáculo
+  brief_summary:
+    extinction:
+      r_genus_html: Este xénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_subgenus_html: Este subxénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_infragenus_html: Este infraxénero está <span class='%{class_str}' id='%{id}'>extinto</span>.
+      r_superspecies_html: Esta superespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_species_html: Esta especie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_subspecies_html: Esta subespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_infraspecies_html: Esta infraespecie está <span class='%{class_str}' id='%{id}'>extinta</span>.
+      r_form_html: Esta forma está <span class='%{class_str}' id='%{id}'>extinta</span>.
+    fix_nitrogen_html: Os individuos <span class='%{class_str}' id='%{predicate_id}'>fixan</span>
+      <span class='%{class_str}' id='%{object_id}'>nitróxeno</span>.
+    freshwater_html: Os individuos están asociados a un <span class='%{class_str}'
+      id='%{id}'>hábitat de auga doce</span>.
+    marine_html: Os individuos atópanse nun <span class='%{class_str}' id='%{id}'>hábitat
+      mariño</span>.
+    species: '%{name1} é unha especie de %{name2}.'
+    species_in_family: '%{name1} é unha especie de %{name2} na familia %{name_family}.'
+    taxonomy:
+      family_above:
+        r_superfamily: '%{name1} é unha superfamilia de %{name2}.'
+        r_domain: '%{name1} é un dominio de %{name2}.'
+        r_subdomain: '%{name1} é un subdominio de %{name2}.'
+        r_infradomain: '%{name1} é un infradominio de %{name2}.'
+        r_superkingdom: '%{name1} é un superreino de %{name2}.'
+        r_kingdom: '%{name1} é un reino de %{name2}.'
+        r_subkingdom: '%{name1} é un subreino de %{name2}.'
+        r_infrakingdom: '%{name1} é un infrarreino de %{name2}.'
+        r_superphylum: '%{name1} é un superfilo de %{name2}.'
+        r_phylum: '%{name1} é un filo de %{name2}.'
+        r_subphylum: '%{name1} é un subfilo de %{name2}.'
+        r_infraphylum: '%{name1} é un infrafilo de %{name2}.'
+        r_superclass: '%{name1} é unha superclase de %{name2}.'
+        r_class: '%{name1} é unha clase de %{name2}.'
+        r_subcategory: '%{name1} é unha subcategoría de %{name2}.'
+        r_infraclass: '%{name1} é unha infraclase de %{name2}.'
+        r_superorder: '%{name1} é unha superorde de %{name2}.'
+        r_order: '%{name1} é unha orde de %{name2}.'
+        r_suborder: '%{name1} é unha suborde de %{name2}.'
+        r_infraorder: '%{name1} é unha infraorde de %{name2}.'
+        r_family: '%{name1} é unha familia de %{name2}.'
+      below_family:
+        with_family:
+          r_subfamily: '%{name1} é unha subfamilia de %{name2} na familia %{name3}.'
+          r_infrafamily: '%{name1} é unha infrafamilia de %{name2} na familia %{name3}.'
+          r_tribe: '%{name1} é unha tribo de %{name2} na familia %{name3}.'
+          r_supergenus: '%{name1} é un superxénero de %{name2} na familia %{name3}.'
+          r_genus: '%{name1} é un xénero de %{name2} na familia %{name3}.'
+          r_subgenus: '%{name1} é un subxénero de %{name2} na familia %{name3}.'
+          r_infragenus: '%{name1} é un infraxénero de %{name2} na familia %{name3}.'
+          r_superspecies: '%{name1} é unha superespecie de %{name2} na familia %{name3}.'
+          r_species: '%{name1} é unha especie de %{name2} na familia %{name3}.'
+          r_subspecies: '%{name1} é unha subespecie de %{name2} na familia %{name3}.'
+          r_infraspecies: '%{name1} é unha infraespecie de %{name2} na familia %{name3}.'
+          r_form: '%{name1} é unha forma de %{name2} na familia %{name3}.'
+        without_family:
+          r_subfamily: '%{name1} é unha subfamilia de %{name2}.'
+          r_infrafamily: '%{name1} é unha infrafamilia de %{name2}.'
+          r_tribe: '%{name1} é unha tribo de %{name2}.'
+          r_supergenus: '%{name1} é un superxénero de %{name2}.'
+          r_genus: '%{name1} é un xénero de %{name2}.'
+          r_subgenus: '%{name1} é un subxénero de %{name2}.'
+          r_infragenus: '%{name1} é un infraxénero de %{name2}.'
+          r_superspecies: '%{name1} é unha superespecie de %{name2}.'
+          r_species: '%{name1} é unha especie de %{name2}.'
+          r_subspecies: '%{name1} é unha subespecie de %{name2}.'
+          r_infraspecies: '%{name1} é unha infraespecie de %{name2}.'
+          r_form: '%{name1} é unha forma de %{name2}.'
+  button_create: crear
+  button_add: engadir
+  cancel: cancelar
+  change_my_password: Cambiar o meu contrasinal
+  change_your_password: Cambiar o teu contrasinal
+  classifications:
+    children:
+      header_html:
+        one: '%{name} inclúe <a href="%{names_path}">%{count} fillo</a>:'
+        other: '%{name} inclúe <a href="%{names_path}">%{count} fillos</a>:'
+      see_more: ver máis
+    hierarchies:
+      header: Xerarquías preservadas para %{sci_name}
+      see_resource_file: Consulta o <a href='%{href}'>ficheiro de recursos</a> para
+        obter unha lista completa.
+      this_page: (esta páxina)
+      truncated_siblings:
+        one: Un irmán adicional truncado por brevidade.
+        other: '%{count} irmáns adicionais truncados por brevidade.'
+    richness:
+      header: Riqueza da páxina
+      score: puntuación de riqueza
+      page_contents_count: contido asociado
+      missing: Aínda non se calculou a riqueza desta páxina.
+      media_count: multimedia
+      articles_count: artigos
+      links_count: ligazóns
+      maps_count: mapas
+      data_count: datos
+      nodes_count: nós
+      vernaculars_count: vernáculos
+      scientific_names_count: nomes científicos
+      referents_count: referentes
+      species_count: especies
+      updated_at: última actualización
+  collect_already_in_collection: (xa está aquí)
+  collect_already_in_collection_will_add_icon: (engadir contido multimedia a «%{page}»)
+  collect_icon_title: Engadir «%{item}» da páxina «%{page}» a…
+  collect_new_collection: Nome da colección nova
+  collect_new_collection_title: … unha colección nova
+  collect_no_existing_collections: Aínda non tes ningunha! Crea unha usando o formulario
+    da esquerda.
+  collect_select_collection: … Unha das túas coleccións
+  collect_title: Engadir «%{item}» a…
+  collected_page_added_to_collection: Engadiuse «%{page}» á colección «<a href='%{link}'>%{name}</a>».
+  collected_page_already_in_collection: Iso xa estaba na túa colección.
+  collected_pages_title: Páxinas
+  collected_pages_medium:
+    destroyed_flash: Eliminouse a imaxe da páxina coleccionada.
+  collection_associations:
+    destroyed_flash: «%{name}» xa non está asociado a esta colección.
+  collected_pages:
+    delete_button: eliminar
+    edit_button: editar
+    delete_confirm: queres continuar?
+    destroyed_flash: «%{name}» eliminouse da colección.
+  collection_association_added_to_collection: Engadiuse «%{associated}» á colección
+    «<a href='%{link}'>%{name}</a>».
+  collection_associations_empty: Non hai ningunha outra colección asociada a esta.
+    Podes premer no botón «asociar» noutras coleccións para que aparezan aquí.
+  collection_associations_title: Coleccións asociadas
+  collection_collected_pages_media_remove: 'Eliminar imaxes da colección (os cambios
+    teñen efecto inmediato):'
+  collection_created: Creouse a nova colección «%{name}».
+  collection_created_for_association: Engadiuse «%{associated}» á nova colección «<a
+    href='%{link}'>%{name}</a>».
+  collection_user_is_admin: Este usuario é un administrador.
+  collection_pages_empty: Esta colección non ten páxinas. Intenta premer no botón
+    «coleccionar» nas páxinas de especies para engadir algúns elementos!
+  collection:
+    admins:
+      header: Usuarios que poden editar esta colección (os cambios teñen efecto inmediato)
+      label: 'Engadir un usuario que poida editar esta colección:'
+      placeholder: nome completo ou nome de usuario
+    actions:
+      associate: asociar
+      download_taxa_csv: descargar o CSV de taxons
+      delete: eliminar
+      edit: editar
+      sort: ordenar
+    collection_type:
+      normal: normal
+      gallery: galería
+    delete_confirm: Isto eliminará toda a colección e NON se pode desfacer. Queres
+      continuar?
+    destroyed: «%{name}» eliminouse permanentemente.
+    pages_count:
+      one: 1 páxina
+      other: '%{count} páxinas'
+    log:
+      associated_collection:
+        add: '%{user} engadiu unha asociación á colección «%{associated}»'
+        remove: '%{user} eliminou a asociación coa colección «%{associated}»'
+      collection:
+        add: '%{user} creou a colección'
+        change: '%{user} modificou «%{field}» de «%{from}» a «%{to}»'
+      content:
+        add: '%{user} engadiu o medio «%{medium}» á páxina «%{page}»'
+        change: '%{user} modificou «%{field}» no medio «%{medium}» na páxina «%{page}»
+          de «%{from}» a «%{to}»'
+        remove: '%{user} eliminou o medio «%{medium}» da páxina «%{page}»'
+      page:
+        add: '%{user} engadiu a páxina «%{page}»'
+        change: '%{user} modificou «%{field}» na páxina «%{page}» de «%{from}» a «%{to}»'
+        remove: '%{user} eliminou a páxina «%{page}»'
+      user:
+        add: '%{user} engadiu o xestor «%{manager}»'
+        remove: '%{user} eliminou o xestor «%{manager}»'
+    search:
+      placeholder: Buscar na colección…
+      submit: buscar
+    sort:
+      hierarchy: xerarquía
+      position: data de adición
+      sci_name: nome científico, A-Z
+      sci_name_rev: nome científico, Z-A
+      sort_field: anotación, A-Z
+      sort_field_rev: anotación, Z-A
+    updated: Actualizouse a colección.
+  collection_unauthorized_edit: Só o usuario propietario pode editar esta colección.
+  complete_registration: Continúa co teu rexistro
+  content_appears_on: 'Incluído nas seguintes páxinas:'
+  content_collected_in: 'Destacado nas seguintes coleccións:'
+  content_attributions_header: Información da fonte
+  content_attributions_labels:
+    altitude: altitude
+    author: autor
+    bibliographic_citation: cita bibliográfica
+    contributor: colaborador
+    compiler: compilador
+    creator: creador
+    editor: editor
+    latitude: latitude
+    license: licenza
+    location: localización
+    location_verbatim: literalmente
+    longitude: lonxitude
+    original_media_file: ficheiro multimedia orixinal
+    owner: dereitos de autor
+    photographer: fotógrafo
+    publisher: editor
+    project: proxecto
+    provider: provedor
+    references_header:
+      one: Referencia
+      other: Referencias
+    resource_label: sitio asociado
+    resource_pk: '(id: %{key})'
+    rights_statement: declaración de dereitos
+    source: fonte
+    spatial_location: espacial
+    view_source_label: orixinal
+    view_source_link: ver a imaxe orixinal
+    view_source_page_link: visitar a fonte
+  content_not_in_any_collection_image: Esta imaxe non aparece en ningunha colección.
+  content_not_in_any_collection_sound: Este son non aparece en ningunha colección.
+  content_not_in_any_collection_video: Este vídeo non aparece en ningunha colección.
+  data:
+    modifier:
+      sex_term: Sexo do organismo medido
+      lifestage_term: Fase vital do organismo medida
+      statistical_method_term: Método estatístico empregado para a medición
+  data_missing: '(faltan datos, claves: %{keys})'
+  dear_username_with_comma: 'Ola, %{username}:'
+  delete_account_button: Eliminar a túa conta
+  errors:
+    internal_server: Erro interno do servidor (500)
+    not_found: Non se atopou a páxina (404)
+  filter_by_license: licenza
+  filter_by_license_any_item: calquera licenza
+  filter_by_medium_subtype: tipo
+  filter_by_medium_any_item: calquera tipo
+  filter_by_resource: provedor
+  filter_by_resource_any_item: calquera provedor
+  filters:
+    filter_by_attribute: filtrar por atributo
+    filter_by_language: filtrar por lingua
+    filter_by_provider: filtrar por provedor
+  footer:
+    eol_info:
+      citing_eol: Citar a EOL
+      contact_us: Contacta connosco
+      data_services: Servizos de datos
+      donate: Doazóns
+      education: Educación
+      food_webs: Redes tróficas
+      glossary: Glosario
+      help: Axuda
+      language_support: Soporte lingüístico
+      terms_of_use: Condicións de uso
+      the_eol_forum: O foro da EOL
+      what_is_eol: Que é a EOL?
+      whats_new: Novidades
+    discover:
+      algae: Algas
+      amphibians: Anfibios
+      animals: Animais
+      archaea: Arqueas
+      bacteria: Bacterias
+      birds: Aves
+      crustaceans: Crustáceos
+      fishes: Peixes
+      flowering_plants: Anxiospermas
+      fungi: Fungos
+      insects: Insectos
+      invertebrates: Invertebrados
+      mammals: Mamíferos
+      molds: Mofos
+      mushrooms: Cogomelos
+      mollusks: Moluscos
+      plants: Plantas
+      protists: Protistas
+      reptiles: Réptiles
+      spiders: Arañas
+      trees: Árbores
+      viruses: Virus
+      worms: Vermes
+    eol_is_hosted_by: 'A EOL está aloxada por:'
+  forgot_your_password: Esqueciches o contrasinal?
+  gbif_download:
+    created: Creouse a tarefa de descarga de GBIF. Consulta a <a href="%{url}">páxina
+      do teu perfil de usuario</a> para ver o seu estado.
+  landing_page:
+    header: Acceso global ao coñecemento sobre a vida na Terra
+    stats_cleared: Recalculáronse as estatísticas.
+  language: Lingua
+  languages:
+    ab: abkhazo
+    q27683: achinés
+    q27776: adigueo
+    aa: afar
+    af: afrikaans
+    ak: akan
+    alb: albanés
+    sq: albanés
+    q131339: alemánico
+    am: amhárico
+    ar: árabe
+    an: aragonés
+    hy: armenio
+    as: assamés
+    q29507: asturiano
+    q56590: atikamekw
+    av: ávaro
+    ae: avéstico
+    ay: aimará
+    q9292: azarí
+    az: azarí
+    q33070: balinés
+    bm: bambara
+    q33151: banjar
+    ba: baxkir
+    eu: éuscaro
+    q29540: bavarés
+    be: belaruso
+    q8836490: bende
+    bn: bengalí
+    bh: linguas bihari
+    bi: bislama
+    nb: noruegués bokmål
+    q4941378: bondei
+    bs: bosníaco
+    q33202: brahui
+    q750553: portugués brasileiro
+    br: bretón
+    bg: búlgaro
+    my: birmano
+    q33120: buriato
+    q35037: aucan
+    q880301: francés de Luisiana
+    q2937525: capiznon
+    q35156: car
+    q2591230: cashinahua
+    ca: catalán; valenciano
+    q33239: cebuano
+    khm: khmer
+    km: khmer
+    ch: chamorro
+    q33281: chavacano
+    ce: checheno
+    q33388: cherokee
+    q33265: cheyenne
+    ny: chewa
+    zh: chinés
+    chi: chinés
+    q32979: choctaw
+    cu: antigo eslavo eclesiástico
+    cv: chuvaxo
+    q37041: chinés clásico
+    kw: córnico
+    co: corso
+    cr: cree
+    q33357: tártaro de Crimea
+    hr: croata
+    hrv: croata
+    cs: checo
+    q32238: dagbani
+    da: dinamarqués
+    q3362072: digo
+    q56466: dinka
+    dv: maldivano
+    q18415595: doteli
+    q33013: duala
+    dut: neerlandés; flamengo
+    nl: neerlandés; flamengo
+    dz: dzongkha
+    dzo: dzongkha
+    q4126517: inuktitut
+    en: inglés
+    q29952: erzya
+    eo: esperanto
+    et: estoniano
+    est: estoniano
+    ee: ewe
+    fo: feroés
+    fj: fixiano
+    fi: finés
+    fin: finés
+    q667747: fipa
+    fr: francés
+    fra: francés
+    ff: fula
+    gd: gaélico escocés
+    gl: galego
+    q33475: gan
+    lg: luganda
+    ka: xeorxiano
+    de: alemán
+    deu: alemán
+    q5575236: konkani
+    q3272630: gogo
+    q2501174: gorontalo
+    el: grego moderno (1453-)
+    gre: grego
+    gn: guaraní
+    gu: gujarati
+    q33303: haida
+    ht: crioulo haitiano
+    ha: hausa
+    q35756: haya
+    he: hebreo
+    heb: hebreo
+    q3129390: hehe
+    hz: herero
+    q35978: hiligainón
+    hi: hindi
+    ho: hiri motu
+    hu: húngaro
+    is: islandés
+    ice: islandés
+    io: ido
+    ig: igbo
+    q35936: ilocano
+    id: indonesio
+    q33509: inguxo
+    ia: interlingua (International Auxiliary Language Association)
+    ie: interlingue
+    iu: inuktitut
+    ik: inupiaq
+    q33595: iraqw
+    ga: irlandés
+    it: italiano
+    ita: italiano
+    q35939: patois xamaicano
+    ja: xaponés
+    jp: xaponés
+    jv: xavanés
+    q33522: kabardino
+    q35475: kabiye
+    q35853: cabilo
+    kl: groenlandés
+    q33634: calmuco
+    kn: kanarés
+    kr: kanuri
+    q36121: kapampangan
+    q33541: karakalpak
+    ks: caxemirés
+    q33690: caxubio
+    kk: kazako
+    ki: kikuyu
+    q33656: saami de Kildin
+    q33720: kinaray-a
+    q11005332: kinga
+    q11732519: kingindo
+    rw: kiñaruanda
+    ky: kirguiz
+    kv: komi
+    kg: congo
+    ko: coreano
+    kor: coreano
+    kj: kwanyama
+    ku: kurdo
+    q36206: lak
+    lo: laosiano
+    lao: laosiano
+    la: latín
+    lv: letón
+    q1160372: laz
+    q31746: lezguio
+    q36106: lígur
+    li: limburgués
+    ln: lingala
+    q146803: lingua franca nova
+    lt: lituano
+    lit: lituano
+    q33698: livonio
+    q36584: livvi
+    q33754: lombardo
+    q168446: baixo saxón
+    q13286: baixo sorbio
+    lu: luba-katanga
+    q3437661: luguru
+    lb: luxemburgués
+    q35787: masai
+    mk: macedonio
+    q497345: fráncico oriental
+    q36109: maithili
+    mg: malgaxe
+    ms: malaio
+    ml: malayalam
+    mt: maltés
+    mlt: maltés
+    gv: manx
+    mi: maorí
+    mr: marathi
+    mh: marshalés
+    q6786446: matengo
+    q3906614: mari das pradeiras
+    q13357: meänkieli
+    q13358: meglenorromanés
+    q13313: meru
+    q13321: micmac
+    q36455: min dong
+    q13324: minangkabau
+    q13359: mingreliano
+    q13330: mirandés
+    q13343: moksha
+    mn: mongol
+    q56426: árabe marroquí
+    q6944725: mwera
+    q13300: náhuatl
+    q3508074: nai
+    na: nauruano
+    nv: navagho
+    nd: ndebele setentrional
+    nr: ndebele meridional
+    ng: ndonga
+    q33845: napolitano
+    ne: nepalés
+    q7022366: ngindo
+    q28224: frisón setentrional
+    q19933293: luri setentrional
+    se: saami setentrional
+    "no": noruegués
+    nno: noruegués
+    nob: noruegués
+    nor: noruegués
+    nn: noruegués nynorsk
+    q36738: novial
+    q3272620: nyakyusa
+    q4121131: nyamwezi
+    q7193418: nyaturu
+    q11128374: nyiha
+    q16115145: nyika
+    oc: occitano (despois de 1500)
+    q28602: arameo oficial
+    oj: ojibwa
+    or: oriya
+    om: oromo
+    os: oseto
+    q715755: paiwan
+    pi: pali
+    pa: panxabí
+    q36403: pare
+    fa: persa
+    q23014: alemán do Palatinado
+    q34024: picardo
+    q15085: piemontés
+    q2429648: pogoro
+    pl: polaco
+    pol: polaco
+    q36748: póntico
+    pt: portugués
+    ps: paxto
+    qu: quechua
+    q584983: rangi
+    ro: romanés; moldovo
+    rm: romanche
+    rn: kirundi
+    ru: ruso
+    rus: ruso
+    q26245: ruteno
+    q34299: iacuto
+    q718269: sakizaya
+    sm: samoano
+    q213434: samoxiciano
+    q34016: sandawe
+    sg: sango
+    sa: sánscrito
+    q33965: santali
+    sc: sardo
+    q845441: sassarés
+    q14549: scots
+    q716686: seediq
+    sr: serbio
+    q3788739: shambala
+    q56482: shan
+    sn: shona
+    q34004: shona
+    ii: nuosu
+    q33973: siciliano
+    sd: sindhi
+    si: cingalés
+    sk: eslovaco
+    slk: eslovaco
+    sl: esloveno
+    so: somalí
+    som: somalí
+    st: sesotho
+    es: castelán de España
+    slv: castelán
+    q2638144: sukuma
+    su: sundanés
+    sw: suahili
+    ss: suazi
+    sv: sueco
+    swe: sueco
+    tl: tagalo
+    ty: tahitiano
+    tg: taxico
+    q34318: talysh
+    ta: támil
+    tt: tártaro
+    te: telugu
+    th: tailandés
+    tha: tailandés
+    bo: tibetano
+    ti: tigriña
+    q34159: tok pisin
+    to: tongano
+    q180937: albanés tosco
+    ts: tsonga
+    tn: tswana
+    q34251: tulu
+    q34138: tumbuka
+    q56240: árabe tunisiano
+    tr: turco
+    tur: turco
+    q36730: turco otomán
+    tk: turcomán
+    tw: akan
+    q13238: udmurto
+    ug: uigur
+    uk: ucraíno
+    ukr: ucraíno
+    none: Sen especificar
+    q13248: alto sorbio
+    ur: urdú
+    uz: uzbeko
+    ve: venda
+    q32747: vepsio
+    vi: vietnamita
+    vo: volapük
+    q32858: vótico
+    wa: valón
+    q34279: waray-waray
+    cy: galés
+    wel: galés
+    q100103: flamengo occidental
+    fy: frisón occidental
+    wo: wólof
+    q34290: wu
+    xh: xhosa
+    yi: yiddish
+    yo: ioruba
+    q10199: zazaki
+    q237409: zelandés
+    za: zhuang
+    zu: zulú
+    Q33219: banyumasan
+  layout_sign_in: Iniciar sesión
+  layout_sign_up: Rexistrarse
+  layout_sign_out: Pechar sesión
+  literature_and_references_header: Literatura e referencias
+  maps:
+    empty: Non hai mapas dispoñibles para esta páxina.
+    occurrence_caption: Presenzas coñecidas, exemplares recollidos e observacións
+      de «%{page_name}». Ver esta especie en GBIF.
+    occurrence_caption_w_link_html: Presenzas coñecidas, exemplares recollidos e observacións
+      de «%{page_name}» en <a href='https://gbif.org'>Global Biodiversity Information
+      Facility %{gbif_logo}</a> &nbsp;&nbsp;GBIF proporciona acceso gratuíto e aberto
+      a datos de biodiversidade. <a href='%{url}'>Ver esta especie en GBIF <i class='fa
+      fa-external-link'></i></a>
+    other_maps_title: Mapas non interactivos
+  medium:
+    untitled:
+      image: Imaxe sen título
+      image_of: Imaxe de %{page_name}
+      video: Vídeo sen título
+      video_of: Vídeo de %{page_name}
+      sound: Son sen título
+      sound_of: Son de %{page_name}
+      map: Mapa sen título
+      map_of: Mapa de %{page_name}
+      js_map: Mapa interactivo sen título
+      js_map_of: Mapa interactivo de %{page_name}
+    subcategories:
+      image: imaxe
+      video: vídeo
+      sound: son
+      map_image: mapa
+      js_map: mapa interactivo
+  medium_collect_button: coleccionar multimedia
+  medium_description_blank: Non se proporcionou ningunha descrición para este obxecto.
+  medium_header_title: 'Título:'
+  medium_header_description: 'Descrición:'
+  names:
+    hide_langs:
+      one: agochar unha lingua
+      other: agochar %{count} linguas
+    prefer: preferir
+    preferred_in_language_for_page: «%{name}» é agora o nome vernáculo preferido en
+      %{language} para «%{page}»
+    show_more_langs:
+      one: mostrar unha lingua máis
+      other: mostrar %{count} linguas máis
+  nav:
+    about: Acerca de
+    discuss: Conversa
+    education: Educación
+    search:
+      no_results_html: <strong>Non hai resultados confirmados</strong><br />Preme
+        «Intro» para ver os resultados sen preservar
+      placeholder: Buscar na EOL...
+  name_preferred_label: preferido
+  page_icon_counts:
+    header:
+      one: Mellor imaxe para a páxina
+      other: Mellor imaxe para as páxinas
+  page_icon_created: Moveuse a imaxe «%{name}» ao principio.
+  page_title: Enciclopedia da vida
+  page_title_search: 'Busca: %{query}'
+  page_vernaculars_empty: Non hai ningún nome común asociado a este taxon.
+  pages:
+    actions:
+      collect: coleccionar
+      comment:
+        zero: comentario
+        one: '%{count} comentario'
+        other: '%{count} comentarios'
+      reindex: reindexar
+    batch_lookup:
+      header: busca de páxinas por lotes
+      canonical_name: nome canónico
+      download_tsv: descargar o TSV
+      match: correspondencia
+      new_search: nova busca
+      page_id: identificador da páxina
+      page_url: URL da páxina
+      query: consulta
+      query_cant_be_blank: a consulta non pode estar en branco
+      search: buscar
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL ten datos para <a href="%{data_path}">un atributo</a>:'
+        other: 'EOL ten datos para <a href="%{data_path}">%{count} atributos</a>,
+          incluíndo:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL ten datos para <a href="%{data_path}">un atributo</a>.
+        other: EOL ten datos para <a href="%{data_path}">%{count} atributos</a>.
+    filter_menu:
+      show_all: mostrar todo
+    page_data:
+      habitat_wordcloud_tooltip: Os nosos rexistros de hábitats baséanse principalmente
+        en textos, polo que moitos termos se atopan varias veces; os termos de hábitat
+        máis comúns (que se mostran máis grandes na nube de palabras) teñen máis probabilidades
+        de seren importantes. Todos os rexistros aparecen listados a continuación.
+      n_hidden_show_all:
+        one: 1 rexistro «%{pred_name}» agochado — mostrar todo
+        other: '%{count} rexistros «%{pred_name}» agochados — mostrar todo'
+      n_hidden_show_all_noname:
+        one: 1 rexistro agochado — mostrar todo
+        other: '%{count} rexistros agochados — mostrar todo'
+      show_all: mostrar todo
+    resource_names:
+      name_recognized_by: Recoñecido por %{by}
+      name_recognized_by_w_rank: '%{rank} recoñecido por %{by}'
+      name_recognized_by_w_status: '%{status} segundo %{by}'
+      rank:
+        r_domain: Dominio
+        r_subdomain: Subdominio
+        r_infradomain: Infradominio
+        r_superkingdom: Superreino
+        r_kingdom: Reino
+        r_subkingdom: Subreino
+        r_infrakingdom: Infrarreino
+        r_superphylum: Superfilo
+        r_phylum: Filo
+        r_subphylum: Subfilo
+        r_infraphylum: Infrafilo
+        r_superclass: Superclase
+        r_class: Clase
+        r_subcategory: Subclase
+        r_infraclass: Infraclase
+        r_superorder: Superorde
+        r_order: Orde
+        r_suborder: Suborde
+        r_infraorder: Infraorde
+        r_superfamily: Superfamilia
+        r_family: Familia
+        r_subfamily: Subfamilia
+        r_infrafamily: Infrafamilia
+        r_tribe: Tribo
+        r_supergenus: Superxénero
+        r_genus: Xénero
+        r_subgenus: Subxénero
+        r_infragenus: Infraxénero
+        r_superspecies: Superespecie
+        r_species: Especie
+        r_subspecies: Subespecie
+        r_infraspecies: Infraespecie
+        r_form: Forma
+      reference_taxon_attrib: Taxon de referencia de «%{dataset_name}»
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
+        (%{remarks})
+      username_missing: usuario %{user_id}
+    trophic_web:
+      competitor: Competidor
+      globi_credit_html: datos de <a href='%{url}'>GloBI</a>
+      predator: Depredador
+      prey: Presa
+      reset: restablecer
+      trophic_web_about: Os diagramas da rede trófica da EOL céntranse nas relacións
+        alimentarias dunha especie; mostran a especie focal xunto coas especies das
+        que se alimenta (presas), as especies que se alimentan dela (depredadores)
+        e outras especies que se alimentan da mesma presa (competidores potenciais).
+        Fai clic para obter máis información.
+      trophic_web_title_html: Rede trófica <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
+    flash:
+      reindexed: Borráronse as cachés desta páxina. Recarga para ver os valores novos.
+        TEN EN CONTA que, polo momento, isto *non* reindexa as imaxes da páxina. Esa
+        funcionalidade implementarase nunha data futura.
+    native_node_missing_warning: non hai dispoñible información de xerarquía
+    tabs:
+      articles: artigos
+      classifications: clasificacións
+      data: datos
+      literature_and_references: literatura e referencias
+      overview: vista xeral
+      maps: mapas
+      media: multimedia
+      names: nomes
+    iucn_status:
+      label: 'Estado segundo a IUCN:'
+      ex: extinta (EX)
+      ew: extinta en estado silvestre (EW)
+      cr: en perigo crítico (CR)
+      en: en perigo (EN)
+      vu: vulnerable (VU)
+      nt: case ameazada (NT)
+      lc: preocupación menor (LC)
+      dd: datos insuficientes (DD)
+      ne: non avaliada (NE)
+      unknown: descoñecido (sen rexistros)
+    unresolved_name: Nome sen resolver
+    unresolved_name_prefix: 'Nome sen resolver:'
+  page_titles:
+    pages:
+      data: Datos de «%{page_name}»
+      media: Multimedia de «%{page_name}»
+      maps: Mapas de «%{page_name}»
+      names: Nomes de «%{page_name}»
+      articles: Artigos de «%{page_name}»
+    traits:
+      search: Busca de trazos
+  rank:
+    name:
+      r_domain: dominio
+      r_subdomain: subdominio
+      r_infradomain: infradominio
+      r_superkingdom: superreino
+      r_kingdom: reino
+      r_subkingdom: subreino
+      r_infrakingdom: infrarreino
+      r_superphylum: superfilo
+      r_phylum: filo
+      r_subphylum: subfilo
+      r_infraphylum: infrafilo
+      r_superclass: superclase
+      r_class: clase
+      r_subcategory: subcategoría
+      r_infraclass: infraclase
+      r_superorder: superorde
+      r_order: orde
+      r_suborder: suborde
+      r_infraorder: infraorde
+      r_superfamily: superfamilia
+      r_family: familia
+      r_subfamily: subfamilia
+      r_infrafamily: infrafamilia
+      r_tribe: tribo
+      r_supergenus: superxénero
+      r_genus: xénero
+      r_subgenus: subxénero
+      r_infragenus: infraxénero
+      r_superspecies: superespecie
+      r_species: especie
+      r_subspecies: subespecie
+      r_infraspecies: infraespecie
+      r_form: forma
+  recaptcha: reCAPTCHA
+  recaptcha_error: Por favor, dinos que non es un robot.
+  reconciliation:
+    schema_space:
+      headers:
+        id: ID
+        name: Nome
+        description: Descrición
+  reference_compiled_from: Referenciado por %{links}
+  resources:
+    actions:
+      republish: republicar
+      clean_republish: limpar a republicación
+      diff: dif
+      reindex: reindexar
+      fix_no_names: corrixir «SEN NOME»
+      index: volver a todos os recursos
+      show_all:
+        other: mostrar todo (%{count})
+    headers:
+      index: Recursos
+  search_results:
+    medium_article: Artigo
+    medium_image: Imaxe
+    medium_map: Mapa
+    medium_sound: Son
+    medium_video: Vídeo
+    medium_title_article_html: 'Artigo: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Imaxe: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Mapa: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Son: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Vídeo: <span class=''sub''>%{title}</span>'
+    empty: Non hai resultados.
+  sections:
+    wikipedia: Wikipedia
+  settings: configuración
+  show_date: Mostrar a data de publicación
+  sign_in: Iniciar sesión
+  sign_up: Rexistrarse
+  signature_with_contact_us_link: |-
+    Se tes algún problema, ponte en contacto connosco en %{url}.
+
+    O equipo da Enciclopedia da vida
+  did_not_receive_confirmation_instructions: Non recibín as instrucións de confirmación
+  simple_form:
+    "yes": Si
+    "no": Non
+    required:
+      text: obrigatorio
+    error_notification:
+      default_message: 'Revisa os seguintes problemas:'
+  stats:
+    articles: artigos
+    collections: coleccións
+    data: rexistros de datos
+    media: multimedia
+    pages: páxinas
+    nodes: nós
+    scientific_names: nomes
+    users: usuarios
+    references: referencias
+...
