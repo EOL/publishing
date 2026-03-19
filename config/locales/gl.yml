@@ -939,25 +939,143 @@ gl:
   recaptcha: reCAPTCHA
   recaptcha_error: Por favor, dinos que non es un robot.
   reconciliation:
+    id_space:
+      intro: Cada identificador de entidade devolto pola API de reconciliación é a
+        parte da ruta do enderezo URL para a representación xeral desa entidade na
+        EOL, de xeito que un determinado identificador pode substituírse en «https://eol.org/<id>»
+        para obter un enderezo URL válido para a entidade. O formato dos identificadores
+        de cada tipo descríbese a continuación.
+      headers:
+        type_id: Identificador do tipo
+        type_name: Nome do tipo
+        id_format: Formato do identificador
+      type_names:
+        taxon: Taxon
+      numeric_id: identificador numérico
+    property:
+      description:
+        ancestor: Un taxon que é antepasado doutro taxon.
+        conservation_status: O estado de conservación do taxon.
+        extinction_status: O estado de extinción do taxon. Os valores posibles son
+          «extinto» e «existente».
+        rank: Unha cadea de caracteres que describe o rango dun taxon; por exemplo,
+          «especie». As categorías non recoñecidas non se puntúan.
+      name:
+        ancestor: Antepasado
+        conservation_status: Estado de conservación
+        extinction_status: Estado de extinción
+        rank: Categoría
+    property_settings:
+      limit:
+        label: Límite
+        help_text: Número máximo de valores a devolver por fila («0» para que non
+          haxa límite)
     schema_space:
+      intro: A continuación descríbese o conxunto de propiedades que emprega o servizo
+        da API de reconciliación.
       headers:
         id: ID
         name: Nome
         description: Descrición
   reference_compiled_from: Referenciado por %{links}
+  reference_compiled_from_article: Artigo de %{source} titulado «%{name}»
+  register_new_account: Rexistrar unha conta nova
   resources:
     actions:
+      import_traits: importar os trazos (desde o repositorio)
       republish: republicar
       clean_republish: limpar a republicación
       diff: dif
+      republish_confirm: Isto eliminará TODO o contido do recurso (agás os trazos,
+        que usarán unha diferenza). QUERES CONTINUAR?!
+      clean_republish_confirm: Isto eliminará TODO o contido do recurso e NON usará
+        as diferenzas de trazos. QUERES CONTINUAR?!
       reindex: reindexar
       fix_no_names: corrixir «SEN NOME»
       index: volver a todos os recursos
       show_all:
         other: mostrar todo (%{count})
+      show_warns:
+        one: mostrar o aviso (%{count})
+        other: mostrar os avisos (%{count})
+      clear_publishing: quitar o bloqueo
+      clear_publishing_confirm: Isto «rematará» todas as publicacións e pode provocar
+        problemas se se utiliza mentres hai unha publicación activa. Queres continuar?
     headers:
       index: Recursos
+      import_log: Rexistro de importacións de «%{resource}»
+    index:
+      locked_jobs:
+        zero: ningún traballo en execución
+        one: 1 traballo en execución
+        other: '%{count} traballos en execución'
+      jobs:
+        zero: ningún traballo pendente
+        one: 1 traballo pendente
+        other: '%{count} traballos pendentes'
+      harvest_jobs:
+        zero: ningúnha publicación pendente
+        one: 1 publicación pendente
+        other: '%{count} publicacións pendentes'
+    no_events: Ningún!
+  resource_missing: non se atopou o recurso
+  scientific_name:
+    status_title:
+      accepted: Nomes aceptados
+      alternative: Nomes alternativos
+      preferred: Nomes preferidos
+      unusable: Nomes inutilizables
+      synonym: Sinónimos
+  scientific_names_header: Nomes científicos
+  send_me_reset_password_instructions: Enviádeme as instrucións para restablecer o
+    contrasinal
+  search:
+    blank_q_msg: Podes buscar o contido da EOL usando a barra que aparece na parte
+      superior da páxina.
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: Coincidencias para «%{text}»
+    flash:
+      cannot_combine_paths: Non se puideron combinar os resultados con «%{path}»
+      more_than_one_species: Non se puideron combinar os resultados para «%{species}»
+      more_than_two_terms: 'Non se puideron combinar os resultados de máis de dous
+        termos: %{terms}'
+    n_articles:
+      one: '%{count} artigo'
+      other: '%{count} artigos'
+    n_collections:
+      one: '%{count} colección'
+      other: '%{count} coleccións'
+    n_images:
+      one: '%{count} imaxe'
+      other: '%{count} imaxes'
+    n_results:
+      zero: Non hai resultados
+      one: '%{count} resultado'
+      other: '%{count} resultados'
+    n_sounds:
+      one: '%{count} son'
+      other: '%{count} sons'
+    n_taxon_pages:
+      one: '%{count} páxina de taxon'
+      other: '%{count} páxinas de taxons'
+    n_users:
+      one: '%{count} usuario'
+      other: '%{count} usuarios'
+    n_videos:
+      one: '%{count} vídeo'
+      other: '%{count} vídeos'
+    n_terms:
+      one: '%{count} termo'
+      other: '%{count} termos'
   search_results:
+    collection_page_count:
+      one: '%{count} páxina'
+      other: '%{count} páxinas'
+    collection_page_count_and_users:
+      one: '%{count} páxina; mantida por %{users_sentence}'
+      other: '%{count} páxinas; mantidas por %{users_sentence}'
+    collected_media:
+      title: 'contido multimedia recollido desta páxina:'
     medium_article: Artigo
     medium_image: Imaxe
     medium_map: Mapa
@@ -969,7 +1087,103 @@ gl:
     medium_title_sound_html: 'Son: <span class=''sub''>%{title}</span>'
     medium_title_video_html: 'Vídeo: <span class=''sub''>%{title}</span>'
     empty: Non hai resultados.
+    field_matches:
+      description: 'coincide coa descrición:'
+      resource_pk: 'coincide co identificador externo:'
+      bio: 'coincide coa biografía:'
+      tag_line: 'coincide co slogan:'
+      resources:
+        one: 'coincide co recurso:'
+        other: 'coincide cos recursos:'
+      synonyms:
+        one: 'coincide co sinónimo:'
+        other: 'coincide cos sinónimos:'
+      vernaculars:
+        one: 'coincide co nome común:'
+        other: 'coincide cos nomes comúns:'
+    section_titles:
+      collections:
+        one: '%{count} colección'
+        other: '%{count} coleccións'
+      media:
+        one: '%{count} ficheiro multimedia'
+        other: '%{count} ficheiros multimedia'
+      pages:
+        one: '%{count} páxina da EOL (especie)'
+        other: '%{count} páxinas da EOL (especies)'
+      object_terms:
+        one: '%{count} valor do rexistro de datos (TraitBank)'
+        other: '%{count} valores do rexistro de datos (TraitBank)'
+      predicates:
+        one: '%{count} tipo de rexistro de datos (TraitBank)'
+        other: '%{count} tipos de rexistro de datos (TraitBank)'
+      users:
+        one: '%{count} usuario'
+        other: '%{count} usuarios'
+    collection_title_html: 'Colección: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTIGO
+        other: '%{count} ARTIGOS'
+      n_data:
+        one: 1 DATO
+        other: '%{count} DATOS'
+      n_media:
+        one: 1 FICHEIRO MULTIMEDIA
+        other: '%{count} FICHEIROS MULTIMEDIA'
+    user_title_html: 'Usuario: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: crear unha nova suxestión de busca
+    created: Suxestión de busca creada para «%{match}»
+    destroyed: Suxestión de busca destruída para «%{match}»
+    new:
+      header: Crear unha suxestión de busca
+    update:
+      header: Actualizar a suxestión de busca
+    index:
+      header: Suxestións de busca
   sections:
+    associations: Asociacións
+    behavior: Comportamento
+    benefits: Beneficios
+    brief_summary: Breve resumo
+    comprehensive_description: Descrición exhaustiva
+    conservation: Conservación
+    conservation_status: Estado de conservación
+    cyclicity: Ciclicidade
+    diagnostic_description: Descrición diagnóstica
+    diseases_and_parasites: Enfermidades e parasitos
+    dispersal: Dispersión
+    distribution: Distribución
+    ecology: Ecoloxía
+    evolution_and_systematics: Evolución e sistemática
+    general_ecology: Ecoloxía xeral
+    genetics: Xenética
+    growth: Crecemento
+    habitat: Hábitat
+    identification_resources: Recursos de identificación
+    life_expectancy: Esperanza de vida
+    life_history_and_behavior: Ciclo vital e comportamento
+    management: Xestión
+    migration: Migración
+    molecular_biology: Bioloxía molecular
+    molecular_biology_and_genetics: Bioloxía molecular e xenética
+    morphology: Morfoloxía
+    names_and_taxonomy: Nomes e taxonomía
+    notes: Notas
+    overview: Vista xeral
+    physiology_and_cell_biology: Fisioloxía e bioloxía celular
+    physical_description: Descrición física
+    relevance_to_humans_and_ecosystems: Relevancia para os seres humanos e os ecosistemas
+    reproduction: Reprodución
+    risks: Riscos
+    size: Tamaño
+    taxonomy: Taxonomía
+    threats: Ameazas
+    trends: Tendencias
+    trophic_strategy: Estratexia trófica
+    type_information: Información do tipo
     wikipedia: Wikipedia
   settings: configuración
   show_date: Mostrar a data de publicación
@@ -987,6 +1201,22 @@ gl:
       text: obrigatorio
     error_notification:
       default_message: 'Revisa os seguintes problemas:'
+    labels:
+      defaults:
+        email: Correo electrónico
+        password: Contrasinal
+        password_confirmation: Confirmación do contrasinal
+        remember_me: Lembrádeme
+        username: Nome de usuario
+        bio: Biografía
+      search_suggestion:
+        match: buscar texto que coincida
+        page_id: identificador da páxina da EOL á que redirixir (ou pola que filtrar)
+        synonym_of_id: identificador (!) da suxestión de busca que se usará no seu
+          lugar
+        object_term: URI ao que redirixir (ou polo que filtrar)
+        path: ruta (completa ou relativa) á que redirixir
+        wkt_string: cadea WKT para pasar a Effechecka
   stats:
     articles: artigos
     collections: coleccións
@@ -997,4 +1227,343 @@ gl:
     scientific_names: nomes
     users: usuarios
     references: referencias
+  term_query:
+    invalid_obsolete: INVÁLIDO/OBSOLETO
+    validations:
+      empty_filters_error_record: debes proporcionar un filtro cun atributo ou un
+        valor para as buscas de rexistros
+      empty_filters_error_taxa: debes proporcionar un clado ou un filtro cun atributo
+        ou un valor para as buscas de taxons
+  term_query_filter:
+    validations:
+      blank_error: debe especificar un atributo ou un valor
+      invalid_uri: URI non válido
+      multi_obj_error: non pode haber un termo de obxecto e un clado obxectivo ao
+        mesmo tempo
+      pred_uri_blank_obj_clade_error: non pode estar en branco cun clado obxectivo
+      pred_uri_blank_numeric_error: non pode estar en branco cun valor numérico
+      range_invalid_error: debe ser maior ou igual ao primeiro valor
+      units_blank_error: as unidades non poden estar en branco nas buscas numéricas
+  terms:
+    attribution_field_html: <strong>Recoñecemento:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Comentario:</strong> %{comment}
+    definition_field_html: <strong>Definición:</strong> %{definition}
+    source_field_html: <strong>Fonte:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL do rexistro
+    scientific_name: nome científico
+    show_all_records: mostrar todos os rexistros
+    source: fonte
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Selecciona unha páxina de enriba para comezar.
+  data_definition: definición de «%{data}»
+  traits:
+    data_viz:
+      about_this_chart: sobre este gráfico
+      about_this_chart_tooltip_1d: Este é un resumo baseado nos datos dispoñibles
+        na EOL. Pode estar incompleto! Podes seleccionar unha categoría do gráfico
+        para refinar os resultados da busca. Moitas categorías solápanse e unha mesma
+        especie pode estar incluída en máis dunha categoría.
+      about_this_chart_tooltip_assoc: Este é un resumo baseado nos datos dispoñibles
+        na EOL. Pode estar incompleto! Podes pasar o cursor sobre o nome dun taxon
+        para destacar as súas relacións. Unha ligazón verde significa que o taxon
+        sobre o que se coloca o cursor é o suxeito da asociación; unha ligazón púrpura
+        significa que é o obxecto. As buscas máis grandes resúmense por xénero ou
+        familia. Podes refinalas facendo clic no nome dun taxon.
+      about_this_chart_tooltip_sankey_2d: Este é un resumo baseado nos datos dispoñibles
+        na EOL. Pode estar incompleto! Podes seleccionar unha categoría en calquera
+        eixo para refinar os resultados da busca. Moitas categorías solápanse e unha
+        mesma especie pode estar incluída en máis dunha categoría no mesmo eixo.
+      about_this_chart_tooltip_sankey_3+: Este é un resumo baseado nos datos dispoñibles
+        na EOL. Pode estar incompleto! Podes seleccionar unha categoría en calquera
+        eixo para refinar os resultados da busca. Moitas categorías solápanse e unha
+        mesma especie pode estar incluída en máis dunha categoría no mesmo eixo. Nunha
+        visualización de subconxuntos destacados, estas especies de valores múltiples
+        contaranse varias veces noutros eixos.
+      about_this_chart_tooltip_taxon_summary: Este é un resumo dos grupos taxonómicos
+        para os que a EOL ten datos que coinciden coa túa busca. Pode estar truncado
+        para axustarse ao tamaño da pantalla. Podes seleccionar un grupo do gráfico
+        para ver os subgrupos ou para refinar os resultados da busca.
+      other_term_name: outro %{term_name}
+      hist_value_label: valor (%{units})
+      n_family_records:
+        one: un rexistro para os taxons na familia «%{family}»
+        other: '%{count} rexistros para os taxons na familia «%{family}»'
+      n_family_taxa:
+        one: un taxon na familia «%{family}»
+        other: '%{count} taxons na familia «%{family}»'
+      n_other_records:
+        one: outro rexistro
+        other: outros %{count} rexistros
+      n_other_taxa:
+        one: outro taxon
+        other: outros %{count} taxons
+      num_records_label: número de rexistros
+      other: outro
+      page_habitat_header: Hábitats de %{name}
+      page_habitat_explanation: Os ambientes nos que se sabe que viven moitas especies
+        de %{name}. Selecciona un ambiente para ver a súa lista de verificación de
+        especies de %{name}.
+      pie_prompt: pasa o cursor sobre un segmento ou unha clave para resaltar
+      show_n_family_records:
+        one: preme para ver un rexistro para os taxons na familia «%{family}»
+        other: preme para ver %{count} rexistros para os taxons na familia «%{family}»
+      show_n_family_taxa:
+        one: preme para ver un taxon na familia «%{family}»
+        other: preme para ver %{count} taxons na familia «%{family}»
+      n_obj_records:
+        one: un rexistro con «%{obj_name}»
+        other: '%{count} rexistros con «%{obj_name}»'
+      n_taxa_with:
+        one: un taxon con «%{obj_name}»
+        other: '%{count} taxons con «%{obj_name}»'
+      sankey_node_hover: preme para restrinxir a busca a «%{term_name}»
+      see_n_obj_records:
+        one: preme para ver un rexistro con «%{obj_name}»
+        other: preme para ver %{count} rexistros con «%{obj_name}»
+      see_n_taxa_with:
+        one: preme para ver un taxon con «%{obj_name}»
+        other: preme para ver %{count} taxons con «%{obj_name}»
+      show_n_records_between:
+        one: preme para ver %{count} rexistro con valores de medición en [%{min},
+          %{limit}] %{units}
+        other: preme para ver %{count} rexistros con valores de medición en [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: preme para ver %{count} taxon con valores de medición en [%{min}, %{limit}]
+          %{units}
+        other: preme para ver %{count} taxons con valores de medición en [%{min},
+          %{limit}] %{units}
+      show_link:
+        associations_summary: mostrar o resumo das asociacións
+        attribute_summary: mostrar o resumo dos atributos
+        taxon_summary: mostrar o resumo do taxon
+      taxon_summary:
+        click_to_filter: preme para filtrar
+        click_to_filter_by: preme para filtrar por «%{name}»
+      toggle_text:
+        taxon_summary: mostrar o resumo do taxon
+        trait_summary: mostrar o resumo dos atributos
+    properties:
+      citation: Cita bibliográfica
+      method: Método de medición
+      remarks: Observacións
+      sample_size: Tamaño da mostra
+      scientific_name: Nome científico
+      source: Fonte
+    search_hdr: Busca de datos
+    search_results:
+      clade: 'clado: %{clade}'
+      download_tsv: descargar o TSV
+      edit_filters: editar os filtros
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'fase vital: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'co valor: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} en [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'recurso: %{value}'
+        sex: 'sexo: %{value}'
+        statistical_method: 'método estatístico: %{value}'
+      gbif_search: Busca en GBIF
+      gbif_search_hover: atopar rexistros de coincidencias en GBIF para os taxons
+        nos resultados da busca (límite de 50)
+      result_header_records: Mostrando os rexistros do %{range_begin} ao %{range_end}
+        dun total de %{total} para %{page_count} taxons
+      result_header_taxa: Mostrando os resultados do %{range_begin} ao %{range_end}
+        dun total de %{total} taxons
+      result_header_taxa_notaxa: Mostrando os resultados do %{range_begin} ao %{range_end}
+        dun total de %{total}
+      result_header_records_notaxa: Mostrando os rexistros do %{range_begin} ao %{range_end}
+        dun total de %{total} para %{page_count}
+      new_search: nova busca
+      show_query: mostrar a consulta
+      switch_to_list: cambiar á vista de lista
+      switch_to_gallery: cambiar á vista de galería
+    search:
+      select:
+        child_term: seleccionar un termo secundario (opcional)
+        top_level:
+          object_term: ou seleccionar un valor
+          predicate: ou seleccionar un atributo
+    search_form:
+      attribute: atributo
+      attribute_eg: 'atributo (por exemplo: nivel trófico)'
+      clade_filter_placeholder: 'grupo (por exemplo: osos) (opcional)'
+      hide_additional_fields: agochar os campos adicionais
+      lifestage: fase vital
+      records_matching_all: rexistros para os taxons que coinciden con TODOS os filtros
+      resource: recurso
+      search: Buscar
+      sex: sexo
+      show_additional_fields: mostrar os campos adicionais
+      statistical_method: método estatístico
+      target_group: 'grupo obxectivo (por exemplo: salmón)'
+      taxa_matching_all: taxons que coinciden con TODOS os filtros
+      this_may_take_a_minute: Isto pode tardar un minuto
+      trait_filter: filtro de trazo
+      value: valor
+      value_eg: 'valor (por exemplo: herbívoro)'
+  trophic_web:
+    group_descriptions:
+      competitor: competidor de %{source_name}
+      predator: aliméntase de %{source_name}
+      prey: comido por %{source_name}
+      source: especie focal
+  trust:
+    unreviewed: sen revisar
+    trusted: fiable
+    untrusted: non fiable
+  user:
+    batch_page_lookup: Busca de páxinas por lotes
+    created_at: creación
+    download_queue: Cola de descarga de datos
+    grant_power: Conceder acceso de usuario avanzado
+    revoke_power: Revogar o acceso de usuario avanzado
+    edit_account_details: Editar os detalles da conta
+    email: Correo electrónico
+    to_commit_enter_current: Para gardar os cambios, introduce o teu contrasinal actual
+    form_labels:
+      age_confirm: Teño polo menos 13 anos
+      tou_confirm_html: Lin as <a href='%{tou_path}'>condicións de uso</a> e a <a
+        href='%{privacy_path}'>política de protección de datos</a>
+    headers:
+      bio: Breve biografía
+      collections: Coleccións
+      downloads: Descargas
+      links: Ligazóns
+    is_power_user: Este usuario está marcado como un usuario avanzado.
+    validations:
+      age_confirm: debes confirmar que tes polo menos 13 anos de idade
+      tou_confirm: debes confirmar que liches as condicións de uso e a política de
+        protección de datos
+    list_of_power_users: Lista de usuarios avanzados
+    new_password: Contrasinal novo
+    confirm_new_password: Confirma o contrasinal novo
+    showing_n_power_users:
+      one: Listando un usuario avanzado
+      other: Listando %{count} usuarios avanzados
+    trait_bank_cypher_form: Formulario de cifrado do banco de trazos
+    username: nome de usuario
+    update: Actualizar
+    update_email: Actualizar o correo electrónico
+  user_download:
+    created: O teu ficheiro procesarase en segundo plano. Consulta a túa <a href="%{url}">páxina
+      de usuario</a> para ver se rematou.
+    have_pending: Xa tes unha descarga pendente para esta consulta. Consulta a túa
+      <a href="%{url}">páxina de usuario</a> para ver se rematou.
+  users:
+    account_migration_header: 'Se te rexistraches na EOL antes do 15 de novembro de
+      2018:'
+    account_migration_notice: A información da túa conta, incluído o nome de usuario,
+      o correo electrónico asociado, a descrición do perfil e as coleccións que posuías,
+      importáronse á nova EOL. O teu nome de usuario segue sendo o teu nome para mostrar
+      no sitio, pero agora debes iniciar sesión co teu enderezo de correo electrónico.
+      Non puidemos migrar o teu contrasinal por motivos de seguridade; sentimos as
+      molestias. Podes restablecelo usando o proceso «Esquecín o contrasinal». Se
+      só iniciaches sesión cun provedor externo (Google, Twitter ou Facebook), ten
+      paciencia; estamos a resolver algúns problemas cos procesos de inicio de sesión
+      compartido.
+    sign_in: Iniciar sesión
+  vernacular_names_header: Nomes comúns
+  vernacular_preferred_by_resource: '%{resource} (prefire este nome)'
+  wordcloud_credit_html: xerado con <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} de %{n}'
+  term:
+    actions:
+      reindex: reindexar
+      sort: ordenar por
+    edit:
+      header: A editar «%{uri}»
+      submit: Gardar
+    fields:
+      name: 'nome:'
+      definition: 'definición:'
+      attribution: 'recoñecemento:'
+      comment: 'comentario:'
+      sections: 'seccións:'
+      is_hidden_from_glossary: 'agochar no glosario:'
+      is_hidden_from_overview: 'agochar na lapela de vista xeral:'
+    glossary:
+      full_title: Glosario de TODOS os termos relativos aos datos da EOL
+      predicate_title: Glosario de termos de tipo para os datos da EOL
+      object_term_title: Glosario de termos de valor para os datos da EOL
+      units_title: Glosario de termos de unidade para os datos da EOL
+    pagination:
+      next: páxina seguinte
+      previous: páxina anterior
+    inverse_name:
+      fallback: inverso de «%{term_name}»
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: é comido por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002632: ten ectoparasito
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002634: ten endoparasito
+        http://eol(dot)org/schema/terms/HasDispersalVector: vector de dispersión para
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: anfitrión de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002553: ten hiperparasito
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: ten vector
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002626: é asasinado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: cleptoparasitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008507: ten ovos postos por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002208: ten parasitoide
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: ten patóxeno
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: presa de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002618: visitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002622: flores visitadas por
+    name:
+      by_uri:
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mes'
+        http://eol(dot)org/schema/terms/percm2: /cm^2
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aalenian: idade
+          aaleniana
+        https://eol(dot)org/schema/terms/abnormal_habitat_choice: elección anormal
+          do hábitat
+        http://purl(dot)obolibrary(dot)org/obo/XPO_0131409: comportamento locomotor
+          anormal
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundancia
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000027: zona abisal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000212: zona abisopeláxica
+        http://eol(dot)org/schema/terms/acicular: acicular (en forma de agulla)
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002120: fonte termal ácida
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00001997: drenaxe ácida de minas
+        http://eol(dot)org/schema/terms/acidicFreshwaterMiningLake: lago de minaría
+          de auga doce ácida
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: solo ácido
+        http://eol(dot)org/schema/terms/activeForaging: recolector activo
+        http://eol(dot)org/schema/terms/ActiveGrowthPeriod: período de crecemento
+          activo
+        http://eol(dot)org/schema/terms/adaptiveStrategy: estratexia adaptativa
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002331: adhesivo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002870: solo de adobe
+        http://www(dot)ebi(dot)ac(dot)uk/efo/EFO_0001272: adulto
+        https://eol(dot)org/schema/terms/adventive: adventicio en
+        http://eol(dot)org/schema/terms/aerial: aéreo
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aéreo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000568: hábitat aéreo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Aeronian: idade
+          aeroniana
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00010505: aerosol
+        http://eol(dot)org/schema/terms/AfterHarvestRegrowthRate: taxa de rebrote
+          despois da colleita
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0027854: agatoxinas
+        http://eol(dot)org/schema/terms/age At Dispersal: idade de dispersión
+        http://eol(dot)org/schema/terms/AgeAtEyeOpening: idade de apertura dos ollos
+        http://eol(dot)org/schema/terms/AgeAtMaturity: idade de madurez
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000077: agrícola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_0010003: material agrícola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002259: solo agrícola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000519: terraza agrícola
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002265: residuos agrícolas
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000371: residuos agrícolas
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Albian: idade
+          albiana
+        http://rs(dot)tdwg(dot)org/dwc/terms/lifeStage: fase vital
 ...
