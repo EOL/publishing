@@ -1831,18 +1831,45 @@ gl:
         https://eol(dot)org/schema/terms/marineChemosyntheticHabitat: hábitat quimiosintético
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002237: chernozem
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000271: chott
+        http://eol(dot)org/schema/terms/ciliary_gliding: deslizamento ciliar
+        http://eol(dot)org/schema/terms/ciliary_mucus_feeder: nútrese de moco ciliar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000400: cono de cinza
+        http://eol(dot)org/schema/terms/CingulumWidth: ancho do cíngulo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000155: circo
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Cisuralian: época
+          cisuraliana
+        http://purl(dot)org/dc/terms/bibliographicCitation: cita
+        http://eol(dot)org/schema/terms/CITES_I: apéndice I de CITES
+        http://eol(dot)org/schema/terms/CITES_II: apéndice II de CITES
+        http://eol(dot)org/schema/terms/CITES_III: apéndice III de CITES
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000856: cidade
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002982: arxila
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000120: sedimento arxiloso
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00002262: solo arxiloso
         http://eol(dot)org/schema/terms/clearWater: auga clara
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000444: clareiro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000087: cantil
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: voluble
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000258: clina
         http://eol(dot)org/schema/terms/cloud_forest: bosque nubrado
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: tamaño da posta/cría/camada
         http://purl(dot)obolibrary(dot)org/obo/UO_0000015: cm
         http://purl(dot)obolibrary(dot)org/obo/UO_0000081: cm^2
         http://purl(dot)obolibrary(dot)org/obo/UO_0000097: cm^3
+        http://eol(dot)org/schema/terms/cnidaria_feeder: nútrese de cnidarios
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000416: duna costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000137: enseada costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000303: terra costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000090: chaira costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000237: matogueira costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002150: auga costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000230: zona húmida costeira
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00002140: seixo
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000115: sedimento de seixos
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000118: plantación de cocos
+        http://purl(dot)obolibrary(dot)org/obo/STATO_0000236: coeficiente de variación
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000163: plantación de café
         http://eol(dot)org/schema/terms/colonyDensity: densidade da colonia
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000014: cor
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C16452: comunicación
@@ -1852,6 +1879,8 @@ gl:
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0000018: ollos compostos
         https://eol(dot)org/schema/terms/concave_mirror_eyes: ollos de espello cóncavo
         http://eol(dot)org/schema/terms/cone: cono
+        http://resource(dot)geosciml(dot)org/classifier/ics/ischart/Coniacian: idade
+          coniaciana
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: días
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001422: morto
