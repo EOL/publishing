@@ -32,6 +32,7 @@ ARG neo4j_password
 # --build-arg neo4j_driver_url=$NEO4J_DRIVER_URL --build-arg neo4j_user=$NEO4J_USER \
 # --build-arg neo4j_password=$NEO4J_PASSWORD
 ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
+RUN chmod +x bin/rails bin/rake
 RUN RAILS_MASTER_KEY=${rails_secret_key} RAILS_ENV=${rails_env}\
   TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url}\
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD=${neo4j_password}\ 
@@ -46,6 +47,8 @@ FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
+
+RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/seabolt.conf && ldconfig
 
 COPY --chown=ruby:ruby bin/ ./bin
 RUN chmod 0755 bin/*
@@ -74,5 +77,7 @@ RUN git config --global user.email ${eol_github_email}
 RUN git config --global user.name ${eol_github_user}
 RUN git config --global pull.rebase false
 
+RUN chmod +x bin/*
+ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 EXPOSE 3000

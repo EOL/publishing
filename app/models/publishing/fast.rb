@@ -4,7 +4,8 @@ class Publishing
     attr_accessor :data_file, :log
 
     # This is me working through manual publishing, do NOT call this method!
-    def manual_publish(@resource)
+    def manual_publish(resource)
+      @resource = resource
       # @resource = Resource.find(1218)
       # pub = Publishing::Fast.new(@resource) ; 1
       # cd pub
