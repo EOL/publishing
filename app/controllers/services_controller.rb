@@ -31,8 +31,10 @@ class ServicesController < ApplicationController
   # Get authentication token for a given user.
   # The purpose of the password is just to cause tokens
   # to stop working when the user's password changes.
-  # This method can be used from scripts, e.g.
-  # bin/rails r 'puts(ServicesController.jwt_token(User.where(email: "qwy103@mumble.net").last))'
+  # This method can be used from scripts, e.g.:
+  # user = User.find_by_email('the@email.address')
+  # user.grant_power_user
+  # token = ServicesController.jwt_token(user)
   def self.jwt_token(user)
     TokenAuthentication.encode({'user' => user.email,
                                 'encrypted_password' => user.encrypted_password})

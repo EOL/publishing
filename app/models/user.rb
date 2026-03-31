@@ -117,6 +117,16 @@ class User < ApplicationRecord
     @tou_confirm = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
+  def add_api_key
+    self.api_key = Digest::SHA1.hexdigest(u.email)
+    save
+  end
+
+  def remove_api_key
+    self.api_key = nil
+    save
+  end
+
   private
     def dummy_email_for_delete
       "dummy_#{self.id}@eol.org"
