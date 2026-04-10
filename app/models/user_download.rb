@@ -71,7 +71,7 @@ class UserDownload < ApplicationRecord
 
     def pending_for_query?(term_query)
       existing_query = TermQuery.find_saved(term_query)
-      existing_query&.user_downloads&.where(user_id: 1, status: :created)&.any? || false
+      existing_query&.user_downloads&.where(user_id: User.first.id, status: :created)&.any? || false
     end
   end
 
@@ -110,7 +110,7 @@ private
     begin
       Rails.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
       self.update(processing_since: Time.current)
-      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: 1)
+      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: User.first.id)
       self.filename = downloader.background_build
       self.status = :completed
     rescue => e
