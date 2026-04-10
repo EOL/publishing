@@ -10,9 +10,9 @@ SHOW_CAPTCHA_ATTEMPTS = 3
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    redirect_to new_user_session_path, alert: "Logins are temporarily disabled."
+  end
 
   private
 
