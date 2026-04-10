@@ -2,7 +2,6 @@ class UserDownload < ApplicationRecord
   belongs_to :user, inverse_of: :user_downloads
   belongs_to :term_query
   has_one :download_error, class_name: "UserDownload::Error", dependent: :destroy # Weird exceptions in delayed_job when this was set to just "error".
-  validates_presence_of :user_id
   validates_presence_of :count
   validates_presence_of :term_query
   validates_presence_of :search_url
@@ -70,9 +69,9 @@ class UserDownload < ApplicationRecord
       download
     end
 
-    def user_has_pending_for_query?(user, term_query)
+    def pending_for_query?(term_query)
       existing_query = TermQuery.find_saved(term_query)
-      existing_query&.user_downloads&.where(user: user, status: :created)&.any? || false
+      existing_query&.user_downloads&.where(user_id: 1, status: :created)&.any? || false
     end
   end
 
@@ -111,7 +110,7 @@ private
     begin
       Rails.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
       self.update(processing_since: Time.current)
-      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: user_id)
+      downloader = TraitBank::DataDownload.new(term_query: term_query, count: count, search_url: search_url, user_id: 1)
       self.filename = downloader.background_build
       self.status = :completed
     rescue => e

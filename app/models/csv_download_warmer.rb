@@ -33,7 +33,7 @@ class CsvDownloadWarmer
       url = Rails.application.routes.url_helpers.term_search_results_url(:term_query => tq_params)
       begin
         Rails.logger.warn("[#{Time.now.strftime('%F %T')} WARM] Warming #{type} for #{uri}...")
-        TraitBank::DataDownload.term_search(TermQuery.new(tq_params), 1, url, force_new: true)
+        TraitBank::DataDownload.term_search(TermQuery.new(tq_params), 1, url)
       rescue => e
         Rails.logger.warn("[#{Time.now.strftime('%F %T')} WARM] FAILED warming #{type} for #{uri}. (#{e.class})")
         Rails.logger.warn("[#{Time.now.strftime('%F %T')} WARM] ERROR: #{e.message}")

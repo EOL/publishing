@@ -18,7 +18,7 @@ module TraitBank
         ).primary_for_query(term_query)
 
         UserDownload.create_and_run_if_needed!({
-          :user_id => user_id,
+          :user_id => user_id || 1,
           :count => count,
           :search_url => url
         }, term_query, options)

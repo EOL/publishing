@@ -63,7 +63,7 @@ class TraitsController < ApplicationController
         return redirect_to(new_user_session_path) unless current_user.present?
         if @query.valid?
           url = term_search_results_url(:tq => @query.to_short_params)
-          if UserDownload.user_has_pending_for_query?(current_user, @query)
+          if UserDownload.pending_for_query?(@query)
             flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
             redirect_to url
           else
