@@ -5,6 +5,6 @@
 - if c_user
   %li= link_to(current_user.username, main_app.user_path(current_user))
   %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
-- else
+- if false # Disabling logins 2026-04-28 (this was "else")
   %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
   %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)

@@ -1,7 +1,8 @@
 = @dummy
 %div
-  = link_to :sign_in , new_user_session_path, 'data-no-turbolink': true
-  = link_to :sign_up , new_user_registration_path, 'data-no-turbolink': true
+  - if false # Disabling logins 2026-04-28 (remove this line and outdent the nexxt two to restore)
+    = link_to :sign_in , new_user_session_path, 'data-no-turbolink': true
+    = link_to :sign_up , new_user_registration_path, 'data-no-turbolink': true
   %div
     = "users:"
     %ul
