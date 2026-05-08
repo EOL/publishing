@@ -11,7 +11,7 @@ x-app: &default-app
     - NEO4J_USER=${NEO4J_USER}
     - NEO4J_PASSWORD=${NEO4J_PASSWORD}
     - SCOUT_APM_KEY=${SCOUT_APM_KEY}
-    - NODE_OPTIONS=--openssl-legacy-provider npm run start
+    - NODE_OPTIONS=--openssl-legacy-provider
   depends_on:
     - mysql
     - neo4j
@@ -46,6 +46,14 @@ x-default-deploy: &default-deploy
 x-worker: &default-worker
   build:
     context: ..
+    args:
+      rails_env: ${RAILS_ENV}
+      traitbank_url: ${TRAITBANK_URL}
+      neo4j_driver_url: ${NEO4J_DRIVER_URL}
+      neo4j_user: ${NEO4J_USER}
+    secrets:
+      - rails_master_key
+      - neo4j_password
   restart: always
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV=${RAILS_ENV}
@@ -58,7 +66,7 @@ x-worker: &default-worker
     - NEO4J_DRIVER_URL=${NEO4J_DRIVER_URL}
     - NEO4J_USER=${NEO4J_USER}
     - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-    - NODE_OPTIONS=--openssl-legacy-provider npm run start
+    - NODE_OPTIONS=--openssl-legacy-provider
   depends_on:
     - mysql
     - neo4j
@@ -290,6 +298,14 @@ services:
     <<: *default-app
     build:
       context: ..
+      args:
+        rails_env: ${RAILS_ENV}
+        traitbank_url: ${TRAITBANK_URL}
+        neo4j_driver_url: ${NEO4J_DRIVER_URL}
+        neo4j_user: ${NEO4J_USER}
+      secrets:
+        - rails_master_key
+        - neo4j_password
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - /data/publishing_web:/app/public/data
@@ -383,3 +399,9 @@ services:
 networks:
   elastic:
     driver: bridge
+
+secrets:
+  rails_master_key:
+    environment: RAILS_MASTER_KEY
+  neo4j_password:
+    environment: NEO4J_PASSWORD
