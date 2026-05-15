@@ -395,6 +395,20 @@ services:
         hard: 32768
     depends_on:
       - app
+  media-server:
+    image: nginx:alpine
+    container_name: media-server
+    restart: always
+    volumes:
+      - /data/harvesting_web:/usr/share/nginx/html/data:ro
+      - ./resources/media-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8081:80"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5' # Very little CPU needed for static files
+          memory: 256M
 
 networks:
   elastic:
