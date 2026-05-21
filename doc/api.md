@@ -5,25 +5,10 @@ This EOL v3 web services API is in its infancy.  Suggestions welcome.
 ## Authorization
 
 In order for you to be able to use the web services API, an EOL
-administrator needs to make you a "power user". Please contact hammockj AT si.edu
+administrator needs to create a token for you. Please contact hammockj AT si.edu
 
-## Getting a token
-
-The API can be used directly in a browser, but to use it from a
-program (including a shell script) it is necessary to obtain a
-'token'.  The token is simply a string that holds encrypted information
+The token is simply a string that holds encrypted information
 that tells the web services who you are.
-
-For now, you need to get a token using a web browser.  (The idea is
-that in the future you'll be able to get a token via a shell script or
-web service.)
-
-To obtain a token, log in to your power user account and visit the page
-[`https://eol.org/services/authenticate`](https://eol.org/services/authenticate).
-(Note: `services` is plural here since the token applies to all of the
-services.)  Copy the token (without the quotes) from the web browser
-into a file, so you can use it in API calls.  Keep the token in a safe
-place; it is similar to a password.
 
 ## Invoking API methods
 
