@@ -419,3 +419,5 @@ secrets:
     environment: RAILS_MASTER_KEY
   neo4j_password:
     environment: NEO4J_PASSWORD
+  traitbank_url:
+    environment: TRAITBANK_URL
