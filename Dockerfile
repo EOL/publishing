@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS assets
+FROM encoflife/eol_seabolt_rails:2026.05.29.01 AS assets
 # WARNING:                       ^^^^^^^^^^^^^ when you update that, ALSO update it below!
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
@@ -41,7 +41,7 @@ RUN --mount=type=secret,id=rails_master_key,required=true \
 
 # -=-=-=-=-=-=-
 
-FROM encoflife/eol_seabolt_rails:2024.05.09.01 AS app
+FROM encoflife/eol_seabolt_rails:2026.05.21.01 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
