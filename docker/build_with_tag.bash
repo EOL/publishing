@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readenv # your existing alias/function
+set -a && source .env && set +a
 
 IMAGE_BASE="ghcr.io/eol/publishing"
 GIT_SHA="$(git rev-parse --short=12 HEAD)"
