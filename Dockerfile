@@ -23,7 +23,6 @@ COPY . /app
 RUN mkdir -p /app/tmp && chmod +x bin/rails bin/rake
 
 ARG rails_env
-ARG traitbank_url
 ARG neo4j_driver_url
 ARG neo4j_user
 

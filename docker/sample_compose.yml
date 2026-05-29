@@ -48,12 +48,12 @@ x-worker: &default-worker
     context: ..
     args:
       rails_env: ${RAILS_ENV}
-      traitbank_url: ${TRAITBANK_URL}
       neo4j_driver_url: ${NEO4J_DRIVER_URL}
       neo4j_user: ${NEO4J_USER}
     secrets:
       - rails_master_key
       - neo4j_password
+      - traitbank_url
   restart: always
   environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
     - RAILS_ENV=${RAILS_ENV}
@@ -300,12 +300,12 @@ services:
       context: ..
       args:
         rails_env: ${RAILS_ENV}
-        traitbank_url: ${TRAITBANK_URL}
         neo4j_driver_url: ${NEO4J_DRIVER_URL}
         neo4j_user: ${NEO4J_USER}
       secrets:
         - rails_master_key
         - neo4j_password
+        - traitbank_url
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - /data/publishing_web:/app/public/data
