@@ -49,6 +49,7 @@ config/secrets.yml
 docker/resources/secrets.yml
 docker/resources/newrelic-infra.yml
 docker/.env
+docker/.ghrc_token
 config/resque.yml
 config/systems/
 config/production.env
