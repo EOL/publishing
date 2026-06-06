@@ -21,6 +21,4 @@ file_env NEO4J_USER
 file_env NEO4J_PASSWORD
 file_env SCOUT_APM_KEY
 
-bundle update eol_terms
-
 exec "$@"

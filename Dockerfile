@@ -55,15 +55,16 @@ COPY --from=assets /gems /gems
 COPY . /app
 COPY --from=assets /app/public/assets /app/public/assets
 COPY --from=assets /app/public/packs /app/public/packs
-# Just to save me a few grey hairs:
-COPY config/.vimrc /root/.vimrc
 
-ARG eol_github_email
-ARG eol_github_user
-
-RUN git config --global user.email "${eol_github_email}" && \
-  git config --global user.name "${eol_github_user}" && \
-  git config --global pull.rebase false
+# Non-root runtime user, per Rails convention (numeric USER so k8s can
+# verify runAsNonRoot). chmod normalizes file modes regardless of the
+# build checkout's umask.
+RUN groupadd --system --gid 1000 rails \
+ && useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash \
+ && chmod -R a+rX /app /gems /usr/local/bundle \
+ && mkdir -p /app/tmp /app/log \
+ && chown -R rails:rails /app/tmp /app/log
+USER 1000:1000
 
 RUN chmod 0755 bin/* && \
   echo "/usr/local/lib" > /etc/ld.so.conf.d/seabolt.conf && \
