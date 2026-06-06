@@ -56,6 +56,11 @@ COPY . /app
 COPY --from=assets /app/public/assets /app/public/assets
 COPY --from=assets /app/public/packs /app/public/packs
 
+RUN chmod 0755 bin/* && \
+  echo "/usr/local/lib" > /etc/ld.so.conf.d/seabolt.conf && \
+  ldconfig
+ENV LD_LIBRARY_PATH="/usr/local/lib"
+
 # Non-root runtime user, per Rails convention (numeric USER so k8s can
 # verify runAsNonRoot). chmod normalizes file modes regardless of the
 # build checkout's umask.
@@ -66,9 +71,5 @@ RUN groupadd --system --gid 1000 rails \
  && chown -R rails:rails /app/tmp /app/log
 USER 1000:1000
 
-RUN chmod 0755 bin/* && \
-  echo "/usr/local/lib" > /etc/ld.so.conf.d/seabolt.conf && \
-  ldconfig
-ENV LD_LIBRARY_PATH="/usr/local/lib"
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 EXPOSE 3000
