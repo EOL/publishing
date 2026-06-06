@@ -56,6 +56,7 @@ COPY . /app
 COPY --from=assets /app/public/assets /app/public/assets
 COPY --from=assets /app/public/packs /app/public/packs
 
+COPY --from=assets /app/Gemfile.lock /app/Gemfile.lock
 RUN chmod 0755 bin/* && \
   echo "/usr/local/lib" > /etc/ld.so.conf.d/seabolt.conf && \
   ldconfig
