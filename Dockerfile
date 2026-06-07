@@ -38,8 +38,8 @@ ARG rails_env=staging
 # compiled assets don't use them, and runtime config (configmap + mounted
 # secrets) overrides everything. Do NOT pass real values here: build args
 # are recorded in image metadata (docker history) for anyone who can pull.
-ARG traitbank_url=http://placeholder.invalid
-ARG neo4j_driver_url=bolt://placeholder.invalid:7687
+ARG traitbank_url=http://127.0.0.1:7474
+ARG neo4j_driver_url=bolt://127.0.0.1:7687
 ARG neo4j_user=placeholder
 
 # Build with:
