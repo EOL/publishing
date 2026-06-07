@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1.7
 #
-# Get the digest below with:
-#   docker buildx imagetools inspect encoflife/eol_seabolt_rails:2024.05.09.01
-# then replace <DIGEST> in BOTH FROM lines. Tag stays for humans; the
-# digest is what the build actually uses (tags are mutable, digests are not).
+# Base is pinned by digest (tags are mutable; digests are not). To update:
+#   bump the tag, run: skopeo inspect --format '{{.Digest}}' \
+#     docker://docker.io/encoflife/eol_seabolt_rails:<newtag>
+#   and replace tag+digest in BOTH FROM lines.
 
 FROM encoflife/eol_seabolt_rails:2024.05.09.01@sha256:537d146ea1ec138a2fe5b0ee842c24b14d126521571aca215ccc81edfb978709 AS assets
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
@@ -32,17 +32,20 @@ RUN gem install "$(grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | sed 's/^[
 COPY . /app
 RUN mkdir -p /app/tmp && chmod +x bin/rails bin/rake
 
-ARG rails_env
-ARG traitbank_url
-ARG neo4j_driver_url
-ARG neo4j_user
+ARG rails_env=staging
+# Boot-satisfaction placeholders: assets:precompile boots the full app, and
+# the Neo4j/traitbank initializers require SOME value to exist -- but the
+# compiled assets don't use them, and runtime config (configmap + mounted
+# secrets) overrides everything. Do NOT pass real values here: build args
+# are recorded in image metadata (docker history) for anyone who can pull.
+ARG traitbank_url=http://placeholder.invalid
+ARG neo4j_driver_url=bolt://placeholder.invalid:7687
+ARG neo4j_user=placeholder
 
-# Build with something like:
-# export $(grep -v '^#' .env | xargs) && docker build \
-#   --secret id=rails_master_key,env=RAILS_MASTER_KEY \
-#   --secret id=neo4j_password,env=NEO4J_PASSWORD \
-#   --build-arg rails_env=$RAILS_ENV --build-arg traitbank_url=$TRAITBANK_URL \
-#   --build-arg neo4j_driver_url=$NEO4J_DRIVER_URL --build-arg neo4j_user=$NEO4J_USER .
+# Build with:
+#   docker build --secret id=rails_master_key,env=RAILS_MASTER_KEY \
+#                --secret id=neo4j_password,env=NEO4J_PASSWORD .
+# No --build-arg flags needed; the ARG defaults above are sufficient.
 ENV LD_LIBRARY_PATH="/usr/local/lib"
 RUN --mount=type=secret,id=rails_master_key,required=true \
   --mount=type=secret,id=neo4j_password,required=true \
