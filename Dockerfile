@@ -1,11 +1,13 @@
 # syntax=docker/dockerfile:1.7
 #
-# Base is pinned by digest (tags are mutable; digests are not). To update:
-#   bump the tag, run: skopeo inspect --format '{{.Digest}}' \
-#     docker://docker.io/encoflife/eol_seabolt_rails:<newtag>
-#   and replace tag+digest in BOTH FROM lines.
+# Bases are the slim eol_seabolt_rails targets (see
+# eol_seabolt_rails.slim.Dockerfile): the assets stage uses the 'build'
+# target (toolchain+Node), the app stage uses the 'runtime' target (shared
+# libs only). Pinned by digest; to update, push new base tags, resolve with
+#   skopeo inspect --format '{{.Digest}}' docker://ghcr.io/tzurita/eol_seabolt_rails:<tag>
+# and replace tag+digest below.
 
-FROM encoflife/eol_seabolt_rails:2024.05.09.01@sha256:537d146ea1ec138a2fe5b0ee842c24b14d126521571aca215ccc81edfb978709 AS assets
+FROM ghcr.io/tzurita/eol_seabolt_rails:2026.06.07-build@sha256:e109e9c3606136530a6fdc110f5385d6d877e3a5d7b78eb82b447a0abf755770 AS assets
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -34,10 +36,12 @@ RUN mkdir -p /app/tmp && chmod +x bin/rails bin/rake
 
 ARG rails_env=staging
 # Boot-satisfaction placeholders: assets:precompile boots the full app, and
-# the Neo4j/traitbank initializers require SOME value to exist -- but the
-# compiled assets don't use them, and runtime config (configmap + mounted
-# secrets) overrides everything. Do NOT pass real values here: build args
-# are recorded in image metadata (docker history) for anyone who can pull.
+# the Neo4j/traitbank initializers construct the driver at boot -- the driver
+# RESOLVES the hostname at construction (an .invalid hostname breaks boot
+# with Neo4jException 700/1792) but connects lazily, so a resolvable address
+# nothing listens on is sufficient. Compiled assets don't use these values;
+# runtime config (configmap + mounted secrets) overrides everything.
+# Do NOT pass real values: build args are recorded in image metadata.
 ARG traitbank_url=http://127.0.0.1:7474
 ARG neo4j_driver_url=bolt://127.0.0.1:7687
 ARG neo4j_user=placeholder
@@ -56,7 +60,7 @@ RUN --mount=type=secret,id=rails_master_key,required=true \
 
 # -=-=-=-=-=-=-
 
-FROM encoflife/eol_seabolt_rails:2024.05.09.01@sha256:537d146ea1ec138a2fe5b0ee842c24b14d126521571aca215ccc81edfb978709 AS app
+FROM ghcr.io/tzurita/eol_seabolt_rails:2026.06.07-runtime@sha256:8b9962b61ea79a00e218b0a896fab4d26e2c62dc47ff5a2ecd2e0757b8576c56 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -65,8 +69,7 @@ WORKDIR /app
 # BUNDLE_FROZEN forbids any runtime modification of the gem set: if a
 # stray `bundle install/update` ever creeps back into the entrypoint or
 # an exec'd shell, it fails loudly instead of mutating the container.
-ENV NODE_ENV="production" \
-    BUNDLE_PATH="/gems" \
+ENV BUNDLE_PATH="/gems" \
     BUNDLE_FROZEN="true" \
     LD_LIBRARY_PATH="/usr/local/lib"
 
@@ -96,3 +99,4 @@ USER 1000:1000
 
 ENTRYPOINT ["/app/bin/entrypoint.sh"]
 EXPOSE 3000
+
