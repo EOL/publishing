@@ -49,7 +49,7 @@ ARG neo4j_user=placeholder
 ENV LD_LIBRARY_PATH="/usr/local/lib"
 RUN --mount=type=secret,id=rails_master_key,required=true \
   --mount=type=secret,id=neo4j_password,required=true \
-  RAILS_MASTER_KEY="$(cat /run/secrets/rails_master_key)" RAILS_ENV=${rails_env} \
+  ASSETS_PRECOMPILE=true RAILS_MASTER_KEY="$(cat /run/secrets/rails_master_key)" RAILS_ENV=${rails_env} \
   TRAITBANK_URL=${traitbank_url} NEO4J_DRIVER_URL=${neo4j_driver_url} \
   NEO4J_USER=${neo4j_user} NEO4J_PASSWORD="$(cat /run/secrets/neo4j_password)" \
   bundle exec rails assets:precompile

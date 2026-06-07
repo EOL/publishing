@@ -18,7 +18,13 @@ Rails.application.configure do
   config.require_master_key = true
   config.action_controller.perform_caching = true
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.assets.js_compressor = Uglifier.new(harmony: true)
+  # uglifier needs a JS runtime (execjs); only load it where one exists --
+  # i.e. during assets:precompile in the build image. The slim runtime
+  # has no Node, and a running app never minifies.
+  if ENV["ASSETS_PRECOMPILE"] == "true"
+    require "uglifier"
+    config.assets.js_compressor = Uglifier.new(harmony: true)
+  end
   config.assets.compile = true
   config.active_storage.service = :local
 
