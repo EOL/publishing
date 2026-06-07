@@ -1,33 +1,122 @@
+# .github/workflows/build.yml
+#
+# One-time setup:
+#   Actions secrets:   RAILS_MASTER_KEY, NEO4J_PASSWORD
+#   Actions variables: RAILS_ENV, TRAITBANK_URL, NEO4J_DRIVER_URL, NEO4J_USER
+#     (variables, not hardcoded here: this file is in the repo, and the repo
+#      may be public -- internal endpoints don't belong in it)
+#
+# All actions are pinned to commit SHAs (the trailing comment records the
+# release each SHA corresponds to). To update a pin: resolve the new tag with
+#   git ls-remote https://github.com/<owner>/<repo> 'refs/tags/<tag>^{}'
+# and update both the SHA and the comment. Or automate it with Dependabot
+# (`package-ecosystem: github-actions`), which understands this format.
+
 name: Build and push image
+
 on:
   push:
     branches: [nonroot-k8s, main]
   workflow_dispatch: {}
+
+# Never run two builds of the same ref concurrently (cache races, double push)
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/publishing
+
 jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+        with:
+          fetch-depth: 0            # full history -- scan everything ever committed
+      - name: gitleaks (full history)
+        run: |
+          GITLEAKS_VERSION=8.30.1   # keep in step with .pre-commit-config.yaml
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz gitleaks
+          # --redact: report WHERE secrets are without printing them into CI logs
+          ./gitleaks detect --source . --log-opts="--all" --redact -v
+
   build:
+    needs: secret-scan
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f  # v3
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9  # v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/build-push-action@v6
+
+      # Build locally first -- nothing reaches the registry until it has
+      # passed the vulnerability scan below.
+      - name: Build image (not pushed yet)
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8  # v6
         with:
           context: .
-          push: true
-          tags: ghcr.io/tzurita/publishing:nonroot-${{ github.sha }}
+          load: true
+          tags: ${{ env.IMAGE }}:nonroot-${{ github.sha }}
           secrets: |
             rails_master_key=${{ secrets.RAILS_MASTER_KEY }}
             neo4j_password=${{ secrets.NEO4J_PASSWORD }}
           build-args: |
-            rails_env=staging
-            neo4j_driver_url=bolt://10.252.248.36:7687
-            neo4j_user=neo4j
+            rails_env=${{ vars.RAILS_ENV }}
+            traitbank_url=${{ vars.TRAITBANK_URL }}
+            neo4j_driver_url=${{ vars.NEO4J_DRIVER_URL }}
+            neo4j_user=${{ vars.NEO4J_USER }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Report-only for now (exit-code 0): the current base (bullseye,
+      # Node 18, Rails 6.1) will light up with findings, and blocking every
+      # build today would just freeze deploys. Flip exit-code to '1' once
+      # the slim base + Rails bump land, so regressions block from then on.
+      - name: Vulnerability scan (Trivy)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE }}:nonroot-${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '0'
+
+      # Same inputs as the build step = pure cache hit; only the push happens.
+      - name: Push image
+        id: push
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8  # v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE }}:nonroot-${{ github.sha }}
+          secrets: |
+            rails_master_key=${{ secrets.RAILS_MASTER_KEY }}
+            neo4j_password=${{ secrets.NEO4J_PASSWORD }}
+          build-args: |
+            rails_env=${{ vars.RAILS_ENV }}
+            traitbank_url=${{ vars.TRAITBANK_URL }}
+            neo4j_driver_url=${{ vars.NEO4J_DRIVER_URL }}
+            neo4j_user=${{ vars.NEO4J_USER }}
+          cache-from: type=gha
+
+      # The digest is the thing to deploy. Copy it into the kustomization.
+      - name: Emit digest for kustomize
+        run: |
+          {
+            echo "### Image pushed"
+            echo '```yaml'
+            echo "images:"
+            echo "  - name: ghcr.io/eol/publishing"
+            echo "    newName: ${IMAGE}"
+            echo "    digest: ${{ steps.push.outputs.digest }}"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
