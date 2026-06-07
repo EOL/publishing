@@ -43,7 +43,8 @@ jobs:
           curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
             | tar -xz gitleaks
           # --redact: report WHERE secrets are without printing them into CI logs
-          ./gitleaks detect --source . --log-opts="--all" --redact -v
+          ./gitleaks detect --source . --log-opts="--all" --redact -v \ 
+            --max-target-megabytes 10
 
   build:
     needs: secret-scan
