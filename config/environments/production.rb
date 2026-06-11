@@ -50,7 +50,7 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
   config.active_record.dump_schema_after_migration = false
 
-  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger           = ActiveSupport::Logger.new($stdout)
   logger.formatter = config.log_formatter
   config.logger    = ActiveSupport::TaggedLogging.new(logger)
 

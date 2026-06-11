@@ -1,7 +1,7 @@
 # Jun 2022: We had this set to 24 hours because a week was too long and "overnight" seemed reasonaable. But we slowed
 # down the rate at which traits are ingested (b/c it was failing at faster rates) and now BIG jobs can take a few days!
 Delayed::Worker.max_run_time = 4.days
-Delayed::Worker.logger = Logger.new(Rails.root.join('log', 'delayed_job.log'))
+Delayed::Worker.logger = Logger.new($stdout)
 # It's possible that something went wrong with Delayed::Job, but, really, we don't *usually* want to re-try jobs. :\
 Delayed::Worker.max_attempts = 2
 Delayed::Worker.queue_attributes = {

@@ -121,7 +121,7 @@ module EolWebsite
     config.active_job.queue_adapter = :sidekiq
 
     # neo4j log
-    config.neo4j.logger = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', 'traitbank.log')))
+    config.neo4j.logger = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     config.neo4j.logger.level = Logger::WARN
     config.neo4j.logger.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime} [#{severity}]: #{msg}\n"

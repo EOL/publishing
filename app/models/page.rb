@@ -129,7 +129,7 @@ class Page < ApplicationRecord
     end
 
     def page_healing_log
-      @page_healing_log ||= Logger.new("#{Rails.root}/log/page_healing.log")
+      @page_healing_log ||= Logger.new($stdout)
     end
 
     def log_healing(msg)

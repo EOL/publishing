@@ -39,7 +39,7 @@ class Medium < ApplicationRecord
       media_file = Rails.root.join('public', 'data', 'wikimedia', 'media_resource.tab')
       @agents = DataFile.to_hash(agents_file, :identifier)
       @media = DataFile.to_hash(media_file, :access_uri)
-      logger = ActiveSupport::TaggedLogging.new(Logger.new("public/data/wikimedia/missing.log"))
+      logger = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
       @roles = {}
       Role.all.each { |role| @roles[role.name.downcase] = role.id }
       @licenses = {}

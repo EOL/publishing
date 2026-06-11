@@ -21,7 +21,7 @@ class DataFile
   def initialize(file, options = {})
     @file = file
     @options = { col_sep: "\t", quote_char: "\x00" }.merge(options)
-    @logger = ActiveSupport::TaggedLogging.new(Logger.new("#{File.dirname(file)}/#{File.basename(file)}.log"))
+    @logger = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
   end
 
   def read_tsv
