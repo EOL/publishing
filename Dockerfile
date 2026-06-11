@@ -4,10 +4,10 @@
 # eol_seabolt_rails.slim.Dockerfile): the assets stage uses the 'build'
 # target (toolchain+Node), the app stage uses the 'runtime' target (shared
 # libs only). Pinned by digest; to update, push new base tags, resolve with
-#   skopeo inspect --format '{{.Digest}}' docker://ghcr.io/tzurita/eol_seabolt_rails:<tag>
+#   skopeo inspect --format '{{.Digest}}' docker://ghcr.io/eol/eol_seabolt_rails:<tag>
 # and replace tag+digest below.
 
-FROM ghcr.io/tzurita/eol_seabolt_rails:2026.06.07-build@sha256:e109e9c3606136530a6fdc110f5385d6d877e3a5d7b78eb82b447a0abf755770 AS assets
+FROM ghcr.io/eol/eol_seabolt_rails:2026.06.07-build@sha256:2b75cde3e8cba15ea0142f583c916553e508f5dd5eb02abfba6f68543e59cc66 AS assets
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -60,7 +60,7 @@ RUN --mount=type=secret,id=rails_master_key,required=true \
 
 # -=-=-=-=-=-=-
 
-FROM ghcr.io/tzurita/eol_seabolt_rails:2026.06.07-runtime@sha256:8b9962b61ea79a00e218b0a896fab4d26e2c62dc47ff5a2ecd2e0757b8576c56 AS app
+FROM ghcr.io/eol/eol_seabolt_rails:2026.06.07-runtime@sha256:fb50df8cc6575806f8334fadeeccf2e28630d1720301357a4b827a4b05dedc07 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
