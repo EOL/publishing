@@ -7,6 +7,7 @@ vendor/bundle
 .git
 .gitignore
 .tags
+.cache
 tmp/*
 storage/*
 node_modules/*
@@ -27,3 +28,4 @@ config/secrets/*.yml
 *.sql
 *.dump
 *.bak
+.cache

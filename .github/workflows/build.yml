@@ -1,0 +1,135 @@
+# .github/workflows/build.yml
+#
+# One-time setup:
+#   Actions secrets:   RAILS_MASTER_KEY, NEO4J_PASSWORD
+#   Actions variables: RAILS_ENV (e.g. "staging")
+#     (the Neo4j/traitbank build args default to placeholders in the
+#      Dockerfile -- real topology never enters this file or the image)
+#
+# All actions are pinned to commit SHAs (the trailing comment records the
+# release each SHA corresponds to). To update a pin: resolve the new tag with
+#   git ls-remote https://github.com/<owner>/<repo> 'refs/tags/<tag>^{}'
+# and update both the SHA and the comment. Or automate it with Dependabot
+# (`package-ecosystem: github-actions`), which understands this format.
+
+name: Build and push image
+
+on:
+  push:
+    branches: [nonroot-k8s, main]
+  workflow_dispatch: {}
+
+# Never run two builds of the same ref concurrently (cache races, double push)
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/publishing
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5
+        with:
+          fetch-depth: 0   # range scans need the BEFORE commit present
+      # Scope: commits introduced by THIS push only. Full-history scans of
+      # this repo OOM the 7GB hosted runner (decade of history incl. a 49MB
+      # blob -> runner loses heartbeat -> SIGTERM/143). History is immutable,
+      # so it is audited once, offline (see triage notes); CI gates what is
+      # being added now. NOTE: keep gitleaks flags on ONE line -- a trailing
+      # space after a backslash silently breaks continuation (been there).
+      - name: gitleaks (commits in this push)
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          GITLEAKS_VERSION=8.30.1   # keep in step with .pre-commit-config.yaml
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$BEFORE" 2>/dev/null; then
+            RANGE="-n 50"   # new branch / force-push / manual dispatch: last 50 commits
+          else
+            RANGE="${BEFORE}..HEAD"
+          fi
+          echo "Scanning range: $RANGE"
+          ./gitleaks detect --source . --log-opts="$RANGE" --redact -v
+
+  build:
+    needs: secret-scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
+      - uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5  # v4.1.0
+      - uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee  # v4.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build locally first -- nothing reaches the registry until it has
+      # passed the vulnerability scan below.
+      - name: Build image (not pushed yet)
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf  # v7.2.0
+        with:
+          context: .
+          load: true
+          tags: ${{ env.IMAGE }}:nonroot-${{ github.sha }}
+          secrets: |
+            rails_master_key=${{ secrets.RAILS_MASTER_KEY }}
+            neo4j_password=${{ secrets.NEO4J_PASSWORD }}
+          # Only the env flavor is a real build input; the Neo4j/traitbank
+          # ARGs default to placeholders in the Dockerfile (runtime config
+          # supplies real values -- keep topology out of image metadata).
+          build-args: |
+            rails_env=${{ vars.RAILS_ENV }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Report-only for now (exit-code 0): the current base (bullseye,
+      # Node 18, Rails 6.1) will light up with findings, and blocking every
+      # build today would just freeze deploys. Flip exit-code to '1' once
+      # the slim base + Rails bump land, so regressions block from then on.
+      - name: Vulnerability scan (Trivy)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE }}:nonroot-${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '0'
+
+      # Same inputs as the build step = pure cache hit; only the push happens.
+      - name: Push image
+        id: push
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf  # v7.2.0
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE }}:nonroot-${{ github.sha }}
+          secrets: |
+            rails_master_key=${{ secrets.RAILS_MASTER_KEY }}
+            neo4j_password=${{ secrets.NEO4J_PASSWORD }}
+          # Only the env flavor is a real build input; the Neo4j/traitbank
+          # ARGs default to placeholders in the Dockerfile (runtime config
+          # supplies real values -- keep topology out of image metadata).
+          build-args: |
+            rails_env=${{ vars.RAILS_ENV }}
+          cache-from: type=gha
+
+      # The digest is the thing to deploy. Copy it into the kustomization.
+      - name: Emit digest for kustomize
+        run: |
+          {
+            echo "### Image pushed"
+            echo '```yaml'
+            echo "images:"
+            echo "  - name: ghcr.io/eol/publishing"
+            echo "    newName: ${IMAGE}"
+            echo "    digest: ${{ steps.push.outputs.digest }}"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
