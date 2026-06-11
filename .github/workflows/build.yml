@@ -1,8 +1,11 @@
 # .github/workflows/build.yml
 #
 # One-time setup:
-#   Actions secrets:   RAILS_MASTER_KEY, NEO4J_PASSWORD
-#   Actions variables: RAILS_ENV (e.g. "staging")
+#   GitHub environments:
+#     staging    -> used by nonroot-k8s
+#     production -> used by main
+#   Environment secrets in EACH environment:
+#     RAILS_MASTER_KEY, NEO4J_PASSWORD
 #     (the Neo4j/traitbank build args default to placeholders in the
 #      Dockerfile -- real topology never enters this file or the image)
 #
@@ -25,7 +28,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE: ghcr.io/${{ github.repository_owner }}/publishing
+  IMAGE: ghcr.io/eol/publishing
+  DEPLOY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
 
 jobs:
   secret-scan:
@@ -60,6 +64,10 @@ jobs:
   build:
     needs: secret-scan
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+    env:
+      RAILS_ENV: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
     permissions:
       contents: read
       packages: write
@@ -71,6 +79,22 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify required Actions configuration
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
+        run: |
+          echo "Using GitHub environment: ${DEPLOY_ENVIRONMENT}"
+          echo "Building Rails environment: ${RAILS_ENV}"
+          missing=0
+          for name in RAILS_MASTER_KEY NEO4J_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              echo "::error title=Missing environment secret::${name} is required in the ${DEPLOY_ENVIRONMENT} GitHub environment"
+              missing=1
+            fi
+          done
+          exit "$missing"
 
       # Build locally first -- nothing reaches the registry until it has
       # passed the vulnerability scan below.
@@ -87,7 +111,7 @@ jobs:
           # ARGs default to placeholders in the Dockerfile (runtime config
           # supplies real values -- keep topology out of image metadata).
           build-args: |
-            rails_env=${{ vars.RAILS_ENV }}
+            rails_env=${{ env.RAILS_ENV }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -118,7 +142,7 @@ jobs:
           # ARGs default to placeholders in the Dockerfile (runtime config
           # supplies real values -- keep topology out of image metadata).
           build-args: |
-            rails_env=${{ vars.RAILS_ENV }}
+            rails_env=${{ env.RAILS_ENV }}
           cache-from: type=gha
 
       # The digest is the thing to deploy. Copy it into the kustomization.
