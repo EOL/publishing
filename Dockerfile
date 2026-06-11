@@ -7,7 +7,7 @@
 #   skopeo inspect --format '{{.Digest}}' docker://ghcr.io/eol/eol_seabolt_rails:<tag>
 # and replace tag+digest below.
 
-FROM ghcr.io/eol/eol_seabolt_rails:2026-06-11-build@sha256:2b75cde3e8cba15ea0142f583c916553e508f5dd5eb02abfba6f68543e59cc66 AS assets
+FROM ghcr.io/eol/eol_seabolt_rails@sha256:0d13e5b4c6b09665d3b7aee742c356b7823b739ca7fdf96fe0b540b50eead42d AS assets
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
@@ -60,7 +60,7 @@ RUN --mount=type=secret,id=rails_master_key,required=true \
 
 # -=-=-=-=-=-=-
 
-FROM ghcr.io/eol/eol_seabolt_rails:2026-06-11-runtime@sha256:fb50df8cc6575806f8334fadeeccf2e28630d1720301357a4b827a4b05dedc07 AS app
+FROM ghcr.io/eol/eol_seabolt_rails@sha256:546ebd44b862272dcde18754ce32b496ba6b6250cc23b4df67fde471e97e4547 AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
