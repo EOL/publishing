@@ -9,10 +9,10 @@
 #             editors. This is what runs in the cluster.
 #
 # Build & push (from a machine with podman):
-#   podman build --target build   -t ghcr.io/tzurita/eol_seabolt_rails:<DATE>-build   .
-#   podman build --target runtime -t ghcr.io/tzurita/eol_seabolt_rails:<DATE>-runtime .
-#   podman push ghcr.io/tzurita/eol_seabolt_rails:<DATE>-build
-#   podman push ghcr.io/tzurita/eol_seabolt_rails:<DATE>-runtime
+#   podman build --target build   -t ghcr.io/eol/eol_seabolt_rails:<DATE>-build   .
+#   podman build --target runtime -t ghcr.io/eol/eol_seabolt_rails:<DATE>-runtime .
+#   podman push ghcr.io/eol/eol_seabolt_rails:<DATE>-build
+#   podman push ghcr.io/eol/eol_seabolt_rails:<DATE>-runtime
 # then resolve both digests (skopeo inspect --format '{{.Digest}}') and pin
 # them in the app Dockerfile's FROM lines.
 #
