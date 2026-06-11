@@ -11,7 +11,7 @@ gem 'concurrent-ruby', '1.3.4' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '~> 0.5.6'
 # Use puma as the web host
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 7.2'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
