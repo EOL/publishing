@@ -8,6 +8,12 @@
 #     RAILS_MASTER_KEY, NEO4J_PASSWORD
 #     (the Neo4j/traitbank build args default to placeholders in the
 #      Dockerfile -- real topology never enters this file or the image)
+#   GHCR (ghcr.io/eol/publishing):
+#     Repo Settings -> Actions -> General -> Workflow permissions:
+#       "Read and write permissions" (or allow job-level elevation).
+#     If the package already exists, org admin must link it to this repo:
+#       github.com/orgs/eol/packages/container/publishing/settings
+#       -> Manage Actions access -> grant EOL/publishing Write access.
 #
 # All actions are pinned to commit SHAs (the trailing comment records the
 # release each SHA corresponds to). To update a pin: resolve the new tag with
@@ -26,6 +32,10 @@ on:
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
 
 env:
   IMAGE: ghcr.io/eol/publishing
