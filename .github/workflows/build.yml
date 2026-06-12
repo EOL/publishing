@@ -2,8 +2,8 @@
 #
 # One-time setup:
 #   GitHub environments:
-#     staging    -> used by nonroot-k8s
-#     production -> used by main
+#     staging    -> used by main (day-to-day work)
+#     production -> used by production branch
 #   Environment secrets in EACH environment:
 #     RAILS_MASTER_KEY, NEO4J_PASSWORD
 #     (the Neo4j/traitbank build args default to placeholders in the
@@ -19,7 +19,7 @@ name: Build and push image
 
 on:
   push:
-    branches: [nonroot-k8s, main]
+    branches: [main, production]
   workflow_dispatch: {}
 
 # Never run two builds of the same ref concurrently (cache races, double push)
@@ -29,7 +29,7 @@ concurrency:
 
 env:
   IMAGE: ghcr.io/eol/publishing
-  DEPLOY_ENVIRONMENT: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+  DEPLOY_ENVIRONMENT: ${{ github.ref_name == 'production' && 'production' || 'staging' }}
 
 jobs:
   secret-scan:
@@ -65,9 +65,9 @@ jobs:
     needs: secret-scan
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+      name: ${{ github.ref_name == 'production' && 'production' || 'staging' }}
     env:
-      RAILS_ENV: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+      RAILS_ENV: ${{ github.ref_name == 'production' && 'production' || 'staging' }}
     permissions:
       contents: read
       packages: write
