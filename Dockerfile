@@ -60,7 +60,7 @@ RUN --mount=type=secret,id=rails_master_key,required=true \
 
 # -=-=-=-=-=-=-
 
-FROM ghcr.io/eol/eol_seabolt_rails@sha256:546ebd44b862272dcde18754ce32b496ba6b6250cc23b4df67fde471e97e4547 AS app
+FROM ghcr.io/eol/eol_seabolt_rails@sha256:0d13e5b4c6b09665d3b7aee742c356b7823b739ca7fdf96fe0b540b50eead42d AS app
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
 WORKDIR /app
