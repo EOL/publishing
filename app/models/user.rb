@@ -43,6 +43,24 @@ class User < ApplicationRecord
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
 
+  def self.grant_cypher_access(params)
+    email = params[:email]
+    raise "You MUST supply an Email Address as :email" unless email
+    user = User.find_by_email(email)
+    if !user
+      username = params[:username] || email.sub(/@.*/, '')
+      raise "Username #{username} taken, choose another" if User.exists?(username: username)
+      name = params[:name] || username
+      user = User.create(email: email, username: username, name: name, password: SecureRandom.alphanumeric(12))
+      user.age_confirm = true
+      user.tou_confirm = true
+      user.activate || raise("Failed to create user: #{user}")
+    end
+    user.grant_power_user
+    user.save
+    puts "#{name} (#{username}) <#{email}>: #{ServicesController.jwt_token(user)}"
+  end  
+
   def self.autocomplete(query, options = {})
     search(query, **options.reverse_merge({
       fields: ["username", "name"],
