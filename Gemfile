@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 # The REALLY basic stuff stays at the top:
 
-gem 'rails', '6.1.7.7'
+gem 'rails', '8.1.3'
 gem 'base64' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'bigdecimal' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 gem 'mutex_m' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
@@ -42,7 +42,7 @@ gem 'kaminari', '~> 1.2.2'
 
 gem 'activegraph', '~> 10.1'
 # TEMP! ...when you change activegraph or update gems, remove this, it's a security bump.
-gem 'activestorage', '~> 6.1'
+gem 'activestorage', '~> 8.1'
 gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', branch: '1.7'
 
 # For bulk inserts:
@@ -71,7 +71,7 @@ gem 'discourse_api', '~> 0.48'
 # Model decoration
 gem 'draper', '~> 4.0'
 # ElasticSearch via SearchKick:
-gem 'elasticsearch', '~> 8.8' # Needs to stay in sync with the version of ES that we're using
+gem 'elasticsearch', '~> 8.19' # Needs to stay in sync with the version of ES that we're using
 gem 'searchkick', '~> 5.3' # Needs to stay in sync (ish) with the elasticsearch gem.
 # url slug support
 gem 'friendly_id', '~> 5.4'
@@ -116,9 +116,9 @@ gem "activejob-traffic_control", ">= 0.1.3"
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
 # TODO: I am not sure these are working / used anymore. Check and remove, if not.
-gem 'simple_form', '~> 5.1'
-gem 'client_side_validations', '~> 18.1'
-gem 'client_side_validations-simple_form', '~> 13'
+gem 'simple_form', '~> 5.4'
+gem 'client_side_validations', '~> 24.0'
+gem 'client_side_validations-simple_form', '~> 18'
 #Sitemap
 gem 'sitemap_generator', '~> 6.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
