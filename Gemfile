@@ -11,7 +11,7 @@ gem 'concurrent-ruby', '1.3.4' # REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '~> 0.5.6'
 # Use puma as the web host
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 7.2'
 
 # "Internal" EOL gems:
 gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git', branch: 'main'
@@ -80,7 +80,7 @@ gem 'font-awesome-sass', '~> 5.15'
 # This is used to locally have a copy of Open Sans. IF YOU STOP USING OPEN SANS (note the space), YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
-gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
+gem 'jwt', '~> 2.10' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
 gem 'haml', '~> 5.2.1'
 gem 'haml-rails', '~> 2.0.1'

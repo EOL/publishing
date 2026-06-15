@@ -258,7 +258,8 @@ GEM
       regexp_parser (~> 2.0)
       simpleidn (~> 0.2)
       uri_template (~> 0.7)
-    jwt (2.7.1)
+    jwt (2.10.3)
+      base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -316,7 +317,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
-    nio4r (2.7.4)
+    nio4r (2.7.5)
     nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -335,7 +336,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (6.0.2)
-    puma (6.4.2)
+    puma (7.2.1)
       nio4r (~> 2.0)
     pundit (2.3.1)
       activesupport (>= 3.0.0)
@@ -562,7 +563,7 @@ DEPENDENCIES
   jbuilder (~> 2.11.5)
   jquery-rails (~> 4.4)
   json_schemer (~> 0.2)
-  jwt (~> 2.2)
+  jwt (~> 2.10)
   kaminari (~> 1.2.2)
   lograge (~> 0.14)
   mutex_m
@@ -571,7 +572,7 @@ DEPENDENCIES
   net-http
   oj (~> 3.13)
   pry-rails
-  puma (~> 6.4)
+  puma (~> 7.2)
   pundit (~> 2.1)
   rack-cors
   rails (= 6.1.7.7)
