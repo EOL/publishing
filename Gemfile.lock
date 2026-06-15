@@ -258,7 +258,8 @@ GEM
       regexp_parser (~> 2.0)
       simpleidn (~> 0.2)
       uri_template (~> 0.7)
-    jwt (2.7.1)
+    jwt (2.10.3)
+      base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -562,7 +563,7 @@ DEPENDENCIES
   jbuilder (~> 2.11.5)
   jquery-rails (~> 4.4)
   json_schemer (~> 0.2)
-  jwt (~> 2.2)
+  jwt (~> 2.10)
   kaminari (~> 1.2.2)
   lograge (~> 0.14)
   mutex_m
