@@ -95,7 +95,7 @@ gem 'lograge', '~> 0.14'
 # This should help stop some of the warnings you'll see in the logs/console:
 gem 'net-http'
 # Speed up JSON, including for ElasticSearch:
-gem 'oj', '~> 3.13'
+gem 'oj', '~> 3.17'
 # Debugging:
 gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:

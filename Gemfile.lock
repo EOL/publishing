@@ -322,7 +322,9 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     observer (0.1.2)
-    oj (3.14.2)
+    oj (3.17.3)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     parallel (1.27.0)
@@ -570,7 +572,7 @@ DEPENDENCIES
   mysql2 (~> 0.5.6)
   neo4j-ruby-driver!
   net-http
-  oj (~> 3.13)
+  oj (~> 3.17)
   pry-rails
   puma (~> 7.2)
   pundit (~> 2.1)
