@@ -49,8 +49,6 @@ gem 'neo4j-ruby-driver', git: 'https://github.com/EOL/neo4j-ruby-driver.git', br
 gem 'activerecord-import', '~> 1.3'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 1.0'
-# Faster startup:
-gem 'bootsnap', '~> 1.10', require: false
 # Counter Culture handles cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 2.9'
 # Cron jobs:
