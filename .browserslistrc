@@ -1,8 +1,1 @@
 defaults
-# Exclude Opera Mobile: a newer caniuse-lite/@babel/core (7.29) maps `op_mob`
-# to the target name `opera_mobile`, which the pinned older @babel/preset-env
-# (7.14) rejects with "'opera_mobile' is not a valid target". Dropping it here
-# avoids that crash without touching the frozen yarn.lock. Production Babel sets
-# forceAllTransforms:true, so target selection doesn't affect emitted output.
-# REMOVE THIS once the Babel toolchain in yarn.lock is realigned (core/preset-env).
-not op_mob all

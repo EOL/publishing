@@ -30,6 +30,9 @@
     "@webpack-cli/serve": "^2.0.5",
     "webpack-dev-server": "^4.1.1"
   },
+  "resolutions": {
+    "@babel/helper-compilation-targets": "^7.29.7"
+  },
   "babel": {
     "presets": [
       "./node_modules/@rails/webpacker/package/babel/preset.js"
