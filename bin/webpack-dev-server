@@ -9,6 +9,12 @@ ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
 
 require "bundler/setup"
 
+# Ruby 3.3+ no longer auto-loads `logger`, but Webpacker (via ActiveSupport 6.1)
+# references the `Logger` constant at load time before requiring it. This
+# binstub boots on its own and does not load config/boot.rb, so require it here.
+# REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
+require "logger"
+
 require "webpacker"
 require "webpacker/dev_server_runner"
 
