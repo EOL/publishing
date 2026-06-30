@@ -517,7 +517,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     yaml (0.3.0)
-    yard (0.9.37)
+    yard (0.9.44)
     yard-solargraph (0.1.0)
       yard (~> 0.9)
     zeitwerk (2.7.3)
