@@ -1,19 +1,25 @@
 # .github/workflows/build.yml
 #
-# One-time setup:
-#   GitHub environments:
-#     staging    -> used by main (day-to-day work)
-#     production -> used by production branch
-#   Environment secrets in EACH environment:
-#     RAILS_MASTER_KEY, NEO4J_PASSWORD
-#     (the Neo4j/traitbank build args default to placeholders in the
-#      Dockerfile -- real topology never enters this file or the image)
+# Builds and pushes ghcr.io/eol/publishing, then emits the digest to pin in
+# EOL/kubecfg (formerly eol-apps). This workflow does NOT apply manifests,
+# update Ingress/TLS (talos-config), or push cluster Secrets.
+#
+# Branch → GitHub Environment → Rails build env → kustomize overlay
+#   main       → staging    → staging    → publishing/overlays/staging  (eol-staging)
+#   production → production → production → publishing/overlays/prod     (eol-prod)
+#
+# One-time setup (see .github/README.md):
+#   GitHub Environments: staging, production
+#     - production: enable Required reviewers
+#     - Environment secrets in EACH: RAILS_MASTER_KEY, NEO4J_PASSWORD
+#       (build-time only — assets:precompile boots Rails. Runtime cluster
+#        secrets stay in kubecfg SOPS, applied with kubectl separately.)
 #   GHCR (ghcr.io/eol/publishing):
-#     Repo Settings -> Actions -> General -> Workflow permissions:
+#     Repo Settings → Actions → General → Workflow permissions:
 #       "Read and write permissions" (or allow job-level elevation).
 #     If the package already exists, org admin must link it to this repo:
 #       github.com/orgs/eol/packages/container/publishing/settings
-#       -> Manage Actions access -> grant EOL/publishing Write access.
+#       → Manage Actions access → grant EOL/publishing Write access.
 #
 # All actions are pinned to commit SHAs (the trailing comment records the
 # release each SHA corresponds to). To update a pin: resolve the new tag with
@@ -39,7 +45,10 @@ permissions:
 
 env:
   IMAGE: ghcr.io/eol/publishing
+  # Shared path for staging + prod: only the Environment / Rails env / overlay differ.
   DEPLOY_ENVIRONMENT: ${{ github.ref_name == 'production' && 'production' || 'staging' }}
+  KUSTOMIZE_OVERLAY: ${{ github.ref_name == 'production' && 'publishing/overlays/prod' || 'publishing/overlays/staging' }}
+  K8S_NAMESPACE: ${{ github.ref_name == 'production' && 'eol-prod' || 'eol-staging' }}
 
 jobs:
   secret-scan:
@@ -74,6 +83,8 @@ jobs:
   build:
     needs: secret-scan
     runs-on: ubuntu-latest
+    # staging / production Environments hold build secrets. Prefer Required
+    # reviewers on `production` so prod image builds wait for approval.
     environment:
       name: ${{ github.ref_name == 'production' && 'production' || 'staging' }}
     env:
@@ -97,6 +108,7 @@ jobs:
         run: |
           echo "Using GitHub environment: ${DEPLOY_ENVIRONMENT}"
           echo "Building Rails environment: ${RAILS_ENV}"
+          echo "Digest pin target: EOL/kubecfg ${KUSTOMIZE_OVERLAY} (ns ${K8S_NAMESPACE})"
           missing=0
           for name in RAILS_MASTER_KEY NEO4J_PASSWORD; do
             if [ -z "${!name}" ]; then
@@ -155,15 +167,31 @@ jobs:
             rails_env=${{ env.RAILS_ENV }}
           cache-from: type=gha
 
-      # The digest is the thing to deploy. Copy it into the kustomization.
+      # Digest pin is the deploy handoff (same for staging and prod). Copy into
+      # the matching kubecfg overlay; do not manage Ingress/TLS here.
       - name: Emit digest for kustomize
+        env:
+          DIGEST: ${{ steps.push.outputs.digest }}
         run: |
           {
-            echo "### Image pushed"
+            echo "### Image pushed (\`${DEPLOY_ENVIRONMENT}\`)"
+            echo ""
+            echo "Pin this digest in **EOL/kubecfg** \`${KUSTOMIZE_OVERLAY}/kustomization.yaml\`"
+            echo "(namespace \`${K8S_NAMESPACE}\`), then apply the overlay."
+            echo ""
             echo '```yaml'
             echo "images:"
             echo "  - name: ghcr.io/eol/publishing"
             echo "    newName: ${IMAGE}"
-            echo "    digest: ${{ steps.push.outputs.digest }}"
+            echo "    digest: ${DIGEST}"
             echo '```'
+            echo ""
+            echo "```sh"
+            echo "# In EOL/kubecfg (after editing the digest above):"
+            echo "kubectl apply -k ${KUSTOMIZE_OVERLAY}"
+            echo "kubectl -n ${K8S_NAMESPACE} rollout status deployment/publishing-web --timeout=5m"
+            echo "```"
+            echo ""
+            echo "Ingress/TLS: **talos-config** (not this overlay)."
+            echo "Runtime Secrets (\`RAILS_MASTER_KEY\`, Neo4j, MySQL): kubecfg SOPS → \`kubectl apply\`, not Actions."
           } >> "$GITHUB_STEP_SUMMARY"

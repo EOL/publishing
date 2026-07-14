@@ -55,6 +55,14 @@ bundle
 
 ...That's pretty much it, assuming you run everything else in containers!
 
+## CI/CD (eol-talos)
+
+Image builds and digest-pin handoff for staging (`main` → `eol-staging`) and
+production (`production` → `eol-prod`) are documented in
+[`.github/README.md`](.github/README.md). Cluster manifests live in
+**EOL/kubecfg** (`publishing/overlays/{staging,prod}`); Ingress/TLS are in
+**talos-config**.
+
 ## More information
 
 There is various additional information about the project in the doc/ folder.
