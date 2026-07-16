@@ -319,6 +319,8 @@ GEM
     nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    nokogiri (1.19.4-x64-mingw-ucrt)
+      racc (~> 1.4)
     observer (0.1.2)
     oj (3.17.3)
       bigdecimal (>= 3.0)
@@ -524,6 +526,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw-ucrt
 
 DEPENDENCIES
   activegraph (~> 10.1)

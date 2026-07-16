@@ -328,7 +328,9 @@ services:
   pub_crono:
     <<: *default-worker
     container_name: pub_crono
-    command: bundle exec crono
+    # Use bin/crono (not bare `crono`) so the app binstub can require logger
+    # before Crono loads ActiveSupport — needed on Ruby 3.3 + Rails 6.1.
+    command: bundle exec bin/crono
     volumes: # NOTE: YES, it shares the data volumes with app, so it can serve the files that were processed here.
       - /data/publishing_web:/app/public/data
       - /data/publishing_crono_log:/app/log
