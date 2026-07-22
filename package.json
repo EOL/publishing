@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@webpack-cli/serve": "^2.0.5",
-    "webpack-dev-server": "^4.1.1"
+    "webpack-dev-server": "^5.2.6"
   },
   "resolutions": {
     "@babel/helper-compilation-targets": "^7.29.7"
