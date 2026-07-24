@@ -20,9 +20,10 @@ class CacheWarmer
       strings += Vernacular.where(is_preferred: true, page_id: page_ids).pluck(:string)
       strings.uniq!
       # NOTE: at the time of this writing, I ended up with 21K names, here, so this is a LOT of work!
+      # Using Curl so we hit the full stack. I am wimping out here and hard-coding the URL. Sorry. TODO: extract.
+      public_host = Rails.env.production? ? "eol.org" : "publishing-staging.apps.eol-talos.si.edu"
       strings.each do |string|
-        # Using Curl so we hit the full stack. I am wimping out here and hard-coding the URL. Sorry. TODO: extract.
-        `curl #{url}/search?q=#{CGI.escape(string)}`
+        `curl -sS -H "Host: #{public_host}" -H "X-Forwarded-Proto: https" "http://publishing-nginx/search?q=#{CGI.escape(string)}"`
         sleep(0.25) # Just to take a LITTLE stress off the system without taking too long...
       end
     end
