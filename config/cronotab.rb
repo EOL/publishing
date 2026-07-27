@@ -10,7 +10,7 @@ Crono.perform(BriefSummaryWarmingJob).every 1.day, at: { hour: 0, minute: 0 }
 # */10 * * * * /app/bin/unicorn_restart_if_mem >> /app/log/unicorn_restart.log 2>&1
 # */5 * * * * /usr/sbin/logrotate /app/config/logrotate.conf >> /app/log/logrot.log 2>&1
 
-Crono.perform(LogRotJob).every 5.minutes
+# Crono.perform(LogRotJob).every 5.minutes
 Crono.perform(WarmCsvDownloadsJob).every 14.days, at: { hour: 1 }
 Crono.perform(BuildIdentifierMapJob).every 1.month, on: :monday
 Crono.perform(FixMediaCountsJob).every 1.month, on: :tuesday # if the media tab doesn't show up on a page but should ...
