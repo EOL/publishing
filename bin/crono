@@ -24,4 +24,10 @@ end
 require "rubygems"
 require "bundler/setup"
 
+# Ruby 3.3+ no longer auto-loads `logger`, but Crono requires ActiveSupport
+# (via `require "crono"`) before config/boot.rb ever runs. Load Logger here
+# so ActiveSupport::LoggerThreadSafeLevel does not NameError.
+# REMOVE THIS WHEN YOU UPDATE TO RAILS 7.
+require "logger"
+
 load Gem.bin_path("crono", "crono")
