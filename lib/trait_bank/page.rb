@@ -7,19 +7,22 @@ module TraitBank
       def grouped_traits_for_page(page, options = {})
         raise TypeError, "must include limit or selected_predicate option" unless options[:limit] || options[:selected_predicate]
 
-        subj_trait_pks_by_group = subj_trait_pks_for_page(page.page_node, options)
-        obj_trait_pks_by_group = obj_trait_pks_for_page(page.page_node, options)
-        subj_trait_pks = extract_grouped_trait_pks(subj_trait_pks_by_group)
-        obj_trait_pks = extract_grouped_trait_pks(obj_trait_pks_by_group)
-        all_trait_pks = (subj_trait_pks + obj_trait_pks).uniq
-        all_traits = Trait.for_eol_pks(all_trait_pks)
-        all_traits_by_id = all_traits.map { |t| [t.id, t] }.to_h
+        empty = { all_traits: [], grouped_traits: {} }
+        TraitBank::Corruption.guard(page.id, fallback: empty) do
+          subj_trait_pks_by_group = subj_trait_pks_for_page(page.page_node, options)
+          obj_trait_pks_by_group = obj_trait_pks_for_page(page.page_node, options)
+          subj_trait_pks = extract_grouped_trait_pks(subj_trait_pks_by_group)
+          obj_trait_pks = extract_grouped_trait_pks(obj_trait_pks_by_group)
+          all_trait_pks = (subj_trait_pks + obj_trait_pks).uniq
+          all_traits = Trait.for_eol_pks(all_trait_pks, page_id: page.id)
+          all_traits_by_id = all_traits.map { |t| [t.id, t] }.to_h
 
-        subj_traits_by_pred = build_traits_by_pred(subj_trait_pks_by_group, all_traits_by_id)
-        obj_traits_by_pred = build_traits_by_pred(obj_trait_pks_by_group, all_traits_by_id)
-        grouped_traits = subj_traits_by_pred.merge(obj_traits_by_pred)
+          subj_traits_by_pred = build_traits_by_pred(subj_trait_pks_by_group, all_traits_by_id)
+          obj_traits_by_pred = build_traits_by_pred(obj_trait_pks_by_group, all_traits_by_id)
+          grouped_traits = subj_traits_by_pred.merge(obj_traits_by_pred)
 
-        { all_traits: all_traits, grouped_traits: grouped_traits }
+          { all_traits: all_traits, grouped_traits: grouped_traits }
+        end
       end
 
       def all_page_trait_resource_ids(page_id, options = {})
@@ -147,12 +150,12 @@ module TraitBank
       end
 
       def key_data_pks(page, limit)
-        begin
+        TraitBank::Corruption.guard(page.id, fallback: []) do
           raw_key_data_pks(page, limit)
-        rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
-          # Don't die just because we can't reach the server! (But also don't cache the value)
-          []
         end
+      rescue Neo4j::Driver::Exceptions::SessionExpiredException
+        # Don't die just because we can't reach the server! (But also don't cache the value)
+        []
       end
 
       def raw_key_data_pks(page, limit)

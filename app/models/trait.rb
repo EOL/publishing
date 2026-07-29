@@ -88,11 +88,23 @@ class Trait
 
     # Factory method
     def for_eol_pks(eol_pks, options = {})
-      nodes = TraitNode.where(eol_pk: eol_pks)
-        .with_associations(options[:includes] || DEFAULT_INCLUDES)
+      page_id = options[:page_id]
+      return [] if page_id && TraitBank::Corruption.skip_page?(page_id)
 
-      record_assocs = RecordAssociations.new(nodes)
-      nodes.map { |n| new(n, record_assocs) }
+      begin
+        nodes = TraitNode.where(eol_pk: eol_pks)
+          .with_associations(options[:includes] || DEFAULT_INCLUDES)
+
+        record_assocs = RecordAssociations.new(nodes)
+        nodes.map { |n| new(n, record_assocs) }
+      rescue StandardError => e
+        if TraitBank::Corruption.chain_corruption?(e)
+          TraitBank::Corruption.flag_page!(page_id, error: e)
+          Rails.logger.error("[TraitBank::Corruption] Trait.for_eol_pks failed: #{e.message.to_s.truncate(500)}")
+          return []
+        end
+        raise
+      end
     end
     
     def wrap_node(trait_node)

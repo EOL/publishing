@@ -80,7 +80,7 @@ module TraitBank
             "(trait:Trait)-[:predicate]->(term:Term) "\
             "WITH count(distinct(term.uri)) AS count "\
             "RETURN count")
-          res["data"] ? res["data"].first.first : 0
+          res && res["data"] ? res["data"].first.first : 0
         end
       end
 

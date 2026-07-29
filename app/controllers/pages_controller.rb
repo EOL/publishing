@@ -193,7 +193,7 @@ class PagesController < ApplicationController
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @resources = @selected_predicate ?
       grouped_trait_result[:all_traits].map { |t| t.resource }.compact.sort { |a, b| a.name <=> b.name }.uniq :
-      Resource.where(id: @page.page_node.trait_resource_ids).order(:name)
+      Resource.where(id: @page.page_node&.trait_resource_ids).order(:name)
 
     setup_viz
     set_noindex_if_needed(@page)

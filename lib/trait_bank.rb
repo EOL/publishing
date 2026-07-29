@@ -9,6 +9,9 @@ module TraitBank
     def query(q, params={})
       response = nil
       clean_q = q.gsub(/^\s+/, "")
+      page_id = TraitBank::Corruption.extract_page_id(clean_q, params)
+      return nil if page_id && TraitBank::Corruption.skip_page?(page_id)
+
       tries_left = 3
       response = begin
           ActiveGraph::Base.query(clean_q, params, wrap: false)
@@ -20,6 +23,13 @@ module TraitBank
             return nil
           end
           retry
+        rescue Neo4j::Driver::Exceptions::DatabaseException => e
+          if TraitBank::Corruption.chain_corruption?(e)
+            TraitBank::Corruption.flag_page!(page_id, error: e)
+            Rails.logger.error("Neo4j chain corruption attempting query: #{clean_q[0..1000]}")
+            return nil
+          end
+          raise
         end
 
       return nil if response.nil?

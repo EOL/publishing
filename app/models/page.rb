@@ -545,17 +545,17 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
-    begin
+    TraitBank::Corruption.guard(id, fallback: {}) do
       raw_key_data
-    rescue Neo4j::Driver::Exceptions::SessionExpiredException => e
-      # Don't fail just because the server went away!
-      {}
     end
+  rescue Neo4j::Driver::Exceptions::SessionExpiredException
+    # Don't fail just because the server went away!
+    {}
   end
 
   def raw_key_data
     tb_result = TraitBank::Page.key_data_pks(self, KEY_DATA_LIMIT)
-    traits_by_id = Trait.for_eol_pks(tb_result.map { |row| row[:trait_pk] })
+    traits_by_id = Trait.for_eol_pks(tb_result.map { |row| row[:trait_pk] }, page_id: id)
       .map { |t| [t.id, t] }
       .to_h
 
@@ -574,10 +574,14 @@ class Page < ApplicationRecord
   end
 
   def data_count
+    return 0 if TraitBank::Corruption.skip_page?(id)
+
     TraitBank::Queries.count_by_page(id)
   end
 
   def predicate_count
+    return 0 if TraitBank::Corruption.skip_page?(id)
+
     TraitBank::Queries.predicate_count_by_page(id)
   end
 
@@ -803,10 +807,13 @@ class Page < ApplicationRecord
   end
 
   def page_node
+    return nil if TraitBank::Corruption.skip_page?(id)
+
     begin
       PageNode.find_by(id: id)
     rescue => e
-      # Don't fail just because the connection died
+      TraitBank::Corruption.flag_page!(id, error: e) if TraitBank::Corruption.chain_corruption?(e)
+      # Don't fail just because the connection died / store is corrupt
       nil
     end
   end

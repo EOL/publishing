@@ -15,6 +15,8 @@ class PageNode
   has_many :out, :inferred_traits, type: :inferred_trait, model_class: :TraitNode
 
   def trait_resource_ids
+    return [] if TraitBank::Corruption.skip_page?(id)
+
     Rails.cache.fetch("page_node/#{id}/trait_resource_ids") do
       query_as(:page)
         .break
@@ -32,6 +34,13 @@ class PageNode
         .with('DISTINCT resource.resource_id AS resource_id')
         .where('resource_id IS NOT NULL')
         .pluck(:resource_id)
+    end
+  rescue StandardError => e
+    if TraitBank::Corruption.chain_corruption?(e)
+      TraitBank::Corruption.flag_page!(id, error: e)
+      []
+    else
+      raise
     end
   end
 end
