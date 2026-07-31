@@ -3,6 +3,9 @@ require 'rake'
 Rails.app_class.load_tasks
 
 Crono.perform(WarmCacheJob).every 1.day, at: { hour: 3 }
+# 5 PM PT = 8 PM ET. SlowCacheWarmer stops at 9 AM ET and resumes the next night;
+# Fri–Mon it keeps going through the weekend (flock prevents overlapping starts).
+Crono.perform(SlowWarmCacheJob).every 1.day, at: { hour: 20 }
 Crono.perform(CommentsJob).every 1.day, at: { hour: 3, minute: 30 }
 Crono.perform(CommentsJob).every 1.day, at: { hour: 13, minute: 30 }
 Crono.perform(BriefSummaryWarmingJob).every 1.day, at: { hour: 0, minute: 0 }
