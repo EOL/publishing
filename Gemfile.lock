@@ -249,7 +249,7 @@ GEM
       character_set (~> 1.4)
       regexp_parser (~> 2.11)
       regexp_property_values (~> 1.0)
-    json (2.20.0)
+    json (2.21.2)
     json_schemer (0.2.25)
       ecma-re-validator (~> 0.3)
       hana (~> 1.3)
