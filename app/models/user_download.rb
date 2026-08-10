@@ -45,13 +45,9 @@ class UserDownload < ApplicationRecord
       query = TermQuery.find_or_save!(new_query)
       download.term_query = query
 
-      existing_download = !options[:force_new] && query.user_downloads
-        .where(status: :completed, expired_at: nil, duplication: :original)
-        .where("created_at >= ?", EXPIRATION_TIME.ago)
-        .where(version: VERSION)
-        .order("created_at DESC")&.first
+      existing_download = !options[:force_new] && completed_originals_for_saved_query(query).first
 
-      if existing_download
+      if existing_download&.file_exists?
         download.filename = existing_download.filename
         download.status = :completed
         download.duplication = :duplicate
@@ -69,9 +65,41 @@ class UserDownload < ApplicationRecord
       download
     end
 
-    def pending_for_query?(term_query)
+    def downloads_for_query(term_query)
       existing_query = TermQuery.find_saved(term_query)
-      existing_query&.user_downloads&.where(user_id: User.first.id, status: :created)&.any? || false
+      return none unless existing_query
+
+      existing_query.user_downloads
+    end
+
+    def completed_originals_for_saved_query(saved_query)
+      saved_query.user_downloads
+        .where(status: :completed, expired_at: nil, duplication: :original)
+        .where("created_at >= ?", EXPIRATION_TIME.ago)
+        .where(version: VERSION)
+        .order(created_at: :desc)
+    end
+
+    # Completed download whose file is still on disk; prefers newest original.
+    def ready_for_query(term_query)
+      existing_query = TermQuery.find_saved(term_query)
+      return nil unless existing_query
+
+      completed_originals_for_saved_query(existing_query).find(&:file_exists?)
+    end
+
+    def pending_for_query?(term_query)
+      downloads_for_query(term_query)
+        .where(status: :created)
+        .where("created_at >= ?", EXPIRATION_TIME.ago)
+        .exists?
+    end
+
+    def failed_for_query?(term_query)
+      downloads_for_query(term_query)
+        .where(status: :failed, expired_at: nil)
+        .where("created_at >= ?", EXPIRATION_TIME.ago)
+        .exists?
     end
   end
 

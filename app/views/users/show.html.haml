@@ -20,14 +20,14 @@
         = link_to t("user.edit_account_details"), edit_user_registration_path
         %br
         %br
-    - unless @user.user_downloads.empty?
+    - unless @downloads.empty?
       -# - pending = Delayed::Job.where(queue: 'download').count
       %h2= t("user.headers.downloads")
       %ul.downloads
         -# TODO: expired_at and the like!
         -# TODO i18n
-        - downloads = @user.user_downloads.for_user_display.order(created_at: :desc)
-        = render "user_downloads/list", downloads: downloads, show_user: false
+        = render "user_downloads/list", downloads: @downloads, show_user: false
+      = paginate @downloads
     - unless @user.gbif_downloads.empty?
       %h2 GBIF Downloads
       %ul

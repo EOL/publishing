@@ -60,26 +60,32 @@ class TraitsController < ApplicationController
 
     respond_to do |fmt|
       fmt.html do
-        # return redirect_to(new_user_session_path) unless current_user.present?
-        user = current_user || User.first
-        if @query.valid?
-          url = term_search_results_url(:tq => @query.to_short_params)
-          if UserDownload.pending_for_query?(@query)
-            flash[:notice] = t("user_download.have_pending", url: user_path(user))
-            redirect_to url
-          else
-            data = TraitBank::DataDownload.term_search(@query, user.id, url)
+        results_url = term_search_results_url(tq: @query.to_short_params)
 
-            if data.is_a?(UserDownload)
-              flash[:notice] = t("user_download.created", url: user_path(user))
-              redirect_to url
-            else
-              send_data data
-            end
-          end
-        else
-          redirect_to url
+        unless @query.valid?
+          return redirect_to results_url
         end
+
+        if (ready = UserDownload.ready_for_query(@query))
+          file = TraitBank::DataDownload.path.join(ready.filename)
+          type = ready.filename.to_s.end_with?(".zip") ? "application/zip" : "text/tab-separated-values"
+          return send_file(file, filename: ready.filename, type: type)
+        end
+
+        if UserDownload.pending_for_query?(@query)
+          flash[:notice] = t("user_download.have_pending")
+          return redirect_to results_url
+        end
+
+        if UserDownload.failed_for_query?(@query)
+          flash[:notice] = t("user_download.failed")
+          return redirect_to results_url
+        end
+
+        user = current_user || User.first
+        TraitBank::DataDownload.term_search(@query, user.id, results_url)
+        flash[:notice] = t("user_download.created")
+        redirect_to results_url
       end
     end
   end

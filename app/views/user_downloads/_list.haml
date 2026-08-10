@@ -1,6 +1,8 @@
+- total = downloads.respond_to?(:total_count) ? downloads.total_count : downloads.length
+- offset = downloads.respond_to?(:offset_value) ? downloads.offset_value : 0
 - downloads.each_with_index do |download, index|
   -# name = term_search_name(download.options)
-  - name = "Search ##{downloads.length - index}"
+  - name = "Search ##{total - offset - index}"
   %li
     - if download.created?
       = name
