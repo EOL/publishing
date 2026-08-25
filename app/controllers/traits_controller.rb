@@ -13,6 +13,7 @@ class TraitsController < ApplicationController
   GBIF_DOWNLOAD_LIMIT = 100_000
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
   VIEW_TYPES = Set.new(%w(list gallery))
+  DOWNLOAD_NOTICE_KEYS = %w[created have_pending failed].freeze
 
   DataViz = Struct.new(:type, :data)
 
@@ -37,6 +38,7 @@ class TraitsController < ApplicationController
     return redirect_to term_search_results_path(tq: @query.to_short_params), status: 301 if params[:term_query] # short params version is canonical
 
     set_view_type
+    apply_download_notice_flash
 
     respond_to do |fmt|
       fmt.html do
@@ -60,10 +62,12 @@ class TraitsController < ApplicationController
 
     respond_to do |fmt|
       fmt.html do
+        # Absolute URL is stored on UserDownload for later links; redirects must use
+        # a path so the session cookie (and flash) stay on the request host.
         results_url = term_search_results_url(tq: @query.to_short_params)
 
         unless @query.valid?
-          return redirect_to results_url
+          return redirect_to term_search_results_path(tq: @query.to_short_params)
         end
 
         if (ready = UserDownload.ready_for_query(@query))
@@ -73,19 +77,16 @@ class TraitsController < ApplicationController
         end
 
         if UserDownload.pending_for_query?(@query)
-          flash[:notice] = t("user_download.have_pending")
-          return redirect_to results_url
+          return redirect_with_download_notice("have_pending")
         end
 
         if UserDownload.failed_for_query?(@query)
-          flash[:notice] = t("user_download.failed")
-          return redirect_to results_url
+          return redirect_with_download_notice("failed")
         end
 
         user = current_user || User.first
         TraitBank::DataDownload.term_search(@query, user.id, results_url)
-        flash[:notice] = t("user_download.created")
-        redirect_to results_url
+        redirect_with_download_notice("created")
       end
     end
   end
@@ -108,6 +109,21 @@ class TraitsController < ApplicationController
 
   def short_tq_params
     params.require(:tq).permit(TermQuery.expected_short_params)
+  end
+
+  def redirect_with_download_notice(key)
+    # Carry the notice in the query string: session flash is unreliable here because
+    # (1) _url redirects can change host vs the request and drop the session cookie,
+    # and (2) redirecting back to the same results URL often hits a cached page with
+    # no flash HTML. A distinct param both preserves the message and busts that cache.
+    redirect_to term_search_results_path(tq: @query.to_short_params, download_notice: key)
+  end
+
+  def apply_download_notice_flash
+    key = params[:download_notice].to_s
+    return unless DOWNLOAD_NOTICE_KEYS.include?(key)
+
+    flash.now[:notice] = t("user_download.#{key}")
   end
 
   def build_query
