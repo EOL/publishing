@@ -105,7 +105,7 @@ gem 'recaptcha', '~> 5.8', require: 'recaptcha/rails'
 # Zip file support ; NOTE: this is almost up to version 3.0, and then it will have some interface changes that we need
 # to switch to. Read https://github.com/rubyzip/rubyzip when the time comes!
 gem 'redis', '~> 5.0'
-gem 'rubyzip', '~> 2.3'
+gem 'rubyzip', '~> 3.4'
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
 gem 'sidekiq', '~> 6.5'
 # OUT OF ORDER: Sidekiq needs AJ-TC to reduce concurrency https://github.com/ankane/searchkick?tab=readme-ov-file#filterable-fields
